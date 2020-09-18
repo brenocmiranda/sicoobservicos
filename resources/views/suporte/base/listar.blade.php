@@ -1,0 +1,89 @@
+@section('title')
+Tópicos
+@endsection
+
+@extends('layouts.index')
+
+@section('content')
+<div class="container-fluid">
+	<div class="row bg-title">
+		<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+			<h4 class="page-title">Base de conhecimento</h4> 
+		</div>
+		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+			<ol class="breadcrumb">
+				<li><a href="javascript:void(0)">Suporte</a></li>
+				<li><a href="{{route('exibir.base')}}">Base de conhecimento</a></li>
+				<li class="active">Tópicos</li>
+			</ol>
+		</div>
+	</div>
+	<div class="card">
+		<div class="card-body mb-4">
+			<div class="col-12">
+				<div class="col-12 row mx-auto">
+					<div class="col-8 mx-auto">
+						<input type="search" class="form-control rounded" style="border-radius:20px !important;" placeholder="Pesquise...">
+					</div>
+				</div>
+				<div class="row col-12 mx-4">
+					<h4>{{$fonte->nome}} &#183 <h5 class="pl-2 my-auto">{{$tipo->nome}}</h5></h4>
+				</div>
+				<hr class="mx-5 mt-1">
+				<ul class="row col-12 m-auto" id="tipos">
+					@if(!empty($todos[0]))
+						@foreach($todos as $todos)
+							<li class="col-12">
+								<a href="{{route('detalhes.base', $todos->id)}}">
+									<div class="row col-12 m-2">
+										<div class="my-auto border rounded py-2 px-3">
+											<i class="mdi mdi-bookmark-outline mdi-24px"></i>
+										</div>
+										<div class="pl-3 my-auto">
+											<h5 class="mb-1 text-primary">{{$todos->titulo}}</h5>
+											<small>{{$todos->subtitulo}}</small>
+										</div>								
+									</div>
+								</a>
+							</li>
+						@endforeach
+						<div class="row mx-auto col-12">
+							<a href="javascript:history.back()" class="btn btn-outline btn-danger col-3 mx-auto mt-4">
+								<i class="mdi mdi-arrow-left"></i>
+								<span>Voltar</span>
+							</a>
+						</div>
+					@else
+						<div class="row mx-auto col-12 p-0">
+							<label class="alert alert-secondary col-12 rounded">Você não possui nenhum tópico cadastrado para essa fonte.</label>
+						</div>
+						<hr>
+						<div class="row mx-auto col-12">
+							<a href="javascript:history.back()" class="btn btn-outline btn-danger col-3 mx-auto">
+								<i class="mdi mdi-arrow-left"></i>
+								<span>Voltar</span>
+							</a>
+						</div>
+					@endif
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+@endsection
+
+@section('suporte')
+<script type="text/javascript">
+	$(document).ready( function (){
+		// Campo de pesquisa
+		$("input[type=search]").keyup(function(){
+			var texto = $(this).val().toUpperCase();
+			$("#tipos li").css("display", "block");
+			$("#tipos li").each(function(){
+				if($(this).text().indexOf(texto) < 0)
+					$(this).css("display", "none");
+			});
+		});
+	});
+</script>
+@endsection
