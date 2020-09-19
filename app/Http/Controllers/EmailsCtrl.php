@@ -7,6 +7,7 @@ use Illuminate\Routing\Controller;
 use App\Models\CogEmailsMaterial;
 use App\Models\CogEmailsContrato;
 use App\Models\CogEmailsChamado;
+use App\Models\Atividades; 
 
 class EmailsCtrl extends Controller
 {
@@ -33,7 +34,13 @@ class EmailsCtrl extends Controller
 		CogEmailsChamado::find(1)->update([
 			'email_chamado' => $request->email_chamado,
 		]);
-
+		Atividades::create([
+			'nome' => 'Alteração de ajuste de e-mail',
+			'descricao' => 'Você alterou as informações de ajustes de e-mail',
+			'icone' => 'mdi-json',
+			'url' => route('exibir.ajustes.emails'),
+			'id_usuario' => Auth::id()
+		]);
 		\Session::flash('alteracao', array(
 				'class' => 'success',
 				'mensagem' => 'Seus dados foram alterados com sucesso.'
@@ -67,11 +74,18 @@ class EmailsCtrl extends Controller
 			'fechamento_chamado' => $request->fechamento_chamado,
 		]);
 
+		Atividades::create([
+			'nome' => 'Alteração as mensagens de e-mail',
+			'descricao' => 'Você alterou as informações de mensagens de e-mail',
+			'icone' => 'mdi-email-outline',
+			'url' => route('exibir.mensagens.emails'),
+			'id_usuario' => Auth::id()
+		]);
+
 		\Session::flash('alteracao', array(
 				'class' => 'success',
 				'mensagem' => 'Seus dados foram alterados com sucesso.'
 			));
-		
 		return redirect(route('exibir.mensagens.emails'));
 	}
 

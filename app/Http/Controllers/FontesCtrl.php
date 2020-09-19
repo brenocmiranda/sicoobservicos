@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use Illuminate\Routing\Controller;
 use App\Http\Requests\FontesRqt;
+use App\Models\Atividades;
 use App\Models\Fontes;
 
 class FontesCtrl extends Controller
@@ -42,7 +43,14 @@ class FontesCtrl extends Controller
 			'descricao' => $request->descricao, 
 			'status' => ($request->status == "on" ? 1 : 0)
 		]);
-		return $create;
+		Atividades::create([
+			'nome' => 'Cadastro de nova fonte de aprendizagem',
+			'descricao' => 'Você cadastrou um nova fonte de aprendizagem, '.$create->nome.'.',
+			'icone' => 'mdi-plus',
+			'url' => route('exibir.fontes.chamados'),
+			'id_usuario' => Auth::id()
+		]);
+		return response()->json(['success' => true]);
 	}
 
 	// Editando informações da função
@@ -51,6 +59,13 @@ class FontesCtrl extends Controller
 			'nome' => $request->nome, 
 			'descricao' => $request->descricao, 
 			'status' => ($request->status == "on" ? 1 : 0)
+		]);
+		Atividades::create([
+			'nome' => 'Edição de informações',
+			'descricao' => 'Você modificou as informações da fonte de aprendizagem '.$create->nome.'.',
+			'icone' => 'mdi-auto-fix',
+			'url' => route('exibir.fontes.chamados'),
+			'id_usuario' => Auth::id()
 		]);
 		return response()->json(['success' => true]);
 	}
@@ -63,6 +78,13 @@ class FontesCtrl extends Controller
 		}else{
 			Fontes::find($id)->update(['status' => 1]);
 		}
+		Atividades::create([
+			'nome' => 'Alteração de estado',
+			'descricao' => 'Você alterou o status da fonte de aprendizagem '.$fontes->nome.'.',
+			'icone' => 'mdi-rotate-3d',
+			'url' => route('exibir.fontes.chamados'),
+			'id_usuario' => Auth::id()
+		]);
 		return response()->json(['success' => true]);
 	}
 

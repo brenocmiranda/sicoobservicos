@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use Illuminate\Routing\Controller;
 use App\Http\Requests\FinalidadesRqt;
+use App\Models\Atividades;
 use App\Models\Finalidades;
 
 class FinalidadesCtrl extends Controller
@@ -43,6 +44,13 @@ class FinalidadesCtrl extends Controller
 			'nome' => $request->nome, 
 			'status' => ($request->status == "on" ? 1 : 0)
 		]);
+		Atividades::create([
+			'nome' => 'Cadastro de nova finalidade de crédito',
+			'descricao' => 'Você cadastrou um nova finalidade de crédito, '.$create->nome.'.',
+			'icone' => 'mdi-plus',
+			'url' => route('exibir.finalidades.credito'),
+			'id_usuario' => Auth::id()
+		]);
 		return response()->json(['success' => true]);
 	}
 
@@ -51,6 +59,14 @@ class FinalidadesCtrl extends Controller
 		Finalidades::find($id)->update([
 			'nome' => $request->nome, 
 			'status' => ($request->status == "on" ? 1 : 0)
+		]);
+		$create = Finalidades::find($id);
+		Atividades::create([
+			'nome' => 'Edição de informações',
+			'descricao' => 'Você modificou as informações da finalidade de crédito '.$create->nome.'.',
+			'icone' => 'mdi-auto-fix',
+			'url' => route('exibir.finalidades.credito'),
+			'id_usuario' => Auth::id()
 		]);
 		return response()->json(['success' => true]);
 	}
@@ -63,6 +79,13 @@ class FinalidadesCtrl extends Controller
 		}else{
 			Finalidades::find($id)->update(['status' => 1]);
 		}
+		Atividades::create([
+			'nome' => 'Alteração de estado',
+			'descricao' => 'Você alterou o status da finalidade de crédito '.$tipos->nome.'.',
+			'icone' => 'mdi-rotate-3d',
+			'url' => route('exibir.credito.armarios'),
+			'id_usuario' => Auth::id()
+		]);
 		return response()->json(['success' => true]);
 	}
 

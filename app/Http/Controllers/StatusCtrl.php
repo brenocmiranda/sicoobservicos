@@ -60,6 +60,13 @@ class StatusCtrl extends Controller
 			'finish' => ($request->finish == "on" ? 1 : 0),
 			'status' => ($request->status == "on" ? 1 : 0)
 		]);
+		Atividades::create([
+			'nome' => 'Cadastro de novo status de chamado',
+			'descricao' => 'Você cadastrou um novo status de chamado, '.$create->nome.'.',
+			'icone' => 'mdi-plus',
+			'url' => route('exibir.status.chamados'),
+			'id_usuario' => Auth::id()
+		]);
 		return response()->json(['success' => true]);
 	}
 
@@ -80,6 +87,14 @@ class StatusCtrl extends Controller
 			'finish' => ($request->finish == "on" ? 1 : 0),
 			'status' => ($request->status == "on" ? 1 : 0)
 		]);
+		$create = Status::find($id);
+		Atividades::create([
+			'nome' => 'Edição de informações',
+			'descricao' => 'Você modificou as informações do status de chamado '.$create->nome.'.',
+			'icone' => 'mdi-auto-fix',
+			'url' => route('exibir.status.chamados'),
+			'id_usuario' => Auth::id()
+		]);
 		return response()->json(['success' => true]);
 	}
 
@@ -91,6 +106,13 @@ class StatusCtrl extends Controller
 		}else{
 			Status::find($id)->update(['status' => 1]);
 		}
+		Atividades::create([
+			'nome' => 'Alteração de estado',
+			'descricao' => 'Você alterou o status do status de chamado '.$status->nome.'.',
+			'icone' => 'mdi-rotate-3d',
+			'url' => route('exibir.status.chamados'),
+			'id_usuario' => Auth::id()
+		]);
 		return response()->json(['success' => true]);
 	}
 

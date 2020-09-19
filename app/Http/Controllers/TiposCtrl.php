@@ -48,6 +48,13 @@ class TiposCtrl extends Controller
 			'gti_id_fontes' => $request->gti_id_fontes,
 			'status' => ($request->status == "on" ? 1 : 0)
 		]);
+		Atividades::create([
+			'nome' => 'Cadastro de novo tipo de chamado',
+			'descricao' => 'Você cadastrou um novo tipo de chamado, '.$create->nome.'.',
+			'icone' => 'mdi-plus',
+			'url' => route('exibir.tipos.chamados'),
+			'id_usuario' => Auth::id()
+		]);
 		return response()->json(['success' => true]);
 	}
 
@@ -58,6 +65,13 @@ class TiposCtrl extends Controller
 			'descricao' => $request->descricao,
 			'gti_id_fontes' => $request->gti_id_fontes,
 			'status' => ($request->status == "on" ? 1 : 0)
+		]);
+		Atividades::create([
+			'nome' => 'Edição de informações',
+			'descricao' => 'Você modificou as informações do tipo de chamado '.$create->nome.'.',
+			'icone' => 'mdi-auto-fix',
+			'url' => route('exibir.tipos.chamados'),
+			'id_usuario' => Auth::id()
 		]);
 		return response()->json(['success' => true]);
 	}
@@ -70,6 +84,13 @@ class TiposCtrl extends Controller
 		}else{
 			Tipos::find($id)->update(['status' => 1]);
 		}
+		Atividades::create([
+			'nome' => 'Alteração de estado',
+			'descricao' => 'Você alterou o status do tipo de chamado '.$tipos->nome.'.',
+			'icone' => 'mdi-rotate-3d',
+			'url' => route('exibir.tipos.chamados'),
+			'id_usuario' => Auth::id()
+		]);
 		return response()->json(['success' => true]);
 	}
 

@@ -39,10 +39,15 @@ class MateriaisCtrl extends Controller
 			'id_usuario' => Auth::id(), 
 			'status' => 0,
 		]);
-
 		Auth::user()->notify(new SolicitacaoMaterialCliente($create));	
 		$this->email->notify(new SolicitacaoMaterialAdmin($create));
-		
+		Atividades::create([
+			'nome' => 'Solicitação de material',
+			'descricao' => 'Você acabou de solicitar o material '.$historico->RelationMaterial->nome.'.',
+			'icone' => 'mdi-cube-send',
+			'url' => route('exibir.solicitacoes.materiais'),
+			'id_usuario' => Auth::id()
+		]);
 		return response()->json(['success' => true]);
 	}
 	// Listando materiais para solicitação
@@ -67,6 +72,13 @@ class MateriaisCtrl extends Controller
 		if($historico->RelationMaterial->quantidade >= $historico->quantidade){
 			MateriaisHistorico::find($id)->update(['status' => 1]);
 			Materiais::find($historico->id_material)->decrement('quantidade', $historico->quantidade);
+			Atividades::create([
+				'nome' => 'Aprovação de solicitação de material',
+				'descricao' => 'Você acabou de aprovar a solicitação do material, '.$historico->RelationMaterial->nome.'.',
+				'icone' => ' mdi-cube-outline',
+				'url' => route('exibir.solicitacoes.administrativo'),
+				'id_usuario' => Auth::id()
+			]);
 			return response()->json(['success' => true]);
 		}else{
 			return response()->json(['success' => false]);
@@ -113,6 +125,13 @@ class MateriaisCtrl extends Controller
 			'id_categoria' => $request->id_categoria, 
 			'status' => ($request->status == "on" ? 1 : 0)
 		]);
+		Atividades::create([
+			'nome' => 'Cadastro de um novo material',
+			'descricao' => 'Você cadastrou um novo material, '.$create->nome.'.',
+			'icone' => 'mdi-plus',
+			'url' => route('exibir.todos.materiais'),
+			'id_usuario' => Auth::id()
+		]);
 		return response()->json(['success' => true]);
 	}
 	// Editando informações do material
@@ -124,6 +143,13 @@ class MateriaisCtrl extends Controller
 			'id_categoria' => $request->id_categoria, 
 			'status' => ($request->status == "on" ? 1 : 0)
 		]);
+		Atividades::create([
+			'nome' => 'Edição de informações',
+			'descricao' => 'Você modificou as informações do material, '.$create->nome.'.',
+			'icone' => 'mdi-auto-fix',
+			'url' => route('exibir.todos.materiais'),
+			'id_usuario' => Auth::id()
+		]);
 		return response()->json(['success' => true]);
 	}
 	// Alterar o status
@@ -134,6 +160,13 @@ class MateriaisCtrl extends Controller
 		}else{
 			Materiais::find($id)->update(['status' => 1]);
 		}
+		Atividades::create([
+			'nome' => 'Alteração de estado',
+			'descricao' => 'Você alterou o status do material '.$modalidades->nome.'.',
+			'icone' => 'mdi-rotate-3d',
+			'url' => route('exibir.todos.materiais'),
+			'id_usuario' => Auth::id()
+		]);
 		return response()->json(['success' => true]);
 	}
 	// Detalhes do material
@@ -151,6 +184,13 @@ class MateriaisCtrl extends Controller
 			'status' => 1,
 		]);
 		Materiais::find($request->id_material)->increment('quantidade', $request->quantidade);
+		Atividades::create([
+			'nome' => 'Reposição de estoque do material',
+			'descricao' => 'Você acabou de repor o estoque do material '.$create->RelationMaterial->nome.'.',
+			'icone' => 'mdi-plus-one',
+			'url' => route('exibir.todos.materiais'),
+			'id_usuario' => Auth::id()
+		]);
 		return response()->json(['success' => true]);
 	}	
 }

@@ -14,7 +14,7 @@ use App\Notifications\Cadastro;
 use App\Notifications\Recuperacao;
 use App\Http\Requests\LoginRqt; 
 use App\Http\Requests\UsuariosRqt; 
-use App\Models\Atividades;
+use App\Models\Atividades; 
 use App\Models\Usuarios;
 use App\Models\Funcoes;
 use App\Models\Setores;

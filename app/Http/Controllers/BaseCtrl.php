@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use App\Http\Requests\BaseRqt;
+use App\Models\Atividades; 
 use App\Models\Base;
 use App\Models\Fontes;
 use App\Models\Tipos;
 
 class BaseCtrl extends Controller
 {
-    public function __construct(){
+	public function __construct(){
 		$this->middleware('auth');
 	}
 
@@ -32,7 +33,6 @@ class BaseCtrl extends Controller
 		$tipo = Tipos::find($tipo);
 		return view('suporte.base.listar')->with('todos', $todos)->with('fonte', $fonte)->with('tipo', $tipo);
 	}
-
 
 	// -------------------------------------
 	// Funções do módulo de configurações
@@ -55,6 +55,13 @@ class BaseCtrl extends Controller
 			'gti_id_fontes' => $request->gti_id_fontes,
 			'gti_id_tipos' => $request->gti_id_tipos,
 		]);
+		Atividades::create([
+			'nome' => 'Cadastro de novo tópico',
+			'descricao' => 'Você cadastrou um novo tópico, '.$create->titulo.'.',
+			'icone' => 'mdi-plus',
+			'url' => route('exibir.base.aprendizagem'),
+			'id_usuario' => Auth::id()
+		]);
 		return redirect()->route('detalhes.base', $create->id);
 	}
 	// Editando informações
@@ -72,10 +79,26 @@ class BaseCtrl extends Controller
 			'gti_id_fontes' => $request->gti_id_fontes,
 			'gti_id_tipos' => $request->gti_id_tipos,  
 		]);
+		$create = Base::find($id);
+		Atividades::create([
+			'nome' => 'Edição de informações',
+			'descricao' => 'Você modificou as informações do tópico '.$create->titulo.'.',
+			'icone' => 'mdi-auto-fix',
+			'url' => route('exibir.base.aprendizagem'),
+			'id_usuario' => Auth::id()
+		]);
 		return redirect()->route('detalhes.base', $id);
 	}
 	// Deletando a base
 	public function Delete($id){
+		$create = Ativos::find($id);
+		Atividades::create([
+			'nome' => 'Remoção de ativo',
+			'descricao' => 'Você acabou de remover o ativo '.$create->titulo.'.',
+			'icone' => 'mdi-rotate-3d',
+			'url' => route('exibir.base.aprendizagem'),
+			'id_usuario' => Auth::id()
+		]);
 		Base::find($id)->delete();
 		return response()->json(['success' => true]);
 	}

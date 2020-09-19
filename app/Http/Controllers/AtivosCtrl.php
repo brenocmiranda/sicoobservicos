@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\AtivoRqt; 
 use Illuminate\Routing\Controller;
+use App\Models\Atividades; 
 use App\Models\Ativos;
 use App\Models\AtivosImagens;
 use App\Models\AtivosUsuarios;
@@ -14,7 +15,7 @@ use App\Models\Imagens;
 
 class AtivosCtrl extends Controller
 {
-    public function __construct(){
+	public function __construct(){
 		$this->middleware('auth');
 	}
 
@@ -43,36 +44,36 @@ class AtivosCtrl extends Controller
 		// Carregando imagem principal
 		if ($request->hasFile('imagem_principal')) {
 			if($request->imagem_principal->isValid()){
-	            $name = uniqid(date('HisYmd'));
-	            $extension =  $request->imagem_principal->extension();
-	            $nameFile = "{$name}.{$extension}";
-	            $upload =  $request->imagem_principal->storeAs('ativos', $nameFile);
-	        }
-	        $imagem = Imagens::create(['endereco' => $upload, 'tipo' => 'ativos_principal']);
-	        Ativos::find($create->id)->update(['id_imagem' => $imagem->id]);
-    	}
+				$name = uniqid(date('HisYmd'));
+				$extension =  $request->imagem_principal->extension();
+				$nameFile = "{$name}.{$extension}";
+				$upload =  $request->imagem_principal->storeAs('ativos', $nameFile);
+			}
+			$imagem = Imagens::create(['endereco' => $upload, 'tipo' => 'ativos_principal']);
+			Ativos::find($create->id)->update(['id_imagem' => $imagem->id]);
+		}
 		// Cadastramento de várias imagens
-        if ($request->imagens) {
-            foreach($request->imagens as $img){
-                $imagem_produto = AtivosImagens::create([
-                    'id_ativo' => $create->id,
-                    'id_imagem' => $img                    
-                ]);
-            }
-        }
+		if ($request->imagens) {
+			foreach($request->imagens as $img){
+				$imagem_produto = AtivosImagens::create([
+					'id_ativo' => $create->id,
+					'id_imagem' => $img                    
+				]);
+			}
+		}
         // Cadastrando o usuário responsável
-        $usuarios = AtivosUsuarios::create([
-        	'gti_id_ativos' => $create->id,
-        	'usr_id_usuarios' => $request->usuario,
-            'dataRecebimento' => now()
-        ]);
-        Atividades::create([
-				'nome' => 'Cadastro de novo ativo',
-				'descricao' => 'Você cadastrou um novo ativo, '.$create->nome.'.',
-				'icone' => 'mdi-plus',
-				'url' => route('exibir.ativos'),
-				'id_usuario' => Auth::id()
-			]);
+		$usuarios = AtivosUsuarios::create([
+			'gti_id_ativos' => $create->id,
+			'usr_id_usuarios' => $request->usuario,
+			'dataRecebimento' => now()
+		]);
+		Atividades::create([
+			'nome' => 'Cadastro de novo ativo de tecnologia',
+			'descricao' => 'Você cadastrou um novo ativo de tecnologia, '.$create->nome.'.',
+			'icone' => 'mdi-plus',
+			'url' => route('exibir.ativos'),
+			'id_usuario' => Auth::id()
+		]);
 		return redirect()->route('exibir.ativos');
 	}
 
@@ -96,41 +97,41 @@ class AtivosCtrl extends Controller
 		// Carregando imagem principal
 		if ($request->hasFile('imagem_principal')) {
 			if($request->imagem_principal->isValid()){
-	            $name = uniqid(date('HisYmd'));
-	            $extension =  $request->imagem_principal->extension();
-	            $nameFile = "{$name}.{$extension}";
-	            $upload =  $request->imagem_principal->storeAs('ativos', $nameFile);
-	        }
-	        $imagem = Imagens::create(['endereco' => $upload, 'tipo' => 'ativos_principal']);
-	        Ativos::find($id)->update(['id_imagem' => $imagem->id]);
-    	}
+				$name = uniqid(date('HisYmd'));
+				$extension =  $request->imagem_principal->extension();
+				$nameFile = "{$name}.{$extension}";
+				$upload =  $request->imagem_principal->storeAs('ativos', $nameFile);
+			}
+			$imagem = Imagens::create(['endereco' => $upload, 'tipo' => 'ativos_principal']);
+			Ativos::find($id)->update(['id_imagem' => $imagem->id]);
+		}
     	// Cadastramento de várias imagens
-        if ($request->imagens) {
-        	AtivosImagens::where('id_ativo', $id)->delete();
-            foreach($request->imagens as $img){
-                $imagem_produto = AtivosImagens::create([
-                    'id_ativo' => $id,
-                    'id_imagem' => $img                    
-                ]);
-            }
-        }
+		if ($request->imagens) {
+			AtivosImagens::where('id_ativo', $id)->delete();
+			foreach($request->imagens as $img){
+				$imagem_produto = AtivosImagens::create([
+					'id_ativo' => $id,
+					'id_imagem' => $img                    
+				]);
+			}
+		}
         // Cadastrando o usuário responsável
-        $ativo = Ativos::find($id);
-        if($request->usuario){
-        	AtivosUsuarios::find($ativo->RelationUsuario->last()->pivot->id)->update(['dataDevolucao' => now()]);
-        	$usuarios = AtivosUsuarios::create([
-	        	'gti_id_ativos' => $id,
-	        	'usr_id_usuarios' => $request->usuario,
-	            'dataRecebimento' => now()
-	        ]);
-        }
-        Atividades::create([
-				'nome' => 'Edição de informações',
-				'descricao' => 'Você modificou as informações do ativo '.$ativo->nome.'.',
-				'icone' => 'mdi-auto-fix',
-				'url' => route('exibir.credito.armarios'),
-				'id_usuario' => Auth::id()
+		$ativo = Ativos::find($id);
+		if($request->usuario){
+			AtivosUsuarios::find($ativo->RelationUsuario->last()->pivot->id)->update(['dataDevolucao' => now()]);
+			$usuarios = AtivosUsuarios::create([
+				'gti_id_ativos' => $id,
+				'usr_id_usuarios' => $request->usuario,
+				'dataRecebimento' => now()
 			]);
+		}
+		Atividades::create([
+			'nome' => 'Edição de informações',
+			'descricao' => 'Você modificou as informações do ativo de tecnologia '.$ativo->nome.'.',
+			'icone' => 'mdi-auto-fix',
+			'url' => route('exibir.ativos'),
+			'id_usuario' => Auth::id()
+		]);
 		return redirect()->route('exibir.ativos');
 	}
 
@@ -138,12 +139,12 @@ class AtivosCtrl extends Controller
 	public function Delete($id){
 		$create = Ativos::find($id);
 		Atividades::create([
-				'nome' => 'Remoção de ativo',
-				'descricao' => 'Você acabou de remover o ativo '.$create->nome.'.',
-				'icone' => 'mdi-rotate-3d',
-				'url' => route('exibir.credito.armarios'),
-				'id_usuario' => Auth::id()
-			]);
+			'nome' => 'Remoção de ativo',
+			'descricao' => 'Você acabou de remover o ativo de tecnologia '.$create->nome.'.',
+			'icone' => 'mdi-rotate-3d',
+			'url' => route('exibir.ativos'),
+			'id_usuario' => Auth::id()
+		]);
 		AtivosImagens::where('id_ativo', $id)->delete();
 		AtivosUsuarios::where('gti_id_ativos', $id)->delete();
 		Ativos::find($id)->delete();
@@ -167,19 +168,19 @@ class AtivosCtrl extends Controller
 	}
 
 	// Importando fotos do chamado
-    public function Imagens(Request $request){
+	public function Imagens(Request $request){
         // Cadastramento de várias imagens do mesmo produto
-        if ($request->hasFile('imagens')) {
-            foreach($request->file('imagens') as $imagem){
-                if($imagem->isValid()){
-                    $name = uniqid(date('HisYmd'));
-                    $extension =  $imagem->extension();
-                    $nameFile = "{$name}.{$extension}";
-                    $upload =  $imagem->storeAs('ativos', $nameFile);
-                }
-                $imagens[] = Imagens::create(['endereco' => $upload, 'tipo' => 'ativos']);
-            }
-        }
-        return response()->json($imagens);
-    }
+		if ($request->hasFile('imagens')) {
+			foreach($request->file('imagens') as $imagem){
+				if($imagem->isValid()){
+					$name = uniqid(date('HisYmd'));
+					$extension =  $imagem->extension();
+					$nameFile = "{$name}.{$extension}";
+					$upload =  $imagem->storeAs('ativos', $nameFile);
+				}
+				$imagens[] = Imagens::create(['endereco' => $upload, 'tipo' => 'ativos']);
+			}
+		}
+		return response()->json($imagens);
+	}
 }

@@ -39,13 +39,19 @@ class ProdutosCredCtrl extends Controller
             })->rawColumns(['nome1', 'codigo', 'status1','acoes'])->make(true);
 	}
 
-
 	// Adicionando nova função
 	public function Adicionar(ProdutosCredRqt $request){
 		$create = ProdutosCred::create([
 			'nome' => $request->nome, 
 			'codigo' => $request->codigo,
 			'status' => ($request->status == "on" ? 1 : 0)
+		]);
+		Atividades::create([
+			'nome' => 'Cadastro de novo produto de crédito',
+			'descricao' => 'Você cadastrou um novo produto de crédito, '.$create->nome.'.',
+			'icone' => 'mdi-plus',
+			'url' => route('exibir.produtos.credito'),
+			'id_usuario' => Auth::id()
 		]);
 		return response()->json(['success' => true]);
 	}
@@ -57,17 +63,31 @@ class ProdutosCredCtrl extends Controller
 			'codigo' => $request->codigo,
 			'status' => ($request->status == "on" ? 1 : 0)
 		]);
+		Atividades::create([
+			'nome' => 'Edição de informações',
+			'descricao' => 'Você modificou as informações do produto de crédito '.$create->nome.'.',
+			'icone' => 'mdi-auto-fix',
+			'url' => route('exibir.modalidades.credito'),
+			'id_usuario' => Auth::id()
+		]);
 		return response()->json(['success' => true]);
 	}
 
 	// Alterar o status
 	public function Alterar($id){
-		$tipos = ProdutosCred::find($id);
-		if($tipos->status == 1){
+		$produtos = ProdutosCred::find($id);
+		if($produtos->status == 1){
 			ProdutosCred::find($id)->update(['status' => 0]);
 		}else{
 			ProdutosCred::find($id)->update(['status' => 1]);
 		}
+		Atividades::create([
+			'nome' => 'Alteração de estado',
+			'descricao' => 'Você alterou o status do produto de crédito '.$produtos->nome.'.',
+			'icone' => 'mdi-rotate-3d',
+			'url' => route('exibir.modalidades.credito'),
+			'id_usuario' => Auth::id()
+		]);
 		return response()->json(['success' => true]);
 	}
 

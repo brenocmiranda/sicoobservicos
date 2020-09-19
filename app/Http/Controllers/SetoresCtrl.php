@@ -37,6 +37,13 @@ class SetoresCtrl extends Controller
 			'nome' => $request->nome, 
 			'status' => ($request->status == "on" ? 1 : 0)
 		]);
+		Atividades::create([
+			'nome' => 'Cadastro de um novo setor administrativo',
+			'descricao' => 'Você cadastrou um novo setor administrativo, '.$create->nome.'.',
+			'icone' => 'mdi-plus',
+			'url' => route('exibir.setores.administrativo'),
+			'id_usuario' => Auth::id()
+		]);
 		return response()->json(['success' => true]);
 	}
 
@@ -45,6 +52,13 @@ class SetoresCtrl extends Controller
 		Setores::find($id)->update([
 			'nome' => $request->nome, 
 			'status' => ($request->status == "on" ? 1 : 0)
+		]);
+		Atividades::create([
+			'nome' => 'Edição de informações',
+			'descricao' => 'Você modificou as informações do setor administrativo '.$create->nome.'.',
+			'icone' => 'mdi-auto-fix',
+			'url' => route('exibir.setores.administrativo'),
+			'id_usuario' => Auth::id()
 		]);
 		return response()->json(['success' => true]);
 	}
@@ -57,6 +71,13 @@ class SetoresCtrl extends Controller
 		}else{
 			Setores::find($id)->update(['status' => 1]);
 		}
+		Atividades::create([
+			'nome' => 'Alteração de estado',
+			'descricao' => 'Você alterou o status do setor administrativo '.$setores->nome.'.',
+			'icone' => 'mdi-rotate-3d',
+			'url' => route('exibir.setores.administrativo'),
+			'id_usuario' => Auth::id()
+		]);
 		return response()->json(['success' => true]);
 	}
 

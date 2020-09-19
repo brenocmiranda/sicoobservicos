@@ -29,6 +29,13 @@ class UnidadesCtrl extends Controller
 			'usr_id_instituicao' => $request->usr_id_instituicao, 
 			'status' => ($request->status == "on" ? 1 : 0)
 		]);
+		Atividades::create([
+			'nome' => 'Cadastro de um novo setor administrativo',
+			'descricao' => 'Você cadastrou um novo setor administrativo, '.$create->nome.'.',
+			'icone' => 'mdi-plus',
+			'url' => route('exibir.instituicoes.administrativo'),
+			'id_usuario' => Auth::id()
+		]);
 		return response()->json(['success' => true]);
 	}
 
@@ -39,6 +46,13 @@ class UnidadesCtrl extends Controller
 			'referencia' => $request->referencia,
 			'usr_id_instituicao' => $request->usr_id_instituicao, 
 			'status' => ($request->status == "on" ? 1 : 0)
+		]);
+		Atividades::create([
+			'nome' => 'Edição de informações',
+			'descricao' => 'Você modificou as informações da unidade administrativa '.$create->nome.'.',
+			'icone' => 'mdi-auto-fix',
+			'url' => route('exibir.instituicoes.administrativo'),
+			'id_usuario' => Auth::id()
 		]);
 		return response()->json(['success' => true]);
 	}
@@ -51,6 +65,13 @@ class UnidadesCtrl extends Controller
 		}else{
 			Unidades::find($id)->update(['status' => 1]);
 		}
+		Atividades::create([
+			'nome' => 'Alteração de estado',
+			'descricao' => 'Você alterou o status da unidade administrativa '.$unidades->nome.'.',
+			'icone' => 'mdi-rotate-3d',
+			'url' => route('exibir.instituicoes.administrativo'),
+			'id_usuario' => Auth::id()
+		]);
 		return response()->json(['success' => true]);
 	}
 

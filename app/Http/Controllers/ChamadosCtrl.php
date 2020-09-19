@@ -57,7 +57,6 @@ class ChamadosCtrl extends Controller
             'gti_id_status' => $statusAbertura->id,
             'descricao' => "Abertura do chamado registrado junto a equipe de TI. Aguarde alguns instantes que logo estaremos analisando sua solicitação."
         ]);
-
         // Cadastramento de várias imagens do chamado
         if ($request->imagens) {
             foreach($request->imagens as $img){

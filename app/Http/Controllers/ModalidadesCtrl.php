@@ -39,7 +39,6 @@ class ModalidadesCtrl extends Controller
             })->rawColumns(['nome1', 'sigla', 'status1','acoes'])->make(true);
 	}
 
-
 	// Adicionando nova função
 	public function Adicionar(ModalidadesRqt $request){
 		$create = Modalidades::create([
@@ -47,6 +46,13 @@ class ModalidadesCtrl extends Controller
 			'codigo' => $request->codigo,
 			'sigla' => $request->sigla,
 			'status' => ($request->status == "on" ? 1 : 0)
+		]);
+		Atividades::create([
+			'nome' => 'Cadastro de nova modalidade de crédito',
+			'descricao' => 'Você cadastrou um nova modalidade de crédito, '.$create->nome.'.',
+			'icone' => 'mdi-plus',
+			'url' => route('exibir.modalidades.credito'),
+			'id_usuario' => Auth::id()
 		]);
 		return response()->json(['success' => true]);
 	}
@@ -59,17 +65,32 @@ class ModalidadesCtrl extends Controller
 			'sigla' => $request->sigla,
 			'status' => ($request->status == "on" ? 1 : 0)
 		]);
+		$create	= Modalidades::find($id);
+		Atividades::create([
+			'nome' => 'Edição de informações',
+			'descricao' => 'Você modificou as informações da modalidade de crédito '.$create->nome.'.',
+			'icone' => 'mdi-auto-fix',
+			'url' => route('exibir.modalidades.credito'),
+			'id_usuario' => Auth::id()
+		]);
 		return response()->json(['success' => true]);
 	}
 
 	// Alterar o status
 	public function Alterar($id){
-		$tipos = Modalidades::find($id);
-		if($tipos->status == 1){
+		$modalidades = Modalidades::find($id);
+		if($modalidades->status == 1){
 			Modalidades::find($id)->update(['status' => 0]);
 		}else{
 			Modalidades::find($id)->update(['status' => 1]);
 		}
+		Atividades::create([
+			'nome' => 'Alteração de estado',
+			'descricao' => 'Você alterou o status da modalidade de crédito '.$modalidades->nome.'.',
+			'icone' => 'mdi-rotate-3d',
+			'url' => route('exibir.modalidades.credito'),
+			'id_usuario' => Auth::id()
+		]);
 		return response()->json(['success' => true]);
 	}
 

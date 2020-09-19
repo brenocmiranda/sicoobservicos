@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use App\Http\Requests\HomepageRqt;
+use App\Models\Atividades;
 use App\Models\Homepage;
 use App\Models\Imagens;
 
@@ -55,6 +56,13 @@ class HomepageCtrl extends Controller
 			'endereco' => $request->endereco, 
 			'id_imagem' => $imagem->id,
 		]);
+		Atividades::create([
+			'nome' => 'Cadastro de novo atalho',
+			'descricao' => 'Você cadastrou um novo atalho da homepage, '.$create->titulo.'.',
+			'icone' => 'mdi-plus',
+			'url' => route('exibir.homepage'),
+			'id_usuario' => Auth::id()
+		]);
 		return response()->json(['success' => true]);
 	}
 
@@ -70,7 +78,6 @@ class HomepageCtrl extends Controller
                 $imagem = Imagens::create(['tipo' => 'homepage', 'endereco' => $upload]);
             }  
         }
-
         $dados = Homepage::find($id);
 		Homepage::find($id)->update([
 			'titulo' => $request->titulo,
@@ -78,11 +85,26 @@ class HomepageCtrl extends Controller
 			'endereco' => $request->endereco, 
 			'id_imagem' => (isset($imagem->id) ? $imagem->id : $dados->id_imagem),
 		]);
+		Atividades::create([
+			'nome' => 'Edição de informações',
+			'descricao' => 'Você modificou as informações do atalho '.$dados->titulo.'.',
+			'icone' => 'mdi-auto-fix',
+			'url' => route('exibir.homepage'),
+			'id_usuario' => Auth::id()
+		]);
 		return response()->json(['success' => true]);
 	}
 
 	// Alterar o status
 	public function Delete($id){
+		$create = Homepage::find($id);
+		Atividades::create([
+			'nome' => 'Remoção de atalho',
+			'descricao' => 'Você acabou de remover o atalho da homepage '.$create->titulo.'.',
+			'icone' => 'mdi-rotate-3d',
+			'url' => route('exibir.homepage'),
+			'id_usuario' => Auth::id()
+		]);
 		Homepage::find($id)->delete();
 		return response()->json(['success' => true]);
 	}

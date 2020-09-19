@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use App\Http\Requests\FuncoesRqt;
+use App\Models\Atividades;
 use App\Models\Funcoes;
 
 class FuncoesCtrl extends Controller
@@ -48,6 +49,13 @@ class FuncoesCtrl extends Controller
 			'ver_administrativo' => ($request->ver_administrativo == "on" ? 1 : 0),
 			'gerenciar_administrativo' => ($request->gerenciar_administrativo == "on" ? 1 : 0),
 		]);
+		Atividades::create([
+			'nome' => 'Cadastro de nova função administrativa',
+			'descricao' => 'Você cadastrou um nova função administrativa, '.$create->nome.'.',
+			'icone' => 'mdi-plus',
+			'url' => route('exibir.funcoes.administrativo'),
+			'id_usuario' => Auth::id()
+		]);
 		return response()->json(['success' => true]);
 	}
 
@@ -65,6 +73,13 @@ class FuncoesCtrl extends Controller
 			'ver_administrativo' => ($request->ver_administrativo == "on" ? 1 : 0),
 			'gerenciar_administrativo' => ($request->gerenciar_administrativo == "on" ? 1 : 0),
 		]);
+		Atividades::create([
+			'nome' => 'Edição de informações',
+			'descricao' => 'Você modificou as informações da função administrativa '.$create->nome.'.',
+			'icone' => 'mdi-auto-fix',
+			'url' => route('exibir.funcoes.administrativo'),
+			'id_usuario' => Auth::id()
+		]);
 		return response()->json(['success' => true]);
 	}
 
@@ -76,6 +91,13 @@ class FuncoesCtrl extends Controller
 		}else{
 			Funcoes::find($id)->update(['status' => 1]);
 		}
+		Atividades::create([
+			'nome' => 'Alteração de estado',
+			'descricao' => 'Você alterou o status da função administrativa '.$funcoes->nome.'.',
+			'icone' => 'mdi-rotate-3d',
+			'url' => route('exibir.funcoes.administrativo'),
+			'id_usuario' => Auth::id()
+		]);
 		return response()->json(['success' => true]);
 	}
 
