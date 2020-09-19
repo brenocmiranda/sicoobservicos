@@ -9,9 +9,7 @@
       </h3> 
     </div>
     <div class="user-profile">
-
       <hr class="mx-5 mt-0">
-
       <div class="user-pro-body my-3">
         <div>
           <img src="{{(isset(Auth::user()->RelationImagem) ? asset('storage/app/'.Auth::user()->RelationImagem->endereco).'?'.rand() : asset('public/img/user.png').'?'.rand())}}" alt="Imagem usuário" class="rounded-circle">
@@ -23,7 +21,6 @@
     </div>
 
     <ul class="nav" id="side-menu">
-
       <li> 
         <a href="{{route('inicio')}}" class="waves-effect {{ (Request::segment(2) == 'home' ? 'active' : '') }}">
           <i class="mdi mdi-home-outline pr-3"></i> 

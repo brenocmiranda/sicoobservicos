@@ -100,7 +100,7 @@ Login
               $('.carregamento').html('<div class="mx-auto text-center my-5"><div class="spinner-border my-3" role="status"><span class="sr-only"> Loading... </span></div><label class="col-12">Enviando e-mail de recuperação...</label></div>');
             },
             success: function(data){
-              if(data.sucess == true){
+              if(data.success == true){
                 setTimeout(function(){
                   $('.carregamento').html('<div class="row col-12 mx-auto text-center my-5 justify-content-center"><div class="col-sm-12 col-md-12 col-lg-12"><i class="mdi mdi-check-all my-3 text-success" style="font-size:62px;"></i></div><h5>E-mail enviado com sucesso!</h5><label class="mx-4">Verifique o recebimento da mensagem na sua <b>caixa de entrada ou na área de spam</b>. Caso não esteja recebendo o e-mail de redefinição, entre em contato com o administrador.</label><div class="col-12 mt-5 text-center"><hr><button type="button" class="btn btn-danger btn-outline btn-lg shadow-none col-4" data-dismiss="modal" aria-label="Close">Fechar</button></div></div> ');
                 }, 800);

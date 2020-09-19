@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class MateriaisHistorico extends Model
 {
-     protected $table = 'sup_materiais_historico';
+	use HasFactory;
+
+    protected $table = 'sup_materiais_historico';
     protected $primaryKey = 'id';
     protected $fillable = ['id', 'tipo', 'quantidade', 'id_material', 'id_usuario', 'status', 'created_at', 'updated_at'];
 

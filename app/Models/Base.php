@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Base extends Model
 {
+	use HasFactory;
+
    	protected $table = 'sup_base';
     protected $primaryKey = 'id';
     protected $fillable = ['id', 'titulo', 'subtitulo', 'descricao', 'gti_id_fontes', 'gti_id_tipos', 'created_at', 'updated_at'];

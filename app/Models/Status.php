@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Status extends Model
 {
+	use HasFactory;
+
     protected $table = 'gti_status';
     protected $primaryKey = 'id';
     protected $fillable = ['id', 'nome', 'tempo', 'color', 'status', 'open', 'finish', 'created_at', 'updated_at'];

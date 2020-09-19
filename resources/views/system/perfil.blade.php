@@ -71,15 +71,7 @@ Meu perfil
 											<input class="cpf form-control form-control-line" name="cpf" placeholder="000.000.000-00" value="{{$usuario->RelationAssociado->documento}}" disabled/>
 										</div>
 									</div>
-								</div>
-								<div class="col-12">
-									<div class="form-group">
-										<label class="col-12 col-form-label">E-mail <i class="text-danger">*</i></label>
-										<div class="col-12">
-											<input type="email" class="form-control form-control-line" name="email" placeholder="ti@sicoobsertaominas.com.br" value="{{ @$usuario->email }}" autocomplete="off" required/>
-										</div>
-									</div>
-								</div>
+								</div>				
 								<div class="col-8">
 									<div class="form-group">
 										<label class="col-12 col-form-label">Login <i class="text-danger">*</i></label>
@@ -89,11 +81,19 @@ Meu perfil
 										</div>
 									</div>
 								</div>
+								<div class="col-12">
+									<div class="form-group">
+										<label class="col-12 col-form-label">E-mail <i class="text-danger">*</i></label>
+										<div class="col-12">
+											<input type="email" class="form-control form-control-line" name="email" placeholder="ti@sicoobsertaominas.com.br" value="{{ @$usuario->email }}" autocomplete="off" required/>
+										</div>
+									</div>
+								</div>
 								<div class="col-6">
 									<div class="form-group">
 										<label class="col-12 col-form-label">Telefone <i class="text-danger">*</i></label>
 										<div class="col-12">
-											<input type="text" class="telefone form-control form-control-line" name="telefone" placeholder="(99) 99999-9999" value="{{ @$usuario->telefone }}"/>
+											<input type="text" class="telefone form-control form-control-line" name="telefone" placeholder="(99) 99999-9999" value="{{ @str_replace('+55', '', $usuario->telefone) }}"/>
 										</div>
 									</div>
 								</div>

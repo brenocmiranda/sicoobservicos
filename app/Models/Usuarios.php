@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -9,6 +10,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class Usuarios extends Authenticatable
 {
     use Notifiable;
+    use HasFactory;
     
     protected $table = 'usr_usuarios';
     protected $primaryKey = 'id';
@@ -37,4 +39,8 @@ class Usuarios extends Authenticatable
 	public function RelationImagem(){
     	return $this->belongsTo(Imagens::class, 'id_imagem', 'id');
 	}
+
+    public function RelationAtividades(){
+        return $this->belongsTo(Atividades::class, 'id', 'id_usuario');
+    }
 }

@@ -9,10 +9,12 @@ use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
+use App\Notifications\ResetPassword;
 use App\Notifications\Cadastro;
 use App\Notifications\Recuperacao;
 use App\Http\Requests\LoginRqt; 
 use App\Http\Requests\UsuariosRqt; 
+use App\Models\Atividades;
 use App\Models\Usuarios;
 use App\Models\Funcoes;
 use App\Models\Setores;
@@ -25,7 +27,9 @@ use App\Models\Imagens;
 
 class UsuariosCtrl extends Controller
 {
-
+	#-------------------------------------------------------------------
+	# Funções de gestão
+	#-------------------------------------------------------------------
 	// Listando todos usuários
 	public function Exibir(){
 		$associados = Associados::where('funcionario', 1)->orderBy('nome', 'asc')->get();
@@ -87,8 +91,14 @@ class UsuariosCtrl extends Controller
             $imagem = Imagens::create(['endereco' =>  $caminho, 'tipo' => 'usuarios']);
             Usuarios::find($create->id)->update(['id_imagem' => $imagem->id]);
         } 
-
         $create->notify(new Cadastro($create));
+        Atividades::create([
+				'nome' => 'Cadastro de novo usuário',
+				'descricao' => 'Você cadastrou um novo usuário com login: '.$create->login.'.',
+				'icone' => 'mdi-plus',
+				'url' => route('exibir.usuarios.administrativo'),
+				'id_usuario' => Auth::id()
+			]);
 		return response()->json(['success' => true]);
 	}
 	// Editando informações do usuário
@@ -101,18 +111,43 @@ class UsuariosCtrl extends Controller
 			'usr_id_setor' => $request->usr_id_setor, 
 			'usr_id_funcao' => $request->usr_id_funcao, 
 			'usr_id_instituicao' => $request->usr_id_instituicao, 
-			'usr_id_unidade' => $request->usr_id_unidade]);
+			'usr_id_unidade' => $request->usr_id_unidade
+		]);
+		Atividades::create([
+				'nome' => 'Edição de informações',
+				'descricao' => 'Você modificou as informações do usuário '.$create->login.'.',
+				'icone' => 'mdi-account-edit',
+				'url' => route('exibir.usuarios.administrativo'),
+				'id_usuario' => Auth::id()
+			]);
 		return response()->json(['success' => true]);
 	}
 	// Alterar status do usuário
 	public function Alterar(Request $request, $id){
 		Usuarios::find($id)->update(['status' => $request->status]);
+		Atividades::create([
+				'nome' => 'Alteração de estado',
+				'descricao' => 'Você alterou o status do usuário '.$create->login.'.',
+				'icone' => 'mdi-account-switch',
+				'url' => route('exibir.usuarios.administrativo'),
+				'id_usuario' => Auth::id()
+			]);
 		return response()->json(['success' => true]);
 	}
 	// Resetar a senha do usuário
 	public function Resetar($id){
 		Usuarios::find($id)->update([
-			'password' => Hash::make('Sicoob4133')
+			'password' => Hash::make('Sicoob4133'),
+			'email_verified_at' => null
+		]);
+		$user = Usuarios::find($id);
+		$user->notify(new ResetPassword($user));
+		Atividades::create([
+			'nome' => 'Redefinação de senha',
+			'descricao' => 'Você redefiniu a senha do usuário '.$user->login.'.',
+			'icone' => 'mdi-sync',
+			'url' => 'javascript:void(0)',
+			'id_usuario' => Auth::id()
 		]);
 		return response()->json(['success' => true]);
 	}
@@ -123,9 +158,8 @@ class UsuariosCtrl extends Controller
 	}
 
 	#-------------------------------------------------------------------
-	# Informações para acesso a plataforma
+	# Funções da plataforma
 	#-------------------------------------------------------------------
-
     // Tela de login
 	public function Login(){
 		if (Auth::check() && Auth::user()->status == "Ativo") {
@@ -139,6 +173,13 @@ class UsuariosCtrl extends Controller
 		//Auth::logoutOtherDevices($request->password);
 		if (Auth::attempt(['login' => $request->login, 'password' => $request->password])){
 			if(Usuarios::where('login', $request->login)->where('status', 'Ativo')->first()){
+				Atividades::create([
+					'nome' => 'Inicio de sessão',
+					'descricao' => 'Você entrou na plataforma.',
+					'icone' => 'mdi-check',
+					'url' => route('home'),
+					'id_usuario' => Auth::id()
+				]);
 				return redirect()->intended(route('inicio'));
 			}elseif (Usuarios::where('status', 'Desativado')->where('login', $request->login)->first()){
 				\Session::flash('login', array(
@@ -177,6 +218,13 @@ class UsuariosCtrl extends Controller
 	}
     // Sair
 	public function Sair(){
+		Atividades::create([
+			'nome' => 'Logout do sistema',
+			'descricao' => 'Você saiu da plataforma.',
+			'icone' => 'mdi-close',
+			'url' => 'javascript:void(0)',
+			'id_usuario' => Auth::id()
+		]);
 		Auth::logout();
 		return redirect(route('login'));
 	}
@@ -194,15 +242,28 @@ class UsuariosCtrl extends Controller
             'remember_token' => Str::random(60),
             'email_verified_at' => date("Y-m-d H:i:s")    
         ]);
+        Atividades::create([
+			'nome' => 'Seu primero acesso',
+			'descricao' => 'Você acessou a plataforma pela primeira vez.',
+			'icone' => 'mdi-human-greeting',
+			'url' => route('home'),
+			'id_usuario' => Auth::id()
+		]);
         return redirect(route('inicio'));
 	}
-
 	// Esquecimento de password
 	public function Solicitar(Request $request){
 		$user = Usuarios::where('login', $request->login)->first();
+		Atividades::create([
+			'nome' => 'Solicitação de redefinição',
+			'descricao' => 'Você solicitou a redefinição da sua senha pelo login.',
+			'icone' => 'mdi-send',
+			'url' => 'javascript:void(0)',
+			'id_usuario' => Auth::id()
+		]);
 		if(!empty($user->login)){
-			return 'teste';
 			$user->notify(new Recuperacao($user));
+			return response()->json(['success' => true]);
 		}else{
 			return response()->json(['success' => false]);
 		}
@@ -224,17 +285,25 @@ class UsuariosCtrl extends Controller
 			'password' => Hash::make($request->password), 
 			'remember_token' => $request->_token
 		]);
+		$user = Usuarios::find($id);
+		$user->notify(new ResetPassword($user));
 		\Session::flash('login', array(
 			'class' => 'success',
 			'mensagem' => 'Senha alterada com sucesso, faça o login.'
 		));
+		Atividades::create([
+			'nome' => 'Redefinação de senha',
+			'descricao' => 'Você efetuar a redefinição da sua senha.',
+			'icone' => 'mdi-account-key',
+			'url' => 'javascript:void(0)',
+			'id_usuario' => Auth::id()
+		]);
 		return redirect(route('login'));
 	}
 
 	#-------------------------------------------------------------------
 	# Gestão do perfil
 	#-------------------------------------------------------------------
-
 	// Perfil do usuário
 	public function Perfil(){
 		$usuario = Usuarios::find(Auth::id());
@@ -257,10 +326,15 @@ class UsuariosCtrl extends Controller
 		if($request->password){
 			$usuario = Usuarios::find(Auth::id())->update(['password' => Hash::make($request->password)]);
 		}
-
 		// Alterando e-mail e telefone
 		$usuario = Usuarios::find(Auth::id())->update(['email' => $request->email, 'telefone' => str_replace("(", "+55", str_replace(") ", "", str_replace("-", "", $request->telefone)))]);
-
+		Atividades::create([
+			'nome' => 'Atualização do perfil',
+			'descricao' => 'Você teve seu perfil atualizado.',
+			'icone' => 'mdi-account-convert',
+			'url' => route('perfil'),
+			'id_usuario' => Auth::id()
+		]);
 		\Session::flash('alteracao', array(
 				'class' => 'success',
 				'mensagem' => 'Seus dados foram alterados com sucesso.'
@@ -268,4 +342,12 @@ class UsuariosCtrl extends Controller
 		return redirect(route('perfil'));
 	}
 
+
+	#-------------------------------------------------------------------
+	# Atividades
+	#-------------------------------------------------------------------
+	public function Atividades(){
+		$dados = Atividades::where('id_usuario', Auth::id())->paginate(10);
+		return view('system.atividades')->with('dados', $dados);
+	}
 }

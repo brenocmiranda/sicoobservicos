@@ -119,11 +119,6 @@ Usuários
 			$('.modal .cli_id_associado').val(data.cli_id_associado);
 			$('.modal .usr_id_instituicao').val(data.usr_id_instituicao);
 			$('.modal .usr_id_unidade').val(data.usr_id_unidade);
-			if(data.retaguarda == 1){
-				$('.modal .retaguarda1').attr('checked', 'checked');
-			}else{
-				$('.modal .retaguarda2').attr('checked', 'checked');
-			}
 			$('#modal-editar').modal('show');	
 		});
 		$('#table tbody').on('click', 'button#alterar', function(e){
@@ -192,11 +187,6 @@ Usuários
 			$('.modal .cli_id_associado').val(data.cli_id_associado);
 			$('.modal .usr_id_instituicao').val(data.usr_id_instituicao);
 			$('.modal .usr_id_unidade').val(data.usr_id_unidade);
-			if(data.retaguarda == 1){
-				$('.modal .retaguarda1').attr('checked', 'checked');
-			}else{
-				$('.modal .retaguarda2').attr('checked', 'checked');
-			}
 			$('#modal-detalhes').modal('show');
 		});
 

@@ -48,9 +48,9 @@ Redefinição de password
     <div class="col-12">
       <label>2020 © GTI Sicoob Sertão Minas <b>&#183</b> v.1.1</label>
       <br>
-      <a href="{{route('login')}}" target="_blank">Login</a> 
+      <a href="{{route('login')}}">Login</a> 
       <b>&#183</b>
-      <a href="{{route('homepage')}}" target="_blank">Homepage</a> 
+      <a href="{{route('homepage')}}">Homepage</a> 
     </div>
   </div>
 </div>

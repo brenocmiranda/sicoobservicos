@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Ativos extends Model
 {
+    use HasFactory;
+
     protected $table = 'gti_ativos';
     protected $primaryKey = 'id';
     protected $fillable = [ 'id', 'n_patrimonio', 'serialNumber', 'nome', 'marca', 'modelo', 'descricao', 'id_setor', 'id_imagem', 'created_at', 'updated_at'];

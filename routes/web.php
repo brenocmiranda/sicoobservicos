@@ -21,11 +21,12 @@ Route::group(['prefix' => 'app'], function(){
 		Route::post('redirect', 'UsuariosCtrl@Redirecionar')->name('redirect');
 		Route::get('logout', 'UsuariosCtrl@Sair')->name('logout');
 		Route::get('home', 'UsuariosCtrl@Inicio')->name('inicio')->middleware('auth');
+		Route::get('atividades', 'UsuariosCtrl@Atividades')->name('atividades')->middleware('auth');
 
 		// Primeiro acesso a plataforma
 		Route::group(['prefix' => 'new'], function(){
-			Route::get('', 'UsuariosCtrl@PrimeiroAcesso')->name('primeiro.acesso');
-			Route::post('salvar', 'UsuariosCtrl@SalvarPrimeiroAcesso')->name('salvar.primeiro.acesso');
+			Route::get('', 'UsuariosCtrl@PrimeiroAcesso')->name('primeiro.acesso')->middleware('auth');
+			Route::post('salvar', 'UsuariosCtrl@SalvarPrimeiroAcesso')->name('salvar.primeiro.acesso')->middleware('auth');
 		});
 		// Recuperação de senha
 		Route::group(['prefix' => 'password'], function(){
@@ -242,7 +243,6 @@ Route::group(['prefix' => 'app'], function(){
 				Route::any('resetar/{id}', 'UsuariosCtrl@Resetar')->name('resetar.usuarios.administrativo')->middleware('auth');
 			});
 		});
-
 		Route::group(['prefix' => 'credito'], function(){
 			// Armários
 			Route::group(['prefix' => 'armarios'], function(){
@@ -281,7 +281,6 @@ Route::group(['prefix' => 'app'], function(){
 				Route::any('detalhes/{id}', 'ProdutosCredCtrl@Detalhes')->name('detalhes.produtos.credito');
 			});
 		});
-
 		Route::group(['prefix' => 'aprendizagem'], function(){
 			// Tópicos
 			Route::group(['prefix' => 'base'], function(){
@@ -293,7 +292,6 @@ Route::group(['prefix' => 'app'], function(){
 				Route::get('detele/{id}', 'BaseCtrl@Delete')->name('delete.base.aprendizagem');
 			});
 		});
-
 		Route::group(['prefix' => 'chamados'], function(){
 			// Fontes
 			Route::group(['prefix' => 'fontes'], function(){
@@ -323,7 +321,6 @@ Route::group(['prefix' => 'app'], function(){
 				Route::any('detalhes/{id}', 'StatusCtrl@Detalhes')->name('detalhes.status.chamados');
 			});
 		});
-
 		Route::group(['prefix' => 'materiais'], function(){
 			// Todos
 			Route::group(['prefix' => 'todos'], function(){
@@ -344,7 +341,6 @@ Route::group(['prefix' => 'app'], function(){
 				Route::any('detalhes/{id}', 'CategoriasCtrl@Detalhes')->name('detalhes.categorias.materiais');
 			});
 		});
-
 		Route::group(['prefix' => 'emails'], function(){
 			// Ajustes
 			Route::group(['prefix' => 'ajustes'], function(){

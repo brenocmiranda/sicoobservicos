@@ -147,7 +147,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="{{route('atividades')}}">
                         <i class="ti-layers-alt pr-2"></i> Minhas atividades
                         </a>
                     </li>

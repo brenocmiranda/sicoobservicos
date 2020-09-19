@@ -66,6 +66,13 @@ class AtivosCtrl extends Controller
         	'usr_id_usuarios' => $request->usuario,
             'dataRecebimento' => now()
         ]);
+        Atividades::create([
+				'nome' => 'Cadastro de novo ativo',
+				'descricao' => 'Você cadastrou um novo ativo, '.$create->nome.'.',
+				'icone' => 'mdi-plus',
+				'url' => route('exibir.ativos'),
+				'id_usuario' => Auth::id()
+			]);
 		return redirect()->route('exibir.ativos');
 	}
 
@@ -108,8 +115,8 @@ class AtivosCtrl extends Controller
             }
         }
         // Cadastrando o usuário responsável
+        $ativo = Ativos::find($id);
         if($request->usuario){
-        	$ativo = Ativos::find($id);
         	AtivosUsuarios::find($ativo->RelationUsuario->last()->pivot->id)->update(['dataDevolucao' => now()]);
         	$usuarios = AtivosUsuarios::create([
 	        	'gti_id_ativos' => $id,
@@ -117,11 +124,26 @@ class AtivosCtrl extends Controller
 	            'dataRecebimento' => now()
 	        ]);
         }
+        Atividades::create([
+				'nome' => 'Edição de informações',
+				'descricao' => 'Você modificou as informações do ativo '.$ativo->nome.'.',
+				'icone' => 'mdi-auto-fix',
+				'url' => route('exibir.credito.armarios'),
+				'id_usuario' => Auth::id()
+			]);
 		return redirect()->route('exibir.ativos');
 	}
 
 	// Deletando o ativo
 	public function Delete($id){
+		$create = Ativos::find($id);
+		Atividades::create([
+				'nome' => 'Remoção de ativo',
+				'descricao' => 'Você acabou de remover o ativo '.$create->nome.'.',
+				'icone' => 'mdi-rotate-3d',
+				'url' => route('exibir.credito.armarios'),
+				'id_usuario' => Auth::id()
+			]);
 		AtivosImagens::where('id_ativo', $id)->delete();
 		AtivosUsuarios::where('gti_id_ativos', $id)->delete();
 		Ativos::find($id)->delete();

@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Chamados extends Model
 {
+    use HasFactory;
+
     protected $table = 'gti_chamados';
     protected $primaryKey = 'id';
     protected $fillable = ['id', 'assunto', 'descricao', 'prioridade', 'avaliacao', 'gti_id_tipos', 'gti_id_fontes', 'usr_id_usuarios', 'created_at', 'updated_at'];

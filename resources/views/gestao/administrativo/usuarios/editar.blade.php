@@ -18,6 +18,7 @@
       <div class="carregamento"></div>
       <form class="form-sample" id="formEditar" enctype="multipart/form-data" autocomplete="off">
         @csrf
+        <input type="hidden" name="status" class="status" value="">
         <div class="modal-body">
           <div class="col-12 grid-margin mb-0">
             <div class="card-body py-0">
