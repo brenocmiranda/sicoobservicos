@@ -15,7 +15,7 @@ class CreateCliEnderecos extends Migration
     {
         Schema::create('cli_enderecos', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->increments ('id');
+            $table->increments('id');
             $table->text('rua');
             $table->string('bairro');
             $table->string('numero');

@@ -347,7 +347,7 @@ class UsuariosCtrl extends Controller
 	# Atividades
 	#-------------------------------------------------------------------
 	public function Atividades(){
-		$dados = Atividades::where('id_usuario', Auth::id())->paginate(10);
+		$dados = Atividades::where('id_usuario', Auth::id())->orderBy('created_at', 'DESC')->paginate(10);
 		return view('system.atividades')->with('dados', $dados);
 	}
 }

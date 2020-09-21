@@ -25,18 +25,20 @@
 											<p style="margin-top:0px;margin-bottom:10px">
 											</p>
 											<p>
-												<b>Opaaa, recebemos uma nova solicitação de material!</b>
+												<b>Ops, você possui um chamado reaberto!</b>
 											</p>
-											<label>Neste momento separe os itens para entrega e encaminhe para o usuário que solicitou. Veja abaixo, os dados da solicitação:</label>
+											<label>Os problemas talvez não foram sanados totalmente e os problemas voltaram a ocorrer, entre em contato com o usuário responsável e tente solucionar os problemas.</label>
 											<br>
 											<p style="text-align:justify">
 												<ul>
-													<li><b>Produto:</b> {{$material->RelationMaterial->nome}}</li>
-													<li><b>Quantidade:</b> {{$material->quantidade}} unidades</li>
-													<li><b>Usuário:</b> {{$material->RelationUsuario->RelationAssociado->nome}}</li>
+													<li><b>Usuário:</b> {{$chamado->RelationUsuario->RelationAssociado->nome}}</li>
+													<li><b>Fonte:</b> {{$chamado->RelationFontes->nome}}</li>
+													<li><b>Tipo:</b> {{$chamado->RelationTipos->nome}}</li>
+													<li><b>Assunto:</b> {{$chamado->assunto}}</li>
+													<li><b>Descrição:</b> {{$chamado->descricao}}</li>
 												</ul>
 												<div>
-													<label><a href="{{route('exibir.solicitacoes.administrativo')}}"><b>Aprove as solicitações de materiais</b></a></label>
+													<label><a href="{{route('detalhes.chamados.gti', $chamado->id)}}"><b>Saiba mais sobre esse chamado.</b></a></label>
 												</div>
 											</p>
 											<p style="margin-top:10px;margin-bottom:10px"><span style="color:rgb(0,0,0)"><span></span></span></p>

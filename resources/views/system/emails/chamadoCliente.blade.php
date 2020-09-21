@@ -24,10 +24,14 @@
 										<div><span>
 											<p style="margin-top:0px;margin-bottom:10px">
 											</p>
-											{!! $configuracoes->abertura_chamado !!}
+											@if($chamado->RelationStatus->first()->finish =! 1)
+												{!! $configuracoes->abertura_chamado !!}
+											@else
+												{!! $configuracoes->fechamento_chamado !!}
+											@endif
 											<p style="text-align:justify">
 												<div>
-													<label><a href="{{route('exibir.chamados')}}"><b>Acesse seus chamados em aberto.</b></a></label>.
+													<label><a href="{{route('exibir.chamados')}}"><b>Acesse seus chamados em aberto.</b></a></label>
 												</div>
 											</p>
 											<p style="margin-top:10px;margin-bottom:10px"><span style="color:rgb(0,0,0)"><span></span></span></p>

@@ -24,10 +24,18 @@
 										<div><span>
 											<p style="margin-top:0px;margin-bottom:10px">
 											</p>
-											{!! $configuracoes->abertura_solicitacao_material !!}
+											@if($material->status == 0)
+												{!! $configuracoes->abertura_solicitacao_material !!}
+											@else
+												{!! $configuracoes->fechamento_solicitacao_material !!}
+												<ul>
+													<li><b>Produto:</b> {{$material->RelationMaterial->nome}}</li>
+													<li><b>Quantidade:</b> {{$material->quantidade}} unidades</li>
+												</ul>
+											@endif
 											<p style="text-align:justify">
 												<div>
-													<label><a href="{{route('exibir.solicitacoes.materiais')}}"><b>Acesse suas solicitações de materiais.</b></a></label>.
+													<label><a href="{{route('exibir.solicitacoes.materiais')}}"><b>Acesse suas solicitações de materiais.</b></a></label>
 												</div>
 											</p>
 											<p style="margin-top:10px;margin-bottom:10px"><span style="color:rgb(0,0,0)"><span></span></span></p>

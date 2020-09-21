@@ -13,7 +13,7 @@
 
   <!-- Title &#8226 -->
   <title>@yield('title') &#183 {{ env('APP_NAME') }} </title>
-
+  
   <link href="{{ asset('public/css/bootstrap.css') }}" rel="stylesheet">
   <link href="{{ asset('public/vendor/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
   <link href="{{ asset('public/vendor/jquery-asColorPicker-master/css/asColorPicker.css') }}" rel="stylesheet">

@@ -64,6 +64,10 @@ Detalhes do chamado
               <b>Descrição</b> 
               <p>{{(isset($chamado->descricao) ? $chamado->descricao : '-')}}</p>
             </label>  
+            <label class="d-block">
+              <b>Data de abertura:</b> 
+              <p>{{$chamado->created_at->format('d/m/Y H:i')}}</p>
+            </label>
           </div>
 
           <div class="col-12 mb-5">
@@ -126,6 +130,7 @@ Detalhes do chamado
               </label>
               <div class="row mx-auto">
                 <small class="p-0 font-weight-bold">
+                  {{$status->pivot->created_at->format('d/m/Y H:i')}} -
                   {{$status->pivot->created_at->subMinutes(2)->diffForHumans()}}
                 </small>
                 @if($chamado->RelationStatus->last()->id != $status->id)

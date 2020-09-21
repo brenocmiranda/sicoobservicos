@@ -6,13 +6,13 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use App\Models\CogEmailsMaterial;
+use App\Models\CogEmailsChamado;
 
-class SolicitacaoMaterialCliente extends Notification implements ShouldQueue
+class ChamadosReaberturaAdmin extends Notification
 {
     use Queueable;
 
-    private $material;
+    private $chamado;
     private $configuracoes;
 
     /**
@@ -22,8 +22,8 @@ class SolicitacaoMaterialCliente extends Notification implements ShouldQueue
      */
     public function __construct($create)
     {
-       $this->material = $create;
-       $this->configuracoes = CogEmailsMaterial::first();
+        $this->chamado = $create;
+        $this->configuracoes = CogEmailsChamado::first();
     }
 
     /**
@@ -44,18 +44,11 @@ class SolicitacaoMaterialCliente extends Notification implements ShouldQueue
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable)
-    {   
-        if($this->material->status == 0) {
-            return (new MailMessage)
+    {
+        return (new MailMessage)
                     ->from('breno.miranda@sicoobsertaominas.com.br')
-                    ->subject($this->configuracoes->assunto_abertura_material)
-                    ->view('system.emails.materialCliente', ['material' => $this->material, 'configuracoes' => $this->configuracoes]);
-        }else{
-            return (new MailMessage)
-                    ->from('breno.miranda@sicoobsertaominas.com.br')
-                    ->subject($this->configuracoes->assunto_fechamento_material)
-                    ->view('system.emails.materialCliente', ['material' => $this->material, 'configuracoes' => $this->configuracoes]);
-        }
+                    ->subject('Reabertura de chamado')
+                    ->view('system.emails.chamadoReaberturaAdmin', ['chamado' => $this->chamado, 'configuracoes' => $this->configuracoes]);
     }
 
     /**

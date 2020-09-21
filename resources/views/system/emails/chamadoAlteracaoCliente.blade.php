@@ -27,9 +27,15 @@
 											<p>
 												<b>Obaaa, temos novidades para você!</b>
 											</p>
-											<label>Seu chamado de nº 0{{$chamado->id}}, sobre  <b>{{$chamado->RelationFontes->nome}} - {{$chamado->RelationTipos->nome}}</b>, com o assunto <b>{{$chamado->assunto}}</b> teve uma atualização no estado, sendo classificado como: <b>{{$chamado->RelationStatus->first()->nome}}.</b></label>
+											<label>Seu chamado teve uma atualização no estado, sendo classificado como: <b>{{$chamado->RelationStatus->first()->nome}}.</b> Detalhes do chamado:</label>
 											<br>
 											<p style="text-align:justify">
+												<ul>
+													<li><b>Fonte:</b> {{$chamado->RelationFontes->nome}}</li>
+													<li><b>Tipo:</b> {{$chamado->RelationTipos->nome}}</li>
+													<li><b>Assunto:</b> {{$chamado->assunto}}</li>
+													<li><b>Descrição:</b> {{$chamado->descricao}}</li>
+												</ul>
 												<div>
 													<label><a href="{{route('detalhes.chamados', $chamado->id)}}"><b>Saiba mais informações esse chamado.</b></a></label>
 												</div>

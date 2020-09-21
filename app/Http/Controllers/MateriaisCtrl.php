@@ -73,6 +73,7 @@ class MateriaisCtrl extends Controller
 		if($historico->RelationMaterial->quantidade >= $historico->quantidade){
 			MateriaisHistorico::find($id)->update(['status' => 1]);
 			Materiais::find($historico->id_material)->decrement('quantidade', $historico->quantidade);
+			$historico->RelationUsuario->notify(new SolicitacaoMaterialCliente($historico));	
 			Atividades::create([
 				'nome' => 'Aprovação de solicitação de material',
 				'descricao' => 'Você acabou de aprovar a solicitação do material, '.$historico->RelationMaterial->nome.'.',

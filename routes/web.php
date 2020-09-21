@@ -133,6 +133,7 @@ Route::group(['prefix' => 'app'], function(){
 			Route::get('abertura', 'ChamadosCtrl@Abertura')->name('abertura.chamados');
 			Route::post('aberturaEnviar', 'ChamadosCtrl@AberturaEnviar')->name('abertura.chamados.enviar');
 			Route::post('finalizar/{id}', 'ChamadosCtrl@Finalizar')->name('finalizar.chamados');
+			Route::get('relatorio/{id}', 'ChamadosCtrl@Relatorio')->name('relatorio.chamados');
 			Route::get('reabrir/{id}', 'ChamadosCtrl@Reabertura')->name('reabertura.chamados');
 			Route::get('detalhes/{id}', 'ChamadosCtrl@Detalhes')->name('detalhes.chamados');
 			Route::any('tipos/{idFonte}', 'ChamadosCtrl@ListarTipos')->name('tipos.chamados');
@@ -289,6 +290,8 @@ Route::group(['prefix' => 'app'], function(){
 				Route::get('editar/{id}', 'BaseCtrl@Editar')->name('editar.base.aprendizagem');
 				Route::post('salvarEditar/{id}', 'BaseCtrl@EditarSalvar')->name('salvar.editar.base.aprendizagem');
 				Route::get('detele/{id}', 'BaseCtrl@Delete')->name('delete.base.aprendizagem');
+				Route::any('tipos/{idFonte}', 'ChamadosCtrl@ListarTipos')->name('tipos.chamados');
+				Route::any('base/{idTipo}/{idFonte}', 'ChamadosCtrl@ListarBase')->name('base.chamados');
 			});
 		});
 		Route::group(['prefix' => 'chamados'], function(){

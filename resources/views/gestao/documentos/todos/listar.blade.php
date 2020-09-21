@@ -1,5 +1,5 @@
 @section('title')
-Tipos
+Materiais
 @endsection
 
 @extends('layouts.index')
@@ -8,13 +8,13 @@ Tipos
 <div class="container-fluid">
 	<div class="row bg-title">
 		<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-			<h4 class="page-title">Tipos</h4> 
+			<h4 class="page-title">Materiais</h4> 
 		</div>
 		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
 			<ol class="breadcrumb">
 				<li><a href="{{route('configuracoes')}}">Configurações</a></li>
 				<li><a href="javascript:void(0)">Suporte</a></li>
-				<li class="active">Tipos</li>
+				<li class="active">Materiais</li>
 			</ol>
 		</div>
 	</div>
@@ -23,9 +23,9 @@ Tipos
 			<div class="h-100 row col">
 				<div class="col-lg-12 position-absolute">
 					<div class="row mx-auto">
-						<button class="btn btn-primary btn-outline ml-auto" id="adicionar" name="adicionar" title="Adicionar novo tipo" data-toggle="modal" data-target="#modal-adicionar" style="z-index: 10">
+						<button class="btn btn-primary btn-outline ml-auto" id="adicionar" name="adicionar" title="Adicionar novo material" data-toggle="modal" data-target="#modal-adicionar" style="z-index: 10">
 							<i class="m-0 pr-1 mdi mdi-plus"></i> 
-							<span>Novo tipo</span> 
+							<span>Novo material</span> 
 						</button>
 					</div>
 				</div>
@@ -35,7 +35,8 @@ Tipos
 					<thead>
 						<th> ID# </th>
 						<th> Nome </th>
-						<th> Fonte </th>
+						<th> Categoria </th>
+						<th> Quantidade </th>
 						<th> Status </th>
 						<th> Ações </th>
 					</thead>
@@ -47,10 +48,10 @@ Tipos
 @endsection
 
 @section('modal')
-	@include('gestao.chamados.tipos.adicionar')
-	@include('gestao.chamados.tipos.editar')
-	@include('gestao.chamados.tipos.detalhes')
-	@include('gestao.chamados.tipos.fontes')
+	@include('gestao.materiais.todos.adicionar')
+	@include('gestao.materiais.todos.editar')
+	@include('gestao.materiais.todos.detalhes')
+	@include('gestao.materiais.todos.reposicao')
 @endsection
 
 @section('suporte')
@@ -75,12 +76,13 @@ Tipos
 			select: true,
 			searching: true,
 			destroy: true,
-			ajax: "{{ route('listar.tipos.chamados') }}",
+			ajax: "{{ route('listar.todos.materiais') }}",
 			serverSide: true,
 			"columns": [ 
 			{ "data": "id","name":"id"},
 			{ "data": "nome1", "name":"nome1"},
-			{ "data": "fonte", "name":"fonte"},
+			{ "data": "categoria1", "name":"categoria1"},
+			{ "data": "quantidade", "name":"quantidade"},
 			{ "data": "status1", "name":"status1"},
 			{ "data": "acoes","name":"acoes"},
 			],
@@ -89,7 +91,6 @@ Tipos
 		// -------------------------------------------------
 		// Retornando informações 
 		// -------------------------------------------------
-
 		$('#table tbody').on('click', 'button#editar', function () {
 			// Modal editar
 			$('#modal-editar form').each (function(){
@@ -102,8 +103,10 @@ Tipos
 			$(this).parent('tr').addClass('selected');
 			var data = table.row('tr.selected').data();
 			$('.modal .nome').val(data.nome);
-			$('.modal .gti_id_fontes').val(data.gti_id_fontes);
 			$('.modal .descricao').html(data.descricao);
+			$('.modal .quantidade').val(data.quantidade);
+			$('.modal .quantidade_min').val(data.quantidade_min);
+			$('.modal .id_categoria').val(data.id_categoria);
 			if(data.status == 1){
 				$(".modal .status").prop('checked', false).trigger("click");
 			}else{
@@ -119,8 +122,10 @@ Tipos
 			$(this).parent('tr').addClass('selected');
 			var data = table.row('tr.selected').data();
 			$('.modal .nome').val(data.nome);
-			$('.modal .gti_id_fontes').val(data.gti_id_fontes);
 			$('.modal .descricao').html(data.descricao);
+			$('.modal .quantidade').val(data.quantidade);
+			$('.modal .quantidade_min').val(data.quantidade_min);
+			$('.modal .id_categoria').val(data.id_categoria);
 			if(data.status == 1){
 				$('#modal-detalhes .status').removeAttr('disabled');
 				$(".modal .status").prop('checked', false).trigger("click");
@@ -132,10 +137,22 @@ Tipos
 			}	
 			$('#modal-detalhes').modal('show');
 		});
+		$('#table tbody').on('click', 'button#reposicao', function (){
+			// Modal de reposição
+			var table = $('#table').DataTable();
+			table.$('tr.selected').removeClass('selected');
+			$(this).parents('tr').addClass('selected');
+			$(this).parent('tr').addClass('selected');
+			var data = table.row('tr.selected').data();
+			$('.modal .nome').val(data.nome);
+			$('.modal .id_material').val(data.id);		
+			$('#modal-reposicao').modal('show');
+		});
 
 		// -------------------------------------------------
 		// Requisições
 		// -------------------------------------------------
+
 		$('#table tbody').on('click', 'button#alterar', function () {
 			// Alterando o estado
 			var table = $('#table').DataTable();
@@ -143,7 +160,7 @@ Tipos
 			$(this).parents('tr').addClass('selected');
 			$(this).parent('tr').addClass('selected');
 			var data = table.row('tr.selected').data();
-			var url = "{{url('app/gestao/chamados/tipos/alterar')}}/"+data.id;
+			var url = "{{url('app/gestao/materiais/todos/alterar')}}/"+data.id;
 			swal({
 				title: "Tem certeza que deseja alterar o estado?",
 				icon: "warning",
@@ -174,7 +191,7 @@ Tipos
 			var data = table.row('tr.selected').data();
 			e.preventDefault();
 			$.ajax({
-				url: '{{ route("adicionar.tipos.chamados") }}',
+				url: '{{ route("adicionar.todos.materiais") }}',
 				type: 'POST',
 				data: $('#modal-adicionar #formAdicionar').serialize(),
 				beforeSend: function(){
@@ -220,7 +237,7 @@ Tipos
 			var data = table.row('tr.selected').data();
 			e.preventDefault();
 			$.ajax({
-				url: 'tipos/editar/'+data.id,
+				url: 'todos/editar/'+data.id,
 				type: 'POST',
 				data: $('#modal-editar #formEditar').serialize(),
 				beforeSend: function(){
@@ -260,42 +277,37 @@ Tipos
 				}
 			});
 		});
-		$('#modal-fonte #formFonte').on('submit', function(e){
+		// Efetuando solicitação
+		$('#modal-reposicao #formReposicao').on('submit', function(e){
+			// Editando as informações
+			var table = $('#table').DataTable();
+			var data = table.row('tr.selected').data();
 			e.preventDefault();
 			$.ajax({
-				url: "{{route('adicionar.fontes.chamados')}}",
+				url: '{{ route("efetuar.reposicao.materiais") }}',
 				type: 'POST',
-				data: $('#modal-fonte #formFonte').serialize(),
+				data: $('#modal-reposicao #formReposicao').serialize(),
 				beforeSend: function(){
 					$('.modal-body, .modal-footer').addClass('d-none');
 					$('.carregamento').html('<div class="mx-auto text-center my-5"> <div class="col-12"> <div class="spinner-border my-4" role="status"> <span class="sr-only"> Loading... </span> </div> </div> <label>Salvando informações...</label></div>');
-					$('#modal-fonte #err').html('');
+					$('#modal-reposicao #err').html('');
 				},
 				success: function(data){
 					$('.modal-body, .modal-footer').addClass('d-none');
 					$('.carregamento').html('<div class="mx-auto text-center my-5"><div class="col-12"><i class="col-2 mdi mdi-check-all mdi-48px"></i></div><label>Informações alteradas com sucesso!</label></div>');
-					setTimeout(function(){
-						$('#modal-fonte #formFonte').each (function(){
-							this.reset();
-						});
-						$('.modal .gti_id_fontes').append('<option value="'+data.id+'">'+data.nome+'</option>')
-						$('input').removeClass('border-bottom border-danger');
-						$('.carregamento').html('');
-						$('.modal-body, .modal-footer').removeClass('d-none');
-						$('#modal-fonte').modal('hide');
-					}, 2000);
+					location.reload();
 				}, error: function (data) {
 					setTimeout(function(){
 						$('.modal-body, .modal-footer').removeClass('d-none');
 						$('.carregamento').html('');
 						if(!data.responseJSON){
 							console.log(data.responseText);
-							$('#modal-fonte #err').html(data.responseText);
+							$('#modal-reposicao #err').html(data.responseText);
 						}else{
-							$('#modal-fonte #err').html('');
+							$('#modal-reposicao #err').html('');
 							$('input').removeClass('border-bottom border-danger');
 							$.each(data.responseJSON.errors, function(key, value){
-								$('#modal-fonte #err').append('<div class="text-danger mx-4"><p>'+value+'</p></div>');
+								$('#modal-reposicao #err').append('<div class="text-danger mx-4"><p>'+value+'</p></div>');
 								$('input[name="'+key+'"]').addClass('border-bottom border-danger');
 							});
 						}

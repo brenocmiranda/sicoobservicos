@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateActivities extends Migration
+class CreateSupDocumentos extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,15 @@ class CreateActivities extends Migration
      */
     public function up()
     {
-        Schema::create('activities', function (Blueprint $table) {
+        Schema::create('sup_documentos', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('nome');
             $table->text('descricao')->nullable();
-            $table->string('icone');
-            $table->string('url');
             $table->boolean('status')->default(1);
-            $table->integer('id_usuario')->unsigned();
-            $table->foreign('id_usuario')->references('id')->on('usr_usuarios');
+
+            $table->Integer('id_arquivo')->unsigned();
+            $table->foreign('id_arquivo')->references('id')->on('arquivos');
 
             $table->timestamps();
         });
@@ -35,6 +34,6 @@ class CreateActivities extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('activities');
+        Schema::dropIfExists('sup_documentos');
     }
 }

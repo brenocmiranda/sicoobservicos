@@ -23,7 +23,7 @@
     <ul class="nav" id="side-menu">
       <li> 
         <a href="{{route('inicio')}}" class="waves-effect {{ (Request::segment(2) == 'home' ? 'active' : '') }}">
-          <i class="mdi mdi-home-outline pr-3"></i> 
+          <i class="mdi mdi-home-variant pr-3"></i> 
           <span class="hide-menu">Inicio</span>
         </a> 
       </li>
@@ -65,6 +65,7 @@
         <ul class="nav nav-second-level {{ (Request::segment(2) == 'suporte' ? 'collapse in' : '') }}">
           <li> <a href="{{route('exibir.base')}}"><span class="hide-menu">Aprendizagem</span></a> </li>
           <li> <a href="{{route('exibir.chamados')}}"><span class="hide-menu">Chamados</span></a> </li>
+          <li> <a href="#"><span class="hide-menu">Documentos</span></a> </li>
           <li> <a href="{{route('exibir.solicitacoes.materiais')}}"><span class="hide-menu">Materiais</span></a> </li>
         </ul>
       </li>
@@ -106,13 +107,9 @@
           </li>
 
           <li> 
-            <a href="javascript:void(0)" class="waves-effect">
-              <span class="hide-menu">Aprendizagem </span><span class="fa arrow"></span>
-            </a>
-            <ul class="nav nav-third-level {{ (Request::segment(2) == 'gestao' && Request::segment(3) == 'aprendizagem' ? ' collapse in' : '') }}">
-              <li> <a href="{{route('exibir.base.aprendizagem')}}"><span class="hide-menu">Tópicos</span></a> </li>
-              <li> <a href="#"><span class="hide-menu">Anexos</span></a> </li>
-            </ul>
+            <a href="{{route('exibir.base.aprendizagem')}}" class="waves-effect {{ (Request::segment(2) == 'gestao' && Request::segment(3) == 'aprendizagem' ? ' collapse in' : '') }}">
+              <span class="hide-menu">Aprendizagem</span>
+            </a> 
           </li>
 
           <li> 
@@ -139,8 +136,14 @@
             </ul>
           </li>
 
-           <li> 
-            <a href="javascript:void(0)" class="waves-effect">
+          <li> 
+            <a href="#" class="waves-effect">
+              <span class="hide-menu">Documentos</span>
+            </a> 
+          </li>
+
+          <li> 
+            <a href="javascript:void(0)" class="waves-effect {{ (Request::segment(2) == 'gestao' && Request::segment(3) == 'documentos' ? ' collapse in' : '') }}">
               <span class="hide-menu">E-mails </span><span class="fa arrow"></span>
             </a>
             <ul class="nav nav-third-level {{ (Request::segment(2) == 'gestao' && Request::segment(3) == 'emails' ? ' collapse in' : '') }}">

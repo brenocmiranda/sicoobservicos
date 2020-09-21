@@ -17,7 +17,7 @@ class CreateSupMateriais extends Migration
             $table->engine = 'InnoDB';
             $table->bigIncrements('id');
             $table->string('nome');
-            $table->string('descricao')->nullable();
+            $table->text('descricao')->nullable();
             $table->integer('quantidade');
             $table->integer('quantidade_min');
             $table->boolean('status')->default(1);

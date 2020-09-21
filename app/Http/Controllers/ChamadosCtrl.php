@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use App\Notifications\ChamadosReaberturaAdmin;
+use App\Notifications\ChamadosReaberturaCliente;
 use App\Notifications\ChamadosCliente;
 use App\Notifications\ChamadosAdmin;
 use App\Notifications\ChamadosAlteracaoCliente;
@@ -100,6 +102,7 @@ class ChamadosCtrl extends Controller
             'descricao' => (isset($request->descricao) ? $request->descricao : "Chamado finalizado por ".Auth::user()->RelationAssociado->nome.".")
         ]);
         $create = Chamados::find($id);
+        $status->RelationUsuario->notify(new ChamadosAlteracaoCliente($status));  
         Atividades::create([
             'nome' => 'Encerramento de chamado',
             'descricao' => 'Você efetuou o encerramento do chamado, '.$create->assunto.'.',
@@ -118,6 +121,8 @@ class ChamadosCtrl extends Controller
             'descricao' =>  "Chamado reaberto pelo colaborador: ".Auth::user()->RelationAssociado->nome."."
         ]);
         $create = Chamados::find($id);
+        Auth::user()->notify(new ChamadosReaberturaCliente($create));  
+        $this->email->notify(new ChamadosReaberturaAdmin($create));
         Atividades::create([
             'nome' => 'Reabertura de chamado',
             'descricao' => 'Você efetuou a reabertura do chamado, '.$create->assunto.'.',
@@ -161,6 +166,18 @@ class ChamadosCtrl extends Controller
         Imagens::find($id)->delete();
         return response()->json(['success' => true]);
     }
+    // Relatório do chamado
+    public function Relatorio($id){
+        $dados = Chamados::find($id);
+        Atividades::create([
+            'nome' => 'Emissão de relatório do chamado',
+            'descricao' => 'Você efetuou a emissão do relatório do chamado, '.$dados->assunto.'.',
+            'icone' => 'mdi-file-document',
+            'url' => route('detalhes.chamados.gti', $id),
+            'id_usuario' => Auth::id()
+        ]);
+        return view('tecnologia.chamados.relatorio')->with('chamado', $dados);
+    }
 
     // ------------------------------------------
     // Funções para membro GTI
@@ -187,6 +204,7 @@ class ChamadosCtrl extends Controller
             'descricao' => (isset($request->descricao) ? $request->descricao : "Chamado finalizado por ".Auth::user()->RelationAssociado->nome.".")
         ]);
         $create = Chamados::find($id);
+        $status->RelationUsuario->notify(new ChamadosAlteracaoCliente($status));  
         Atividades::create([
             'nome' => 'Encerramento de chamado',
             'descricao' => 'Você efetuou o encerramento do chamado, '.$create->assunto.'.',

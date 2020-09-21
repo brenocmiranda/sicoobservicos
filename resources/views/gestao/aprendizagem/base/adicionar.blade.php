@@ -82,7 +82,7 @@ Adicionar tópico
 							</div>
 							<hr class="col-10 mt-0">
 							<div class="row col-12 justify-content-center mx-auto">
-								<a href="{{route('exibir.base.suporte')}}" class="btn btn-danger btn-outline col-3 d-flex align-items-center justify-content-center mx-2">
+								<a href="{{route('exibir.base.aprendizagem')}}" class="btn btn-danger btn-outline col-3 d-flex align-items-center justify-content-center mx-2">
 									<i class="mdi mdi-arrow-left pr-2"></i> 
 									<span>Voltar</span>
 								</a>
@@ -105,7 +105,7 @@ Adicionar tópico
 <script type="text/javascript">
 	$(document).ready( function (){
 		$('.summernote').summernote({
-            height: 350, // set editor height
+            height: 150, // set editor height
             minHeight: null, // set minimum height of editor
             maxHeight: null, // set maximum height of editor
             focus: false // set focus to editable area after initializing summernote
@@ -114,7 +114,7 @@ Adicionar tópico
        	$('.gti_id_fontes').on('change', function(e){
 			var fonte = $('.gti_id_fontes').val();
 			$.ajax({
-				url: "../chamados/tipos/"+fonte,
+				url: "../base/tipos/"+fonte,
 				type: 'GET',
 				success: function(data){ 
 					if(data[0]){

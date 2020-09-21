@@ -67,20 +67,28 @@ Solicitações
 												<label class="text-truncate d-block mb-0">
 													<small class="text-dark"><b>Assunto</b>: {{$chamado->assunto}}</small>
 												</label>
-												<label class="text-truncate d-block">
+												<label class="text-truncate d-block mb-0">
 													<small class="text-dark"><b>Descrição:</b> {{(isset($chamado->descricao) ? $chamado->descricao : '-')}}</small>
+												</label>
+												<label class="text-truncate d-block">
+													<small class="text-dark"><b>Data de abertura:</b> {{$chamado->created_at->format('d/m/Y H:i')}}</small>
 												</label>					
 											</div>
 											<div class="text-right row col-3 ml-auto">
 												<div class="ml-auto">
-													<a href="{{route('relatorio.chamados.gti', $chamado->id)}}" target="_blank" class="btn btn-default btn-outline btn-rounded" title="Relatório do chamado">
+													<a href="{{route('relatorio.chamados.gti', $chamado->id)}}" target="_blank" class="btn btn-default btn-outline btn-rounded col-10 mb-2" title="Relatório do chamado">
 														<i class="mdi mdi-cloud-print-outline"></i>
+														<small> Gerar relatório</small>
 													</a>	
-													<a class="status btn btn-default btn-outline btn-rounded" id="{{$chamado->id}}" onclick="$('#modal-alterar .idChamado').val(this.id);" data-toggle="modal" data-target="#modal-alterar" title="Alterar status">
+													@if($chamado->RelationStatus->first()->finish != 1)
+													<a class="status btn btn-default btn-outline btn-rounded col-10 mb-2" id="{{$chamado->id}}" onclick="$('#modal-alterar .idChamado').val(this.id);" data-toggle="modal" data-target="#modal-alterar" title="Alterar status">
 														<i class="mdi mdi-cached"></i>
+														<small>	Atualizar status</small>
 													</a>
-													<a href="{{route('detalhes.chamados.gti', $chamado->id)}}" class="btn btn-default btn-outline btn-rounded" title="Detalhes do chamado">
+													@endif
+													<a href="{{route('detalhes.chamados.gti', $chamado->id)}}" class="btn btn-default btn-outline btn-rounded col-10 mb-2" title="Detalhes do chamado">
 														<i class="mdi mdi-comment-processing-outline"></i>
+														<small> Mais informações</small>
 													</a>	
 												</div>
 											</div>

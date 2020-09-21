@@ -27,7 +27,7 @@ Minhas atividades
                 <div class="panel-body py-0">
                     <div class="steamline">
                         @if(!empty($dados->first() ))
-                            @foreach($dados->sortByDesc('created_at') as $atividade)
+                            @foreach($dados as $atividade)
                                 <div class="sl-item">
                                     <div class="sl-left bg-info"> <i class="mdi {{$atividade->icone}}"></i></div>
                                     <div class="sl-right">
@@ -47,8 +47,8 @@ Minhas atividades
                     </div>
                 </div>
             </div>
-            <div class="pagination d-flex justify-content-end">
-                {{ (isset($dados) ? $dados->links() : '') }}
+            <div class="d-flex justify-content-end">
+                 {!! (isset($dados) ? $dados->links() : '') !!}
             </div>
         </div>
     </div>
