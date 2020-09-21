@@ -17,21 +17,10 @@
         <div class="col-12 grid-margin mb-0"> 
           <div class="card-body py-0">
            <div class="row">
-            <div class="col-6">
-              <div class="form-group">
-                <label class="col-form-label pb-0">Categoria <span class="text-danger">*</span></label>
-                <select class="id_categoria form-control form-control-line" name="id_categoria" disabled>
-                  <option>Selecione</option>
-                  @foreach($categorias as $categoria)
-                  <option value="{{$categoria->id}}">{{$categoria->nome}}</option>
-                  @endforeach
-                </select>
-              </div>
-            </div>
             <div class="col-8">
               <div class="form-group">
                 <label class="col-form-label pb-0">Nome <span class="text-danger">*</span></label>
-                <input class="nome form-control form-control-line" name="nome" onkeyup="this.value = this.value.toUpperCase();" placeholder="Caneta azul" disabled/>
+                <input class="nome form-control form-control-line" name="nome" onkeyup="this.value = this.value.toUpperCase();" disabled/>
               </div>
             </div>
             <div class="col-10">
@@ -41,19 +30,13 @@
               </div>
             </div>
             <div class="row col-12">
-              <div class="col-4">
-                <div class="form-group">
-                  <label class="col-form-label pb-0">Quantidade <span class="text-danger">*</span></label>
-                  <input type="number" class="quantidade form-control form-control-line" name="quantidade" min="0" disabled/>
+                <div class="col-8">
+                  <div class="form-group">
+                    <label class="col-form-label pb-3">Arquivo <span class="text-danger">*</span></label>
+                    <input type="file" name="id_arquivo" required/>
+                  </div>
                 </div>
               </div>
-              <div class="col-4">
-                <div class="form-group">
-                  <label class="col-form-label pb-0">Quantidade mínima <span class="text-danger">*</span></label>
-                  <input type="number" class="quantidade_min form-control form-control-line" min="0" name="quantidade_min" disabled/>
-                </div>
-              </div>
-            </div>
             <div class="col-3">
               <div class="form-group">
                 <label class="col-form-label mb-2">Status <span class="text-danger">*</span></label>

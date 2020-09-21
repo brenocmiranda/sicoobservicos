@@ -355,5 +355,13 @@ Route::group(['prefix' => 'app'], function(){
 				Route::post('salvar', 'EmailsCtrl@SalvarMensagens')->name('salvar.mensagens.emails');
 			});
 		});
+		Route::group(['prefix' => 'documentos'], function(){
+			Route::get('', 'DocumentosCtrl@Exibir')->name('exibir.todos.documentos');
+			Route::get('listar', 'DocumentosCtrl@Datatables')->name('listar.todos.documentos');
+			Route::post('adicionar', 'DocumentosCtrl@Adicionar')->name('adicionar.todos.documentos');
+			Route::post('editar/{id}', 'DocumentosCtrl@Editar')->name('editar.todos.documentos');
+			Route::get('alterar/{id}', 'DocumentosCtrl@Alterar')->name('alterar.todos.documentos');
+			Route::any('detalhes/{id}', 'DocumentosCtrl@Detalhes')->name('detalhes.todos.documentos');
+		});
 	});
 });

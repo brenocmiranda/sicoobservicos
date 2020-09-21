@@ -137,7 +137,7 @@
           </li>
 
           <li> 
-            <a href="#" class="waves-effect">
+            <a href="{{route('exibir.todos.documentos')}}" class="waves-effect">
               <span class="hide-menu">Documentos</span>
             </a> 
           </li>

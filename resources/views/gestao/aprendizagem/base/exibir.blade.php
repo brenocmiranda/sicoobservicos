@@ -33,7 +33,7 @@ Tópicos
 						<h5>Todos os tópicos cadastrados</h5>
 						<hr class="mt-2">
 					</div>
-					<div class="col-12">
+					<div class="col-12 p-0">
 						@if(isset($topicos[0]))
 							<ul class="p-0" id="topicos">
 								@foreach($topicos as $topico)

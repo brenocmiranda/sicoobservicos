@@ -11,6 +11,9 @@ class Documentos extends Model
 
     protected $table = 'sup_documentos';
     protected $primaryKey = 'id';
-    protected $fillable = ['id', 'tipo', 'email', 'data_movimento', 'cli_id_associado', 'created_at', 'updated_at'];
-}
+    protected $fillable = ['id', 'nome', 'descricao', 'status', 'id_arquivo', 'created_at', 'updated_at'];
+
+    public function RelationArquivo(){
+        return $this->belongsTo(Arquivos::class, 'id_arquivo');
+    }
 }

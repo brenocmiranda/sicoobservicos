@@ -21,40 +21,23 @@
           <div class="col-12 grid-margin mb-0">
             <div class="card-body py-0">
              <div class="row">
-              <div class="col-6">
-                <div class="form-group">
-                  <label class="col-form-label pb-0">Categoria <span class="text-danger">*</span></label>
-                  <select class="id_categoria form-control form-control-line" name="id_categoria" required>
-                    <option>Selecione</option>
-                    @foreach($categorias as $categoria)
-                    <option value="{{$categoria->id}}">{{$categoria->nome}}</option>
-                    @endforeach
-                  </select>
-                </div>
-              </div>
               <div class="col-8">
                 <div class="form-group">
                   <label class="col-form-label pb-0">Nome <span class="text-danger">*</span></label>
-                  <input class="nome form-control form-control-line" name="nome" onkeyup="this.value = this.value.toUpperCase();" placeholder="Caneta azul" required/>
+                  <input class="form-control form-control-line" name="nome" onkeyup="this.value = this.value.toUpperCase();" placeholder="MODELO DE BORDERÔ" required/>
                 </div>
               </div>
               <div class="col-10">
                 <div class="form-group">
                   <label class="col-form-label pb-0">Descrição</label>
-                  <textarea class="descricao form-control form-control-line" name="descricao" onkeyup="this.value = this.value.toUpperCase();"></textarea>
+                  <textarea class="form-control form-control-line" name="descricao" onkeyup="this.value = this.value.toUpperCase();"></textarea>
                 </div>
               </div>
               <div class="row col-12">
-                <div class="col-4">
+                <div class="col-8">
                   <div class="form-group">
-                    <label class="col-form-label pb-0">Quantidade <span class="text-danger">*</span></label>
-                    <input type="number" class="quantidade form-control form-control-line" name="quantidade" min="0" disabled/>
-                  </div>
-                </div>
-                <div class="col-4">
-                  <div class="form-group">
-                    <label class="col-form-label pb-0">Quantidade mínima <span class="text-danger">*</span></label>
-                    <input type="number" class="quantidade_min form-control form-control-line" min="0" name="quantidade_min" required/>
+                    <label class="col-form-label pb-3">Arquivo <span class="text-danger">*</span></label>
+                    <input type="file" name="id_arquivo" required/>
                   </div>
                 </div>
               </div>
@@ -62,7 +45,7 @@
                 <div class="form-group">
                   <label class="col-form-label mb-2">Status <span class="text-danger">*</span></label>
                   <div class="switchery-demo">
-                    <input type="checkbox" class="status js-switch" name="status" data-color="#99d683" data-secondary-color="#f96262" checked>
+                    <input type="checkbox" class="js-switch" name="status" data-color="#99d683" data-secondary-color="#f96262" checked>
                   </div>
                 </div>
               </div>
