@@ -177,7 +177,7 @@ class UsuariosCtrl extends Controller
 					'nome' => 'Inicio de sessão',
 					'descricao' => 'Você entrou na plataforma.',
 					'icone' => 'mdi-check',
-					'url' => route('home'),
+					'url' => route('inicio'),
 					'id_usuario' => Auth::id()
 				]);
 				return redirect()->intended(route('inicio'));

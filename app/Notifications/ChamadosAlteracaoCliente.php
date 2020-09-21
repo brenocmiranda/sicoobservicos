@@ -7,20 +7,21 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class Cadastro extends Notification implements ShouldQueue
+class ChamadosAlteracaoCliente extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    private $usuario;
+    private $chamado;
+    private $configuracoes;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($user)
+    public function __construct($chamado)
     {
-        $this->usuario = $user;
+        $this->chamado = $chamado;
     }
 
     /**
@@ -44,8 +45,8 @@ class Cadastro extends Notification implements ShouldQueue
     {
         return (new MailMessage)
                     ->from('breno.miranda@sicoobsertaominas.com.br')
-                    ->subject('Obaaa!! Agora é com você..')
-                    ->view('system.emails.cadastro', ['usuario' => $this->usuario]);
+                    ->subject('Temos novidades no seu chamado =)')
+                    ->view('system.emails.chamadoAlteracaoCliente', ['chamado' => $this->chamado]);
     }
 
     /**

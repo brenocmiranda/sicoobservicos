@@ -13,7 +13,7 @@ class CogEmailsChamado extends Model
 
     protected $table = 'cog_emails';
     protected $primaryKey = 'id';
-    protected $fillable = ['id', 'email_chamado', 'assunto_chamado', 'abertura_solicitacao_chamado', 'fechamento_solicitacao_chamado'];
+    protected $fillable = ['id', 'email_chamado', 'assunto_abertura_chamado', 'abertura_chamado', 'assunto_fechamento_chamado', 'fechamento_chamado'];
 
 	public function routeNotificationForMail($notification)
     {

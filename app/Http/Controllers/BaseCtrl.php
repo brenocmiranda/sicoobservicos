@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use App\Http\Requests\BaseRqt;
@@ -95,7 +96,7 @@ class BaseCtrl extends Controller
 		Atividades::create([
 			'nome' => 'Remoção de ativo',
 			'descricao' => 'Você acabou de remover o ativo '.$create->titulo.'.',
-			'icone' => 'mdi-rotate-3d',
+			'icone' => 'mdi-delete-forever',
 			'url' => route('exibir.base.aprendizagem'),
 			'id_usuario' => Auth::id()
 		]);

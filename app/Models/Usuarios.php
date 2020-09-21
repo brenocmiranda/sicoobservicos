@@ -41,6 +41,6 @@ class Usuarios extends Authenticatable
 	}
 
     public function RelationAtividades(){
-        return $this->belongsTo(Atividades::class, 'id', 'id_usuario');
+        return $this->belongsTo(Atividades::class, 'id', 'id_usuario')->orderBy('created_at', 'DESC');
     }
 }

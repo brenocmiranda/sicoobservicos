@@ -39,20 +39,26 @@ Mensagens e-mails
 					<div class="row">
 						<div class="col-10">
 							<div class="form-group">
-								<label class="col-form-label pb-0">Assunto <span class="text-danger">*</span></label>
-								<input class="form-control form-control-line" name="assunto_chamado" placeholder="ti@sicoobsertaominas.com.br" value="{{$chamado->assunto_chamado}}" required/>
+								<label class="col-form-label pb-0">Assunto de abertura</label>
+								<input class="form-control form-control-line" name="assunto_abertura_chamado" placeholder="ti@sicoobsertaominas.com.br" value="{{$chamado->assunto_abertura_chamado}}" required/>
 							</div>
 						</div>
 						<div class="col-12">
 							<div class="form-group">
-								<label class="col-form-label pb-2"> Abertura de chamados </label>
+								<label class="col-form-label pb-2"> Mensagem de abertura de chamados </label>
 								<textarea class="summernote" name="abertura_chamado">{{$chamado->abertura_chamado}}</textarea>
 							</div>
 						</div>
+						<div class="col-10">
+							<div class="form-group">
+								<label class="col-form-label pb-0">Assunto de fechamento</label>
+								<input class="form-control form-control-line" name="assunto_fechamento_chamado" placeholder="ti@sicoobsertaominas.com.br" value="{{$chamado->assunto_fechamento_chamado}}" required/>
+							</div>
+						</div>
 						<div class="col-12">
 							<div class="form-group">
-								<label class="col-form-label pb-2"> Fechamento de chamados </label>
-								<div class="summernote" name="fechamento_chamado">{{$chamado->fechamento_chamado}}</div>
+								<label class="col-form-label pb-2"> Mensagem de fechamento de chamados </label>
+								<textarea class="summernote" name="fechamento_chamado">{{$chamado->fechamento_chamado}}</textarea>
 							</div>
 						</div>
 					</div>
@@ -69,19 +75,25 @@ Mensagens e-mails
 					<div class="row">
 						<div class="col-10">
 							<div class="form-group">
-								<label class="col-form-label pb-0">Assunto <span class="text-danger">*</span></label>
-								<input class="form-control form-control-line" name="assunto_material" placeholder="ti@sicoobsertaominas.com.br" value="{{$material->assunto_material}}" required/>
+								<label class="col-form-label pb-0">Assunto de abertura</label>
+								<input class="form-control form-control-line" name="assunto_abertura_material" placeholder="ti@sicoobsertaominas.com.br" value="{{$material->assunto_abertura_material}}" required/>
 							</div>
 						</div>
 						<div class="col-12">
 							<div class="form-group">
-								<label class="col-form-label pb-2"> Abertura de solicitação </label>
+								<label class="col-form-label pb-2"> Mensagem de abertura da solicitação </label>
 								<textarea class="summernote" name="abertura_solicitacao_material">{{$material->abertura_solicitacao_material}}</textarea>
 							</div>
 						</div>
+						<div class="col-10">
+							<div class="form-group">
+								<label class="col-form-label pb-0">Assunto de fechamento</label>
+								<input class="form-control form-control-line" name="assunto_fechamento_material" placeholder="ti@sicoobsertaominas.com.br" value="{{$material->assunto_fechamento_material}}" required/>
+							</div>
+						</div>
 						<div class="col-12">
 							<div class="form-group">
-								<label class="col-form-label pb-2"> Fechamento de solicitação </label>
+								<label class="col-form-label pb-2"> Mensagem de fechamento da solicitação </label>
 								<textarea class="summernote" name="fechamento_solicitacao_material">{{$material->fechamento_solicitacao_material}}</textarea>
 							</div>
 						</div>
@@ -99,19 +111,25 @@ Mensagens e-mails
 					<div class="row">
 						<div class="col-10">
 							<div class="form-group">
-								<label class="col-form-label pb-0">Assunto <span class="text-danger">*</span></label>
-								<input class="form-control form-control-line" name="assunto_contrato" placeholder="ti@sicoobsertaominas.com.br" value="{{$contrato->assunto_contrato}}" required/>
+								<label class="col-form-label pb-0">Assunto de abertura</label>
+								<input class="form-control form-control-line" name="assunto_abertura_contrato" placeholder="ti@sicoobsertaominas.com.br" value="{{$contrato->assunto_abertura_contrato}}" required/>
 							</div>
 						</div>
 						<div class="col-12">
 							<div class="form-group">
-								<label class="col-form-label pb-2"> Abertura de solicitação </label>
+								<label class="col-form-label pb-2"> Mensagem de abertura da solicitação </label>
 								<textarea class="summernote" name="abertura_solicitacao_contrato">{{$contrato->abertura_solicitacao_contrato}}</textarea>
 							</div>
 						</div>
+						<div class="col-10">
+							<div class="form-group">
+								<label class="col-form-label pb-0">Assunto de fechamento</label>
+								<input class="form-control form-control-line" name="assunto_fechamento_contrato" placeholder="ti@sicoobsertaominas.com.br" value="{{$contrato->assunto_fechamento_contrato}}" required/>
+							</div>
+						</div>
 						<div class="col-12">
 							<div class="form-group">
-								<label class="col-form-label pb-2"> Fechamento de solicitação </label>
+								<label class="col-form-label pb-2"> Mensagem de fechamento da solicitação </label>
 								<textarea class="summernote" name="fechamento_solicitacao_contrato">{{$contrato->fechamento_solicitacao_contrato}}</textarea>
 							</div>
 						</div>

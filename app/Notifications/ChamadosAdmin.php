@@ -6,21 +6,24 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use App\Models\CogEmailsChamado;
 
-class Cadastro extends Notification implements ShouldQueue
+class ChamadosAdmin extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    private $usuario;
-
+    private $chamado;
+    private $configuracoes;
+    
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($user)
+    public function __construct($create)
     {
-        $this->usuario = $user;
+        $this->chamado = $create;
+        $this->configuracoes = CogEmailsChamado::first();
     }
 
     /**
@@ -44,8 +47,8 @@ class Cadastro extends Notification implements ShouldQueue
     {
         return (new MailMessage)
                     ->from('breno.miranda@sicoobsertaominas.com.br')
-                    ->subject('Obaaa!! Agora é com você..')
-                    ->view('system.emails.cadastro', ['usuario' => $this->usuario]);
+                    ->subject('Novo chamado aberto #'.$this->chamado->id)
+                    ->view('system.emails.chamadoAdmin', ['chamado' => $this->chamado, 'configuracoes' => $this->configuracoes]);
     }
 
     /**

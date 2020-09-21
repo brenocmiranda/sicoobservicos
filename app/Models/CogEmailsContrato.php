@@ -13,7 +13,7 @@ class CogEmailsContrato extends Model
 
     protected $table = 'cog_emails';
     protected $primaryKey = 'id';
-    protected $fillable = ['id', 'email_contrato', 'assunto_contrato', 'abertura_solicitacao_contrato', 'fechamento_solicitacao_contrato'];
+    protected $fillable = ['id', 'email_contrato', 'assunto_abertura_contrato', 'abertura_solicitacao_contrato', 'assunto_fechamento_contrato', 'fechamento_solicitacao_contrato'];
 
 	public function routeNotificationForMail($notification)
     {

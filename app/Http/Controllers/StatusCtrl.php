@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use Illuminate\Routing\Controller;
 use App\Http\Requests\StatusRqt;
-
+use App\Models\Atividades;
 use App\Models\Status;
 
 class StatusCtrl extends Controller

@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use App\Notifications\SolicitacaoMaterialCliente;
 use App\Notifications\SolicitacaoMaterialAdmin;
 use App\Http\Requests\MateriaisRqt;
+use App\Models\Atividades;
 use App\Models\Materiais;
 use App\Models\MateriaisCategorias;
 use App\Models\MateriaisHistorico;
@@ -43,7 +44,7 @@ class MateriaisCtrl extends Controller
 		$this->email->notify(new SolicitacaoMaterialAdmin($create));
 		Atividades::create([
 			'nome' => 'Solicitação de material',
-			'descricao' => 'Você acabou de solicitar o material '.$historico->RelationMaterial->nome.'.',
+			'descricao' => 'Você acabou de solicitar o material '.$create->RelationMaterial->nome.'.',
 			'icone' => 'mdi-cube-send',
 			'url' => route('exibir.solicitacoes.materiais'),
 			'id_usuario' => Auth::id()

@@ -13,7 +13,7 @@ class CogEmailsMaterial extends Model
 
     protected $table = 'cog_emails';
     protected $primaryKey = 'id';
-    protected $fillable = ['id', 'email_material', 'assunto_material', 'abertura_solicitacao_material', 'fechamento_solicitacao_material'];
+    protected $fillable = ['id', 'email_material', 'assunto_abertura_material', 'abertura_solicitacao_material', 'assunto_fechamento_material', 'fechamento_solicitacao_material'];
 
 	public function routeNotificationForMail($notification)
     {

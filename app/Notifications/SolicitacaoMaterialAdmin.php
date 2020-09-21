@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notification;
 
 use App\Models\CogEmailsMaterial;
 
-class SolicitacaoMaterialAdmin extends Notification
+class SolicitacaoMaterialAdmin extends Notification implements ShouldQueue
 {
     use Queueable;
 

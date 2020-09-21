@@ -6,10 +6,9 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-
 use App\Models\CogEmailsMaterial;
 
-class SolicitacaoMaterialCliente extends Notification
+class SolicitacaoMaterialCliente extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -48,7 +47,7 @@ class SolicitacaoMaterialCliente extends Notification
     {
         return (new MailMessage)
                     ->from('breno.miranda@sicoobsertaominas.com.br')
-                    ->subject($this->configuracoes->assunto_material)
+                    ->subject($this->configuracoes->assunto_abertura_material)
                     ->view('system.emails.materialCliente', ['material' => $this->material, 'configuracoes' => $this->configuracoes]);
     }
 

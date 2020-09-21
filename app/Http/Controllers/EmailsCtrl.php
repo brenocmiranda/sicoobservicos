@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use App\Models\CogEmailsMaterial;
@@ -59,18 +60,21 @@ class EmailsCtrl extends Controller
 	// Alteranndo informações
 	public function SalvarMensagens(Request $request){
 		CogEmailsMaterial::find(1)->update([
-			'assunto_material' => $request->assunto_material,
+			'assunto_abertura_material' => $request->assunto_abertura_material,
 			'abertura_solicitacao_material' => $request->abertura_solicitacao_material,
+			'assunto_fechamento_material' => $request->assunto_fechamento_material,
 			'fechamento_solicitacao_material' => $request->fechamento_solicitacao_material,
 		]);
 		CogEmailsContrato::find(1)->update([
-			'assunto_contrato' => $request->assunto_contrato,
+			'assunto_abertura_contrato' => $request->assunto_abertura_contrato,
 			'abertura_solicitacao_contrato' => $request->abertura_solicitacao_contrato,
+			'assunto_fechamento_contrato' => $request->assunto_fechamento_contrato,
 			'fechamento_solicitacao_contrato' => $request->fechamento_solicitacao_contrato,
 		]);
 		CogEmailsChamado::find(1)->update([
-			'assunto_chamado' => $request->assunto_chamado,
+			'assunto_abertura_chamado' => $request->assunto_abertura_chamado,
 			'abertura_chamado' => $request->abertura_chamado,
+			'assunto_fechamento_chamado' => $request->assunto_fechamento_chamado,
 			'fechamento_chamado' => $request->fechamento_chamado,
 		]);
 

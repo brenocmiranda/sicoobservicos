@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests\AtivoRqt; 
 use Illuminate\Routing\Controller;
@@ -141,7 +142,7 @@ class AtivosCtrl extends Controller
 		Atividades::create([
 			'nome' => 'Remoção de ativo',
 			'descricao' => 'Você acabou de remover o ativo de tecnologia '.$create->nome.'.',
-			'icone' => 'mdi-rotate-3d',
+			'icone' => 'mdi-delete-forever',
 			'url' => route('exibir.ativos'),
 			'id_usuario' => Auth::id()
 		]);

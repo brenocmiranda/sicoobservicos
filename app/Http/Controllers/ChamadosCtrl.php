@@ -5,9 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use App\Notifications\ChamadosCliente;
+use App\Notifications\ChamadosAdmin;
+use App\Notifications\ChamadosAlteracaoCliente;
 use App\Http\Requests\FuncoesRqt;
 use App\Http\Requests\MessageRqt;
+use App\Models\Atividades;
 use App\Models\Chamados;
+use App\Models\CogEmailsChamado;
 use App\Models\ChamadosImagens;
 use App\Models\ChamadosStatus;
 use App\Models\ChamadosMensagens;
@@ -21,6 +26,7 @@ class ChamadosCtrl extends Controller
 {   
 
     public function __construct(){
+        $this->email = CogEmailsChamado::first();
 		$this->middleware('auth');
 	}
 
@@ -66,6 +72,17 @@ class ChamadosCtrl extends Controller
                 ]);
             }
         }
+
+        Auth::user()->notify(new ChamadosCliente($create));  
+        $this->email->notify(new ChamadosAdmin($create));
+
+        Atividades::create([
+            'nome' => 'Abertura de chamado',
+            'descricao' => 'Você efetuou a abertura de uma chamado, '.$create->assunto.'.',
+            'icone' => 'mdi-headset',
+            'url' => route('detalhes.chamados', $create->id),
+            'id_usuario' => Auth::id()
+        ]);
         return redirect()->route('detalhes.chamados', $create->id);
     }
     // Detalhes do chamado
@@ -82,6 +99,14 @@ class ChamadosCtrl extends Controller
             'gti_id_status' => $finalizar->id,
             'descricao' => (isset($request->descricao) ? $request->descricao : "Chamado finalizado por ".Auth::user()->RelationAssociado->nome.".")
         ]);
+        $create = Chamados::find($id);
+        Atividades::create([
+            'nome' => 'Encerramento de chamado',
+            'descricao' => 'Você efetuou o encerramento do chamado, '.$create->assunto.'.',
+            'icone' => 'mdi-headset-off',
+            'url' => route('detalhes.chamados', $id),
+            'id_usuario' => Auth::id()
+        ]);
         return response()->json(['success' => true]);
     }
     // Finalizando chamado
@@ -91,6 +116,14 @@ class ChamadosCtrl extends Controller
             'gti_id_chamados' => $id,
             'gti_id_status' => $abertura->id,
             'descricao' =>  "Chamado reaberto pelo colaborador: ".Auth::user()->RelationAssociado->nome."."
+        ]);
+        $create = Chamados::find($id);
+        Atividades::create([
+            'nome' => 'Reabertura de chamado',
+            'descricao' => 'Você efetuou a reabertura do chamado, '.$create->assunto.'.',
+            'icone' => 'mdi-headset',
+            'url' => route('detalhes.chamados', $id),
+            'id_usuario' => Auth::id()
         ]);
         return response()->json(['success' => true]);
     }
@@ -153,11 +186,26 @@ class ChamadosCtrl extends Controller
             'gti_id_status' => $finalizar->id,
             'descricao' => (isset($request->descricao) ? $request->descricao : "Chamado finalizado por ".Auth::user()->RelationAssociado->nome.".")
         ]);
+        $create = Chamados::find($id);
+        Atividades::create([
+            'nome' => 'Encerramento de chamado',
+            'descricao' => 'Você efetuou o encerramento do chamado, '.$create->assunto.'.',
+            'icone' => 'mdi-headset-off',
+            'url' => route('detalhes.chamados.gti', $id),
+            'id_usuario' => Auth::id()
+        ]);
         return response()->json(['success' => true]);
     }
     // Relatório do chamado
     public function RelatorioGTI($id){
         $dados = Chamados::find($id);
+        Atividades::create([
+            'nome' => 'Emissão de relatório do chamado',
+            'descricao' => 'Você efetuou a emissão do relatório do chamado, '.$dados->assunto.'.',
+            'icone' => 'mdi-file-document',
+            'url' => route('detalhes.chamados.gti', $id),
+            'id_usuario' => Auth::id()
+        ]);
         return view('tecnologia.chamados.relatorio')->with('chamado', $dados);
     }
     // Atualizando status
@@ -167,6 +215,15 @@ class ChamadosCtrl extends Controller
             'gti_id_chamados' => $id,
             'gti_id_status' => $request->status,
             'descricao' => (isset($request->descricao) ? $request->descricao : "Estado do chamado alterado por ".Auth::user()->RelationAssociado->nome.".")
+        ]);
+        
+        $chamado->RelationUsuario->notify(new ChamadosAlteracaoCliente($chamado));  
+        Atividades::create([
+            'nome' => 'Alteração de estado do chamado',
+            'descricao' => 'Você modificou o status do chamado, '.$chamado->assunto.'.',
+            'icone' => 'mdi-file-document',
+            'url' => route('detalhes.chamados.gti', $id),
+            'id_usuario' => Auth::id()
         ]);
         return response()->json(['success' => true]);
     }
@@ -183,6 +240,13 @@ class ChamadosCtrl extends Controller
     // Removendo status
     public function RemoveGTI($id){
         $status = ChamadosStatus::find($id);
+        Atividades::create([
+            'nome' => 'Remoção de status do chamado',
+            'descricao' => 'Você remove um status do chamado, '.$status->RelationStatus->assunto.'.',
+            'icone' => 'mdi-delete-forever',
+            'url' => route('detalhes.chamados.gti', $status->gti_id_chamados),
+            'id_usuario' => Auth::id()
+        ]);
         ChamadosStatus::find($id)->delete();
         return response()->json(['success' => true]);
     }
