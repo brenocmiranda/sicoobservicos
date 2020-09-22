@@ -13,11 +13,10 @@ Meu perfil
 		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
 			<ol class="breadcrumb">
 				<li><a href="{{route('inicio')}}">Home</a></li>
-				<li class="active">Perfil</li>
+				<li class="active">Meu perfil</li>
 			</ol>
 		</div>
 	</div>
-
 
 	@if(Session::has('alteracao'))
 	<p class="mx-auto col-sm-12 alert alert-{{ Session::get('alteracao')['class'] }}">
@@ -186,6 +185,9 @@ Meu perfil
 									<img src="{{(isset(Auth::user()->RelationImagem) ? asset('storage/app/'.Auth::user()->RelationImagem->endereco).'?'.rand() : asset('public/img/user.png').'/'.rand())}}" class="mt-5 rounded-circle" id="PreviewImage" width="130" height="130">
 									<div class="mx-auto btn-image rounded-circle position-relative">
 										<input type="file" class="px-0 position-absolute m-auto" accept=".png, .jpg, .jpeg" name="upload_img" id="upload_img" onchange="image(this);">
+										<div class="row h-100 align-items-center align-self-center justify-content-center my-auto">
+											<i class="mdi mdi-36px mdi-cloud-upload mdi-light" style="display: none"></i>
+										</div>
 									</div>
 								</div>
 								<div class="col-sm-12">
@@ -215,6 +217,12 @@ Meu perfil
 		});
 		$('.cpf').mask('000.000.000-00', {reverse: true});
 		$('.telefone').mask('(00) 00000-0000');
+
+		$('.btn-image').hover( function(){
+			$('.btn-image i').fadeIn('fast');
+		} , function() {
+		    $('.btn-image i').fadeOut('fast');
+		 });
 	});
 </script>
 @endsection

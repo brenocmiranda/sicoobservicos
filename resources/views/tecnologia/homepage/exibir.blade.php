@@ -29,7 +29,13 @@ Home
 		                	<i class="mdi mdi-hangouts mdi-36px d-block"></i>
 		                	<label class="text-truncate">Chamados</label>
 		                </a>
-		            </li>				
+		            </li>	
+		            <li class="col-4 p-0 float-left">
+		                <a href="{{route('exibir.documentos')}}" class="text-secondary px-2">
+		                	<i class="mdi mdi-file-outline mdi-36px d-block"></i>
+		                	<label class="text-truncate">Documentos</label>
+		                </a>
+		            </li>			
 		            <li class="col-4 p-0 float-left">
 		                <a href="{{route('exibir.solicitacoes.materiais')}}" class="text-secondary px-2">
 		                	<i class="mdi mdi-cube-outline mdi-36px d-block"></i>

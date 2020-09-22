@@ -33,11 +33,20 @@
                     <textarea class="form-control form-control-line" name="descricao" onkeyup="this.value = this.value.toUpperCase();"></textarea>
                   </div>
                 </div>
-                <div class="row col-12">
-                  <div class="col-8">
-                    <div class="form-group">
-                      <label class="col-form-label pb-3">Arquivo <span class="text-danger">*</span></label>
-                      <input type="file" name="id_arquivo" required/>
+                <div class="col-10">
+                  <div class="form-group">
+                    <label class="col-form-label pb-0">Arquivo <span class="text-danger">*</span></label>
+                    <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                      <div class="form-control form-control-line" data-trigger="fileinput"> 
+                        <i class="glyphicon glyphicon-file fileinput-exists"></i> 
+                        <span class="fileinput-filename"></span>
+                      </div> 
+                      <span class="input-group-addon btn btn-default btn-file"> 
+                        <span class="fileinput-new">Selecione seu arquivo</span> 
+                        <span class="fileinput-exists">Alterar</span>
+                        <input type="file" name="id_arquivo"> 
+                      </span> 
+                      <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remover</a> 
                     </div>
                   </div>
                 </div>

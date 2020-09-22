@@ -23,9 +23,15 @@ class DocumentosRqt extends FormRequest
      */
     public function rules()
     {   
-        return ['nome' => 'required|min:3',
-            'id_arquivo' => 'required|file',
-        ];
+        if($this->segment(4) == 'adicionar'){
+            return ['nome' => 'required|min:3',
+                'id_arquivo' => 'required|file',
+            ];
+        }else{
+            return ['nome' => 'required|min:3',
+                'id_arquivo' => 'nullable|file',
+            ];
+        }
     
     }
 

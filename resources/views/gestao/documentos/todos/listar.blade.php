@@ -58,6 +58,7 @@ Documentos
 		// Limpando as informações para adicionar
 		$('#adicionar').on('click', function(){
 			$('#modal-adicionar form').each (function(){
+				$('.modal .fileinput-filename').html('');
 				this.reset();
 				if ($(this).hasClass('border-bottom border-danger')){
 					this.removeClass('border-bottom border-danger');
@@ -101,7 +102,7 @@ Documentos
 			var data = table.row('tr.selected').data();
 			$('.modal .nome').val(data.nome);
 			$('.modal .descricao').html(data.descricao);
-
+			$('.modal .fileinput-filename').html(data.arquivo.replace('documentos/', ''));
 			if(data.status == 1){
 				$(".modal .status").prop('checked', false).trigger("click");
 			}else{
@@ -118,7 +119,7 @@ Documentos
 			var data = table.row('tr.selected').data();
 			$('.modal .nome').val(data.nome);
 			$('.modal .descricao').html(data.descricao);
-
+			$('.modal .fileinput-filename').html(data.arquivo.replace('documentos/', ''));
 			if(data.status == 1){
 				$('#modal-detalhes .status').removeAttr('disabled');
 				$(".modal .status").prop('checked', false).trigger("click");
@@ -142,7 +143,7 @@ Documentos
 			$(this).parents('tr').addClass('selected');
 			$(this).parent('tr').addClass('selected');
 			var data = table.row('tr.selected').data();
-			var url = "{{url('app/gestao/documentos/todos/alterar')}}/"+data.id;
+			var url = "{{url('app/gestao/documentos/alterar')}}/"+data.id;
 			swal({
 				title: "Tem certeza que deseja alterar o estado?",
 				icon: "warning",
@@ -170,13 +171,15 @@ Documentos
 		$('#modal-adicionar #formAdicionar').on('submit', function(e){
 			// Adicionando novos itens
 			var table = $('#table').DataTable();
-			var data = table.row('tr.selected').data();
-			var myForm = new FormData($('#modal-adicionar #formAdicionar'));
+			var data = table.row('tr.selected').data(); 
 			e.preventDefault();
 			$.ajax({
 				url: '{{ route("adicionar.todos.documentos") }}',
 				type: 'POST',
-				data: myForm,
+				data: new FormData(this),
+				processData: false,
+				cache: false,
+		        contentType: false,
 				beforeSend: function(){
 					$('.modal-body, .modal-footer').addClass('d-none');
 					$('.carregamento').html('<div class="mx-auto text-center my-5"> <div class="col-12"> <div class="spinner-border my-4" role="status"> <span class="sr-only"> Loading... </span> </div> </div> <label>Salvando informações...</label></div>');
@@ -218,12 +221,14 @@ Documentos
 			// Editando as informações
 			var table = $('#table').DataTable();
 			var data = table.row('tr.selected').data();
-			var myForm = new FormData($('#modal-editar #formEditar'));
 			e.preventDefault();
 			$.ajax({
-				url: 'todos/editar/'+data.id,
+				url: 'documentos/editar/'+data.id,
 				type: 'POST',
-				data: myForm,
+				data: new FormData(this),
+				processData: false,
+		        cache: false,
+		        contentType: false,
 				beforeSend: function(){
 					$('.modal-body, .modal-footer').addClass('d-none');
 					$('.carregamento').html('<div class="mx-auto text-center my-5"> <div class="col-12"> <div class="spinner-border my-4" role="status"> <span class="sr-only"> Loading... </span> </div> </div> <label>Salvando informações...</label></div>');

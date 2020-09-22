@@ -63,7 +63,6 @@ Tópicos
 									</div>
 								</li>
 								@endforeach
-							
 							</ul>
 						@else
 							<div class="row mx-auto">

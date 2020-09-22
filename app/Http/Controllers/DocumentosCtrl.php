@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use Illuminate\Routing\Controller;
 use App\Http\Requests\DocumentosRqt;
+use App\Models\Arquivos; 
 use App\Models\Atividades; 
 use App\Models\Documentos;
 
@@ -16,7 +17,13 @@ class DocumentosCtrl extends Controller
 		$this->middleware('auth');
 	}
 	
-    // Listando todos os funções
+	// Exibir todos os para o público
+	public function ExibirDocumentos(){
+		$dados = Documentos::where('status', 1)->get();
+		return view('suporte.documentos.exibir')->with('dados', $dados);
+	}
+
+    // Listando todos os documentos
 	public function Exibir(){
 		return view('gestao.documentos.todos.listar');
 	}
@@ -26,7 +33,10 @@ class DocumentosCtrl extends Controller
                 return '<a href="javascript:void(0)" id="detalhes">'.$dados->nome.'</a>';
             })
             ->editColumn('documento', function(Documentos $dados){
-                return '<a href='.asset('storage/app/documentos/'. $dados->RelationArquivo->endereco).'> <i class="mdi mdi-cloud-download"></i> Download<a>';
+                return '<a href='.asset('storage/app/'. $dados->RelationArquivo->endereco).' target="_blank"> <i class="mdi mdi-download"></i> <span> Download </span> <a>';
+            })
+            ->editColumn('arquivo', function(Documentos $dados){
+                return $dados->RelationArquivo->endereco;
             })
             ->editColumn('status1', function(Documentos $dados){
                 return '<label class="badge'.($dados->status == 1 ? " badge-success" : " badge-danger").'">'.($dados->status == 1 ? "Ativo" : "Desativado").'</label>';
@@ -37,7 +47,7 @@ class DocumentosCtrl extends Controller
 					<button class="btn btn-dark btn-xs btn-rounded" id="alterar" title="Desativar o documento"><i class="mx-0 mdi mdi-close"></i></button>' : '
 					<button class="btn btn-dark btn-xs btn-rounded mx-1" id="editar" title="Editar informações do documento"><i class="mx-0 mdi mdi-settings"></i></button>
 					<button class="btn btn-dark btn-xs btn-rounded" id="alterar" title="Ativar o documento"><i class="mx-0 mdi mdi-check"></i></button>');
-            })->rawColumns(['nome1', 'documento', 'status1', 'acoes'])->make(true);
+            })->rawColumns(['nome1', 'documento',  'arquivo', 'status1', 'acoes'])->make(true);
 	}
 
 	// Adicionando novo documento
@@ -46,7 +56,8 @@ class DocumentosCtrl extends Controller
 		if(!empty($request->id_arquivo)){
             $nameFile = null;
             if ($request->hasFile('id_arquivo') && $request->file('id_arquivo')->isValid()) {
-                $name = uniqid(date('HisYmd'));
+				$string = iconv( "UTF-8" , "ASCII//TRANSLIT//IGNORE" , $request->nome);
+				$name = preg_replace( array( '/[ ]/' , '/[^A-Za-z0-9\-]/' ) , array( '' , '' ) , $string);
                 $extension =  $request->id_arquivo->extension();
                 $nameFile = "{$name}.{$extension}";
                 $upload =  $request->id_arquivo->storeAs('documentos', $nameFile);
@@ -76,7 +87,8 @@ class DocumentosCtrl extends Controller
 		if(!empty($request->id_arquivo)){
             $nameFile = null;
             if ($request->hasFile('id_arquivo') && $request->file('id_arquivo')->isValid()) {
-                $name = uniqid(date('HisYmd'));
+               	$string = iconv( "UTF-8" , "ASCII//TRANSLIT//IGNORE" , $request->nome);
+				$name = preg_replace( array( '/[ ]/' , '/[^A-Za-z0-9\-]/' ) , array( '' , '' ) , $string);
                 $extension =  $request->id_arquivo->extension();
                 $nameFile = "{$name}.{$extension}";
                 $upload =  $request->id_arquivo->storeAs('documentos', $nameFile);
@@ -93,7 +105,7 @@ class DocumentosCtrl extends Controller
 		]);
 		Atividades::create([
 			'nome' => 'Edição de informações',
-			'descricao' => 'Você modificou as informações do documento '.$create->nome.'.',
+			'descricao' => 'Você modificou as informações do documento '.$arq->nome.'.',
 			'icone' => 'mdi-auto-fix',
 			'url' => route('exibir.todos.documentos'),
 			'id_usuario' => Auth::id()

@@ -148,6 +148,9 @@ Route::group(['prefix' => 'app'], function(){
 			Route::post('reposicao', 'MateriaisCtrl@Reposicao')->name('efetuar.reposicao.materiais');
 			Route::get('categorias/{id}', 'MateriaisCtrl@ListarMateriais')->name('categorias.solicitacoes.materiais');
 		});
+		Route::group(['prefix' => 'documentos'], function(){
+			Route::get('', 'DocumentosCtrl@ExibirDocumentos')->name('exibir.documentos');
+		});
 	});
 
 	#---------------------------------------------------------------------

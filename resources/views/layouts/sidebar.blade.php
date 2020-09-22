@@ -65,7 +65,7 @@
         <ul class="nav nav-second-level {{ (Request::segment(2) == 'suporte' ? 'collapse in' : '') }}">
           <li> <a href="{{route('exibir.base')}}"><span class="hide-menu">Aprendizagem</span></a> </li>
           <li> <a href="{{route('exibir.chamados')}}"><span class="hide-menu">Chamados</span></a> </li>
-          <li> <a href="#"><span class="hide-menu">Documentos</span></a> </li>
+          <li> <a href="{{route('exibir.documentos')}}"><span class="hide-menu">Documentos</span></a> </li>
           <li> <a href="{{route('exibir.solicitacoes.materiais')}}"><span class="hide-menu">Materiais</span></a> </li>
         </ul>
       </li>
