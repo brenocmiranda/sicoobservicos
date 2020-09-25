@@ -80,6 +80,18 @@ Adicionar tópico
 									</div>
 								</div>
 							</div>
+							<div class="col-12">
+								<div class="form-group">
+									<label class="col-form-label col-12 row mb-0">Selecione os anexos</label>
+									<small>Todos formatos são aceitos aceitos: <b>.png</b>, <b>.jpg</b>, <b>.xls</b>, <b>.pdf</b>, <b>.doc</b>, <b>.docx</b></small>
+									<div class="row col-12 mt-3 preview mx-0 p-0">
+										<div class="border mx-2 rounded col-2 row p-0 mb-4" style="height: 7em;">
+											<i class="mdi mdi-plus mdi-36px m-auto"></i>
+											<input type="file" class="px-0 col-12 position-absolute mx-auto h-100 pointer" style="opacity: 0; top: 0%; left: 0%" id="addArquivo" title="Selecione os anexos do tópico" multiple>
+										</div>
+									</div> 
+								</div>
+							</div>
 							<hr class="col-10 mt-0">
 							<div class="row col-12 justify-content-center mx-auto">
 								<a href="{{route('exibir.base.aprendizagem')}}" class="btn btn-danger btn-outline col-3 d-flex align-items-center justify-content-center mx-2">
@@ -103,6 +115,15 @@ Adicionar tópico
 
 @section('suporte')
 <script type="text/javascript">
+	function removeImagem(id){
+		$.ajax({
+			url: "removeArquivo/"+id,
+			type: 'GET',
+			success: function(data){ 
+				$('#PreviewImage'+id).remove();
+			}
+		});
+	}
 	$(document).ready( function (){
 		$('.summernote').summernote({
             height: 150, // set editor height
@@ -132,6 +153,31 @@ Adicionar tópico
 				}
 			});
 		});
+
+		// Pré-visualização de várias imagens no navegador
+		$('#addArquivo').on('change', function(event) {
+			var formData = new FormData();
+			formData.append('_token', '{{csrf_token()}}');
+
+			if (this.files) {
+				for (i = 0; i < this.files.length; i++) {
+					formData.append('arquivos[]', this.files[i]);
+				}
+				$.ajax({
+					url: "{{ route('adicionar.arquivos.aprendizagem') }}",
+					type: 'POST',
+					data: formData,
+					processData: false,
+					contentType: false,
+					success: function(data){ 
+						for (i = 0; i < data.length; i++) {
+							$('div.preview').append('<div class="border mx-2 mb-4 rounded col-2 p-0 row text-center" id="PreviewImage'+data[i].id+'"> <input type="hidden" name="arquivos[]" value="'+data[i].id+'"><a href="javascript:void(0)" onclick="removeImagem('+data[i].id+')" class="btn btn-light rounded-circle m-n2 mb-auto border btn-xs position-absolute" style="height: 26px;">x</a>'+(data[i].endereco.split('.')[1] == 'docx' || data[i].endereco.split('.')[1] == 'doc' ? '<i class="mdi mdi-file-word mdi-36px mdi-dark m-auto col-12"></i><span class="col-12 text-truncate">'+data[i].endereco.replace('base/', '')+'</span>' : (data[i].endereco.split('.')[1] == 'xls' || data[i].endereco.split('.')[1] == 'xlsx' || data[i].endereco.split('.')[1] == 'xlsm' || data[i].endereco.split('.')[1] == 'csv' ? '<i class="mdi mdi-file-excel mdi-36px mdi-dark m-auto col-12"></i><span class="col-12 text-truncate">'+data[i].endereco.replace('base/', '')+'</span>' : (data[i].endereco.split('.')[1] == 'pdf' ? '<i class="mdi mdi-file-pdf mdi-36px mdi-dark m-auto col-12"></i><span class="col-12 text-truncate">'+data[i].endereco.replace('base/', '')+'</span>' : '<i class="mdi mdi-file-document mdi-36px mdi-dark m-auto col-12"></i><span class="col-12 text-truncate">'+data[i].endereco.replace('base/', '')+'</span>')))+'</div>');
+						} 
+						$('#addArquivo').val('');   
+					}
+				});
+			}
+		});	
 	});
 </script>
 @endsection

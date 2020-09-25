@@ -178,7 +178,6 @@ Documentos
 				type: 'POST',
 				data: new FormData(this),
 				processData: false,
-				cache: false,
 		        contentType: false,
 				beforeSend: function(){
 					$('.modal-body, .modal-footer').addClass('d-none');
@@ -227,7 +226,6 @@ Documentos
 				type: 'POST',
 				data: new FormData(this),
 				processData: false,
-		        cache: false,
 		        contentType: false,
 				beforeSend: function(){
 					$('.modal-body, .modal-footer').addClass('d-none');

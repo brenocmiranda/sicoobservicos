@@ -30,6 +30,7 @@ Solicitações
 				</div>
 			</div>
 			
+			@if(!empty($chamados[0]))
 			<section class="py-4">
 				<div class="sttabs tabs-style-linebox">
                     <nav>
@@ -112,13 +113,20 @@ Solicitações
                 </div>
                 <!-- /tabs -->
             </section>
+            @else
+            <div class="row mx-auto pt-4">
+				<label class="alert alert-secondary col-12 rounded">Você não possui nenhum chamado cadastrado.</label>
+			</div>
+            @endif
 		</div>
 	</div>
 </div>
 @endsection
 
 @section('modal')
-  @include('tecnologia.chamados.status')
+	@if(!empty($chamados[0]))
+  		@include('tecnologia.chamados.status')
+  	@endif
 @endsection
 
 @section('suporte')

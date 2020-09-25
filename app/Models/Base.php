@@ -20,4 +20,8 @@ class Base extends Model
     public function RelationTipos(){
         return $this->belongsTo(Tipos::class, 'gti_id_tipos', 'id');
     }
+
+    public function RelationArquivos(){
+        return $this->belongsToMany(Arquivos::class, 'sup_base_arquivos', 'sup_id_topico', 'id_arquivo');
+    }
 }

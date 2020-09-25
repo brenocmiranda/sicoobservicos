@@ -12,10 +12,11 @@ use App\Notifications\ChamadosAdmin;
 use App\Notifications\ChamadosAlteracaoCliente;
 use App\Http\Requests\FuncoesRqt;
 use App\Http\Requests\MessageRqt;
+use App\Models\Arquivos;
 use App\Models\Atividades;
 use App\Models\Chamados;
 use App\Models\CogEmailsChamado;
-use App\Models\ChamadosImagens;
+use App\Models\ChamadosArquivos;
 use App\Models\ChamadosStatus;
 use App\Models\ChamadosMensagens;
 use App\Models\Imagens;
@@ -65,12 +66,13 @@ class ChamadosCtrl extends Controller
             'gti_id_status' => $statusAbertura->id,
             'descricao' => "Abertura do chamado registrado junto a equipe de TI. Aguarde alguns instantes que logo estaremos analisando sua solicitação."
         ]);
-        // Cadastramento de várias imagens do chamado
-        if ($request->imagens) {
-            foreach($request->imagens as $img){
-                $imagem_produto = ChamadosImagens::create([
+
+        // Cadastramento de vários arquivos 
+        if ($request->arquivos) {
+            foreach($request->arquivos as $arq){
+                $imagem_produto = ChamadosArquivos::create([
                     'gti_id_chamados' => $create->id,
-                    'id_imagem' => $img                    
+                    'id_arquivo' => $arq                    
                 ]);
             }
         }
@@ -142,28 +144,28 @@ class ChamadosCtrl extends Controller
         $dados = Base::where('gti_id_fontes', $idFonte)->where('gti_id_tipos', $idTipo)->limit(5)->get();
         return $dados;
     }
-    // Importando fotos do chamado
-    public function Imagens(Request $request){
+    public function Arquivos(Request $request){
         // Cadastramento de várias imagens do mesmo produto
-        if ($request->hasFile('imagens')) {
-            foreach($request->file('imagens') as $imagem){
+        if ($request->hasFile('arquivos')) {
+            foreach($request->file('arquivos') as $imagem){
                 if($imagem->isValid()){
-                    $name = uniqid(date('HisYmd'));
+                    $string = iconv( "UTF-8" , "ASCII//TRANSLIT//IGNORE" , str_replace($imagem->extension(), '', $imagem->getClientOriginalName()));
+                    $name = preg_replace( array( '/[ ]/' , '/[^A-Za-z0-9\-]/' ) , array( '' , '' ) , $string);
                     $extension =  $imagem->extension();
                     $nameFile = "{$name}.{$extension}";
                     $upload =  $imagem->storeAs('chamados', $nameFile);
                 }
-                $imagens[] = Imagens::create(['endereco' => $upload, 'tipo' => 'chamados']);
+                $arquivos[] = Arquivos::create(['endereco' => $upload, 'tipo' => 'chamados']);
             }
         }
-        return response()->json($imagens);
+        return response()->json($arquivos);
     }
-    // Removendo as fotos do chamado
-    public function RemoveImagens($id){
-        $imagem = Imagens::find($id);
-        unlink(getcwd().'/storage/app/'.$imagem->endereco);
-        //ChamadosImagens::find($id)->delete();
-        Imagens::find($id)->delete();
+    // Removendo arquivos de anexo
+    public function RemoveArquivos($id){
+        $arquivo = Arquivos::find($id);
+        unlink(getcwd().'/storage/app/'.$arquivo->endereco);
+        ChamadosArquivos::where('id_arquivo', $id)->delete();
+        Arquivos::find($id)->delete();
         return response()->json(['success' => true]);
     }
     // Relatório do chamado

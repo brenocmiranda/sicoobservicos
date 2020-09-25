@@ -3,21 +3,21 @@ Relatório da solicitação #{{$chamado->id}}
 @endsection
 
 @section('header-support')
- <style type="text/css">
-  	@media print {
-	  	* {
-		background:transparent !important;
-		color:black !important;
-		text-shadow:none !important;
-		filter:none !important;
-		-ms-filter:none !important;
+<style type="text/css">
+	@media print {
+		* {
+			background:transparent !important;
+			color:black !important;
+			text-shadow:none !important;
+			filter:none !important;
+			-ms-filter:none !important;
 		}
 
 		body {
-		margin:0;
-		padding:0;
-		line-height: 1.4em;
-		color: black !important;
+			margin:0;
+			padding:0;
+			line-height: 1.4em;
+			color: black !important;
 		}
 
 		body .page{
@@ -36,7 +36,7 @@ Relatório da solicitação #{{$chamado->id}}
 		line-height: 1.4em;
 		color: black !important;
 	}
-  </style>
+</style>
 @endsection
 
 @include('layouts.header')
@@ -92,12 +92,30 @@ Relatório da solicitação #{{$chamado->id}}
 						</label>  
 					</div>
 					<div class="col-12 mb-5">
-						<label class="mb-0 d-inline-block">
+						<label class="d-inline-block">
 							<b>Anexos do chamado</b>
 						</label>
-						<div class="zoom-gallery">
-							@foreach($chamado->RelationImagens as $imagens)
-							<img src="{{asset('storage/app/'.$imagens->endereco)}}" width="100" height="100" class="rounded border p-3 m-3 ml-n1">
+						<div>
+							@foreach($chamado->RelationArquivos as $arquivos)
+							<div class="row mx-auto"> 
+								<a href="{{asset('storage/app/'.$arquivos->endereco)}}" target="_blank" class="row col-12">
+									<div class="px-2">
+										@if( explode(".", $arquivos->endereco)[1] == "docx" || explode(".", $arquivos->endereco)[1] == "doc")
+										<i class="mdi mdi-file-word mdi-dark mdi-18px m-auto"></i>
+										@elseif( explode(".", $arquivos->endereco)[1] == "xls" || explode(".", $arquivos->endereco)[1] == "xlsx" || explode(".", $arquivos->endereco)[1] == "xlsm"
+										|| explode(".", $arquivos->endereco)[1] == "csv")
+										<i class="mdi mdi-file-excel mdi-dark mdi-18px m-auto"></i>
+										@elseif( explode(".", $arquivos->endereco)[1] == "pdf")
+										<i class="mdi mdi-file-pdf mdi-dark mdi-18px m-auto"></i>
+										@else
+										<i class="mdi mdi-file-document mdi-dark mdi-18px m-auto"></i>
+										@endif
+									</div>
+									<div class="my-auto">
+										<span class="text-truncate">{{str_replace('chamados/', '', $arquivos->endereco)}}</span>
+									</div>
+								</a>
+							</div>
 							@endforeach
 						</div>
 					</div>
@@ -134,7 +152,7 @@ Relatório da solicitação #{{$chamado->id}}
 @section('suporte')
 <script type="text/javascript">
 	$(document).ready( function (){
-		 window.print();
+		window.print();
 	});
 </script>
 @endsection

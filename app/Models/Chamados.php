@@ -33,8 +33,8 @@ class Chamados extends Model
         return $this->belongsTo(ChamadosStatus::class, 'id', 'gti_id_chamados');
     }
 
-    public function RelationImagens(){
-        return $this->belongsToMany(Imagens::class, 'gti_chamados_has_imagens', 'gti_id_chamados', 'id_imagem');
+    public function RelationArquivos(){
+        return $this->belongsToMany(Arquivos::class, 'gti_chamados_has_arquivos', 'gti_id_chamados', 'id_arquivo');
     }
 
     public function RelationChamadosMensagens(){

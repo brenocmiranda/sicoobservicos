@@ -138,8 +138,8 @@ Route::group(['prefix' => 'app'], function(){
 			Route::get('detalhes/{id}', 'ChamadosCtrl@Detalhes')->name('detalhes.chamados');
 			Route::any('tipos/{idFonte}', 'ChamadosCtrl@ListarTipos')->name('tipos.chamados');
 			Route::any('base/{idTipo}/{idFonte}', 'ChamadosCtrl@ListarBase')->name('base.chamados');
-			Route::post('addImagens', 'ChamadosCtrl@Imagens')->name('adicionar.imagens.chamados');
-			Route::get('removeImagem/{id}', 'ChamadosCtrl@RemoveImagens')->name('remover.imagens.chamados');
+			Route::post('addArquivos', 'ChamadosCtrl@Arquivos')->name('adicionar.arquivos.chamados');
+			Route::get('removeArquivo/{id}', 'ChamadosCtrl@RemoveArquivos')->name('remover.arquivos.chamados');
 		});
 		// Solicitações de materiais
 		Route::group(['prefix' => 'materiais'], function(){
@@ -246,6 +246,21 @@ Route::group(['prefix' => 'app'], function(){
 				Route::any('resetar/{id}', 'UsuariosCtrl@Resetar')->name('resetar.usuarios.administrativo')->middleware('auth');
 			});
 		});
+		Route::group(['prefix' => 'aprendizagem'], function(){
+			// Tópicos
+			Route::group(['prefix' => 'base'], function(){
+				Route::get('', 'BaseCtrl@Exibir')->name('exibir.base.aprendizagem');
+				Route::get('adicionar', 'BaseCtrl@Adicionar')->name('adicionar.base.aprendizagem');
+				Route::post('salvar', 'BaseCtrl@AdicionarSalvar')->name('salvar.adicionar.base.aprendizagem');
+				Route::get('editar/{id}', 'BaseCtrl@Editar')->name('editar.base.aprendizagem');
+				Route::post('salvarEditar/{id}', 'BaseCtrl@EditarSalvar')->name('salvar.editar.base.aprendizagem');
+				Route::get('detele/{id}', 'BaseCtrl@Delete')->name('delete.base.aprendizagem');
+				Route::post('addArquivos', 'BaseCtrl@Arquivos')->name('adicionar.arquivos.aprendizagem');
+				Route::get('removeArquivo/{id}', 'BaseCtrl@RemoveArquivos')->name('remover.arquivos.aprendizagem');
+				Route::any('tipos/{idFonte}', 'ChamadosCtrl@ListarTipos')->name('tipos.chamados');
+				Route::any('base/{idTipo}/{idFonte}', 'ChamadosCtrl@ListarBase')->name('base.chamados');
+			});
+		});
 		Route::group(['prefix' => 'credito'], function(){
 			// Armários
 			Route::group(['prefix' => 'armarios'], function(){
@@ -284,19 +299,7 @@ Route::group(['prefix' => 'app'], function(){
 				Route::any('detalhes/{id}', 'ProdutosCredCtrl@Detalhes')->name('detalhes.produtos.credito');
 			});
 		});
-		Route::group(['prefix' => 'aprendizagem'], function(){
-			// Tópicos
-			Route::group(['prefix' => 'base'], function(){
-				Route::get('', 'BaseCtrl@Exibir')->name('exibir.base.aprendizagem');
-				Route::get('adicionar', 'BaseCtrl@Adicionar')->name('adicionar.base.aprendizagem');
-				Route::post('salvar', 'BaseCtrl@AdicionarSalvar')->name('salvar.adicionar.base.aprendizagem');
-				Route::get('editar/{id}', 'BaseCtrl@Editar')->name('editar.base.aprendizagem');
-				Route::post('salvarEditar/{id}', 'BaseCtrl@EditarSalvar')->name('salvar.editar.base.aprendizagem');
-				Route::get('detele/{id}', 'BaseCtrl@Delete')->name('delete.base.aprendizagem');
-				Route::any('tipos/{idFonte}', 'ChamadosCtrl@ListarTipos')->name('tipos.chamados');
-				Route::any('base/{idTipo}/{idFonte}', 'ChamadosCtrl@ListarBase')->name('base.chamados');
-			});
-		});
+		
 		Route::group(['prefix' => 'chamados'], function(){
 			// Fontes
 			Route::group(['prefix' => 'fontes'], function(){

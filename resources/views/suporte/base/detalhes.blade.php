@@ -42,11 +42,11 @@
             </div>
             @if(Auth::user()->RelationFuncao->gerenciar_suporte)
             <div class="ml-auto">
-              <a href="{{route('editar.base.suporte', $dados->id)}}" class="btn btn-default btn-rounded btn-outline btn-xs px-3 mx-1">
+              <a href="{{route('editar.base.aprendizagem', $dados->id)}}" class="btn btn-default btn-rounded btn-outline btn-xs px-3 mx-1">
                 <i class="mdi mdi-pencil"></i>
                 <small>Editar</small>
               </a>
-              <a href="javascript:void(0)" data="{{route('delete.base.suporte', $dados->id)}}" class="btn-delete btn btn-default btn-rounded btn-outline btn-xs px-3">
+              <a href="javascript:void(0)" data="{{route('delete.base.aprendizagem', $dados->id)}}" class="btn-delete btn btn-default btn-rounded btn-outline btn-xs px-3">
                 <i class="mdi mdi-close"></i>
                 <small>Deletar</small>
               </a>
@@ -58,6 +58,27 @@
               <h4>{{$dados->titulo}}</h4>
               <h5>{{$dados->RelationFontes->nome}} &#183 {{$dados->RelationTipos->nome}}</h5>
               <label>{{$dados->subtitulo}}</label> 
+              @foreach($dados->RelationArquivos as $arquivos)
+                <div class="row mx-auto"> 
+                <a href="{{asset('storage/app/'.$arquivos->endereco)}}" target="_blank" class="row col-12">
+                  <div class="px-2">
+                    @if( explode(".", $arquivos->endereco)[1] == "docx" || explode(".", $arquivos->endereco)[1] == "doc")
+                    <i class="mdi mdi-file-word mdi-dark mdi-18px m-auto"></i>
+                    @elseif( explode(".", $arquivos->endereco)[1] == "xls" || explode(".", $arquivos->endereco)[1] == "xlsx" || explode(".", $arquivos->endereco)[1] == "xlsm"
+                    || explode(".", $arquivos->endereco)[1] == "csv")
+                    <i class="mdi mdi-file-excel mdi-dark mdi-18px m-auto"></i>
+                    @elseif( explode(".", $arquivos->endereco)[1] == "pdf")
+                    <i class="mdi mdi-file-pdf mdi-dark mdi-18px m-auto"></i>
+                    @else
+                    <i class="mdi mdi-file-document mdi-dark mdi-18px m-auto"></i>
+                    @endif
+                  </div>
+                  <div class="my-auto">
+                    <span class="text-truncate">{{str_replace('base/', '', $arquivos->endereco)}}</span>
+                  </div>
+                </a>
+                </div>
+                @endforeach
               <hr>
               <p><?php echo $dados->descricao; ?></p>
               <hr>
@@ -70,25 +91,25 @@
       </div>
     </div>
     <div class="col-4">
-        <h5 class="text-center">Outros tópicos relacionados</h5>
-        <hr class="mt-2">
-        <div id="info-base">
-          @foreach($topicos as $topico)
-          <label class="text-muted text-left">
-            <div class="panel panel-default border shadow-sm">
-              <div class="panel-heading py-4">
-                <a href="{{route('detalhes.base', $topico->id)}}">{{$topico->titulo}}</a>
-              </div>
-              <div class="panel-wrapper collapse in">
-                <div class="panel-body py-3"> 
-                  <p>{{$topico->subtitulo}}</p>
-                </div>
+      <h5 class="text-center">Outros tópicos relacionados</h5>
+      <hr class="mt-2">
+      <div id="info-base">
+        @foreach($topicos as $topico)
+        <label class="text-muted text-left">
+          <div class="panel panel-default border shadow-sm">
+            <div class="panel-heading py-4">
+              <a href="{{route('detalhes.base', $topico->id)}}">{{$topico->titulo}}</a>
+            </div>
+            <div class="panel-wrapper collapse in">
+              <div class="panel-body py-3"> 
+                <p>{{$topico->subtitulo}}</p>
               </div>
             </div>
-          </label>
-          @endforeach
-        </div>
-      </div>  
+          </div>
+        </label>
+        @endforeach
+      </div>
+    </div>  
   </div>
 </div>
 @endsection
