@@ -39,6 +39,7 @@
   <link href="{{ asset('public/vendor/owl.carousel/owl.theme.default.css')  }}" rel="stylesheet" type="text/css">
   <link href="{{ asset('public/vendor/morrisjs/morris.css')  }}" rel="stylesheet">
   <link href="{{ asset('public/vendor/summernote/dist/summernote.css')  }}" rel="stylesheet">
+  <link rel="stylesheet" href="http://sicoobservicos.coop.br/css/jquery-ui.css?157548178">
 
   @yield('header-support')
 </head>

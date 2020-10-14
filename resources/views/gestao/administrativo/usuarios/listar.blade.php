@@ -32,7 +32,7 @@ Usuários
 				</div>
 			</div>
 			<div class="col-12 mb-3 mx-3 mb-3 mx-3">	
-				<table class="table table-striped text-center color-table muted-table rounded" id="table">
+				<table class="table text-center color-table muted-table rounded" id="table">
 					<thead>
 						<th> Nick </th>
 						<th> Nome </th>
@@ -104,10 +104,10 @@ Usuários
 			});
 			$('#modal-editar #err').html('');
 			var table = $('#table').DataTable();
-			table.$('tr.selected').removeClass('selected');
-			$(this).parents('tr').addClass('selected');
-			$(this).parent('tr').addClass('selected');
-			var data = table.row('tr.selected').data();
+			table.$('tr.active').removeClass('active');
+			$(this).parents('tr').addClass('active');
+			$(this).parent('tr').addClass('active');
+			var data = table.row('tr.active').data();
 			$('.modal .login').val(data.login);
 			$('.modal .status').val(data.status);
 			$('.modal .email').val(data.email);
@@ -127,10 +127,10 @@ Usuários
 				this.reset();
 			});
 			var table = $('#table').DataTable();
-			table.$('tr.selected').removeClass('selected');
-			$(this).parents('tr').addClass('selected');
-			$(this).parent('tr').addClass('selected');
-			var data = table.row('tr.selected').data();
+			table.$('tr.active').removeClass('active');
+			$(this).parents('tr').addClass('active');
+			$(this).parent('tr').addClass('active');
+			var data = table.row('tr.active').data();
 			$('.modal .cli_id_associado').val(data.cli_id_associado);
 			$('.modal .status').val(data.status);
 			$('#modal-alterar').modal('show');	
@@ -138,10 +138,10 @@ Usuários
 		$('#table tbody').on('click', 'button#resetar', function(e){
 			// Modal resetar
 			var table = $('#table').DataTable();
-			table.$('tr.selected').removeClass('selected');
-			$(this).parents('tr').addClass('selected');
-			$(this).parent('tr').addClass('selected');
-			var data = table.row('tr.selected').data();
+			table.$('tr.active').removeClass('active');
+			$(this).parents('tr').addClass('active');
+			$(this).parent('tr').addClass('active');
+			var data = table.row('tr.active').data();
 		    swal({
 		      title: "Tem certeza que deseja redefinir a senha do usuário?",
 		      text: "Essa redefinição irá impactar no acesso a plataforma pelo colaborador.",
@@ -172,10 +172,10 @@ Usuários
 		$('#table tbody').on('click', 'a#detalhes', function(e){
 			// Modal detalhes
 			var table = $('#table').DataTable();
-			table.$('tr.selected').removeClass('selected');
-			$(this).parents('tr').addClass('selected');
-			$(this).parent('tr').addClass('selected');
-			var data = table.row('tr.selected').data();
+			table.$('tr.active').removeClass('active');
+			$(this).parents('tr').addClass('active');
+			$(this).parent('tr').addClass('active');
+			var data = table.row('tr.active').data();
 			$('.modal .login').val(data.login);
 			$('.modal .status').val(data.status);
 			$('.modal .email').val(data.email);
@@ -197,7 +197,7 @@ Usuários
 		$('#modal-adicionar #formAdicionar').on('submit', function(e){
 			// Adicionando novos itens
 			var table = $('#table').DataTable();
-			var data = table.row('tr.selected').data();
+			var data = table.row('tr.active').data();
 			e.preventDefault();
 			$.ajax({
 				url: '{{ route("adicionar.usuarios.administrativo") }}',
@@ -244,7 +244,7 @@ Usuários
 		$('#modal-editar #formEditar').on('submit', function(e){
 			// Editando as informações
 			var table = $('#table').DataTable();
-			var data = table.row('tr.selected').data();
+			var data = table.row('tr.active').data();
 			e.preventDefault();
 			$.ajax({
 				url: 'usuarios/editar/'+data.id,
@@ -291,7 +291,7 @@ Usuários
 		$('#modal-alterar #formAlterar').on('submit', function(e){
 			// Alterando os status
 			var table = $('#table').DataTable();
-			var data = table.row('tr.selected').data();
+			var data = table.row('tr.active').data();
 			e.preventDefault();
 			$.ajax({
 				url: 'usuarios/alterar/'+data.id,

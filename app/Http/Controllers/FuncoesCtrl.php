@@ -74,6 +74,7 @@ class FuncoesCtrl extends Controller
 			'ver_administrativo' => ($request->ver_administrativo == "on" ? 1 : 0),
 			'gerenciar_administrativo' => ($request->gerenciar_administrativo == "on" ? 1 : 0),
 		]);
+		$create = Funcoes::find($id);
 		Atividades::create([
 			'nome' => 'Edição de informações',
 			'descricao' => 'Você modificou as informações da função administrativa '.$create->nome.'.',

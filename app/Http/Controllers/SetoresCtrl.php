@@ -55,6 +55,7 @@ class SetoresCtrl extends Controller
 			'nome' => $request->nome, 
 			'status' => ($request->status == "on" ? 1 : 0)
 		]);
+		$create = Setores::find($id);
 		Atividades::create([
 			'nome' => 'Edição de informações',
 			'descricao' => 'Você modificou as informações do setor administrativo '.$create->nome.'.',

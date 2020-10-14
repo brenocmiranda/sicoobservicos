@@ -71,9 +71,14 @@ Solicitações
 												<label class="text-truncate d-block mb-0">
 													<small class="text-dark"><b>Descrição:</b> {{(isset($chamado->descricao) ? $chamado->descricao : '-')}}</small>
 												</label>
-												<label class="text-truncate d-block">
+												<label class="text-truncate d-block mb-0">
 													<small class="text-dark"><b>Data de abertura:</b> {{$chamado->created_at->format('d/m/Y H:i')}}</small>
-												</label>					
+												</label>
+												@if($chamado->RelationStatus->first()->finish == 1)
+												<label class="text-truncate d-block">
+													<small class="text-dark"><b>Data de fechamento:</b> {{$chamado->RelationStatus->first()->created_at->format('d/m/Y H:i')}}</small>
+												</label>	
+												@endif					
 											</div>
 											<div class="text-right row col-3 ml-auto">
 												<div class="ml-auto">

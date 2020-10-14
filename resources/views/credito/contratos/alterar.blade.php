@@ -21,30 +21,32 @@
                 <div class="col-8 mx-auto">
                   <div class="form-group">
                     <label class="col-form-label"><b>Status </b><span class="text-danger">*</span></label>
-                    <div class="input-field mt-0">
-                      <select class="" name="status" required>
-                        <option disabled> Selecione o status</option>
-                        <option value="vigentes">Vigente</option>
-                        <option value="liquidados">Liquidado</option>
-                        <option value="prejuizo">Prejuízo</option>
-                      </select>
-                    </div>
+                    <select class="form-control form-control-line" name="status" required>
+                      <option disabled> Selecione o status</option>
+                      <option value="vigente">Vigente</option>
+                      <option value="quitado">Quitado</option>
+                      <option value="prejuizo">Prejuízo</option>
+                    </select>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="modal-footer pb-2">
-              <div class="col-lg-12 text-center">
-                <button class="btn btn-outline-danger col-lg-5 mx-1"  data-dismiss="modal" aria-label="Close">
-                  <i class="mdi mdi-close"></i> Cancelar</button>
-                  <button type="submit" class="btn btn-outline-success col-lg-5 mx-1">
-                    <i class="mdi mdi-check"></i> Salvar</button>
-                  </div>
-                </div>
+            <div class="modal-footer">
+              <div class="row col-12 justify-content-center">
+                <button class="btn btn-danger btn-outline col-5 mx-1 d-flex align-items-center justify-content-center" data-dismiss="modal" aria-label="Close">
+                  <i class="mdi mdi-close pr-2"></i> 
+                  <span>Cancelar</span>
+                </button>
+                <button type="submit" class="btn btn-success btn-outline col-5 mx-1 d-flex align-items-center justify-content-center">
+                  <i class="mdi mdi-check pr-2"></i> 
+                  <span>Salvar</span>
+                </button>
               </div>
-            </form>
+            </div>
           </div>
-        </div>
+        </form>
       </div>
     </div>
-    <!-- Modal -->
+  </div>
+</div>
+<!-- Modal -->

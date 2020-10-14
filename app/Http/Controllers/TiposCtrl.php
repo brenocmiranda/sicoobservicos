@@ -68,6 +68,7 @@ class TiposCtrl extends Controller
 			'gti_id_fontes' => $request->gti_id_fontes,
 			'status' => ($request->status == "on" ? 1 : 0)
 		]);
+		$create = Tipos::find($id);
 		Atividades::create([
 			'nome' => 'Edição de informações',
 			'descricao' => 'Você modificou as informações do tipo de chamado '.$create->nome.'.',

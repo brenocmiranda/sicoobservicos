@@ -60,6 +60,7 @@ class CategoriasCtrl extends Controller
 			'nome' => $request->nome, 
 			'status' => ($request->status == "on" ? 1 : 0)
 		]);
+		$create = Categorias::find($id);
 		Atividades::create([
 			'nome' => 'Edição de informações',
 			'descricao' => 'Você modificou as informações a categoria '.$create->nome.'.',

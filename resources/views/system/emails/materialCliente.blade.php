@@ -8,7 +8,7 @@
 						<table>
 							<tbody>
 								<tr>
-									<td style="padding:15px 15px 15px 30px"><img src="http://10.11.26.31/sicoob/public/img/logo.png" alt="" height="50px">
+									<td style="padding:15px 15px 15px 30px"><img src="http://10.11.26.31/sicoob/public/img/logo.png" alt="" height="50">
 									</td>
 								</tr>
 							</tbody>

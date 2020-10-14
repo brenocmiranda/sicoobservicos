@@ -159,13 +159,14 @@
 
                     <li role="separator" class="divider"></li>
                     
+                    @if(Auth::user()->RelationFuncao->ver_configuracoes || Auth::user()->RelationFuncao->gerenciar_configuracoes)
                     <li>
                         <a href="{{route('configuracoes')}}">
                             <i class="ti-settings pr-2"></i> Configurações
                         </a>
                     </li>
-
                     <li role="separator" class="divider"></li>
+                    @endif
 
                     <li>
                         <a href="javascript:void(0)" class="logout">

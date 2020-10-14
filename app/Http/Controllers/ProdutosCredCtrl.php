@@ -65,11 +65,12 @@ class ProdutosCredCtrl extends Controller
 			'codigo' => $request->codigo,
 			'status' => ($request->status == "on" ? 1 : 0)
 		]);
+		$create = ProdutosCred::find($id);
 		Atividades::create([
 			'nome' => 'Edição de informações',
 			'descricao' => 'Você modificou as informações do produto de crédito '.$create->nome.'.',
 			'icone' => 'mdi-auto-fix',
-			'url' => route('exibir.modalidades.credito'),
+			'url' => route('exibir.produtos.credito'),
 			'id_usuario' => Auth::id()
 		]);
 		return response()->json(['success' => true]);
@@ -87,7 +88,7 @@ class ProdutosCredCtrl extends Controller
 			'nome' => 'Alteração de estado',
 			'descricao' => 'Você alterou o status do produto de crédito '.$produtos->nome.'.',
 			'icone' => 'mdi-rotate-3d',
-			'url' => route('exibir.modalidades.credito'),
+			'url' => route('exibir.produtos.credito'),
 			'id_usuario' => Auth::id()
 		]);
 		return response()->json(['success' => true]);

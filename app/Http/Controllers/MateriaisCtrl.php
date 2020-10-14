@@ -145,6 +145,7 @@ class MateriaisCtrl extends Controller
 			'id_categoria' => $request->id_categoria, 
 			'status' => ($request->status == "on" ? 1 : 0)
 		]);
+		$create = Materiais::find($id);
 		Atividades::create([
 			'nome' => 'Edição de informações',
 			'descricao' => 'Você modificou as informações do material, '.$create->nome.'.',

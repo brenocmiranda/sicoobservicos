@@ -78,14 +78,14 @@ Route::group(['prefix' => 'app'], function(){
 				Route::any('garantias/{id}', 'CreditoCtrl@Garantias')->name('garantias.contratos.credito');
 			});
 			// Contratos vigentes
-			Route::group(['prefix' => 'vigentes'], function(){
-				Route::get('', 'CreditoCtrl@Exibir')->name('exibir.vigentes.credito');
-				Route::get('listar', 'CreditoCtrl@Datatables')->name('listar.vigentes.credito');
+			Route::group(['prefix' => 'vigente'], function(){
+				Route::get('', 'CreditoCtrl@Exibir')->name('exibir.vigente.credito');
+				Route::get('listar', 'CreditoCtrl@Datatables')->name('listar.vigente.credito');
 			});
 			// Contratos liquidados
-			Route::group(['prefix' => 'liquidados'], function(){
-				Route::get('', 'CreditoCtrl@Exibir')->name('exibir.liquidados.credito');
-				Route::get('listar', 'CreditoCtrl@Datatables')->name('listar.liquidados.credito');
+			Route::group(['prefix' => 'quitado'], function(){
+				Route::get('', 'CreditoCtrl@Exibir')->name('exibir.quitado.credito');
+				Route::get('listar', 'CreditoCtrl@Datatables')->name('listar.quitado.credito');
 			});
 			// Contratos em prejuizo
 			Route::group(['prefix' => 'prejuizo'], function(){
@@ -96,18 +96,27 @@ Route::group(['prefix' => 'app'], function(){
 		// Disposição
 		Route::group(['prefix' => 'disposicao'], function(){
 			Route::get('', 'CreditoCtrl@Disposicao')->name('exibir.disposicao.credito');
-			Route::get('imprimir', 'CreditoCtrl@Imprimir')->name('imprimir.disposicao.credito');
-			Route::get('/{id}', 'CreditoCtrl@ExibirGaveta')->name('exibir.gaveta.credito');
-			Route::get('listar/{id}', 'CreditoCtrl@DatatablesGaveta')->name('listar.gaveta.credito');
+			Route::get('/{id}', 'CreditoCtrl@ExibirDisposicao')->name('exibir.gaveta.credito');
+			Route::get('listar/{id}', 'CreditoCtrl@DatatablesDisposicao')->name('listar.gaveta.credito');
+			//Route::get('imprimir', 'CreditoCtrl@Imprimir')->name('imprimir.disposicao.credito');
 		});
 		// Garantias
 		Route::group(['prefix' => 'garantias'], function(){
 			Route::get('', 'GarantiasCtrl@Exibir')->name('exibir.garantias.credito');
-				Route::get('listar', 'GarantiasCtrl@Datatables')->name('listar.garantias.credito');
-				Route::post('adicionar', 'GarantiasCtrl@Adicionar')->name('adicionar.garantias.credito');
-				Route::post('editar/{id}', 'GarantiasCtrl@Editar')->name('editar.garantias.credito');
-				Route::post('alterar/{id}', 'GarantiasCtrl@Alterar')->name('alterar.garantias.credito');
-				Route::any('detalhes/{id}', 'GarantiasCtrl@Detalhes')->name('detalhes.garantias.credito');
+			Route::get('listar', 'GarantiasCtrl@Datatables')->name('listar.garantias.credito');
+			Route::post('adicionar', 'GarantiasCtrl@Adicionar')->name('adicionar.garantias.credito');
+			Route::post('editar/{id}', 'GarantiasCtrl@Editar')->name('editar.garantias.credito');
+			Route::post('alterar/{id}', 'GarantiasCtrl@Alterar')->name('alterar.garantias.credito');
+			Route::any('detalhes/{id}', 'GarantiasCtrl@Detalhes')->name('detalhes.garantias.credito');
+		});
+		// Solicitações
+		Route::group(['prefix' => 'solicitacoes'], function(){
+			Route::get('', 'SolicitacoesCtrl@Exibir')->name('exibir.solicitacoes.credito');
+			Route::get('listar', 'SolicitacoesCtrl@Datatables')->name('listar.solicitacoes.credito');
+			Route::post('adicionar', 'SolicitacoesCtrl@Adicionar')->name('adicionar.solicitacoes.credito');
+			Route::post('editar/{id}', 'SolicitacoesCtrl@Editar')->name('editar.solicitacoes.credito');
+			Route::post('alterar/{id}', 'SolicitacoesCtrl@Alterar')->name('alterar.solicitacoes.credito');
+			Route::any('detalhes/{id}', 'SolicitacoesCtrl@Detalhes')->name('detalhes.solicitacoes.credito');
 		});
 		// Associados *
 		Route::group(['prefix' => 'associados'], function(){

@@ -237,7 +237,12 @@ class ChamadosCtrl extends Controller
             'descricao' => (isset($request->descricao) ? $request->descricao : "Estado do chamado alterado por ".Auth::user()->RelationAssociado->nome.".")
         ]);
         
-        $chamado->RelationUsuario->notify(new ChamadosAlteracaoCliente($chamado));  
+        if($chamado->RelationStatus->first()->finish == 1){
+            $chamado->RelationUsuario->notify(new ChamadosCliente($chamado));  
+        }else{
+            $chamado->RelationUsuario->notify(new ChamadosAlteracaoCliente($chamado));  
+        }
+
         Atividades::create([
             'nome' => 'Alteração de estado do chamado',
             'descricao' => 'Você modificou o status do chamado, '.$chamado->assunto.'.',

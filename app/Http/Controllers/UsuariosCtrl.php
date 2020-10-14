@@ -40,7 +40,7 @@ class UsuariosCtrl extends Controller
 		return view('gestao.administrativo.usuarios.listar')->with('associados', $associados)->with('setores', $setores)->with('funcoes', $funcoes)->with('instituicoes', $instituicoes)->with('unidades', $unidades);
 	}
 	public function Datatables(){
-		return datatables()->of(Usuarios::all())
+		return datatables()->of(Usuarios::where('id', '!=', Auth::id())->get())
             ->editColumn('image', function(Usuarios $dados){ 
                 return '<div class="text-center"><img class="img-circle" width="36" height="36" src="'.($dados->id_imagem != null ? asset('storage/app/'.$dados->RelationImagem->endereco) : asset('public/img/user.png'))."?".rand().'"></div>';
             })
@@ -113,6 +113,7 @@ class UsuariosCtrl extends Controller
 			'usr_id_instituicao' => $request->usr_id_instituicao, 
 			'usr_id_unidade' => $request->usr_id_unidade
 		]);
+		$create = Usuarios::find($id);
 		Atividades::create([
 				'nome' => 'Edição de informações',
 				'descricao' => 'Você modificou as informações do usuário '.$create->login.'.',
@@ -125,6 +126,7 @@ class UsuariosCtrl extends Controller
 	// Alterar status do usuário
 	public function Alterar(Request $request, $id){
 		Usuarios::find($id)->update(['status' => $request->status]);
+		$create = Usuarios::find($id);
 		Atividades::create([
 				'nome' => 'Alteração de estado',
 				'descricao' => 'Você alterou o status do usuário '.$create->login.'.',
@@ -184,13 +186,13 @@ class UsuariosCtrl extends Controller
 			}elseif (Usuarios::where('status', 'Desativado')->where('login', $request->login)->first()){
 				\Session::flash('login', array(
 					'class' => 'danger',
-					'mensagem' => 'O usuário está desativado, contate o administrador'
+					'mensagem' => 'O usuário está desativado, contate o administrador.'
 				));
 				return redirect()->route('login');
 			}elseif(Usuarios::where('status', 'Bloqueado')->where('login', $request->login)->first()){
 				\Session::flash('login', array(
 					'class' => 'danger',
-					'mensagem' => 'O usuário está bloqueado, contate o administrador'
+					'mensagem' => 'O usuário está bloqueado, contate o administrador.'
 				));
 				return redirect()->route('login');
 			}
@@ -246,7 +248,7 @@ class UsuariosCtrl extends Controller
 			'nome' => 'Seu primero acesso',
 			'descricao' => 'Você acessou a plataforma pela primeira vez.',
 			'icone' => 'mdi-human-greeting',
-			'url' => route('home'),
+			'url' => route('inicio'),
 			'id_usuario' => Auth::id()
 		]);
         return redirect(route('inicio'));
@@ -254,15 +256,15 @@ class UsuariosCtrl extends Controller
 	// Esquecimento de password
 	public function Solicitar(Request $request){
 		$user = Usuarios::where('login', $request->login)->first();
-		Atividades::create([
-			'nome' => 'Solicitação de redefinição',
-			'descricao' => 'Você solicitou a redefinição da sua senha pelo login.',
-			'icone' => 'mdi-send',
-			'url' => 'javascript:void(0)',
-			'id_usuario' => Auth::id()
-		]);
 		if(!empty($user->login)){
 			$user->notify(new Recuperacao($user));
+			Atividades::create([
+				'nome' => 'Solicitação de redefinição',
+				'descricao' => 'Você solicitou a redefinição da sua senha pelo login.',
+				'icone' => 'mdi-send',
+				'url' => 'javascript:void(0)',
+				'id_usuario' => $user->id
+			]);
 			return response()->json(['success' => true]);
 		}else{
 			return response()->json(['success' => false]);
@@ -281,12 +283,12 @@ class UsuariosCtrl extends Controller
 		}
 	}
 	public function Trocar(Request $request){
-		$dados = Usuarios::where('id', $request->id)->update([
+		$user = Usuarios::find($request->id);
+		$dados = Usuarios::find($user->id)->update([
 			'password' => Hash::make($request->password), 
 			'remember_token' => $request->_token
 		]);
-		$user = Usuarios::find($id);
-		$user->notify(new ResetPassword($user));
+		//$user->notify(new ResetPassword($user));
 		\Session::flash('login', array(
 			'class' => 'success',
 			'mensagem' => 'Senha alterada com sucesso, faça o login.'
@@ -296,7 +298,7 @@ class UsuariosCtrl extends Controller
 			'descricao' => 'Você efetuar a redefinição da sua senha.',
 			'icone' => 'mdi-account-key',
 			'url' => 'javascript:void(0)',
-			'id_usuario' => Auth::id()
+			'id_usuario' => $user->id
 		]);
 		return redirect(route('login'));
 	}

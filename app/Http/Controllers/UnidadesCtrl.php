@@ -49,6 +49,7 @@ class UnidadesCtrl extends Controller
 			'usr_id_instituicao' => $request->usr_id_instituicao, 
 			'status' => ($request->status == "on" ? 1 : 0)
 		]);
+		$create = Unidades::find($id);
 		Atividades::create([
 			'nome' => 'Edição de informações',
 			'descricao' => 'Você modificou as informações da unidade administrativa '.$create->nome.'.',

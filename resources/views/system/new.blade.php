@@ -53,26 +53,4 @@ Primeiro acesso
 	</div>
 </div>
 
-@section('suporte')
-<script type="text/javascript">
-	$(document).ready(function (){
-		$('.password, .confirmpassword').on('keyup', function(){
-			$('#err').html('');
-			if($('.password').val() == $('.confirmpassword').val()){
-				if($('.password').val().length >= 6 && $('.confirmpassword').val().length >= 6){
-					$('#submit').removeAttr('disabled');
-					$('#submit').addClass('btn-success');
-				}else{
-					$('#err').html('<div class="text-danger text-center col"> São necessários no mínimo 6 caracteres.</div>');
-				}
-			}else{
-				$('#err').html('<div class="text-danger text-center col">As senhas não conferem.</div>')
-				$('#submit').attr('disabled', 'disabled');
-				$('#submit').removeClass('btn-success');
-			}
-		});
-	});
-</script>
-@endsection
-
 @include('layouts.footer')

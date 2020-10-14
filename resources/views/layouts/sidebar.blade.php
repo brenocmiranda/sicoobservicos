@@ -49,9 +49,9 @@
         </a>
         <ul class="nav nav-second-level">
           <li> <a href="{{route('dashboard.credito')}}"><span class="hide-menu">Dashboard</span></a> </li>
-          <li> <a href="#"><span class="hide-menu">Disposição</span></a> </li>
-          <li> <a href="#"><span class="hide-menu">Contratos</span></a> </li>
-          <li> <a href="#"><span class="hide-menu">Garantias</span></a> </li>
+          <li> <a href="{{ route('exibir.disposicao.credito') }}"><span class="hide-menu">Disposição</span></a> </li>
+          <li> <a href="{{ route('exibir.contratos.credito') }}"><span class="hide-menu">Contratos</span></a> </li>
+          <li> <a href="{{ route('exibir.garantias.credito')}}"><span class="hide-menu">Garantias</span></a> </li>
           <li> <a href="#"><span class="hide-menu">Solicitações</span></a> </li>
         </ul>
       </li>

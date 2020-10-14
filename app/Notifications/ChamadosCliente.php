@@ -45,12 +45,12 @@ class ChamadosCliente extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {   
-        if($this->chamado->RelationStatus->first()->finish != 1) {
+        if($this->chamado->RelationStatus->first()->open == 1) {
             return (new MailMessage)
                     ->from('breno.miranda@sicoobsertaominas.com.br')
                     ->subject($this->configuracoes->assunto_abertura_chamado)
                     ->view('system.emails.chamadoCliente', ['chamado' => $this->chamado, 'configuracoes' => $this->configuracoes]);
-        }else{
+        }elseif($this->chamado->RelationStatus->first()->finish == 1) {
             return (new MailMessage)
                     ->from('breno.miranda@sicoobsertaominas.com.br')
                     ->subject($this->configuracoes->assunto_fechamento_chamado)

@@ -8,7 +8,7 @@
 						<table>
 							<tbody>
 								<tr>
-									<td style="padding:15px 15px 15px 30px"><img src="http://10.11.26.31/sicoob/public/img/logo.png" alt="" height="50px">
+									<td style="padding:15px 15px 15px 30px"><img src="http://10.11.26.31/sicoob/public/img/logo.png" alt="" height="50">
 									</td>
 								</tr>
 							</tbody>
@@ -24,9 +24,9 @@
 										<div><span>
 											<p style="margin-top:0px;margin-bottom:10px">
 											</p>
-											@if($chamado->RelationStatus->first()->finish =! 1)
+											@if($chamado->RelationStatus->first()->open == 1)
 												{!! $configuracoes->abertura_chamado !!}
-											@else
+											@elseif($chamado->RelationStatus->first()->finish == 1)
 												{!! $configuracoes->fechamento_chamado !!}
 											@endif
 											<p style="text-align:justify">

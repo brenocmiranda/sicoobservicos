@@ -21,49 +21,50 @@ Equipamentos
 		<div class="card-body">
 			<div class="col-12 row mb-4 mx-auto">
 				@include('layouts.search')
-				<div class="col-5 p-0 row mx-auto">
-					<a href="{{route('adicionar.ativos')}}" class="btn btn-primary btn-outline ml-auto" id="adicionar" name="adicionar" title="Adicionar novo ativo">
-						<i class="m-0 pr-1 mdi mdi-plus"></i> 
-						<span>Novo ativo</span>
-					</a>
+				<div class="col-5 row p-0">
+					<div class="px-1 ml-auto">
+						<a href="{{route('adicionar.ativos')}}" class="btn btn-primary btn-outline ml-auto" id="adicionar" name="adicionar" title="Adicionar novo ativo">
+							<i class="m-0 pr-1 mdi mdi-plus"></i> 
+							<span>Novo ativo</span>
+						</a>
+					</div>
+					<div class="px-1">
+						<a href="{{route('adicionar.ativos')}}" class="btn btn-primary btn-outline ml-auto" id="adicionar" name="adicionar" title="Adicionar novo ativo">
+							<i class="m-0 pr-1 mdi mdi-print"></i> 
+							<span>Gerar termo</span>
+						</a>
+					</div>
 				</div>
 			</div>
-			<ul class="row col-12 m-auto" id="ativos">
+			<ul class="row col-12 m-auto pt-4" id="ativos">
 				@if(isset($ativos[0]))
 					@foreach($ativos as $ativo)
-					<li class="col-3 p-3">
+					<li class="col-6">
 						<div class="card shadow-sm">
-							<div class="card-header p-0 bg-white border-white">
-                            	<div class="item text-center"> 
-									<img src="{{(isset($ativo->RelationImagemPrincipal) ? asset('storage/app/'.$ativo->RelationImagemPrincipal->endereco) : asset('public/img/image.png'))}}" class="p-4" height="120" width="130">
-								</div>		
-							</div>
-							<div class="card-body py-3 px-4">
-								<h5 class="text-uppercase text-truncate mb-1">
-									<a href="javascript:void(0)" data="{{route('detalhes.ativos', $ativo->id)}}" class="btn-detalhes">{{$ativo->nome}}</a>
-								</h5>
-								<label class="text-truncate text-primary">
-									{{$ativo->RelationUsuario->last()->RelationAssociado->nome}}
-								</label>
-								<label class="text-truncate d-block my-0">	
-									<small><b>Marca:</b> {{$ativo->marca}}</small>
-								</label>
-								<label class="text-truncate d-block my-0">
-									<small><b>Módelo:</b> {{$ativo->modelo}}</small>
-								</label>
-								<label class="text-truncate d-block">
-									<small><b>S/N:</b> {{$ativo->serialNumber}}</small>
-								</label>
-								<div class="my-3 text-center">
-									<a href="{{route('relatorio.ativos', $ativo->id)}}" target="_blank" class="btn btn-success btn-outline btn-shadow" title="Relatório do ativo">
-										<i class="mdi mdi-cloud-print-outline"></i>
-									</a>	
-									<a href="{{route('editar.ativos', $ativo->id)}}" class="status btn btn-success btn-outline" title="Editar inforamções">
-										<i class="mdi mdi-settings"></i>
-									</a>
-									<a href="javascript:void(0)" data="{{route('delete.ativos', $ativo->id)}}" class="btn btn-danger btn-outline btn-delete" title="Deletar ativo">
-										<i class="mdi mdi-close"></i>
-									</a>
+							<div class="card-body p-2 row mx-auto">
+								<div class="col-4 m-auto">
+	                            	<div class="item text-center"> 
+										<img src="{{(isset($ativo->RelationImagemPrincipal) ? asset('storage/app/'.$ativo->RelationImagemPrincipal->endereco) : asset('public/img/image.png'))}}" class="w-100">
+									</div>	
+								</div>	
+								<div class="col-8">
+									<h5 class="text-uppercase text-truncate mb-1">
+										<a href="javascript:void(0)" data="{{route('detalhes.ativos', $ativo->id)}}" class="btn-detalhes">{{$ativo->nome}} <small class="px-2">{{$ativo->n_patrimonio}}</small></a>
+									</h5>
+									<label class="text-truncate d-block">	
+										{{$ativo->marca}}, {{$ativo->modelo}}, {{$ativo->serialNumber}}
+									</label>
+									<label class="text-truncate text-primary">
+										{{$ativo->RelationUsuario->last()->RelationAssociado->nome}}
+									</label>
+									<div class="my-3 text-right">
+										<a href="{{route('editar.ativos', $ativo->id)}}" class="status btn btn-success btn-outline btn-small" title="Editar inforamções">
+											<small>Editar</small>
+										</a>
+										<a href="javascript:void(0)" data="{{route('delete.ativos', $ativo->id)}}" class="btn btn-danger btn-outline btn-delete btn-small" title="Deletar ativo">
+											<small>Remover</small>
+										</a>
+									</div>
 								</div>
 							</div>
 						</div>

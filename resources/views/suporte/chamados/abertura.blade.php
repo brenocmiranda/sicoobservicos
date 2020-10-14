@@ -49,7 +49,7 @@ Abertura de chamado
 							<div class="col-12">
 								<div class="form-group">
 									<label class="col-form-label pb-0">Assunto <span class="text-danger">*</span></label>
-									<input class="form-control form-control-line" name="assunto" placeholder="Resuma o seu problema" required/>
+									<input class="form-control form-control-line" name="assunto" placeholder="Resuma o seu problema" onkeyup="this.value = this.value.toUpperCase();"  required/>
 								</div>
 							</div>
 							<div class="col-12">

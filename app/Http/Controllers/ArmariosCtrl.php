@@ -53,7 +53,7 @@ class ArmariosCtrl extends Controller
 			'nome' => 'Cadastro de novo armário de crédito',
 			'descricao' => 'Você cadastrou um novo armário de crédito, '.$create->nome.'.',
 			'icone' => 'mdi-plus',
-			'url' => route('exibir.credito.armarios'),
+			'url' => route('exibir.armarios.credito'),
 			'id_usuario' => Auth::id()
 		]);
 		return response()->json(['success' => true]);
@@ -66,11 +66,12 @@ class ArmariosCtrl extends Controller
 			'referencia' => $request->referencia,
 			'status' => ($request->status == "on" ? 1 : 0)
 		]);
+		$create = Armarios::find($id);
 		Atividades::create([
 			'nome' => 'Edição de informações',
 			'descricao' => 'Você modificou as informações do armário de crédito '.$create->nome.'.',
 			'icone' => 'mdi-auto-fix',
-			'url' => route('exibir.credito.armarios'),
+			'url' => route('exibir.armarios.credito'),
 			'id_usuario' => Auth::id()
 		]);
 		return response()->json(['success' => true]);
@@ -88,7 +89,7 @@ class ArmariosCtrl extends Controller
 			'nome' => 'Alteração de estado',
 			'descricao' => 'Você alterou o status do armário de crédito '.$create->nome.'.',
 			'icone' => 'mdi-rotate-3d',
-			'url' => route('exibir.credito.armarios'),
+			'url' => route('exibir.armarios.credito'),
 			'id_usuario' => Auth::id()
 		]);
 		return response()->json(['success' => true]);

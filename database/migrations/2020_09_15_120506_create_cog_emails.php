@@ -18,19 +18,19 @@ class CreateCogEmails extends Migration
             $table->increments('id');
             $table->string('email_chamado');
             $table->string('assunto_abertura_chamado');
-            $table->text('abertura_chamado');
+            $table->longText('abertura_chamado');
             $table->string('assunto_fechamento_chamado');
-            $table->text('fechamento_chamado');
+            $table->longText('fechamento_chamado');
             $table->string('email_material');
             $table->string('assunto_abertura_material');
-            $table->text('abertura_solicitacao_material');
+            $table->longText('abertura_solicitacao_material');
             $table->string('assunto_fechamento_material');
-            $table->text('fechamento_solicitacao_material');
+            $table->longText('fechamento_solicitacao_material');
             $table->string('email_contrato');
             $table->string('assunto_abertura_contrato');
-            $table->text('abertura_solicitacao_contrato');
+            $table->longText('abertura_solicitacao_contrato');
             $table->string('assunto_fechamento_contrato');
-            $table->text('fechamento_solicitacao_contrato');
+            $table->longText('fechamento_solicitacao_contrato');
 
             $table->timestamps();
         });

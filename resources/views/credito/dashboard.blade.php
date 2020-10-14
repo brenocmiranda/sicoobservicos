@@ -1,5 +1,5 @@
 @section('title')
-GTI
+Crédito
 @endsection
 
 @extends('layouts.index')
@@ -12,7 +12,7 @@ GTI
 		</div>
 		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
 			<ol class="breadcrumb">
-				<li><a href="javascript:void(0)">GTI</a></li>
+				<li><a href="{{route('dashboard.credito')}}">Crédito</a></li>
 				<li class="active">Dashboard</li>
 			</ol>
 		</div>
@@ -20,7 +20,7 @@ GTI
 	<div class="row">
 		<div class="col-lg-3 col-sm-6 col-xs-12">
 			<div class="white-box analytics-info">
-				<h3 class="box-title">Chamados em aberto</h3>
+				<h3 class="box-title">Contratos vigentes</h3>
 				<ul class="list-inline two-part">
 					<li>
 						<i class="ti-headphone-alt text-success"></i> 
@@ -31,7 +31,7 @@ GTI
 		</div>
 		<div class="col-lg-3 col-sm-6 col-xs-12">
 			<div class="white-box analytics-info">
-				<h3 class="box-title">Total de chamados</h3>
+				<h3 class="box-title">Contratos quitados</h3>
 				<ul class="list-inline two-part">
 					<li>
 						<i class="ti-microphone text-success"></i> 
@@ -42,7 +42,7 @@ GTI
 		</div>
 		<div class="col-lg-3 col-sm-6 col-xs-12">
 			<div class="white-box analytics-info">
-				<h3 class="box-title">Total de ativos</h3>
+				<h3 class="box-title">Cont. em prejuízo</h3>
 				<ul class="list-inline two-part">
 					<li>
 						<i class="ti-package text-info"></i> 
@@ -53,7 +53,7 @@ GTI
 		</div>
 		<div class="col-lg-3 col-sm-6 col-xs-12">
 			<div class="white-box analytics-info">
-				<h3 class="box-title">Total de atalhos</h3>
+				<h3 class="box-title">Total de contratos</h3>
 				<ul class="list-inline two-part">
 					<li>
 						<i class="ti-link text-danger"></i>

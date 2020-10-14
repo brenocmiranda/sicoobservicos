@@ -27,35 +27,34 @@ Meu perfil
 	</p>
 	@endif
 
-	<ul class="nav customtab nav-tabs px-2" role="tablist">
-        <li role="presentation" class="active">
-        	<a href="#geral" aria-controls="geral" role="tab" data-toggle="tab" aria-expanded="true">
-        		<span class="visible-xs">
-        			<i class="ti-home"></i>
-        		</span>
-        		<span class="hidden-xs">Geral</span>
-        	</a>
-        </li>
-        <li role="presentation" class="">
-        	<a href="#admin" aria-controls="admin" role="tab" data-toggle="tab" aria-expanded="false">
-        		<span class="visible-xs">
-        			<i class="ti-user"></i>
-        		</span> 
-        		<span class="hidden-xs">Administrativo</span>
-        	</a>
-        </li>
-    </ul>
+	<ul class="nav customtab nav-tabs px-5" role="tablist">
+		<li role="presentation" class="active">
+			<a href="#geral" aria-controls="geral" role="tab" data-toggle="tab" aria-expanded="true">
+				<span class="visible-xs">
+					<i class="ti-home"></i>
+				</span>
+				<span class="hidden-xs">Geral</span>
+			</a>
+		</li>
+		<li role="presentation" class="">
+			<a href="#admin" aria-controls="admin" role="tab" data-toggle="tab" aria-expanded="false">
+				<span class="visible-xs">
+					<i class="ti-user"></i>
+				</span> 
+				<span class="hidden-xs">Administrativo</span>
+			</a>
+		</li>
+	</ul>
 
 	<form class="form-sample" method="POST" action="{{ route('perfil.salvar') }}" enctype="multipart/form-data" autocomplete="off">
 		@csrf
-		<div class="row">
-
-			<div class="col-7">
-				<div class="card">
-					<div class="card-body">
+		<div class="col-12">
+			<div class="card">
+				<div class="row card-body py-0 pr-0">
+					<div class="col-7 px-0 py-5">
 						<div class="tab-content mt-0">
-	                        <div role="tabpanel" class="tab-pane fade active in" id="geral">
-	                            <div class="col-12">
+							<div role="tabpanel" class="tab-pane fade active in" id="geral">
+								<div class="col-12">
 									<div class="form-group">
 										<label class="col-12 col-form-label">Nome:</label>
 										<div class="col-12">
@@ -76,7 +75,7 @@ Meu perfil
 										<label class="col-12 col-form-label">Login <i class="text-danger">*</i></label>
 										<div class="col-12">
 											<input type="text" class="form-control form-control-line" name="login" value="{{$usuario->login}}" autocomplete="off" disabled/>
-									
+
 										</div>
 									</div>
 								</div>
@@ -127,10 +126,9 @@ Meu perfil
 										</div>
 									</div>
 								</div>
-	                        </div>
-
-	                        <div role="tabpanel" class="tab-pane fade" id="admin">
-	                            <div class="col-12">
+							</div>
+							<div role="tabpanel" class="tab-pane fade" id="admin">
+								<div class="col-12">
 									<div class="form-group">
 										<label class="col-12 col-form-label">Instituição:</label>
 										<div class="col-12">
@@ -162,35 +160,29 @@ Meu perfil
 										</div>
 									</div>
 								</div>
-	                        </div>
-	                    </div>
-
-						<div class="col-lg-12 text-center my-4">
+							</div>
+						</div>
+						<div class="col-12 text-center mt-5">
 							<button type="submit" class="btn btn-success btn-lg col-4">
-								<span>Atualizar</span>
-								
+								<i class="mdi mdi-check mdi-18px pr-2"></i>
+								<span>Salvar alterações</span>
 							</button>
 						</div>
 					</div>
-				</div>
-			</div>
-
-			<div class="col-5 pl-0">
-				<div class="card p-0">
-					<div class="card-body p-0">
-						<div class="row mx-auto rounded">
-							<img src="{{asset('public/img/fundo-dark.png').'?'.rand()}}" class="w-100 rounded position-absolute" height="350" style="filter: brightness(0.5);">
-							<div class="col-sm-12 text-center mx-auto h-100">
-								<div class="mt-5 col-sm-12">
-									<img src="{{(isset(Auth::user()->RelationImagem) ? asset('storage/app/'.Auth::user()->RelationImagem->endereco).'?'.rand() : asset('public/img/user.png').'/'.rand())}}" class="mt-5 rounded-circle" id="PreviewImage" width="130" height="130">
+					<div class="col-5 p-0">
+						<div class="row mx-auto rounded h-100">
+							<img src="{{asset('public/img/fundo-dark.png').'?'.rand()}}" class="rounded position-absolute h-100 w-100" style="filter: brightness(0.5);">
+							<div class="col-sm-12 row text-center align-items-center m-auto">
+								<div class="col-sm-12">
+									<img src="{{(isset(Auth::user()->RelationImagem) ? asset('storage/app/'.Auth::user()->RelationImagem->endereco).'?'.rand() : asset('public/img/user.png').'/'.rand())}}" class="rounded-circle" id="PreviewImage" width="130" height="130">
 									<div class="mx-auto btn-image rounded-circle position-relative">
 										<input type="file" class="px-0 position-absolute m-auto" accept=".png, .jpg, .jpeg" name="upload_img" id="upload_img" onchange="image(this);">
 										<div class="row h-100 align-items-center align-self-center justify-content-center my-auto">
-											<i class="mdi mdi-36px mdi-cloud-upload mdi-light" style="display: none"></i>
+											<i class="mdi mdi-24px mdi-camera mdi-light" style="display: none"></i>
 										</div>
 									</div>
 								</div>
-								<div class="col-sm-12">
+								<div class="col-sm-12 mt-3">
 									<h4 class="text-white font-weight-bolder mb-2">{{$usuario->RelationAssociado->nome}}</h4>
 									<h6 class="text-white my-2">{{$usuario->RelationInstituicao->nome}}</h6>
 									<small class="designation text-white">{{ $usuario->RelationUnidade->nome }}</small>
@@ -221,8 +213,8 @@ Meu perfil
 		$('.btn-image').hover( function(){
 			$('.btn-image i').fadeIn('fast');
 		} , function() {
-		    $('.btn-image i').fadeOut('fast');
-		 });
+			$('.btn-image i').fadeOut('fast');
+		});
 	});
 </script>
 @endsection

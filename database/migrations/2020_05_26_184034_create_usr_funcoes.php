@@ -24,8 +24,6 @@ class CreateUsrFuncoes extends Migration
             $table->boolean('gerenciar_credito');
             $table->boolean('ver_gti');
             $table->boolean('gerenciar_gti');
-            $table->boolean('ver_suporte');
-            $table->boolean('gerenciar_suporte');
             $table->boolean('ver_configuracoes');
             $table->boolean('gerenciar_configuracoes');
             

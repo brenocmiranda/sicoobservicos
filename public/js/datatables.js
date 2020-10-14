@@ -5021,10 +5021,10 @@
 	{
 		return $('<div/>', {
 				'id': ! settings.aanFeatures.r ? settings.sTableId+'_processing' : null,
-				'class': settings.oClasses.sProcessing+' my-4'
+				'class': settings.oClasses.sProcessing+' my-4 text-center'
 			} )
 			.html( settings.oLanguage.sProcessing )
-			.insertBefore( settings.nTable )[0];
+			.insertAfter( settings.nTable )[0];
 	}
 	
 	

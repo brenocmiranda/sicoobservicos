@@ -6,7 +6,7 @@
 		</button>
 	</div>
 	<div class="col-8 px-2">
-		<input type="search" class="form-control rounded" placeholder="Buscar..." aria-controls="table">
+		<input type="search" class="form-control rounded" placeholder="Buscar..." aria-controls="table" id="pesquisar">
 	</div>
 	<div class="dropdown">
 		<button aria-expanded="false" data-toggle="dropdown" class="btn btn-default btn-outline btn-lg dropdown-toggle waves-effect waves-light" type="button">

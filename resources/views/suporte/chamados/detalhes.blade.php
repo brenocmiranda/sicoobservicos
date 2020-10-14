@@ -67,27 +67,31 @@ Detalhes do chamado
               <b>Anexos do chamado</b>
             </label>
             <div>
-              @foreach($chamado->RelationArquivos as $arquivos)
-                <div class="row mx-auto"> 
-                <a href="{{asset('storage/app/'.$arquivos->endereco)}}" target="_blank" class="row col-12">
-                  <div class="px-2">
-                    @if( explode(".", $arquivos->endereco)[1] == "docx" || explode(".", $arquivos->endereco)[1] == "doc")
-                    <i class="mdi mdi-file-word mdi-dark mdi-18px m-auto"></i>
-                    @elseif( explode(".", $arquivos->endereco)[1] == "xls" || explode(".", $arquivos->endereco)[1] == "xlsx" || explode(".", $arquivos->endereco)[1] == "xlsm"
-                    || explode(".", $arquivos->endereco)[1] == "csv")
-                    <i class="mdi mdi-file-excel mdi-dark mdi-18px m-auto"></i>
-                    @elseif( explode(".", $arquivos->endereco)[1] == "pdf")
-                    <i class="mdi mdi-file-pdf mdi-dark mdi-18px m-auto"></i>
-                    @else
-                    <i class="mdi mdi-file-document mdi-dark mdi-18px m-auto"></i>
-                    @endif
+              @if(!empty($chamado->RelationArquivos[0]))
+                @foreach($chamado->RelationArquivos as $arquivos)
+                  <div class="row mx-auto"> 
+                  <a href="{{asset('storage/app/'.$arquivos->endereco)}}" target="_blank" class="row col-12">
+                    <div class="px-2">
+                      @if( explode(".", $arquivos->endereco)[1] == "docx" || explode(".", $arquivos->endereco)[1] == "doc")
+                      <i class="mdi mdi-file-word mdi-dark mdi-18px m-auto"></i>
+                      @elseif( explode(".", $arquivos->endereco)[1] == "xls" || explode(".", $arquivos->endereco)[1] == "xlsx" || explode(".", $arquivos->endereco)[1] == "xlsm"
+                      || explode(".", $arquivos->endereco)[1] == "csv")
+                      <i class="mdi mdi-file-excel mdi-dark mdi-18px m-auto"></i>
+                      @elseif( explode(".", $arquivos->endereco)[1] == "pdf")
+                      <i class="mdi mdi-file-pdf mdi-dark mdi-18px m-auto"></i>
+                      @else
+                      <i class="mdi mdi-file-document mdi-dark mdi-18px m-auto"></i>
+                      @endif
+                    </div>
+                    <div class="my-auto">
+                      <span class="text-truncate">{{str_replace('chamados/', '', $arquivos->endereco)}}</span>
+                    </div>
+                  </a>
                   </div>
-                  <div class="my-auto">
-                    <span class="text-truncate">{{str_replace('chamados/', '', $arquivos->endereco)}}</span>
-                  </div>
-                </a>
-                </div>
                 @endforeach
+              @else
+                <label>Não possui informações arquivadas.</label>
+              @endif
             </div>
           </div>
 

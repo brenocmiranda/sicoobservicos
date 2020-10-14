@@ -61,6 +61,7 @@ class FontesCtrl extends Controller
 			'descricao' => $request->descricao, 
 			'status' => ($request->status == "on" ? 1 : 0)
 		]);
+		$create = Fontes::find($id);
 		Atividades::create([
 			'nome' => 'Edição de informações',
 			'descricao' => 'Você modificou as informações da fonte de aprendizagem '.$create->nome.'.',

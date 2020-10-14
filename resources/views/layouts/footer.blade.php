@@ -36,6 +36,7 @@
 <script src="{{ asset('public/vendor/raphael/raphael-min.js') }}"></script>
 <script src="{{ asset('public/vendor/morrisjs/morris.js') }}"></script>
 <script src="{{ asset('public/vendor/summernote/dist/summernote.min.js') }}"></script>
+<script src="{{ asset('public/js/jquery-ui.js')}}"></script>
 
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -76,6 +77,22 @@
 		$('.js-switch').each(function() {
 			new Switchery($(this)[0], $(this).data());
 		});
+
+		$('.password, .confirmpassword').on('keyup', function(){
+	      $('#err').html('');
+	      if($('.password').val() == $('.confirmpassword').val()){
+	        if($('.password').val().length >= 6 && $('.confirmpassword').val().length >= 6){
+	          $('#submit').removeAttr('disabled');
+	          $('#submit').addClass('btn-success');
+	        }else{
+	          $('#err').html('<div class="text-danger text-center col"> São necessários no mínimo 6 caracteres.</div>');
+	        }
+	      }else{
+	        $('#err').html('<div class="text-danger text-center col">As senhas não conferem.</div>')
+	        $('#submit').attr('disabled', 'disabled');
+	        $('#submit').removeClass('btn-success');
+	      }
+	    });
 	});
 </script>
 
