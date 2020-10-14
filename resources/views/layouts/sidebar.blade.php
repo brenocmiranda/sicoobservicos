@@ -51,8 +51,16 @@
           <li> <a href="{{route('dashboard.credito')}}"><span class="hide-menu">Dashboard</span></a> </li>
           <li> <a href="{{ route('exibir.disposicao.credito') }}"><span class="hide-menu">Disposição</span></a> </li>
           <li> <a href="{{ route('exibir.contratos.credito') }}"><span class="hide-menu">Contratos</span></a> </li>
-          <li> <a href="{{ route('exibir.garantias.credito')}}"><span class="hide-menu">Garantias</span></a> </li>
-          <li> <a href="#"><span class="hide-menu">Solicitações</span></a> </li>
+          <li> 
+            <a href="javascript:void(0)" class="waves-effect">
+              <span class="hide-menu">Garantias </span><span class="fa arrow"></span>
+            </a>
+            <ul class="nav nav-third-level">
+              <li> <a href="{{route('exibir.garantias.fidejussoria.credito')}}"><span class="hide-menu">Fidejussórias</span></a> </li>
+              <li> <a href="{{route('exibir.garantias.fiduciaria.credito')}} "><span class="hide-menu">Fiduciárias</span></a> </li>
+            </ul>
+          </li>
+          <li> <a href="{{ route('exibir.solicitacoes.credito')}}"><span class="hide-menu">Solicitações</span></a> </li>
         </ul>
       </li>
       @endif

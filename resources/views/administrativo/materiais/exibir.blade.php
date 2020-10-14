@@ -1,5 +1,5 @@
 @section('title')
-Materiais
+Solicitações de materiais
 @endsection
 
 @extends('layouts.index')

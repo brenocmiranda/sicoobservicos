@@ -12,7 +12,6 @@ use App\Models\ProdutosCred;
 
 class ProdutosCredCtrl extends Controller
 {
-
 	public function __construct(){
 		$this->middleware('auth');
 	}

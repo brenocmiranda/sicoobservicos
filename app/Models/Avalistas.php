@@ -12,4 +12,11 @@ class Avalistas extends Model
     protected $primaryKey = 'id';
     protected $fillable = ['id', 'cli_id_associado', 'cre_id_contrato', 'data_movimento', 'created_at', 'updated_at'];
 
+    public function RelationContrato(){
+    	return $this->belongsTo(Contratos::class, 'cre_id_contrato', 'id');
+	}
+
+	public function RelationAssociados(){
+    	return $this->belongsTo(Associados::class, 'cli_id_associado', 'id');
+	}
 }

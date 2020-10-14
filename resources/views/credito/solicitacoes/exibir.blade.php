@@ -1,5 +1,5 @@
 @section('title')
-Materiais
+Solicitações de contrato
 @endsection
 
 @extends('layouts.index')
@@ -8,12 +8,12 @@ Materiais
 <div class="container-fluid">
 	<div class="row bg-title">
 		<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-			<h4 class="page-title">Solicitações de materiais</h4> 
+			<h4 class="page-title">Solicitações de contrato</h4> 
 		</div>
 		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
 			<ol class="breadcrumb">
-				<li><a href="javascript:void(0)">Suporte</a></li>
-				<li><a class="active">Materiais</a></li>
+				<li><a href="javascript:void(0)">Crédito</a></li>
+				<li><a class="active">Solicitações</a></li>
 			</ol>
 		</div>
 	</div>
@@ -30,36 +30,42 @@ Materiais
 
 				<div class="row col-12 mx-auto my-5">
 					<div class="col-12 p-0">
-						<h5>Minhas solicitações</h5>
+						<h5>Aprove suas solicitações</h5>
 						<hr class="mt-2">
 					</div>
 					<div class="col-12">
-						@if(isset($requisicoes[0]))
+						@if(isset($dados[0]))
 						<ul class="p-0" id="requisicoes">
-							@foreach($requisicoes as $requisicao)
+							@foreach($dados as $requisicao)
 							<li class="row">
 								<div class="row mx-auto col-12 border shadow-sm rounded my-2 p-3">
 									<div class="col-1 m-auto row justify-content-center">
-										<i class="mdi {{($requisicao->status == 1 ? 'mdi-comment-check-outline text-success' : 'mdi-comment-question-outline text-warning')}} mdi-48px"></i>
+										<i class="mdi {{($requisicao->status == 'aberto' ? 'mdi-comment-question-outline text-warning' : ($requisicao->status == 'entregue' ? 'mdi-comment-check-outline text-info' : 'mdi-comment-question-outline text-success'))}} mdi-48px"></i>
 									</div>
 									<div class="col-8">
 										<div>
-											<h5 class="my-1">{{$requisicao->RelationMaterial->nome}}</h5>
-											<h6 class="mt-0 font-weight-normal text-muted">{{$requisicao->RelationMaterial->RelationCategoria->nome}}</h6>
+											<small><b>Nº do contrato:</b> {{$requisicao->RelationContratos->num_contrato}}</small>
 										</div>
 										<div>
-											<small><b>Quantidade:</b> {{$requisicao->quantidade}} unidades</small>
+											<small><b>Associado:</b> {{$requisicao->RelationContratos->RelationAssociados->nome}}</small>
 										</div>
 										<div>
-											<small><b>Data da solicitação:</b> {{$requisicao->created_at->format('d/m/Y H:i')}}</small>
+											<small><b>Produto:</b> {{$requisicao->RelationContratos->RelationProdutos->nome}} - {{$requisicao->RelationContratos->RelationModalidades->nome}}</small>
 										</div>
-									</div>
-									<div class="col-2 m-auto row justify-content-center">
-										<div class="badge badge-{{($requisicao->status == 1 ? 'success' : 'warning')}} px-3">
-											<label class="text-white my-auto">
-												<i class="mdi {{($requisicao->status == 1 ? 'mdi-check' : 'mdi-alert-circle-outline')}} pr-2"></i>
-												<span>{{($requisicao->status == 1 ? 'Atendida' : 'Pendente')}}</span>
-											</label>
+										<div>
+											<small><b>Valor do contrato:</b> R$ {{number_format($requisicao->RelationContratos->valor_contrato, 2, ',', '.')}}</small>
+										</div>
+										<div>
+											<small><b>Localização:</b> {{$requisicao->RelationContratos->RelationArmarios->referencia}}</small>
+										</div>
+										<hr class="my-3">
+										<div>
+											<div>
+												<small><b>Usuário solicitante:</b> {{$requisicao->RelationUsuarios->RelationAssociado->nome}}</small>
+											</div>
+											<div>
+												<small><b>Data da solicitação:</b> {{$requisicao->created_at->format('d/m/Y H:i')}}</small>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -77,10 +83,6 @@ Materiais
 		</div>
 	</div>
 </div>
-@endsection
-
-@section('modal')
-	@include('suporte.materiais.solicitacao')
 @endsection
 
 @section('suporte')
@@ -149,7 +151,7 @@ Materiais
 		$('#modal-solicitacao #formSolicitacao').on('submit', function(e){
 			e.preventDefault();
 			$.ajax({
-				url: '{{ route("efetuar.solicitacoes.materiais") }}',
+				url: '#',
 				type: 'POST',
 				data: $('#modal-solicitacao #formSolicitacao').serialize(),
 				beforeSend: function(){

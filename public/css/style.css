@@ -20172,3 +20172,7 @@ input[name=upload_img]{
 .mdi-40px{
 	font-size: 40px;
 }
+
+.form-sample{
+	overflow-y: auto;
+}

@@ -11,5 +11,9 @@ class Garantias extends Model
 
     protected $table = 'cre_garantias';
     protected $primaryKey = 'id';
-    protected $fillable = ['id', 'tipo', 'descricao', 'cre_id_contrato', 'data_movimento', 'created_at', 'updated_at' ];
+    protected $fillable = ['id', 'tipo', 'descricao', 'cre_id_contrato', 'data_movimento', 'created_at', 'updated_at'];
+
+	public function RelationContrato(){
+    	return $this->belongsTo(Contratos::class, 'cre_id_contrato', 'id');
+	}
 }

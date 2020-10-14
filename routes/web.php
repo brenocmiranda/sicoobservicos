@@ -102,12 +102,17 @@ Route::group(['prefix' => 'app'], function(){
 		});
 		// Garantias
 		Route::group(['prefix' => 'garantias'], function(){
-			Route::get('', 'GarantiasCtrl@Exibir')->name('exibir.garantias.credito');
-			Route::get('listar', 'GarantiasCtrl@Datatables')->name('listar.garantias.credito');
+			// Garantias fiduciárias
+			Route::group(['prefix' => 'fiduciaria'], function(){
+				Route::get('', 'GarantiasCtrl@ExibirFiduciaria')->name('exibir.garantias.fiduciaria.credito');
+				Route::get('listar', 'GarantiasCtrl@DatatablesFiduciaria')->name('listar.garantias.fiduciaria.credito');
+			});
+			// Garantias fidejussórias
+			Route::group(['prefix' => 'fidejussoria'], function(){
+				Route::get('', 'GarantiasCtrl@ExibirFidejussoria')->name('exibir.garantias.fidejussoria.credito');
+				Route::get('listar', 'GarantiasCtrl@DatatablesFidejussoria')->name('listar.garantias.fidejussoria.credito');
+			});
 			Route::post('adicionar', 'GarantiasCtrl@Adicionar')->name('adicionar.garantias.credito');
-			Route::post('editar/{id}', 'GarantiasCtrl@Editar')->name('editar.garantias.credito');
-			Route::post('alterar/{id}', 'GarantiasCtrl@Alterar')->name('alterar.garantias.credito');
-			Route::any('detalhes/{id}', 'GarantiasCtrl@Detalhes')->name('detalhes.garantias.credito');
 		});
 		// Solicitações
 		Route::group(['prefix' => 'solicitacoes'], function(){

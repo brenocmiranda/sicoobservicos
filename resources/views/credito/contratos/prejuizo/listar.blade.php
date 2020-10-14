@@ -112,7 +112,7 @@ Contratos em Prejuízo
 		$(".btnAval").on('click', function(e){
 			e.preventDefault();
 			// Insere um novo avalista
-			$(".adicionarAvalista").append('<div class="form-group rounded" id="avalista'+contador+'"> <div class="col-12"> <div class="d-flex"><input type="text" name="avalista[]" class="avalista form-control form-control-line mr-2" placeholder="Pesquise o associado"> <a href="javascript:void(0)" class="badge badge-danger my-auto" title="Remover" onclick="excluirAvalista('+contador+');"><i class="mdi mdi-delete"></i></a> </div> </div> </div>');
+			$(".adicionarAvalista").append('<div class="form-group rounded" id="avalista'+contador+'"> <div class="col-12"> <div class="d-flex"><input type="text" name="avalista[]" class="avalista form-control form-control-line mr-2" placeholder="Pesquise o associado" required> <a href="javascript:void(0)" class="badge badge-danger my-auto" title="Remover" onclick="excluirAvalista('+contador+');"><i class="mdi mdi-delete"></i></a> </div> </div> </div>');
 			contador++; 
 			// Autocomplete de novos avalistas
 			$(".avalista").autocomplete({
@@ -242,7 +242,7 @@ Contratos em Prejuízo
 					$.get("garantias/"+data.id, function(dataGarantias){
 						// Retorno dos avalistas da operação
 						for (var i = 0; i < dataGarantias[0].length; i++) {
-							$(".adicionarAvalista").append('<div class="form-group rounded" id="avalista'+contador+'"> <div class="col-12"> <div class="d-flex"> <input type="text" name="avalista[]" class="avalista form-control form-control-line mr-2" value="'+dataGarantias[0][i].nome+" : "+dataGarantias[0][i].documento+'"> <a href="javascript:void(0)" class="badge badge-danger my-auto" onclick="excluirAvalista('+contador+');">Remover</a> </div> </div> </div>');
+							$(".adicionarAvalista").append('<div class="form-group rounded" id="avalista'+contador+'"> <div class="col-12"> <div class="d-flex"> <input type="text" name="avalista[]" class="avalista form-control form-control-line mr-2" value="'+dataGarantias[0][i].nome+" : "+dataGarantias[0][i].documento+'" required> <a href="javascript:void(0)" class="badge badge-danger my-auto" onclick="excluirAvalista('+contador+');">Remover</a> </div> </div> </div>');
 							contador++;
 						}
 						// Retorno das garantias da operação

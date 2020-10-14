@@ -11,6 +11,10 @@ use App\Models\Setores;
 
 class SetoresCtrl extends Controller
 {
+	public function __construct(){
+		$this->middleware('auth');
+	}
+	
     // Listando todos produtos
 	public function Exibir(){
 		$dados = Setores::orderBy('nome')->get();
