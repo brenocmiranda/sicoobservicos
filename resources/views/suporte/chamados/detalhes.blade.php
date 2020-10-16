@@ -21,10 +21,10 @@ Detalhes do chamado
 
   <div class="confirm"></div>
 
-  <div class="row">
-    <div class="col-7">
-      <div class="card">
-        <div class="card-header">
+  <div class="row" style="height: 600px !important;">
+    <div class="col-7 h-100">
+      <div class="card h-100">
+        <div class="card-header" style="border-top-right-radius: 0.6em; border-top-left-radius: 0.6em;">
           <div class="my-4 px-2 row">
             <div class="d-flex">
               <h5 class="my-auto text-white font-weight-normal text-capitalize"><a href="{{route('exibir.chamados')}}"><i class="mdi mdi-arrow-left m-4 text-white"></i></a>CHAMADO #0{{$chamado->id}}</h5>
@@ -60,8 +60,13 @@ Detalhes do chamado
               <b>Data de abertura:</b> 
               <p>{{$chamado->created_at->format('d/m/Y H:i')}}</p>
             </label>
+            @if($chamado->RelationStatus->first()->finish == 1)
+            <label class="d-block">
+              <b>Data de fechamento:</b> 
+              <p>{{$chamado->RelationStatus->first()->pivot->created_at->format('d/m/Y H:i')}}</p>
+            </label> 
+            @endif
           </div>
-
           <div class="col-12 mb-5">
             <label class="d-inline-block">
               <b>Anexos do chamado</b>
@@ -95,39 +100,40 @@ Detalhes do chamado
             </div>
           </div>
 
-          <hr class="col-10">
-
-          <div class="row justify-content-center">
-            @if($chamado->RelationStatus->first()->finish != 1)
-            <div>
-              <a href="javascript:void()" id="{{$chamado->id}}" class="btn-finalizar btn btn-danger btn-outline d-flex align-items-center justify-content-center mx-2" data-toggle="modal" data-target="#modal-finalizar">
-                <i class="mdi mdi-close pr-2"></i> 
-                <span>Finalizar chamado</span>
-              </a>
+          <div class="col-12 px-0 pt-0 footer" style="border-radius: 0.8rem;">
+            <hr class="col-10">
+            <div class="row justify-content-center">
+              @if($chamado->RelationStatus->first()->finish != 1)
+              <div>
+                <a href="javascript:void()" id="{{$chamado->id}}" class="btn-finalizar btn btn-danger btn-outline d-flex align-items-center justify-content-center mx-2" data-toggle="modal" data-target="#modal-finalizar">
+                  <i class="mdi mdi-close pr-2"></i> 
+                  <span>Finalizar chamado</span>
+                </a>
+              </div>
+              @else
+              <div>
+                <a href="javascript:void()" id="{{$chamado->id}}" class="btn-reabrir btn btn-success btn-outline d-flex align-items-center justify-content-center mx-2">
+                  <i class="mdi mdi-check pr-2"></i> 
+                  <span>Reabertura chamado</span>
+                </a>
+              </div>
+              @endif
             </div>
-            @else
-            <div>
-              <a href="javascript:void()" id="{{$chamado->id}}" class="btn-reabrir btn btn-success btn-outline d-flex align-items-center justify-content-center mx-2">
-                <i class="mdi mdi-check pr-2"></i> 
-                <span>Reabertura chamado</span>
-              </a>
-            </div>
-            @endif
           </div>
         </div>
       </div>
     </div>
 
-    <div class="col-5">
-      <div class="card">
-        <div class="card-header {{($chamado->RelationStatus->first()->finish != 1 ? 'p-1' : '')}}">
+    <div class="col-5 h-100">
+      <div class="card h-100">
+        <div class="card-header {{($chamado->RelationStatus->first()->finish != 1 ? 'p-1' : '')}}" style="border-top-right-radius: 0.6em; border-top-left-radius: 0.6em;">
           <div class="m-4 row">
             <div class="d-flex">
               <h5 class="p-2 my-auto text-white font-weight-normal text-capitalize">Últimas atualizações</h5>
             </div>
           </div>
         </div>
-        <div class="card-body"  style="height: 450px;overflow-y: scroll;">
+        <div class="card-body">
           <ul class="p-0" id="statusNews">
             @foreach($chamado->RelationStatus as $status)
             <li class="m-3" id="status{{$status->pivot->id}}">
@@ -136,6 +142,7 @@ Detalhes do chamado
                 {{$status->pivot->descricao}}
               </label>
               <div class="row mx-auto">
+                <small>{{$status->pivot->RelationUsuarios->RelationAssociados->nome}}</small>
                 <small class="p-0 font-weight-bold">
                   {{$status->pivot->created_at->format('d/m/Y H:i')}} - 
                   {{$status->pivot->created_at->subMinutes(2)->diffForHumans()}}

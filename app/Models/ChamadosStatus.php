@@ -9,11 +9,15 @@ class ChamadosStatus extends Model
 {
 	use HasFactory;
 
-    protected $table = 'gti_status_has_chamados';
+    protected $table = 'gti_chamados_has_status';
     protected $primaryKey = 'id';
-    protected $fillable = ['id', 'gti_id_chamados', 'gti_id_status', 'descricao', 'created_at', 'updated_at'];
+    protected $fillable = ['id', 'gti_id_chamados', 'gti_id_status', 'usr_id_usuarios', 'descricao', 'created_at', 'updated_at'];
 
     public function RelationStatus(){
         return $this->belongsTo(Status::class, 'gti_id_status', 'id');
+    }
+
+    public function RelationUsuarios(){
+        return $this->belongsTo(Usuarios::class, 'usr_id_usuarios', 'id');
     }
 }

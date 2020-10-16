@@ -17,7 +17,7 @@ class CreateGtiChamados extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('assunto');
-            $table->text('descricao');
+            $table->longtext('descricao')->nullable();
             $table->string('prioridade')->nullable();
             $table->string('avaliacao')->nullable();
 

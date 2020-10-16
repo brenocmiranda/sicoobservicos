@@ -41,7 +41,11 @@ class ChamadosCtrl extends Controller
     public function ExibirUsuarios(){
         $chamados = Chamados::where('usr_id_usuarios', Auth::id())->orderBy('created_at', 'ASC')->get();
         $status = Status::where('status', 1)->get();
-        return view('suporte.chamados.listar')->with('chamados', $chamados)->with('statusAtivos', $status);
+        if(Auth::user()->RelationFuncao->gerenciar_gti != 1){
+            return view('suporte.chamados.listar')->with('chamados', $chamados)->with('statusAtivos', $status);
+        }else{
+            return redirect(route('exibir.chamados.gti'));
+        }
     }
 	// Abertura de chamados
 	public function Abertura(){
@@ -203,10 +207,11 @@ class ChamadosCtrl extends Controller
         $status = ChamadosStatus::create([
             'gti_id_chamados' => $id,
             'gti_id_status' => $finalizar->id,
-            'descricao' => (isset($request->descricao) ? $request->descricao : "Chamado finalizado por ".Auth::user()->RelationAssociado->nome.".")
+            'descricao' => (isset($request->descricao) ? $request->descricao : "Chamado finalizado por ".Auth::user()->RelationAssociado->nome."."),
+            'usr_id_usuarios' => Auth::id()
         ]);
         $create = Chamados::find($id);
-        $status->RelationUsuario->notify(new ChamadosAlteracaoCliente($status));  
+        $create->RelationUsuario->notify(new ChamadosAlteracaoCliente($create));  
         Atividades::create([
             'nome' => 'Encerramento de chamado',
             'descricao' => 'Você efetuou o encerramento do chamado, '.$create->assunto.'.',
@@ -234,7 +239,8 @@ class ChamadosCtrl extends Controller
         $status = ChamadosStatus::create([
             'gti_id_chamados' => $id,
             'gti_id_status' => $request->status,
-            'descricao' => (isset($request->descricao) ? $request->descricao : "Estado do chamado alterado por ".Auth::user()->RelationAssociado->nome.".")
+            'descricao' => (isset($request->descricao) ? $request->descricao : "Estado do chamado alterado por ".Auth::user()->RelationAssociado->nome."."),
+            'usr_id_usuarios' => Auth::id()
         ]);
         
         if($chamado->RelationStatus->first()->finish == 1){

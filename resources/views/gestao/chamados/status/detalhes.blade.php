@@ -7,10 +7,10 @@
           <button type="button" class="close px-0 py-2" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          <h5 class="modal-title">Detalhes da função</h5>
+          <h5 class="modal-title">Detalhes do status</h5>
         </div>
         <div class="col-12 mb-0">
-          <p>Abaixo estão listadas todas as informações da função.</p>
+          <p>Abaixo estão listadas todas as informações.</p>
         </div>
       </div>
       <div class="modal-body">
@@ -53,16 +53,16 @@
               <div class="col-12">
                 <div class="form-group">
                   <div class="checkbox checkbox-custom m-0">
-                    <input id="checkbox1" type="checkbox" name="open" class="open">
-                    <label for="checkbox1"> Abertura dos chamados </label>
+                    <input id="checkbox3" type="checkbox" name="open" class="open">
+                    <label for="checkbox3"> Abertura dos chamados </label>
                   </div>
                 </div>
               </div>
               <div class="col-12">
                 <div class="form-group">
                   <div class="checkbox checkbox-custom m-0">
-                    <input id="checkbox2" type="checkbox" name="finish" class="finish">
-                    <label for="checkbox2"> Fechamento dos chamados </label>
+                    <input id="checkbox4" type="checkbox" name="finish" class="finish">
+                    <label for="checkbox4"> Fechamento dos chamados </label>
                   </div>
                 </div>
               </div>

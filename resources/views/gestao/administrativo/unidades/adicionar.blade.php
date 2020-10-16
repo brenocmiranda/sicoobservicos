@@ -26,7 +26,7 @@
                     <label class="col-form-label pb-0">Instituição <span class="text-danger">*</span></label>
                     <div class="input-field">
                       <select class="form-control form-control-line" name="usr_id_instituicao" required>
-                        <option disabled="disabled">Selecione a instituição responsável</option>
+                        <option value="">Selecione a instituição responsável</option>
                         @foreach($instituicoes as $instituicao)
                         <option value="{{$instituicao->id}}">{{$instituicao->nome}}</option>
                         @endforeach

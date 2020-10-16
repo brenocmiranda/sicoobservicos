@@ -23,7 +23,7 @@ Homepage
 			<div class="col-12 row mb-4 mx-auto">
 				@include('layouts.search')
 				<div class="col-5 p-0 row mx-auto">
-					<button class="btn btn-success btn-primary ml-auto" id="adicionar" name="adicionar" title="Adicionar novo atalho" data-toggle="modal" data-target="#modal-adicionar">
+					<button class="btn btn-primary btn-outline ml-auto" id="adicionar" name="adicionar" title="Adicionar novo atalho" data-toggle="modal" data-target="#modal-adicionar">
 						<i class="m-0 pr-1 mdi mdi-plus"></i> 
 						<span>Nova atalho</span>
 					</button>

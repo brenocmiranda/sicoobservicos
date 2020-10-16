@@ -41,7 +41,7 @@ Abertura de chamado
 							<div class="col-7">
 								<div class="form-group">
 									<label class="col-form-label pb-0">Tipos <span class="text-danger">*</span></label>
-									<select class="form-control form-control-line tipos" name="tipos" required disabled>
+									<select class="form-control form-control-line tipos" name="tipos" required>
 										<option></option>
 									</select>
 								</div>
@@ -118,15 +118,13 @@ Abertura de chamado
 				type: 'GET',
 				success: function(data){ 
 					if(data[0]){
-						$('.tipos').removeAttr('disabled');
-						$('.tipos').html('<option></option>');
+						$('.tipos').html('<option value="">Selecione</option>');
 						$('#info-base').fadeIn('slow').html('<label class="text-muted text-center">Após selecionado a sua fonte e o tipo do problema, serão dispostos aqui algumas possíveis soluções cadastrados na nossa base do conhecimento. Fique atento!</label>');
 						$.each(data, function(count, dados){
 							$('.tipos').append('<option value='+dados.id+'>'+dados.nome+'</option>');
 						});		
 					}else{
-						$('.tipos').attr('disabled', 'disabled');
-						$('.tipos').html('<option>Nenhum encontrado</option>');
+						$('.tipos').html('<option value="">Nenhum encontrado</option>');
 						$('#info-base').fadeIn('slow').html('<label class="text-muted text-center">Após selecionado a sua fonte e o tipo do problema, serão dispostos aqui algumas possíveis soluções cadastrados na nossa base do conhecimento. Fique atento!</label>');
 					}		
 				}

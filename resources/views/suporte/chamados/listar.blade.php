@@ -31,8 +31,8 @@ Chamados
 			</div>
 			
 			<section class="py-4">
-				<div class="sttabs tabs-style-linebox">
-					<nav>
+				<div class="sttabs tabs-style-linetriangle">
+                    <nav class="col-10 mx-auto">
 						<ul>
 							@foreach($statusAtivos as $status)
 							<li class="{{($status->id == 1 ? 'tab-current' : '')}}">
@@ -58,18 +58,27 @@ Chamados
 													<span>{{$chamado->RelationFontes->nome}}</span> 
 													<b>&#183</b> 
 													<span>{{$chamado->RelationTipos->nome}}</span>
-													<div class="badge" style="background: {{$chamado->RelationStatus->first()->color}}">{{$chamado->RelationStatus->first()->nome}}</div>
+													<div class="badge mx-2" style="background: {{$chamado->RelationStatus->first()->color}}">{{$chamado->RelationStatus->first()->nome}}</div>
+
 												</h5>
 											</a>
+											<label class="text-truncate d-block mb-0">
+													<small class="text-dark"><b>Nº do chamado</b>: {{$chamado->id}}</small>
+												</label>
 											<label class="text-truncate d-block mb-0">
 												<small class="text-dark"><b>Assunto</b>: {{$chamado->assunto}}</small>
 											</label>
 											<label class="text-truncate d-block mb-0">
 												<small class="text-dark"><b>Descrição:</b> {{(isset($chamado->descricao) ? $chamado->descricao : '-')}}</small>
 											</label>	
-											<label class="text-truncate d-block">
+											<label class="text-truncate d-block mb-0">
 												<small class="text-dark"><b>Data de abertura:</b> {{$chamado->created_at->format('d/m/Y H:i')}}</small>
-											</label>			
+											</label>
+											@if($chamado->RelationStatus->first()->finish == 1)
+											<label class="text-truncate d-block">
+												<small class="text-dark"><b>Data de fechamento:</b> {{$chamado->RelationStatus->first()->pivot->created_at->format('d/m/Y H:i')}}</small>
+											</label>	
+											@endif				
 										</div>
 										<div class="text-right row col-3 ml-auto">
 											<div class="ml-auto">

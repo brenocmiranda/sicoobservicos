@@ -30,7 +30,7 @@
 
       @if(Auth::user()->RelationFuncao->ver_administrativo == 1 || Auth::user()->RelationFuncao->gerenciar_administrativo)
       <li> 
-        <a href="#" class="waves-effect {{ (Request::segment(2) == 'gti' ? 'active' : '') }}">
+        <a href="#" class="waves-effect {{ (Request::segment(2) == 'administrativo' ? 'active' : '') }}">
           <i class="mdi mdi-bank pr-3" data-icon="v"></i> 
           <span class="hide-menu"> Administrativo <span class="fa arrow"></span> </span>
         </a>
@@ -43,7 +43,7 @@
 
       @if(Auth::user()->RelationFuncao->ver_credito == 1 || Auth::user()->RelationFuncao->gerenciar_credito)
       <li> 
-        <a href="#" class="waves-effect">
+        <a href="#" class="waves-effect {{ (Request::segment(2) == 'credito' ? 'active' : '') }}">
           <i class="mdi mdi-currency-usd pr-3" data-icon="v"></i> 
           <span class="hide-menu"> Crédito <span class="fa arrow"></span> </span>
         </a>
@@ -72,13 +72,15 @@
         </a>
         <ul class="nav nav-second-level {{ (Request::segment(2) == 'suporte' ? 'collapse in' : '') }}">
           <li> <a href="{{route('exibir.base')}}"><span class="hide-menu">Aprendizagem</span></a> </li>
+          @if(Auth::user()->RelationFuncao->gerenciar_gti != 1)
           <li> <a href="{{route('exibir.chamados')}}"><span class="hide-menu">Chamados</span></a> </li>
+          @endif
           <li> <a href="{{route('exibir.documentos')}}"><span class="hide-menu">Documentos</span></a> </li>
           <li> <a href="{{route('exibir.solicitacoes.materiais')}}"><span class="hide-menu">Materiais</span></a> </li>
         </ul>
       </li>
 
-      @if(Auth::user()->RelationFuncao->ver_gti == 1 || Auth::user()->RelationFuncao->gerenciar_gti)
+      @if(Auth::user()->RelationFuncao->ver_gti == 1 || Auth::user()->RelationFuncao->gerenciar_gti == 1)
       <li> 
         <a href="#" class="waves-effect {{ (Request::segment(2) == 'gti' ? 'active' : '') }}">
           <i class="mdi mdi-dns pr-3" data-icon="v"></i> 

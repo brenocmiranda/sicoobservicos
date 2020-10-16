@@ -1,5 +1,5 @@
 @section('title')
-Solicitações
+Solicitações de suporte
 @endsection
 
 @extends('layouts.index')
@@ -13,32 +13,26 @@ Solicitações
 		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
 			<ol class="breadcrumb">
 				<li><a href="javascript:void(0)">GTI</a></li>
-				<li class="active">Solicitações</li>
+				<li class="active">Suporte</li>
 			</ol>
 		</div>
 	</div>
 	<div class="confim"></div>
 	<div class="card">
 		<div class="card-body">
-			<div class="col-12 row mb-4 mx-auto">
+			<div class="col-12 row mb-4 mx-auto justify-content-center">
 				@include('layouts.search')
-				<div class="col-5 p-0 row mx-auto">
-					<a href="{{route('abertura.chamados')}}" class="btn btn-primary btn-outline ml-auto" id="adicionar" name="adicionar" title="Abrir novo chamado">
-						<i class="m-0 pr-1 mdi mdi-plus"></i> 
-						<span>Novo chamado</span>
-					</a>
-				</div>
 			</div>
 			
 			@if(!empty($chamados[0]))
 			<section class="py-4">
-				<div class="sttabs tabs-style-linebox">
-                    <nav>
+				<div class="sttabs tabs-style-linetriangle">
+                    <nav class="col-10 mx-auto">
                         <ul>
                         	@foreach($statusAtivos as $status)
                         	<li class="{{($status->id == 1 ? 'tab-current' : '')}}">
                         		<a href="#section-{{$status->id}}">
-                        			<span>{{$status->nome}}</span>
+                        			<span class="font-weight-bold">{{$status->nome}}</span>
                         		</a>
                         	</li>
                         	@endforeach
@@ -49,7 +43,7 @@ Solicitações
                     	@foreach($statusAtivos as $status)
                         <section id="section-{{$status->id}}" class="{{($status->id == 1 ? 'content-current' : '')}}">
                             <ul class="row col-12 m-auto">
-								@foreach($chamados as $chamado)
+								@foreach($chamados->sortBy('created_at') as $chamado)
 									@if($chamado->RelationStatus->first()->id == $status->id)
 									<li class="col-12 border rounded shadow-sm mb-3">
 										<div class="p-3 h-100 row">
@@ -59,11 +53,14 @@ Solicitações
 														<span>{{$chamado->RelationFontes->nome}}</span> 
 														<b>&#183</b> 
 														<span>{{$chamado->RelationTipos->nome}}</span>
-														<div class="badge" style="background: {{$chamado->RelationStatus->first()->color}}">{{$chamado->RelationStatus->first()->nome}}</div>
+														<div class="badge mx-2" style="background: {{$chamado->RelationStatus->first()->color}}">{{$chamado->RelationStatus->first()->nome}}</div>
 													</h5>
 												</a>
 												<label class="text-capitalize d-block text-primary">
 													{{$chamado->RelationUsuario->RelationAssociado->nome}}
+												</label>
+												<label class="text-truncate d-block mb-0">
+													<small class="text-dark"><b>Nº do chamado</b>: {{$chamado->id}}</small>
 												</label>
 												<label class="text-truncate d-block mb-0">
 													<small class="text-dark"><b>Assunto</b>: {{$chamado->assunto}}</small>
@@ -76,7 +73,7 @@ Solicitações
 												</label>
 												@if($chamado->RelationStatus->first()->finish == 1)
 												<label class="text-truncate d-block">
-													<small class="text-dark"><b>Data de fechamento:</b> {{$chamado->RelationStatus->first()->created_at->format('d/m/Y H:i')}}</small>
+													<small class="text-dark"><b>Data de fechamento:</b> {{$chamado->RelationStatus->first()->pivot->created_at->format('d/m/Y H:i')}}</small>
 												</label>	
 												@endif					
 											</div>

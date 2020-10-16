@@ -25,7 +25,7 @@
                   <div class="form-group">
                     <label class="col-form-label">Status <span class="text-danger">*</span></label>
                     <select class="form-control form-control-line status" name="status" required>
-                      <option disabled>Selecione</option>
+                      <option value="">Selecione</option>
                       <option value="Ativo">Ativo</option>
                       <option value="Bloqueado">Bloqueado</option>
                       <option value="Desativado">Desativado</option>

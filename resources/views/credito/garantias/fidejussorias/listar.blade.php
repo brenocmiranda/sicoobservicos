@@ -47,6 +47,8 @@ Garantias fidejussórias
 
 @section('modal')
 	@include('credito.garantias.adicionar')
+	@include('credito.garantias.editar')
+	@include('credito.garantias.detalhes')
 @endsection
 
 @section('suporte')
@@ -57,7 +59,19 @@ Garantias fidejussórias
 	}
 
 	$(document).ready( function (){
-		var	contador = 2;
+		var	contador = 1;
+
+		// Limpando as informações dos modais
+		$('#adicionar').on('click', function(){
+			$('.modal form').each (function(){
+				this.reset();
+				if ($(this).hasClass('border-bottom border-danger')){
+					this.removeClass('border-bottom border-danger');
+				}
+			});
+			$('.modal #err').html('');
+			$('.adicionarGarantia').html('');
+		});
 
 		// Criando a datatables
 		$('#table').DataTable({
@@ -77,6 +91,94 @@ Garantias fidejussórias
 			{ "data": "acoes","name":"acoes"}
 			]
 		});
+
+		// Selecionando linhas da tabela
+		$('#table tbody').on('click', 'tr', function (){
+			var table = $('#table').DataTable();
+			if (!($(this).hasClass('active'))) {
+				table.$('tr.active').removeClass('active');
+				$(this).addClass('active');
+			}
+		});
+
+		// Editando informações 
+		$('#table tbody').on('click', 'button#editar', function (){
+			// Limpando as informações dos modais
+			$('.modal form').each (function(){
+				this.reset();
+				if ($(this).hasClass('border-bottom border-danger')){
+					this.removeClass('border-bottom border-danger');
+				}
+			});
+			$('.modal #err').html('');
+			$('.adicionarGarantia').html('');
+			// Retornando as informações na tabela
+			var table = $('#table').DataTable();
+			table.$('tr.active').removeClass('active');
+			$(this).parents('tr').addClass('active');
+			$(this).parent('tr').addClass('active');
+			var data = table.row('tr.active').data();
+			$('.modal .contrato').val(data.cre_id_contrato);
+			// Função para retorno das garantias
+			$.get("{{url('app/credito/garantias/detalhes')}}/"+data.id, function(dataGarantias){
+				// Retorno dos avalistas da operação
+				for (var i = 0; i < dataGarantias[0].length; i++) {
+					$(".adicionarGarantia").append('<div class="form-group rounded" id="avalista'+contador+'"> <div class="col-10 p-0"> <div class="d-flex"> <input type="text" name="avalista" class="avalista form-control form-control-line mr-2" value="'+dataGarantias[0][i].nome+" : "+dataGarantias[0][i].documento+'"> </div> </div> </div>');
+					contador++;
+				}
+				// Autocomplete de novos avalistas
+				$(".avalista").autocomplete({
+					source: function(request, response){
+						$.ajax({
+							url: "{{ route('listar.associado.credito') }}",
+							data: {	term : request.term	},
+							dataType: "json",
+							success: function(data4){
+								var resp = $.map(data4, function(obj){
+									return obj.nome +" : "+ obj.documento;
+								}); 
+								response(resp);
+							}})},
+						minLength: 1
+					});
+				$(".avalista").autocomplete({
+					change: function( event, ui ) {
+						if(ui.item == null){
+							$(this).val('');
+						}
+					}
+				});
+			});
+			$('#modal-editar').modal('show');
+		});
+
+		// Detalhes das informações do contrato
+		$('#table tbody').on('dblclick','tr', function (){
+			// Limpando as informações dos modais
+			$('.modal form').each (function(){
+				this.reset();
+				if ($(this).hasClass('border-bottom border-danger')){
+					this.removeClass('border-bottom border-danger');
+				}
+			});
+			$('.modal #err').html('');
+			$('.adicionarGarantia').html('');
+			// Retornando as informações na tabela
+			var table = $('#table').DataTable();
+			var data = table.row(this).data();
+			$(this).addClass('active');
+			$('.modal .contrato').val(data.cre_id_contrato);
+			// Função para retorno das garantias
+			$.get("{{url('app/credito/garantias/detalhes')}}/fidejussoria/"+data.id, function(dataGarantias){
+				// Retorno dos avalistas da operação
+				for (var i = 0; i < dataGarantias[0].length; i++) {
+					$(".adicionarGarantia").append('<div class="form-group rounded" id="avalista'+contador+'"> <div class="col-10 p-0"> <div class="d-flex"> <input type="text" name="avalista" class="avalista form-control form-control-line mr-2" value="'+dataGarantias[0][i].nome+" : "+dataGarantias[0][i].documento+'" disabled> </div> </div> </div>');
+					contador++;
+				}
+			});
+			$('#modal-detalhes').modal('show');
+		});
+
 
 		// Inserindo novos avalistas
 		$(".btnGarantia").on('click', function(e){
@@ -108,6 +210,40 @@ Garantias fidejussórias
 			});
 		});
 
+		$('#table tbody').on('click', 'button#alterar', function () {
+			// Alterando o estado
+			var table = $('#table').DataTable();
+			table.$('tr.active').removeClass('active');
+			$(this).parents('tr').addClass('active');
+			$(this).parent('tr').addClass('active');
+			var data = table.row('tr.active').data();
+			var url = "{{url('app/credito/garantias/alterar')}}/fidejussoria/"+data.id;
+			swal({
+				title: "Tem certeza que deseja remover essa garantia?",
+				icon: "error",
+				buttons: ["Cancelar", "Remover"],
+				dangerMode: true,
+			})
+			.then((willDelete) => {
+				if (willDelete) {
+					$.get(url, function(data){
+						if(data.success == true){
+							swal("Informações alteradas com sucesso!", {
+								icon: "success",
+							});
+							table.ajax.reload();
+						}else{
+							swal("Não foi possível alterar essas informações, tente novamente!", {
+								icon: "error",
+							});
+						}
+					});
+				} else {
+					swal.close();
+				}
+			});
+		});
+
 		// Adicionando garantitas aos contratos
 		$('#modal-adicionar #formAdicionar').on('submit', function(e){
 			var table = $('#table').DataTable();
@@ -131,7 +267,6 @@ Garantias fidejussórias
 						$('input').removeClass('border-bottom border-danger');
 						$('.carregamento').html('');
 						$('.modal-body, .modal-footer').removeClass('d-none');
-						$(".modal-backdrop").remove();
 						$('#modal-adicionar').modal('hide');
 					}, 1200);
 				}, error: function (data) {
@@ -146,6 +281,54 @@ Garantias fidejussórias
 							$('input').removeClass('border-bottom border-danger');
 							$.each(data.responseJSON.errors, function(key, value){
 								$('#modal-adicionar #err').append('<div class="text-danger ml-3"><p>'+value+'</p></div>');
+								$('input[name="'+key+'"]').addClass('border-bottom border-danger');
+							});
+						}
+					}, 1500);
+				}
+			});
+			e.preventDefault();
+		});
+
+		// Editando as informações do contrato
+		$('#modal-editar #formEditar').on('submit', function(e){
+			$(this).parents('tr').addClass('active');
+			var table = $('#table').DataTable();
+			var data = table.row('tr.active').data();
+			$.ajax({
+				url: "{{url('app/credito/garantias/editar')}}/fidejussoria/"+data.id,
+				type: 'POST',
+				data: $('#modal-editar #formEditar').serialize(),
+				beforeSend: function(){
+					$('#err').html('');
+					$('.modal-body, .modal-footer').addClass('d-none');
+					$('.carregamento').html('<div class="mx-auto text-center my-5"><div class="spinner-border my-3" role="status"><span class="sr-only"> Loading... </span></div><p>Salvando informações...</p></div>');
+				},
+				success: function(data){
+					$('.modal-body, .modal-footer').addClass('d-none');
+					$('.carregamento').html('<div class="mx-auto text-center my-5"><div class="col-12"><i class="col-2 mdi mdi-check-all mdi-48px"></i></div><label>Informações alteradas com sucesso!</label></div>');
+					setTimeout(function(){
+						$('#modal-editar #formEditar').each (function(){
+							this.reset();
+						});
+						table.ajax.reload();
+						$('input').removeClass('border-bottom border-danger');
+						$('.carregamento').html('');
+						$('.modal-body, .modal-footer').removeClass('d-none');
+						$('#modal-editar').modal('hide');
+					}, 1500);
+				}, error: function (data) {
+					setTimeout(function(){
+						$('.modal-body, .modal-footer').removeClass('d-none');
+						$('.carregamento').html('');
+						if(!data.responseJSON){
+							console.log(data.responseText);
+							$('#modal-editar #err').html(data.responseText);
+						}else{
+							$('#modal-editar #err').html('');
+							$('input').removeClass('border-bottom border-danger');
+							$.each(data.responseJSON.errors, function(key, value){
+								$('#modal-editar #err').append('<div class="text-danger ml-3"><p>'+value+'</p></div>');
 								$('input[name="'+key+'"]').addClass('border-bottom border-danger');
 							});
 						}

@@ -29,10 +29,10 @@ Detalhes do chamado
     @endif
   </div>
 
-  <div class="row">
-    <div class="col-7">
-      <div class="card">
-        <div class="card-header">
+  <div class="row" style="height: 600px !important;">
+    <div class="col-7 h-100">
+      <div class="card h-100">
+        <div class="card-header" style="border-top-right-radius: 0.6em; border-top-left-radius: 0.6em;">
           <div class="my-4 px-2 row">
             <div class="d-flex">
               <h5 class="my-auto text-white font-weight-normal text-capitalize"><a href="{{route('exibir.chamados.gti')}}"><i class="mdi mdi-arrow-left m-4 text-white"></i></a>CHAMADO #0{{$chamado->id}}</h5>
@@ -55,92 +55,101 @@ Detalhes do chamado
             </label>
           </div>
 
-          <div class="col-12 mb-4">
-            <label class="d-block">
-              <b>Assunto</b> 
-              <p>{{$chamado->assunto}}</p>
-            </label>
-            <label class="d-block">
-              <b>Descrição</b> 
-              <p>{{(isset($chamado->descricao) ? $chamado->descricao : '-')}}</p>
-            </label>  
-            <label class="d-block">
-              <b>Data de abertura:</b> 
-              <p>{{$chamado->created_at->format('d/m/Y H:i')}}</p>
-            </label>
+          <div class="">
+            <div class="col-12 mb-4">
+              <label class="d-block">
+                <b>Assunto</b> 
+                <p>{{$chamado->assunto}}</p>
+              </label>
+              <label class="d-block">
+                <b>Descrição</b> 
+                <p>{{(isset($chamado->descricao) ? $chamado->descricao : '-')}}</p>
+              </label>  
+              <label class="d-block">
+                <b>Data de abertura:</b> 
+                <p>{{$chamado->created_at->format('d/m/Y H:i')}}</p>
+              </label>
+              @if($chamado->RelationStatus->first()->finish == 1)
+              <label class="d-block">
+                <b>Data de fechamento:</b> 
+                <p>{{$chamado->RelationStatus->first()->pivot->created_at->format('d/m/Y H:i')}}</p>
+              </label> 
+              @endif  
+            </div>
+            <div class="col-12 mb-5">
+              <label class="d-inline-block">
+                <b>Anexos do chamado</b>
+              </label>
+              <div>
+                @if(!empty($chamado->RelationArquivos[0]))
+                  @foreach($chamado->RelationArquivos as $arquivos)
+                    <div class="row mx-auto"> 
+                    <a href="{{asset('storage/app/'.$arquivos->endereco)}}" target="_blank" class="row col-12">
+                      <div class="px-2">
+                        @if( explode(".", $arquivos->endereco)[1] == "docx" || explode(".", $arquivos->endereco)[1] == "doc")
+                        <i class="mdi mdi-file-word mdi-dark mdi-18px m-auto"></i>
+                        @elseif( explode(".", $arquivos->endereco)[1] == "xls" || explode(".", $arquivos->endereco)[1] == "xlsx" || explode(".", $arquivos->endereco)[1] == "xlsm"
+                        || explode(".", $arquivos->endereco)[1] == "csv")
+                        <i class="mdi mdi-file-excel mdi-dark mdi-18px m-auto"></i>
+                        @elseif( explode(".", $arquivos->endereco)[1] == "pdf")
+                        <i class="mdi mdi-file-pdf mdi-dark mdi-18px m-auto"></i>
+                        @else
+                        <i class="mdi mdi-file-document mdi-dark mdi-18px m-auto"></i>
+                        @endif
+                      </div>
+                      <div class="my-auto">
+                        <span class="text-truncate">{{str_replace('chamados/', '', $arquivos->endereco)}}</span>
+                      </div>
+                    </a>
+                    </div>
+                    @endforeach
+                @else
+                  <label>Não possui informações arquivadas.</label>
+                @endif
+              </div>
+            </div>
           </div>
 
-          <div class="col-12 mb-5">
-            <label class="d-inline-block">
-              <b>Anexos do chamado</b>
-            </label>
-            <div>
-              @if(!empty($chamado->RelationArquivos[0]))
-                @foreach($chamado->RelationArquivos as $arquivos)
-                  <div class="row mx-auto"> 
-                  <a href="{{asset('storage/app/'.$arquivos->endereco)}}" target="_blank" class="row col-12">
-                    <div class="px-2">
-                      @if( explode(".", $arquivos->endereco)[1] == "docx" || explode(".", $arquivos->endereco)[1] == "doc")
-                      <i class="mdi mdi-file-word mdi-dark mdi-18px m-auto"></i>
-                      @elseif( explode(".", $arquivos->endereco)[1] == "xls" || explode(".", $arquivos->endereco)[1] == "xlsx" || explode(".", $arquivos->endereco)[1] == "xlsm"
-                      || explode(".", $arquivos->endereco)[1] == "csv")
-                      <i class="mdi mdi-file-excel mdi-dark mdi-18px m-auto"></i>
-                      @elseif( explode(".", $arquivos->endereco)[1] == "pdf")
-                      <i class="mdi mdi-file-pdf mdi-dark mdi-18px m-auto"></i>
-                      @else
-                      <i class="mdi mdi-file-document mdi-dark mdi-18px m-auto"></i>
-                      @endif
-                    </div>
-                    <div class="my-auto">
-                      <span class="text-truncate">{{str_replace('chamados/', '', $arquivos->endereco)}}</span>
-                    </div>
-                  </a>
-                  </div>
-                  @endforeach
-              @else
-                <label>Não possui informações arquivadas.</label>
+          <div class="col-12 px-0 pt-0 footer" style="border-radius: 0.8rem;">
+            <hr class="col-10">
+            <div class="row justify-content-center">
+              <div> 
+                <a href="{{route('relatorio.chamados.gti', $chamado->id)}}" target="_blank" class="btn btn-info btn-outline d-flex align-items-center justify-content-center mx-2">
+                  <i class="mdi mdi-printer pr-2"></i> 
+                  <span>Gerar Relatório</span>
+                </a>
+              </div>
+              @if($chamado->RelationStatus->first()->finish != 1)
+              <div>
+                <a href="javascript:void()" class="btn btn-danger btn-outline d-flex align-items-center justify-content-center mx-2" data-toggle="modal" data-target="#modal-finalizar">
+                  <i class="mdi mdi-close pr-2"></i> 
+                  <span>Finalizar chamado</span>
+                </a>
+              </div>
               @endif
             </div>
           </div>
 
-          <hr class="col-10">
-
-          <div class="row justify-content-center">
-            <div> 
-              <a href="{{route('relatorio.chamados.gti', $chamado->id)}}" target="_blank" class="btn btn-info btn-outline d-flex align-items-center justify-content-center mx-2">
-                <i class="mdi mdi-printer pr-2"></i> 
-                <span>Gerar Relatório</span>
-              </a>
-            </div>
-            @if($chamado->RelationStatus->first()->finish != 1)
-            <div>
-              <a href="javascript:void()" class="btn btn-danger btn-outline d-flex align-items-center justify-content-center mx-2" data-toggle="modal" data-target="#modal-finalizar">
-                <i class="mdi mdi-close pr-2"></i> 
-                <span>Finalizar chamado</span>
-              </a>
-            </div>
-            @endif
-          </div>
         </div>
       </div>
     </div>
 
-    <div class="col-5">
-      <div class="card">
-        <div class="card-header {{($chamado->RelationStatus->first()->finish != 1 ? 'p-1' : '')}}">
+    <div class="col-5 h-100">
+      <div class="card h-100">
+        <div class="card-header {{($chamado->RelationStatus->first()->finish != 1 ? 'p-1' : '')}}" style="border-top-right-radius: 0.6em; border-top-left-radius: 0.6em;">
           <div class="m-4 row">
             <div class="d-flex">
               <h5 class="my-auto text-white font-weight-normal text-capitalize">Últimas atualizações</h5>
             </div>
             @if($chamado->RelationStatus->first()->finish != 1)
-            <button class="btn btn-light btn-rounded btn-xs ml-auto" title="Alterar status" data-toggle="modal" data-target="#modal-alterar">
+            <button class="btn btn-light btn-xs ml-auto" title="Alterar status" data-toggle="modal" data-target="#modal-alterar">
               <i class="mdi mdi-cached"></i>
               <small>Alterar status</small>
             </button>
             @endif
           </div>
         </div>
-        <div class="card-body"  style="height: 450px;overflow-y: scroll;">
+        <div class="card-body">
           <ul class="p-0" id="statusNews">
             @foreach($chamado->RelationStatus as $status)
             <li class="m-3" id="status{{$status->pivot->id}}">
@@ -148,6 +157,7 @@ Detalhes do chamado
               <label class="col-12 pt-3 px-0">
                 {{$status->pivot->descricao}}
               </label>
+              <small class="font-weight-bold">{{$status->pivot->usr_id_usuarios}}</small>
               <div class="row mx-auto">
                 <small class="p-0 font-weight-bold">
                   {{$status->pivot->created_at->format('d/m/Y H:i')}} -

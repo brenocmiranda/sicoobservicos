@@ -252,7 +252,7 @@ Funções
 							});
 							table.ajax.reload();
 						}else{
-							swal("Não foi possível alterar essas informações, tente novamete!", {
+							swal("Não foi possível alterar essas informações, tente novamente!", {
 								icon: "error",
 							});
 						}

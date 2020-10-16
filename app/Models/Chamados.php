@@ -26,7 +26,7 @@ class Chamados extends Model
     }
 
     public function RelationStatus(){
-        return $this->belongsToMany(Status::class, 'gti_status_has_chamados', 'gti_id_chamados', 'gti_id_status')->withTimestamps()->withPivot('descricao', 'id')->orderBy('gti_status_has_chamados.created_at', 'DESC');
+        return $this->belongsToMany(Status::class, 'gti_chamados_has_status', 'gti_id_chamados', 'gti_id_status')->withPivot('descricao', 'id', 'usr_id_usuarios')->withTimestamps()->orderBy('gti_chamados_has_status.created_at', 'DESC');
     }
 
     public function RelationStatus1(){

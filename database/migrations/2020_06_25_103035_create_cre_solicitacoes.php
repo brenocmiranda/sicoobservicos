@@ -16,8 +16,6 @@ class CreateCreSolicitacoes extends Migration
         Schema::create('cre_solicitacoes', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->text('observacoes');
-            $table->enum('status', ['aberto', 'entregue', 'devolvido']);
             $table->integer('usr_id_usuario')->unsigned();
             $table->integer('cre_id_contratos')->unsigned();
             $table->foreign('usr_id_usuario')->references('id')->on('usr_usuarios');

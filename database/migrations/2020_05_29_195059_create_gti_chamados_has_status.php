@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGtiStatusHasChamados extends Migration
+class CreateGtiChamadosHasStatus extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateGtiStatusHasChamados extends Migration
      */
     public function up()
     {
-        Schema::create('gti_status_has_chamados', function (Blueprint $table) {
+        Schema::create('gti_chamados_has_status', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->text('descricao')->nullable();
@@ -22,7 +22,8 @@ class CreateGtiStatusHasChamados extends Migration
             $table->foreign('gti_id_chamados')->references('id')->on('gti_chamados');
             $table->integer('gti_id_status')->unsigned();
             $table->foreign('gti_id_status')->references('id')->on('gti_status');
-
+            $table->integer('usr_id_usuarios')->unsigned()->nullable();
+            $table->foreign('usr_id_usuarios')->references('id')->on('usr_usuarios');
             $table->timestamps();
         });
     }
@@ -34,6 +35,6 @@ class CreateGtiStatusHasChamados extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('gti_status_has_chamados');
+        Schema::dropIfExists('gti_chamados_has_status');
     }
 }

@@ -27,10 +27,10 @@
                   <div class="form-group">
                     <label class="col-form-label pb-0">Associado <span class="text-danger">*</span></label>
                     <select class="form-control form-control-line cli_id_associado" name="cli_id_associado" required>
-                      <option disabled>Selecione</option>
-                      @foreach($associados as $associado)
-                      <option value="{{$associado->id}}">{{$associado->nome}}</option>
-                      @endforeach
+                      <option value="">Selecione</option>
+                        @foreach($associados as $associado)
+                        <option value="{{$associado->id}}">{{$associado->nome}}</option>
+                        @endforeach
                     </select>
                   </div>
                 </div>
@@ -58,7 +58,7 @@
                   <div class="form-group">
                     <label class="col-form-label pb-0">Função <span class="text-danger">*</span></label>
                     <select class="form-control form-control-line usr_id_funcao" name="usr_id_funcao" required>
-                      <option disabled>Selecione</option>
+                      <option value="">Selecione</option>
                       @foreach($funcoes as $funcao)
                       <option value="{{$funcao->id}}">{{$funcao->nome}}</option>
                       @endforeach
@@ -69,7 +69,7 @@
                   <div class="form-group">
                     <label class="col-form-label pb-0">Setor <span class="text-danger">*</span></label>
                     <select class="form-control form-control-line usr_id_setor" name="usr_id_setor" required>
-                      <option disabled>Selecione</option>
+                      <option value="">Selecione</option>
                       @foreach($setores as $setor)
                       <option value="{{$setor->id}}">{{$setor->nome}}</option>
                       @endforeach
@@ -80,7 +80,7 @@
                   <div class="form-group">
                     <label class="col-form-label pb-0">Instituição <span class="text-danger">*</span></label>
                     <select class="form-control form-control-line usr_id_instituicao" name="usr_id_instituicao" required>
-                      <option disabled>Selecione</option>
+                      <option value="">Selecione</option>
                       @foreach($instituicoes as $instituicao)
                       <option value="{{$instituicao->id}}">{{$instituicao->nome}}</option>
                       @endforeach
@@ -91,7 +91,7 @@
                   <div class="form-group">
                     <label class="col-form-label pb-0">Unidade <span class="text-danger">*</span></label>
                     <select class="form-control form-control-line usr_id_unidade" name="usr_id_unidade" required>
-                      <option disabled>Selecione</option>
+                      <option value="">Selecione</option>
                       @foreach($unidades as $unidade)
                       <option value="{{$unidade->id}}">{{$unidade->nome}}</option>
                       @endforeach

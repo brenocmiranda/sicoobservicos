@@ -33,6 +33,12 @@ class UsuariosCtrl extends Controller
 	// Listando todos usuários
 	public function Exibir(){
 		$associados = Associados::where('funcionario', 1)->orderBy('nome', 'asc')->get();
+		foreach ($associados as $key => $value) {
+			$dados = Usuarios::where('cli_id_associado', $value->id)->first();
+			if(isset($dados)){
+				unset($associados[$key]);
+			}
+		}
 		$setores = Setores::where('status', 1)->get();
 		$funcoes = Funcoes::where('status', 1)->get();
 		$instituicoes = Instituicoes::where('status', 1)->get();

@@ -21,45 +21,24 @@
         <div class="modal-body">
           <div class="col-12 grid-margin mb-0">
             <div class="card-body py-0">
-             
             <div class="row">
               <div class="col-4">
                 <div class="form-group">
                   <label class="col-form-label pb-0">Novo status <span class="text-danger">*</span></label>
                   <select class="form-control form-control-line" name="status" required>
-                    <option disabled>Selecione</option>
-                    @foreach($statusAtivos->where('open', 0) as $status)
-                    <option value="{{$status->id}}">{{$status->nome}}</option>
-                    @endforeach
+                    <option value="">Selecione</option>
+                    <option value="aberto">Em aberto</option>
+                    <option value="entregue">Entregue</option>
+                    <option value="devolvido">Devolvido</option>
                   </select>
                 </div>
               </div>
               <div class="col-12">
                 <div class="form-group">
-                  <label class="col-form-label mb-2">Descrição <span class="text-danger">*</span></label>
-                  <textarea class="form-control form-control-line" name="descricao" placeholder="Escreva aqui um descrição para o colaborador..." rows="2" required  onkeyup="this.value = this.value.toUpperCase();"></textarea>
+                  <label class="col-form-label mb-2">Descrição </label>
+                  <textarea class="form-control form-control-line" name="observacoes" placeholder="Escreva aqui um descrição..." rows="2" onkeyup="this.value = this.value.toUpperCase();"></textarea>
                 </div>
               </div>
-            </div>
-            <div class="row">
-              <label class="col-form-label col-12">Últimas atualizações: </label>
-              <ul class="px-2" id="statusNews" style="overflow-y: scroll; height: 180px">
-                @foreach($chamado->RelationStatus as $status)
-                <li class="m-3 border-bottom pb-3" id="status{{$status->pivot->id}}">
-                  <div class="badge" style="background: {{$status->color}}">{{$status->nome}}</div>
-                  <label class="col-12 pt-3 px-0">
-                    {{$status->pivot->descricao}}
-                  </label>
-                  <div class="col-12 row">
-                    <small class="p-0 font-weight-bold">
-                      {{$status->pivot->created_at->format('d/m/Y H:i')}}
-                    </small>
-                  </div>
-                  @if($chamado->RelationStatus->last()->id != $status->id)
-                  @endif
-                </li>
-                @endforeach
-              </ul>
             </div>
           </div>
         </div>

@@ -113,15 +113,16 @@ Route::group(['prefix' => 'app'], function(){
 				Route::get('listar', 'GarantiasCtrl@DatatablesFidejussoria')->name('listar.garantias.fidejussoria.credito');
 			});
 			Route::post('adicionar', 'GarantiasCtrl@Adicionar')->name('adicionar.garantias.credito');
+			Route::post('editar/{avalista}/{id}', 'GarantiasCtrl@Editar')->name('editar.garantias.credito');
+			Route::any('detalhes/{id}', 'GarantiasCtrl@Detalhes')->name('detalhes.garantias.credito');
+			Route::any('alterar/{avalista}/{id}', 'GarantiasCtrl@Alterar')->name('alterar.garantias.credito');
 		});
 		// Solicitações
 		Route::group(['prefix' => 'solicitacoes'], function(){
 			Route::get('', 'SolicitacoesCtrl@Exibir')->name('exibir.solicitacoes.credito');
-			Route::get('listar', 'SolicitacoesCtrl@Datatables')->name('listar.solicitacoes.credito');
-			Route::post('adicionar', 'SolicitacoesCtrl@Adicionar')->name('adicionar.solicitacoes.credito');
-			Route::post('editar/{id}', 'SolicitacoesCtrl@Editar')->name('editar.solicitacoes.credito');
-			Route::post('alterar/{id}', 'SolicitacoesCtrl@Alterar')->name('alterar.solicitacoes.credito');
-			Route::any('detalhes/{id}', 'SolicitacoesCtrl@Detalhes')->name('detalhes.solicitacoes.credito');
+			Route::post('alterar', 'SolicitacoesCtrl@Alterar')->name('alterar.solicitacoes.credito');
+			Route::post('imprimir/{id}', 'SolicitacoesCtrl@Imprimir')->name('imprimir.solicitacoes.credito');
+			Route::post('solicitar', 'SolicitacoesCtrl@Solicitar')->name('solicitar.solicitacoes.credito');
 		});
 		// Associados *
 		Route::group(['prefix' => 'associados'], function(){
