@@ -120,9 +120,12 @@ Route::group(['prefix' => 'app'], function(){
 		// Solicitações
 		Route::group(['prefix' => 'solicitacoes'], function(){
 			Route::get('', 'SolicitacoesCtrl@Exibir')->name('exibir.solicitacoes.credito');
-			Route::post('alterar', 'SolicitacoesCtrl@Alterar')->name('alterar.solicitacoes.credito');
-			Route::post('imprimir/{id}', 'SolicitacoesCtrl@Imprimir')->name('imprimir.solicitacoes.credito');
 			Route::post('solicitar', 'SolicitacoesCtrl@Solicitar')->name('solicitar.solicitacoes.credito');
+			Route::post('alterar', 'SolicitacoesCtrl@Alterar')->name('alterar.solicitacoes.credito');
+			Route::get('imprimir/{id}', 'SolicitacoesCtrl@Relatorio')->name('imprimir.solicitacoes.credito');
+			Route::any('remover/{id}', 'SolicitacoesCtrl@Remover')->name('remover.solicitacoes.credito');
+			
+			Route::get('detalhes/{id}', 'SolicitacoesCtrl@DetalhesContrato')->name('detalhes.solicitacoes.credito');
 		});
 		// Associados *
 		Route::group(['prefix' => 'associados'], function(){

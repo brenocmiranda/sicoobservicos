@@ -26,9 +26,9 @@
                 <div class="col-8">
                   <div class="form-group">
                     <label class="col-form-label pb-0">Associado <span class="text-danger">*</span></label>
-                    <select class="form-control form-control-line cli_id_associado" name="cli_id_associado" required>
+                    <select class="form-control form-control-line cli_id_associado" name="cli_id_associado" disabled>
                       <option value="">Selecione</option>
-                        @foreach($associados as $associado)
+                        @foreach($associadosTodos as $associado)
                         <option value="{{$associado->id}}">{{$associado->nome}}</option>
                         @endforeach
                     </select>

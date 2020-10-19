@@ -39,7 +39,6 @@ class UsuariosRqt extends FormRequest
                 'status' => 'required|string',
                 'usr_id_setor' => 'required|numeric',
                 'usr_id_funcao' => 'required|numeric',
-                'cli_id_associado' => 'required|numeric',
                 'usr_id_instituicao' => 'required|numeric',
                 'usr_id_unidade' => 'required|numeric',
             ];

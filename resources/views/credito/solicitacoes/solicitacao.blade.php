@@ -7,7 +7,7 @@
 					<button type="button" class="close px-0 py-2" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-					<h5 class="modal-title">Efetuar solicitação de materiais</h5>
+					<h5 class="modal-title">Efetuar solicitação de contrato</h5>
 				</div>
 				<div class="col-12 mb-0">
 					<p>Preencha todas as informações necessárias.</p>
@@ -21,40 +21,69 @@
 					<div class="col-12 grid-margin mb-0">
 						<div class="card-body py-0">
 							<div class="row">
-								<div class="col-5">
-									<div class="form-group">
-										<label class="col-form-label pb-0">Categorias <span class="text-danger">*</span></label>
-										<select class="categorias form-control form-control-line"required>
-											<option></option>
-											@foreach($categorias as $categoria)
-												<option value="{{$categoria->id}}">{{$categoria->nome}}</option>
-											@endforeach
-										</select>
-									</div>
-								</div>
-								<div class="col-8">
-									<div class="form-group">
-										<label class="col-form-label pb-0">Materiais <span class="text-danger">*</span></label>
-										<select class="materiais form-control form-control-line" name="id_material" required disabled>
-											<option disabled>Selecione</option>
-										</select>
-									</div>
-								</div>
-								<div class="row col-12">
-									<div class="col-4">
-					                  <div class="form-group">
-					                    <label class="col-form-label pb-0">Quantidade <span class="text-danger">*</span></label>
-					                    <div class="row m-0">
-					                    	<div class="col p-0">
-					                    		<input type="number" class="quantidade form-control form-control-line" name="quantidade" min="0" required/>
-					                    	</div>
-					                    	<div class="col my-auto">
-					                   	 		<small>unidades</small>
-					                   	 	</div>
-					                    </div>			                   
-					                  </div>
-					                </div>
+								<div class="col-12">
+				                  <div class="form-group">
+				                    <label class="col-form-label pb-0">Contrato <span class="text-danger">*</span></label>
+				                    <select class="form-control form-control-line contrato" name="contrato" required>
+				                      <option value=""> Selecione o contrato</option>
+				                      @foreach($contratos as $contrato)
+				                        <option value="{{$contrato->id}}">{{$contrato->num_contrato}} - {{$contrato->RelationAssociados->nome}}</option>
+				                      @endforeach
+				                    </select>
+				                  </div>
 				                </div>
+				                <div class="col-12">
+				                	<div class="row">
+										<div class="col-6">
+					                      <div class="form-group">
+					                        <label class="col-form-label pb-0">Produto</label>
+					                        <div class="input-field mt-0">
+					                          <select class="form-control form-control-line cre_id_produtos" id="cre_id_produtos" disabled>
+					                            <option value=""></option>
+					                            @foreach($produtos as $produto)
+					                            <option value="{{$produto->id}}">{{$produto->nome}}</option>
+					                            @endforeach
+					                          </select>
+					                        </div>
+					                      </div>
+					                    </div>
+					                    <div class="col-6">
+					                      <div class="form-group">
+					                        <label class="col-form-label pb-0">Modalidade</label>
+					                        <select class="form-control form-control-line cre_id_modalidades" id="cre_id_modalidades" disabled>
+					                          <option value=""></option>
+					                           @foreach($modalidades as $modalidade)
+						                          <option value="{{$modalidade->id}}">{{$modalidade->codigo}} - {{$modalidade->nome}}</option>
+						                        @endforeach
+					                        </select>
+					                      </div>
+					                    </div>
+					                    <div class="col-4">
+					                      <div class="form-group">
+					                        <label class="col-form-label pb-0">Data da operação </label>
+					                        <input type="date" class="form-control form-control-line data_operacao" id="data_operacao" disabled/>
+					                      </div>
+					                    </div>
+					                    <div class="col-4">
+					                      <div class="form-group">
+					                        <label class="col-form-label pb-0">Data de vencimento</label>
+					                        <input type="date" class="form-control form-control-line data_vencimento" id="data_vencimento" disabled/>
+					                      </div>
+					                    </div>              
+					                    <div class="col-4">
+					                      <div class="form-group">
+					                        <label class="col-form-label pb-0">Valor da operação</label>
+					                        <input type="text" class="money form-control form-control-line valor_contrato" id="valor_contrato" disabled/>
+					                      </div>
+					                    </div>
+						                <div class="col-12">
+					                      <div class="form-group">
+					                        <label class="col-form-label pb-0">Observações</label>
+					                        <textarea class="form-control form-control-line" id="observacoes" placeholder="Entre com as observações..." rows="3"></textarea> 
+					                      </div>
+					                    </div>
+				                    </div>
+								</div>
 							</div>
 						</div>
 					</div>

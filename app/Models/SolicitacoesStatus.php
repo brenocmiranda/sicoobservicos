@@ -11,7 +11,7 @@ class SolicitacoesStatus extends Model
 
     protected $table = 'cre_solicitacoes_status';
     protected $primaryKey = 'id';
-    protected $fillable = ['id', 'observacoes', 'status', 'usr_id_usuario_alteracao', 'cre_id_solicitacoes', 'created_at', 'updated_at'];
+    protected $fillable = ['id', 'status', 'usr_id_usuario_alteracao', 'cre_id_solicitacoes', 'created_at', 'updated_at'];
 
     public function RelationUsuarios(){
     	return $this->belongsTo(Usuarios::class, 'usr_id_usuario_alteracao', 'id');

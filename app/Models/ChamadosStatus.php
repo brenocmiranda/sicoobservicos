@@ -18,6 +18,6 @@ class ChamadosStatus extends Model
     }
 
     public function RelationUsuarios(){
-        return $this->belongsTo(Usuarios::class, 'usr_id_usuarios', 'id');
+        return $this->hasOne(Usuarios::class, 'id', 'usr_id_usuarios');
     }
 }

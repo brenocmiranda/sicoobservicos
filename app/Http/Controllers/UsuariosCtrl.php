@@ -33,6 +33,7 @@ class UsuariosCtrl extends Controller
 	// Listando todos usuários
 	public function Exibir(){
 		$associados = Associados::where('funcionario', 1)->orderBy('nome', 'asc')->get();
+		$associadosTodos = Associados::where('funcionario', 1)->orderBy('nome', 'asc')->get();
 		foreach ($associados as $key => $value) {
 			$dados = Usuarios::where('cli_id_associado', $value->id)->first();
 			if(isset($dados)){
@@ -43,7 +44,7 @@ class UsuariosCtrl extends Controller
 		$funcoes = Funcoes::where('status', 1)->get();
 		$instituicoes = Instituicoes::where('status', 1)->get();
 		$unidades = Unidades::where('status', 1)->get();
-		return view('gestao.administrativo.usuarios.listar')->with('associados', $associados)->with('setores', $setores)->with('funcoes', $funcoes)->with('instituicoes', $instituicoes)->with('unidades', $unidades);
+		return view('gestao.administrativo.usuarios.listar')->with('associados', $associados)->with('associadosTodos', $associadosTodos)->with('setores', $setores)->with('funcoes', $funcoes)->with('instituicoes', $instituicoes)->with('unidades', $unidades);
 	}
 	public function Datatables(){
 		return datatables()->of(Usuarios::where('id', '!=', Auth::id())->get())

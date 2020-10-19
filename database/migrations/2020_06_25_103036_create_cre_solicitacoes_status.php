@@ -16,7 +16,6 @@ class CreateCreSolicitacoesStatus extends Migration
         Schema::create('cre_solicitacoes_status', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->text('observacoes');
             $table->enum('status', ['aberto', 'entregue', 'devolvido']);
             $table->integer('usr_id_usuario_alteracao')->unsigned();
             $table->integer('cre_id_solicitacoes')->unsigned();

@@ -120,8 +120,8 @@ Home
 		        </ul>    
 		    </div>
 		    @else
-	        	<a href="{{route('login')}}" class="btn btn-success btn-rounded btn-lg px-5">
-	        		<span>Entrar</span>
+	        	<a href="{{route('login')}}" class="btn btn-default rounded btn-lg px-5">
+	        		<span>Fazer login</span>
 	        	</a>
 	        @endif
 	    </div>

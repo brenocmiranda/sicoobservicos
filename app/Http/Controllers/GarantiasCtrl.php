@@ -9,6 +9,7 @@ use App\Models\Contratos;
 use App\Models\Associados;
 use App\Models\Avalistas;
 use App\Models\Garantias;
+use App\Models\Atividades;
 
 class GarantiasCtrl extends Controller
 {
@@ -77,6 +78,13 @@ class GarantiasCtrl extends Controller
 					'data_movimento' => date("Y-m-d H:i:s")
 				]);
 			}
+			Atividades::create([
+				'nome' => 'Cadastro de nova garantia fidejussórias',
+				'descricao' => 'Você cadastrou uma nova garantia de crédito no contrato, '.$avalista->RelationContrato->num_contrato.'.',
+				'icone' => 'mdi-plus',
+				'url' => route('exibir.garantias.fidejussoria.credito'),
+				'id_usuario' => Auth::id()
+			]);
 		}
 		// Inserindo garantias
 		if(isset($request->tipoGarantia)){
@@ -88,6 +96,13 @@ class GarantiasCtrl extends Controller
 					'data_movimento' => date("Y-m-d H:i:s")
 				]);
 			}
+			Atividades::create([
+				'nome' => 'Cadastro de nova garantia fidunciárias',
+				'descricao' => 'Você cadastrou uma nova garantia de crédito no contrato, '.$garantia->RelationContrato->num_contrato.'.',
+				'icone' => 'mdi-plus',
+				'url' => route('exibir.garantias.fiduciaria.credito'),
+				'id_usuario' => Auth::id()
+			]);	
 		}
 	}
 
@@ -101,13 +116,27 @@ class GarantiasCtrl extends Controller
 				'cli_id_associado' => $associado->id, 
 				'data_movimento' => date("Y-m-d H:i:s")
 			]);
+			Atividades::create([
+				'nome' => 'Edição de informações da garantia fidejussórias',
+				'descricao' => 'Você editou as informações da garantia do contrato, '.$avalista->RelationContrato->num_contrato.'.',
+				'icone' => 'mdi-auto-fix',
+				'url' => route('exibir.garantias.fidejussoria.credito'),
+				'id_usuario' => Auth::id()
+			]);
 			return response()->json(['success' => true]);
 		}else{
 			$garantia = Garantias::find($id)->update([
-					'tipo' => $request->tipoGarantia, 
-					'descricao' => $request->descricaoGarantia,
-					'data_movimento' => date("Y-m-d H:i:s")
-				]);
+				'tipo' => $request->tipoGarantia, 
+				'descricao' => $request->descricaoGarantia,
+				'data_movimento' => date("Y-m-d H:i:s")
+			]);
+			Atividades::create([
+				'nome' => 'Edição de informações da garantia fidunciárias',
+				'descricao' => 'Você editou as informações da garantia do contrato, '.$garantia->RelationContrato->num_contrato.'.',
+				'icone' => 'mdi-auto-fix',
+				'url' => route('exibir.garantias.fiduciaria.credito'),
+				'id_usuario' => Auth::id()
+			]);	
 			return response()->json(['success' => true]);
 		}
 	}
@@ -115,9 +144,25 @@ class GarantiasCtrl extends Controller
 	// Removendo a garantia
 	public function Alterar($avalista, $id){
 		if($avalista == 'fidejussoria'){
+			$avalista = Garantias::find($id);
+			Atividades::create([
+				'nome' => 'Exclusão de garantia fidejussórias',
+				'descricao' => 'Você removeu uma das garantias do contrato, '.$avalista->RelationContrato->num_contrato.'.',
+				'icone' => 'mdi-close',
+				'url' => route('exibir.garantias.fidejussoria.credito'),
+				'id_usuario' => Auth::id()
+			]);
 			Avalistas::find($id)->delete();
 			return response()->json(['success' => true]);
 		}else{
+			$garantia = Garantias::find($id);
+			Atividades::create([
+				'nome' => 'Exclusão de garantia fidunciárias',
+				'descricao' => 'Você removeu uma das garantias do contrato, '.$garantia->RelationContrato->num_contrato.'.',
+				'icone' => 'mdi-close',
+				'url' => route('exibir.garantias.fiduciaria.credito'),
+				'id_usuario' => Auth::id()
+			]);	
 			Garantias::find($id)->delete();
 			return response()->json(['success' => true]);
 		}

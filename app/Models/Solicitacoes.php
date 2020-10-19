@@ -11,7 +11,7 @@ class Solicitacoes extends Model
 
     protected $table = 'cre_solicitacoes';
     protected $primaryKey = 'id';
-    protected $fillable = ['id', 'usr_id_usuario', 'cre_id_contratos', 'created_at', 'updated_at'];
+    protected $fillable = ['id', 'observacoes', 'usr_id_usuario', 'cre_id_contratos', 'created_at', 'updated_at'];
 
     public function RelationContratos(){
     	return $this->belongsTo(Contratos::class, 'cre_id_contratos', 'id');

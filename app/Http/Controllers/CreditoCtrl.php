@@ -13,6 +13,7 @@ use App\Models\Finalidades;
 use App\Models\Garantias;
 use App\Models\Modalidades;
 use App\Models\ProdutosCred;
+use App\Models\Atividades;
 
 class CreditoCtrl extends Controller
 {
@@ -134,6 +135,15 @@ class CreditoCtrl extends Controller
 				]);
 			}
 		}
+
+		Atividades::create([
+			'nome' => 'Cadastro de um novo contrato de crédito',
+			'descricao' => 'Você cadastrou um novo contrato de crédito, '.$contrato->num_contrato.'.',
+			'icone' => 'mdi-plus',
+			'url' => route('exibir.contratos.credito'),
+			'id_usuario' => Auth::id()
+		]);
+
 		// Retornando contrato inserido
 		$dados = Contratos::find($contrato->id);
 		$dados->acoes =  "
@@ -217,8 +227,17 @@ class CreditoCtrl extends Controller
 		}else{
 			Garantias::where('cre_id_contrato', $id)->delete();
 		}
-		// Retornando contrato inserido
+
 		$dados = Contratos::find($id);
+		Atividades::create([
+			'nome' => 'Edição de informações do contrato',
+			'descricao' => 'Você modificou as informações do contrato de crédito '.$dados->num_contrato.'.',
+			'icone' => 'mdi-auto-fix',
+			'url' => route('exibir.contratos.credito'),
+			'id_usuario' => Auth::id()
+		]);
+
+		// Retornando contrato inserido
 		$dados->acoes = "
 			<button class='btn btn-dark btn-xs btn-rounded' name='editar' id='editar' title='Editar informações do contrato'><i class='mx-0 mdi mdi-settings'></i></button>
 			<button class='btn btn-dark btn-xs btn-rounded mx-1' name='alterar' id='alterar' title='Alterar status do contrato'><i class='mx-0 mdi mdi-swap-horizontal'></i></button>";
@@ -241,6 +260,13 @@ class CreditoCtrl extends Controller
 		Contratos::find($id)->update(['status' => $request->status]);
 		// Retornando contrato inserido
 		$dados = Contratos::find($id);
+		Atividades::create([
+			'nome' => 'Alteração de estado',
+			'descricao' => 'Você alterou o status do contrato de crédito '.$dados->num_contrato.'.',
+			'icone' => 'mdi-rotate-3d',
+			'url' => route('exibir.contratos.credito'),
+			'id_usuario' => Auth::id()
+		]);
 		$dados->acoes =  "
 			<button class='btn btn-dark btn-xs btn-rounded' name='editar' id='editar' title='Editar informações do contrato'><i class='mx-0 mdi mdi-settings'></i></button>
 			<button class='btn btn-dark btn-xs btn-rounded mx-1' name='alterar' id='alterar' title='Alterar status do contrato'><i class='mx-0 mdi mdi-swap-horizontal'></i></button>";
@@ -309,4 +335,5 @@ class CreditoCtrl extends Controller
 		$garantias[] = Garantias::where('cre_id_contrato', $id)->select('tipo', 'descricao', 'cre_garantias.id')->get();
 		return $garantias;
 	}
+
 }

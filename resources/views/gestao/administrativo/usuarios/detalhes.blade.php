@@ -24,7 +24,7 @@
                   <label class="col-form-label pb-0">Associado</label>
                   <select class="form-control form-control-line cli_id_associado" disabled>
                     <option value="">Selecione</option>
-                    @foreach($associados as $associado)
+                    @foreach($associadosTodos as $associado)
                     <option value="{{$associado->id}}">{{$associado->nome}}</option>
                     @endforeach
                   </select>
