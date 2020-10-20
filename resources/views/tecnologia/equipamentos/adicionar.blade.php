@@ -1,5 +1,5 @@
 @section('title')
-Adicionar ativo
+Adicionar equipamento
 @endsection
 
 @extends('layouts.index')
@@ -8,12 +8,12 @@ Adicionar ativo
 <div class="container-fluid">
 	<div class="row bg-title">
 		<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-			<h4 class="page-title">Adicionar ativo</h4>
+			<h4 class="page-title">Adicionar equipamento</h4>
 		</div>
 		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
 			<ol class="breadcrumb">
 				<li><a href="javascript:void(0)">GTI</a></li>
-				<li class="active"><a href="{{route('exibir.ativos')}}">Ativos</a></li>
+				<li class="active"><a href="{{route('exibir.equipamentos')}}">Equipamentos</a></li>
 				<li class="active">Adicionar</li>
 			</ol>
 		</div>
@@ -28,7 +28,7 @@ Adicionar ativo
 		@endif
 	</div>
 	
-	<form class="form-sample" action="{{route('salvar.adicionar.ativos')}}" method="POST" enctype="multipart/form-data" autocomplete="off">
+	<form class="form-sample" action="{{route('salvar.adicionar.equipamentos')}}" method="POST" enctype="multipart/form-data" autocomplete="off">
 		@csrf
 		<div class="row">
 			<div class="col-8">
@@ -79,15 +79,28 @@ Adicionar ativo
 									</div>
 								</div>
 							</div>
-							<div class="col-6">
-								<div class="form-group">
-									<label class="col-form-label pb-0">Localização <span class="text-danger">*</span></label>
-									<select class="form-control form-control-line" name="id_setor" required>
-										<option disabled>Selecione</option>
-										@foreach($setores as $setor)
-										<option value="{{$setor->id}}">{{$setor->nome}}</option>
-										@endforeach
-									</select>
+							<div class="row col-12">
+								<div class="col-6">
+									<div class="form-group">
+										<label class="col-form-label pb-0">Setor <span class="text-danger">*</span></label>
+										<select class="form-control form-control-line" name="id_setor" required>
+											<option value="">Selecione</option>
+											@foreach($setores as $setor)
+											<option value="{{$setor->id}}">{{$setor->nome}}</option>
+											@endforeach
+										</select>
+									</div>
+								</div>
+								<div class="col-6">
+									<div class="form-group">
+										<label class="col-form-label pb-0">PA <span class="text-danger">*</span></label>
+										<select class="form-control form-control-line" name="id_unidade" required>
+											<option value="">Selecione</option>
+											@foreach($unidades as $unidade)
+											<option value="{{$unidade->id}}">{{$unidade->nome}}</option>
+											@endforeach
+										</select>
+									</div>
 								</div>
 							</div>
 							<div class="col-8">
@@ -95,7 +108,7 @@ Adicionar ativo
 									<label class="col-form-label pb-0">Usuário responsável</label>
 									<div class="">
 										<select class="form-control form-control-line" name="usuario" required>
-											<option disabled>Selecione</option>
+											<option value="">Selecione</option>
 											@foreach($usuarios as $usuario)
 											<option value="{{$usuario->id}}">{{$usuario->RelationAssociado->nome}}</option>
 											@endforeach
@@ -137,7 +150,7 @@ Adicionar ativo
 							</div>
 							<hr class="col-10 mt-0">
 							<div class="row col-12 justify-content-center mx-auto">
-								<a href="{{route('exibir.ativos')}}" class="btn btn-danger btn-outline col-4 d-flex align-items-center justify-content-center mx-2">
+								<a href="{{route('exibir.equipamentos')}}" class="btn btn-danger btn-outline col-4 d-flex align-items-center justify-content-center mx-2">
 									<i class="mdi mdi-arrow-left pr-2"></i> 
 									<span>Voltar</span>
 								</a>
@@ -152,7 +165,7 @@ Adicionar ativo
 			</div>
 			<div class="col-4">
 				<div class="card text-center">
-					<div class="card-header">
+					<div class="card-header" style="border-top-right-radius: 0.6em; border-top-left-radius: 0.6em;">
 						<h5 class="text-white font-weight-normal">Detalhes do ativo</h5>
 					</div>
 					<div class="card-body">
@@ -169,7 +182,8 @@ Adicionar ativo
 							<small class="d-block mt-2" id="n_patrimonio"></small>
 							<hr class="mx-5">
 							<label class="d-block mt-3 mb-0" id="usuario"></label>
-							<label class="badge badge-success mt-2" id="id_setor"></label>
+							<label class="d-block mt-2" id="id_setor"></label>
+							<label class="badge badge-info" id="id_unidade"></label>
 						</div>
 					</div>
 				</div>
@@ -206,12 +220,15 @@ Adicionar ativo
 		$('form input[name="n_patrimonio"]').on('keyup', function(){
 			$('#n_patrimonio').html($('input[name="n_patrimonio"]').val());
 		});
-		$('form input[name="usuario"]').on('change', function(){
+		$('form select[name="usuario"]').on('change', function(){
 			$('#usuario').html($('select[name="usuario"] option:selected').text());
 		});
-		$('form input[name="id_setor"]').on('change', function(){
+		$('form select[name="id_setor"]').on('change', function(){
 			$('#id_setor').html($('select[name="id_setor"] option:selected').text());
 		});
+		$('form select[name="id_unidade"]').on('change', function(){
+	      $('#id_unidade').html($('select[name="id_unidade"] option:selected').text());
+	    });
 
 		$('input[name=imagem_principal]').on('change', function(){
 			if(this.files && this.files[0]){
@@ -233,7 +250,7 @@ Adicionar ativo
 					formData.append('imagens[]', this.files[i]);
 				}
 				$.ajax({
-					url: "{{ route('adicionar.imagens.ativos') }}",
+					url: "{{ route('adicionar.imagens.equipamentos') }}",
 					type: 'POST',
 					data: formData,
 					processData: false,

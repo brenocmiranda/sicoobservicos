@@ -41,6 +41,7 @@
                 </div>
               </div>
             </div>
+            @if(empty($chamados[0]))
             <div class="row">
               <label class="col-form-label col-12">Últimas atualizações: </label>
               <ul class="px-2" id="statusNews" style="overflow-y: scroll; height: 180px">
@@ -55,12 +56,11 @@
                       {{$status->pivot->created_at->format('d/m/Y H:i')}}
                     </small>
                   </div>
-                  @if($chamado->RelationStatus->last()->id != $status->id)
-                  @endif
                 </li>
                 @endforeach
               </ul>
             </div>
+            @endif
           </div>
         </div>
       </div>

@@ -7,10 +7,10 @@
           <button type="button" class="close px-0 py-2" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          <h5 class="modal-title">Detalhes do ativo</h5>
+          <h5 class="modal-title">Detalhes do equipamento</h5>
         </div>
         <div class="col-12 mb-0">
-          <p>Abaixo estão listadas todas as informações do ativo.</p>
+          <p>Abaixo estão listadas todas as informações do equipamento.</p>
         </div>
       </div>
       <div class="modal-body">
@@ -73,8 +73,9 @@
                     </a>
                   </div>
                 </div>
-                <div class="form-group">
-                  <div class="row preview zoom-gallery">
+                <div class="form-group text-center">
+                  <small class="font-weight-bold">Mais imagens do produto</small>
+                  <div class="row mt-3 preview zoom-gallery">
                   </div>
                 </div>
               </div>

@@ -31,6 +31,7 @@ class AtivoRqt extends FormRequest
                 'marca' => 'required|string',
                 'modelo' => 'required|string',
                 'id_setor' => 'required|numeric',
+                'id_unidade' => 'required|numeric',
                 'descricao' => 'nullable',
                 'imagem_principal' => 'required|image', 
             ];
@@ -42,6 +43,7 @@ class AtivoRqt extends FormRequest
                 'marca' => 'required|string',
                 'modelo' => 'required|string',
                 'id_setor' => 'required|numeric',
+                'id_unidade' => 'required|numeric',
                 'descricao' => 'nullable',
                 'imagem_principal' => 'nullable', 
             ];

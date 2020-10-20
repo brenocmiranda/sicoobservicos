@@ -1,5 +1,5 @@
 @section('title')
-Editar ativo
+Editar equipamento
 @endsection
 
 @extends('layouts.index')
@@ -13,7 +13,7 @@ Editar ativo
     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
       <ol class="breadcrumb">
         <li><a href="javascript:void(0)">GTI</a></li>
-        <li class="active"><a href="{{route('exibir.ativos')}}">Ativos</a></li>
+        <li class="active"><a href="{{route('exibir.equipamentos')}}">Equipamento</a></li>
         <li class="active">Editar</li>
       </ol>
     </div>
@@ -28,7 +28,7 @@ Editar ativo
     @endif
   </div>
   
-  <form class="form-sample" action="{{route('salvar.editar.ativos', $ativo->id)}}" method="POST" enctype="multipart/form-data" autocomplete="off">
+  <form class="form-sample" action="{{route('salvar.editar.equipamentos', $equipamentos->id)}}" method="POST" enctype="multipart/form-data" autocomplete="off">
     @csrf
     <div class="row">
       <div class="col-8">
@@ -39,7 +39,7 @@ Editar ativo
                 <div class="form-group">
                   <label class="col-form-label pb-0">Nome <span class="text-danger">*</span></label>
                   <div class="">
-                    <input class="form-control form-control-line" name="nome" placeholder="Monitor 15.7" onkeyup="this.value = this.value.toUpperCase();" value="{{$ativo->nome}}" required/>
+                    <input class="form-control form-control-line" name="nome" placeholder="Monitor 15.7" onkeyup="this.value = this.value.toUpperCase();" value="{{$equipamentos->nome}}" required/>
                   </div>
                 </div>
               </div>
@@ -48,7 +48,7 @@ Editar ativo
                   <div class="form-group">
                     <label class="col-form-label pb-0">Marca <span class="text-danger">*</span></label>
                     <div class="">
-                      <input class="form-control form-control-line" name="marca" onkeyup="this.value = this.value.toUpperCase();" value="{{$ativo->marca}}" required/>
+                      <input class="form-control form-control-line" name="marca" onkeyup="this.value = this.value.toUpperCase();" value="{{$equipamentos->marca}}" required/>
                     </div>
                   </div>
                 </div>
@@ -56,17 +56,18 @@ Editar ativo
                   <div class="form-group">
                     <label class="col-form-label pb-0">Modelo <span class="text-danger">*</span></label>
                     <div class="">
-                      <input class="form-control form-control-line" name="modelo" onkeyup="this.value = this.value.toUpperCase();" value="{{$ativo->modelo}}" required/>
+                      <input class="form-control form-control-line" name="modelo" onkeyup="this.value = this.value.toUpperCase();" value="{{$equipamentos->modelo}}" required/>
                     </div>
                   </div>
                 </div>
               </div>
+
               <div class="row col-12">
                 <div class="col-6">
                   <div class="form-group">
                     <label class="col-form-label pb-0">Nº patrimônio <span class="text-danger">*</span></label>
                     <div class="">
-                      <input class="form-control form-control-line" name="n_patrimonio" onkeyup="this.value = this.value.toUpperCase();" value="{{$ativo->n_patrimonio}}" required/>
+                      <input class="form-control form-control-line" name="n_patrimonio" onkeyup="this.value = this.value.toUpperCase();" value="{{$equipamentos->n_patrimonio}}" required/>
                     </div>
                   </div>
                 </div>
@@ -74,20 +75,33 @@ Editar ativo
                   <div class="form-group">
                     <label class="col-form-label pb-0">Nº série <span class="text-danger">*</span></label>
                     <div class="">
-                      <input class="form-control form-control-line" name="serialNumber" onkeyup="this.value = this.value.toUpperCase();" value="{{$ativo->serialNumber}}" required/>
+                      <input class="form-control form-control-line" name="serialNumber" onkeyup="this.value = this.value.toUpperCase();" value="{{$equipamentos->serialNumber}}" required/>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="col-6">
-                <div class="form-group">
-                  <label class="col-form-label pb-0">Localização <span class="text-danger">*</span></label>
-                  <select class="form-control form-control-line" name="id_setor" required>
-                    <option disabled>Selecione</option>
-                    @foreach($setores as $setor)
-                    <option value="{{$setor->id}}" {{($ativo->localizacao == $setor->id ? 'select' : '')}}>{{$setor->nome}}</option>
-                    @endforeach
-                  </select>
+              <div class="row col-12">
+                <div class="col-6">
+                  <div class="form-group">
+                    <label class="col-form-label pb-0">Setor <span class="text-danger">*</span></label>
+                    <select class="form-control form-control-line" name="id_setor" required>
+                      <option value="">Selecione</option>
+                      @foreach($setores as $setor)
+                      <option value="{{$setor->id}}" {{($setor->id == $equipamentos->id_setor ? 'selected' : '')}}>{{$setor->nome}}</option>
+                      @endforeach
+                    </select>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="form-group">
+                    <label class="col-form-label pb-0">PA <span class="text-danger">*</span></label>
+                    <select class="form-control form-control-line" name="id_unidade" required>
+                      <option value="">Selecione</option>
+                      @foreach($unidades as $unidade)
+                      <option value="{{$unidade->id}}" {{($unidade->id == $equipamentos->id_unidade ? 'selected' : '')}}>{{$unidade->nome}}</option>
+                      @endforeach
+                    </select>
+                  </div>
                 </div>
               </div>
               <div class="col-8">
@@ -95,9 +109,9 @@ Editar ativo
                   <label class="col-form-label pb-0">Usuário responsável</label>
                   <div class="">
                     <select class="form-control form-control-line" name="usuario" required>
-                      <option disabled>Selecione</option>
+                      <option value="">Selecione</option>
                       @foreach($usuarios as $usuario)
-                      <option value="{{$usuario->id}}">{{$usuario->RelationAssociado->nome}}</option>
+                      <option value="{{$usuario->id}}" {{($usuario->id == $equipamentos->RelationUsuario->last()->id ? 'selected' : '')}}>{{$usuario->RelationAssociado->nome}}</option>
                       @endforeach
                     </select>
                   </div>
@@ -107,7 +121,7 @@ Editar ativo
                 <div class="form-group">
                   <label class="col-form-label pb-0">Descrição</label>
                   <div class="">
-                    <textarea class="form-control form-control-line descricao" name="descricao" onkeyup="this.value = this.value.toUpperCase();" rows="3" placeholder="Digite suas observações">{{$ativo->descricao}}</textarea>
+                    <textarea class="form-control form-control-line descricao" name="descricao" onkeyup="this.value = this.value.toUpperCase();" rows="3" placeholder="Digite suas observações">{{$equipamentos->descricao}}</textarea>
                   </div>
                 </div>
               </div>
@@ -117,7 +131,7 @@ Editar ativo
                   <small>Formatos de imagem aceitos: <b>.png</b>, <b>.jpg</b> ou <b>.svg</b></small>
                   <div class="row col-12 mt-3 mx-0 p-0">
                     <div class="border mx-2 rounded col-2 row p-0 mb-4" style="height: 8em;">
-                      <img class="w-100 h-100 p-3" id="PreviewImage" src="{{(isset($ativo->RelationImagemPrincipal) ? asset('storage/app/'.$ativo->RelationImagemPrincipal->endereco) : asset('public/img/image.png'))}}">
+                      <img class="w-100 h-100 p-3" id="PreviewImage" src="{{(isset($equipamentos->RelationImagemPrincipal) ? asset('storage/app/'.$equipamentos->RelationImagemPrincipal->endereco) : asset('public/img/image.png'))}}">
                       <input type="file" class="px-0 col-12 position-absolute mx-auto h-100 pointer" style="opacity: 0; top: 0%; left: 0%" accept=".png, .jpg, .jpeg" name="imagem_principal" accept="image/*" title="Selecione a imagem principal" onchange="image(this)">
                     </div>
                   </div> 
@@ -132,7 +146,7 @@ Editar ativo
                       <i class="mdi mdi-plus mdi-36px m-auto"></i>
                       <input type="file" class="px-0 col-12 position-absolute mx-auto h-100 pointer" style="opacity: 0; top: 0%; left: 0%" accept=".png, .jpg, .jpeg" id="addFotoGaleria" accept="image/*" title="Selecione as imagens do problema" multiple>
                     </div>
-                    @foreach($ativo->RelationImagem as $imagens)
+                    @foreach($equipamentos->RelationImagem as $imagens)
                     <div class="border mx-2 mb-4 rounded col-2 d-flex p-0" id="PreviewImage{{$imagens->id}}"> 
                       <input type="hidden" name="imagens[]" value="{{$imagens->id}}"> 
                       <img class="p-3 w-100" src="{{asset('storage/app/').'/'.$imagens->endereco}}" style="height: 7em;">
@@ -144,7 +158,7 @@ Editar ativo
               </div>
               <hr class="col-10 mt-0">
               <div class="row col-12 justify-content-center mx-auto">
-                <a href="{{route('exibir.ativos')}}" class="btn btn-danger btn-outline col-4 d-flex align-items-center justify-content-center mx-2">
+                <a href="{{route('exibir.equipamentos')}}" class="btn btn-danger btn-outline col-4 d-flex align-items-center justify-content-center mx-2">
                   <i class="mdi mdi-arrow-left pr-2"></i> 
                   <span>Voltar</span>
                 </a>
@@ -159,24 +173,25 @@ Editar ativo
       </div>
       <div class="col-4">
         <div class="card text-center">
-          <div class="card-header">
-            <h5 class="text-white font-weight-normal">Detalhes do ativo</h5>
+          <div class="card-header" style="border-top-right-radius: 0.6em; border-top-left-radius: 0.6em;">
+            <h5 class="text-white font-weight-normal">Detalhes do equipamento</h5>
           </div>
           <div class="card-body">
             <div class="">
-              <img src="{{(isset($ativo->RelationImagemPrincipal) ? asset('storage/app/'.$ativo->RelationImagemPrincipal->endereco) : asset('public/img/image.png'))}}" width="120" height="110" class="border p-3 rounded" id="ImagePrincipal">
+              <img src="{{(isset($equipamentos->RelationImagemPrincipal) ? asset('storage/app/'.$equipamentos->RelationImagemPrincipal->endereco) : asset('public/img/image.png'))}}" width="120" height="110" class="border p-3 rounded" id="ImagePrincipal">
             </div>
             <div class="d-block">
-              <h5 class="d-block mb-0" id="nome">{{$ativo->nome}}</h5>
+              <h5 class="d-block mb-0" id="nome">{{$equipamentos->nome}}</h5>
               <label class="d-block mb-0 mt-2">
-                <span id="modelo">{{$ativo->modelo}}</span>
+                <span id="modelo">{{$equipamentos->modelo}}</span>
                 &#183 
-                <span id="marca">{{$ativo->marca}}</span>
+                <span id="marca">{{$equipamentos->marca}}</span>
               </label>
-              <small class="d-block mt-2" id="n_patrimonio">{{$ativo->n_patrimonio}}</small>
+              <small class="d-block mt-2" id="n_patrimonio">{{$equipamentos->n_patrimonio}}</small>
               <hr class="mx-5">
-              <label class="d-block mt-3 mb-0" id="usuario">{{$ativo->RelationUsuario->last()->RelationAssociado->nome}}</label>
-              <label class="badge badge-success mt-2" id="id_setor">{{$ativo->RelationSetor->nome}}</label>
+              <label class="d-block mt-3 mb-0" id="usuario">{{$equipamentos->RelationUsuario->last()->RelationAssociado->nome}}</label>
+              <label class="mt-2 d-block" id="id_setor">{{$equipamentos->RelationSetor->nome}}</label>
+              <label class="badge badge-info" id="id_unidade">{{$equipamentos->RelationUnidade->nome}}</label>
             </div>
           </div>
         </div>
@@ -207,11 +222,14 @@ Editar ativo
     $('form input[name="n_patrimonio"]').on('keyup', function(){
       $('#n_patrimonio').html($('input[name="n_patrimonio"]').val());
     });
-    $('form input[name="usuario"]').on('change', function(){
+    $('form select[name="usuario"]').on('change', function(){
       $('#usuario').html($('select[name="usuario"] option:selected').text());
     });
-    $('form input[name="id_setor"]').on('change', function(){
+    $('form select[name="id_setor"]').on('change', function(){
       $('#id_setor').html($('select[name="id_setor"] option:selected').text());
+    });
+    $('form select[name="id_unidade"]').on('change', function(){
+      $('#id_unidade').html($('select[name="id_unidade"] option:selected').text());
     });
     
     $('input[name=imagem_principal]').on('change', function(){
@@ -234,7 +252,7 @@ Editar ativo
           formData.append('imagens[]', this.files[i]);
         }
         $.ajax({
-          url: "{{ route('adicionar.imagens.ativos') }}",
+          url: "{{ route('adicionar.imagens.equipamentos') }}",
           type: 'POST',
           data: formData,
           processData: false,

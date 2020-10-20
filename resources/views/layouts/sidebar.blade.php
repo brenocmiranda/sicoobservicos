@@ -89,7 +89,15 @@
         <ul class="nav nav-second-level">
           <li> <a href="{{route('dashboard.gti')}}"><span class="hide-menu">Dashboard</span></a> </li>
           <li> <a href="{{route('exibir.chamados.gti')}}"><span class="hide-menu">Chamados</span></a> </li>
-          <li> <a href="{{route('exibir.ativos')}}"><span class="hide-menu">Equipamentos</span></a> </li>
+          <li> 
+            <a href="javascript:void(0)" class="waves-effect">
+              <span class="hide-menu">Equipamentos </span><span class="fa arrow"></span>
+            </a>
+            <ul class="nav nav-third-level">
+              <li> <a href="{{route('exibir.equipamentos')}}"><span class="hide-menu">Geral</span></a> </li>
+              <li> <a href="{{route('exibir.equipamentos.usuarios')}} "><span class="hide-menu">Por usuário</span></a> </li>
+            </ul>
+          </li>
           <li> <a href="{{route('exibir.homepage')}}"><span class="hide-menu">Homepage</span></a> </li>
           <li> <a href="#"><span class="hide-menu">Relatórios</span></a> </li>
         </ul>

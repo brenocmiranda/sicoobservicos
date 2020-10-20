@@ -133,7 +133,7 @@ Garantias fiduciárias
 		});
 
 		// Detalhes das informações do contrato
-		$('#table tbody').on('dblclick','tr', function (){
+		$('#table tbody').on('dblclick', 'tr', function (){
 			// Limpando as informações dos modais
 			$('.modal form').each (function(){
 				this.reset();

@@ -149,7 +149,7 @@ Detalhes do chamado
             @endif
           </div>
         </div>
-        <div class="card-body">
+        <div class="card-body" style="overflow-y: auto">
           <ul class="p-0" id="statusNews">
             @foreach($historicoStatus as $status)
             <li class="m-3" id="status{{$status->id}}">

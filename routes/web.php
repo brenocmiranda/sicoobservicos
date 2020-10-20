@@ -180,16 +180,18 @@ Route::group(['prefix' => 'app'], function(){
 			Route::get('dashboard', 'DashboardCtrl@DashTecnologia')->name('dashboard.gti');
 		});
 		// Ativos
-		Route::group(['prefix' => 'ativos'], function(){
-			Route::get('', 'AtivosCtrl@Exibir')->name('exibir.ativos');
-			Route::get('adicionar', 'AtivosCtrl@Adicionar')->name('adicionar.ativos');
-			Route::post('salvar', 'AtivosCtrl@AdicionarSalvar')->name('salvar.adicionar.ativos');
-			Route::get('editar/{id}', 'AtivosCtrl@Editar')->name('editar.ativos');
-			Route::post('salvarEditar/{id}', 'AtivosCtrl@EditarSalvar')->name('salvar.editar.ativos');
-			Route::any('detalhes/{id}', 'AtivosCtrl@Detalhes')->name('detalhes.ativos');
-			Route::get('delete/{id}', 'AtivosCtrl@Delete')->name('delete.ativos');
-			Route::any('relatorio/{id}', 'AtivosCtrl@Relatorio')->name('relatorio.ativos');
-			Route::post('addImagens', 'AtivosCtrl@Imagens')->name('adicionar.imagens.ativos');
+		Route::group(['prefix' => 'equipamentos'], function(){
+			Route::get('', 'AtivosCtrl@Exibir')->name('exibir.equipamentos');
+			Route::get('listar', 'AtivosCtrl@Datatables')->name('listar.equipamentos');
+			Route::get('adicionar', 'AtivosCtrl@Adicionar')->name('adicionar.equipamentos');
+			Route::post('salvar', 'AtivosCtrl@AdicionarSalvar')->name('salvar.adicionar.equipamentos');
+			Route::get('editar/{id}', 'AtivosCtrl@Editar')->name('editar.equipamentos');
+			Route::post('salvarEditar/{id}', 'AtivosCtrl@EditarSalvar')->name('salvar.editar.equipamentos');
+			Route::get('remover/{id}', 'AtivosCtrl@Delete')->name('remover.equipamentos');
+			Route::any('detalhes/{id}', 'AtivosCtrl@Detalhes')->name('detalhes.equipamentos');
+			Route::any('relatorio/{id}', 'AtivosCtrl@Relatorio')->name('relatorio.equipamentos');
+			Route::post('addImagens', 'AtivosCtrl@Imagens')->name('adicionar.imagens.equipamentos');
+			Route::get('usuarios', 'AtivosCtrl@ExibirUsuarios')->name('exibir.equipamentos.usuarios');
 		});
 		// Chamados
 		Route::group(['prefix' => 'chamados'], function(){

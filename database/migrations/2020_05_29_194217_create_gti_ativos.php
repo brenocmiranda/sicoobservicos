@@ -25,6 +25,8 @@ class CreateGtiAtivos extends Migration
 
             $table->integer('id_setor')->unsigned();
             $table->foreign('id_setor')->references('id')->on('usr_setores');
+            $table->integer('id_unidade')->unsigned();
+            $table->foreign('id_unidade')->references('id')->on('usr_unidades');
             $table->integer('id_imagem')->unsigned()->nullable();
             $table->foreign('id_imagem')->references('id')->on('imagens');
 

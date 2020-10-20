@@ -133,20 +133,32 @@ Detalhes do chamado
             </div>
           </div>
         </div>
-        <div class="card-body">
+        <div class="card-body" style="overflow-y: auto">
           <ul class="p-0" id="statusNews">
-            @foreach($chamado->RelationStatus as $status)
-            <li class="m-3" id="status{{$status->pivot->id}}">
-              <div class="badge" style="background: {{$status->color}}">{{$status->nome}}</div>
+            @foreach($historicoStatus as $status)
+            <li class="m-3" id="status{{$status->id}}">
+              <div class="badge" style="background: {{$status->RelationStatus->color}}">{{$status->RelationStatus->nome}}</div>
               <label class="col-12 pt-3 px-0">
-                {{$status->pivot->descricao}}
+                {{$status->descricao}}
               </label>
-              <div class="row mx-auto">
-                <small>{{$status->pivot->RelationUsuarios->RelationAssociados->nome}}</small>
+              <small class="font-weight-bold">
+                {{(isset($status->RelationUsuarios) ? 'Alterado por: '.$status->RelationUsuarios->RelationAssociado->nome : '')}}
+              </small>
+              <div class="row mx-auto mt-2">
                 <small class="p-0 font-weight-bold">
-                  {{$status->pivot->created_at->format('d/m/Y H:i')}} - 
-                  {{$status->pivot->created_at->subMinutes(2)->diffForHumans()}}
+                  {{$status->created_at->format('d/m/Y H:i')}} -
+                  {{$status->created_at->subMinutes(2)->diffForHumans()}}
                 </small>
+                @if($chamado->RelationStatus->last()->id != $status->id)
+                <a href="javascript::void(0)" id="{{$status->id}}" class="status-remove ml-auto">
+                  <i class="fa fa-close"></i>
+                  <small>Excluir</small>
+                </a>
+                @endif
+                <a href="javascript::void(0)" id="{{$status->id}}" class="status-editar {{($chamado->RelationStatus->last()->id == $status->id ? ' ml-auto' : '')}} pl-3">
+                  <i class="fa fa-pencil-square-o"></i>
+                  <small>Editar</small>
+                </a>
               </div>
               <hr>
             </li>

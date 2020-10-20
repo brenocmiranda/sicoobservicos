@@ -11,7 +11,7 @@ class Ativos extends Model
 
     protected $table = 'gti_ativos';
     protected $primaryKey = 'id';
-    protected $fillable = [ 'id', 'n_patrimonio', 'serialNumber', 'nome', 'marca', 'modelo', 'descricao', 'id_setor', 'id_imagem', 'created_at', 'updated_at'];
+    protected $fillable = [ 'id', 'n_patrimonio', 'serialNumber', 'nome', 'marca', 'modelo', 'descricao', 'id_setor', 'id_unidade', 'id_imagem', 'created_at', 'updated_at'];
 
     public function RelationImagemPrincipal(){
     	return $this->belongsTo(Imagens::class, 'id_imagem');
@@ -27,5 +27,9 @@ class Ativos extends Model
 
     public function RelationSetor(){
         return $this->belongsTo(Setores::class, 'id_setor');
+    }
+
+    public function RelationUnidade(){
+        return $this->belongsTo(Unidades::class, 'id_unidade');
     }
 }

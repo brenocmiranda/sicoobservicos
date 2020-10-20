@@ -180,7 +180,6 @@ $(function() {
         });
 
         $('#treeview5').treeview({
-         
           expandIcon: 'ti-angle-right',
           onhoverColor: "rgba(0, 0, 0, 0.05)",
           selectedBackColor: "#03a9f3",

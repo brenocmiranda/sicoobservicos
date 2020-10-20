@@ -97,7 +97,8 @@ class ChamadosCtrl extends Controller
     public function Detalhes($id){
         $chamado = Chamados::find($id);
         $status = Status::where('status', 1)->get();
-        return view('suporte.chamados.detalhes')->with('chamado', $chamado)->with('statusAtivos', $status);
+        $historicoStatus = ChamadosStatus::where('gti_id_chamados', $id)->orderBy('created_at', 'DESC')->get();
+        return view('suporte.chamados.detalhes')->with('chamado', $chamado)->with('statusAtivos', $status)->with('historicoStatus', $historicoStatus);
     }
     // Finalizando chamado
     public function Finalizar(Request $request, $id){

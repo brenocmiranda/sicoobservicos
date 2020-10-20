@@ -29,7 +29,7 @@ class GarantiasCtrl extends Controller
                 return $dados->RelationContrato->num_contrato;
             })
             ->editColumn('nome1', function(Garantias $dados){
-                return $dados->RelationContrato->RelationAssociados->nome;
+            	return '<a href="javascript:void(0)" id="detalhes">'.$dados->RelationContrato->RelationAssociados->nome.'</a>';                
             })
             ->editColumn('produto1', function(Garantias $dados){
                 return $dados->RelationContrato->RelationProdutos->nome;
@@ -48,7 +48,7 @@ class GarantiasCtrl extends Controller
 	public function DatatablesFidejussoria(Request $request){
 		return datatables()->of(Avalistas::all())
 			->editColumn('nome1', function(Avalistas $dados){
-                return $dados->RelationContrato->RelationAssociados->nome;
+            	return '<a href="javascript:void(0)" id="detalhes">'.$dados->RelationContrato->RelationAssociados->nome.'</a>';                
             })
             ->editColumn('contrato1', function(Avalistas $dados){
                 return $dados->RelationContrato->num_contrato;
