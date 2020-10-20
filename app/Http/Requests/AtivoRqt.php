@@ -26,7 +26,7 @@ class AtivoRqt extends FormRequest
         if($this->segment(4) == 'adicionar'){
             return [
                 'nome' => 'required|min:3',
-                'n_patrimonio' => 'required|string', 
+                'n_patrimonio' => 'nullable|string', 
                 'serialNumber' => 'required|string', 
                 'marca' => 'required|string',
                 'modelo' => 'required|string',
@@ -38,7 +38,7 @@ class AtivoRqt extends FormRequest
         }else{
             return [
                 'nome' => 'required|min:3',
-                'n_patrimonio' => 'required|string', 
+                'n_patrimonio' => 'nullable|string',
                 'serialNumber' => 'required|string', 
                 'marca' => 'required|string',
                 'modelo' => 'required|string',

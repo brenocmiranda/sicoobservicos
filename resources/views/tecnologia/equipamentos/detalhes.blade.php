@@ -69,7 +69,7 @@
                 <div class="form-group">
                   <div class="zoom-gallery border mx-auto rounded col-7 row p-0" style="height: 9em;">
                     <a href="#" id="ImagemPrincipalUrl">
-                      <img class="w-100 h-100 p-3" id="ImagemPrincipal" src="{{ asset('public/img/image.png').'?'.rand() }}">
+                      <img class="p-3" id="ImagemPrincipal" src="{{ asset('public/img/image.png').'?'.rand() }}" width="120" style="height: 9em;">
                     </a>
                   </div>
                 </div>

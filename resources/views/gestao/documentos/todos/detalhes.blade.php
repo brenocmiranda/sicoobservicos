@@ -7,7 +7,7 @@
           <button type="button" class="close px-0 py-2" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          <h5 class="modal-title">Detalhes do material</h5>
+          <h5 class="modal-title">Detalhes do documento</h5>
         </div>
         <div class="col-12 mb-0">
           <p>Abaixo estão listadas todas as informações da função.</p>

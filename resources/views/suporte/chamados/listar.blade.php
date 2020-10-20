@@ -82,10 +82,6 @@ Chamados
 										</div>
 										<div class="text-right row col-3 ml-auto">
 											<div class="ml-auto">
-												<a href="{{route('relatorio.chamados.gti', $chamado->id)}}" target="_blank" class="btn btn-default btn-outline btn-rounded col-10 mb-2" title="Relatório do chamado">
-													<i class="mdi mdi-cloud-print-outline"></i>
-													<small>	Gerar relatório</small>
-												</a>	
 												<a href="{{route('detalhes.chamados.gti', $chamado->id)}}" class="btn btn-default btn-outline btn-rounded col-10 mb-2" title="Detalhes do chamado">
 													<i class="mdi mdi-comment-processing-outline"></i>
 													<small>	Mais informações</small>
@@ -96,6 +92,10 @@ Chamados
 													<small>	Reabrir chamado</small>
 												</a>
 												@endif
+												<a href="{{route('relatorio.chamados.gti', $chamado->id)}}" target="_blank" class="btn btn-default btn-outline btn-rounded col-10 mb-2" title="Relatório do chamado">
+													<i class="mdi mdi-cloud-print-outline"></i>
+													<small>	Gerar relatório</small>
+												</a>
 											</div>
 										</div>
 									</div>

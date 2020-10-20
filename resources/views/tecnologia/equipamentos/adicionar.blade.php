@@ -64,9 +64,9 @@ Adicionar equipamento
 							<div class="row col-12">
 								<div class="col-6">
 									<div class="form-group">
-										<label class="col-form-label pb-0">Nº patrimônio <span class="text-danger">*</span></label>
+										<label class="col-form-label pb-0">Nº patrimônio</label>
 										<div class="">
-											<input class="form-control form-control-line" name="n_patrimonio" onkeyup="this.value = this.value.toUpperCase();" required/>
+											<input class="form-control form-control-line" name="n_patrimonio" onkeyup="this.value = this.value.toUpperCase();"/>
 										</div>
 									</div>
 								</div>

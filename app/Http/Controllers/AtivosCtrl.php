@@ -63,7 +63,7 @@ class AtivosCtrl extends Controller
 	public function AdicionarSalvar(AtivoRqt $request){
 		$create = Ativos::create([
 			'nome' => $request->nome,
-			'n_patrimonio' => $request->n_patrimonio, 
+			'n_patrimonio' => (isset($request->n_patrimonio) ? $request->n_patrimonio : null), 
 			'serialNumber' => $request->serialNumber, 
 			'marca' => $request->marca,
 			'modelo' => $request->modelo,
@@ -118,7 +118,7 @@ class AtivosCtrl extends Controller
 	public function EditarSalvar(AtivoRqt $request, $id){
 		Ativos::find($id)->update([
 			'nome' => $request->nome,
-			'n_patrimonio' => $request->n_patrimonio, 
+			'n_patrimonio' => (isset($request->n_patrimonio) ? $request->n_patrimonio : null),  
 			'serialNumber' => $request->serialNumber, 
 			'marca' => $request->marca,
 			'modelo' => $request->modelo,

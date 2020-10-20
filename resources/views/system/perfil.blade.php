@@ -175,7 +175,7 @@ Meu perfil
 							<div class="col-sm-12 row text-center align-items-center m-auto">
 								<div class="col-sm-12">
 									<img src="{{(isset(Auth::user()->RelationImagem) ? asset('storage/app/'.Auth::user()->RelationImagem->endereco).'?'.rand() : asset('public/img/user.png').'/'.rand())}}" class="rounded-circle" id="PreviewImage" width="130" height="130">
-									<div class="mx-auto btn-image rounded-circle position-relative">
+									<div class="mx-auto btn-perfil rounded-circle position-relative">
 										<input type="file" class="px-0 position-absolute m-auto" accept=".png, .jpg, .jpeg" name="upload_img" id="upload_img" onchange="image(this);">
 										<div class="row h-100 align-items-center align-self-center justify-content-center my-auto">
 											<i class="mdi mdi-24px mdi-camera mdi-light" style="display: none"></i>
@@ -210,10 +210,10 @@ Meu perfil
 		$('.cpf').mask('000.000.000-00', {reverse: true});
 		$('.telefone').mask('(00) 00000-0000');
 
-		$('.btn-image').hover( function(){
-			$('.btn-image i').fadeIn('fast');
+		$('.btn-perfil').hover( function(){
+			$('.btn-perfil i').fadeIn('fast');
 		} , function() {
-			$('.btn-image i').fadeOut('fast');
+			$('.btn-perfil i').fadeOut('fast');
 		});
 	});
 </script>

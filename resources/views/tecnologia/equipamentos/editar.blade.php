@@ -65,9 +65,9 @@ Editar equipamento
               <div class="row col-12">
                 <div class="col-6">
                   <div class="form-group">
-                    <label class="col-form-label pb-0">Nº patrimônio <span class="text-danger">*</span></label>
+                    <label class="col-form-label pb-0">Nº patrimônio</label>
                     <div class="">
-                      <input class="form-control form-control-line" name="n_patrimonio" onkeyup="this.value = this.value.toUpperCase();" value="{{$equipamentos->n_patrimonio}}" required/>
+                      <input class="form-control form-control-line" name="n_patrimonio" onkeyup="this.value = this.value.toUpperCase();" value="{{$equipamentos->n_patrimonio}}"/>
                     </div>
                   </div>
                 </div>
@@ -178,7 +178,7 @@ Editar equipamento
           </div>
           <div class="card-body">
             <div class="">
-              <img src="{{(isset($equipamentos->RelationImagemPrincipal) ? asset('storage/app/'.$equipamentos->RelationImagemPrincipal->endereco) : asset('public/img/image.png'))}}" width="120" height="110" class="border p-3 rounded" id="ImagePrincipal">
+              <img src="{{(isset($equipamentos->RelationImagemPrincipal) ? asset('storage/app/'.$equipamentos->RelationImagemPrincipal->endereco) : asset('public/img/image.png'))}}" width="120" height="110" class="border p-1 rounded" id="ImagePrincipal">
             </div>
             <div class="d-block">
               <h5 class="d-block mb-0" id="nome">{{$equipamentos->nome}}</h5>

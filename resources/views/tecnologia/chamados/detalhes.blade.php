@@ -157,8 +157,8 @@ Detalhes do chamado
               <label class="col-12 pt-3 px-0">
                 {{$status->descricao}}
               </label>
-              <small class="font-weight-bold">
-                {{(isset($status->RelationUsuarios) ? 'Alterado por: '.$status->RelationUsuarios->RelationAssociado->nome : '')}}
+              <small class="font-weight-normal">
+                {!!(isset($status->RelationUsuarios) ? 'Alterado por: <b>'.$status->RelationUsuarios->RelationAssociado->nome.'</b>' : '')!!}
               </small>
               <div class="row mx-auto mt-2">
                 <small class="p-0 font-weight-bold">

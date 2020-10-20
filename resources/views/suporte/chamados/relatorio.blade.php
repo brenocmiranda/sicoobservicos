@@ -108,21 +108,24 @@ Relatório da solicitação #{{$chamado->id}}
 					</div>
 					<div class="col-12 px-2">
 						<ul class="p-0" id="statusNews">
-							@foreach($chamado->RelationStatus as $status)
-							<li class="m-3 border-bottom pb-3" id="status{{$status->pivot->id}}">
-								<div class="badge" style="background: {{$status->color}}">{{$status->nome}}</div>
-								<label class="col-12 pt-3 px-0">
-									{{$status->pivot->descricao}}
-								</label>
-								<div class="col-12 row">
-									<small class="p-0 font-weight-bold">
-										{{$status->pivot->created_at->format('d/m/Y H:i')}}
-									</small>
-								</div>
-								@if($chamado->RelationStatus->last()->id != $status->id)
-								@endif
-							</li>
-							@endforeach
+							@foreach($historicoStatus as $status)
+				            <li class="m-3" id="status{{$status->id}}">
+				              <div class="badge" style="background: {{$status->RelationStatus->color}}">{{$status->RelationStatus->nome}}</div>
+				              <label class="col-12 pt-3 px-0">
+				                {{$status->descricao}}
+				              </label>
+				              <small class="font-weight-normal">
+				                {!!(isset($status->RelationUsuarios) ? 'Alterado por: <b>'.$status->RelationUsuarios->RelationAssociado->nome.'</b>' : '')!!}
+				              </small>
+				              <div class="row mx-auto mt-2">
+				                <small class="p-0 font-weight-bold">
+				                  {{$status->created_at->format('d/m/Y H:i')}} -
+				                  {{$status->created_at->subMinutes(2)->diffForHumans()}}
+				                </small>
+				              </div>
+				              <hr>
+				            </li>
+				            @endforeach
 						</ul>
 					</div>
 				</div>

@@ -48,9 +48,11 @@
                     <div>
                       <img src="{{ asset('public/img/image.png').'?'.rand() }}" class="border mt-4 rounded-circle" id="PreviewImageEdit" width="130" height="130">
                       <div>
-                        <div class="btn btn-success btn-image px-3 rounded-circle">
+                        <div class="btn btn-secondary btn-outline btn-image px-3 rounded-circle">
                           <input type="file" class="px-0 position-absolute m-auto" accept=".png, .jpg, .jpeg .ico" name="upload_img" id="upload_img_edit" onchange="image1(this);">
-                          <i class="mdi mdi-plus"></i>
+                          <div class="row h-100 align-items-center align-self-center justify-content-center my-auto">
+                            <i class="mdi mdi-24px mdi-image-filter mdi-light" style="display: none"></i>
+                          </div>
                         </div>
                       </div>
                     </div>

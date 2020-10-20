@@ -79,20 +79,21 @@ Solicitações de suporte
 											</div>
 											<div class="text-right row col-3 ml-auto">
 												<div class="ml-auto">
-													<a href="{{route('relatorio.chamados.gti', $chamado->id)}}" target="_blank" class="btn btn-default btn-outline btn-rounded col-10 mb-2" title="Relatório do chamado">
-														<i class="mdi mdi-cloud-print-outline"></i>
-														<small> Gerar relatório</small>
-													</a>	
+													<a href="{{route('detalhes.chamados.gti', $chamado->id)}}" class="btn btn-default btn-outline btn-rounded col-10 mb-2" title="Detalhes do chamado">
+														<i class="mdi mdi-comment-processing-outline"></i>
+														<small> Mais informações</small>
+													</a>
 													@if($chamado->RelationStatus->first()->finish != 1)
 													<a class="status btn btn-default btn-outline btn-rounded col-10 mb-2" id="{{$chamado->id}}" onclick="$('#modal-alterar .idChamado').val(this.id);" data-toggle="modal" data-target="#modal-alterar" title="Alterar status">
 														<i class="mdi mdi-cached"></i>
 														<small>	Atualizar status</small>
 													</a>
 													@endif
-													<a href="{{route('detalhes.chamados.gti', $chamado->id)}}" class="btn btn-default btn-outline btn-rounded col-10 mb-2" title="Detalhes do chamado">
-														<i class="mdi mdi-comment-processing-outline"></i>
-														<small> Mais informações</small>
-													</a>	
+													<a href="{{route('relatorio.chamados.gti', $chamado->id)}}" target="_blank" class="btn btn-default btn-outline btn-rounded col-10 mb-2" title="Relatório do chamado">
+														<i class="mdi mdi-cloud-print-outline"></i>
+														<small> Gerar relatório</small>
+													</a>
+														
 												</div>
 											</div>
 										</div>

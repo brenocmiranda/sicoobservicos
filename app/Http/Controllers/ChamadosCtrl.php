@@ -176,6 +176,7 @@ class ChamadosCtrl extends Controller
     // Relatório do chamado
     public function Relatorio($id){
         $dados = Chamados::find($id);
+        $historicoStatus = ChamadosStatus::where('gti_id_chamados', $id)->orderBy('created_at', 'DESC')->get();
         Atividades::create([
             'nome' => 'Emissão de relatório do chamado',
             'descricao' => 'Você efetuou a emissão do relatório do chamado, '.$dados->assunto.'.',
@@ -183,7 +184,7 @@ class ChamadosCtrl extends Controller
             'url' => route('detalhes.chamados.gti', $id),
             'id_usuario' => Auth::id()
         ]);
-        return view('tecnologia.chamados.relatorio')->with('chamado', $dados);
+        return view('tecnologia.chamados.relatorio')->with('chamado', $dados)->with('historicoStatus', $historicoStatus);
     }
 
     // ------------------------------------------
@@ -226,6 +227,7 @@ class ChamadosCtrl extends Controller
     // Relatório do chamado
     public function RelatorioGTI($id){
         $dados = Chamados::find($id);
+        $historicoStatus = ChamadosStatus::where('gti_id_chamados', $id)->orderBy('created_at', 'DESC')->get();
         Atividades::create([
             'nome' => 'Emissão de relatório do chamado',
             'descricao' => 'Você efetuou a emissão do relatório do chamado, '.$dados->assunto.'.',
@@ -233,7 +235,7 @@ class ChamadosCtrl extends Controller
             'url' => route('detalhes.chamados.gti', $id),
             'id_usuario' => Auth::id()
         ]);
-        return view('tecnologia.chamados.relatorio')->with('chamado', $dados);
+        return view('tecnologia.chamados.relatorio')->with('chamado', $dados)->with('historicoStatus', $historicoStatus);
     }
     // Atualizando status
     public function StatusGTI(Request $request, $id){

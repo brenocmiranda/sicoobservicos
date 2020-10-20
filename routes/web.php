@@ -51,10 +51,40 @@ Route::group(['prefix' => 'app'], function(){
 			Route::get('dashboard', 'DashboardCtrl@DashAdministrativo')->name('dashboard.administrativo');
 		});
 		// Solicitações de materiais
-		Route::group(['prefix' => 'materiais'], function(){
+		Route::group(['prefix' => 'solicitacoes'], function(){
 			Route::get('', 'MateriaisCtrl@ExibirSuporteAdmin')->name('exibir.solicitacoes.administrativo');
 			Route::get('alterar/{id}', 'MateriaisCtrl@SolicitacaoAprovacao')->name('aprovar.solicitacoes.administrativo');
 			
+		});
+		// Documentos
+		Route::group(['prefix' => 'documentos'], function(){
+			Route::get('', 'DocumentosCtrl@Exibir')->name('exibir.todos.documentos');
+			Route::get('listar', 'DocumentosCtrl@Datatables')->name('listar.todos.documentos');
+			Route::post('adicionar', 'DocumentosCtrl@Adicionar')->name('adicionar.todos.documentos');
+			Route::post('editar/{id}', 'DocumentosCtrl@Editar')->name('editar.todos.documentos');
+			Route::get('alterar/{id}', 'DocumentosCtrl@Alterar')->name('alterar.todos.documentos');
+			Route::any('detalhes/{id}', 'DocumentosCtrl@Detalhes')->name('detalhes.todos.documentos');
+		});
+
+		Route::group(['prefix' => 'controle'], function(){
+			// Todos
+			Route::group(['prefix' => 'todos'], function(){
+				Route::get('', 'MateriaisCtrl@Exibir')->name('exibir.todos.materiais');
+				Route::get('listar', 'MateriaisCtrl@Datatables')->name('listar.todos.materiais');
+				Route::post('adicionar', 'MateriaisCtrl@Adicionar')->name('adicionar.todos.materiais');
+				Route::post('editar/{id}', 'MateriaisCtrl@Editar')->name('editar.todos.materiais');
+				Route::get('alterar/{id}', 'MateriaisCtrl@Alterar')->name('alterar.todos.materiais');
+				Route::any('detalhes/{id}', 'MateriaisCtrl@Detalhes')->name('detalhes.todos.materiais');
+			});
+			// Categorias
+			Route::group(['prefix' => 'categorias'], function(){
+				Route::get('', 'CategoriasCtrl@Exibir')->name('exibir.categorias.materiais');
+				Route::get('listar', 'CategoriasCtrl@Datatables')->name('listar.categorias.materiais');
+				Route::post('adicionar', 'CategoriasCtrl@Adicionar')->name('adicionar.categorias.materiais');
+				Route::post('editar/{id}', 'CategoriasCtrl@Editar')->name('editar.categorias.materiais');
+				Route::get('alterar/{id}', 'CategoriasCtrl@Alterar')->name('alterar.categorias.materiais');
+				Route::any('detalhes/{id}', 'CategoriasCtrl@Detalhes')->name('detalhes.categorias.materiais');
+			});
 		});
 	});
 
@@ -133,6 +163,44 @@ Route::group(['prefix' => 'app'], function(){
 			Route::get('detalhes/{id}', 'AssociadosCtrl@Detalhes')->name('detalhes.associado.credito');
 			Route::post('adicionar', 'AssociadosCtrl@Adicionar')->name('adicionar.associado.credito');
 		});
+		Route::group(['prefix' => 'configuracoes'], function(){
+			// Armários
+			Route::group(['prefix' => 'armarios'], function(){
+				Route::get('', 'ArmariosCtrl@Exibir')->name('exibir.armarios.credito');
+				Route::get('listar', 'ArmariosCtrl@Datatables')->name('listar.armarios.credito');
+				Route::post('adicionar', 'ArmariosCtrl@Adicionar')->name('adicionar.armarios.credito');
+				Route::post('editar/{id}', 'ArmariosCtrl@Editar')->name('editar.armarios.credito');
+				Route::get('alterar/{id}', 'ArmariosCtrl@Alterar')->name('alterar.armarios.credito');
+				Route::any('detalhes/{id}', 'ArmariosCtrl@Detalhes')->name('detalhes.armarios.credito');
+			});
+			// Modalidades
+			Route::group(['prefix' => 'modalidades'], function(){
+				Route::get('', 'ModalidadesCtrl@Exibir')->name('exibir.modalidades.credito');
+				Route::get('listar', 'ModalidadesCtrl@Datatables')->name('listar.modalidades.credito');
+				Route::post('adicionar', 'ModalidadesCtrl@Adicionar')->name('adicionar.modalidades.credito');
+				Route::post('editar/{id}', 'ModalidadesCtrl@Editar')->name('editar.modalidades.credito');
+				Route::get('alterar/{id}', 'ModalidadesCtrl@Alterar')->name('alterar.modalidades.credito');
+				Route::any('detalhes/{id}', 'ModalidadesCtrl@Detalhes')->name('detalhes.modalidades.credito');
+			});
+			// Finalidades
+			Route::group(['prefix' => 'finalidades'], function(){
+				Route::get('', 'FinalidadesCtrl@Exibir')->name('exibir.finalidades.credito');
+				Route::get('listar', 'FinalidadesCtrl@Datatables')->name('listar.finalidades.credito');
+				Route::post('adicionar', 'FinalidadesCtrl@Adicionar')->name('adicionar.finalidades.credito');
+				Route::post('editar/{id}', 'FinalidadesCtrl@Editar')->name('editar.finalidades.credito');
+				Route::get('alterar/{id}', 'FinalidadesCtrl@Alterar')->name('alterar.finalidades.credito');
+				Route::any('detalhes/{id}', 'FinalidadesCtrl@Detalhes')->name('detalhes.finalidades.credito');
+			});
+			// Produtos
+			Route::group(['prefix' => 'produtos'], function(){
+				Route::get('', 'ProdutosCredCtrl@Exibir')->name('exibir.produtos.credito');
+				Route::get('listar', 'ProdutosCredCtrl@Datatables')->name('listar.produtos.credito');
+				Route::post('adicionar', 'ProdutosCredCtrl@Adicionar')->name('adicionar.produtos.credito');
+				Route::post('editar/{id}', 'ProdutosCredCtrl@Editar')->name('editar.produtos.credito');
+				Route::get('alterar/{id}', 'ProdutosCredCtrl@Alterar')->name('alterar.produtos.credito');
+				Route::any('detalhes/{id}', 'ProdutosCredCtrl@Detalhes')->name('detalhes.produtos.credito');
+			});
+		});
 	});
 
 	#---------------------------------------------------------------------
@@ -166,6 +234,7 @@ Route::group(['prefix' => 'app'], function(){
 			Route::post('reposicao', 'MateriaisCtrl@Reposicao')->name('efetuar.reposicao.materiais');
 			Route::get('categorias/{id}', 'MateriaisCtrl@ListarMateriais')->name('categorias.solicitacoes.materiais');
 		});
+		// Documentos para download
 		Route::group(['prefix' => 'documentos'], function(){
 			Route::get('', 'DocumentosCtrl@ExibirDocumentos')->name('exibir.documentos');
 		});
@@ -179,7 +248,7 @@ Route::group(['prefix' => 'app'], function(){
 		Route::group(['prefix' => ''], function(){
 			Route::get('dashboard', 'DashboardCtrl@DashTecnologia')->name('dashboard.gti');
 		});
-		// Ativos
+		// Equipamentos
 		Route::group(['prefix' => 'equipamentos'], function(){
 			Route::get('', 'AtivosCtrl@Exibir')->name('exibir.equipamentos');
 			Route::get('listar', 'AtivosCtrl@Datatables')->name('listar.equipamentos');
@@ -212,6 +281,51 @@ Route::group(['prefix' => 'app'], function(){
 			Route::post('editar/{id}', 'HomepageCtrl@Editar')->name('editar.homepage')->middleware('auth');
 			Route::any('delete/{id}', 'HomepageCtrl@Delete')->name('delete.homepage')->middleware('auth');
 			Route::any('detalhes/{id}', 'HomepageCtrl@Detalhes')->name('detalhes.homepage')->middleware('auth');
+		});
+
+		Route::group(['prefix' => 'configuracoes'], function(){
+			// Aprendizagem
+			Route::group(['prefix' => 'aprendizagem'], function(){		
+				Route::group(['prefix' => 'base'], function(){
+					Route::get('', 'BaseCtrl@Exibir')->name('exibir.base.aprendizagem');
+					Route::get('adicionar', 'BaseCtrl@Adicionar')->name('adicionar.base.aprendizagem');
+					Route::post('salvar', 'BaseCtrl@AdicionarSalvar')->name('salvar.adicionar.base.aprendizagem');
+					Route::get('editar/{id}', 'BaseCtrl@Editar')->name('editar.base.aprendizagem');
+					Route::post('salvarEditar/{id}', 'BaseCtrl@EditarSalvar')->name('salvar.editar.base.aprendizagem');
+					Route::get('detele/{id}', 'BaseCtrl@Delete')->name('delete.base.aprendizagem');
+					Route::post('addArquivos', 'BaseCtrl@Arquivos')->name('adicionar.arquivos.aprendizagem');
+					Route::get('removeArquivo/{id}', 'BaseCtrl@RemoveArquivos')->name('remover.arquivos.aprendizagem');
+					Route::any('tipos/{idFonte}', 'ChamadosCtrl@ListarTipos')->name('tipos.chamados');
+					Route::any('base/{idTipo}/{idFonte}', 'ChamadosCtrl@ListarBase')->name('base.chamados');
+				});
+			});
+			// Fontes
+			Route::group(['prefix' => 'fontes'], function(){
+				Route::get('', 'FontesCtrl@Exibir')->name('exibir.fontes.chamados');
+				Route::get('listar', 'FontesCtrl@Datatables')->name('listar.fontes.chamados');
+				Route::post('adicionar', 'FontesCtrl@Adicionar')->name('adicionar.fontes.chamados');
+				Route::post('editar/{id}', 'FontesCtrl@Editar')->name('editar.fontes.chamados');
+				Route::get('alterar/{id}', 'FontesCtrl@Alterar')->name('alterar.fontes.chamados');
+				Route::any('detalhes/{id}', 'FontesCtrl@Detalhes')->name('detalhes.fontes.chamados');
+			});		
+			// Tipos
+			Route::group(['prefix' => 'tipos'], function(){
+				Route::get('', 'TiposCtrl@Exibir')->name('exibir.tipos.chamados');
+				Route::get('listar', 'TiposCtrl@Datatables')->name('listar.tipos.chamados');
+				Route::post('adicionar', 'TiposCtrl@Adicionar')->name('adicionar.tipos.chamados');
+				Route::post('editar/{id}', 'TiposCtrl@Editar')->name('editar.tipos.chamados');
+				Route::get('alterar/{id}', 'TiposCtrl@Alterar')->name('alterar.tipos.chamados');
+				Route::any('detalhes/{id}', 'TiposCtrl@Detalhes')->name('detalhes.tipos.chamados');
+			});
+			// Status
+			Route::group(['prefix' => 'status'], function(){
+				Route::get('', 'StatusCtrl@Exibir')->name('exibir.status.chamados');
+				Route::get('listar', 'StatusCtrl@Datatables')->name('listar.status.chamados');
+				Route::post('adicionar', 'StatusCtrl@Adicionar')->name('adicionar.status.chamados');
+				Route::post('editar/{id}', 'StatusCtrl@Editar')->name('editar.status.chamados');
+				Route::get('alterar/{id}', 'StatusCtrl@Alterar')->name('alterar.status.chamados');
+				Route::any('detalhes/{id}', 'StatusCtrl@Detalhes')->name('detalhes.status.chamados');
+			});
 		});
 	});
 
@@ -265,110 +379,7 @@ Route::group(['prefix' => 'app'], function(){
 				Route::any('detalhes/{id}', 'UsuariosCtrl@Detalhes')->name('detalhes.usuarios.administrativo')->middleware('auth');
 				Route::any('resetar/{id}', 'UsuariosCtrl@Resetar')->name('resetar.usuarios.administrativo')->middleware('auth');
 			});
-		});
-		Route::group(['prefix' => 'aprendizagem'], function(){
-			// Tópicos
-			Route::group(['prefix' => 'base'], function(){
-				Route::get('', 'BaseCtrl@Exibir')->name('exibir.base.aprendizagem');
-				Route::get('adicionar', 'BaseCtrl@Adicionar')->name('adicionar.base.aprendizagem');
-				Route::post('salvar', 'BaseCtrl@AdicionarSalvar')->name('salvar.adicionar.base.aprendizagem');
-				Route::get('editar/{id}', 'BaseCtrl@Editar')->name('editar.base.aprendizagem');
-				Route::post('salvarEditar/{id}', 'BaseCtrl@EditarSalvar')->name('salvar.editar.base.aprendizagem');
-				Route::get('detele/{id}', 'BaseCtrl@Delete')->name('delete.base.aprendizagem');
-				Route::post('addArquivos', 'BaseCtrl@Arquivos')->name('adicionar.arquivos.aprendizagem');
-				Route::get('removeArquivo/{id}', 'BaseCtrl@RemoveArquivos')->name('remover.arquivos.aprendizagem');
-				Route::any('tipos/{idFonte}', 'ChamadosCtrl@ListarTipos')->name('tipos.chamados');
-				Route::any('base/{idTipo}/{idFonte}', 'ChamadosCtrl@ListarBase')->name('base.chamados');
-			});
-		});
-		Route::group(['prefix' => 'credito'], function(){
-			// Armários
-			Route::group(['prefix' => 'armarios'], function(){
-				Route::get('', 'ArmariosCtrl@Exibir')->name('exibir.armarios.credito');
-				Route::get('listar', 'ArmariosCtrl@Datatables')->name('listar.armarios.credito');
-				Route::post('adicionar', 'ArmariosCtrl@Adicionar')->name('adicionar.armarios.credito');
-				Route::post('editar/{id}', 'ArmariosCtrl@Editar')->name('editar.armarios.credito');
-				Route::get('alterar/{id}', 'ArmariosCtrl@Alterar')->name('alterar.armarios.credito');
-				Route::any('detalhes/{id}', 'ArmariosCtrl@Detalhes')->name('detalhes.armarios.credito');
-			});
-			// Modalidades
-			Route::group(['prefix' => 'modalidades'], function(){
-				Route::get('', 'ModalidadesCtrl@Exibir')->name('exibir.modalidades.credito');
-				Route::get('listar', 'ModalidadesCtrl@Datatables')->name('listar.modalidades.credito');
-				Route::post('adicionar', 'ModalidadesCtrl@Adicionar')->name('adicionar.modalidades.credito');
-				Route::post('editar/{id}', 'ModalidadesCtrl@Editar')->name('editar.modalidades.credito');
-				Route::get('alterar/{id}', 'ModalidadesCtrl@Alterar')->name('alterar.modalidades.credito');
-				Route::any('detalhes/{id}', 'ModalidadesCtrl@Detalhes')->name('detalhes.modalidades.credito');
-			});
-			// Finalidades
-			Route::group(['prefix' => 'finalidades'], function(){
-				Route::get('', 'FinalidadesCtrl@Exibir')->name('exibir.finalidades.credito');
-				Route::get('listar', 'FinalidadesCtrl@Datatables')->name('listar.finalidades.credito');
-				Route::post('adicionar', 'FinalidadesCtrl@Adicionar')->name('adicionar.finalidades.credito');
-				Route::post('editar/{id}', 'FinalidadesCtrl@Editar')->name('editar.finalidades.credito');
-				Route::get('alterar/{id}', 'FinalidadesCtrl@Alterar')->name('alterar.finalidades.credito');
-				Route::any('detalhes/{id}', 'FinalidadesCtrl@Detalhes')->name('detalhes.finalidades.credito');
-			});
-			// Produtos
-			Route::group(['prefix' => 'produtos'], function(){
-				Route::get('', 'ProdutosCredCtrl@Exibir')->name('exibir.produtos.credito');
-				Route::get('listar', 'ProdutosCredCtrl@Datatables')->name('listar.produtos.credito');
-				Route::post('adicionar', 'ProdutosCredCtrl@Adicionar')->name('adicionar.produtos.credito');
-				Route::post('editar/{id}', 'ProdutosCredCtrl@Editar')->name('editar.produtos.credito');
-				Route::get('alterar/{id}', 'ProdutosCredCtrl@Alterar')->name('alterar.produtos.credito');
-				Route::any('detalhes/{id}', 'ProdutosCredCtrl@Detalhes')->name('detalhes.produtos.credito');
-			});
-		});
-		
-		Route::group(['prefix' => 'chamados'], function(){
-			// Fontes
-			Route::group(['prefix' => 'fontes'], function(){
-				Route::get('', 'FontesCtrl@Exibir')->name('exibir.fontes.chamados');
-				Route::get('listar', 'FontesCtrl@Datatables')->name('listar.fontes.chamados');
-				Route::post('adicionar', 'FontesCtrl@Adicionar')->name('adicionar.fontes.chamados');
-				Route::post('editar/{id}', 'FontesCtrl@Editar')->name('editar.fontes.chamados');
-				Route::get('alterar/{id}', 'FontesCtrl@Alterar')->name('alterar.fontes.chamados');
-				Route::any('detalhes/{id}', 'FontesCtrl@Detalhes')->name('detalhes.fontes.chamados');
-			});		
-			// Tipos
-			Route::group(['prefix' => 'tipos'], function(){
-				Route::get('', 'TiposCtrl@Exibir')->name('exibir.tipos.chamados');
-				Route::get('listar', 'TiposCtrl@Datatables')->name('listar.tipos.chamados');
-				Route::post('adicionar', 'TiposCtrl@Adicionar')->name('adicionar.tipos.chamados');
-				Route::post('editar/{id}', 'TiposCtrl@Editar')->name('editar.tipos.chamados');
-				Route::get('alterar/{id}', 'TiposCtrl@Alterar')->name('alterar.tipos.chamados');
-				Route::any('detalhes/{id}', 'TiposCtrl@Detalhes')->name('detalhes.tipos.chamados');
-			});
-			// Status
-			Route::group(['prefix' => 'status'], function(){
-				Route::get('', 'StatusCtrl@Exibir')->name('exibir.status.chamados');
-				Route::get('listar', 'StatusCtrl@Datatables')->name('listar.status.chamados');
-				Route::post('adicionar', 'StatusCtrl@Adicionar')->name('adicionar.status.chamados');
-				Route::post('editar/{id}', 'StatusCtrl@Editar')->name('editar.status.chamados');
-				Route::get('alterar/{id}', 'StatusCtrl@Alterar')->name('alterar.status.chamados');
-				Route::any('detalhes/{id}', 'StatusCtrl@Detalhes')->name('detalhes.status.chamados');
-			});
-		});
-		Route::group(['prefix' => 'materiais'], function(){
-			// Todos
-			Route::group(['prefix' => 'todos'], function(){
-				Route::get('', 'MateriaisCtrl@Exibir')->name('exibir.todos.materiais');
-				Route::get('listar', 'MateriaisCtrl@Datatables')->name('listar.todos.materiais');
-				Route::post('adicionar', 'MateriaisCtrl@Adicionar')->name('adicionar.todos.materiais');
-				Route::post('editar/{id}', 'MateriaisCtrl@Editar')->name('editar.todos.materiais');
-				Route::get('alterar/{id}', 'MateriaisCtrl@Alterar')->name('alterar.todos.materiais');
-				Route::any('detalhes/{id}', 'MateriaisCtrl@Detalhes')->name('detalhes.todos.materiais');
-			});
-			// Categorias
-			Route::group(['prefix' => 'categorias'], function(){
-				Route::get('', 'CategoriasCtrl@Exibir')->name('exibir.categorias.materiais');
-				Route::get('listar', 'CategoriasCtrl@Datatables')->name('listar.categorias.materiais');
-				Route::post('adicionar', 'CategoriasCtrl@Adicionar')->name('adicionar.categorias.materiais');
-				Route::post('editar/{id}', 'CategoriasCtrl@Editar')->name('editar.categorias.materiais');
-				Route::get('alterar/{id}', 'CategoriasCtrl@Alterar')->name('alterar.categorias.materiais');
-				Route::any('detalhes/{id}', 'CategoriasCtrl@Detalhes')->name('detalhes.categorias.materiais');
-			});
-		});
+		});	
 		Route::group(['prefix' => 'emails'], function(){
 			// Ajustes
 			Route::group(['prefix' => 'ajustes'], function(){
@@ -381,13 +392,6 @@ Route::group(['prefix' => 'app'], function(){
 				Route::post('salvar', 'EmailsCtrl@SalvarMensagens')->name('salvar.mensagens.emails');
 			});
 		});
-		Route::group(['prefix' => 'documentos'], function(){
-			Route::get('', 'DocumentosCtrl@Exibir')->name('exibir.todos.documentos');
-			Route::get('listar', 'DocumentosCtrl@Datatables')->name('listar.todos.documentos');
-			Route::post('adicionar', 'DocumentosCtrl@Adicionar')->name('adicionar.todos.documentos');
-			Route::post('editar/{id}', 'DocumentosCtrl@Editar')->name('editar.todos.documentos');
-			Route::get('alterar/{id}', 'DocumentosCtrl@Alterar')->name('alterar.todos.documentos');
-			Route::any('detalhes/{id}', 'DocumentosCtrl@Detalhes')->name('detalhes.todos.documentos');
-		});
+		
 	});
 });

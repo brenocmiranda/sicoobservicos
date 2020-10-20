@@ -45,13 +45,13 @@ Homepage
 									</a>
 								</h5>
 								<label class="text-truncate text-uppercase d-block">	
-									<span class="email">{{(isset($homepage->subtitulo) ? $homepage->subtitulo : '-')}}</span>
+									<span class="email">{{(isset($homepage->subtitulo) ? $homepage->subtitulo : ' ')}}</span>
 								</label>
 								<div class="my-3">
-									<a href="javascript:void(0)" data="{{route('detalhes.homepage', $homepage->id)}}" class="btn btn-success btn-outline btn-xs btn-rounded ml-auto btn-editar" title="Editar informações">
+									<a href="javascript:void(0)" data="{{route('detalhes.homepage', $homepage->id)}}" class="btn btn-success btn-outline btn-xs ml-auto btn-editar" title="Editar informações">
 										<small>Editar</small>
 									</a>
-									<a href="javascript:void(0)" data="{{route('delete.homepage', $homepage->id)}}" class="btn btn-danger btn-outline btn-xs btn-rounded ml-auto btn-remove" title="Excluir atalho">
+									<a href="javascript:void(0)" data="{{route('delete.homepage', $homepage->id)}}" class="btn btn-danger btn-outline btn-xs ml-auto btn-remove" title="Excluir atalho">
 										<small>Deletar</small>
 									</a>
 								</div>
@@ -79,6 +79,13 @@ Homepage
 @section('suporte')
 <script type="text/javascript">
 	$(document).ready( function (){
+		// Icone de upload
+		$('.btn-image').hover( function(){
+			$('.btn-image i').fadeIn('fast');
+		} , function() {
+			$('.btn-image i').fadeOut('fast');
+		});
+
 		// Campo de pesquisa
 		$("input[type=search]").keyup(function(){
 			var texto = $(this).val().toUpperCase();

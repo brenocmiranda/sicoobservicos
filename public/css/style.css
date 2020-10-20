@@ -1022,7 +1022,8 @@ pre {
 #page-wrapper {
 	padding: 0 0 0px;
 	min-height: 568px;
-	background: #edf1f5
+	background-color: #f4f4f4;
+	/*background: #edf1f5;*/
 }
 
 .footer {
@@ -19752,6 +19753,19 @@ ul.pro-amenities li span i {
 		left: -240px;
 		transition: .5s ease-out
 	}
+	.hide-sidebar .top-left-part{
+		border: none;
+		width: auto;
+		background: transparent;
+	}
+	.hide-sidebar .top-left-part .logo {
+		display: none;
+		transition: .5s ease-out;
+	}
+	.hide-sidebar .top-left-part .logo-min {
+		display: block;
+		transition: .5s ease-out;
+	}
 	.hide-sidebar #page-wrapper {
 		margin-left: 0
 	}
@@ -20111,10 +20125,20 @@ ul.pro-amenities li span i {
 .btn-image{
 	height: 130px;
 	width: 130px;
-	margin-top: -130px;
+	margin-top: -148px;
 }
 
 .btn-image:hover{
+    background: #0a0a0a94;
+}
+
+.btn-perfil{
+	height: 130px;
+	width: 130px;
+	margin-top: -130px;
+}
+
+.btn-perfil:hover{
     background: #0a0a0a94;
 }
 
