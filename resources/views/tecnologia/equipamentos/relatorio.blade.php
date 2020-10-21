@@ -1,5 +1,5 @@
 @section('title')
-Termo de responsabilidade
+Termo de responsabilidade e compromisso para uso dos equipamentos corporativos
 @endsection
 
 @section('header-support')
@@ -54,29 +54,34 @@ Termo de responsabilidade
 				</div>
 			</div>
 			<div class="body p-5 text-justify">
-				<p> &nbsp &nbsp &nbsp Em <b>{{now()->format('d')}}</b> de <b>{{now()->format('m')}}</b> de <b>{{now()->format('Y')}}</b>, eu, <b>{{$dados->RelationUsuario->last()->RelationAssociado->nome}}</b>, <b>{{$dados->RelationUsuario->last()->RelationFuncao->nome}}</b>, pelo presente instrumento, acuso o recebimento dos equipamentos com a seguinte descrição: </p>
-				<p><b>{{$dados->nome}}</b> marca <b>{{$dados->marca}}</b>, modelo <b>{{$dados->modelo}}</b>, <b>{{$dados->descricao}}</b>, com o(s) seguinte(s) patrimônio(s), de propriedade da Cooperativa de Crédito de Livre Admissão do Sertão de Minas Gerais LTDA – Sicoob Sertão Minas.</p>
+				<p> &nbsp &nbsp &nbsp Em <b>{{now()->format('d')}}</b> de <b>{{now()->format('m')}}</b> de <b>{{now()->format('Y')}}</b>, eu, <b>{{$equipamentos->first()->RelationUsuarios->RelationAssociado->nome}}</b>, com as atribuições de <b>{{$equipamentos->first()->RelationUsuarios->RelationFuncao->nome}}</b>, pelo presente instrumento, acuso o recebimento dos equipamentos de propriedade da Cooperativa de Crédito de Livre Admissão do Sertão de Minas Gerais LTDA – Sicoob Sertão Minas, com a(s) seguinte(s) descrição: </p>
 
 				<table class="table text-center border border-dark my-4">
 					<thead class="border-dark">
-						<th>Modelo do equipamento</th>
-						<th>Número de patrimônio</th>
-						<th>Service Tag ou Nº de Série</th>
+						<th>Nome</th>
+						<th>Marca</th>
+						<th>Modelo</th>
+						<th>Nº de patrimônio</th>
+						<th>Nº de Série</th>
 					</thead>
 					<tbody>
+						@foreach($equipamentos as $dados)
 						<tr>
+							<td>{{$dados->nome}}</td>
+							<td>{{$dados->marca}}</td>
 							<td>{{$dados->modelo}}</td>
 							<td>{{$dados->n_patrimonio}}</td>
 							<td>{{$dados->serialNumber}}</td>
 						</tr>
+						@endforeach
 					</tbody>
 				</table>
 
 				<p>
-					&nbsp &nbsp &nbsp Eu, <b>{{$dados->RelationUsuario->last()->RelationAssociado->nome}}</b>, firmo o presente com o compromisso de assumir inteira responsabilidade pela guarda e zelo do bem, bem como pela legalidade dos softwares nele instalados e de apresentá-lo em local previamente combinado, quando solicitado pela equipe do Departamento de Tecnologia da Informação na sede do Sicoob Sertão Minas (Pirapora - Minas Gerais), restituindo-o ao titular do setor, quando por este solicitado, ou quando cessarem as minhas atividades nesta empresa.
+					&nbsp &nbsp &nbsp Eu, <b>{{$equipamentos->first()->RelationUsuarios->RelationAssociado->nome}}</b>, firmo o presente com o compromisso de assumir inteira responsabilidade pela guarda e zelo do bem, bem como pela legalidade dos softwares nele instalados e de apresentá-lo em local previamente combinado, quando solicitado pela equipe do Departamento de Tecnologia da Informação na sede do Sicoob Sertão Minas (Pirapora - Minas Gerais), restituindo-o ao titular do setor, quando por este solicitado, ou quando cessarem as minhas atividades nesta empresa.
 				</p>
 				<p>
-					&nbsp &nbsp &nbsp Através da assinatura deste documento, eu, <b>{{$dados->RelationUsuario->last()->RelationAssociado->nome}}</b>, recipiendário, me comprometo a seguir as normas descritas abaixo para, a partir da data de hoje, <b>{{now()->format('d')}}</b> de <b>{{now()->format('m')}}</b> de <b>{{now()->format('Y')}}</b>, executar os trabalhos pertinentes as minhas atividades.
+					&nbsp &nbsp &nbsp Através da assinatura deste documento, eu, <b>{{$equipamentos->first()->RelationUsuarios->RelationAssociado->nome}}</b>, recipiendário, me comprometo a seguir as normas descritas abaixo para, a partir da data de hoje, <b>{{now()->format('d')}}</b> de <b>{{now()->format('m')}}</b> de <b>{{now()->format('Y')}}</b>, executar os trabalhos pertinentes as minhas atividades.
 				</p>
 				<h3 class="py-4">Responsabilidade do Usuário</h3>
 				<ul style="list-style: disc">
@@ -108,9 +113,9 @@ Termo de responsabilidade
 
 				<div class="row text-center mx-auto my-5 pt-5">
 					<div class="col-5 border-top border-dark mx-auto">
-						<label class="m-0">{{$dados->RelationUsuario->last()->RelationAssociado->nome}}</label>
+						<label class="m-0">{{$equipamentos->first()->RelationUsuarios->RelationAssociado->nome}}</label>
 						<br>
-						<small><b>{{$dados->RelationUsuario->last()->RelationSetor->nome}}</b></small>
+						<small><b>{{$equipamentos->first()->RelationUsuarios->RelationSetor->nome}}</b></small>
 					</div>
 					<div class="col-5 border-top border-dark mx-auto">
 						<label class="m-0">Barbara Bezerra Palma</label>

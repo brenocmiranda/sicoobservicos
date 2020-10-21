@@ -250,7 +250,10 @@ Route::group(['prefix' => 'app'], function(){
 		});
 		// Equipamentos
 		Route::group(['prefix' => 'equipamentos'], function(){
-			Route::get('', 'AtivosCtrl@Exibir')->name('exibir.equipamentos');
+			Route::get('geral', 'AtivosCtrl@Exibir')->name('exibir.geral.equipamentos');
+			Route::get('usuarios', 'AtivosCtrl@ExibirUsuarios')->name('exibir.usuarios.equipamentos');
+			Route::get('termo', 'AtivosCtrl@ExibirTermo')->name('exibir.termo.equipamentos');
+			Route::post('gerarTermo', 'AtivosCtrl@GerarTermo')->name('gerar.termo.equipamentos');
 			Route::get('listar', 'AtivosCtrl@Datatables')->name('listar.equipamentos');
 			Route::get('adicionar', 'AtivosCtrl@Adicionar')->name('adicionar.equipamentos');
 			Route::post('salvar', 'AtivosCtrl@AdicionarSalvar')->name('salvar.adicionar.equipamentos');
@@ -258,9 +261,8 @@ Route::group(['prefix' => 'app'], function(){
 			Route::post('salvarEditar/{id}', 'AtivosCtrl@EditarSalvar')->name('salvar.editar.equipamentos');
 			Route::get('remover/{id}', 'AtivosCtrl@Delete')->name('remover.equipamentos');
 			Route::any('detalhes/{id}', 'AtivosCtrl@Detalhes')->name('detalhes.equipamentos');
-			Route::any('relatorio/{id}', 'AtivosCtrl@Relatorio')->name('relatorio.equipamentos');
 			Route::post('addImagens', 'AtivosCtrl@Imagens')->name('adicionar.imagens.equipamentos');
-			Route::get('usuarios', 'AtivosCtrl@ExibirUsuarios')->name('exibir.equipamentos.usuarios');
+			
 		});
 		// Chamados
 		Route::group(['prefix' => 'chamados'], function(){
@@ -390,6 +392,11 @@ Route::group(['prefix' => 'app'], function(){
 			Route::group(['prefix' => 'mensagens'], function(){
 				Route::get('', 'EmailsCtrl@ExibirMensagens')->name('exibir.mensagens.emails');
 				Route::post('salvar', 'EmailsCtrl@SalvarMensagens')->name('salvar.mensagens.emails');
+			});
+			// Importações
+			Route::group(['prefix' => 'importacoes'], function(){
+				Route::get('', 'ImportacoesCtrl@Exibir')->name('exibir.importacoes');
+				Route::any('executar', 'ImportacoesCtrl@Importar')->name('executar.importacoes');
 			});
 		});
 		

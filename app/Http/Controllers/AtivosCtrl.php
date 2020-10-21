@@ -21,7 +21,7 @@ class AtivosCtrl extends Controller
 		$this->middleware('auth');
 	}
 
-	// Listando todos os instituições
+	// Listando todos os equipamentos
 	public function Exibir(){
 		$equipamentos = Ativos::all();
 		return view('tecnologia.equipamentos.listar')->with('ativos', $equipamentos);
@@ -47,10 +47,17 @@ class AtivosCtrl extends Controller
             })->rawColumns(['imagem1', 'nome1', 'acoes'])->make(true);
 	}
 
+	// Listando equipamentos por usuário
 	public function ExibirUsuarios(){
 		$equipamentos = Ativos::all();
 		$usuarios = Usuarios::all();
-		return view('tecnologia.equipamentos.usuarios')->with('ativos', $equipamentos)->with('usuarios', $usuarios);
+		return view('tecnologia.equipamentos.listar-usuarios')->with('ativos', $equipamentos)->with('usuarios', $usuarios);
+	}
+
+	// Listando a termo de emissão
+	public function ExibirTermo(){
+		$usuarios = AtivosUsuarios::join('usr_usuarios', 'usr_id_usuarios', 'usr_usuarios.id')->join('cli_associados', 'usr_usuarios.cli_id_associado', 'cli_associados.id')->whereNull('dataDevolucao')->select('cli_associados.nome', 'usr_usuarios.id')->groupBy('id')->get();
+		return view('tecnologia.equipamentos.listar-termo')->with('usuarios', $usuarios);
 	}
 
 	// Adicionando novos itens
@@ -101,10 +108,10 @@ class AtivosCtrl extends Controller
 			'nome' => 'Cadastro de novo equipamento de tecnologia',
 			'descricao' => 'Você cadastrou um novo equipamento de tecnologia, '.$create->nome.'.',
 			'icone' => 'mdi-plus',
-			'url' => route('exibir.equipamentos'),
+			'url' => route('exibir.geral.equipamentos'),
 			'id_usuario' => Auth::id()
 		]);
-		return redirect()->route('exibir.equipamentos');
+		return redirect()->route('exibir.geral.equipamentos');
 	}
 
 	// Editando informações
@@ -147,24 +154,27 @@ class AtivosCtrl extends Controller
 				]);
 			}
 		}
+
         // Cadastrando o usuário responsável
 		$equipamento = Ativos::find($id);
 		if($request->usuario){
-			AtivosUsuarios::find($equipamento->RelationUsuario->last()->pivot->id)->update(['dataDevolucao' => now()]);
-			$usuarios = AtivosUsuarios::create([
-				'gti_id_ativos' => $id,
-				'usr_id_usuarios' => $request->usuario,
-				'dataRecebimento' => now()
-			]);
+			if($equipamento->RelationUsuario->first()->id != $request->usuario){
+				AtivosUsuarios::find($equipamento->RelationUsuario->first()->pivot->id)->update(['dataDevolucao' => now()]);
+				$usuarios = AtivosUsuarios::create([
+					'gti_id_ativos' => $id,
+					'usr_id_usuarios' => $request->usuario,
+					'dataRecebimento' => now()
+				]);
+			}
 		}
 		Atividades::create([
 			'nome' => 'Edição de informações',
 			'descricao' => 'Você modificou as informações do equipamento de tecnologia '.$equipamento->nome.'.',
 			'icone' => 'mdi-auto-fix',
-			'url' => route('exibir.equipamentos'),
+			'url' => route('exibir.geral.equipamentos'),
 			'id_usuario' => Auth::id()
 		]);
-		return redirect()->route('exibir.equipamentos');
+		return redirect()->route('exibir.geral.equipamentos');
 	}
 
 	// Deletando o ativo
@@ -174,7 +184,7 @@ class AtivosCtrl extends Controller
 			'nome' => 'Remoção de equipamento',
 			'descricao' => 'Você acabou de remover o equipamento de tecnologia '.$create->nome.'.',
 			'icone' => 'mdi-delete-forever',
-			'url' => route('exibir.equipamentos'),
+			'url' => route('exibir.geral.equipamentos'),
 			'id_usuario' => Auth::id()
 		]);
 		AtivosImagens::where('id_ativo', $id)->delete();
@@ -188,13 +198,15 @@ class AtivosCtrl extends Controller
 		$dados = Ativos::find($id);
 		$dados->imagem = $dados->RelationImagemPrincipal;
 		$dados->imagens  = $dados->RelationImagem;
+		$dados->setor  = $dados->RelationSetor->nome;
+		$dados->unidade  = $dados->RelationUnidade->nome;
 		return response()->json($dados);
 	}
 
 	// Relatório do ativo
-	public function Relatorio($id){
-		$dados = Ativos::find($id);
-		return view('tecnologia.equipamentos.relatorio')->with('dados', $dados);
+	public function GerarTermo(Request $request){
+		$equipamentos = AtivosUsuarios::join('gti_ativos', 'gti_id_ativos', 'gti_ativos.id')->whereNull('dataDevolucao')->where('usr_id_usuarios', $request->usuario)->get();
+		return view('tecnologia.equipamentos.relatorio')->with('equipamentos', $equipamentos);
 	}
 
 	// Importando fotos do chamado

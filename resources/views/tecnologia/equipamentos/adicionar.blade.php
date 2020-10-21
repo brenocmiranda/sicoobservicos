@@ -13,7 +13,7 @@ Adicionar equipamento
 		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
 			<ol class="breadcrumb">
 				<li><a href="javascript:void(0)">GTI</a></li>
-				<li class="active"><a href="{{route('exibir.equipamentos')}}">Equipamentos</a></li>
+				<li class="active"><a href="{{route('exibir.geral.equipamentos')}}">Equipamentos</a></li>
 				<li class="active">Adicionar</li>
 			</ol>
 		</div>
@@ -150,7 +150,7 @@ Adicionar equipamento
 							</div>
 							<hr class="col-10 mt-0">
 							<div class="row col-12 justify-content-center mx-auto">
-								<a href="{{route('exibir.equipamentos')}}" class="btn btn-danger btn-outline col-4 d-flex align-items-center justify-content-center mx-2">
+								<a href="{{route('exibir.geral.equipamentos')}}" class="btn btn-danger btn-outline col-4 d-flex align-items-center justify-content-center mx-2">
 									<i class="mdi mdi-arrow-left pr-2"></i> 
 									<span>Voltar</span>
 								</a>

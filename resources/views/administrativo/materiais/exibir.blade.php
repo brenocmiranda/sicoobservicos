@@ -20,7 +20,7 @@ Solicitações de materiais
 	<div class="card">
 		<div class="card-body">
 			<div class="col-12">
-				<div class="col-12 row mb-4 mx-auto">
+				<div class="col-12 row mb-4 mx-auto justify-content-center">
 					@include('layouts.search')
 				</div>
 
@@ -64,7 +64,7 @@ Solicitações de materiais
 							
 							</ul>
 						@else
-							<div class="row mx-auto">
+							<div class="row p-0">
 								<label class="alert alert-secondary col-12 rounded">Você não possui nenhuma pêndencia.</label>
 							</div>
 						@endif

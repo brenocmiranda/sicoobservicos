@@ -120,8 +120,9 @@
               <span class="hide-menu">Inventário </span><span class="fa arrow"></span>
             </a>
             <ul class="nav nav-third-level {{ (Request::segment(2) == 'gti' && Request::segment(3) == 'equipamentos' ? ' collapse in' : '') }}">
-              <li> <a href="{{route('exibir.equipamentos')}}"><span class="hide-menu">Geral</span></a> </li>
-              <li> <a href="{{route('exibir.equipamentos.usuarios')}} "><span class="hide-menu">Por usuário</span></a> </li>
+              <li> <a href="{{route('exibir.geral.equipamentos')}}"><span class="hide-menu">Geral</span></a> </li>
+              <li> <a href="{{route('exibir.usuarios.equipamentos')}}"><span class="hide-menu">Por usuário</span></a> </li>
+              <li> <a href="{{route('exibir.termo.equipamentos')}}"><span class="hide-menu">Termo</span></a> </li>
             </ul>
           </li>
           <li> <a href="{{route('exibir.homepage')}}"><span class="hide-menu">Homepage</span></a> </li>
@@ -171,6 +172,7 @@
               <li> <a href="{{route('exibir.mensagens.emails')}}"><span class="hide-menu">Conteúdos</span></a> </li>
             </ul>
           </li>
+          <li> <a href="{{route('exibir.importacoes')}}"><span class="hide-menu">Importações</span></a> </li>
         </ul>
       </li>
       @endif

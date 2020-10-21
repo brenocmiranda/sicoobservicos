@@ -19,7 +19,7 @@ Minhas atividades
     </div>
 
     <div class="card">
-        <div class="card-header">
+        <div class="card-header" style="border-top-right-radius: 0.6em; border-top-left-radius: 0.6em;">
             <h5 class="section-title text-white font-weight-normal">Últimas atualizações</h5>
         </div>
         <div class="card-body">

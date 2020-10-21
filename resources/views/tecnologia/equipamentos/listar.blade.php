@@ -1,5 +1,5 @@
 @section('title')
-Equipamentos
+Invetário geral
 @endsection
 
 @extends('layouts.index')
@@ -8,12 +8,13 @@ Equipamentos
 <div class="container-fluid">
 	<div class="row bg-title">
 		<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-			<h4 class="page-title">Equipamentos</h4> 
+			<h4 class="page-title">Invetário geral</h4> 
 		</div>
 		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
 			<ol class="breadcrumb">
 				<li><a href="javascript:void(0)">GTI</a></li>
-				<li class="active">Equipamentos</li>
+				<li><a href="javascript:void(0)">Invetário</a></li>
+				<li class="active">Geral</li>
 			</ol>
 		</div>
 	</div>

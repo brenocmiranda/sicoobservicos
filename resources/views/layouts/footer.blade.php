@@ -37,7 +37,7 @@
 <script src="{{ asset('public/vendor/morrisjs/morris.js') }}"></script>
 <script src="{{ asset('public/vendor/summernote/dist/summernote.min.js') }}"></script>
 <script src="{{ asset('public/js/jquery-ui.js')}}"></script>
-<script src="{{ asset('public/vendor/bootstrap-treeview-master/dist/bootstrap-treeview.min.js') }}"></script>
+<script src="{{ asset('public/vendor/bootstrap-treeview-master/src/js/bootstrap-treeview.js') }}"></script>
 
 <script type="text/javascript">
 	$(document).ready(function() {

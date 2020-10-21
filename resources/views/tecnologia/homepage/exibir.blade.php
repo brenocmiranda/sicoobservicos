@@ -142,7 +142,7 @@ Home
 		<ul class="row h-100">
 			@foreach($homepages as $homepage)
 			<li class="mb-5" style="height: 110px;width: 132px;">
-				<a href="http://{{$homepage->endereco}}" target="_blank" class="text-center">
+				<a href="{{ url($homepage->endereco) }}" target="_blank" class="text-center">
 					<div class="pb-3">
 						<img src="{{ asset('storage/app/'.$homepage->RelationImagem->endereco) }}" class="rounded-circle bg-light p-2" style="height: 60px;width: 60px;">
 					</div>

@@ -18,7 +18,7 @@ class CreateGtiHomepage extends Migration
             $table->increments('id');
             $table->string('titulo');
             $table->string('subtitulo')->nullable();
-            $table->string('endereco');
+            $table->text('endereco');
 
             $table->integer('id_imagem')->unsigned()->nullable();
             $table->foreign('id_imagem')->references('id')->on('imagens');
