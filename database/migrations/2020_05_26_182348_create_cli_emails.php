@@ -18,7 +18,6 @@ class CreateCliEmails extends Migration
             $table->increments('id');
             $table->string('tipo')->nullable();
             $table->text('email');
-            $table->date('data_movimento');
 
             $table->integer('cli_id_associado')->unsigned();
             $table->foreign('cli_id_associado')->references('id')->on('cli_associados');

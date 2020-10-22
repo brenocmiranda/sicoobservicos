@@ -5,10 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use App\Imports\AssociadosImport;
+use App\Imports\EmailsImport;
+use App\Imports\TelefonesImport;
+use App\Imports\EnderecosImport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Associados;
 use App\Models\Emails;
 use App\Models\Telefones;
+use App\Models\Enderecos;
 
 class ImportacoesCtrl extends Controller
 {
@@ -18,19 +22,38 @@ class ImportacoesCtrl extends Controller
 
     // Exibindo items de importação
 	public function Exibir(){
-		$dBaseAssociado = Associados::select('data_movimento')->orderBy('data_movimento', 'DESC')->first();
-		$dBaseEmails = Emails::select('data_movimento')->orderBy('data_movimento', 'DESC')->first();
-		$dBaseTelefones = Telefones::select('data_movimento')->orderBy('data_movimento', 'DESC')->first();
-		return view('gestao.importacoes')->with('dBaseAssociado', $dBaseAssociado)->with('dBaseEmails', $dBaseEmails)->with('dBaseTelefones', $dBaseTelefones);
+		$dBaseAssociado = Associados::select('updated_at')->orderBy('updated_at', 'DESC')->first();
+		$dBaseEmails = Emails::select('updated_at')->orderBy('updated_at', 'DESC')->first();
+		$dBaseTelefones = Telefones::select('updated_at')->orderBy('updated_at', 'DESC')->first();
+		$dBaseEnderecos = Enderecos::select('updated_at')->orderBy('updated_at', 'DESC')->first();
+		return view('configuracoes.importacoes')->with('dBaseAssociado', $dBaseAssociado)->with('dBaseEmails', $dBaseEmails)->with('dBaseTelefones', $dBaseTelefones)->with('dBaseEnderecos', $dBaseEnderecos);
 	}
 
 	// Importação manual dos arquivos
 	public function Importar(Request $request){
 		// cli_associados
-		if($request->hasFile('cli_associados') && $request->isValid()){
-			$nameFile = 'cli_associados-'.uniqid(date('HisYmd')).request()->file('cli_associados')->getClientOriginalName();
-			$upload = $request->image->storeAs('importacoes', $nameFile);
-				Excel::import(new AssociadosImport, getcwd().'/storage/app/importacoes/'.$nameFile);
+		if($request->hasFile('cli_associados') && $request->file('cli_associados')->isValid()){
+			$nameFile = 'cli_associados-'.date('dmYHis').'.'.request()->file('cli_associados')->getClientOriginalExtension();
+			$upload = $request->cli_associados->storeAs('importacoes', $nameFile);
+				Excel::import(new AssociadosImport)->queue(getcwd().'/storage/app/importacoes/'.$nameFile);
+		}
+		// cli_emails
+		if($request->hasFile('cli_emails') && $request->file('cli_emails')->isValid()){
+			$nameFile = 'cli_emails-'.date('dmYHis').'.'.request()->file('cli_emails')->getClientOriginalExtension();
+			$upload = $request->cli_emails->storeAs('importacoes', $nameFile);
+				Excel::import(new EmailsImport, getcwd().'/storage/app/importacoes/'.$nameFile);
+		}
+		// cli_telefones
+		if($request->hasFile('cli_telefones') && $request->file('cli_telefones')->isValid()){
+			$nameFile = 'cli_telefones-'.date('dmYHis').'.'.request()->file('cli_telefones')->getClientOriginalExtension();
+			$upload = $request->cli_telefones->storeAs('importacoes', $nameFile);
+				Excel::import(new TelefonesImport)->queue(getcwd().'/storage/app/importacoes/'.$nameFile);
+		}
+		// cli_enderecos
+		if($request->hasFile('cli_enderecos') && $request->file('cli_enderecos')->isValid()){
+			$nameFile = 'cli_enderecos-'.date('dmYHis').'.'.request()->file('cli_enderecos')->getClientOriginalExtension();
+			$upload = $request->cli_enderecos->storeAs('importacoes', $nameFile);
+				Excel::import(new EnderecosImport)->queue(getcwd().'/storage/app/importacoes/'.$nameFile);
 		}
 
 		// Demais importações

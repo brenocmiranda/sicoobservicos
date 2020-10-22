@@ -32,31 +32,55 @@ Importações
             <h5 class="section-title text-white font-weight-normal">Arquivos</h5>
         </div>
         <div class="card-body">
-            <label class="col-12 mb-4">Neste módulo você tem a possibilidade de efetuar a importação dos arquivos de maneira manual. Essa importação pode demorar alguns minutos até que seja concluída, aguarde até conclua a importação completa dos arquivos.</label>
+            <label class="col-12 mb-5">Neste módulo você tem a possibilidade de efetuar a importação dos arquivos de maneira manual. Essa importação pode demorar alguns minutos até que seja concluída, aguarde até conclua a importação completa dos arquivos.</label>
             <form class="form-sample" action="{{route('executar.importacoes')}}" method="POST" enctype="multipart/form-data" autocomplete="off">
                 @csrf
                 <div class="row col-12 mx-auto">
-                    <div class="col-8">
-                        <div class="form-group">
-                            <label class="col-form-label mb-2">cli_associados.xlsx</label>
-                            <small>(Data base: <b>{{date('d/m/Y', strtotime($dBaseAssociado->data_movimento))}}</b>)</small>
-                            <input type="file" name="cli_associados">
+                    <div class="col-12">
+                        <div class="form-group col-12 row">
+                            <div class="col-8 p-0">
+                                <label class="col-form-label mb-2">cli_associados.xlsx</label>
+                                <input type="file" name="cli_associados">
+                            </div>
+                            <div class="col-4 p-0 m-auto text-right">
+                                <label>Data base: <b>{{date('d/m/Y', strtotime($dBaseAssociado->updated_at))}}</b></label>
+                            </div>
                         </div>
                     </div>
                     <hr class="col-12 my-2">
-                    <div class="col-8">
-                        <div class="form-group">
-                            <label class="col-form-label mb-2">cli_emails.xlsx</label>
-                            <small>(Data base: <b>{{date('d/m/Y', strtotime($dBaseEmails->data_movimento))}}</b>)</small>
-                            <input type="file" name="cli_emails">
+                    <div class="col-12">
+                        <div class="form-group col-12 row">
+                            <div class="col-8 p-0">
+                                <label class="col-form-label mb-2">cli_emails.xlsx</label>
+                                <input type="file" name="cli_emails">
+                            </div>
+                            <div class="col-4 p-0 m-auto text-right">
+                                <label>Data base: <b>{{date('d/m/Y', strtotime($dBaseEmails->updated_at))}}</b></label>
+                            </div>
                         </div>
                     </div>
                     <hr class="col-12 my-2">
-                    <div class="col-8">
-                        <div class="form-group">
-                            <label class="col-form-label mb-2">cli_telefones.xlsx</label> 
-                            <small>(Data base: <b>{{date('d/m/Y', strtotime($dBaseTelefones->data_movimento))}}</b>)</small>
-                            <input type="file" name="cli_telefones">
+                    <div class="col-12">
+                        <div class="form-group col-12 row">
+                            <div class="col-8 p-0">
+                                <label class="col-form-label mb-2">cli_telefones.xlsx</label>
+                                <input type="file" name="cli_telefones">
+                            </div>
+                            <div class="col-4 p-0 m-auto text-right">
+                                <label>Data base: <b>{{date('d/m/Y', strtotime($dBaseTelefones->updated_at))}}</b></label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="col-12 my-2">
+                    <div class="col-12">
+                         <div class="form-group col-12 row">
+                            <div class="col-8 p-0">
+                                <label class="col-form-label mb-2">cli_enderecos.xlsx</label>
+                                <input type="file" name="cli_enderecos">
+                            </div>
+                            <div class="col-4 p-0 m-auto text-right">
+                                <label>Data base: <b>{{date('d/m/Y', strtotime($dBaseEnderecos->updated_at))}}</b></label>
+                            </div>
                         </div>
                     </div>
                     <hr class="col-12">

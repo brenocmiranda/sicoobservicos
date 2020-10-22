@@ -22,11 +22,12 @@ class CreateCliEnderecos extends Migration
             $table->text('complemento');
             $table->string('cidade');
             $table->string('estado');
-            $table->string('pais');
-            $table->date('data_movimento');
+            $table->string('pais')->default('Brasil');
             
             $table->integer('cli_id_associado')->unsigned();
             $table->foreign('cli_id_associado')->references('id')->on('cli_associados');
+
+            $table->timestamps();
         });
     }
 

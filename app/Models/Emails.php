@@ -13,5 +13,5 @@ class Emails extends Model
 
     protected $table = 'cli_emails';
     protected $primaryKey = 'id';
-    protected $fillable = ['id', 'tipo', 'email', 'data_movimento', 'cli_id_associado', 'created_at', 'updated_at'];
+    protected $fillable = ['id', 'tipo', 'email', 'cli_id_associado', 'created_at', 'updated_at'];
 }

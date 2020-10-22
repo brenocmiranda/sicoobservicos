@@ -239,7 +239,7 @@ class UsuariosCtrl extends Controller
 	}
 	// Configurações
 	public function Configuracoes(){
-		return view('gestao.geral');
+		return view('configuracoes.geral');
 	}
 	// Primeiro acesso
 	public function PrimeiroAcesso(){

@@ -144,7 +144,7 @@
       </li>
       @endif
 
-      @if(Auth::user()->RelationFuncao->ver_configuracoes == 1 || Auth::user()->RelationFuncao->gerenciar_configuracoes)
+      @if(Auth::user()->RelationFuncao->ver_configuracoes == 1 || Auth::user()->RelationFuncao->gerenciar_configuracoes == 1)
       <li> 
         <a href="javascript:void(0)" class="waves-effect {{ (Request::segment(2) == 'gestao' ? 'active' : '') }}">
           <i class="mdi mdi-settings pr-3"></i> 

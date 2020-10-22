@@ -17,8 +17,11 @@ class CreateCliTelefones extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('tipo')->nullable();
-            $table->string('numero');
-            $table->date('data_movimento');
+            $table->string('numero_celular')->nullable();
+            $table->string('numero_comercial')->nullable();
+            $table->string('numero_residencial')->nullable();
+            $table->string('numero_fax')->nullable();
+            $table->string('numero_recado')->nullable();
 
             $table->integer('cli_id_associado')->unsigned();
             $table->foreign('cli_id_associado')->references('id')->on('cli_associados');
