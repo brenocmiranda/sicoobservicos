@@ -37,19 +37,19 @@ Importações
                     <div class="col-8">
                         <div class="form-group">
                             <label class="col-form-label mb-2">cli_associados.xlsx</label>
-                            <input type="file" name="cli_associados" required>
+                            <input type="file" name="cli_associados">
                         </div>
                     </div>
                     <div class="col-8">
                         <div class="form-group">
                             <label class="col-form-label mb-2">cli_emails.xlsx</label>
-                            <input type="file">
+                            <input type="file" name="cli_emails">
                         </div>
                     </div>
                     <div class="col-8">
                         <div class="form-group">
                             <label class="col-form-label mb-2">cli_telefones.xlsx</label>
-                            <input type="file">
+                            <input type="file" name="cli_telefones">
                         </div>
                     </div>
                     <hr class="col-10">
