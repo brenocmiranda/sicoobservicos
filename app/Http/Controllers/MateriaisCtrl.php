@@ -94,7 +94,7 @@ class MateriaisCtrl extends Controller
 	 // Listando todos materiais
 	public function Exibir(){
 		$categorias = MateriaisCategorias::where('status', 1)->get();
-		return view('gestao.materiais.todos.listar')->with('categorias', $categorias);
+		return view('administrativo.controle.todos.listar')->with('categorias', $categorias);
 	}
 	public function Datatables(){
 		return datatables()->of(Materiais::all())

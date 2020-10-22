@@ -18,7 +18,7 @@ class InstituicoesCtrl extends Controller
     // Listando todos os instituições
 	public function Exibir(){
 		$dados = Instituicoes::orderBy('nome')->get();
-		return view('gestao.administrativo.instituicoes.listar')->with('instituicoes', $dados);
+		return view('configuracoes.administrativo.instituicoes.listar')->with('instituicoes', $dados);
 	}
 
 	// Adicionando nova instituições

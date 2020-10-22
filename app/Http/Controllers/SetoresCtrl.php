@@ -18,7 +18,7 @@ class SetoresCtrl extends Controller
     // Listando todos produtos
 	public function Exibir(){
 		$dados = Setores::orderBy('nome')->get();
-		return view('gestao.administrativo.setores.listar')->with('setores', $dados);
+		return view('configuracoes.administrativo.setores.listar')->with('setores', $dados);
 	}
 	public function Datatables(){
 		return datatables()->of(Setores::all())

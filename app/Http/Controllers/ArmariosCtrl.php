@@ -19,7 +19,7 @@ class ArmariosCtrl extends Controller
 
 	// Listando todos os funções
 	public function Exibir(){
-		return view('gestao.credito.armarios.listar');
+		return view('credito.configuracoes.armarios.listar');
 	}
 	public function Datatables(){
 		return datatables()->of(Armarios::all())

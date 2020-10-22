@@ -18,7 +18,7 @@ class StatusCtrl extends Controller
 	
     // Listando todos os funções
 	public function Exibir(){
-		return view('gestao.chamados.status.listar');
+		return view('tecnologia.configuracoes.chamados.status.listar');
 	}
 	public function Datatables(){
 		return datatables()->of(Status::all())

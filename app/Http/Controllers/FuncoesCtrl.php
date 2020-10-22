@@ -17,7 +17,7 @@ class FuncoesCtrl extends Controller
 	
     // Listando todos os funções
 	public function Exibir(){
-		return view('gestao.administrativo.funcoes.listar');
+		return view('configuracoes.administrativo.funcoes.listar');
 	}
 	public function Datatables(){
 		return datatables()->of(Funcoes::all())

@@ -18,7 +18,7 @@ class FontesCtrl extends Controller
 	
     // Listando todos os funções
 	public function Exibir(){
-		return view('gestao.chamados.fontes.listar');
+		return view('tecnologia.configuracoes.chamados.fontes.listar');
 	}
 	public function Datatables(){
 		return datatables()->of(Fontes::all())

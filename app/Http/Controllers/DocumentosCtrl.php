@@ -25,7 +25,7 @@ class DocumentosCtrl extends Controller
 
     // Listando todos os documentos
 	public function Exibir(){
-		return view('gestao.documentos.todos.listar');
+		return view('administrativo.documentos.todos.listar');
 	}
 	public function Datatables(){
 		return datatables()->of(Documentos::all())

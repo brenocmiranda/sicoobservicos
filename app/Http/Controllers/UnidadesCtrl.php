@@ -20,7 +20,7 @@ class UnidadesCtrl extends Controller
 	public function Exibir(){
 		$instituicoes = Instituicoes::where('status', 1)->get();
 		$unidades = Unidades::orderBy('nome', 'ASC')->get();
-		return view('gestao.administrativo.unidades.listar')->with('unidades', $unidades)->with('instituicoes', $instituicoes);
+		return view('configuracoes.administrativo.unidades.listar')->with('unidades', $unidades)->with('instituicoes', $instituicoes);
 	}
 
 	// Adicionando novo item

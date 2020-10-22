@@ -42,13 +42,13 @@ class BaseCtrl extends Controller
 	// -------------------------------------
 	public function Exibir(){
 		$topicos = Base::all();
-		return view('gestao.aprendizagem.base.exibir')->with('topicos', $topicos);
+		return view('tecnologia.configuracoes.aprendizagem.exibir')->with('topicos', $topicos);
 	}
 	// Adicionando novos itens
 	public function Adicionar(){
 		$fontes = Fontes::where('status', 1)->orderBy('nome', 'ASC')->get();
 		$tipos = Tipos::where('status', 1)->orderBy('nome', 'ASC')->get();
-		return view('gestao.aprendizagem.base.adicionar')->with('fontes', $fontes)->with('tipos', $tipos);
+		return view('tecnologia.configuracoes.aprendizagem.adicionar')->with('fontes', $fontes)->with('tipos', $tipos);
 	}
 	public function AdicionarSalvar(BaseRqt $request){
 		$create = Base::create([
@@ -81,7 +81,7 @@ class BaseCtrl extends Controller
 		$base = Base::find($id);
 		$fontes = Fontes::where('status', 1)->orderBy('nome', 'ASC')->get();
 		$tipos = Tipos::where('status', 1)->where('gti_id_fontes', $base->gti_id_fontes)->orderBy('nome', 'ASC')->get();
-		return view('gestao.aprendizagem.base.editar')->with('base', $base)->with('fontes', $fontes)->with('tipos', $tipos);
+		return view('tecnologia.configuracoes.aprendizagem.editar')->with('base', $base)->with('fontes', $fontes)->with('tipos', $tipos);
 	}
 	public function EditarSalvar(BaseRqt $request, $id){
 		Base::find($id)->update([

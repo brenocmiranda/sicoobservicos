@@ -6,6 +6,9 @@ use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use App\Imports\AssociadosImport;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Models\Associados;
+use App\Models\Emails;
+use App\Models\Telefones;
 
 class ImportacoesCtrl extends Controller
 {
@@ -13,19 +16,25 @@ class ImportacoesCtrl extends Controller
 		$this->middleware('auth');
 	}
 
-    // Listando todos os instituições
+    // Exibindo items de importação
 	public function Exibir(){
-		return view('gestao.importacoes');
+		$dBaseAssociado = Associados::select('data_movimento')->orderBy('data_movimento', 'DESC')->first();
+		$dBaseEmails = Emails::select('data_movimento')->orderBy('data_movimento', 'DESC')->first();
+		$dBaseTelefones = Telefones::select('data_movimento')->orderBy('data_movimento', 'DESC')->first();
+		return view('gestao.importacoes')->with('dBaseAssociado', $dBaseAssociado)->with('dBaseEmails', $dBaseEmails)->with('dBaseTelefones', $dBaseTelefones);
 	}
 
-	// Listando todos os instituições
+	// Importação manual dos arquivos
 	public function Importar(Request $request){
-		// Recuperando nome
-		// return request()->file('cli_associados')->getClientOriginalName();
-		// Recuperando a extensão
-		// return request()->file('cli_associados')->getClientOriginalExtension();
+		// cli_associados
+		if($request->hasFile('cli_associados') && $request->isValid()){
+			$nameFile = 'cli_associados-'.uniqid(date('HisYmd')).request()->file('cli_associados')->getClientOriginalName();
+			$upload = $request->image->storeAs('importacoes', $nameFile);
+				Excel::import(new AssociadosImport, getcwd().'/storage/app/importacoes/'.$nameFile);
+		}
 
-		Excel::import(new AssociadosImport, request()->file('cli_associados'));
+		// Demais importações
+
 		\Session::flash('upload', array(
 				'class' => 'success',
 				'mensagem' => 'Importação dos arquivos executadas com sucesso!'
@@ -33,9 +42,9 @@ class ImportacoesCtrl extends Controller
 		return redirect(route('exibir.importacoes'));
 	}
 
-	// Importação automática
-	public function Importar(Request $request){
 
+	// Importação automática
+	public function ImportarAutomatica(){
 		$client = Client::account('default');
 		$client->connect();
 		$folders = $client->getFolders();
@@ -47,13 +56,13 @@ class ImportacoesCtrl extends Controller
                 if ($message->getSubject() == 'cli_associados'){
                 	$attachments = $message->getAttachments(); 
 	                foreach($attachments as $attachment){
-	                   $attachment->save("C:/wamp64/www/sicoob/backup/"); 
+	                   $attachment->save(getcwd().'/storage/app/importacoes/'); 
 	                }
             	}
             }
         }
 
-		Excel::import(new AssociadosImport, 'C:/wamp64/www/sicoob/backup/cli_associados.xlsx');
-		return response()->json(['success' = 'true']);
+		Excel::import(new AssociadosImport, getcwd().'/storage/app/cli_associados.xlsx');
+		return response()->json(['success' => 'true']);
 	}
 }

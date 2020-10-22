@@ -18,7 +18,7 @@ class ProdutosCredCtrl extends Controller
 
 	// Listando todos os funções
 	public function Exibir(){
-		return view('gestao.credito.produtos.listar');
+		return view('credito.configuracoes.produtos.listar');
 	}
 	public function Datatables(){
 		return datatables()->of(ProdutosCred::all())

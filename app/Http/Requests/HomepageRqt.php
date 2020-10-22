@@ -26,7 +26,7 @@ class HomepageRqt extends FormRequest
         return ['titulo' => 'required|min:3|string',
             'subtitulo' => 'nullable|string',
             'endereco' => 'required|string',
-            'upload_img' => 'nullable|image',
+            'upload_img' => 'nullable',
         ];
     }
 

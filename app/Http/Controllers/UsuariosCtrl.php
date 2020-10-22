@@ -44,7 +44,7 @@ class UsuariosCtrl extends Controller
 		$funcoes = Funcoes::where('status', 1)->orderBy('nome', 'asc')->get();
 		$instituicoes = Instituicoes::where('status', 1)->orderBy('nome', 'asc')->get();
 		$unidades = Unidades::where('status', 1)->orderBy('nome', 'asc')->get();
-		return view('gestao.administrativo.usuarios.listar')->with('associados', $associados)->with('associadosTodos', $associadosTodos)->with('setores', $setores)->with('funcoes', $funcoes)->with('instituicoes', $instituicoes)->with('unidades', $unidades);
+		return view('configuracoes.administrativo.usuarios.listar')->with('associados', $associados)->with('associadosTodos', $associadosTodos)->with('setores', $setores)->with('funcoes', $funcoes)->with('instituicoes', $instituicoes)->with('unidades', $unidades);
 	}
 	public function Datatables(){
 		return datatables()->of(Usuarios::where('id', '!=', Auth::id())->get())

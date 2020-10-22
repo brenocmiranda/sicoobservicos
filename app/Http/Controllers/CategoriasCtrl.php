@@ -19,7 +19,7 @@ class CategoriasCtrl extends Controller
 
 	// Listando todos os funções
 	public function Exibir(){
-		return view('gestao.materiais.categorias.listar');
+		return view('administrativo.controle.categorias.listar');
 	}
 	public function Datatables(){
 		return datatables()->of(Categorias::all())

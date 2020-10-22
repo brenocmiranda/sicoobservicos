@@ -19,7 +19,7 @@ class FinalidadesCtrl extends Controller
 
 	// Listando todos os funções
 	public function Exibir(){
-		return view('gestao.credito.finalidades.listar');
+		return view('credito.configuracoes.finalidades.listar');
 	}
 	public function Datatables(){
 		return datatables()->of(Finalidades::all())

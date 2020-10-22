@@ -20,7 +20,7 @@ class TiposCtrl extends Controller
     // Listando todos os funções
 	public function Exibir(){
 		$dados = Fontes::where('status', 1)->get();
-		return view('gestao.chamados.tipos.listar')->with('fontes', $dados);
+		return view('tecnologia.configuracoes.chamados.tipos.listar')->with('fontes', $dados);
 	}
 	public function Datatables(){
 		return datatables()->of(Tipos::all())

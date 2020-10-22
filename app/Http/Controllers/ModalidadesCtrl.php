@@ -19,7 +19,7 @@ class ModalidadesCtrl extends Controller
 
 	// Listando todos os funções
 	public function Exibir(){
-		return view('gestao.credito.modalidades.listar');
+		return view('credito.configuracoes.modalidades.listar');
 	}
 	public function Datatables(){
 		return datatables()->of(Modalidades::all())
