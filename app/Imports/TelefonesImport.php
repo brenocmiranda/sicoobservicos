@@ -7,9 +7,10 @@ use App\Models\Telefones;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class TelefonesImport implements ToModel, WithBatchInserts, WithChunkReading
-{
+class TelefonesImport implements ToModel, WithBatchInserts, WithChunkReading, WithHeadingRow
+{   
     /**
     * @param array $row
     *
@@ -18,12 +19,12 @@ class TelefonesImport implements ToModel, WithBatchInserts, WithChunkReading
     public function model(array $row)
     {
         return new Telefones([
-            'numero_celular' => ($row[0] > 0 ? $row[0] : null), 
-            'numero_comercial' => ($row[1] > 0 ? $row[1] : null), 
-            'numero_residencial' => ($row[2] > 0 ? $row[2] : null), 
-            'numero_fax' => ($row[3] > 0 ? $row[3] : null), 
-            'numero_recado' => ($row[4] > 0 ? $row[4] : null), 
-            'cli_id_associado' => Associados::where('id_sisbr', $row[1])->select('id')->first()[0],
+            'numero_celular' => $row['telefone_celular'], 
+            'numero_comercial' => $row['telefone_comercial'], 
+            'numero_residencial' => $row['telefone_residencial'], 
+            'numero_fax' => $row['telefone_fax'], 
+            'numero_recado' => $row['telefone_recado'], 
+            'cli_id_associado' => Associados::where('id_sisbr', $row['numero_cliente_sisbr'])->select('id')->first()->id,
         ]);
     }
 

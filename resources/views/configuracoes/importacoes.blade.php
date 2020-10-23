@@ -33,17 +33,17 @@ Importações
         </div>
         <div class="card-body">
             <label class="col-12 mb-5">Neste módulo você tem a possibilidade de efetuar a importação dos arquivos de maneira manual. Essa importação pode demorar alguns minutos até que seja concluída, aguarde até conclua a importação completa dos arquivos.</label>
-            <form class="form-sample" action="{{route('executar.importacoes')}}" method="POST" enctype="multipart/form-data" autocomplete="off">
+            <form class="form-sample" id="form" action="{{route('executar.importacoes')}}" method="POST" enctype="multipart/form-data" autocomplete="off">
                 @csrf
                 <div class="row col-12 mx-auto">
                     <div class="col-12">
                         <div class="form-group col-12 row">
                             <div class="col-8 p-0">
                                 <label class="col-form-label mb-2">cli_associados.xlsx</label>
-                                <input type="file" name="cli_associados">
+                                <input type="file" name="cli_associados" accept=".xlsx">
                             </div>
                             <div class="col-4 p-0 m-auto text-right">
-                                <label>Data base: <b>{{date('d/m/Y', strtotime($dBaseAssociado->updated_at))}}</b></label>
+                                <label>Data base: <b>{{date('d/m/Y', strtotime(@$dBaseAssociado->updated_at))}}</b></label>
                             </div>
                         </div>
                     </div>
@@ -52,10 +52,10 @@ Importações
                         <div class="form-group col-12 row">
                             <div class="col-8 p-0">
                                 <label class="col-form-label mb-2">cli_emails.xlsx</label>
-                                <input type="file" name="cli_emails">
+                                <input type="file" name="cli_emails" accept=".xlsx">
                             </div>
                             <div class="col-4 p-0 m-auto text-right">
-                                <label>Data base: <b>{{date('d/m/Y', strtotime($dBaseEmails->updated_at))}}</b></label>
+                                <label>Data base: <b>{{date('d/m/Y', strtotime(@$dBaseEmails->updated_at))}}</b></label>
                             </div>
                         </div>
                     </div>
@@ -64,10 +64,10 @@ Importações
                         <div class="form-group col-12 row">
                             <div class="col-8 p-0">
                                 <label class="col-form-label mb-2">cli_telefones.xlsx</label>
-                                <input type="file" name="cli_telefones">
+                                <input type="file" name="cli_telefones" accept=".xlsx">
                             </div>
                             <div class="col-4 p-0 m-auto text-right">
-                                <label>Data base: <b>{{date('d/m/Y', strtotime($dBaseTelefones->updated_at))}}</b></label>
+                                <label>Data base: <b>{{date('d/m/Y', strtotime(@$dBaseTelefones->updated_at))}}</b></label>
                             </div>
                         </div>
                     </div>
@@ -76,17 +76,19 @@ Importações
                          <div class="form-group col-12 row">
                             <div class="col-8 p-0">
                                 <label class="col-form-label mb-2">cli_enderecos.xlsx</label>
-                                <input type="file" name="cli_enderecos">
+                                <input type="file" name="cli_enderecos" accept=".xlsx">
                             </div>
                             <div class="col-4 p-0 m-auto text-right">
-                                <label>Data base: <b>{{date('d/m/Y', strtotime($dBaseEnderecos->updated_at))}}</b></label>
+                                <label>Data base: <b>{{date('d/m/Y', strtotime(@$dBaseEnderecos->updated_at))}}</b></label>
                             </div>
                         </div>
                     </div>
                     <hr class="col-12">
-                    <div class="col-8 p-0 mx-auto progress d-none" style="height: 20px;">
-                      <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="confirm col-12 text-center mb-3 font-weight-bold"></div>
+                    <div class="col-8 p-0 ml-auto progress" style="height: 20px;">
+                      <div class="progress-bar progress-bar-striped progress-bar-animated bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
+                    <label class="col-2 percent" style="line-height: 20px;">0</label>
                     <div class="row col-12 justify-content-center mx-auto">
                         <button type="submit" class="btn btn-success btn-outline col-3 d-flex align-items-center justify-content-center mx-2">
                             <i class="mdi mdi-upload pr-2"></i> 
@@ -98,4 +100,53 @@ Importações
         </div>
     </div>
 </div>
+@endsection
+
+@section('suporte')
+<script src="http://malsup.github.com/jquery.form.js"></script>
+<script type="text/javascript">
+    (function() {
+    var bar = $('.bar');
+    var percent = $('.percent');
+    var status = $('#status');
+ 
+    $('#form').ajaxForm({
+        beforeSend: function() {
+            $('.progress').fadeIn();
+            status.empty();
+            var percentVal = '0';
+            var posterValue = $('input[name=file]').fieldValue();
+            bar.width(percentVal+'%')
+            percent.html(percentVal);
+        },
+        uploadProgress: function(event, position, total, percentComplete) {
+            var percentVal = '25';
+            bar.width(percentVal+'%')
+            percent.html(percentVal);
+        },
+        success: function() {
+            $('.confirm').html('Aguarde, finalizando importação...');
+            var percentVal = '50';
+            bar.width(percentVal+'%')
+            percent.html(percentVal);
+        },
+        complete: function(xhr) {
+            if(xhr.responseText == "true"){
+                var percentVal = '100';
+                bar.width(percentVal+'%')
+                percent.html(percentVal);
+                $('.progress-bar').addClass('bg-success');
+                $('.confirm').html('Upload efetuado com sucesso!');   
+            }else{
+                var percentVal = '25';
+                bar.width(percentVal+'%')
+                percent.html(percentVal);
+                $('.progress-bar').addClass('bg-danger');
+                $('.confirm').html('Nenhum arquivo selecionado para importação!');  
+            }
+        }
+    });
+     
+    })();
+</script>
 @endsection

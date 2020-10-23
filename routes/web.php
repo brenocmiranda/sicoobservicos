@@ -393,11 +393,11 @@ Route::group(['prefix' => 'app'], function(){
 				Route::get('', 'EmailsCtrl@ExibirMensagens')->name('exibir.mensagens.emails');
 				Route::post('salvar', 'EmailsCtrl@SalvarMensagens')->name('salvar.mensagens.emails');
 			});
+		});
+		Route::group(['prefix' => 'importacoes'], function(){
 			// Importações
-			Route::group(['prefix' => 'importacoes'], function(){
-				Route::get('', 'ImportacoesCtrl@Exibir')->name('exibir.importacoes');
-				Route::any('executar', 'ImportacoesCtrl@Importar')->name('executar.importacoes');
-			});
+			Route::get('', 'ImportacoesCtrl@Exibir')->name('exibir.importacoes');
+			Route::any('executar', 'ImportacoesCtrl@Importar')->name('executar.importacoes');
 		});
 		
 	});

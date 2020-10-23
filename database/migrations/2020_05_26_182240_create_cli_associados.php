@@ -20,11 +20,8 @@ class CreateCliAssociados extends Migration
             $table->text('nome');
             $table->string('nome_fantasia');
             $table->string('documento')->unique();
-            $table->string('nivel_risco');
+            $table->string('tipo_renda');
             $table->double('renda');
-            $table->double('bens');
-            $table->string('nivel_crl');
-            $table->date('data_crl');
             $table->string('cod_cnae');
             $table->date('data_nascimento');
             $table->string('atividade_economica');
@@ -32,8 +29,7 @@ class CreateCliAssociados extends Migration
             $table->string('sigla');
             $table->boolean('funcionario');
             $table->date('data_relacionamento');
-            $table->date('data_atualizacao');
-            $table->date('data_movimento');
+            $table->date('data_renovacao');
             $table->string('PA');
 
             $table->timestamps();
@@ -45,11 +41,8 @@ class CreateCliAssociados extends Migration
                 'nome' => 'Administrador Master',
                 'nome_fantasia' => 'Administrador do sistema',
                 'documento' => '12345678912',
-                'nivel_risco' => 'AA',
+                'tipo_renda' => 'SALARIO',
                 'renda' => '0',
-                'bens' => '0',
-                'nivel_crl' => 'R1',
-                'data_crl' => '2020-01-01 00:00:00',
                 'cod_cnae' => '-2',
                 'data_nascimento' => '2020-01-01',
                 'atividade_economica' => 'MANUTENCAO NO SISTEMA',
@@ -57,8 +50,7 @@ class CreateCliAssociados extends Migration
                 'sigla' => 'PJ',
                 'funcionario' => '1',
                 'data_relacionamento' => '2020-01-01 00:00:00',
-                'data_atualizacao' => '2020-01-01 00:00:00',
-                'data_movimento' => '2020-01-01 00:00:00',
+                'data_renovacao' => '2020-01-01 00:00:00',
                 'PA' => 'SEDE PIRAPORA',
                 ])
         );

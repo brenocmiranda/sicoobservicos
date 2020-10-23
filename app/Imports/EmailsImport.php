@@ -7,8 +7,9 @@ use App\Models\Emails;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class EmailsImport implements ToModel, WithBatchInserts, WithChunkReading
+class EmailsImport implements ToModel, WithBatchInserts, WithChunkReading, WithHeadingRow
 {
     /**
     * @param array $row
@@ -18,8 +19,8 @@ class EmailsImport implements ToModel, WithBatchInserts, WithChunkReading
     public function model(array $row)
     {
         return new Emails([
-            'email' => $row[0], 
-            'cli_id_associado' => Associados::where('id_sisbr', $row[1])->select('id')->first()->id,
+            'email' => $row['email'], 
+            'cli_id_associado' => Associados::where('id_sisbr', $row['numero_cliente_sisbr'])->select('id')->first()->id,
         ]);
     }
 

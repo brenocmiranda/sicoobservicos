@@ -6,8 +6,9 @@ use App\Models\Associados;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class AssociadosImport implements ToModel, WithBatchInserts, WithChunkReading
+class AssociadosImport implements ToModel, WithBatchInserts, WithChunkReading, WithHeadingRow
 {
     /**
     * @param array $row
@@ -17,25 +18,21 @@ class AssociadosImport implements ToModel, WithBatchInserts, WithChunkReading
     public function model(array $row)
     {
         return new Associados([
-            'id_sisbr' => $row[0], 
-            'nome' => $row[1], 
-            'nome_fantasia' => $row[2], 
-            'documento' => $row[3], 
-            'nivel_risco' => $row[4], 
-            'renda' => $row[5], 
-            'bens' => $row[6], 
-            'nivel_crl' => $row[7], 
-            'data_crl' => gmdate('Y-m-d', (($row[8] - 25569) * 86400)), 
-            'cod_cnae' => ($row[9] > 0 ? $row[9] : 'NÃO POSSUI'),
-            'data_nascimento' => gmdate('Y-m-d', (($row[10] - 25569) * 86400)), 
-            'atividade_economica' => $row[11], 
-            'sexo' => ($row[12] > 0 ? $row[12] : 'NÃO POSSUI'), 
-            'sigla' => $row[13], 
-            'funcionario' => $row[14], 
-            'data_relacionamento' => gmdate('Y-m-d', (($row[15] - 25569) * 86400)),
-            'data_atualizacao' => gmdate('Y-m-d', (($row[16] - 25569) * 86400)), 
-            'data_movimento' => gmdate('Y-m-d', (($row[17] - 25569) * 86400)), 
-            'PA' => $row[18],
+            'id_sisbr' => $row['numero_cliente_sisbr'], 
+            'nome' => $row['nome_cliente'], 
+            'nome_fantasia' => $row['nome_fantasia'], 
+            'documento' => $row['cpfcnpj'], 
+            'tipo_renda' => $row['tipo_de_renda'], 
+            'renda' => $row['renda_bruta_mensal'], 
+            'cod_cnae' => ($row['codigo_cnae'] > 0 ? $row['codigo_cnae'] : 'NÃO POSSUI'),
+            'data_nascimento' => gmdate('Y-m-d', (($row['data_nascimento'] - 25569) * 86400)), 
+            'atividade_economica' => $row['atividade_economica_do_cliente'], 
+            'sexo' => ($row['sexo'] == 'F' || $row['sexo'] == 'M' ? $row['sexo'] : 'NÃO POSSUI'), 
+            'sigla' => $row['sigla_tipo_pessoa'], 
+            'funcionario' => $row['indicador_funcionario'], 
+            'data_relacionamento' => gmdate('Y-m-d', (($row['data_inicio_relacionamento'] - 25569) * 86400)),
+            'data_renovacao' => gmdate('Y-m-d', (($row['data_ultima_renovacao_cadastral'] - 25569) * 86400)),  
+            'PA' => $row['numero_pa']
         ]);
     }
 
