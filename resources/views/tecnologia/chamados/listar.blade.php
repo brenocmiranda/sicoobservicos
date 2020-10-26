@@ -12,7 +12,7 @@ Solicitações de suporte
 		</div>
 		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
 			<ol class="breadcrumb">
-				<li><a href="javascript:void(0)">GTI</a></li>
+				<li><a href="{{route('dashboard.gti')}}">Tecnologia</a></li>
 				<li class="active">Suporte</li>
 			</ol>
 		</div>

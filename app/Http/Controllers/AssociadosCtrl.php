@@ -21,4 +21,21 @@ class AssociadosCtrl extends Controller
     return response()->json($result);
   }
 
+  #-------------------------------------------------------------------
+  # Aniversariantes
+  #-------------------------------------------------------------------
+  public function ExibirAniversariantes(){
+    return view('administrativo.aniversariantes.exibir');
+  }
+
+  public function GerarAniversariantes(Request $request){
+    if($request->orientacao == 'paisagem'){
+      $result = Associados::where('funcionario', 1)->whereMonth('data_nascimento', $request->mes)->select('nome', 'data_nascimento')->get();
+      return view('administrativo.aniversariantes.relatorio-paisagem')->with('result', $result)->with('mes',  $request->mes);
+    }else{
+      $result = Associados::where('funcionario', 1)->whereMonth('data_nascimento', $request->mes)->select('nome', 'data_nascimento')->get();
+    return view('administrativo.aniversariantes.relatorio-retrato')->with('result', $result)->with('mes',  $request->mes);
+    }
+  }
+
 }

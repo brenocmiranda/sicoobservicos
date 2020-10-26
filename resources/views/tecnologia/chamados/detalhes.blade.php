@@ -12,8 +12,8 @@ Detalhes do chamado
     </div>
     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
       <ol class="breadcrumb">
-        <li><a href="javascript:void(0)">GTI</a></li>
-        <li class="active"><a href="{{route('exibir.chamados.gti')}}">Solicitações</a></li>
+        <li><a href="{{route('dashboard.gti')}}">Tecnologia</a></li>
+        <li><a href="{{route('exibir.chamados.gti')}}">Solicitações</a></li>
         <li class="active">Detalhes</li>
       </ol>
     </div>

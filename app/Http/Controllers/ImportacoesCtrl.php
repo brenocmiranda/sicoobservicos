@@ -8,12 +8,13 @@ use App\Imports\AssociadosImport;
 use App\Imports\EmailsImport;
 use App\Imports\TelefonesImport;
 use App\Imports\EnderecosImport;
+use Maatwebsite\Excel\HeadingRowImport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Associados;
 use App\Models\Emails;
 use App\Models\Telefones;
 use App\Models\Enderecos;
-use Maatwebsite\Excel\HeadingRowImport;
+use Webklex\IMAP\Facades\Client;
 
 class ImportacoesCtrl extends Controller
 {
@@ -32,37 +33,37 @@ class ImportacoesCtrl extends Controller
 
 	// Importação manual dos arquivos
 	public function Importar(Request $request){
-		// cli_associados
-		if($request->hasFile('cli_associados') && $request->file('cli_associados')->isValid()){
-			$nameFile = 'cli_associados-'.date('dmYHis').'.'.request()->file('cli_associados')->getClientOriginalExtension();
-			$upload = $request->cli_associados->storeAs('importacoes', $nameFile);
-			Excel::import(new AssociadosImport, getcwd().'/storage/app/importacoes/'.$nameFile);
-		}
-		// cli_emails
-		if($request->hasFile('cli_emails') && $request->file('cli_emails')->isValid()){
-			$nameFile = 'cli_emails-'.date('dmYHis').'.'.request()->file('cli_emails')->getClientOriginalExtension();
-			$upload = $request->cli_emails->storeAs('importacoes', $nameFile);
-			Excel::import(new EmailsImport, getcwd().'/storage/app/importacoes/'.$nameFile);
-		}
-		// cli_telefones
-		if($request->hasFile('cli_telefones') && $request->file('cli_telefones')->isValid()){
-			$nameFile = 'cli_telefones-'.date('dmYHis').'.'.request()->file('cli_telefones')->getClientOriginalExtension();
-			$upload = $request->cli_telefones->storeAs('importacoes', $nameFile);
-			Excel::import(new TelefonesImport, getcwd().'/storage/app/importacoes/'.$nameFile);
-		}
-		// cli_enderecos
-		if($request->hasFile('cli_enderecos') && $request->file('cli_enderecos')->isValid()){
-			$nameFile = 'cli_enderecos-'.date('dmYHis').'.'.request()->file('cli_enderecos')->getClientOriginalExtension();
-			$upload = $request->cli_enderecos->storeAs('importacoes', $nameFile);
-			Excel::import(new EnderecosImport, getcwd().'/storage/app/importacoes/'.$nameFile);
-		}
+		if ($request->hasFile('cli_associados') || $request->hasFile('cli_emails') || $request->hasFile('cli_telefones') || $request->hasFile('cli_enderecos')){
+			// cli_associados
+			if($request->hasFile('cli_associados') && $request->file('cli_associados')->isValid()){
+				$nameFile = 'cli_associados-'.date('dmYHis').'.'.request()->file('cli_associados')->getClientOriginalExtension();
+				$upload = $request->cli_associados->storeAs('importacoes', $nameFile);
+				Excel::import(new AssociadosImport, getcwd().'/storage/app/importacoes/'.$nameFile);
+			}
+			// cli_emails
+			if($request->hasFile('cli_emails') && $request->file('cli_emails')->isValid()){
+				$nameFile = 'cli_emails-'.date('dmYHis').'.'.request()->file('cli_emails')->getClientOriginalExtension();
+				$upload = $request->cli_emails->storeAs('importacoes', $nameFile);
+				Excel::import(new EmailsImport, getcwd().'/storage/app/importacoes/'.$nameFile);
+			}
+			// cli_telefones
+			if($request->hasFile('cli_telefones') && $request->file('cli_telefones')->isValid()){
+				$nameFile = 'cli_telefones-'.date('dmYHis').'.'.request()->file('cli_telefones')->getClientOriginalExtension();
+				$upload = $request->cli_telefones->storeAs('importacoes', $nameFile);
+				Excel::import(new TelefonesImport, getcwd().'/storage/app/importacoes/'.$nameFile);
+			}
+			// cli_enderecos
+			if($request->hasFile('cli_enderecos') && $request->file('cli_enderecos')->isValid()){
+				$nameFile = 'cli_enderecos-'.date('dmYHis').'.'.request()->file('cli_enderecos')->getClientOriginalExtension();
+				$upload = $request->cli_enderecos->storeAs('importacoes', $nameFile);
+				Excel::import(new EnderecosImport, getcwd().'/storage/app/importacoes/'.$nameFile);
+			}
 
-		// Demais importações
+			// Demais importações
 
-		if (!empty($request->except('_token')[0])){
-			return response()->json(['success' => 'true']);
+			return response()->json(true);
 		}else{
-			return response()->json(['success' => 'false']);
+			return response()->json(false);
 		}
 		return redirect(route('exibir.importacoes'));
 	}

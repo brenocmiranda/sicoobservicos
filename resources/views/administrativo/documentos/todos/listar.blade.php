@@ -12,8 +12,7 @@ Documentos
 		</div>
 		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
 			<ol class="breadcrumb">
-				<li><a href="{{route('configuracoes')}}">Configurações</a></li>
-				<li><a href="javascript:void(0)">Suporte</a></li>
+				<li><a href="{{route('dashboard.administrativo')}}">Administrativo</a></li>
 				<li class="active">Documentos</li>
 			</ol>
 		</div>

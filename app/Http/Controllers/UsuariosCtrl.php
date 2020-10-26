@@ -359,4 +359,5 @@ class UsuariosCtrl extends Controller
 		$dados = Atividades::where('id_usuario', Auth::id())->orderBy('created_at', 'DESC')->paginate(10);
 		return view('system.atividades')->with('dados', $dados);
 	}
+
 }

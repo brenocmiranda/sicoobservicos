@@ -66,6 +66,13 @@ Route::group(['prefix' => 'app'], function(){
 			Route::any('detalhes/{id}', 'DocumentosCtrl@Detalhes')->name('detalhes.todos.documentos');
 		});
 
+		// Aniversariantes
+		Route::group(['prefix' => 'aniversariantes'], function(){
+			Route::get('', 'AssociadosCtrl@ExibirAniversariantes')->name('exibir.aniversariantes.administrativo');
+			Route::post('relatorio', 'AssociadosCtrl@GerarAniversariantes')->name('gerar.aniversariantes.administrativo');
+		});
+
+		// Controle de estoque
 		Route::group(['prefix' => 'controle'], function(){
 			// Todos
 			Route::group(['prefix' => 'todos'], function(){

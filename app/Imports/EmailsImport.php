@@ -4,24 +4,36 @@ namespace App\Imports;
 
 use App\Models\Associados;
 use App\Models\Emails;
-use Maatwebsite\Excel\Concerns\ToModel;
+use Illuminate\Support\Collection;
+use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class EmailsImport implements ToModel, WithBatchInserts, WithChunkReading, WithHeadingRow
+class EmailsImport implements ToCollection, WithBatchInserts, WithChunkReading, WithHeadingRow
 {
     /**
     * @param array $row
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
-    public function model(array $row)
+    public function collection(Collection $rows)
     {
-        return new Emails([
-            'email' => $row['email'], 
-            'cli_id_associado' => Associados::where('id_sisbr', $row['numero_cliente_sisbr'])->select('id')->first()->id,
-        ]);
+        foreach ($rows as $row) 
+        {  
+            $associado = Associados::where('id_sisbr', $row['numero_cliente_sisbr'])->select('id')->first();
+            $dados = Emails::where('cli_id_associado', $associado->id)->first();
+            if(isset($dados)){
+                Emails::where('cli_id_associado', $associado->id)->update([
+                    'email' => $row['email']
+                ]); 
+            }else{
+                Emails::create([
+                    'email' => $row['email'], 
+                    'cli_id_associado' => Associados::where('id_sisbr', $row['numero_cliente_sisbr'])->select('id')->first()->id,
+                ]); 
+            }
+        }   
     }
 
     public function batchSize(): int

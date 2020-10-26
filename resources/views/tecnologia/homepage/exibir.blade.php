@@ -120,7 +120,7 @@ Home
 		        </ul>    
 		    </div>
 		    @else
-	        	<a href="{{route('login')}}" class="btn btn-primary rounded btn-lg px-5">
+	        	<a href="{{route('login')}}" class="btn btn-success rounded btn-lg px-5">
 	        		<span>Fazer login</span>
 	        	</a>
 	        @endif
@@ -139,7 +139,7 @@ Home
       	</div>
 	</div>	
 	<div class="col-10 mx-auto px-0 text-uppercase py-5">
-		<ul class="row h-100">
+		<ul class="row h-100 pt-4">
 			@foreach($homepages as $homepage)
 			<li class="mb-5" style="height: 110px;width: 132px;">
 				<a href="{{ url($homepage->endereco) }}" target="_blank" class="text-center">
