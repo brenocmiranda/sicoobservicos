@@ -405,6 +405,8 @@ Route::group(['prefix' => 'app'], function(){
 			// Importações
 			Route::get('', 'ImportacoesCtrl@Exibir')->name('exibir.importacoes');
 			Route::any('executar', 'ImportacoesCtrl@Importar')->name('executar.importacoes');
+			Route::any('importAuto', 'ImportacoesCtrl@ImportarAutomatica')->name('importAuto.importacoes');
+
 		});
 		
 	});

@@ -14,7 +14,6 @@ use App\Models\Associados;
 use App\Models\Emails;
 use App\Models\Telefones;
 use App\Models\Enderecos;
-use Webklex\IMAP\Facades\Client;
 
 class ImportacoesCtrl extends Controller
 {
@@ -71,43 +70,52 @@ class ImportacoesCtrl extends Controller
 
 	// Importação automática
 	public function ImportarAutomatica(){
-		$client = Client::account('default');
-		$client->connect();
-		$folders = $client->getFolders();
+		$path = "//SICOOB_SERVICE/outlook";
+		$diretorio = dir($path);
 
-		foreach($folders as $folder){
-            $messages = $folder->messages()->all()->get();
-            foreach($messages as $message){
-                if ($message->getSubject() == 'cli_associados'){
-                	$attachments = $message->getAttachments(); 
-	                foreach($attachments as $attachment){
-	                   	$attachment->save(getcwd().'/storage/app/importacoes/'); 
-	                   	Excel::import(new AssociadosImport, getcwd().'/storage/app/cli_associados.xlsx');
-	                }
-            	}
-            	if ($message->getSubject() == 'cli_emails'){
-                	$attachments = $message->getAttachments(); 
-	                foreach($attachments as $attachment){
-	                   	$attachment->save(getcwd().'/storage/app/importacoes/'); 
-	                   	Excel::import(new AssociadosImport, getcwd().'/storage/app/cli_emails.xlsx');
-	                }
-            	}
-            	if ($message->getSubject() == 'cli_telefones'){
-                	$attachments = $message->getAttachments(); 
-	                foreach($attachments as $attachment){
-	                   	$attachment->save(getcwd().'/storage/app/importacoes/'); 
-	                   	Excel::import(new AssociadosImport, getcwd().'/storage/app/cli_telefones.xlsx');
-	                }
-            	}
-            	if ($message->getSubject() == 'cli_enderecos'){
-                	$attachments = $message->getAttachments(); 
-	                foreach($attachments as $attachment){
-	                   	$attachment->save(getcwd().'/storage/app/importacoes/'); 
-	                   	Excel::import(new AssociadosImport, getcwd().'/storage/app/cli_enderecos.xlsx');
-	                }
-            	}
-            }
-        }
-		return response()->json(['success' => 'true']);
+		// Copiando os arquivos para pasta de importação e removendo os existentes do outlook
+		while($arquivo = $diretorio->read()){
+			// cli_associados
+			if($arquivo == 'cli_associados.xlsx'){
+				if(!(getcwd().'/storage/app/importacoes')){
+					mkdir(getcwd().'/storage/app/importacoes', 0755);
+				}
+	            $nameFile = 'cli_associados'.date('dmY-His').'.xlsx';
+	            copy('//SICOOB_SERVICE/outlook/cli_associados.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
+	            unlink('//SICOOB_SERVICE/outlook/cli_associados.xlsx');
+	            Excel::import(new AssociadosImport, getcwd().'/storage/app/importacoes/'.$nameFile);
+			}
+			// cli_emails
+			if($arquivo == 'cli_emails.xlsx'){
+				if(!(getcwd().'/storage/app/importacoes')){
+					mkdir(getcwd().'/storage/app/importacoes', 0755);
+				}
+	            $nameFile = 'cli_emails'.date('dmY-His').'.xlsx';
+	            copy('//SICOOB_SERVICE/outlook/cli_emails.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
+	            unlink('//SICOOB_SERVICE/outlook/cli_emails.xlsx');
+	            Excel::import(new EmailsImport, getcwd().'/storage/app/importacoes/'.$nameFile);
+			}
+			// cli_telefones
+			if($arquivo == 'cli_telefones.xlsx'){
+				if(!(getcwd().'/storage/app/importacoes')){
+					mkdir(getcwd().'/storage/app/importacoes', 0755);
+				}
+	            $nameFile = 'cli_telefones'.date('dmY-His').'.xlsx';
+	            copy('//SICOOB_SERVICE/outlook/cli_telefones.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
+	            unlink('//SICOOB_SERVICE/outlook/cli_telefones.xlsx');
+	            Excel::import(new TelefonesImport, getcwd().'/storage/app/importacoes/'.$nameFile);
+			}
+			// cli_enderecos
+			if($arquivo == 'cli_enderecos.xlsx'){
+				if(!(getcwd().'/storage/app/importacoes')){
+					mkdir(getcwd().'/storage/app/importacoes', 0755);
+				}
+	            $nameFile = 'cli_enderecos'.date('dmY-His').'.xlsx';
+	            copy('//SICOOB_SERVICE/outlook/cli_enderecos.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
+	            unlink('//SICOOB_SERVICE/outlook/cli_enderecos.xlsx');
+	            Excel::import(new EnderecosImport, getcwd().'/storage/app/importacoes/'.$nameFile);
+			}
+		}
+		$diretorio->close();
 	}
 }
