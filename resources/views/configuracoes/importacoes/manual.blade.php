@@ -28,9 +28,6 @@ Importações
     @endif
 
     <div class="card">
-        <div class="card-header">
-            <h5 class="section-title text-white font-weight-normal">Arquivos</h5>
-        </div>
         <div class="card-body">
             <label class="col-12 mb-5">Neste módulo você tem a possibilidade de efetuar a importação dos arquivos de maneira manual. Essa importação pode demorar alguns minutos até que seja concluída, aguarde até conclua a importação completa dos arquivos.</label>
             <form class="form-sample" id="form" action="{{route('executar.importacoes')}}" method="POST" enctype="multipart/form-data" autocomplete="off">

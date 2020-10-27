@@ -389,6 +389,7 @@ Route::group(['prefix' => 'app'], function(){
 				Route::any('resetar/{id}', 'UsuariosCtrl@Resetar')->name('resetar.usuarios.administrativo')->middleware('auth');
 			});
 		});	
+		// Emails
 		Route::group(['prefix' => 'emails'], function(){
 			// Ajustes
 			Route::group(['prefix' => 'ajustes'], function(){
@@ -401,12 +402,19 @@ Route::group(['prefix' => 'app'], function(){
 				Route::post('salvar', 'EmailsCtrl@SalvarMensagens')->name('salvar.mensagens.emails');
 			});
 		});
+		// Importações
 		Route::group(['prefix' => 'importacoes'], function(){
-			// Importações
-			Route::get('', 'ImportacoesCtrl@Exibir')->name('exibir.importacoes');
-			Route::any('executar', 'ImportacoesCtrl@Importar')->name('executar.importacoes');
+			// Manual
+			Route::group(['prefix' => 'manual'], function(){
+				Route::get('', 'ImportacoesCtrl@Exibir')->name('exibir.importacoes');
+				Route::any('executar', 'ImportacoesCtrl@Importar')->name('executar.importacoes');
+			});
+			// Logs
+			Route::group(['prefix' => 'logs'], function(){
+				Route::get('', 'ImportacoesCtrl@ExibirLogs')->name('exibir.logs.importacoes');
+			});
+			// Importação automática
 			Route::any('importAuto', 'ImportacoesCtrl@ImportarAutomatica')->name('importAuto.importacoes');
-
 		});
 		
 	});

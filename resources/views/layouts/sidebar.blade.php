@@ -172,7 +172,15 @@
               <li> <a href="{{route('exibir.mensagens.emails')}}"><span class="hide-menu">Conteúdos</span></a> </li>
             </ul>
           </li>
-          <li> <a href="{{route('exibir.importacoes')}}"><span class="hide-menu">Importações</span></a> </li>
+          <li> 
+            <a href="javascript:void(0)" class="waves-effect {{ (Request::segment(2) == 'gestao' && Request::segment(3) == 'importacoes' ? ' active' : '') }}">
+              <span class="hide-menu">Importações</span><span class="fa arrow"></span>
+            </a>
+            <ul class="nav nav-third-level {{ (Request::segment(2) == 'gestao' && Request::segment(3) == 'importacoes' ? ' collapse in' : '') }}">
+              <li> <a href="{{route('exibir.importacoes')}}"><span class="hide-menu">Importar</span></a> </li>
+              <li> <a href="{{route('exibir.logs.importacoes')}}"><span class="hide-menu">Logs</span></a> </li>
+            </ul>
+          </li>
         </ul>
       </li>
       @endif

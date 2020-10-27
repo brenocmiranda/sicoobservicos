@@ -24,7 +24,7 @@ class CreateUsrSetores extends Migration
 
         DB::table('usr_setores')->insert(
             array([   
-                'nome' => 'Business Inteligence',
+                'nome' => 'Informática',
                 'status' => '1',
                 ])
         );

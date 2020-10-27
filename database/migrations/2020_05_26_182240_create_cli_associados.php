@@ -39,19 +39,19 @@ class CreateCliAssociados extends Migration
             array([   
                 'id_sisbr' => '99999',
                 'nome' => 'Administrador Master',
-                'nome_fantasia' => 'Administrador do sistema',
+                'nome_fantasia' => 'NÃO SE APLICA',
                 'documento' => '12345678912',
                 'tipo_renda' => 'SALARIO',
                 'renda' => '0',
                 'cod_cnae' => '-2',
                 'data_nascimento' => '2020-01-01',
                 'atividade_economica' => 'MANUTENCAO NO SISTEMA',
-                'sexo' => 'M',
+                'sexo' => 'NÃO POSSUI',
                 'sigla' => 'PJ',
                 'funcionario' => '1',
                 'data_relacionamento' => '2020-01-01 00:00:00',
                 'data_renovacao' => '2020-01-01 00:00:00',
-                'PA' => 'SEDE PIRAPORA',
+                'PA' => '4133-00',
                 ])
         );
     }
