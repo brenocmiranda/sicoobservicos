@@ -404,6 +404,10 @@ Route::group(['prefix' => 'app'], function(){
 		});
 		// Importações
 		Route::group(['prefix' => 'importacoes'], function(){
+			// Automática
+			Route::group(['prefix' => 'automatica'], function(){
+				Route::any('', 'ImportacoesCtrl@ImportarAutomatica')->name('importAuto.importacoes');
+			});
 			// Manual
 			Route::group(['prefix' => 'manual'], function(){
 				Route::get('', 'ImportacoesCtrl@Exibir')->name('exibir.importacoes');
@@ -414,7 +418,7 @@ Route::group(['prefix' => 'app'], function(){
 				Route::get('', 'ImportacoesCtrl@ExibirLogs')->name('exibir.logs.importacoes');
 			});
 			// Importação automática
-			Route::any('importAuto', 'ImportacoesCtrl@ImportarAutomatica')->name('importAuto.importacoes');
+			
 		});
 		
 	});

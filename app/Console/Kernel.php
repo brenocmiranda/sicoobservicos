@@ -4,6 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Stringable;
 
 class Kernel extends ConsoleKernel
 {
@@ -24,7 +25,13 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('ImportAuto:importar')
+        ->everyTenMinutes()
+        ->onSuccess(function () {
+            echo "Importações executadas com sucesso";
+         })->onFailure(function () {
+            echo "Nenhuma importação para ser executada";
+         });
     }
 
     /**

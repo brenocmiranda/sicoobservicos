@@ -32,8 +32,6 @@ Logs de importação
                     <label class="col-10">{{$log->mensagem}}</label>
                 </div>
                 @endforeach
-
-                {{$logs->links()}}
             @else
                 <div class="row mx-auto">
                     <label class="alert alert-secondary col-12 rounded">Você não possui nenhum log de importação.</label>

@@ -127,7 +127,7 @@ Home
 	    </div>
     </div>
 	<div class="col-10 mx-auto px-0 row pb-5">
-		<img src="{{ asset('public/img/logo.png').'?'.rand() }}" class="mx-auto mt-5" style="max-width: 24em">
+		<img src="{{ asset('public/img/logo.png').'?'.rand() }}" class="mx-auto mt-3" style="max-width: 24em">
 	</div>
 	<div class="col-sm-12 col-lg-12 mx-auto py-5">
 		<div class="col-sm-12 col-lg-8 mx-auto input-group input-search">
