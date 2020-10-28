@@ -155,7 +155,7 @@ class ImportacoesCtrl extends Controller
 
 	// Exibindo os logs de impotação
 	public function ExibirLogs(){
-		$logs = Logs::orderBy('id', 'DESC')->get();
+		$logs = Logs::orderBy('id', 'DESC')->paginate(20);
 		return view('configuracoes.importacoes.logs')->with('logs', $logs);
 	}
 }
