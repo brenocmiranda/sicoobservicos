@@ -14,7 +14,7 @@ Tópicos
 			<ol class="breadcrumb">
 				<li><a href="{{route('dashboard.gti')}}">Tecnologia</a></li>
 				<li><a href="{{route('configuracoes')}}">Configurações</a></li>
-				<li class="active">Base</li>
+				<li class="active">Aprendizagem</li>
 			</ol>
 		</div>
 	</div>

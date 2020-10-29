@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSupMateriaisHistorico extends Migration
+class CreateAdmMateriais extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,17 @@ class CreateSupMateriaisHistorico extends Migration
      */
     public function up()
     {
-        Schema::create('sup_materiais_historico', function (Blueprint $table) {
+        Schema::create('adm_materiais', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->bigIncrements('id');
-            $table->enum('tipo', ['e', 's']); // s -> saída  e -> entrada
+            $table->string('nome');
+            $table->text('descricao')->nullable();
             $table->integer('quantidade');
-            $table->bigInteger('id_material')->unsigned();
-            $table->foreign('id_material')->references('id')->on('sup_materiais');
-            $table->integer('id_usuario')->unsigned();
-            $table->foreign('id_usuario')->references('id')->on('usr_usuarios');
+            $table->integer('quantidade_min');
             $table->boolean('status')->default(1);
+
+            $table->bigInteger('id_categoria')->unsigned();
+            $table->foreign('id_categoria')->references('id')->on('adm_materiais_categorias');
 
             $table->timestamps();
         });
@@ -35,6 +36,6 @@ class CreateSupMateriaisHistorico extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sup_materiais_historico');
+        Schema::dropIfExists('adm_materiais');
     }
 }

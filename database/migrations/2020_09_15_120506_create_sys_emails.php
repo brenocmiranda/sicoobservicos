@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCogEmails extends Migration
+class CreateSysEmails extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateCogEmails extends Migration
      */
     public function up()
     {
-        Schema::create('cog_emails', function (Blueprint $table) {
+        Schema::create('sys_emails', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('email_chamado');
@@ -35,7 +35,7 @@ class CreateCogEmails extends Migration
             $table->timestamps();
         });
 
-        $dados = DB::table('cog_emails')->insert(
+        $dados = DB::table('sys_emails')->insert(
             array([   
                 'email_chamado' => 'ti@sicoobsertaominas.com.br',
                 'assunto_abertura_chamado' => 'Seu chamado foi aberto :)',
@@ -65,6 +65,6 @@ class CreateCogEmails extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cog_emails');
+        Schema::dropIfExists('sys_emails');
     }
 }

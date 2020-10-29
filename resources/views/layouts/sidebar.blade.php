@@ -37,7 +37,7 @@
         <ul class="nav nav-second-level {{ (Request::segment(2) == 'administrativo' ? ' collapse in' : '') }}">
           <li> <a href="{{route('dashboard.administrativo')}}"><span class="hide-menu">Dashboard</span></a> </li>
           <li> <a href="{{route('exibir.aniversariantes.administrativo')}}"><span class="hide-menu">Aniversariantes</span></a> </li>
-          <li> <a href="{{route('exibir.solicitacoes.administrativo')}}"><span class="hide-menu">Solicitações</span></a> </li>
+          <li> <a href="{{route('exibir.bens.administrativo')}}"><span class="hide-menu">Bens e Imóveis</span></a> </li>
           <li> <a href="{{route('exibir.todos.documentos')}}"><span class="hide-menu">Documentos</span></a> </li>
           @if(Auth::user()->RelationFuncao->gerenciar_administrativo == 1)
           <li> 
@@ -50,6 +50,7 @@
             </ul>
           </li>
           @endif
+          <li> <a href="{{route('exibir.solicitacoes.administrativo')}}"><span class="hide-menu">Solicitações</span></a> </li>
         </ul>
       </li>
       @endif
@@ -64,16 +65,6 @@
           <li> <a href="{{route('dashboard.credito')}}"><span class="hide-menu">Dashboard</span></a> </li>
           <li> <a href="{{ route('exibir.disposicao.credito') }}"><span class="hide-menu">Disposição</span></a> </li>
           <li> <a href="{{ route('exibir.contratos.credito') }}"><span class="hide-menu">Contratos</span></a> </li>
-          <li> 
-            <a href="javascript:void(0)" class="waves-effect {{ (Request::segment(2) == 'credito' && Request::segment(3) == 'garantias' ? ' active' : '') }}">
-              <span class="hide-menu">Garantias </span><span class="fa arrow"></span>
-            </a>
-            <ul class="nav nav-third-level {{ (Request::segment(2) == 'credito' && Request::segment(3) == 'garantias' ? ' collapse in' : '') }}">
-              <li> <a href="{{route('exibir.garantias.fidejussoria.credito')}}"><span class="hide-menu">Fidejussórias</span></a> </li>
-              <li> <a href="{{route('exibir.garantias.fiduciaria.credito')}} "><span class="hide-menu">Fiduciárias</span></a> </li>
-            </ul>
-          </li>
-          <li> <a href="{{ route('exibir.solicitacoes.credito')}}"><span class="hide-menu">Solicitações</span></a> </li>
           @if(Auth::user()->RelationFuncao->gerenciar_credito == 1)
           <li> 
             <a href="javascript:void(0)" class="waves-effect {{ (Request::segment(2) == 'credito' && Request::segment(3) == 'configuracoes' ? ' active' : '') }}">
@@ -87,6 +78,16 @@
             </ul>
           </li>
           @endif
+          <li> 
+            <a href="javascript:void(0)" class="waves-effect {{ (Request::segment(2) == 'credito' && Request::segment(3) == 'garantias' ? ' active' : '') }}">
+              <span class="hide-menu">Garantias </span><span class="fa arrow"></span>
+            </a>
+            <ul class="nav nav-third-level {{ (Request::segment(2) == 'credito' && Request::segment(3) == 'garantias' ? ' collapse in' : '') }}">
+              <li> <a href="{{route('exibir.garantias.fidejussoria.credito')}}"><span class="hide-menu">Fidejussórias</span></a> </li>
+              <li> <a href="{{route('exibir.garantias.fiduciaria.credito')}} "><span class="hide-menu">Fiduciárias</span></a> </li>
+            </ul>
+          </li>
+          <li> <a href="{{ route('exibir.solicitacoes.credito')}}"><span class="hide-menu">Solicitações</span></a> </li>
         </ul>
       </li>
       @endif
@@ -115,17 +116,6 @@
         <ul class="nav nav-second-level {{ (Request::segment(2) == 'gti' ? ' collapse in' : '') }}">
           <li> <a href="{{route('dashboard.gti')}}"><span class="hide-menu">Dashboard</span></a> </li>
           <li> <a href="{{route('exibir.chamados.gti')}}"><span class="hide-menu">Chamados</span></a> </li>
-          <li> 
-            <a href="javascript:void(0)" class="waves-effect {{ (Request::segment(2) == 'gti' && Request::segment(3) == 'equipamentos' ? ' active' : '') }}">
-              <span class="hide-menu">Inventário </span><span class="fa arrow"></span>
-            </a>
-            <ul class="nav nav-third-level {{ (Request::segment(2) == 'gti' && Request::segment(3) == 'equipamentos' ? ' collapse in' : '') }}">
-              <li> <a href="{{route('exibir.geral.equipamentos')}}"><span class="hide-menu">Geral</span></a> </li>
-              <li> <a href="{{route('exibir.usuarios.equipamentos')}}"><span class="hide-menu">Por usuário</span></a> </li>
-              <li> <a href="{{route('exibir.termo.equipamentos')}}"><span class="hide-menu">Termo</span></a> </li>
-            </ul>
-          </li>
-          <li> <a href="{{route('exibir.homepage')}}"><span class="hide-menu">Homepage</span></a> </li>
           @if(Auth::user()->RelationFuncao->gerenciar_gti == 1)
           <li> 
             <a href="javascript:void(0)" class="waves-effect {{ (Request::segment(2) == 'gti' && Request::segment(3) == 'configuracoes' ? ' active' : '') }}">
@@ -139,6 +129,17 @@
             </ul>
           </li>
           @endif
+          <li> <a href="{{route('exibir.homepage')}}"><span class="hide-menu">Homepage</span></a> </li>
+          <li> 
+            <a href="javascript:void(0)" class="waves-effect {{ (Request::segment(2) == 'gti' && Request::segment(3) == 'equipamentos' ? ' active' : '') }}">
+              <span class="hide-menu">Inventário </span><span class="fa arrow"></span>
+            </a>
+            <ul class="nav nav-third-level {{ (Request::segment(2) == 'gti' && Request::segment(3) == 'equipamentos' ? ' collapse in' : '') }}">
+              <li> <a href="{{route('exibir.geral.equipamentos')}}"><span class="hide-menu">Geral</span></a> </li>
+              <li> <a href="{{route('exibir.usuarios.equipamentos')}}"><span class="hide-menu">Por usuário</span></a> </li>
+              <li> <a href="{{route('exibir.termo.equipamentos')}}"><span class="hide-menu">Termo</span></a> </li>
+            </ul>
+          </li>
           <li> <a href="#"><span class="hide-menu">Relatórios</span></a> </li>
         </ul>
       </li>

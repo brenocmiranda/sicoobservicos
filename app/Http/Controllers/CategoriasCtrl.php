@@ -8,7 +8,7 @@ use Yajra\Datatables\Datatables;
 use Illuminate\Routing\Controller;
 use App\Http\Requests\CategoriasRqt;
 use App\Models\Atividades; 
-use App\Models\Categorias;
+use App\Models\MateriaisCategorias;
 
 class CategoriasCtrl extends Controller
 {
@@ -22,14 +22,14 @@ class CategoriasCtrl extends Controller
 		return view('administrativo.controle.categorias.listar');
 	}
 	public function Datatables(){
-		return datatables()->of(Categorias::all())
-		->editColumn('nome1', function(Categorias $dados){ 
+		return datatables()->of(MateriaisCategorias::all())
+		->editColumn('nome1', function(MateriaisCategorias $dados){ 
 			return '<a href="javascript:void(0)" id="detalhes">'.$dados->nome.'</a>';
 		})
-		->editColumn('status1', function(Categorias $dados){
+		->editColumn('status1', function(MateriaisCategorias $dados){
 			return '<label class="badge'.($dados->status == 1 ? " badge-success" : " badge-danger").'">'.($dados->status == 1 ? "Ativo" : "Desativado").'</label>';
 		})
-		->editColumn('acoes', function(Categorias $dados){ 
+		->editColumn('acoes', function(MateriaisCategorias $dados){ 
 			return ($dados->status == 1 ? '
 				<button class="btn btn-dark btn-xs btn-rounded mx-1" id="editar" title="Editar informações da função"><i class="mx-0 mdi mdi-settings"></i></button>
 				<button class="btn btn-dark btn-xs btn-rounded" id="alterar" title="Desativar a função"><i class="mx-0 mdi mdi-close"></i></button>' : '
@@ -40,7 +40,7 @@ class CategoriasCtrl extends Controller
 
 	// Adicionando nova função
 	public function Adicionar(CategoriasRqt $request){
-		$create = Categorias::create([
+		$create = MateriaisCategorias::create([
 			'nome' => $request->nome, 
 			'status' => ($request->status == "on" ? 1 : 0)
 		]);
@@ -56,11 +56,11 @@ class CategoriasCtrl extends Controller
 
 	// Editando informações da função
 	public function Editar(CategoriasRqt $request, $id){
-		Categorias::find($id)->update([
+		MateriaisCategorias::find($id)->update([
 			'nome' => $request->nome, 
 			'status' => ($request->status == "on" ? 1 : 0)
 		]);
-		$create = Categorias::find($id);
+		$create = MateriaisCategorias::find($id);
 		Atividades::create([
 			'nome' => 'Edição de informações',
 			'descricao' => 'Você modificou as informações a categoria '.$create->nome.'.',
@@ -73,11 +73,11 @@ class CategoriasCtrl extends Controller
 
 	// Alterar o status
 	public function Alterar($id){
-		$tipos = Categorias::find($id);
+		$tipos = MateriaisCategorias::find($id);
 		if($tipos->status == 1){
-			Categorias::find($id)->update(['status' => 0]);
+			MateriaisCategorias::find($id)->update(['status' => 0]);
 		}else{
-			Categorias::find($id)->update(['status' => 1]);
+			MateriaisCategorias::find($id)->update(['status' => 1]);
 		}
 		Atividades::create([
 			'nome' => 'Alteração de estado',
@@ -91,7 +91,7 @@ class CategoriasCtrl extends Controller
 
 	// Detallhes da função
 	public function Detalhes($id){
-		$dados = Categorias::find($id);
+		$dados = MateriaisCategorias::find($id);
 		return $dados;
 	}
 }

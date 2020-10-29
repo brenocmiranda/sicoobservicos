@@ -39,9 +39,8 @@ class ImportacoesCtrl extends Controller
 			if($request->hasFile('cli_associados') && $request->file('cli_associados')->isValid()){
 				Logs::create(['mensagem' => 'Localizado arquivo cli_associados.xlsx.']);
 				$nameFile = 'cli_associados-'.date('dmYHis').'.'.request()->file('cli_associados')->getClientOriginalExtension();
-				Logs::create(['mensagem' => 'Renomeado o arquivo cli_associados.xlsx para '.$nameFile.'.']);
 				$upload = $request->cli_associados->storeAs('importacoes', $nameFile);
-				Logs::create(['mensagem' => 'Upload do arquivo cli_associados.xlsx executado com sucesso.']);
+				Logs::create(['mensagem' => 'Processando o arquivo cli_associados.xlsx...']);
 				Excel::import(new AssociadosImport, getcwd().'/storage/app/importacoes/'.$nameFile);
 				Logs::create(['mensagem' => 'Importação de cli_associados.xlsx efetuada com sucesso!']);
 			}
@@ -49,9 +48,8 @@ class ImportacoesCtrl extends Controller
 			if($request->hasFile('cli_emails') && $request->file('cli_emails')->isValid()){
 				Logs::create(['mensagem' => 'Localizado arquivo cli_emails.xlsx.']);
 				$nameFile = 'cli_emails-'.date('dmYHis').'.'.request()->file('cli_emails')->getClientOriginalExtension();
-				Logs::create(['mensagem' => 'Renomeado o arquivo cli_emails.xlsx para '.$nameFile.'.']);
 				$upload = $request->cli_emails->storeAs('importacoes', $nameFile);
-				Logs::create(['mensagem' => 'Upload do arquivo cli_emails.xlsx executado com sucesso.']);
+				Logs::create(['mensagem' => 'Processando o arquivo cli_emails.xlsx...']);
 				Excel::import(new EmailsImport, getcwd().'/storage/app/importacoes/'.$nameFile);
 				Logs::create(['mensagem' => 'Importação de cli_emails.xlsx efetuada com sucesso!']);
 			}
@@ -59,9 +57,8 @@ class ImportacoesCtrl extends Controller
 			if($request->hasFile('cli_telefones') && $request->file('cli_telefones')->isValid()){
 				Logs::create(['mensagem' => 'Localizado arquivo cli_telefones.xlsx.']);
 				$nameFile = 'cli_telefones-'.date('dmYHis').'.'.request()->file('cli_telefones')->getClientOriginalExtension();
-				Logs::create(['mensagem' => 'Renomeado o arquivo cli_telefones.xlsx para '.$nameFile.'.']);
 				$upload = $request->cli_telefones->storeAs('importacoes', $nameFile);
-				Logs::create(['mensagem' => 'Upload do arquivo cli_telefones.xlsx executado com sucesso.']);
+				Logs::create(['mensagem' => 'Processando o arquivo cli_telefones.xlsx...']);
 				Excel::import(new TelefonesImport, getcwd().'/storage/app/importacoes/'.$nameFile);
 				Logs::create(['mensagem' => 'Importação de cli_telefones.xlsx efetuada com sucesso!']);
 			}
@@ -69,9 +66,8 @@ class ImportacoesCtrl extends Controller
 			if($request->hasFile('cli_enderecos') && $request->file('cli_enderecos')->isValid()){
 				Logs::create(['mensagem' => 'Localizado arquivo cli_enderecos.xlsx.']);
 				$nameFile = 'cli_enderecos-'.date('dmYHis').'.'.request()->file('cli_enderecos')->getClientOriginalExtension();
-				Logs::create(['mensagem' => 'Renomeado o arquivo cli_enderecos.xlsx para '.$nameFile.'.']);
 				$upload = $request->cli_enderecos->storeAs('importacoes', $nameFile);
-				Logs::create(['mensagem' => 'Upload do arquivo cli_enderecos.xlsx executado com sucesso.']);
+				Logs::create(['mensagem' => 'Processando o arquivo cli_enderecos.xlsx...']);
 				Excel::import(new EnderecosImport, getcwd().'/storage/app/importacoes/'.$nameFile);
 				Logs::create(['mensagem' => 'Importação de cli_enderecos.xlsx efetuada com sucesso!']);
 			}
@@ -85,72 +81,58 @@ class ImportacoesCtrl extends Controller
 	public function ImportarAutomatica(){
 		$path = "//SICOOB_SERVICE/outlook";
 		$diretorio = dir($path);
-		$count = 0;
 
-		Logs::create(['mensagem' => 'Importação automática executada.']);
 		// Copiando os arquivos para pasta de importação e removendo os existentes do outlook
-		while($arquivo = $diretorio->read()){
-			// Criando pasta de importação ou verificando se existe
-			if(!(getcwd().'/storage/app/importacoes')){
-				mkdir(getcwd().'/storage/app/importacoes', 0755);
-			}
-			// cli_associados
-			if($arquivo == 'cli_associados.xlsx'){
-				Logs::create(['mensagem' => 'Localizado arquivo cli_associados.xlsx.']);
-	            $nameFile = 'cli_associados'.date('dmY-His').'.xlsx';
-	            Logs::create(['mensagem' => 'Renomeado o arquivo cli_associados.xlsx para '.$nameFile.'.']);
-	            copy('//SICOOB_SERVICE/outlook/cli_associados.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
-	            unlink('//SICOOB_SERVICE/outlook/cli_associados.xlsx');
-	            Logs::create(['mensagem' => 'Recortando arquivo da pasta temporária para pasta de importação.']);
-	            Excel::import(new AssociadosImport, getcwd().'/storage/app/importacoes/'.$nameFile);
-	            Logs::create(['mensagem' => 'Importação de cli_associados.xlsx efetuada com sucesso!']);
-	            $count++;
-			}
-			// cli_emails
-			if($arquivo == 'cli_emails.xlsx'){
-				Logs::create(['mensagem' => 'Localizado arquivo cli_emails.xlsx.']);
-	            $nameFile = 'cli_emails'.date('dmY-His').'.xlsx';
-	            Logs::create(['mensagem' => 'Renomeado o arquivo cli_emails.xlsx para '.$nameFile.'.']);
-	            copy('//SICOOB_SERVICE/outlook/cli_emails.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
-	            unlink('//SICOOB_SERVICE/outlook/cli_emails.xlsx');
-	            Logs::create(['mensagem' => 'Recortando arquivo da pasta temporária para pasta de importação.']);
-	            Excel::import(new EmailsImport, getcwd().'/storage/app/importacoes/'.$nameFile);
-	            Logs::create(['mensagem' => 'Importação de cli_emails.xlsx efetuada com sucesso!']);
-	            $count++;
-			}
-			// cli_telefones
-			if($arquivo == 'cli_telefones.xlsx'){
-				Logs::create(['mensagem' => 'Localizado arquivo cli_telefones.xlsx.']);
-	            $nameFile = 'cli_telefones'.date('dmY-His').'.xlsx';
-	            Logs::create(['mensagem' => 'Renomeado o arquivo cli_telefones.xlsx para '.$nameFile.'.']);
-	            copy('//SICOOB_SERVICE/outlook/cli_telefones.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
-	            unlink('//SICOOB_SERVICE/outlook/cli_telefones.xlsx');
-	            Logs::create(['mensagem' => 'Recortando arquivo da pasta temporária para pasta de importação.']);
-	            Excel::import(new TelefonesImport, getcwd().'/storage/app/importacoes/'.$nameFile);
-	            Logs::create(['mensagem' => 'Importação de cli_telefones.xlsx efetuada com sucesso!']);
-	            $count++;
-			}
-			// cli_enderecos
-			if($arquivo == 'cli_enderecos.xlsx'){
-				Logs::create(['mensagem' => 'Localizado arquivo cli_enderecos.xlsx.']);
-	            $nameFile = 'cli_enderecos'.date('dmY-His').'.xlsx';
-	            Logs::create(['mensagem' => 'Renomeado o arquivo cli_enderecos.xlsx para '.$nameFile.'.']);
-	            copy('//SICOOB_SERVICE/outlook/cli_enderecos.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
-	            unlink('//SICOOB_SERVICE/outlook/cli_enderecos.xlsx');
-	            Logs::create(['mensagem' => 'Recortando arquivo da pasta temporária para pasta de importação.']);
-	            Excel::import(new EnderecosImport, getcwd().'/storage/app/importacoes/'.$nameFile);
-	            Logs::create(['mensagem' => 'Importação de cli_enderecos.xlsx efetuada com sucesso!']);
-	            $count++;
+		if(count($diretorio->read()) > 0){
+			Logs::create(['mensagem' => 'Importação automática executada.']);
+			while($arquivo = $diretorio->read()){
+				// Criando pasta de importação ou verificando se existe
+				if(!(getcwd().'/storage/app/importacoes')){
+					mkdir(getcwd().'/storage/app/importacoes', 0755);
+				}
+				// cli_associados
+				if($arquivo == 'cli_associados.xlsx'){
+					Logs::create(['mensagem' => 'Localizado arquivo cli_associados.xlsx.']);
+		            $nameFile = 'cli_associados'.date('dmY-His').'.xlsx';
+		            copy('//SICOOB_SERVICE/outlook/cli_associados.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
+		            unlink('//SICOOB_SERVICE/outlook/cli_associados.xlsx');
+		            Logs::create(['mensagem' => 'Processando o arquivo cli_associados.xlsx...']);
+		            Excel::import(new AssociadosImport, getcwd().'/storage/app/importacoes/'.$nameFile);
+		            Logs::create(['mensagem' => 'Importação de cli_associados.xlsx efetuada com sucesso!']);
+				}
+				// cli_emails
+				if($arquivo == 'cli_emails.xlsx'){
+					Logs::create(['mensagem' => 'Localizado arquivo cli_emails.xlsx.']);
+		            $nameFile = 'cli_emails'.date('dmY-His').'.xlsx';
+		            copy('//SICOOB_SERVICE/outlook/cli_emails.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
+		            unlink('//SICOOB_SERVICE/outlook/cli_emails.xlsx');
+		            Logs::create(['mensagem' => 'Processando o arquivo cli_emails.xlsx...']);
+		            Excel::import(new EmailsImport, getcwd().'/storage/app/importacoes/'.$nameFile);
+		            Logs::create(['mensagem' => 'Importação de cli_emails.xlsx efetuada com sucesso!']);
+				}
+				// cli_telefones
+				if($arquivo == 'cli_telefones.xlsx'){
+					Logs::create(['mensagem' => 'Localizado arquivo cli_telefones.xlsx.']);
+		            $nameFile = 'cli_telefones'.date('dmY-His').'.xlsx';
+		            copy('//SICOOB_SERVICE/outlook/cli_telefones.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
+		            unlink('//SICOOB_SERVICE/outlook/cli_telefones.xlsx');
+		            Logs::create(['mensagem' => 'Processando o arquivo cli_telefones.xlsx...']);
+		            Excel::import(new TelefonesImport, getcwd().'/storage/app/importacoes/'.$nameFile);
+		            Logs::create(['mensagem' => 'Importação de cli_telefones.xlsx efetuada com sucesso!']);
+				}
+				// cli_enderecos
+				if($arquivo == 'cli_enderecos.xlsx'){
+					Logs::create(['mensagem' => 'Localizado arquivo cli_enderecos.xlsx.']);
+		            $nameFile = 'cli_enderecos'.date('dmY-His').'.xlsx';
+		            copy('//SICOOB_SERVICE/outlook/cli_enderecos.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
+		            unlink('//SICOOB_SERVICE/outlook/cli_enderecos.xlsx');
+		           	Logs::create(['mensagem' => 'Processando o arquivo cli_enderecos.xlsx...']);
+		            Excel::import(new EnderecosImport, getcwd().'/storage/app/importacoes/'.$nameFile);
+		            Logs::create(['mensagem' => 'Importação de cli_enderecos.xlsx efetuada com sucesso!']);
+				}
 			}
 		}
 		$diretorio->close();
-
-		// Retorno
-		if($count > 0){
-			return true;
-		}else{
-			return false;
-		}
 	}
 
 	// Exibindo os logs de impotação

@@ -20,7 +20,7 @@ class CreateGtiAtivosHasImagens extends Migration
             $table->integer('id_ativo')->unsigned();
             $table->foreign('id_ativo')->references('id')->on('gti_ativos');
             $table->integer('id_imagem')->unsigned();
-            $table->foreign('id_imagem')->references('id')->on('imagens');
+            $table->foreign('id_imagem')->references('id')->on('sys_imagens');
 
             $table->timestamps();
         });

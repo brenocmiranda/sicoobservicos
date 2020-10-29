@@ -40,7 +40,7 @@ Importações
                                 <input type="file" name="cli_associados" accept=".xlsx">
                             </div>
                             <div class="col-4 p-0 m-auto text-right">
-                                <label>Última atualização: <b>{{date('d/m/Y', strtotime(@$dBaseAssociado->updated_at))}}</b></label>
+                                <label>Última atualização: <b>{{date('d/m/Y H:i', strtotime(@$dBaseAssociado->updated_at))}}</b></label>
                             </div>
                         </div>
                     </div>
@@ -52,7 +52,7 @@ Importações
                                 <input type="file" name="cli_emails" accept=".xlsx">
                             </div>
                             <div class="col-4 p-0 m-auto text-right">
-                                <label>Última atualização: <b>{{date('d/m/Y', strtotime(@$dBaseEmails->updated_at))}}</b></label>
+                                <label>Última atualização: <b>{{date('d/m/Y H:i', strtotime(@$dBaseEmails->updated_at))}}</b></label>
                             </div>
                         </div>
                     </div>
@@ -64,7 +64,7 @@ Importações
                                 <input type="file" name="cli_telefones" accept=".xlsx">
                             </div>
                             <div class="col-4 p-0 m-auto text-right">
-                                <label>Última atualização: <b>{{date('d/m/Y', strtotime(@$dBaseTelefones->updated_at))}}</b></label>
+                                <label>Última atualização: <b>{{date('d/m/Y H:i', strtotime(@$dBaseTelefones->updated_at))}}</b></label>
                             </div>
                         </div>
                     </div>
@@ -76,7 +76,7 @@ Importações
                                 <input type="file" name="cli_enderecos" accept=".xlsx">
                             </div>
                             <div class="col-4 p-0 m-auto text-right">
-                                <label>Última atualização: <b>{{date('d/m/Y', strtotime(@$dBaseEnderecos->updated_at))}}</b></label>
+                                <label>Última atualização: <b>{{date('d/m/Y H:i', strtotime(@$dBaseEnderecos->updated_at))}}</b></label>
                             </div>
                         </div>
                     </div>

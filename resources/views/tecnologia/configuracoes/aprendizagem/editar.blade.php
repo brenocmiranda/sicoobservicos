@@ -12,8 +12,8 @@ Editar tópico
     </div>
     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
       <ol class="breadcrumb">
-        <li><a href="javascript:void(0)">Suporte</a></li>
-        <li class="active"><a href="{{route('exibir.base.aprendizagem')}}">Base do conhecimento</a></li>
+        <li><a href="{{route('dashboard.gti')}}">Tecnologia</a></li>
+        <li class="active"><a href="{{route('exibir.base.aprendizagem')}}">Aprendizagem</a></li>
         <li class="active">Editar</li>
       </ol>
     </div>

@@ -66,6 +66,15 @@ Route::group(['prefix' => 'app'], function(){
 			Route::any('detalhes/{id}', 'DocumentosCtrl@Detalhes')->name('detalhes.todos.documentos');
 		});
 
+		// Bens e imóveis
+		Route::group(['prefix' => 'bens'], function(){
+			Route::get('', 'DocumentosCtrl@Exibir')->name('exibir.bens.administrativo');
+			Route::post('adicionar', 'DocumentosCtrl@Adicionar')->name('adicionar.bens.administrativo');
+			Route::post('editar/{id}', 'DocumentosCtrl@Editar')->name('editar.bens.administrativo');
+			Route::get('alterar/{id}', 'DocumentosCtrl@Alterar')->name('alterar.bens.administrativo');
+			Route::any('detalhes/{id}', 'DocumentosCtrl@Detalhes')->name('detalhes.bens.administrativo');
+		});
+
 		// Aniversariantes
 		Route::group(['prefix' => 'aniversariantes'], function(){
 			Route::get('', 'AssociadosCtrl@ExibirAniversariantes')->name('exibir.aniversariantes.administrativo');
@@ -295,18 +304,16 @@ Route::group(['prefix' => 'app'], function(){
 		Route::group(['prefix' => 'configuracoes'], function(){
 			// Aprendizagem
 			Route::group(['prefix' => 'aprendizagem'], function(){		
-				Route::group(['prefix' => 'base'], function(){
-					Route::get('', 'BaseCtrl@Exibir')->name('exibir.base.aprendizagem');
-					Route::get('adicionar', 'BaseCtrl@Adicionar')->name('adicionar.base.aprendizagem');
-					Route::post('salvar', 'BaseCtrl@AdicionarSalvar')->name('salvar.adicionar.base.aprendizagem');
-					Route::get('editar/{id}', 'BaseCtrl@Editar')->name('editar.base.aprendizagem');
-					Route::post('salvarEditar/{id}', 'BaseCtrl@EditarSalvar')->name('salvar.editar.base.aprendizagem');
-					Route::get('detele/{id}', 'BaseCtrl@Delete')->name('delete.base.aprendizagem');
-					Route::post('addArquivos', 'BaseCtrl@Arquivos')->name('adicionar.arquivos.aprendizagem');
-					Route::get('removeArquivo/{id}', 'BaseCtrl@RemoveArquivos')->name('remover.arquivos.aprendizagem');
-					Route::any('tipos/{idFonte}', 'ChamadosCtrl@ListarTipos')->name('tipos.chamados');
-					Route::any('base/{idTipo}/{idFonte}', 'ChamadosCtrl@ListarBase')->name('base.chamados');
-				});
+				Route::get('', 'BaseCtrl@Exibir')->name('exibir.base.aprendizagem');
+				Route::get('adicionar', 'BaseCtrl@Adicionar')->name('adicionar.base.aprendizagem');
+				Route::post('salvar', 'BaseCtrl@AdicionarSalvar')->name('salvar.adicionar.base.aprendizagem');
+				Route::get('editar/{id}', 'BaseCtrl@Editar')->name('editar.base.aprendizagem');
+				Route::post('salvarEditar/{id}', 'BaseCtrl@EditarSalvar')->name('salvar.editar.base.aprendizagem');
+				Route::get('detele/{id}', 'BaseCtrl@Delete')->name('delete.base.aprendizagem');
+				Route::post('addArquivos', 'BaseCtrl@Arquivos')->name('adicionar.arquivos.aprendizagem');
+				Route::get('removeArquivo/{id}', 'BaseCtrl@RemoveArquivos')->name('remover.arquivos.aprendizagem');
+				Route::any('tipos/{idFonte}', 'ChamadosCtrl@ListarTipos')->name('tipos.chamados');
+				Route::any('base/{idTipo}/{idFonte}', 'ChamadosCtrl@ListarBase')->name('base.chamados');
 			});
 			// Fontes
 			Route::group(['prefix' => 'fontes'], function(){

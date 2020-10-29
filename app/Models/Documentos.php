@@ -9,7 +9,7 @@ class Documentos extends Model
 {
     use HasFactory;
 
-    protected $table = 'sup_documentos';
+    protected $table = 'adm_documentos';
     protected $primaryKey = 'id';
     protected $fillable = ['id', 'nome', 'descricao', 'status', 'id_arquivo', 'created_at', 'updated_at'];
 

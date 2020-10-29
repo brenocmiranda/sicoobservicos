@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class CreateArquivos extends Migration
+class CreateSysLogs extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateArquivos extends Migration
      */
     public function up()
     {
-        Schema::create('arquivos', function (Blueprint $table) {
+        Schema::create('sys_logs', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->string('tipo');
-            $table->string('endereco');
+            $table->text('mensagem');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreateArquivos extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('arquivos');
+        Schema::dropIfExists('sys_logs');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGtiHomepage extends Migration
+class CreateCogArquivos extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,11 @@ class CreateGtiHomepage extends Migration
      */
     public function up()
     {
-        Schema::create('gti_homepage', function (Blueprint $table) {
+        Schema::create('sys_arquivos', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->string('titulo');
-            $table->string('subtitulo')->nullable();
-            $table->text('endereco');
-
-            $table->integer('id_imagem')->unsigned()->nullable();
-            $table->foreign('id_imagem')->references('id')->on('sys_imagens');
+            $table->string('tipo');
+            $table->string('endereco');
             $table->timestamps();
         });
     }
@@ -33,6 +29,6 @@ class CreateGtiHomepage extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('gti_homepage');
+        Schema::dropIfExists('sys_arquivos');
     }
 }

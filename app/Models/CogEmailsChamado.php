@@ -11,7 +11,7 @@ class CogEmailsChamado extends Model
 	use Notifiable;
 	use HasFactory;
 
-    protected $table = 'cog_emails';
+    protected $table = 'sys_emails';
     protected $primaryKey = 'id';
     protected $fillable = ['id', 'email_chamado', 'assunto_abertura_chamado', 'abertura_chamado', 'assunto_fechamento_chamado', 'fechamento_chamado'];
 

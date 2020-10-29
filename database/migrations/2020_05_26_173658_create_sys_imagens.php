@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateImagens extends Migration
+class CreateSysImagens extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateImagens extends Migration
      */
     public function up()
     {
-        Schema::create('imagens', function (Blueprint $table) {
+        Schema::create('sys_imagens', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('tipo');
@@ -21,7 +21,7 @@ class CreateImagens extends Migration
             $table->timestamps();
         });
 
-        $dados = DB::table('imagens')->insert(
+        $dados = DB::table('sys_imagens')->insert(
             array([   
                 'tipo' => 'perfil',
                 'endereco' => '1.jpg',
@@ -36,6 +36,6 @@ class CreateImagens extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('imagens');
+        Schema::dropIfExists('sys_imagens');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSupDocumentos extends Migration
+class CreateGtiBaseArquivos extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,13 @@ class CreateSupDocumentos extends Migration
      */
     public function up()
     {
-        Schema::create('sup_documentos', function (Blueprint $table) {
+        Schema::create('gti_base_arquivos', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->string('nome');
-            $table->text('descricao')->nullable();
-            $table->boolean('status')->default(1);
-
-            $table->Integer('id_arquivo')->unsigned();
-            $table->foreign('id_arquivo')->references('id')->on('arquivos');
+            $table->integer('gti_id_topico')->unsigned();
+            $table->foreign('gti_id_topico')->references('id')->on('gti_base');
+            $table->integer('id_arquivo')->unsigned();
+            $table->foreign('id_arquivo')->references('id')->on('sys_arquivos');
 
             $table->timestamps();
         });
@@ -34,6 +32,6 @@ class CreateSupDocumentos extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sup_documentos');
+        Schema::dropIfExists('gti_base_arquivos');
     }
 }

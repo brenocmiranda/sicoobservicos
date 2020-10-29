@@ -9,7 +9,7 @@ class Atividades extends Model
 {
     use HasFactory;
 
-    protected $table = 'activities';
+    protected $table = 'sys_activities';
     protected $primaryKey = 'id';
     protected $fillable = [ 'id', 'nome', 'descricao', 'icone', 'url', 'status', 'id_usuario', 'created_at', 'updated_at'];
 }

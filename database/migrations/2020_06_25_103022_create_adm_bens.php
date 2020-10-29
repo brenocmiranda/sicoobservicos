@@ -16,6 +16,7 @@ class CreateAdmBens extends Migration
         Schema::create('adm_bens', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
+            $table->boolean('status');
             $table->string('nome');
             $table->text('descricao')->nullable();
             $table->double('valor');
@@ -25,6 +26,8 @@ class CreateAdmBens extends Migration
             $table->text('complemento');
             $table->text('cidade');
             $table->text('estado');
+           
+            $table->timestamps();
         });
     }
 

@@ -20,7 +20,7 @@ class CreateGtiChamadosHasArquivos extends Migration
             $table->integer('gti_id_chamados')->unsigned();
             $table->foreign('gti_id_chamados')->references('id')->on('gti_chamados');
             $table->integer('id_arquivo')->unsigned();
-            $table->foreign('id_arquivo')->references('id')->on('arquivos');
+            $table->foreign('id_arquivo')->references('id')->on('sys_arquivos');
 
             $table->timestamps();
         });

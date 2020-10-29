@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSupBase extends Migration
+class CreateGtiBase extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateSupBase extends Migration
      */
     public function up()
     {
-        Schema::create('sup_base', function (Blueprint $table) {
+        Schema::create('gti_base', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('titulo');
@@ -36,6 +36,6 @@ class CreateSupBase extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sup_base');
+        Schema::dropIfExists('gti_base');
     }
 }

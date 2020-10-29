@@ -22,7 +22,7 @@ class EmailsCtrl extends Controller
 		$material = CogEmailsMaterial::find(1);
 		$contrato = CogEmailsContrato::find(1);
 		$chamado = CogEmailsChamado::find(1);
-		return view('gestao.emails.ajustes.exibir')->with('material', $material)->with('contrato', $contrato)->with('chamado', $chamado);
+		return view('configuracoes.emails.ajustes.exibir')->with('material', $material)->with('contrato', $contrato)->with('chamado', $chamado);
 	}
 	// Alteranndo informações
 	public function SalvarAjustes(Request $request){
@@ -55,7 +55,7 @@ class EmailsCtrl extends Controller
 		$material = CogEmailsMaterial::find(1);
 		$contrato = CogEmailsContrato::find(1);
 		$chamado = CogEmailsChamado::find(1);
-		return view('gestao.emails.mensagens.exibir')->with('material', $material)->with('contrato', $contrato)->with('chamado', $chamado);
+		return view('configuracoes.emails.mensagens.exibir')->with('material', $material)->with('contrato', $contrato)->with('chamado', $chamado);
 	}
 	// Alteranndo informações
 	public function SalvarMensagens(Request $request){

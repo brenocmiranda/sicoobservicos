@@ -11,7 +11,7 @@ class CogEmailsContrato extends Model
 	use Notifiable;
 	use HasFactory;
 
-    protected $table = 'cog_emails';
+    protected $table = 'sys_emails';
     protected $primaryKey = 'id';
     protected $fillable = ['id', 'email_contrato', 'assunto_abertura_contrato', 'abertura_solicitacao_contrato', 'assunto_fechamento_contrato', 'fechamento_solicitacao_contrato'];
 

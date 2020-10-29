@@ -11,7 +11,7 @@ class CogEmailsMaterial extends Model
 	use Notifiable;
 	use HasFactory;
 
-    protected $table = 'cog_emails';
+    protected $table = 'sys_emails';
     protected $primaryKey = 'id';
     protected $fillable = ['id', 'email_material', 'assunto_abertura_material', 'abertura_solicitacao_material', 'assunto_fechamento_material', 'fechamento_solicitacao_material'];
 

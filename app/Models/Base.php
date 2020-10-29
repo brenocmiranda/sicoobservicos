@@ -9,7 +9,7 @@ class Base extends Model
 {
 	use HasFactory;
 
-   	protected $table = 'sup_base';
+   	protected $table = 'gti_base';
     protected $primaryKey = 'id';
     protected $fillable = ['id', 'titulo', 'subtitulo', 'descricao', 'gti_id_fontes', 'gti_id_tipos', 'created_at', 'updated_at'];
 
@@ -22,6 +22,6 @@ class Base extends Model
     }
 
     public function RelationArquivos(){
-        return $this->belongsToMany(Arquivos::class, 'sup_base_arquivos', 'sup_id_topico', 'id_arquivo');
+        return $this->belongsToMany(Arquivos::class, 'gti_base_arquivos', 'gti_id_topico', 'id_arquivo');
     }
 }

@@ -35,7 +35,7 @@ class CreateUsrUsuarios extends Migration
             $table->foreign('usr_id_instituicao')->references('id')->on('usr_instituicoes');
             $table->foreign('usr_id_unidade')->references('id')->on('usr_unidades');
             $table->foreign('cli_id_associado')->references('id')->on('cli_associados');
-            $table->foreign('id_imagem')->references('id')->on('imagens');
+            $table->foreign('id_imagem')->references('id')->on('sys_imagens');
            
             $table->timestamps();
         });

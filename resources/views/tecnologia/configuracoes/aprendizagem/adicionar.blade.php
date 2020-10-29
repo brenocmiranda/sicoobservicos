@@ -12,8 +12,8 @@ Adicionar tópico
 		</div>
 		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
 			<ol class="breadcrumb">
-				<li><a href="javascript:void(0)">Suporte</a></li>
-				<li class="active"><a href="{{route('exibir.base.aprendizagem')}}">Tópicos</a></li>
+				<li><a href="{{route('dashboard.gti')}}">Tecnologia</a></li>
+				<li class="active"><a href="{{route('exibir.base.aprendizagem')}}">Aprendizagem</a></li>
 				<li class="active">Adicionar</li>
 			</ol>
 		</div>
@@ -135,7 +135,7 @@ Adicionar tópico
        	$('.gti_id_fontes').on('change', function(e){
 			var fonte = $('.gti_id_fontes').val();
 			$.ajax({
-				url: "../base/tipos/"+fonte,
+				url: "../aprendizagem/tipos/"+fonte,
 				type: 'GET',
 				success: function(data){ 
 					if(data[0]){

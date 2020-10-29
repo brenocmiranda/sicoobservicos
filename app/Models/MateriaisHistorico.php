@@ -9,7 +9,7 @@ class MateriaisHistorico extends Model
 {
 	use HasFactory;
 
-    protected $table = 'sup_materiais_historico';
+    protected $table = 'adm_materiais_historico';
     protected $primaryKey = 'id';
     protected $fillable = ['id', 'tipo', 'quantidade', 'id_material', 'id_usuario', 'status', 'created_at', 'updated_at'];
 

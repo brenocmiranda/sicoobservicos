@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class CreateSupMateriais extends Migration
+class CreateSysActivities extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,16 @@ class CreateSupMateriais extends Migration
      */
     public function up()
     {
-        Schema::create('sup_materiais', function (Blueprint $table) {
+        Schema::create('sys_activities', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->bigIncrements('id');
             $table->string('nome');
             $table->text('descricao')->nullable();
-            $table->integer('quantidade');
-            $table->integer('quantidade_min');
+            $table->string('icone');
+            $table->string('url');
             $table->boolean('status')->default(1);
-
-            $table->bigInteger('id_categoria')->unsigned();
-            $table->foreign('id_categoria')->references('id')->on('sup_materiais_categorias');
+            $table->integer('id_usuario')->unsigned();
+            $table->foreign('id_usuario')->references('id')->on('usr_usuarios');
 
             $table->timestamps();
         });
@@ -36,6 +35,6 @@ class CreateSupMateriais extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sup_materiais');
+        Schema::dropIfExists('sys_activities');
     }
 }

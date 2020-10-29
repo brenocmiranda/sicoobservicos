@@ -9,7 +9,7 @@ class MateriaisCategorias extends Model
 {
 	use HasFactory;
 
-    protected $table = 'sup_materiais_categorias';
+    protected $table = 'adm_materiais_categorias';
     protected $primaryKey = 'id';
     protected $fillable = ['id', 'nome', 'status', 'created_at', 'updated_at'];
 }
