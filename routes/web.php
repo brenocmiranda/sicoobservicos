@@ -348,7 +348,7 @@ Route::group(['prefix' => 'app'], function(){
 	#---------------------------------------------------------------------
 	# Módulo de Configurações 
 	#---------------------------------------------------------------------
-	Route::group(['prefix' => 'gestao'], function(){
+	Route::group(['prefix' => 'configuracoes'], function(){
 		Route::get('', 'UsuariosCtrl@Configuracoes')->name('configuracoes')->middleware('auth');
 		Route::group(['prefix' => 'administrativo'], function(){
 			// Funções

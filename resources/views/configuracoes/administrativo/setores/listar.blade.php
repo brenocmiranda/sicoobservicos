@@ -139,7 +139,7 @@ Setores
 			$(this).parents('tr').addClass('selected');
 			$(this).parent('tr').addClass('selected');
 			var data = table.row('tr.selected').data();
-			var url = "{{url('app/gestao/administrativo/setores/alterar')}}/"+data.id;
+			var url = "{{url('app/configuracoes/administrativo/setores/alterar')}}/"+data.id;
 			swal({
 				title: "Tem certeza que deseja alterar o estado?",
 				icon: "warning",

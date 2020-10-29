@@ -83,9 +83,9 @@ class ImportacoesCtrl extends Controller
 		$diretorio = dir($path);
 
 		// Copiando os arquivos para pasta de importação e removendo os existentes do outlook
-		if(count($diretorio->read()) > 0){
-			Logs::create(['mensagem' => 'Importação automática executada.']);
-			while($arquivo = $diretorio->read()){
+		while($arquivo = $diretorio->read()){
+			if($arquivo != "." && $arquivo != ".."){
+				Logs::create(['mensagem' => 'Importação automática executada.']);
 				// Criando pasta de importação ou verificando se existe
 				if(!(getcwd().'/storage/app/importacoes')){
 					mkdir(getcwd().'/storage/app/importacoes', 0755);

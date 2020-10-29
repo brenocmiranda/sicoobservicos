@@ -147,16 +147,16 @@
 
       @if(Auth::user()->RelationFuncao->ver_configuracoes == 1 || Auth::user()->RelationFuncao->gerenciar_configuracoes == 1)
       <li> 
-        <a href="javascript:void(0)" class="waves-effect {{ (Request::segment(2) == 'gestao' ? 'active' : '') }}">
+        <a href="javascript:void(0)" class="waves-effect {{ (Request::segment(2) == 'configuracoes' ? 'active' : '') }}">
           <i class="mdi mdi-settings pr-3"></i> 
           <span class="hide-menu">Configurações<span class="fa arrow"></span></span>
         </a>
-        <ul class="nav nav-second-level {{ (Request::segment(2) == 'gestao' ? ' collapse in' : '') }}">
+        <ul class="nav nav-second-level {{ (Request::segment(2) == 'configuracoes' ? ' collapse in' : '') }}">
           <li> 
-            <a href="javascript:void(0)" class="waves-effect {{ (Request::segment(2) == 'gestao' && Request::segment(3) == 'administrativo' ? ' active' : '') }}">
+            <a href="javascript:void(0)" class="waves-effect {{ (Request::segment(2) == 'configuracoes' && Request::segment(3) == 'administrativo' ? ' active' : '') }}">
               <span class="hide-menu">Administrativo </span><span class="fa arrow"></span>
             </a>
-            <ul class="nav nav-third-level {{ (Request::segment(2) == 'gestao' && Request::segment(3) == 'administrativo' ? ' collapse in' : '') }}">
+            <ul class="nav nav-third-level {{ (Request::segment(2) == 'configuracoes' && Request::segment(3) == 'administrativo' ? ' collapse in' : '') }}">
               <li> <a href="{{route('exibir.funcoes.administrativo')}}"><span class="hide-menu">Funções</span></a> </li>
               <li> <a href="{{route('exibir.instituicoes.administrativo')}}"><span class="hide-menu">Instituições</span></a> </li>
               <li> <a href="{{route('exibir.setores.administrativo')}}"><span class="hide-menu">Setores</span></a> </li>
@@ -165,19 +165,19 @@
             </ul>
           </li>
           <li> 
-            <a href="javascript:void(0)" class="waves-effect {{ (Request::segment(2) == 'gestao' && Request::segment(3) == 'emails' ? ' active' : '') }}">
+            <a href="javascript:void(0)" class="waves-effect {{ (Request::segment(2) == 'configuracoes' && Request::segment(3) == 'emails' ? ' active' : '') }}">
               <span class="hide-menu">E-mails </span><span class="fa arrow"></span>
             </a>
-            <ul class="nav nav-third-level {{ (Request::segment(2) == 'gestao' && Request::segment(3) == 'emails' ? ' collapse in' : '') }}">
+            <ul class="nav nav-third-level {{ (Request::segment(2) == 'configuracoes' && Request::segment(3) == 'emails' ? ' collapse in' : '') }}">
               <li> <a href="{{route('exibir.ajustes.emails')}}"><span class="hide-menu">Ajustes</span></a> </li>
               <li> <a href="{{route('exibir.mensagens.emails')}}"><span class="hide-menu">Conteúdos</span></a> </li>
             </ul>
           </li>
           <li> 
-            <a href="javascript:void(0)" class="waves-effect {{ (Request::segment(2) == 'gestao' && Request::segment(3) == 'importacoes' ? ' active' : '') }}">
+            <a href="javascript:void(0)" class="waves-effect {{ (Request::segment(2) == 'configuracoes' && Request::segment(3) == 'importacoes' ? ' active' : '') }}">
               <span class="hide-menu">Importações</span><span class="fa arrow"></span>
             </a>
-            <ul class="nav nav-third-level {{ (Request::segment(2) == 'gestao' && Request::segment(3) == 'importacoes' ? ' collapse in' : '') }}">
+            <ul class="nav nav-third-level {{ (Request::segment(2) == 'configuracoes' && Request::segment(3) == 'importacoes' ? ' collapse in' : '') }}">
               <li> <a href="{{route('exibir.importacoes')}}"><span class="hide-menu">Importar</span></a> </li>
               <li> <a href="{{route('exibir.logs.importacoes')}}"><span class="hide-menu">Logs</span></a> </li>
             </ul>
