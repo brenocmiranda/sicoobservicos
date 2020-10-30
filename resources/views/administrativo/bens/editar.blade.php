@@ -50,7 +50,7 @@ Editar bens
                     <label class="col-form-label pb-0">Tipo <span class="text-danger">*</span></label>
                     <select class="form-control form-control-line" name="tipo" required>
                       <option value="">Selecione</option>
-                      <option value="movel" {{($bens->tipo == 'movel' ? 'selected' : '')}}>Movel</option>
+                      <option value="automovel" {{($bens->tipo == 'automovel' ? 'selected' : '')}}>Automóvel</option>
                       <option value="imovel" {{($bens->tipo == 'imovel' ? 'selected' : '')}}>Imóvel</option>
                     </select>
                   </div>

@@ -80,19 +80,31 @@
 		});
 
 		$('.password, .confirmpassword').on('keyup', function(){
-	      $('#err').html('');
-	      if($('.password').val() == $('.confirmpassword').val()){
-	        if($('.password').val().length >= 6 && $('.confirmpassword').val().length >= 6){
-	          $('#submit').removeAttr('disabled');
-	          $('#submit').addClass('btn-success');
-	        }else{
-	          $('#err').html('<div class="text-danger text-center col"> São necessários no mínimo 6 caracteres.</div>');
-	        }
-	      }else{
-	        $('#err').html('<div class="text-danger text-center col">As senhas não conferem.</div>')
-	        $('#submit').attr('disabled', 'disabled');
-	        $('#submit').removeClass('btn-success');
-	      }
+	     	$('#err').html('');
+	      	// Se confere com a confirmação
+	      	if($('.password').val() == $('.confirmpassword').val()){
+	        	// Se possui no mínimo 6 caracteres
+	        	if($('.confirmpassword').val().length >= 8){
+	        		// Se possui números
+	        		if($('.confirmpassword').val().match(/\d+/)){
+	        			// Se possui caracteres especiais
+	        			if($('.confirmpassword').val().match(/[^a-zA-Z0-9]+/)){
+	        				$('#submit').removeAttr('disabled');
+	          				$('#submit').addClass('btn-success');
+	        			}else{
+	        				$('#err').html('<div class="text-danger text-center col">Sua senha deve conter carácteres especiais.</div>');
+	        			}
+	        		}else{
+	        			$('#err').html('<div class="text-danger text-center col">Sua senha deve conter números.</div>');
+	        		}
+	        	}else{
+	          		$('#err').html('<div class="text-danger text-center col"> São necessários no mínimo 8 carácteres.</div>');
+	        	}
+	      	}else{
+		        $('#err').html('<div class="text-danger text-center col">As senhas não conferem.</div>')
+		        $('#submit').attr('disabled', 'disabled');
+		        $('#submit').removeClass('btn-success');
+	      	}
 	    });
 	});
 </script>

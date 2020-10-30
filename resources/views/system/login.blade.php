@@ -82,6 +82,7 @@ Login
   $(document).ready(function (){
         $('.redefinir').on('click', function(e){
           $('#err').html('');
+          $('.login').val('');
           $('.carregamento').html('');
           $('#modal-solicitar #formSolicitar').removeClass('d-none');
         });

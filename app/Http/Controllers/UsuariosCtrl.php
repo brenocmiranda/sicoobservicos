@@ -189,14 +189,15 @@ class UsuariosCtrl extends Controller
 					'url' => route('inicio'),
 					'id_usuario' => Auth::id()
 				]);
+				Usuarios::where('login', $request->login)->update(['attempts' => 0]);
 				return redirect()->intended(route('inicio'));
-			}elseif (Usuarios::where('status', 'Desativado')->where('login', $request->login)->first()){
+			}elseif (Usuarios::where('login', $request->login)->where('status', 'Desativado')->first()){
 				\Session::flash('login', array(
 					'class' => 'danger',
 					'mensagem' => 'O usuário está desativado, contate o administrador.'
 				));
 				return redirect()->route('login');
-			}elseif(Usuarios::where('status', 'Bloqueado')->where('login', $request->login)->first()){
+			}elseif(Usuarios::where('login', $request->login)->where('status', 'Bloqueado')->first()){
 				\Session::flash('login', array(
 					'class' => 'danger',
 					'mensagem' => 'O usuário está bloqueado, contate o administrador.'
@@ -204,10 +205,20 @@ class UsuariosCtrl extends Controller
 				return redirect()->route('login');
 			}
 		}elseif(Usuarios::where('login', $request->login)->first()){
-			\Session::flash('login', array(
+			$usuario = Usuarios::where('login', $request->login)->first();
+			if($usuario->attempts < 3){
+				Usuarios::where('login', $request->login)->increment('attempts');
+				\Session::flash('login', array(
 				'class' => 'danger',
 				'mensagem' => 'A senha inserida não confere'
 			));
+			}else{
+				Usuarios::where('login', $request->login)->update(['status' => 'Bloqueado']);
+				\Session::flash('login', array(
+					'class' => 'danger',
+					'mensagem' => 'O usuário está bloqueado, contate o administrador.'
+				));
+			}
 			return redirect()->route('login');
 		}else{
 			\Session::flash('login', array(
@@ -295,6 +306,7 @@ class UsuariosCtrl extends Controller
 			'password' => Hash::make($request->password), 
 			'remember_token' => $request->_token
 		]);
+		Usuarios::find($user->id)->update(['attempts' => 0]);
 		//$user->notify(new ResetPassword($user));
 		\Session::flash('login', array(
 			'class' => 'success',

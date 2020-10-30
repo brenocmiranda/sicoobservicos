@@ -29,7 +29,7 @@ Logs de importação
                 @foreach($logs as $log)
                 <div class="row">
                     <label class="col-2">{{date('d/m/Y H:i:s', strtotime($log->created_at))}}</label>
-                    <label class="col-10">{{$log->mensagem}}</label>
+                    <label class="col-10">{!!$log->mensagem!!}</label>
                 </div>
                 @endforeach
                 <div class="row mx-4 justify-content-end">

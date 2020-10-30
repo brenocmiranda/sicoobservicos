@@ -28,8 +28,8 @@ Aniversariantes
     @endif
 
     <div class="card">
-        <div class="card-header">
-            <h5 class="section-title text-white font-weight-normal">Relatório</h5>
+        <div class="card-header" style="border-top-right-radius: 0.6em; border-top-left-radius: 0.6em;">
+            <h5 class="text-white">Relatório</h5>
         </div>
         <div class="card-body">
             <form class="form-sample" target="_blank" action="{{route('gerar.aniversariantes.administrativo')}}" method="POST" enctype="multipart/form-data" autocomplete="off">
@@ -55,7 +55,7 @@ Aniversariantes
                         </select>
                       </div>
                     </div>
-                    <div class="col-8">
+                    <div class="col-4">
                       <div class="form-group">
                         <label class="col-form-label pb-0">Orientação <span class="text-danger">*</span></label>
                         <select class="form-control form-control-line" name="orientacao" required>
@@ -66,8 +66,8 @@ Aniversariantes
                       </div>
                     </div>
 
-                    <hr class="col-10">
-                    <div class="row col-12 justify-content-center mx-auto">
+                    
+                    <div class="row col-12 justify-content-center mx-auto mt-5">
                         <button type="submit" class="btn btn-success btn-outline col-4 d-flex align-items-center justify-content-center mx-2">
                             <i class="mdi mdi-printer pr-2"></i> 
                             <span>Gerar relatório</span>

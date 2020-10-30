@@ -42,7 +42,7 @@ class ImportacoesCtrl extends Controller
 				$upload = $request->cli_associados->storeAs('importacoes', $nameFile);
 				Logs::create(['mensagem' => 'Processando o arquivo cli_associados.xlsx...']);
 				Excel::import(new AssociadosImport, getcwd().'/storage/app/importacoes/'.$nameFile);
-				Logs::create(['mensagem' => 'Importação de cli_associados.xlsx efetuada com sucesso!']);
+				Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de cli_associados.xlsx efetuada com sucesso!</span>']);
 			}
 			// cli_emails
 			if($request->hasFile('cli_emails') && $request->file('cli_emails')->isValid()){
@@ -51,7 +51,7 @@ class ImportacoesCtrl extends Controller
 				$upload = $request->cli_emails->storeAs('importacoes', $nameFile);
 				Logs::create(['mensagem' => 'Processando o arquivo cli_emails.xlsx...']);
 				Excel::import(new EmailsImport, getcwd().'/storage/app/importacoes/'.$nameFile);
-				Logs::create(['mensagem' => 'Importação de cli_emails.xlsx efetuada com sucesso!']);
+				Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de cli_emails.xlsx efetuada com sucesso!</span>']);
 			}
 			// cli_telefones
 			if($request->hasFile('cli_telefones') && $request->file('cli_telefones')->isValid()){
@@ -60,7 +60,7 @@ class ImportacoesCtrl extends Controller
 				$upload = $request->cli_telefones->storeAs('importacoes', $nameFile);
 				Logs::create(['mensagem' => 'Processando o arquivo cli_telefones.xlsx...']);
 				Excel::import(new TelefonesImport, getcwd().'/storage/app/importacoes/'.$nameFile);
-				Logs::create(['mensagem' => 'Importação de cli_telefones.xlsx efetuada com sucesso!']);
+				Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de cli_telefones.xlsx efetuada com sucesso!</span>']);
 			}
 			// cli_enderecos
 			if($request->hasFile('cli_enderecos') && $request->file('cli_enderecos')->isValid()){
@@ -69,7 +69,7 @@ class ImportacoesCtrl extends Controller
 				$upload = $request->cli_enderecos->storeAs('importacoes', $nameFile);
 				Logs::create(['mensagem' => 'Processando o arquivo cli_enderecos.xlsx...']);
 				Excel::import(new EnderecosImport, getcwd().'/storage/app/importacoes/'.$nameFile);
-				Logs::create(['mensagem' => 'Importação de cli_enderecos.xlsx efetuada com sucesso!']);
+				Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de cli_enderecos.xlsx efetuada com sucesso!</span>']);
 			}
 			return response()->json(true);
 		}else{
@@ -98,7 +98,7 @@ class ImportacoesCtrl extends Controller
 		            unlink('//SICOOB_SERVICE/outlook/cli_associados.xlsx');
 		            Logs::create(['mensagem' => 'Processando o arquivo cli_associados.xlsx...']);
 		            Excel::import(new AssociadosImport, getcwd().'/storage/app/importacoes/'.$nameFile);
-		            Logs::create(['mensagem' => 'Importação de cli_associados.xlsx efetuada com sucesso!']);
+		            Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de cli_associados.xlsx efetuada com sucesso!</span>']);
 				}
 				// cli_emails
 				if($arquivo == 'cli_emails.xlsx'){
@@ -108,7 +108,7 @@ class ImportacoesCtrl extends Controller
 		            unlink('//SICOOB_SERVICE/outlook/cli_emails.xlsx');
 		            Logs::create(['mensagem' => 'Processando o arquivo cli_emails.xlsx...']);
 		            Excel::import(new EmailsImport, getcwd().'/storage/app/importacoes/'.$nameFile);
-		            Logs::create(['mensagem' => 'Importação de cli_emails.xlsx efetuada com sucesso!']);
+		            Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de cli_emails.xlsx efetuada com sucesso!</span>']);
 				}
 				// cli_telefones
 				if($arquivo == 'cli_telefones.xlsx'){
@@ -118,7 +118,7 @@ class ImportacoesCtrl extends Controller
 		            unlink('//SICOOB_SERVICE/outlook/cli_telefones.xlsx');
 		            Logs::create(['mensagem' => 'Processando o arquivo cli_telefones.xlsx...']);
 		            Excel::import(new TelefonesImport, getcwd().'/storage/app/importacoes/'.$nameFile);
-		            Logs::create(['mensagem' => 'Importação de cli_telefones.xlsx efetuada com sucesso!']);
+		            Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de cli_telefones.xlsx efetuada com sucesso!</span>']);
 				}
 				// cli_enderecos
 				if($arquivo == 'cli_enderecos.xlsx'){
@@ -128,9 +128,13 @@ class ImportacoesCtrl extends Controller
 		            unlink('//SICOOB_SERVICE/outlook/cli_enderecos.xlsx');
 		           	Logs::create(['mensagem' => 'Processando o arquivo cli_enderecos.xlsx...']);
 		            Excel::import(new EnderecosImport, getcwd().'/storage/app/importacoes/'.$nameFile);
-		            Logs::create(['mensagem' => 'Importação de cli_enderecos.xlsx efetuada com sucesso!']);
+		            Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de cli_enderecos.xlsx efetuada com sucesso!</span>']);
 				}
+				return true;
+			}else{
+				return false;
 			}
+
 		}
 		$diretorio->close();
 	}

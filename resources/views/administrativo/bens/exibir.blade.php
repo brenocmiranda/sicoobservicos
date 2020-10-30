@@ -36,11 +36,11 @@ Bens
 									<div class="row mx-auto col-12 border shadow-sm rounded my-3 p-3">
 										<div class="col-12">
 											<a href="{{route('detalhes.bens.administrativo', $item->id)}}" class="row">
-												<div class="col-4 p-1">
-													<img src="{{asset('storage/app').'/'.$item->RelationImagemPrincipal->endereco}}" class="w-100 h-100 rounded">
+												<div class="col-4 row mx-auto p-1">
+													<img src="{{asset('storage/app').'/'.$item->RelationImagemPrincipal->endereco}}" class="rounded" height="100" width="140">
 												</div>
 												<div class="col-8 pr-0">
-													<h5>{{$item->nome}} <small>{{($item->tipo == 'movel' ? "Móvel" : "Imóvel")}}</small></h5>
+													<h5>{{$item->nome}} <small>{{($item->tipo == 'automovel' ? "Móvel" : "Imóvel")}}</small></h5>
 													@if(isset($item->cep))
 													<div style="line-height: 15px">
 														<small class="text-dark d-block">{{(isset($item->rua) ? $item->rua.',' : '')}} {{$item->numero}}, {{$item->bairro}}</small>

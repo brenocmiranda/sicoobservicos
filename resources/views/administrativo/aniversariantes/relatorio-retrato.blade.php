@@ -1,5 +1,17 @@
 @section('title')
-Aniversariantes de {{($mes == 1 ? 'Janeiro' : ($mes == 2 ? 'Fevereiro' : ($mes == 3 ? 'Março' : ($mes == 4 ? 'Abril' : ($mes == 5 ? 'Maio' : ($mes == 6 ? 'Junho' : ($mes == 7 ? 'Julho' : ($mes == 8 ? 'Agosto' : ($mes == 9 ? 'Setembro' : ($mes == 10 ? 'Outubro' : ($mes == 11 ? 'Novembro' : ($mes == 12 ? 'Dezembro' : 'mês'))))))))))))}}
+Aniversariantes de {{(
+					explode('-', $result[0]->data_nascimento)[1] == 1 ? 'Janeiro' : (
+					explode('-', $result[0]->data_nascimento)[1] == 2 ? 'Fevereiro' : (
+					explode('-', $result[0]->data_nascimento)[1] == 3 ? 'Março' : (
+					explode('-', $result[0]->data_nascimento)[1] == 4 ? 'Abril' : (
+					explode('-', $result[0]->data_nascimento)[1] == 5 ? 'Maio' : (
+					explode('-', $result[0]->data_nascimento)[1] == 6 ? 'Junho' : (
+					explode('-', $result[0]->data_nascimento)[1] == 7 ? 'Julho' : (
+					explode('-', $result[0]->data_nascimento)[1] == 8 ? 'Agosto' : (
+					explode('-', $result[0]->data_nascimento)[1] == 9 ? 'Setembro' : (
+					explode('-', $result[0]->data_nascimento)[1] == 10 ? 'Outubro' : (
+					explode('-', $result[0]->data_nascimento)[1] == 11 ? 'Novembro' : (
+					explode('-', $result[0]->data_nascimento)[1] == 12 ? 'Dezembro' : 'mês'))))))))))))}}
 @endsection
 
 @section('header-support')
@@ -52,7 +64,19 @@ Aniversariantes de {{($mes == 1 ? 'Janeiro' : ($mes == 2 ? 'Fevereiro' : ($mes =
 	<section class="section h-100">
 		<div class="page py-5">
 			<div class="col-12 row header p-0 mx-auto">
-				<h1 class="text-white py-4 ml-5 text-uppercase" style="z-index: 100;"> Aniversariantes de {{($mes == 1 ? 'Janeiro' : ($mes == 2 ? 'Fevereiro' : ($mes == 3 ? 'Março' : ($mes == 4 ? 'Abril' : ($mes == 5 ? 'Maio' : ($mes == 6 ? 'Junho' : ($mes == 7 ? 'Julho' : ($mes == 8 ? 'Agosto' : ($mes == 9 ? 'Setembro' : ($mes == 10 ? 'Outubro' : ($mes == 11 ? 'Novembro' : ($mes == 12 ? 'Dezembro' : 'mês'))))))))))))}} </h1>
+				<h1 class="text-white py-4 ml-5 text-uppercase" style="z-index: 100;"> Aniversariantes de {{(
+					explode('-', $result[0]->data_nascimento)[1] == 1 ? 'Janeiro' : (
+					explode('-', $result[0]->data_nascimento)[1] == 2 ? 'Fevereiro' : (
+					explode('-', $result[0]->data_nascimento)[1] == 3 ? 'Março' : (
+					explode('-', $result[0]->data_nascimento)[1] == 4 ? 'Abril' : (
+					explode('-', $result[0]->data_nascimento)[1] == 5 ? 'Maio' : (
+					explode('-', $result[0]->data_nascimento)[1] == 6 ? 'Junho' : (
+					explode('-', $result[0]->data_nascimento)[1] == 7 ? 'Julho' : (
+					explode('-', $result[0]->data_nascimento)[1] == 8 ? 'Agosto' : (
+					explode('-', $result[0]->data_nascimento)[1] == 9 ? 'Setembro' : (
+					explode('-', $result[0]->data_nascimento)[1] == 10 ? 'Outubro' : (
+					explode('-', $result[0]->data_nascimento)[1] == 11 ? 'Novembro' : (
+					explode('-', $result[0]->data_nascimento)[1] == 12 ? 'Dezembro' : 'mês'))))))))))))}} </h1>
 				<img src="{{asset('public\img\header-aniv.png')}}" class="w-100 position-absolute">
 			</div>
 			<div class="text-center pt-5 mx-auto">

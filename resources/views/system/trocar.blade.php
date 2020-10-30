@@ -12,7 +12,7 @@ Redefinição de password
     </div>
     <div class="px-5">
       <div class="card shadow mb-4 border-0">
-        <div class="card-header">
+        <div class="card-header" style="border-top-right-radius: 0.6em; border-top-left-radius: 0.6em;">
           <h4 class="mx-auto my-auto text-white py-3 font-weight-normal">Redefinição de senha</h4>
         </div>
         <div class="card-body text-left">

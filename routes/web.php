@@ -82,7 +82,7 @@ Route::group(['prefix' => 'app'], function(){
 		// Aniversariantes
 		Route::group(['prefix' => 'aniversariantes'], function(){
 			Route::get('', 'AssociadosCtrl@ExibirAniversariantes')->name('exibir.aniversariantes.administrativo');
-			Route::post('relatorio', 'AssociadosCtrl@GerarAniversariantes')->name('gerar.aniversariantes.administrativo');
+			Route::any('relatorio', 'AssociadosCtrl@GerarAniversariantes')->name('gerar.aniversariantes.administrativo');
 		});
 
 		// Controle de estoque

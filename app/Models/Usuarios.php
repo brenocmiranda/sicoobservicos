@@ -14,7 +14,7 @@ class Usuarios extends Authenticatable
     
     protected $table = 'usr_usuarios';
     protected $primaryKey = 'id';
-    protected $fillable = ['id', 'login', 'password', 'email', 'email_verified_at', 'telefone', 'remember_token', 'status', 'usr_id_setor', 'usr_id_funcao', 'usr_id_instituicao', 'usr_id_unidade', 'cli_id_associado', 'id_imagem', 'created_at', 'updated_at'];
+    protected $fillable = ['id', 'login', 'password', 'email', 'email_verified_at', 'attempts', 'telefone', 'remember_token', 'status', 'usr_id_setor', 'usr_id_funcao', 'usr_id_instituicao', 'usr_id_unidade', 'cli_id_associado', 'id_imagem', 'created_at', 'updated_at'];
 
     public function RelationSetor(){
     	return $this->belongsTo(Setores::class, 'usr_id_setor', 'id');

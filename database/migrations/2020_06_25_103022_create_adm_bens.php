@@ -18,7 +18,7 @@ class CreateAdmBens extends Migration
             $table->increments('id');
             $table->boolean('status')->default(1);
             $table->string('nome');
-            $table->enum('tipo', ['movel', 'imovel']);
+            $table->enum('tipo', ['automovel', 'imovel']);
             $table->text('descricao')->nullable();
             $table->double('valor');
             $table->text('cep')->nullable();

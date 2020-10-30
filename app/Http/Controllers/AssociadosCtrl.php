@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use Illuminate\Routing\Controller;
 use App\Models\Associados;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class AssociadosCtrl extends Controller
 {
@@ -30,11 +31,11 @@ class AssociadosCtrl extends Controller
 
   public function GerarAniversariantes(Request $request){
     if($request->orientacao == 'paisagem'){
-      $result = Associados::where('funcionario', 1)->whereMonth('data_nascimento', $request->mes)->select('nome', 'data_nascimento')->get();
-      return view('administrativo.aniversariantes.relatorio-paisagem')->with('result', $result)->with('mes',  $request->mes);
+      $result = Associados::where('funcionario', 1)->whereMonth('data_nascimento', $request->mes)->where('id', '<>', 1)->select('nome', 'data_nascimento')->get();
+      return PDF::loadView('administrativo.aniversariantes.relatorio-paisagem', compact('result'))->stream();
     }else{
-      $result = Associados::where('funcionario', 1)->whereMonth('data_nascimento', $request->mes)->select('nome', 'data_nascimento')->get();
-    return view('administrativo.aniversariantes.relatorio-retrato')->with('result', $result)->with('mes',  $request->mes);
+      $result = Associados::where('funcionario', 1)->whereMonth('data_nascimento', $request->mes)->where('id', '<>', 1)->select('nome', 'data_nascimento')->get();
+      return PDF::loadView('administrativo.aniversariantes.relatorio-retrato', compact('result'))->stream();
     }
   }
 

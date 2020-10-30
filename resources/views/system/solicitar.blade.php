@@ -24,7 +24,7 @@
                 <div class="col-6">
                   <div class="form-group">
                     <label class="col-form-label pb-0">Usuário <span class="text-danger">*</span></label>
-                    <input class="form-control form-control-line" name="login" placeholder="administrador4133_00" required/>
+                    <input class="form-control form-control-line login" name="login" placeholder="administrador4133_00" required/>
                   </div>
                 </div>
                 <div class="col-12">

@@ -31,7 +31,13 @@
 											<br>
 											<p style="text-align:justify">
 												<ul>
-													<li>Escolha uma nova senha que contenha no mínimo 6 digitos e possua em sua composição caracteres especiais, números e letras. </li>
+													<li>A sua nova senha deve seguir as seguintes políticas de segurança:
+													 <ul>
+													 	<li>Deve conter no mínimo 6 carácteres;</li>
+													 	<li>Possuir carácteres especiais;</li>
+													 	<li>Possuir números.</li>
+													 </ul>
+													</li>
 													<li><a href="{{route('view.password', $usuario->remember_token)}}">Acesse aqui para redefinir sua senha.</a></li>
 													<li>Faça o login com seus novos dados de acesso.</li>
 												</ul>
