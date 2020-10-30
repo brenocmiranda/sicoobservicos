@@ -45,13 +45,13 @@ Homepage
 									</a>
 								</h5>
 								<label class="text-truncate text-uppercase d-block">	
-									<span class="email">{{(isset($homepage->subtitulo) ? $homepage->subtitulo : ' ')}}</span>
+									<span>{{(isset($homepage->subtitulo) ? $homepage->subtitulo : '_')}}</span>
 								</label>
 								<div class="my-3">
-									<a href="javascript:void(0)" data="{{route('detalhes.homepage', $homepage->id)}}" class="btn btn-success btn-outline btn-xs ml-auto btn-editar" title="Editar informações">
+									<a href="javascript:void(0)" data="{{route('detalhes.homepage', $homepage->id)}}" class="btn btn-default btn-outline btn-xs ml-auto btn-editar" title="Editar informações">
 										<small>Editar</small>
 									</a>
-									<a href="javascript:void(0)" data="{{route('delete.homepage', $homepage->id)}}" class="btn btn-danger btn-outline btn-xs ml-auto btn-remove" title="Excluir atalho">
+									<a href="javascript:void(0)" data="{{route('delete.homepage', $homepage->id)}}" class="btn btn-default btn-outline btn-xs ml-auto btn-remove" title="Excluir atalho">
 										<small>Deletar</small>
 									</a>
 								</div>

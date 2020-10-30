@@ -26,7 +26,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('ImportAuto:importar')
-        ->everyTenMinutes()
+        ->everyThirtyMinutes()
         ->onSuccess(function () {
             echo "Importações executadas com sucesso";
          })->onFailure(function () {

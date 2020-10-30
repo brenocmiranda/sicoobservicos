@@ -66,13 +66,17 @@ Route::group(['prefix' => 'app'], function(){
 			Route::any('detalhes/{id}', 'DocumentosCtrl@Detalhes')->name('detalhes.todos.documentos');
 		});
 
-		// Bens e imóveis
+		// Bens 
 		Route::group(['prefix' => 'bens'], function(){
-			Route::get('', 'DocumentosCtrl@Exibir')->name('exibir.bens.administrativo');
-			Route::post('adicionar', 'DocumentosCtrl@Adicionar')->name('adicionar.bens.administrativo');
-			Route::post('editar/{id}', 'DocumentosCtrl@Editar')->name('editar.bens.administrativo');
-			Route::get('alterar/{id}', 'DocumentosCtrl@Alterar')->name('alterar.bens.administrativo');
-			Route::any('detalhes/{id}', 'DocumentosCtrl@Detalhes')->name('detalhes.bens.administrativo');
+			Route::get('', 'BensCtrl@Exibir')->name('exibir.bens.administrativo');
+			Route::get('adicionar', 'BensCtrl@Adicionar')->name('adicionar.bens.administrativo');
+			Route::post('salvar', 'BensCtrl@AdicionarSalvar')->name('salvar.bens.administrativo');
+			Route::get('editar/{id}', 'BensCtrl@Editar')->name('editar.bens.administrativo');
+			Route::post('editando/{id}', 'BensCtrl@EditarSalvar')->name('editando.bens.administrativo');
+			Route::get('delete/{id}', 'BensCtrl@Alterar')->name('delete.bens.administrativo');
+			Route::any('detalhes/{id}', 'BensCtrl@Detalhes')->name('detalhes.bens.administrativo');
+			Route::post('addImagens', 'BensCtrl@Imagens')->name('adicionar.imagens.bens.administrativo');
+			Route::get('removeImagem/{id}', 'BensCtrl@RemoveImagem')->name('remover.imagens.bens.administrativo');
 		});
 
 		// Aniversariantes
@@ -170,7 +174,6 @@ Route::group(['prefix' => 'app'], function(){
 			Route::post('alterar', 'SolicitacoesCtrl@Alterar')->name('alterar.solicitacoes.credito');
 			Route::get('imprimir/{id}', 'SolicitacoesCtrl@Relatorio')->name('imprimir.solicitacoes.credito');
 			Route::any('remover/{id}', 'SolicitacoesCtrl@Remover')->name('remover.solicitacoes.credito');
-			
 			Route::get('detalhes/{id}', 'SolicitacoesCtrl@DetalhesContrato')->name('detalhes.solicitacoes.credito');
 		});
 		// Associados *

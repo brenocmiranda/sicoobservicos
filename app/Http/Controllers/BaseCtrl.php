@@ -115,7 +115,7 @@ class BaseCtrl extends Controller
 	}
 	// Deletando a base
 	public function Delete($id){
-		$create = Ativos::find($id);
+		$create = Base::find($id);
 		Atividades::create([
 			'nome' => 'Remoção de ativo',
 			'descricao' => 'Você acabou de remover o ativo '.$create->titulo.'.',

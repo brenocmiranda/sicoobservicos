@@ -169,7 +169,10 @@ class ChamadosCtrl extends Controller
     public function RemoveArquivos($id){
         $arquivo = Arquivos::find($id);
         unlink(getcwd().'/storage/app/'.$arquivo->endereco);
-        ChamadosArquivos::where('id_arquivo', $id)->delete();
+        $dados = ChamadosArquivos::where('id_arquivo', $id)->get();
+        if(isset($dados)){
+            ChamadosArquivos::where('id_arquivo', $id)->delete();
+        }
         Arquivos::find($id)->delete();
         return response()->json(['success' => true]);
     }

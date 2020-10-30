@@ -37,7 +37,7 @@
         <ul class="nav nav-second-level {{ (Request::segment(2) == 'administrativo' ? ' collapse in' : '') }}">
           <li> <a href="{{route('dashboard.administrativo')}}"><span class="hide-menu">Dashboard</span></a> </li>
           <li> <a href="{{route('exibir.aniversariantes.administrativo')}}"><span class="hide-menu">Aniversariantes</span></a> </li>
-          <li> <a href="{{route('exibir.bens.administrativo')}}"><span class="hide-menu">Bens e Imóveis</span></a> </li>
+          <li> <a href="{{route('exibir.bens.administrativo')}}"><span class="hide-menu">Bens</span></a> </li>
           <li> <a href="{{route('exibir.todos.documentos')}}"><span class="hide-menu">Documentos</span></a> </li>
           @if(Auth::user()->RelationFuncao->gerenciar_administrativo == 1)
           <li> 
