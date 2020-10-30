@@ -24,18 +24,31 @@
 										<div><span>
 											<p style="margin-top:0px;margin-bottom:10px">
 											</p>
-											@if($material->status == 0)
-												{!! $configuracoes->abertura_solicitacao_material !!}
-											@else
-												{!! $configuracoes->fechamento_solicitacao_material !!}
-												<ul>
-													<li><b>Produto:</b> {{$material->RelationMaterial->nome}}</li>
-													<li><b>Quantidade:</b> {{$material->quantidade}} unidades</li>
-												</ul>
-											@endif
+											<p>
+												<b>Obaaa, recebemos uma nova solicitação de contrato!</b>
+											</p>
+											<label>Neste momento separe os itens para entrega e entre em contato para o usuário que solicitou. Veja abaixo, os dados da solicitação:</label>
+											<br>
 											<p style="text-align:justify">
+												<ul>
+													<li>
+														<small><b>Nº do contrato:</b> {{$contrato->RelationContratos->num_contrato}}</small>
+													</li>
+													<li>
+														<small><b>Associado:</b> {{$contrato->RelationContratos->RelationAssociados->nome}}</small>
+													</li>
+													<li>
+														<small><b>Produto:</b> {{$contrato->RelationContratos->RelationProdutos->nome}} - {{$contrato->RelationContratos->RelationModalidades->nome}}</small>
+													</li>
+													<li>
+														<small><b>Valor do contrato:</b> R$ {{number_format($contrato->RelationContratos->valor_contrato, 2, ',', '.')}}</small>
+													</li>
+													<li>
+														<small><b>Localização:</b> {{$contrato->RelationContratos->RelationArmarios->referencia}}</small>
+													</li>
+												</ul>
 												<div>
-													<label><a href="{{route('exibir.solicitacoes.materiais')}}"><b>Veja todas suas solicitações de materiais.</b></a></label>
+													<label><a href="{{route('exibir.solicitacoes.administrativo')}}"><b>Aprove as solicitações de materiais</b></a></label>
 												</div>
 											</p>
 											<p style="margin-top:10px;margin-bottom:10px"><span style="color:rgb(0,0,0)"><span></span></span></p>
@@ -70,6 +83,7 @@
 																		<p style="margin-top:0px;margin-bottom:10px">
 																			<b>Equipe {{env('APP_NAME')}}</b><br>
 																			<a href="http://sicoobservicos.coop.br" target="_blank">http://sicoobservicos.coop.br</a><br>
+																			
 																		</p>
 																	</div>
 																</td>

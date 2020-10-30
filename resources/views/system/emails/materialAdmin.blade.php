@@ -25,7 +25,7 @@
 											<p style="margin-top:0px;margin-bottom:10px">
 											</p>
 											<p>
-												<b>Opaaa, recebemos uma nova solicitação de material!</b>
+												<b>Obaaa, recebemos uma nova solicitação de material!</b>
 											</p>
 											<label>Neste momento separe os itens para entrega e encaminhe para o usuário que solicitou. Veja abaixo, os dados da solicitação:</label>
 											<br>

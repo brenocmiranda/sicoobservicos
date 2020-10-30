@@ -45,10 +45,11 @@ Mensagens e-mails
 						</div>
 						<div class="col-12">
 							<div class="form-group">
-								<label class="col-form-label pb-2"> Mensagem de abertura de chamados </label>
+								<label class="col-form-label pb-2"> Mensagem de abertura </label>
 								<textarea class="summernote" name="abertura_chamado">{{$chamado->abertura_chamado}}</textarea>
 							</div>
 						</div>
+						<hr class="col-12 row">
 						<div class="col-10">
 							<div class="form-group">
 								<label class="col-form-label pb-0">Assunto de fechamento</label>
@@ -57,7 +58,7 @@ Mensagens e-mails
 						</div>
 						<div class="col-12">
 							<div class="form-group">
-								<label class="col-form-label pb-2"> Mensagem de fechamento de chamados </label>
+								<label class="col-form-label pb-2"> Mensagem de fechamento </label>
 								<textarea class="summernote" name="fechamento_chamado">{{$chamado->fechamento_chamado}}</textarea>
 							</div>
 						</div>
@@ -81,10 +82,11 @@ Mensagens e-mails
 						</div>
 						<div class="col-12">
 							<div class="form-group">
-								<label class="col-form-label pb-2"> Mensagem de abertura da solicitação </label>
+								<label class="col-form-label pb-2"> Mensagem de abertura </label>
 								<textarea class="summernote" name="abertura_solicitacao_material">{{$material->abertura_solicitacao_material}}</textarea>
 							</div>
 						</div>
+						<hr class="col-12 row">
 						<div class="col-10">
 							<div class="form-group">
 								<label class="col-form-label pb-0">Assunto de fechamento</label>
@@ -93,7 +95,7 @@ Mensagens e-mails
 						</div>
 						<div class="col-12">
 							<div class="form-group">
-								<label class="col-form-label pb-2"> Mensagem de fechamento da solicitação </label>
+								<label class="col-form-label pb-2"> Mensagem de fechamento </label>
 								<textarea class="summernote" name="fechamento_solicitacao_material">{{$material->fechamento_solicitacao_material}}</textarea>
 							</div>
 						</div>
@@ -117,10 +119,11 @@ Mensagens e-mails
 						</div>
 						<div class="col-12">
 							<div class="form-group">
-								<label class="col-form-label pb-2"> Mensagem de abertura da solicitação </label>
+								<label class="col-form-label pb-2"> Mensagem de abertura </label>
 								<textarea class="summernote" name="abertura_solicitacao_contrato">{{$contrato->abertura_solicitacao_contrato}}</textarea>
 							</div>
 						</div>
+						<hr class="col-12 row">
 						<div class="col-10">
 							<div class="form-group">
 								<label class="col-form-label pb-0">Assunto de fechamento</label>
@@ -129,7 +132,7 @@ Mensagens e-mails
 						</div>
 						<div class="col-12">
 							<div class="form-group">
-								<label class="col-form-label pb-2"> Mensagem de fechamento da solicitação </label>
+								<label class="col-form-label pb-2"> Mensagem de fechamento </label>
 								<textarea class="summernote" name="fechamento_solicitacao_contrato">{{$contrato->fechamento_solicitacao_contrato}}</textarea>
 							</div>
 						</div>
@@ -138,12 +141,12 @@ Mensagens e-mails
 			</div>
 		</div>
 		<hr>
-		<div class="mt-5 row col-12 justify-content-end">
-			<a href="javascript:void()" onclick="location.reload()" class="btn btn-danger col-2 mx-1 d-flex align-items-center justify-content-center">
+		<div class="mt-5 row col-12 justify-content-center">
+			<a href="javascript:void()" onclick="location.reload()" class="btn btn-danger col-3 mx-2 d-flex align-items-center justify-content-center">
 				<i class="mdi mdi-close pr-2"></i> 
 				<span>Cancelar</span>
 			</a>
-			<button type="submit" class="btn btn-success col-2 mx-1 d-flex align-items-center justify-content-center">
+			<button type="submit" class="btn btn-success col-3 mx-2 d-flex align-items-center justify-content-center">
 				<i class="mdi mdi-check pr-2"></i> 
 				<span>Salvar</span>
 			</button>

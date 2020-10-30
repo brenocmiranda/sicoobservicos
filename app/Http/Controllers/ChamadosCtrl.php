@@ -5,11 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use App\Notifications\ChamadosReaberturaAdmin;
-use App\Notifications\ChamadosReaberturaCliente;
-use App\Notifications\ChamadosCliente;
-use App\Notifications\ChamadosAdmin;
-use App\Notifications\ChamadosAlteracaoCliente;
+use App\Notifications\SolicitacaoChamadosCliente;
+use App\Notifications\SolicitacaoChamadosAdmin;
+use App\Notifications\SolicitacaoChamadosReAdmin;
+use App\Notifications\SolicitacaoChamadosReCliente;
 use App\Http\Requests\FuncoesRqt;
 use App\Http\Requests\MessageRqt;
 use App\Models\Arquivos;
@@ -81,8 +80,8 @@ class ChamadosCtrl extends Controller
             }
         }
 
-        Auth::user()->notify(new ChamadosCliente($create));  
-        $this->email->notify(new ChamadosAdmin($create));
+        Auth::user()->notify(new SolicitacaoChamadosCliente($create));  
+        $this->email->notify(new SolicitacaoChamadosAdmin($create));
 
         Atividades::create([
             'nome' => 'Abertura de chamado',
@@ -109,7 +108,7 @@ class ChamadosCtrl extends Controller
             'descricao' => (isset($request->descricao) ? $request->descricao : "Chamado finalizado por ".Auth::user()->RelationAssociado->nome.".")
         ]);
         $create = Chamados::find($id);
-        $status->RelationUsuario->notify(new ChamadosAlteracaoCliente($status));  
+        $status->RelationUsuario->notify(new SolicitacaoChamadosCliente($status));  
         Atividades::create([
             'nome' => 'Encerramento de chamado',
             'descricao' => 'Você efetuou o encerramento do chamado, '.$create->assunto.'.',
@@ -128,8 +127,8 @@ class ChamadosCtrl extends Controller
             'descricao' =>  "Chamado reaberto pelo colaborador: ".Auth::user()->RelationAssociado->nome."."
         ]);
         $create = Chamados::find($id);
-        Auth::user()->notify(new ChamadosReaberturaCliente($create));  
-        $this->email->notify(new ChamadosReaberturaAdmin($create));
+        Auth::user()->notify(new SolicitacaoChamadosReCliente($create));  
+        $this->email->notify(new SolicitacaoChamadosReAdmin($create));
         Atividades::create([
             'nome' => 'Reabertura de chamado',
             'descricao' => 'Você efetuou a reabertura do chamado, '.$create->assunto.'.',
@@ -217,7 +216,8 @@ class ChamadosCtrl extends Controller
             'usr_id_usuarios' => Auth::id()
         ]);
         $create = Chamados::find($id);
-        $create->RelationUsuario->notify(new ChamadosAlteracaoCliente($create));  
+        $create->RelationUsuario->notify(new SolicitacaoChamadosCliente($create));
+
         Atividades::create([
             'nome' => 'Encerramento de chamado',
             'descricao' => 'Você efetuou o encerramento do chamado, '.$create->assunto.'.',
@@ -250,11 +250,7 @@ class ChamadosCtrl extends Controller
             'usr_id_usuarios' => Auth::id()
         ]);
         
-        if($chamado->RelationStatus->first()->finish == 1){
-            $chamado->RelationUsuario->notify(new ChamadosCliente($chamado));  
-        }else{
-            $chamado->RelationUsuario->notify(new ChamadosAlteracaoCliente($chamado));  
-        }
+        $chamado->RelationUsuario->notify(new SolicitacaoChamadosCliente($chamado));  
 
         Atividades::create([
             'nome' => 'Alteração de estado do chamado',

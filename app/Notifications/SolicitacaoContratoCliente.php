@@ -6,13 +6,14 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use App\Models\CogEmailsMaterial;
 
-class SolicitacaoMaterialCliente extends Notification implements ShouldQueue
+use App\Models\CogEmailsContrato;
+
+class SolicitacaoContratoCliente extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    private $material;
+    private $contrato;
     private $configuracoes;
 
     /**
@@ -22,8 +23,8 @@ class SolicitacaoMaterialCliente extends Notification implements ShouldQueue
      */
     public function __construct($create)
     {
-       $this->material = $create;
-       $this->configuracoes = CogEmailsMaterial::first();
+       $this->contrato = $create;
+       $this->configuracoes = CogEmailsContrato::first();
     }
 
     /**
@@ -44,19 +45,24 @@ class SolicitacaoMaterialCliente extends Notification implements ShouldQueue
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable)
-    {   
-        if($this->material->status == 0) {
-            // Abertura de solicitação
+    {
+        if($this->contrato->RelationStatus->last()->status == 'aberto') {
             return (new MailMessage)
                     ->from('servicos@sicoobsertaominas.com.br')
-                    ->subject($this->configuracoes->assunto_abertura_material)
-                    ->view('system.emails.materialCliente', ['material' => $this->material, 'configuracoes' => $this->configuracoes]);
-        }else{
-            // Fechamento de solicitação
+                    ->subject($this->configuracoes->assunto_abertura_contrato)
+                    ->view('system.emails.contratoCliente', ['contrato' => $this->contrato, 'configuracoes' => $this->configuracoes]);
+
+        }elseif($this->contrato->RelationStatus->last()->status == 'entregue') {
             return (new MailMessage)
                     ->from('servicos@sicoobsertaominas.com.br')
-                    ->subject($this->configuracoes->assunto_fechamento_material)
-                    ->view('system.emails.materialCliente', ['material' => $this->material, 'configuracoes' => $this->configuracoes]);
+                    ->subject($this->configuracoes->assunto_fechamento_contrato)
+                    ->view('system.emails.contratoCliente', ['contrato' => $this->contrato, 'configuracoes' => $this->configuracoes]);
+
+        }elseif($this->contrato->RelationStatus->last()->status == 'devolvido') {
+            return (new MailMessage)
+                    ->from('servicos@sicoobsertaominas.com.br')
+                    ->subject('Contrato devolvido com sucesso :)')
+                    ->view('system.emails.contratoCliente', ['contrato' => $this->contrato, 'configuracoes' => $this->configuracoes]);
         }
     }
 

@@ -8,13 +8,13 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use App\Models\CogEmailsChamado;
 
-class ChamadosReaberturaAdmin extends Notification
+class SolicitacaoChamadosAdmin extends Notification implements ShouldQueue
 {
     use Queueable;
 
     private $chamado;
     private $configuracoes;
-
+    
     /**
      * Create a new notification instance.
      *
@@ -46,9 +46,9 @@ class ChamadosReaberturaAdmin extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->from('breno.miranda@sicoobsertaominas.com.br')
-                    ->subject('Reabertura de chamado')
-                    ->view('system.emails.chamadoReaberturaAdmin', ['chamado' => $this->chamado, 'configuracoes' => $this->configuracoes]);
+                    ->from('servicos@sicoobsertaominas.com.br')
+                    ->subject('Novo chamado aberto #'.$this->chamado->id)
+                    ->view('system.emails.chamadoAdmin', ['chamado' => $this->chamado, 'configuracoes' => $this->configuracoes]);
     }
 
     /**

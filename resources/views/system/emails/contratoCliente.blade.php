@@ -24,20 +24,19 @@
 										<div><span>
 											<p style="margin-top:0px;margin-bottom:10px">
 											</p>
-											<p>
-												<b>Obaaa, temos novidades para você!</b>
-											</p>
-											<label>Seu chamado teve uma atualização no estado, sendo classificado como: <b>{{$chamado->RelationStatus->first()->nome}}.</b> Detalhes do chamado:</label>
-											<br>
+											@if($this->contrato->RelationStatus->last()->status == 'aberto')
+												{!! $configuracoes->abertura_solicitacao_contrato !!}
+
+											@elseif($this->contrato->RelationStatus->last()->status == 'entregue')
+												{!! $configuracoes->fechamento_solicitacao_contrato !!}
+
+											@elseif($this->contrato->RelationStatus->last()->status == 'devolvido')
+												<p> Ebaaaa! Acabamos de receber a devolução do seu contrato de crédito, esperamos ter te ajudado.</p>
+												<p> Estamos a disposição!</p>
+											@endif
 											<p style="text-align:justify">
-												<ul>
-													<li><b>Fonte:</b> {{$chamado->RelationFontes->nome}}</li>
-													<li><b>Tipo:</b> {{$chamado->RelationTipos->nome}}</li>
-													<li><b>Assunto:</b> {{$chamado->assunto}}</li>
-													<li><b>Descrição:</b> {{$chamado->descricao}}</li>
-												</ul>
 												<div>
-													<label><a href="{{route('detalhes.chamados', $chamado->id)}}"><b>Saiba mais informações esse chamado.</b></a></label>
+													<label><a href="{{route('exibir.solicitacoes.materiais')}}"><b>Veja todas suas solicitações de contrato.</b></a></label>
 												</div>
 											</p>
 											<p style="margin-top:10px;margin-bottom:10px"><span style="color:rgb(0,0,0)"><span></span></span></p>

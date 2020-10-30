@@ -27,14 +27,14 @@ Detalhes do bem
                   <div class="card-body">
                     <div class="panel panel-default">
                         <div class="panel-wrapper collapse in">
-                            <div id="owl-demo" class="owl-carousel owl-theme">
-                              <div class="item active"> 
+                            <div id="owl-demo" class="owl-carousel owl-theme zoom-gallery">
+                              <a class="item active" href="{{asset('storage/app').'/'.$bens->RelationImagemPrincipal->endereco}}" data-effect="mfp-zoom-in"> 
                                 <img src="{{asset('storage/app').'/'.$bens->RelationImagemPrincipal->endereco}}" alt="Imagem Principal" class="rounded" style="height: 400px">
-                              </div>
+                              </a>
                               @foreach($bens->RelationImagem as $imagem)
-                              <div class="item"> 
+                              <a class="item" href="{{asset('storage/app').'/'.$imagem->endereco}}" data-effect="mfp-zoom-in"> 
                                 <img src="{{asset('storage/app').'/'.$imagem->endereco}}" class="rounded" style="height: 400px">
-                              </div>
+                              </a>
                               @endforeach
                               </div>
                         </div>

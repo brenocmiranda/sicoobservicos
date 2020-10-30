@@ -28,10 +28,24 @@
 												{!! $configuracoes->abertura_chamado !!}
 											@elseif($chamado->RelationStatus->first()->finish == 1)
 												{!! $configuracoes->fechamento_chamado !!}
+											@else
+											<p>
+												<b>Obaaa, temos novidades para você!</b>
+											</p>
+											<label>Seu chamado teve uma atualização no estado, sendo classificado como: <b>{{$chamado->RelationStatus->first()->nome}}.</b> Detalhes do chamado:</label>
+											<br>
+											<p style="text-align:justify">
+												<ul>
+													<li><b>Fonte:</b> {{$chamado->RelationFontes->nome}}</li>
+													<li><b>Tipo:</b> {{$chamado->RelationTipos->nome}}</li>
+													<li><b>Assunto:</b> {{$chamado->assunto}}</li>
+													<li><b>Descrição:</b> {{$chamado->descricao}}</li>
+												</ul>
+											</p>
 											@endif
 											<p style="text-align:justify">
 												<div>
-													<label><a href="{{route('exibir.chamados')}}"><b>Acesse seus chamados em aberto.</b></a></label>
+													<label><a href="{{route('exibir.chamados')}}"><b>Veja todos seus chamados.</b></a></label>
 												</div>
 											</p>
 											<p style="margin-top:10px;margin-bottom:10px"><span style="color:rgb(0,0,0)"><span></span></span></p>

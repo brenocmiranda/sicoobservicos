@@ -8,7 +8,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use App\Models\CogEmailsChamado;
 
-class ChamadosReaberturaCliente extends Notification implements ShouldQueue
+class SolicitacaoChamadosReCliente extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -46,9 +46,9 @@ class ChamadosReaberturaCliente extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->from('breno.miranda@sicoobsertaominas.com.br')
+                    ->from('servicos@sicoobsertaominas.com.br')
                     ->subject('Reabertura de chamado')
-                    ->view('system.emails.chamadoReaberturaCliente', ['chamado' => $this->chamado, 'configuracoes' => $this->configuracoes]);
+                    ->view('system.emails.chamadoReCliente', ['chamado' => $this->chamado, 'configuracoes' => $this->configuracoes]);
     }
 
     /**

@@ -7,11 +7,13 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class ChamadosAlteracaoCliente extends Notification implements ShouldQueue
+use App\Models\CogEmailsContrato;
+
+class SolicitacaoContratoAdmin extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    private $chamado;
+    private $contrato;
     private $configuracoes;
 
     /**
@@ -19,9 +21,10 @@ class ChamadosAlteracaoCliente extends Notification implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($chamado)
+    public function __construct($create)
     {
-        $this->chamado = $chamado;
+       $this->contrato = $create;
+       $this->configuracoes = CogEmailsContrato::first();
     }
 
     /**
@@ -44,9 +47,9 @@ class ChamadosAlteracaoCliente extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->from('breno.miranda@sicoobsertaominas.com.br')
-                    ->subject('Temos novidades no seu chamado =)')
-                    ->view('system.emails.chamadoAlteracaoCliente', ['chamado' => $this->chamado]);
+                ->from('servicos@sicoobsertaominas.com.br')
+                ->subject('Nova solicitação de contrato =)')
+                ->view('system.emails.contratoAdmin', ['contrato' => $this->contrato, 'configuracoes' => $this->configuracoes]);        
     }
 
     /**

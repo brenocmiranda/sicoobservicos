@@ -5,16 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use App\Notifications\SolicitacaoContratoAdmin;
+use App\Notifications\SolicitacaoContratoCliente;
 use App\Models\Solicitacoes;
 use App\Models\SolicitacoesStatus;
 use App\Models\Contratos;
 use App\Models\ProdutosCred;
 use App\Models\Modalidades;
 use App\Models\Atividades;
+use App\Models\CogEmailsContrato;
 
 class SolicitacoesCtrl extends Controller
 {
 	public function __construct(){
+		$this->email = CogEmailsContrato::first();
 		$this->middleware('auth');
 	}
 
@@ -29,7 +33,7 @@ class SolicitacoesCtrl extends Controller
 
 	// Efetuando a solicitação
 	public function Solicitar(Request $request){
-		$solicitacao = Solicitacoes::create([
+		$create = Solicitacoes::create([
 			'usr_id_usuario' => Auth::id(),
 			'cre_id_contratos' => $request->contrato,
 			'observacoes' => $request->observacoes
@@ -37,12 +41,15 @@ class SolicitacoesCtrl extends Controller
 		SolicitacoesStatus::create([
 			'status' => 'aberto',
 			'usr_id_usuario_alteracao' => Auth::id(),
-			'cre_id_solicitacoes' => $solicitacao->id
+			'cre_id_solicitacoes' => $create->id
 		]);
+
+		Auth::user()->notify(new SolicitacaoContratoCliente($create));  
+        $this->email->notify(new SolicitacaoContratoAdmin($create));
 
 		Atividades::create([
 			'nome' => 'Nova solicitação de contrato de crédito',
-			'descricao' => 'Você efetuou uma solicitação do contrato, '.$solicitacao->RelationContratos->num_contrato.'.',
+			'descricao' => 'Você efetuou uma solicitação do contrato, '.$create->RelationContratos->num_contrato.'.',
 			'icone' => 'mdi-plus',
 			'url' => route('exibir.solicitacoes.credito'),
 			'id_usuario' => Auth::id()
@@ -85,6 +92,9 @@ class SolicitacoesCtrl extends Controller
 			'usr_id_usuario_alteracao' => Auth::id(),
 			'cre_id_solicitacoes' => $request->id
 		]);
+
+		$solicitacao = Solicitacoes::find($request->id);
+		$solicitacao->RelationUsuarios->notify(new SolicitacaoContratoCliente($solicitacao));  
 		return response()->json(['success' => true]);
 	}
 
