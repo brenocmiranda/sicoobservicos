@@ -24,11 +24,15 @@ class SolicitacoesCtrl extends Controller
 
     // Listando todos produtos
 	public function Exibir(){
-		$dados = Solicitacoes::orderBy('created_at', 'DESC')->get();
-		$contratos = Contratos::all();
-		$produtos = ProdutosCred::where('status', 1)->orderBy('nome', 'ASC')->get(); 
-		$modalidades = Modalidades::where('status', 1)->orderBy('nome', 'ASC')->get();
-		return view('credito.solicitacoes.exibir')->with('dados', $dados)->with('contratos', $contratos)->with('produtos', $produtos)->with('modalidades', $modalidades);
+		if(Auth::user()->RelationFuncao->ver_credito == 1 || Auth::user()->RelationFuncao->gerenciar_credito == 1){
+			$dados = Solicitacoes::orderBy('created_at', 'DESC')->get();
+			$contratos = Contratos::all();
+			$produtos = ProdutosCred::where('status', 1)->orderBy('nome', 'ASC')->get(); 
+			$modalidades = Modalidades::where('status', 1)->orderBy('nome', 'ASC')->get();
+			return view('credito.solicitacoes.exibir')->with('dados', $dados)->with('contratos', $contratos)->with('produtos', $produtos)->with('modalidades', $modalidades);
+		}else{
+			return redirect(route('403'));
+		}
 	}
 
 	// Efetuando a solicitação
@@ -63,7 +67,7 @@ class SolicitacoesCtrl extends Controller
         return view('credito.solicitacoes.relatorio')->with('requisicao', $dados);
     }
 
-	// Imprimir a solicitação
+	// Remover a solicitação
 	public function Remover($id){
 		$dados = Solicitacoes::find($id);
 		Atividades::create([
@@ -80,22 +84,25 @@ class SolicitacoesCtrl extends Controller
 
 	// Alteração de status
 	public function Alterar(Request $request){
-		Atividades::create([
-			'nome' => 'Alteração de estado de solicitação',
-			'descricao' => 'Você alterou o status da solicitação de nº '.$request->id.'.',
-			'icone' => 'mdi-rotate-3d',
-			'url' => route('exibir.setores.administrativo'),
-			'id_usuario' => Auth::id()
-		]);
-		SolicitacoesStatus::create([
-			'status' => $request->status,
-			'usr_id_usuario_alteracao' => Auth::id(),
-			'cre_id_solicitacoes' => $request->id
-		]);
-
-		$solicitacao = Solicitacoes::find($request->id);
-		$solicitacao->RelationUsuarios->notify(new SolicitacaoContratoCliente($solicitacao));  
-		return response()->json(['success' => true]);
+		if(Auth::user()->RelationFuncao->gerenciar_credito == 1){
+			Atividades::create([
+				'nome' => 'Alteração de estado de solicitação',
+				'descricao' => 'Você alterou o status da solicitação de nº '.$request->id.'.',
+				'icone' => 'mdi-rotate-3d',
+				'url' => route('exibir.setores.administrativo'),
+				'id_usuario' => Auth::id()
+			]);
+			SolicitacoesStatus::create([
+				'status' => $request->status,
+				'usr_id_usuario_alteracao' => Auth::id(),
+				'cre_id_solicitacoes' => $request->id
+			]);
+			$solicitacao = Solicitacoes::find($request->id);
+			$solicitacao->RelationUsuarios->notify(new SolicitacaoContratoCliente($solicitacao));  
+			return response()->json(['success' => true]);
+		}else{
+			return redirect(route('403'));
+		}
 	}
 
 	// Retornado detalhes do contrato

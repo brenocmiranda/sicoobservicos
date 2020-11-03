@@ -22,12 +22,14 @@ Finalidades
 		<div class="card-body">
 			<div class="h-100 row col">
 				<div class="col-lg-12 position-absolute">
+					@if(Auth::user()->RelationFuncao->gerenciar_credito == 1)
 					<div class="row mx-auto">
 						<button class="btn btn-primary btn-outline ml-auto" id="adicionar" name="adicionar" title="Adicionar nova finalidade" data-toggle="modal" data-target="#modal-adicionar" style="z-index: 10">
 							<i class="m-0 pr-1 mdi mdi-plus"></i> 
 							<span>Nova finalidade</span> 
 						</button>
 					</div>
+					@endif
 				</div>
 			</div>
 			<div class="col-12 mb-3 mx-3">

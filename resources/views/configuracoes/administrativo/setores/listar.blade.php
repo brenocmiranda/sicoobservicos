@@ -22,12 +22,14 @@ Setores
 		<div class="card-body">
 			<div class="h-100 row col">
 				<div class="col-lg-12 position-absolute">
+					@if(Auth::user()->RelationFuncao->gerenciar_configuracoes == 1)
 					<div class="d-flex justify-content-end">
 						<button class="btn btn-primary btn-outline d-flex align-items-center" id="adicionar" name="adicionar" title="Adicionar novo setor" data-toggle="modal" data-target="#modal-adicionar" style="z-index: 10">
 							<i class="m-0 pr-1 mdi mdi-plus"></i> 
 							<span>Novo setor</span> 
 						</button>
 					</div>
+					@endif
 				</div>
 			</div>
 

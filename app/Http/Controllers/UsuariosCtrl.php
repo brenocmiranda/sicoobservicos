@@ -32,133 +32,191 @@ class UsuariosCtrl extends Controller
 	#-------------------------------------------------------------------
 	// Listando todos usuários
 	public function Exibir(){
-		$associados = Associados::where('funcionario', 1)->orderBy('nome', 'asc')->get();
-		$associadosTodos = Associados::where('funcionario', 1)->orderBy('nome', 'asc')->get();
-		foreach ($associados as $key => $value) {
-			$dados = Usuarios::where('cli_id_associado', $value->id)->first();
-			if(isset($dados)){
-				unset($associados[$key]);
+		if(Auth::user()->RelationFuncao->ver_configuracoes == 1 || Auth::user()->RelationFuncao->gerenciar_configuracoes == 1){
+			$associados = Associados::where('funcionario', 1)->orderBy('nome', 'asc')->get();
+			$associadosTodos = Associados::where('funcionario', 1)->orderBy('nome', 'asc')->get();
+			foreach ($associados as $key => $value) {
+				$dados = Usuarios::where('cli_id_associado', $value->id)->first();
+				if(isset($dados)){
+					unset($associados[$key]);
+				}
 			}
+			$setores = Setores::where('status', 1)->orderBy('nome', 'asc')->get();
+			$funcoes = Funcoes::where('status', 1)->orderBy('nome', 'asc')->get();
+			$instituicoes = Instituicoes::where('status', 1)->orderBy('nome', 'asc')->get();
+			$unidades = Unidades::where('status', 1)->orderBy('nome', 'asc')->get();
+			return view('configuracoes.administrativo.usuarios.listar')->with('associados', $associados)->with('associadosTodos', $associadosTodos)->with('setores', $setores)->with('funcoes', $funcoes)->with('instituicoes', $instituicoes)->with('unidades', $unidades);
+		}else{
+			return redirect(route('403'));
 		}
-		$setores = Setores::where('status', 1)->orderBy('nome', 'asc')->get();
-		$funcoes = Funcoes::where('status', 1)->orderBy('nome', 'asc')->get();
-		$instituicoes = Instituicoes::where('status', 1)->orderBy('nome', 'asc')->get();
-		$unidades = Unidades::where('status', 1)->orderBy('nome', 'asc')->get();
-		return view('configuracoes.administrativo.usuarios.listar')->with('associados', $associados)->with('associadosTodos', $associadosTodos)->with('setores', $setores)->with('funcoes', $funcoes)->with('instituicoes', $instituicoes)->with('unidades', $unidades);
 	}
 	public function Datatables(){
-		return datatables()->of(Usuarios::where('id', '!=', Auth::id())->get())
-            ->editColumn('image', function(Usuarios $dados){ 
-                return '<div class="text-center"><img class="img-circle" width="36" height="36" src="'.($dados->id_imagem != null ? asset('storage/app/'.$dados->RelationImagem->endereco) : asset('public/img/user.png'))."?".rand().'"></div>';
-            })
-            ->editColumn('funcao', function(Usuarios $dados){ 
-                return $dados->RelationFuncao->nome;
-            })
-            ->editColumn('nome', function(Usuarios $dados){
-                return '<a href="javascript:void(0)" id="detalhes">'.$dados->RelationAssociado->nome.'</a>';
-            })
-            ->editColumn('status1', function(Usuarios $dados){
-                return '<label class="badge'.($dados->status == 'Ativo' ? " badge-success" : ($dados->status == 'Bloqueado' ? " badge-warning" : " badge-danger")).'">'.($dados->status == 'Ativo' ? "Ativo" : ($dados->status == 'Bloqueado' ? "Bloqueado" : "Desativado")).'</label>';
-            })
-            ->editColumn('acoes', function(Usuarios $dados){ 
-                return ($dados->status == 'Ativo' ? '<button class="btn btn-dark btn-xs btn-rounded mx-1" name="editar" id="editar" title="Editar informações do usuário"><i class="mx-0 mdi mdi-settings"></i></button>
-				<button class="btn btn-dark btn-xs btn-rounded" name="resetar" id="resetar" title="Resetar senha do usuário"><i class="mx-0 mdi mdi-sync"></i></button>
-				<button class="btn btn-dark btn-xs btn-rounded" name="alterar" id="alterar" title="Alterar estado do usuário"><i class="mx-0 mdi mdi-account-switch"></i></button>' : '
-				<button class="btn btn-dark btn-xs btn-rounded mx-1" name="editar" id="editar" title="Editar informações do usuário"><i class="mx-0 mdi mdi-settings"></i></button>
-				<button class="btn btn-dark btn-xs btn-rounded" name="resetar" id="resetar" title="Resetar senha do usuário"><i class="mx-0 mdi mdi-sync"></i></button>
-				<button class="btn btn-dark btn-xs btn-rounded" name="alterar" id="alterar" title="Alterar estado do usuário"><i class="mx-0 mdi mdi-account-switch"></i></button>');
-            })->rawColumns(['image', 'funcao', 'nome', 'status1', 'acoes'])->make(true);
+		if(Auth::user()->RelationFuncao->gerenciar_configuracoes == 1){
+			return datatables()->of(Usuarios::where('id', '!=', Auth::id())->get())
+	            ->editColumn('image', function(Usuarios $dados){ 
+	                return '<div class="text-center"><img class="img-circle" width="36" height="36" src="'.($dados->id_imagem != null ? asset('storage/app/'.$dados->RelationImagem->endereco) : asset('public/img/user.png'))."?".rand().'"></div>';
+	            })
+	            ->editColumn('funcao', function(Usuarios $dados){ 
+	                return $dados->RelationFuncao->nome;
+	            })
+	            ->editColumn('nome', function(Usuarios $dados){
+	                return '<a href="javascript:void(0)" id="detalhes">'.$dados->RelationAssociado->nome.'</a>';
+	            })
+	            ->editColumn('status1', function(Usuarios $dados){
+	                return '<label class="badge'.($dados->status == 'Ativo' ? " badge-success" : ($dados->status == 'Bloqueado' ? " badge-warning" : " badge-danger")).'">'.($dados->status == 'Ativo' ? "Ativo" : ($dados->status == 'Bloqueado' ? "Bloqueado" : "Desativado")).'</label>';
+	            })
+	            ->editColumn('acoes', function(Usuarios $dados){ 
+	                return ($dados->status == 'Ativo' ? '<button class="btn btn-dark btn-xs btn-rounded mx-1" name="editar" id="editar" title="Editar informações do usuário"><i class="mx-0 mdi mdi-settings"></i></button>
+					<button class="btn btn-dark btn-xs btn-rounded" name="resetar" id="resetar" title="Resetar senha do usuário"><i class="mx-0 mdi mdi-sync"></i></button>
+					<button class="btn btn-dark btn-xs btn-rounded" name="alterar" id="alterar" title="Alterar estado do usuário"><i class="mx-0 mdi mdi-account-switch"></i></button>' : '
+					<button class="btn btn-dark btn-xs btn-rounded mx-1" name="editar" id="editar" title="Editar informações do usuário"><i class="mx-0 mdi mdi-settings"></i></button>
+					<button class="btn btn-dark btn-xs btn-rounded" name="resetar" id="resetar" title="Resetar senha do usuário"><i class="mx-0 mdi mdi-sync"></i></button>
+					<button class="btn btn-dark btn-xs btn-rounded" name="alterar" id="alterar" title="Alterar estado do usuário"><i class="mx-0 mdi mdi-account-switch"></i></button>');
+	            })->rawColumns(['image', 'funcao', 'nome', 'status1', 'acoes'])->make(true);
+	    }else{
+	    	return datatables()->of(Usuarios::where('id', '!=', Auth::id())->get())
+	            ->editColumn('image', function(Usuarios $dados){ 
+	                return '<div class="text-center"><img class="img-circle" width="36" height="36" src="'.($dados->id_imagem != null ? asset('storage/app/'.$dados->RelationImagem->endereco) : asset('public/img/user.png'))."?".rand().'"></div>';
+	            })
+	            ->editColumn('funcao', function(Usuarios $dados){ 
+	                return $dados->RelationFuncao->nome;
+	            })
+	            ->editColumn('nome', function(Usuarios $dados){
+	                return '<a href="javascript:void(0)" id="detalhes">'.$dados->RelationAssociado->nome.'</a>';
+	            })
+	            ->editColumn('status1', function(Usuarios $dados){
+	                return '<label class="badge'.($dados->status == 'Ativo' ? " badge-success" : ($dados->status == 'Bloqueado' ? " badge-warning" : " badge-danger")).'">'.($dados->status == 'Ativo' ? "Ativo" : ($dados->status == 'Bloqueado' ? "Bloqueado" : "Desativado")).'</label>';
+	            })
+	            ->editColumn('acoes', function(Usuarios $dados){ 
+	                return '';
+	            })->rawColumns(['image', 'funcao', 'nome', 'status1', 'acoes'])->make(true);
+	    }
 	}
 	// Adicionando novo usuário
 	public function Adicionar(UsuariosRqt $request){
-		$create = Usuarios::create([
-			'login' => $request->login,
-			'password' => Hash::make('Sicoob4133'), 
-			'email' => $request->email,
-			'telefone' => str_replace("(", "+55", str_replace(") ", "", str_replace("-", "", $request->telefone))),
-			'status' => $request->status, 
-			'usr_id_setor' => $request->usr_id_setor, 
-			'usr_id_funcao' => $request->usr_id_funcao, 
-			'cli_id_associado' => $request->cli_id_associado, 
-			'usr_id_instituicao' => $request->usr_id_instituicao, 
-			'usr_id_unidade' => $request->usr_id_unidade
-		]);
-		// Importando imagem
-		if(is_dir(getcwd().'/storage/app/usuarios')){
-            $nameFile = uniqid(date('HisYmd')).'.png';
-            copy(getcwd().'/public/img/user.png', getcwd().'/storage/app/usuarios/'.$nameFile);
-            $caminho = 'usuarios/'.$nameFile;
-            $imagem = Imagens::create(['endereco' =>  $caminho, 'tipo' => 'usuarios']);
-            Usuarios::find($create->id)->update(['id_imagem' => $imagem->id]);
-        }else{
-            mkdir(getcwd().'/storage/app/usuarios', 0755);
-            $nameFile = uniqid(date('HisYmd')).'.png';
-            copy(getcwd().'/public/img/user.png', getcwd().'/storage/app/usuarios/'.$nameFile);
-            $caminho = 'usuarios/'.$nameFile;
-            $imagem = Imagens::create(['endereco' =>  $caminho, 'tipo' => 'usuarios']);
-            Usuarios::find($create->id)->update(['id_imagem' => $imagem->id]);
-        } 
-        $create->notify(new Cadastro($create));
-        Atividades::create([
-				'nome' => 'Cadastro de novo usuário',
-				'descricao' => 'Você cadastrou um novo usuário com login: '.$create->login.'.',
-				'icone' => 'mdi-plus',
-				'url' => route('exibir.usuarios.administrativo'),
-				'id_usuario' => Auth::id()
+		if(Auth::user()->RelationFuncao->gerenciar_configuracoes == 1){
+			$create = Usuarios::create([
+				'login' => $request->login,
+				'password' => Hash::make('Sicoob4133'), 
+				'email' => $request->email,
+				'telefone' => str_replace("(", "+55", str_replace(") ", "", str_replace("-", "", $request->telefone))),
+				'status' => $request->status, 
+				'usr_id_setor' => $request->usr_id_setor, 
+				'usr_id_funcao' => $request->usr_id_funcao, 
+				'cli_id_associado' => $request->cli_id_associado, 
+				'usr_id_instituicao' => $request->usr_id_instituicao, 
+				'usr_id_unidade' => $request->usr_id_unidade
 			]);
-		return response()->json(['success' => true]);
+			
+			if($create->RelationAssociado->sexo == "M"){
+				// Importando imagem masculina
+				if(is_dir(getcwd().'/storage/app/usuarios')){
+			        $nameFile = uniqid(date('HisYmd')).'.png';
+			        copy(getcwd().'/public/img/userm.png', getcwd().'/storage/app/usuarios/'.$nameFile);
+			        $caminho = 'usuarios/'.$nameFile;
+			        $imagem = Imagens::create(['endereco' =>  $caminho, 'tipo' => 'usuarios']);
+			        Usuarios::find($create->id)->update(['id_imagem' => $imagem->id]);
+			    }else{
+			        mkdir(getcwd().'/storage/app/usuarios', 0755);
+			        $nameFile = uniqid(date('HisYmd')).'.png';
+			        copy(getcwd().'/public/img/userm.png', getcwd().'/storage/app/usuarios/'.$nameFile);
+			        $caminho = 'usuarios/'.$nameFile;
+			        $imagem = Imagens::create(['endereco' =>  $caminho, 'tipo' => 'usuarios']);
+			        Usuarios::find($create->id)->update(['id_imagem' => $imagem->id]);
+			    }
+			}else{
+				// Importando imagem feminina
+				if(is_dir(getcwd().'/storage/app/usuarios')){
+			        $nameFile = uniqid(date('HisYmd')).'.png';
+			        copy(getcwd().'/public/img/userf.png', getcwd().'/storage/app/usuarios/'.$nameFile);
+			        $caminho = 'usuarios/'.$nameFile;
+			        $imagem = Imagens::create(['endereco' =>  $caminho, 'tipo' => 'usuarios']);
+			        Usuarios::find($create->id)->update(['id_imagem' => $imagem->id]);
+			    }else{
+			        mkdir(getcwd().'/storage/app/usuarios', 0755);
+			        $nameFile = uniqid(date('HisYmd')).'.png';
+			        copy(getcwd().'/public/img/userf.png', getcwd().'/storage/app/usuarios/'.$nameFile);
+			        $caminho = 'usuarios/'.$nameFile;
+			        $imagem = Imagens::create(['endereco' =>  $caminho, 'tipo' => 'usuarios']);
+			        Usuarios::find($create->id)->update(['id_imagem' => $imagem->id]);
+			    }
+			}
+	        $create->notify(new Cadastro($create));
+	        Atividades::create([
+					'nome' => 'Cadastro de novo usuário',
+					'descricao' => 'Você cadastrou um novo usuário com login: '.$create->login.'.',
+					'icone' => 'mdi-plus',
+					'url' => route('exibir.usuarios.administrativo'),
+					'id_usuario' => Auth::id()
+				]);
+			return response()->json(['success' => true]);
+		}else{
+			return redirect(route('403'));
+		}
 	}
 	// Editando informações do usuário
 	public function Editar(UsuariosRqt $request, $id){
-		Usuarios::find($id)->update([
-			'login' => $request->login, 
-			'email' => $request->email, 
-			'telefone' => str_replace("(", "+55", str_replace(") ", "", str_replace("-", "", $request->telefone))),
-			'status' => $request->status, 
-			'usr_id_setor' => $request->usr_id_setor, 
-			'usr_id_funcao' => $request->usr_id_funcao, 
-			'usr_id_instituicao' => $request->usr_id_instituicao, 
-			'usr_id_unidade' => $request->usr_id_unidade
-		]);
-		$create = Usuarios::find($id);
-		Atividades::create([
-				'nome' => 'Edição de informações',
-				'descricao' => 'Você modificou as informações do usuário '.$create->login.'.',
-				'icone' => 'mdi-account-edit',
-				'url' => route('exibir.usuarios.administrativo'),
-				'id_usuario' => Auth::id()
+		if(Auth::user()->RelationFuncao->gerenciar_configuracoes == 1){
+			Usuarios::find($id)->update([
+				'login' => $request->login, 
+				'email' => $request->email, 
+				'telefone' => str_replace("(", "+55", str_replace(") ", "", str_replace("-", "", $request->telefone))),
+				'status' => $request->status, 
+				'usr_id_setor' => $request->usr_id_setor, 
+				'usr_id_funcao' => $request->usr_id_funcao, 
+				'usr_id_instituicao' => $request->usr_id_instituicao, 
+				'usr_id_unidade' => $request->usr_id_unidade
 			]);
-		return response()->json(['success' => true]);
+			$create = Usuarios::find($id);
+			Atividades::create([
+					'nome' => 'Edição de informações',
+					'descricao' => 'Você modificou as informações do usuário '.$create->login.'.',
+					'icone' => 'mdi-account-edit',
+					'url' => route('exibir.usuarios.administrativo'),
+					'id_usuario' => Auth::id()
+				]);
+			return response()->json(['success' => true]);
+		}else{
+			return redirect(route('403'));
+		}
 	}
 	// Alterar status do usuário
 	public function Alterar(Request $request, $id){
-		Usuarios::find($id)->update(['status' => $request->status]);
-		$create = Usuarios::find($id);
-		Atividades::create([
-				'nome' => 'Alteração de estado',
-				'descricao' => 'Você alterou o status do usuário '.$create->login.'.',
-				'icone' => 'mdi-account-switch',
-				'url' => route('exibir.usuarios.administrativo'),
-				'id_usuario' => Auth::id()
-			]);
-		return response()->json(['success' => true]);
+		if(Auth::user()->RelationFuncao->gerenciar_configuracoes == 1){
+			Usuarios::find($id)->update(['status' => $request->status]);
+			$create = Usuarios::find($id);
+			Atividades::create([
+					'nome' => 'Alteração de estado',
+					'descricao' => 'Você alterou o status do usuário '.$create->login.'.',
+					'icone' => 'mdi-account-switch',
+					'url' => route('exibir.usuarios.administrativo'),
+					'id_usuario' => Auth::id()
+				]);
+			return response()->json(['success' => true]);
+		}else{
+			return redirect(route('403'));
+		}
 	}
 	// Resetar a senha do usuário
 	public function Resetar($id){
-		Usuarios::find($id)->update([
-			'password' => Hash::make('Sicoob4133'),
-			'email_verified_at' => null
-		]);
-		$user = Usuarios::find($id);
-		$user->notify(new ResetPassword($user));
-		Atividades::create([
-			'nome' => 'Redefinação de senha',
-			'descricao' => 'Você redefiniu a senha do usuário '.$user->login.'.',
-			'icone' => 'mdi-sync',
-			'url' => 'javascript:void(0)',
-			'id_usuario' => Auth::id()
-		]);
-		return response()->json(['success' => true]);
+		if(Auth::user()->RelationFuncao->gerenciar_configuracoes == 1){
+			Usuarios::find($id)->update([
+				'password' => Hash::make('Sicoob4133'),
+				'email_verified_at' => null
+			]);
+			$user = Usuarios::find($id);
+			$user->notify(new ResetPassword($user));
+			Atividades::create([
+				'nome' => 'Redefinação de senha',
+				'descricao' => 'Você redefiniu a senha do usuário '.$user->login.'.',
+				'icone' => 'mdi-sync',
+				'url' => 'javascript:void(0)',
+				'id_usuario' => Auth::id()
+			]);
+			return response()->json(['success' => true]);
+		}else{
+			return redirect(route('403'));
+		}
 	}
 	// Detallhes do usuário
 	public function Detalhes($id){
@@ -256,6 +314,10 @@ class UsuariosCtrl extends Controller
 	// Primeiro acesso
 	public function PrimeiroAcesso(){
 		return view('system.new');
+	}
+	// Permissão de acesso
+	public function Permission403(){
+		return view('system.permission');
 	}
     public function SalvarPrimeiroAcesso(Request $request){
 		$dados = Usuarios::find(Auth::user()->id)->update([

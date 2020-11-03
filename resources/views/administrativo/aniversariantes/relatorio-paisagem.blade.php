@@ -16,25 +16,25 @@ Aniversariantes de {{(
 
 @section('header-support')
  <style type="text/css">
-  	@media print {
-  		@import url('https://fonts.googleapis.com/css2?family=Asap&display=swap');
+ 	@import url('https://fonts.googleapis.com/css2?family=Asap&display=swap');
 
+  	@media print {
 	  	* {
-	  	font-family: 'Asap';
-		background:transparent !important;
-		color:black !important;
-		text-shadow:none !important;
-		filter:none !important;
-		-ms-filter:none !important;
-		size: landscape;
-		-webkit-print-color-adjust: exact;
+		  	font-family: 'Asap';
+			background:transparent !important;
+			color:#003641 !important;
+			text-shadow:none !important;
+			filter:none !important;
+			-ms-filter:none !important;
+			size: landscape;
+			-webkit-print-color-adjust: exact;
 		}
 
 		body {
 		margin:0;
 		padding:0;
 		line-height: 1.4em;
-		color: black !important;
+		color: #003641 !important;
 		}
 
 		body .page{
@@ -54,7 +54,12 @@ Aniversariantes de {{(
 		margin:0;
 		padding:0;
 		line-height: 1.4em;
-		color: black !important;
+		color: #003641 !important;
+		font-family: 'Asap';
+	}
+
+	h2, h1{
+		font-family: 'Asap';
 	}
   </style>
 @endsection

@@ -52,12 +52,14 @@ Solicitações de materiais
 												<small><b>Data da solicitação:</b> {{$pendencia->created_at->format('d/m/Y H:i')}}</small>
 											</div>
 										</div>
+										@if(Auth::user()->RelationFuncao->gerenciar_administrativo == 1)
 										<div class="col-2 m-auto row justify-content-center">
 											<a href="javascript:void(0)" class="btn btn-success btn-outline btn-alterar" data="{{route('aprovar.solicitacoes.administrativo', $pendencia->id)}}">
 												<i class="mdi mdi-check pr-2"></i>
 												<span>Aprovar</span>
 											</a>
 										</div>
+										@endif
 									</div>
 								</li>
 								@endforeach

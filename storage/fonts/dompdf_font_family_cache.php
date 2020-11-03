@@ -78,10 +78,10 @@
     'normal' => $rootDir . '\lib\fonts\DejaVuSerif',
   ),
   'material design icons' => array(
-    'normal' => $fontDir . '/material-design-icons-normal_3589a2b89615fd24bb9d10aa462fb34d',
+    'normal' => $fontDir . '/material-design-icons-normal_e02c7ab4e425d28bfd73da672e3e3935',
   ),
   'glyphicons halflings' => array(
-    'normal' => $fontDir . '/glyphicons-halflings-normal_0cc889c6f41ef238efd6584c89dbc40e',
+    'normal' => $fontDir . '/glyphicons-halflings-normal_b1375feef28f0b684430037fa68ee8c9',
   ),
   'rubik' => array(
     'normal' => $fontDir . '/rubik-normal_bf07aaa1ca18f0c67fbd22e8cb0879a6',
@@ -90,36 +90,36 @@
     'normal' => $fontDir . '/poppins-normal_f108bf8fea64822c353829a2646a50bd',
   ),
   'fontawesome' => array(
-    'normal' => $fontDir . '/fontawesome-normal_f07e29719fccb73634417a38ab2076fb',
+    'normal' => $fontDir . '/fontawesome-normal_9ba088eb0b4f148832f63119ad7fa627',
   ),
   'themify' => array(
-    'normal' => $fontDir . '/themify-normal_b91ec3fb5fc9bfff766521865a1d0ed7',
+    'normal' => $fontDir . '/themify-normal_21c9ffa60af8b2ea86007753f7c9e1d2',
   ),
   'simple-line-icons' => array(
-    'normal' => $fontDir . '/simple-line-icons-normal_3f1d71309ecb57da12ede7ffdfcabd3f',
+    'normal' => $fontDir . '/simple-line-icons-normal_c573a9c317bbc35b353bcc1e36405606',
   ),
   'weathericons' => array(
-    'normal' => $fontDir . '/weathericons-normal_174e7d9c04b30b77f17b9f54d94da0ab',
+    'normal' => $fontDir . '/weathericons-normal_7d922fef129f76ebcbe4ef6b620a25e2',
   ),
   'linea-arrows-10' => array(
-    'normal' => $fontDir . '/linea-arrows-10-normal_284f6c5129a1a2ecde14132f65e27972',
+    'normal' => $fontDir . '/linea-arrows-10-normal_96c5fe0e8fa72bb625c066b5646eee7f',
   ),
   'linea-basic-10' => array(
-    'normal' => $fontDir . '/linea-basic-10-normal_87c67ee6de75006a9b44485f7a7cf17a',
+    'normal' => $fontDir . '/linea-basic-10-normal_0468df04544fad03fa769c14072465aa',
   ),
   'linea-basic-elaboration-10' => array(
-    'normal' => $fontDir . '/linea-basic-elaboration-10-normal_9bd75be2a997d0ed831e06eb6b06510d',
+    'normal' => $fontDir . '/linea-basic-elaboration-10-normal_9550e7309b9f69e703675e8b0bcf8f2f',
   ),
   'linea-ecommerce-10' => array(
-    'normal' => $fontDir . '/linea-ecommerce-10-normal_8219a1eae42938345f2b0d27110d7df3',
+    'normal' => $fontDir . '/linea-ecommerce-10-normal_20af93df8141008db73104336afe2dbd',
   ),
   'linea-music-10' => array(
-    'normal' => $fontDir . '/linea-music-10-normal_4521fc8bafaa88dcb6adeb50e3efc800',
+    'normal' => $fontDir . '/linea-music-10-normal_dc902fc01599da8df1ce216928c45509',
   ),
   'linea-software-10' => array(
-    'normal' => $fontDir . '/linea-software-10-normal_79f414054d7a58fb884e2cd7ed312acb',
+    'normal' => $fontDir . '/linea-software-10-normal_d22a23c4e7c66bde93995bcd9d2b88f9',
   ),
   'linea-weather-10' => array(
-    'normal' => $fontDir . '/linea-weather-10-normal_5b593c21c53fc346c689dcba8b5c1b32',
+    'normal' => $fontDir . '/linea-weather-10-normal_2e8a2116d5a2b24c2aff09ebc73ca541',
   ),
 ) ?>

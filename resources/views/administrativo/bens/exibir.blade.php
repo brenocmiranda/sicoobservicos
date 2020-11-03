@@ -20,6 +20,7 @@ Bens
 	<div class="card">
 		<div class="card-body">
 			<div class="col-12">
+				@if(Auth::user()->RelationFuncao->gerenciar_administrativo == 1)
 				<div class="col-12 row mb-4 mx-auto">
 					@include('layouts.search')
 					<a href="{{route('adicionar.bens.administrativo')}}" class="btn btn-primary btn-outline ml-auto" id="adicionar" name="adicionar" title="Adicionar novo bens da da cooperativa">
@@ -27,6 +28,7 @@ Bens
 						<span>Novo bem</span>
 					</a>
 				</div>
+				@endif
 				<div class="row col-12 mx-auto my-5">
 					<div class="col-12 p-0">
 						@if(isset($bens[0]))

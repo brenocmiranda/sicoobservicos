@@ -22,12 +22,14 @@ Instituições
 		<div class="card-body">
 			<div class="col-12 row mb-4 mx-auto">
 				@include('layouts.search')
+				@if(Auth::user()->RelationFuncao->gerenciar_configuracoes == 1)
 				<div class="col-5 p-0 row mx-auto">
 					<button class="btn btn-primary btn-outline ml-auto" id="adicionar" name="adicionar" title="Adicionar nova instituição" data-toggle="modal" data-target="#modal-adicionar">
 						<i class="m-0 pr-1 mdi mdi-plus"></i> 
 						<span>Nova instituição</span>
 					</button>
 				</div>
+				@endif
 			</div>
 			<ul class="row col-12 m-auto" id="instituicoes">
 				@foreach($instituicoes as $instituicao)

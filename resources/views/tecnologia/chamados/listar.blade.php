@@ -83,7 +83,7 @@ Solicitações de suporte
 														<i class="mdi mdi-comment-processing-outline"></i>
 														<small> Mais informações</small>
 													</a>
-													@if($chamado->RelationStatus->first()->finish != 1)
+													@if($chamado->RelationStatus->first()->finish != 1 && Auth::user()->RelationFuncao->gerenciar_gti == 1)
 													<a class="status btn btn-default btn-outline btn-rounded col-10 mb-2" id="{{$chamado->id}}" onclick="$('#modal-alterar .idChamado').val(this.id);" data-toggle="modal" data-target="#modal-alterar" title="Alterar status">
 														<i class="mdi mdi-cached"></i>
 														<small>	Atualizar status</small>

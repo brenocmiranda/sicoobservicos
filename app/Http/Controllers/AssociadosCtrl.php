@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use Illuminate\Routing\Controller;
 use App\Models\Associados;
+use App\Models\Atividades;
 use PDF;
 
 class AssociadosCtrl extends Controller
@@ -26,17 +28,39 @@ class AssociadosCtrl extends Controller
   # Aniversariantes
   #-------------------------------------------------------------------
   public function ExibirAniversariantes(){
-    return view('administrativo.aniversariantes.exibir');
-  }
-
-  public function GerarAniversariantes(Request $request){
-    if($request->orientacao == 'paisagem'){
-      $result = Associados::where('funcionario', 1)->whereMonth('data_nascimento', $request->mes)->where('id', '<>', 1)->select('nome', 'data_nascimento')->get();
-      return PDF::loadView('administrativo.aniversariantes.relatorio-paisagem', compact('result'))->stream();
+    if(Auth::user()->RelationFuncao->gerenciar_administrativo == 1 || Auth::user()->RelationFuncao->ver_administrativo == 1){
+      return view('administrativo.aniversariantes.exibir');
     }else{
-      $result = Associados::where('funcionario', 1)->whereMonth('data_nascimento', $request->mes)->where('id', '<>', 1)->select('nome', 'data_nascimento')->get();
-      return PDF::loadView('administrativo.aniversariantes.relatorio-retrato', compact('result'))->stream();
+      return redirect(route('403'));
     }
   }
 
+  public function GerarAniversariantes(Request $request){
+    if(Auth::user()->RelationFuncao->gerenciar_administrativo == 1 || Auth::user()->RelationFuncao->ver_administrativo == 1){
+      if($request->orientacao == 'paisagem'){
+        $result = Associados::where('funcionario', 1)->whereMonth('data_nascimento', $request->mes)->where('id', '<>', 1)->select('nome', 'data_nascimento')->orderByRaw('day(data_nascimento) asc')->get();
+        //return PDF::loadView('administrativo.aniversariantes.relatorio-paisagem', compact('result'))->stream();
+        Atividades::create([
+          'nome' => 'Geração de relatório de aniversariantes',
+          'descricao' => 'Você gerou o relatório de aniversariantes do mês '.$request->mes.'.',
+          'icone' => 'mdi-file-document',
+          'url' => route('exibir.aniversariantes.administrativo'),
+          'id_usuario' => Auth::id()
+        ]);
+        return view('administrativo.aniversariantes.relatorio-paisagem')->with('result', $result);
+      }else{
+        $result = Associados::where('funcionario', 1)->whereMonth('data_nascimento', $request->mes)->where('id', '<>', 1)->select('nome', 'data_nascimento')->orderByRaw('day(data_nascimento) asc')->get();
+        Atividades::create([
+          'nome' => 'Geração de relatório de aniversariantes',
+          'descricao' => 'Você gerou o relatório de aniversariantes do mês '.$request->mes.'.',
+          'icone' => 'mdi-file-document',
+          'url' => route('exibir.aniversariantes.administrativo'),
+          'id_usuario' => Auth::id()
+        ]);
+        return view('administrativo.aniversariantes.relatorio-retrato')->with('result', $result);
+      }
+    }else{
+      return redirect(route('403'));
+    }
+  }
 }

@@ -22,12 +22,14 @@ Invetário geral
 		<div class="card-body">
 			<div class="h-100 row col">
 				<div class="col-lg-12 position-absolute">
+					@if(Auth::user()->RelationFuncao->gerenciar_gti == 1)
 					<div class="row mx-auto">
 						<a href="{{route('adicionar.equipamentos')}}" class="btn btn-primary btn-outline ml-auto" id="adicionar" name="adicionar" title="Adicionar novo equipamento" style="z-index: 10">
 							<i class="m-0 pr-1 mdi mdi-plus"></i> 
 							<span>Novo equipamento</span> 
 						</a>
 					</div>
+					@endif
 				</div>
 			</div>
 			<div class="col-12 mb-3 mx-3">
@@ -90,7 +92,7 @@ Invetário geral
 			$('.modal .id_setor').html(data.setor);
 			$('.modal .usuario').html(data.usuario);
 			$('.modal .descricao').html(data.descricao);
-			$.get('equipamentos/detalhes/'+data.id, function(data){
+			$.get('./detalhes/'+data.id, function(data){
 				$('.modal #ImagemPrincipalUrl').attr('href', "{{url('storage/app')}}/"+data.imagem.endereco);
 				$('.modal #ImagemPrincipal').attr('src', "{{url('storage/app')}}/"+data.imagem.endereco);
 				$('.preview').html('');
@@ -119,7 +121,7 @@ Invetário geral
 			})
 			.then((willDelete) => {
 				if (willDelete) {
-					$.get('equipamentos/remover/'+data.id, function(data){
+					$.get('./remover/'+data.id, function(data){
 						if(data.success == true){
 							swal("Equipamento removido com sucesso!", {
 								icon: "success",

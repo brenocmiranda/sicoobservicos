@@ -23,12 +23,14 @@ Invetário por usuário
 			<div class="col-12 row mb-4 mx-auto">
 				@include('layouts.search')
 				<div class="col-lg-12 position-absolute">
+					@if(Auth::user()->RelationFuncao->gerenciar_gti == 1)
 					<div class="row mx-auto">
 						<a href="{{route('adicionar.equipamentos')}}" class="btn btn-primary btn-outline ml-auto" id="adicionar" name="adicionar" title="Adicionar novo equipamento" style="z-index: 10">
 							<i class="m-0 pr-1 mdi mdi-plus"></i> 
 							<span>Novo equipamento</span> 
 						</a>
 					</div>
+					@endif
 				</div>
 			</div>
 			<div class="row mx-auto mt-5">
@@ -96,13 +98,13 @@ Invetário por usuário
 
 		// Carregando dados do treeview
 		var defaultData = [
-          @foreach($usuarios as $usuario)
+          @foreach($usuarios->sortBy('login') as $usuario)
 	      	{
 	      	text: "{{$usuario->RelationAssociado->nome}}",
 	        href: "usuarios/detalhes/{{$usuario->id}}",
 	        nodes: [
 	        	@foreach($ativos as $ativo)
-	        		@if($ativo->RelationUsuario->first()->id == $usuario->id)
+	        		@if($ativo->RelationUsuario->last()->id == $usuario->id)
 		        	{
 		        	text: "{{$ativo->nome}} {{$ativo->marca}} {{$ativo->modelo}}",
 	                href: 'equipamentos/detalhes/{{$ativo->id}}'

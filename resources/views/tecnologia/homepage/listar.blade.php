@@ -22,12 +22,14 @@ Homepage
 		<div class="card-body">
 			<div class="col-12 row mb-4 mx-auto">
 				@include('layouts.search')
+				@if(Auth::user()->RelationFuncao->gerenciar_gti == 1)
 				<div class="col-5 p-0 row mx-auto">
 					<button class="btn btn-primary btn-outline ml-auto" id="adicionar" name="adicionar" title="Adicionar novo atalho" data-toggle="modal" data-target="#modal-adicionar">
 						<i class="m-0 pr-1 mdi mdi-plus"></i> 
 						<span>Nova atalho</span>
 					</button>
 				</div>
+				@endif
 			</div>
 			
 			<ul class="row col-12 m-auto py-3" id="homepage">
@@ -47,6 +49,7 @@ Homepage
 								<label class="text-truncate text-uppercase d-block">	
 									<span>{{(isset($homepage->subtitulo) ? $homepage->subtitulo : '_')}}</span>
 								</label>
+								@if(Auth::user()->RelationFuncao->gerenciar_gti == 1)
 								<div class="my-3">
 									<a href="javascript:void(0)" data="{{route('detalhes.homepage', $homepage->id)}}" class="btn btn-default btn-outline btn-xs ml-auto btn-editar" title="Editar informações">
 										<small>Editar</small>
@@ -55,6 +58,7 @@ Homepage
 										<small>Deletar</small>
 									</a>
 								</div>
+								@endif
 							</div>
 						</div>
 					</li>

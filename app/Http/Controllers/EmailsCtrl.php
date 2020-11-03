@@ -19,78 +19,94 @@ class EmailsCtrl extends Controller
 
 	// Exibindo ajustes
 	public function ExibirAjustes(){
-		$material = CogEmailsMaterial::find(1);
-		$contrato = CogEmailsContrato::find(1);
-		$chamado = CogEmailsChamado::find(1);
-		return view('configuracoes.emails.ajustes.exibir')->with('material', $material)->with('contrato', $contrato)->with('chamado', $chamado);
+		if(Auth::user()->RelationFuncao->ver_configuracoes == 1 || Auth::user()->RelationFuncao->gerenciar_configuracoes == 1){
+			$material = CogEmailsMaterial::find(1);
+			$contrato = CogEmailsContrato::find(1);
+			$chamado = CogEmailsChamado::find(1);
+			return view('configuracoes.emails.ajustes.exibir')->with('material', $material)->with('contrato', $contrato)->with('chamado', $chamado);
+		}else{
+			return redirect(route('403'));
+		}
 	}
 	// Alteranndo informações
 	public function SalvarAjustes(Request $request){
-		CogEmailsMaterial::find(1)->update([
-			'email_material' => $request->email_material,
-		]);
-		CogEmailsContrato::find(1)->update([
-			'email_contrato' => $request->email_contrato,
-		]);
-		CogEmailsChamado::find(1)->update([
-			'email_chamado' => $request->email_chamado,
-		]);
-		Atividades::create([
-			'nome' => 'Alteração de ajuste de e-mail',
-			'descricao' => 'Você alterou as informações de ajustes de e-mail',
-			'icone' => 'mdi-json',
-			'url' => route('exibir.ajustes.emails'),
-			'id_usuario' => Auth::id()
-		]);
-		\Session::flash('alteracao', array(
-				'class' => 'success',
-				'mensagem' => 'Seus dados foram alterados com sucesso.'
-			));
-		return redirect(route('exibir.ajustes.emails'));
+		if(Auth::user()->RelationFuncao->gerenciar_configuracoes == 1){
+			CogEmailsMaterial::find(1)->update([
+				'email_material' => $request->email_material,
+			]);
+			CogEmailsContrato::find(1)->update([
+				'email_contrato' => $request->email_contrato,
+			]);
+			CogEmailsChamado::find(1)->update([
+				'email_chamado' => $request->email_chamado,
+			]);
+			Atividades::create([
+				'nome' => 'Alteração de ajuste de e-mail',
+				'descricao' => 'Você alterou as informações de ajustes de e-mail',
+				'icone' => 'mdi-json',
+				'url' => route('exibir.ajustes.emails'),
+				'id_usuario' => Auth::id()
+			]);
+			\Session::flash('alteracao', array(
+					'class' => 'success',
+					'mensagem' => 'Seus dados foram alterados com sucesso.'
+				));
+			return redirect(route('exibir.ajustes.emails'));
+		}else{
+			return redirect(route('403'));
+		}
 	}
 
 
 	// Exibindo mensagens
 	public function ExibirMensagens(){
-		$material = CogEmailsMaterial::find(1);
-		$contrato = CogEmailsContrato::find(1);
-		$chamado = CogEmailsChamado::find(1);
-		return view('configuracoes.emails.mensagens.exibir')->with('material', $material)->with('contrato', $contrato)->with('chamado', $chamado);
+		if(Auth::user()->RelationFuncao->ver_configuracoes == 1 || Auth::user()->RelationFuncao->gerenciar_configuracoes == 1){
+			$material = CogEmailsMaterial::find(1);
+			$contrato = CogEmailsContrato::find(1);
+			$chamado = CogEmailsChamado::find(1);
+			return view('configuracoes.emails.mensagens.exibir')->with('material', $material)->with('contrato', $contrato)->with('chamado', $chamado);
+		}else{
+			return redirect(route('403'));
+		}
 	}
 	// Alteranndo informações
 	public function SalvarMensagens(Request $request){
-		CogEmailsMaterial::find(1)->update([
-			'assunto_abertura_material' => $request->assunto_abertura_material,
-			'abertura_solicitacao_material' => $request->abertura_solicitacao_material,
-			'assunto_fechamento_material' => $request->assunto_fechamento_material,
-			'fechamento_solicitacao_material' => $request->fechamento_solicitacao_material,
-		]);
-		CogEmailsContrato::find(1)->update([
-			'assunto_abertura_contrato' => $request->assunto_abertura_contrato,
-			'abertura_solicitacao_contrato' => $request->abertura_solicitacao_contrato,
-			'assunto_fechamento_contrato' => $request->assunto_fechamento_contrato,
-			'fechamento_solicitacao_contrato' => $request->fechamento_solicitacao_contrato,
-		]);
-		CogEmailsChamado::find(1)->update([
-			'assunto_abertura_chamado' => $request->assunto_abertura_chamado,
-			'abertura_chamado' => $request->abertura_chamado,
-			'assunto_fechamento_chamado' => $request->assunto_fechamento_chamado,
-			'fechamento_chamado' => $request->fechamento_chamado,
-		]);
+		if(Auth::user()->RelationFuncao->gerenciar_configuracoes == 1){
+			CogEmailsMaterial::find(1)->update([
+				'assunto_abertura_material' => $request->assunto_abertura_material,
+				'abertura_solicitacao_material' => $request->abertura_solicitacao_material,
+				'assunto_fechamento_material' => $request->assunto_fechamento_material,
+				'fechamento_solicitacao_material' => $request->fechamento_solicitacao_material,
+			]);
+			CogEmailsContrato::find(1)->update([
+				'assunto_abertura_contrato' => $request->assunto_abertura_contrato,
+				'abertura_solicitacao_contrato' => $request->abertura_solicitacao_contrato,
+				'assunto_fechamento_contrato' => $request->assunto_fechamento_contrato,
+				'fechamento_solicitacao_contrato' => $request->fechamento_solicitacao_contrato,
+			]);
+			CogEmailsChamado::find(1)->update([
+				'assunto_abertura_chamado' => $request->assunto_abertura_chamado,
+				'abertura_chamado' => $request->abertura_chamado,
+				'assunto_fechamento_chamado' => $request->assunto_fechamento_chamado,
+				'fechamento_chamado' => $request->fechamento_chamado,
+			]);
 
-		Atividades::create([
-			'nome' => 'Alteração as mensagens de e-mail',
-			'descricao' => 'Você alterou as informações de mensagens de e-mail',
-			'icone' => 'mdi-email-outline',
-			'url' => route('exibir.mensagens.emails'),
-			'id_usuario' => Auth::id()
-		]);
+			Atividades::create([
+				'nome' => 'Alteração as mensagens de e-mail',
+				'descricao' => 'Você alterou as informações de mensagens de e-mail',
+				'icone' => 'mdi-email-outline',
+				'url' => route('exibir.mensagens.emails'),
+				'id_usuario' => Auth::id()
+			]);
 
-		\Session::flash('alteracao', array(
-				'class' => 'success',
-				'mensagem' => 'Seus dados foram alterados com sucesso.'
-			));
-		return redirect(route('exibir.mensagens.emails'));
+			\Session::flash('alteracao', array(
+					'class' => 'success',
+					'mensagem' => 'Seus dados foram alterados com sucesso.'
+				));
+			return redirect(route('exibir.mensagens.emails'));
+		}else{
+			return redirect(route('403'));
+		}
 	}
 
 }

@@ -119,7 +119,7 @@ Detalhes do chamado
                   <span>Gerar Relatório</span>
                 </a>
               </div>
-              @if($chamado->RelationStatus->first()->finish != 1)
+              @if($chamado->RelationStatus->first()->finish != 1 && Auth::user()->RelationFuncao->gerenciar_gti == 1)
               <div>
                 <a href="javascript:void()" class="btn btn-danger btn-outline d-flex align-items-center justify-content-center mx-2" data-toggle="modal" data-target="#modal-finalizar">
                   <i class="mdi mdi-close pr-2"></i> 
@@ -141,7 +141,7 @@ Detalhes do chamado
             <div class="d-flex">
               <h5 class="my-auto text-white font-weight-normal text-capitalize">Últimas atualizações</h5>
             </div>
-            @if($chamado->RelationStatus->first()->finish != 1)
+            @if($chamado->RelationStatus->first()->finish != 1 && Auth::user()->RelationFuncao->gerenciar_gti == 1)
             <button class="btn btn-light btn-xs ml-auto" title="Alterar status" data-toggle="modal" data-target="#modal-alterar">
               <i class="mdi mdi-cached"></i>
               <small>Alterar status</small>
@@ -165,16 +165,18 @@ Detalhes do chamado
                   {{$status->created_at->format('d/m/Y H:i')}} -
                   {{$status->created_at->subMinutes(2)->diffForHumans()}}
                 </small>
-                @if($chamado->RelationStatus->last()->id != $status->id)
-                <a href="javascript::void(0)" id="{{$status->id}}" class="status-remove ml-auto">
-                  <i class="fa fa-close"></i>
-                  <small>Excluir</small>
-                </a>
+                @if(Auth::user()->RelationFuncao->gerenciar_gti == 1)
+                  @if($chamado->RelationStatus->last()->id != $status->id)
+                  <a href="javascript::void(0)" id="{{$status->id}}" class="status-remove ml-auto">
+                    <i class="fa fa-close"></i>
+                    <small>Excluir</small>
+                  </a>
+                  @endif
+                  <a href="javascript::void(0)" id="{{$status->id}}" class="status-editar {{($chamado->RelationStatus->last()->id == $status->id ? ' ml-auto' : '')}} pl-3">
+                    <i class="fa fa-pencil-square-o"></i>
+                    <small>Editar</small>
                 @endif
-                <a href="javascript::void(0)" id="{{$status->id}}" class="status-editar {{($chamado->RelationStatus->last()->id == $status->id ? ' ml-auto' : '')}} pl-3">
-                  <i class="fa fa-pencil-square-o"></i>
-                  <small>Editar</small>
-                </a>
+                  </a>
               </div>
               <hr>
             </li>

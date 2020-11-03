@@ -22,10 +22,12 @@ Garantias fiduciárias
 			<div class="h-100 row col">
 				<div class="col-lg-12 position-absolute">
 					<div class="row mx-auto">
+						@if(Auth::user()->RelationFuncao->gerenciar_credito == 1)
 						<button class="btn btn-primary btn-outline ml-auto" id="adicionar" name="adicionar" title="Adicionar novo contrato" data-toggle="modal" data-target="#modal-adicionar" style="z-index: 10">
 							<i class="m-0 pr-1 mdi mdi-plus"></i> 
 							<span>Nova garantia</span> 
 						</button>
+						@endif
 					</div>
 				</div>
 			</div>

@@ -17,45 +17,57 @@ class InstituicoesCtrl extends Controller
 	
     // Listando todos os instituições
 	public function Exibir(){
-		$dados = Instituicoes::orderBy('nome')->get();
-		return view('configuracoes.administrativo.instituicoes.listar')->with('instituicoes', $dados);
+		if(Auth::user()->RelationFuncao->ver_configuracoes == 1 || Auth::user()->RelationFuncao->gerenciar_configuracoes == 1){
+			$dados = Instituicoes::orderBy('nome')->get();
+			return view('configuracoes.administrativo.instituicoes.listar')->with('instituicoes', $dados);
+		}else{
+			return redirect(route('403'));
+		}
 	}
 
 	// Adicionando nova instituições
 	public function Adicionar(InstituicoesRqt $request){
-		$create = Instituicoes::create([
-			'nome' => $request->nome,
-			'telefone' => $request->telefone, 
-			'email' => $request->email, 
-			'descricao' => $request->descricao, 
-			'status' => ($request->status == "on" ? 1 : 0)
-		]);
-		Atividades::create([
-			'nome' => 'Cadastro de nova instituição administrativa',
-			'descricao' => 'Você cadastrou um nova instituição administrativa, '.$create->nome.'.',
-			'icone' => 'mdi-plus',
-			'url' => route('exibir.instituicoes.administrativo'),
-			'id_usuario' => Auth::id()
-		]);
-		return response()->json(['success' => true]);
+		if(Auth::user()->RelationFuncao->gerenciar_configuracoes == 1){
+			$create = Instituicoes::create([
+				'nome' => $request->nome,
+				'telefone' => $request->telefone, 
+				'email' => $request->email, 
+				'descricao' => $request->descricao, 
+				'status' => ($request->status == "on" ? 1 : 0)
+			]);
+			Atividades::create([
+				'nome' => 'Cadastro de nova instituição administrativa',
+				'descricao' => 'Você cadastrou um nova instituição administrativa, '.$create->nome.'.',
+				'icone' => 'mdi-plus',
+				'url' => route('exibir.instituicoes.administrativo'),
+				'id_usuario' => Auth::id()
+			]);
+			return response()->json(['success' => true]);
+		}else{
+			return redirect(route('403'));
+		}
 	}
 
 	// Editando informações da instituição
 	public function Editar(InstituicoesRqt $request, $id){
-		Instituicoes::find($id)->update([
-			'nome' => $request->nome,
-			'telefone' => $request->telefone, 
-			'email' => $request->email, 
-			'descricao' => $request->descricao, 
-			'status' => ($request->status == "on" ? 1 : 0)
-		]);
-		Atividades::create([
-			'nome' => 'Edição de informações',
-			'descricao' => 'Você modificou as informações da instituição administrativa '.$create->nome.'.',
-			'icone' => 'mdi-auto-fix',
-			'url' => route('exibir.instituicoes.administrativo'),
-			'id_usuario' => Auth::id()
-		]);
+		if(Auth::user()->RelationFuncao->gerenciar_configuracoes == 1){
+			Instituicoes::find($id)->update([
+				'nome' => $request->nome,
+				'telefone' => $request->telefone, 
+				'email' => $request->email, 
+				'descricao' => $request->descricao, 
+				'status' => ($request->status == "on" ? 1 : 0)
+			]);
+			Atividades::create([
+				'nome' => 'Edição de informações',
+				'descricao' => 'Você modificou as informações da instituição administrativa '.$create->nome.'.',
+				'icone' => 'mdi-auto-fix',
+				'url' => route('exibir.instituicoes.administrativo'),
+				'id_usuario' => Auth::id()
+			]);
+		}else{
+			return redirect(route('403'));
+		}
 		return response()->json(['success' => true]);
 	}
 

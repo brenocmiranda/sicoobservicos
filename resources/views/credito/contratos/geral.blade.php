@@ -26,12 +26,14 @@ Contratos
 						<h5>Seus estados disponíveis</h5>
 						<hr class="col-6 mt-1">
 					</div>
+					@if(Auth::user()->RelationFuncao->gerenciar_credito == 1)
 					<div class="col-12 row position-absolute">
 						<button class="btn btn-primary btn-outline ml-auto" id="adicionar" name="adicionar" title="Adicionar novo contrato" data-toggle="modal" data-target="#modal-adicionar">
 							<i class="m-0 pr-1 mdi mdi-plus"></i> 
 							<span>Novo contrato</span>
 						</button>
 					</div>
+					@endif
 				</div>
 				<div class="col-3 border rounded shadow-sm m-3 p-3">
 					<a href="{{ route('exibir.vigente.credito') }}" class="button-size">

@@ -7,7 +7,7 @@ Página inicial
 @section('content')
 <div class="container-fluid home mx-auto">
 	 <section class="section h-100">
-        <div class="col-12 h-100 col-12 h-100 d-flex align-items-center">
+        <div class="col-12 h-100 d-flex align-items-center">
         	<div class="col-6 m-auto">
         		<div class="mb-5 d-flex">
         			<div>

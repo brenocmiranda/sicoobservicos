@@ -22,12 +22,14 @@ Disposição
 			<div class="col-12">
 				<div class="col-12 row mb-4 mx-auto">
 					@include('layouts.search')
+					@if(Auth::user()->RelationFuncao->gerenciar_credito == 1)
 					<div class="col-5 p-0 row mx-auto">
 						<button class="btn btn-primary btn-outline ml-auto" id="adicionar" name="adicionar" title="Adicionar novo contrato" data-toggle="modal" data-target="#modal-adicionar">
 							<i class="m-0 pr-1 mdi mdi-plus"></i> 
 							<span>Novo contrato</span>
 						</button>
 					</div>
+					@endif
 				</div>
 
 				<ul class="row col-12 p-0 mx-auto my-5" id="arquivos">

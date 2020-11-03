@@ -23,10 +23,12 @@ Tópicos
 			<div class="col-12">
 				<div class="col-12 row mb-4 mx-auto">
 					@include('layouts.search')
+					@if(Auth::user()->RelationFuncao->gerenciar_gti == 1)
 					<a href="{{route('adicionar.base.aprendizagem')}}" class="btn btn-primary btn-outline ml-auto" id="adicionar" name="adicionar" title="Adicionar novo tópico">
 						<i class="m-0 pr-1 mdi mdi-plus"></i> 
 						<span>Novo tópico</span>
 					</a>
+					@endif
 				</div>
 				<div class="row col-12 mx-auto my-5">
 					<div class="col-12 p-0">

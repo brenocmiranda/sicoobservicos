@@ -41,90 +41,112 @@ class BaseCtrl extends Controller
 	// Funções do módulo de configurações
 	// -------------------------------------
 	public function Exibir(){
-		$topicos = Base::all();
-		return view('tecnologia.configuracoes.aprendizagem.exibir')->with('topicos', $topicos);
+		if(Auth::user()->RelationFuncao->ver_gti == 1 || Auth::user()->RelationFuncao->gerenciar_gti == 1){
+			$topicos = Base::all();
+			return view('tecnologia.configuracoes.aprendizagem.exibir')->with('topicos', $topicos);
+		}else{
+			return redirect(route('403'));
+		}
 	}
 	// Adicionando novos itens
 	public function Adicionar(){
-		$fontes = Fontes::where('status', 1)->orderBy('nome', 'ASC')->get();
-		$tipos = Tipos::where('status', 1)->orderBy('nome', 'ASC')->get();
-		return view('tecnologia.configuracoes.aprendizagem.adicionar')->with('fontes', $fontes)->with('tipos', $tipos);
+		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
+			$fontes = Fontes::where('status', 1)->orderBy('nome', 'ASC')->get();
+			$tipos = Tipos::where('status', 1)->orderBy('nome', 'ASC')->get();
+			return view('tecnologia.configuracoes.aprendizagem.adicionar')->with('fontes', $fontes)->with('tipos', $tipos);
+		}else{
+			return redirect(route('403'));
+		}
 	}
 	public function AdicionarSalvar(BaseRqt $request){
-		$create = Base::create([
-			'titulo' => $request->titulo,
-			'subtitulo' => $request->subtitulo, 
-			'descricao' => $request->descricao, 
-			'gti_id_fontes' => $request->gti_id_fontes,
-			'gti_id_tipos' => $request->gti_id_tipos,
-		]);
-		// Cadastramento de vários arquivos 
-        if ($request->arquivos) {
-            foreach($request->arquivos as $arq){
-                $imagem_produto = BaseArquivos::create([
-                    'sup_id_topico' => $create->id,
-                    'id_arquivo' => $arq                    
-                ]);
-            }
-        }
-		Atividades::create([
-			'nome' => 'Cadastro de novo tópico',
-			'descricao' => 'Você cadastrou um novo tópico, '.$create->titulo.'.',
-			'icone' => 'mdi-plus',
-			'url' => route('exibir.base.aprendizagem'),
-			'id_usuario' => Auth::id()
-		]);
-		return redirect()->route('detalhes.base.aprendizagem', $create->id);
+		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
+			$create = Base::create([
+				'titulo' => $request->titulo,
+				'subtitulo' => $request->subtitulo, 
+				'descricao' => $request->descricao, 
+				'gti_id_fontes' => $request->gti_id_fontes,
+				'gti_id_tipos' => $request->gti_id_tipos,
+			]);
+			// Cadastramento de vários arquivos 
+	        if ($request->arquivos) {
+	            foreach($request->arquivos as $arq){
+	                $imagem_produto = BaseArquivos::create([
+	                    'sup_id_topico' => $create->id,
+	                    'id_arquivo' => $arq                    
+	                ]);
+	            }
+	        }
+			Atividades::create([
+				'nome' => 'Cadastro de novo tópico',
+				'descricao' => 'Você cadastrou um novo tópico, '.$create->titulo.'.',
+				'icone' => 'mdi-plus',
+				'url' => route('exibir.base.aprendizagem'),
+				'id_usuario' => Auth::id()
+			]);
+			return redirect()->route('detalhes.base.aprendizagem', $create->id);
+		}else{
+			return redirect(route('403'));
+		}
 	}
 	// Editando informações
 	public function Editar($id){
-		$base = Base::find($id);
-		$fontes = Fontes::where('status', 1)->orderBy('nome', 'ASC')->get();
-		$tipos = Tipos::where('status', 1)->where('gti_id_fontes', $base->gti_id_fontes)->orderBy('nome', 'ASC')->get();
-		return view('tecnologia.configuracoes.aprendizagem.editar')->with('base', $base)->with('fontes', $fontes)->with('tipos', $tipos);
+		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
+			$base = Base::find($id);
+			$fontes = Fontes::where('status', 1)->orderBy('nome', 'ASC')->get();
+			$tipos = Tipos::where('status', 1)->where('gti_id_fontes', $base->gti_id_fontes)->orderBy('nome', 'ASC')->get();
+			return view('tecnologia.configuracoes.aprendizagem.editar')->with('base', $base)->with('fontes', $fontes)->with('tipos', $tipos);
+		}else{
+			return redirect(route('403'));
+		}
 	}
 	public function EditarSalvar(BaseRqt $request, $id){
-		Base::find($id)->update([
-			'titulo' => $request->titulo,
-			'subtitulo' => $request->subtitulo, 
-			'descricao' => $request->descricao, 
-			'gti_id_fontes' => $request->gti_id_fontes,
-			'gti_id_tipos' => $request->gti_id_tipos,  
-		]);
-
-		// Cadastramento de vários arquivos 
-        if ($request->arquivos){
-        	BaseArquivos::where('sup_id_topico', $id)->delete();
-            foreach($request->arquivos as $arq){
-                $imagem_produto = BaseArquivos::create([
-                    'sup_id_topico' => $id,
-                    'id_arquivo' => $arq                    
-                ]);
-            }
-        }
-
-		$create = Base::find($id);
-		Atividades::create([
-			'nome' => 'Edição de informações',
-			'descricao' => 'Você modificou as informações do tópico '.$create->titulo.'.',
-			'icone' => 'mdi-auto-fix',
-			'url' => route('exibir.base.aprendizagem'),
-			'id_usuario' => Auth::id()
-		]);
-		return redirect()->route('detalhes.base', $id);
+		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
+			Base::find($id)->update([
+				'titulo' => $request->titulo,
+				'subtitulo' => $request->subtitulo, 
+				'descricao' => $request->descricao, 
+				'gti_id_fontes' => $request->gti_id_fontes,
+				'gti_id_tipos' => $request->gti_id_tipos,  
+			]);
+			// Cadastramento de vários arquivos 
+	        if ($request->arquivos){
+	        	BaseArquivos::where('sup_id_topico', $id)->delete();
+	            foreach($request->arquivos as $arq){
+	                $imagem_produto = BaseArquivos::create([
+	                    'sup_id_topico' => $id,
+	                    'id_arquivo' => $arq                    
+	                ]);
+	            }
+	        }
+			$create = Base::find($id);
+			Atividades::create([
+				'nome' => 'Edição de informações',
+				'descricao' => 'Você modificou as informações do tópico '.$create->titulo.'.',
+				'icone' => 'mdi-auto-fix',
+				'url' => route('exibir.base.aprendizagem'),
+				'id_usuario' => Auth::id()
+			]);
+			return redirect()->route('detalhes.base', $id);
+		}else{
+			return redirect(route('403'));
+		}
 	}
 	// Deletando a base
 	public function Delete($id){
-		$create = Base::find($id);
-		Atividades::create([
-			'nome' => 'Remoção de ativo',
-			'descricao' => 'Você acabou de remover o ativo '.$create->titulo.'.',
-			'icone' => 'mdi-delete-forever',
-			'url' => route('exibir.base.aprendizagem'),
-			'id_usuario' => Auth::id()
-		]);
-		Base::find($id)->delete();
-		return response()->json(['success' => true]);
+		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
+			$create = Base::find($id);
+			Atividades::create([
+				'nome' => 'Remoção de ativo',
+				'descricao' => 'Você acabou de remover o ativo '.$create->titulo.'.',
+				'icone' => 'mdi-delete-forever',
+				'url' => route('exibir.base.aprendizagem'),
+				'id_usuario' => Auth::id()
+			]);
+			Base::find($id)->delete();
+			return response()->json(['success' => true]);
+		}else{
+			return redirect(route('403'));
+		}
 	}
 	// Detallhes do item da base
 	public function Detalhes($id){

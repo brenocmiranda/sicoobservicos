@@ -22,6 +22,7 @@ Route::group(['prefix' => 'app'], function(){
 		Route::get('logout', 'UsuariosCtrl@Sair')->name('logout');
 		Route::get('home', 'UsuariosCtrl@Inicio')->name('inicio')->middleware('auth');
 		Route::get('atividades', 'UsuariosCtrl@Atividades')->name('atividades')->middleware('auth');
+		Route::get('403', 'UsuariosCtrl@Permission403')->name('403')->middleware('auth');
 
 		// Primeiro acesso a plataforma
 		Route::group(['prefix' => 'new'], function(){
@@ -78,7 +79,6 @@ Route::group(['prefix' => 'app'], function(){
 			Route::post('addImagens', 'BensCtrl@Imagens')->name('adicionar.imagens.bens.administrativo');
 			Route::get('removeImagem/{id}', 'BensCtrl@RemoveImagem')->name('remover.imagens.bens.administrativo');
 		});
-
 		// Aniversariantes
 		Route::group(['prefix' => 'aniversariantes'], function(){
 			Route::get('', 'AssociadosCtrl@ExibirAniversariantes')->name('exibir.aniversariantes.administrativo');
@@ -182,6 +182,7 @@ Route::group(['prefix' => 'app'], function(){
 			Route::get('detalhes/{id}', 'AssociadosCtrl@Detalhes')->name('detalhes.associado.credito');
 			Route::post('adicionar', 'AssociadosCtrl@Adicionar')->name('adicionar.associado.credito');
 		});
+		// Configurações
 		Route::group(['prefix' => 'configuracoes'], function(){
 			// Armários
 			Route::group(['prefix' => 'armarios'], function(){
@@ -433,6 +434,5 @@ Route::group(['prefix' => 'app'], function(){
 			Route::get('', 'AjustesCtrl@Exibir')->name('exibir.ajustes');
 			Route::post('salvar', 'AjustesCtrl@Salvar')->name('salvar.ajustes');
 		});
-		
 	});
 });

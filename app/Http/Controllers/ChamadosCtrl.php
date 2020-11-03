@@ -195,37 +195,48 @@ class ChamadosCtrl extends Controller
 
     // Exibir todos chamados
     public function ExibirGTI(){
-        $chamados = Chamados::orderBy('created_at', 'ASC')->get();
-        $status = Status::where('status', 1)->get();
-        return view('tecnologia.chamados.listar')->with('chamados', $chamados)->with('statusAtivos', $status);
+        if(Auth::user()->RelationFuncao->ver_gti == 1 || Auth::user()->RelationFuncao->gerenciar_gti == 1){
+            $chamados = Chamados::orderBy('created_at', 'ASC')->get();
+            $status = Status::where('status', 1)->get();
+            return view('tecnologia.chamados.listar')->with('chamados', $chamados)->with('statusAtivos', $status);
+        }else{
+            return redirect(route('403'));
+        }
     }
     // Detalhes do chamado
     public function DetalhesGTI($id){
-        $chamado = Chamados::find($id);
-        $historicoStatus = ChamadosStatus::where('gti_id_chamados', $id)->orderBy('created_at', 'DESC')->get();
-        $status = Status::where('status', 1)->get();
-        return view('tecnologia.chamados.detalhes')->with('chamado', $chamado)->with('statusAtivos', $status)->with('historicoStatus', $historicoStatus);
+        if(Auth::user()->RelationFuncao->ver_gti == 1 || Auth::user()->RelationFuncao->gerenciar_gti == 1){
+            $chamado = Chamados::find($id);
+            $historicoStatus = ChamadosStatus::where('gti_id_chamados', $id)->orderBy('created_at', 'DESC')->get();
+            $status = Status::where('status', 1)->get();
+            return view('tecnologia.chamados.detalhes')->with('chamado', $chamado)->with('statusAtivos', $status)->with('historicoStatus', $historicoStatus);
+        }else{
+            return redirect(route('403'));
+        }
     }
     // Finalizando chamado
     public function FinalizarGTI(Request $request, $id){
-        $finalizar = Status::where('finish', 1)->first();
-        $status = ChamadosStatus::create([
-            'gti_id_chamados' => $id,
-            'gti_id_status' => $finalizar->id,
-            'descricao' => (isset($request->descricao) ? $request->descricao : "Chamado finalizado por ".Auth::user()->RelationAssociado->nome."."),
-            'usr_id_usuarios' => Auth::id()
-        ]);
-        $create = Chamados::find($id);
-        $create->RelationUsuario->notify(new SolicitacaoChamadosCliente($create));
-
-        Atividades::create([
-            'nome' => 'Encerramento de chamado',
-            'descricao' => 'Você efetuou o encerramento do chamado, '.$create->assunto.'.',
-            'icone' => 'mdi-headset-off',
-            'url' => route('detalhes.chamados.gti', $id),
-            'id_usuario' => Auth::id()
-        ]);
-        return response()->json(['success' => true]);
+        if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
+            $finalizar = Status::where('finish', 1)->first();
+            $status = ChamadosStatus::create([
+                'gti_id_chamados' => $id,
+                'gti_id_status' => $finalizar->id,
+                'descricao' => (isset($request->descricao) ? $request->descricao : "Chamado finalizado por ".Auth::user()->RelationAssociado->nome."."),
+                'usr_id_usuarios' => Auth::id()
+            ]);
+            $create = Chamados::find($id);
+            $create->RelationUsuario->notify(new SolicitacaoChamadosCliente($create));
+            Atividades::create([
+                'nome' => 'Encerramento de chamado',
+                'descricao' => 'Você efetuou o encerramento do chamado, '.$create->assunto.'.',
+                'icone' => 'mdi-headset-off',
+                'url' => route('detalhes.chamados.gti', $id),
+                'id_usuario' => Auth::id()
+            ]);
+            return response()->json(['success' => true]);
+        }else{
+            return redirect(route('403'));
+        }
     }
     // Relatório do chamado
     public function RelatorioGTI($id){
@@ -242,24 +253,26 @@ class ChamadosCtrl extends Controller
     }
     // Atualizando status
     public function StatusGTI(Request $request, $id){
-        $chamado = Chamados::find($id);
-        $status = ChamadosStatus::create([
-            'gti_id_chamados' => $id,
-            'gti_id_status' => $request->status,
-            'descricao' => (isset($request->descricao) ? $request->descricao : "Estado do chamado alterado por ".Auth::user()->RelationAssociado->nome."."),
-            'usr_id_usuarios' => Auth::id()
-        ]);
-        
-        $chamado->RelationUsuario->notify(new SolicitacaoChamadosCliente($chamado));  
-
-        Atividades::create([
-            'nome' => 'Alteração de estado do chamado',
-            'descricao' => 'Você modificou o status do chamado, '.$chamado->assunto.'.',
-            'icone' => 'mdi-file-document',
-            'url' => route('detalhes.chamados.gti', $id),
-            'id_usuario' => Auth::id()
-        ]);
-        return response()->json(['success' => true]);
+        if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
+            $chamado = Chamados::find($id);
+            $status = ChamadosStatus::create([
+                'gti_id_chamados' => $id,
+                'gti_id_status' => $request->status,
+                'descricao' => (isset($request->descricao) ? $request->descricao : "Estado do chamado alterado por ".Auth::user()->RelationAssociado->nome."."),
+                'usr_id_usuarios' => Auth::id()
+            ]);
+            $chamado->RelationUsuario->notify(new SolicitacaoChamadosCliente($chamado));  
+            Atividades::create([
+                'nome' => 'Alteração de estado do chamado',
+                'descricao' => 'Você modificou o status do chamado, '.$chamado->assunto.'.',
+                'icone' => 'mdi-file-document',
+                'url' => route('detalhes.chamados.gti', $id),
+                'id_usuario' => Auth::id()
+            ]);
+            return response()->json(['success' => true]);
+        }else{
+            return redirect(route('403'));
+        }
     }
     // Dados dos status
     public function InfoGTI($id){
@@ -268,21 +281,29 @@ class ChamadosCtrl extends Controller
     }
     // Alterando descrição dos status
     public function DescricaoGTI(Request $request){
-        ChamadosStatus::find($request->id)->update(['descricao' => $request->descricao]);
-        return $request;
+        if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
+            ChamadosStatus::find($request->id)->update(['descricao' => $request->descricao]);
+            return $request;
+        }else{
+            return redirect(route('403'));
+        }
     }
     // Removendo status
     public function RemoveGTI($id){
-        $status = ChamadosStatus::find($id);
-        Atividades::create([
-            'nome' => 'Remoção de status do chamado',
-            'descricao' => 'Você remove um status do chamado, '.$status->RelationStatus->assunto.'.',
-            'icone' => 'mdi-delete-forever',
-            'url' => route('detalhes.chamados.gti', $status->gti_id_chamados),
-            'id_usuario' => Auth::id()
-        ]);
-        ChamadosStatus::find($id)->delete();
-        return response()->json(['success' => true]);
+        if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
+            $status = ChamadosStatus::find($id);
+            Atividades::create([
+                'nome' => 'Remoção de status do chamado',
+                'descricao' => 'Você remove um status do chamado, '.$status->RelationStatus->assunto.'.',
+                'icone' => 'mdi-delete-forever',
+                'url' => route('detalhes.chamados.gti', $status->gti_id_chamados),
+                'id_usuario' => Auth::id()
+            ]);
+            ChamadosStatus::find($id)->delete();
+            return response()->json(['success' => true]);
+        }else{
+            return redirect(route('403'));
+        }
     }
     // Monitorando atualizações no status
     public function MonitorarGTI($id_chamado, $id_status){
