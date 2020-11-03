@@ -3,7 +3,7 @@ Home
 @endsection
 
 @include('layouts.header')
-<div class="col-12 h-100 position-absolute imagem" style="background: url({{asset('public/img/home.png')}})"></div>
+<div class="col-12 h-100 position-absolute imagem" style="background: url({{ (isset($homepage[0]) ? asset('storage/app/').'/'.$homepage->last()->endereco : asset('public/img/home.png').'?'.rand())}})"></div>
 <div class="container-fluid h-100">
 	<div class="col-12 row">
 		<div class="pt-5 row ml-auto dropdown">

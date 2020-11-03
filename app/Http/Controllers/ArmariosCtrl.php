@@ -17,7 +17,7 @@ class ArmariosCtrl extends Controller
 		$this->middleware('auth');
 	}
 
-	// Listando todos os funções
+	// Listando todos os armários
 	public function Exibir(){
 		return view('credito.configuracoes.armarios.listar');
 	}

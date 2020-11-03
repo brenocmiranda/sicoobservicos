@@ -427,8 +427,11 @@ Route::group(['prefix' => 'app'], function(){
 			Route::group(['prefix' => 'logs'], function(){
 				Route::get('', 'ImportacoesCtrl@ExibirLogs')->name('exibir.logs.importacoes');
 			});
-			// Importação automática
-			
+		});
+		// Ajustes
+		Route::group(['prefix' => 'ajustes'], function(){
+			Route::get('', 'AjustesCtrl@Exibir')->name('exibir.ajustes');
+			Route::post('salvar', 'AjustesCtrl@Salvar')->name('salvar.ajustes');
 		});
 		
 	});

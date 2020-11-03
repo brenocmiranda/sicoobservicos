@@ -84,7 +84,7 @@ class ImportacoesCtrl extends Controller
 
 		// Copiando os arquivos para pasta de importação e removendo os existentes do outlook
 		while($arquivo = $diretorio->read()){
-			if($arquivo != "." && $arquivo != ".."){
+			if($arquivo == "." && $arquivo == ".."){
 				Logs::create(['mensagem' => 'Importação automática executada.']);
 				// Criando pasta de importação ou verificando se existe
 				if(!(getcwd().'/storage/app/importacoes')){
@@ -130,11 +130,7 @@ class ImportacoesCtrl extends Controller
 		            Excel::import(new EnderecosImport, getcwd().'/storage/app/importacoes/'.$nameFile);
 		            Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de cli_enderecos.xlsx efetuada com sucesso!</span>']);
 				}
-				return true;
-			}else{
-				return false;
 			}
-
 		}
 		$diretorio->close();
 	}

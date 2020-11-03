@@ -6,13 +6,13 @@ Login
 <div class="container-fluid p-0">
   <div class="row vh-100">
 
-    <div class="col-8 d-none d-lg-block" style="background: url('{{ asset('public/img/login.png').'?'.rand()}}'); background-size: 100% 100%; height: inherit; background-position: center; /*filter: brightness(0.6);*/">
+    <div class="col-8 d-none d-lg-block" style="background: url('{{(isset($login[0]) ? asset('storage/app/').'/'.$login->last()->endereco : asset('public/img/logo.png').'?'.rand())}}'); background-size: 100% 100%; height: inherit; background-position: center; /*filter: brightness(0.6);*/">
     </div>
 
     <div class="content-wrapper col-12 col-lg-4 p-5">
       <div class="text-center">
         <!-- Logomarca -->
-        <img src="{{ asset('public/img/logo.png').'?'.rand() }}" class="my-5 pb-5" style="width:16em">
+        <img src="{{asset('public/img/logo.png').'?'.rand()}}" class="my-5 pb-5" style="width:16em">
 
         <!-- Form -->
         <div class="col-12 mt-5">

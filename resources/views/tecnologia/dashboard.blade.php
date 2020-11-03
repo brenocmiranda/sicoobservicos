@@ -1,5 +1,5 @@
 @section('title')
-GTI
+Tecnologia
 @endsection
 
 @extends('layouts.index')

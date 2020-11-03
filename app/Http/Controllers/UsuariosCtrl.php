@@ -174,7 +174,8 @@ class UsuariosCtrl extends Controller
 		if (Auth::check() && Auth::user()->status == "Ativo") {
 			return redirect(route('inicio'));
 		}else{
-			return view('system.login');
+			$login = Imagens::where('tipo', 'login_principal')->get();
+			return view('system.login')->with('login', $login);
 		}
 	}
 	// Autenticação de usuário

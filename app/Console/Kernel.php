@@ -28,9 +28,9 @@ class Kernel extends ConsoleKernel
         $schedule->command('ImportAuto:importar')
         ->everyThirtyMinutes()
         ->onSuccess(function () {
-            echo "Importações executadas com sucesso";
+            echo "Importacoes executadas com sucesso";
          })->onFailure(function () {
-            echo "Nenhuma importação para ser executada";
+            echo "Nenhuma importacao para ser executada";
          });
     }
 

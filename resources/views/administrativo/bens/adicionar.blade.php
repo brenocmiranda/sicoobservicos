@@ -68,17 +68,17 @@ Adicionar bens
 									</div>
 								</div>
 								<div class="col-12">
-								<div class="form-group">
-									<label class="col-form-label col-12 row mb-0">Imagem principal <span class="text-danger">*</span></label>
-									<small>Formatos de imagem aceitos: <b>.png</b>, <b>.jpg</b> ou <b>.svg</b></small>
-									<div class="row col-12 mt-3 mx-0 p-0">
-										<div class="border mx-2 rounded col-3 row p-0 mb-4" style="height: 15em;">
-											<img class="w-100 h-100 p-3" id="PreviewImage" src="{{ asset('public/img/image.png').'?'.rand() }}">
-											<input type="file" class="px-0 col-12 position-absolute mx-auto h-100 pointer" style="opacity: 0; top: 0%; left: 0%" accept=".png, .jpg, .jpeg" name="imagem_principal" accept="image/*" title="Selecione a imagem principal" onchange="image(this)" required>
-										</div>
-									</div> 
+									<div class="form-group">
+										<label class="col-form-label col-12 row mb-0">Imagem principal <span class="text-danger">*</span></label>
+										<small>Formatos de imagem aceitos: <b>.png</b>, <b>.jpg</b> ou <b>.svg</b></small>
+										<div class="row col-12 mt-3 mx-0 p-0">
+											<div class="border mx-2 rounded col-3 row p-0 mb-4" style="height: 15em;">
+												<img class="w-100 h-100 p-3" id="PreviewImage" src="{{ asset('public/img/image.png').'?'.rand() }}">
+												<input type="file" class="px-0 col-12 position-absolute mx-auto h-100 pointer" style="opacity: 0; top: 0%; left: 0%" accept=".png, .jpg, .jpeg" name="imagem_principal" accept="image/*" title="Selecione a imagem principal" onchange="image(this)" required>
+											</div>
+										</div> 
+									</div>
 								</div>
-							</div>
 								<div class="col-12">
 									<div class="form-group">
 										<label class="col-form-label col-12 row mb-0">Selecione outras imagens</label>

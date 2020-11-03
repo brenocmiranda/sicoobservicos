@@ -31,7 +31,7 @@ Mensagens e-mails
 	@csrf
 
 		<div class="card mb-4">
-			<div class="card-header">
+			<div class="card-header" style="border-top-right-radius: 0.6em; border-top-left-radius: 0.6em;">
 				<h5 class="text-white col">Chamados</h5>
 			</div>
 			<div class="card-body">
@@ -68,7 +68,7 @@ Mensagens e-mails
 		</div>
 
 		<div class="card mb-4">
-			<div class="card-header">
+			<div class="card-header" style="border-top-right-radius: 0.6em; border-top-left-radius: 0.6em;">
 				<h5 class="text-white col">Solicitação de materiais</h5>
 			</div>
 			<div class="card-body">
@@ -105,7 +105,7 @@ Mensagens e-mails
 		</div>
 
 		<div class="card mb-4">
-			<div class="card-header">
+			<div class="card-header" style="border-top-right-radius: 0.6em; border-top-left-radius: 0.6em;">
 				<h5 class="text-white col">Solicitação de contratos de crédito</h5>
 			</div>
 			<div class="card-body">

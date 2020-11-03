@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use Illuminate\Routing\Controller;
 use App\Models\Associados;
-use Barryvdh\DomPDF\Facade as PDF;
+use PDF;
 
 class AssociadosCtrl extends Controller
 {

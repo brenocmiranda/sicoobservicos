@@ -33,7 +33,7 @@
 												<ul>
 													<li>A sua nova senha deve seguir as seguintes políticas de segurança:
 													 <ul>
-													 	<li>Deve conter no mínimo 6 carácteres;</li>
+													 	<li>Deve conter no mínimo 8 carácteres;</li>
 													 	<li>Possuir carácteres especiais;</li>
 													 	<li>Possuir números.</li>
 													 </ul>

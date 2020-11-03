@@ -13,13 +13,14 @@ use App\Models\Imagens;
 class HomepageCtrl extends Controller
 {
  
-    // Listando todos os instituições
+    // Listando todos os atalhos
 	public function Exibir(){
+		$homepage = Imagens::where('tipo', 'homepage_principal')->get();
 		$dados = Homepage::orderBy('titulo')->get();
-		return view('tecnologia.homepage.exibir')->with('homepages', $dados);
+		return view('tecnologia.homepage.exibir')->with('homepages', $dados)->with('homepage', $homepage);
 	}
 
-	// Listando todos os instituições
+	// Listando todos os atalhos
 	public function Listar(){
 		$dados = Homepage::orderBy('titulo')->get();
 		return view('tecnologia.homepage.listar')->with('homepages', $dados);

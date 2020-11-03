@@ -18,7 +18,7 @@ class BensCtrl extends Controller
 	}
 
 	public function Exibir(){
-		$bens = Bens::all();
+		$bens = Bens::orderBy('nome', 'ASC')->get();
 		return view('administrativo.bens.exibir')->with('bens', $bens);
 	}
 	// Adicionando novos itens
@@ -145,8 +145,7 @@ class BensCtrl extends Controller
         if ($request->hasFile('imagens')) {
             foreach($request->file('imagens') as $imagem){
                 if($imagem->isValid()){
-                    $string = iconv( "UTF-8" , "ASCII//TRANSLIT//IGNORE" , str_replace($imagem->extension(), '', $imagem->getClientOriginalName()));
-					$name = preg_replace( array( '/[ ]/' , '/[^A-Za-z0-9\-]/' ) , array( '' , '' ) , $string);
+					$name = uniqid(date('HisYmd'));
                     $extension =  $imagem->extension();
                     $nameFile = "{$name}.{$extension}";
                     $upload =  $imagem->storeAs('bens', $nameFile);
@@ -161,7 +160,7 @@ class BensCtrl extends Controller
         $imagens = Imagens::find($id);
         unlink(getcwd().'/storage/app/'.$imagens->endereco);
         $dados = BensImagens::where('id_imagem', $id)->get();
-        if(isset($dados)){
+        if(isset($dados[0])){
         	BensImagens::where('id_imagem', $id)->delete();
         }
         Imagens::find($id)->delete();

@@ -19,7 +19,7 @@ class ImportAuto extends Command
      *
      * @var string
      */
-    protected $description = 'Importação automática de dados';
+    protected $description = 'Importacao automática de dados';
 
     /**
      * Create a new command instance.
