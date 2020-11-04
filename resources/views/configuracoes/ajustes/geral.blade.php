@@ -44,8 +44,8 @@ Ajustes
 							<div class="col-8">
 								<h5>Imagem de fundo</h5>
 								<hr class="mt-2 col-12">
-								<input type="file" accept=".png, .jpg, .jpeg" class="pb-4" name="homepage_principal" accept="image/*" title="Selecione a imagem principal" onchange="image1(this)">
-								<small class="p-2">* Formatos de imagem aceitos: <b>.png</b>, <b>.jpg</b> ou <b>.svg</b></small>
+								<input type="file" accept=".png, .jpg, .jpeg .svg" class="pb-4" name="homepage_principal" accept="image/*" title="Selecione a imagem principal" onchange="image1(this)">
+								<small class="p-2">* Formatos de imagem aceitos: <b>.png</b>, <b>.jpg</b>, <b>.jpeg</b> ou <b>.svg</b></small>
 							</div>
 						</div> 
 						
@@ -67,8 +67,8 @@ Ajustes
 							<div class="col-8">
 								<h5>Imagem de fundo</h5>
 								<hr class="mt-2 col-12">
-								<input type="file" class="pb-4" accept=".png, .jpg, .jpeg" name="login_principal" accept="image/*" title="Selecione a imagem principal" onchange="image2(this)">
-								<small class="p-2">* Formatos de imagem aceitos: <b>.png</b>, <b>.jpg</b> ou <b>.svg</b></small>
+								<input type="file" class="pb-4" accept=".png, .jpg, .jpeg .svg" name="login_principal" accept="image/*" title="Selecione a imagem principal" onchange="image2(this)">
+								<small class="p-2">* Formatos de imagem aceitos: <b>.png</b>, <b>.jpg</b>, <b>.jpeg</b> ou <b>.svg</b></small>
 							</div>
 						</div> 
 
