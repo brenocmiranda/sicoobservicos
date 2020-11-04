@@ -24,10 +24,10 @@ class CreateCcoContacorrente extends Migration
             $table->double('taxa_limite');
             $table->integer('utlizacao_limite');
             $table->double('valor_contratado');
-            $table->double('valor_devedor');
+            $table->double('valor_utilizado');
             $table->double('taxa_adp');
             $table->integer('utlizacao_adp');
-            $table->double('valor_devedor');
+            $table->double('valor_adp');
             $table->integer('sem_movimentacao');
             $table->date('ultima_movimentacao');
             $table->date('data_abertura');

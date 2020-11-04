@@ -17,7 +17,7 @@ class CreateCcaContacapital extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             
-            $table->integer('num_capital')->unique();,
+            $table->integer('num_capital')->unique();
             $table->string('situacao_capital');
             $table->string('direito_voto');
             $table->string('direito_rateio');
