@@ -18,8 +18,8 @@ class CreateCreGarantias extends Migration
             $table->increments('id');
             $table->string('tipo');
             $table->text('descricao');
-            $table->integer('cre_id_contrato')->unsigned();
-            $table->foreign('cre_id_contrato')->references('id')->on('cre_contratos');
+            $table->integer('cre_id_arquivo')->unsigned();
+            $table->foreign('cre_id_arquivo')->references('id')->on('cre_arquivos');
             $table->date('data_movimento')->nullabel();
             $table->timestamps();
         });

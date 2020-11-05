@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class CreateCreAvalistas extends Migration
+class CreateDctTitdescontados extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,21 @@ class CreateCreAvalistas extends Migration
      */
     public function up()
     {
-        Schema::create('cre_avalistas', function (Blueprint $table) {
+        Schema::create('dct_titdescontados', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
+
+            $table->integer('num_contrato')->unique();
+            $table->string('situacao_contrato');
+            $table->date('data_operacao');
+            $table->date('data_vencimento');
+            $table->double('valor_contrato');
+            $table->text('observacoes')->nullable();
+
             $table->integer('cli_id_associado')->unsigned();
             $table->foreign('cli_id_associado')->references('id')->on('cli_associados');
             $table->integer('cre_id_arquivo')->unsigned();
             $table->foreign('cre_id_arquivo')->references('id')->on('cre_arquivos');
-            $table->date('data_movimento')->nullabel();
             $table->timestamps();
         });
     }
@@ -32,6 +39,6 @@ class CreateCreAvalistas extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cre_avalistas');
+        Schema::dropIfExists('dct_titdescontados');
     }
 }

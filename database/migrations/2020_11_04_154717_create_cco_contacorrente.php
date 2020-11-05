@@ -16,11 +16,10 @@ class CreateCcoContacorrente extends Migration
         Schema::create('cco_contacorrente', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            
             $table->integer('num_conta')->unique();
+            $table->string('situacao_conta');
             $table->string('tipo_conta');
             $table->string('categoria_conta');
-            $table->string('situacao_conta');
             $table->double('taxa_limite');
             $table->integer('utlizacao_limite');
             $table->double('valor_contratado');
@@ -31,10 +30,12 @@ class CreateCcoContacorrente extends Migration
             $table->integer('sem_movimentacao');
             $table->date('ultima_movimentacao');
             $table->date('data_abertura');
-            $table->date('data_movimento');
             $table->integer('cli_id_associado')->unsigned();
             $table->foreign('cli_id_associado')->references('id')->on('cli_associados');
+            $table->integer('cre_id_arquivo')->unsigned();
+            $table->foreign('cre_id_arquivo')->references('id')->on('cre_arquivos');
 
+            $table->date('data_movimento');
             $table->timestamps();
         });
     }

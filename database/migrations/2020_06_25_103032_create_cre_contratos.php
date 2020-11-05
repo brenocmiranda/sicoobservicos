@@ -17,7 +17,7 @@ class CreateCreContratos extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->integer('num_contrato')->unique();
-            $table->enum('status', ['vigente', 'quitado', 'prejuizo'])->nullable();
+            $table->string('situacao_contrato');
             $table->date('data_operacao');
             $table->date('data_vencimento');
             $table->double('valor_contrato');
@@ -26,17 +26,8 @@ class CreateCreContratos extends Migration
             $table->text('observacoes')->nullable();
             $table->integer('cli_id_associado')->unsigned();
             $table->foreign('cli_id_associado')->references('id')->on('cli_associados');
-            $table->integer('cre_id_modalidades')->unsigned();
-            $table->foreign('cre_id_modalidades')->references('id')->on('cre_modalidades');
-            $table->integer('cre_id_finalidades')->unsigned();
-            $table->foreign('cre_id_finalidades')->references('id')->on('cre_finalidades');
-            $table->integer('cre_id_produtos')->unsigned();
-            $table->foreign('cre_id_produtos')->references('id')->on('cre_produtos');
-            $table->integer('cre_id_armarios')->unsigned();
-            $table->foreign('cre_id_armarios')->references('id')->on('cre_armarios');
-            $table->date('data_movimento');
-            $table->timestamps();
-
+            $table->integer('cre_id_arquivo')->unsigned();
+            $table->foreign('cre_id_arquivo')->references('id')->on('cre_arquivos');
             // Informações complementares
             $table->string('nivel_risco')->nullable();
             $table->double('taxa_operacao')->nullable();
@@ -45,6 +36,11 @@ class CreateCreContratos extends Migration
             $table->double('valor_devido')->nullable();
             $table->integer('qtd_parcelas')->nullable();
             $table->integer('qtd_parcelas_pagas')->nullable();
+            // Informações complementares
+
+            $table->date('data_movimento');
+            $table->timestamps();
+           
         });
     }
 

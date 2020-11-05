@@ -55,6 +55,18 @@
       </li>
       @endif
 
+
+      <li> 
+        <a href="#" class="waves-effect {{ (Request::segment(2) == 'atendimento' ? 'active' : '') }}">
+          <i class="mdi mdi-account-outline pr-3" data-icon="v"></i> 
+          <span class="hide-menu"> Atendimento <span class="fa arrow"></span> </span>
+        </a>
+        <ul class="nav nav-second-level {{ (Request::segment(2) == 'atendimento' ? ' collapse in' : '') }}">
+          <li> <a href="#"><span class="hide-menu">Painel comercial</span></a> </li>
+        </ul>
+      </li>
+      
+
       @if(Auth::user()->RelationFuncao->ver_credito == 1 || Auth::user()->RelationFuncao->gerenciar_credito == 1)
       <li> 
         <a href="#" class="waves-effect {{ (Request::segment(2) == 'credito' ? 'active' : '') }}">

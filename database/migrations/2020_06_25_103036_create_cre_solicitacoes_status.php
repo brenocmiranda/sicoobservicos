@@ -18,8 +18,8 @@ class CreateCreSolicitacoesStatus extends Migration
             $table->increments('id');
             $table->enum('status', ['aberto', 'entregue', 'devolvido']);
             $table->integer('usr_id_usuario_alteracao')->unsigned();
-            $table->integer('cre_id_solicitacoes')->unsigned();
             $table->foreign('usr_id_usuario_alteracao')->references('id')->on('usr_usuarios');
+            $table->integer('cre_id_solicitacoes')->unsigned();
             $table->foreign('cre_id_solicitacoes')->references('id')->on('cre_solicitacoes');
             $table->timestamps();
         });

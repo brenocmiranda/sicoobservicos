@@ -18,9 +18,9 @@ class CreateCreSolicitacoes extends Migration
             $table->increments('id');
             $table->text('observacoes')->nullable();
             $table->integer('usr_id_usuario')->unsigned();
-            $table->integer('cre_id_contratos')->unsigned();
             $table->foreign('usr_id_usuario')->references('id')->on('usr_usuarios');
-            $table->foreign('cre_id_contratos')->references('id')->on('cre_contratos');
+            $table->integer('cre_id_arquivos')->unsigned();
+            $table->foreign('cre_id_arquivos')->references('id')->on('cre_arquivos');
             $table->timestamps();
         });
     }
