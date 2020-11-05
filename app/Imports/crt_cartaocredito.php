@@ -2,7 +2,7 @@
 
 namespace App\Imports;
 
-use App\Models\ContaCapital;
+use App\Models\CartoesCredito;
 use App\Models\Associados;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
@@ -10,7 +10,7 @@ use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class CapitalImport implements ToCollection, WithBatchInserts, WithChunkReading, WithHeadingRow
+class crt_cartaocredito implements ToCollection, WithBatchInserts, WithChunkReading, WithHeadingRow
 {
     /**
     * @param array $row

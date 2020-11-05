@@ -10,7 +10,7 @@ use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class EnderecosImport implements ToCollection, WithBatchInserts, WithChunkReading, WithHeadingRow
+class cli_enderecos implements ToCollection, WithBatchInserts, WithChunkReading, WithHeadingRow
 {
     /**
     * @param array $row

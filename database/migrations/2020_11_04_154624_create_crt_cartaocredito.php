@@ -20,8 +20,8 @@ class CreateCrtCartaocredito extends Migration
             $table->enum('situacao', ['vigente', 'quitado', 'prejuizo']);
             $table->integer('cod_cliente')->nullable();
             $table->string('funcao_cartao');
-            $table->string('produto_cartao');
-            $table->string('bandeira_cartao');
+            $table->string('produto_cartao')->nullable();
+            $table->string('bandeira_cartao')->nullable();
             $table->string('fatura')->nullable();
             $table->integer('venc_fatura')->nullable();
             $table->date('data_abertura');

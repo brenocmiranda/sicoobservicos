@@ -8,9 +8,11 @@ use Illuminate\Notifications\Notifiable;
 
 class Contratos extends Model
 {
+    use HasFactory;
+    
     protected $table = 'cre_contratos';
     protected $primaryKey = 'id';
-    protected $fillable = ['id', 'num_contrato', 'status', 'data_operacao', 'data_vencimento', 'valor_contrato', 'renegociacao', 'renegociacao_contrato', 'observacoes', 'cli_id_associado', 'cre_id_modalidades', 'cre_id_finalidades', 'cre_id_produtos', 'cre_id_armarios', 'data_movimento', 'nivel_risco', 'taxa_operacao', 'taxa_mora', 'taxa_multa', 'valor_devido', 'qtd_parcelas', 'qtd_parcelas_pagas', 'created_at', 'updated_at' ];
+    protected $fillable = ['id', 'num_contrato', 'situacao', 'data_operacao', 'data_vencimento', 'valor_contrato', 'renegociacao', 'renegociacao_contrato', 'observacoes', 'cli_id_associado', 'cre_id_arquivo', 'nivel_risco', 'taxa_operacao', 'taxa_mora', 'taxa_multa', 'valor_devido', 'qtd_parcelas', 'qtd_parcelas_pagas', 'data_movimento', 'created_at', 'updated_at' ];
 
     public function RelationUnidade(){
         return $this->belongsTo(Unidades::class, 'cli_id_unidade', 'id');

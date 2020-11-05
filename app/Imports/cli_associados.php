@@ -9,7 +9,7 @@ use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class AssociadosImport implements ToCollection, WithBatchInserts, WithChunkReading, WithHeadingRow
+class cli_associados implements ToCollection, WithBatchInserts, WithChunkReading, WithHeadingRow
 {
     /**
     * @param array $row

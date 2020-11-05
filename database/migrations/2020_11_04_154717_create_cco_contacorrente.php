@@ -18,9 +18,10 @@ class CreateCcoContacorrente extends Migration
             $table->increments('id');
             $table->integer('num_contrato')->unique();
             $table->enum('situacao', ['vigente', 'quitado', 'prejuizo']);
-            $table->string('tipo_conta');
-            $table->string('categoria_conta');
-            $table->double('taxa_limite')->nullable();
+            $table->string('modalidade_conta');
+            $table->string('tipo_conta')->nullable();
+            $table->string('categoria_conta')->nullable();
+            $table->double('taxa_limite');
             $table->integer('utlizacao_limite')->nullable();
             $table->double('valor_contratado');
             $table->double('valor_utilizado')->nullable();
@@ -30,6 +31,7 @@ class CreateCcoContacorrente extends Migration
             $table->integer('sem_movimentacao')->nullable();
             $table->date('ultima_movimentacao')->nullable();
             $table->date('data_abertura');
+            $table->date('data_encerramento')->nullable();
             $table->integer('cli_id_associado')->unsigned();
             $table->foreign('cli_id_associado')->references('id')->on('cli_associados');
             $table->integer('cre_id_arquivo')->unsigned();
