@@ -25,6 +25,8 @@ class CreateCreArquivos extends Migration
             $table->foreign('cre_id_produtos')->references('id')->on('cre_produtos');
             $table->integer('cre_id_armarios')->unsigned()->nullable();
             $table->foreign('cre_id_armarios')->references('id')->on('cre_armarios');
+
+            $table->timestamps();
         });
     }
 

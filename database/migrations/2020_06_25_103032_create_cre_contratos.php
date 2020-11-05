@@ -17,7 +17,7 @@ class CreateCreContratos extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->integer('num_contrato')->unique();
-            $table->string('situacao_contrato');
+            $table->enum('situacao', ['vigente', 'quitado', 'prejuizo']);
             $table->date('data_operacao');
             $table->date('data_vencimento');
             $table->double('valor_contrato');
@@ -40,7 +40,6 @@ class CreateCreContratos extends Migration
 
             $table->date('data_movimento');
             $table->timestamps();
-           
         });
     }
 
