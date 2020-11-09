@@ -28,7 +28,7 @@ class MateriaisCtrl extends Controller
 	public function ExibirSuporte(){
 		$historico = MateriaisHistorico::where('id_usuario', Auth::id())->orderBy('created_at', 'DESC')->get();
 		$pendencias = MateriaisHistorico::where('status', 0)->orderBy('created_at', 'DESC')->get();
-		$categorias = MateriaisCategorias::where('status', 1)->get();
+		$categorias = MateriaisCategorias::where('status', 1)->orderBy('created_at', 'ASC')->get();
 		return view('suporte.materiais.exibir')->with('pendencias', $pendencias)->with('requisicoes', $historico)->with('categorias', $categorias);
 	}
 	// Efetuar solicitação

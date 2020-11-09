@@ -21,6 +21,9 @@ Página inicial
 		        </div>
 	        	<hr>
 	        	<div>
+	        		@foreach($base as $b)
+	        		<a href="{{route('detalhes.base', $b->id)}}">{{$b->titulo}}</a>
+	        		@endforeach
 	        	</div>
 	        </div>
         </div>

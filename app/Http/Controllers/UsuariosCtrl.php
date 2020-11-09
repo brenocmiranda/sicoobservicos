@@ -15,6 +15,7 @@ use App\Notifications\Recuperacao;
 use App\Http\Requests\LoginRqt; 
 use App\Http\Requests\UsuariosRqt; 
 use App\Models\Atividades; 
+use App\Models\Base; 
 use App\Models\Usuarios;
 use App\Models\Funcoes;
 use App\Models\Setores;
@@ -290,7 +291,8 @@ class UsuariosCtrl extends Controller
 	// Tela de inicial
 	public function Inicio(){
 		if (Auth::check() && Auth::user()->status == "Ativo") {
-			return view('system.home');
+			$base = Base::orderBy('created_at', 'DESC')->take(5)->get();
+			return view('system.home')->with('base', $base);
 		}else{
 			return redirect(route('login'));
 		}	

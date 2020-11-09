@@ -39,7 +39,7 @@ Editar tópico
                 <div class="form-group">
                   <label class="col-form-label pb-0">Fonte <span class="text-danger">*</span></label>
                   <select class="form-control form-control-line gti_id_fontes" name="gti_id_fontes" required>
-                    <option disabled>Selecione</option>
+                    <option value="">Selecione</option>
                     @foreach($fontes as $fonte)
                     <option value="{{$fonte->id}}" {{($fonte->id == $base->gti_id_fontes ? 'selected' : '')}}>{{$fonte->nome}}</option>
                     @endforeach
@@ -114,7 +114,7 @@ Editar tópico
               </div>
               <hr class="col-10 mt-0">
               <div class="row col-12 justify-content-center mx-auto">
-                <a href="{{route('exibir.base')}}" class="btn btn-danger btn-outline col-3 d-flex align-items-center justify-content-center mx-2">
+                <a href="{{route('exibir.base.aprendizagem')}}" class="btn btn-danger btn-outline col-3 d-flex align-items-center justify-content-center mx-2">
                   <i class="mdi mdi-arrow-left pr-2"></i> 
                   <span>Voltar</span>
                 </a>

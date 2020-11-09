@@ -245,7 +245,7 @@ Importações
                 percent.html(percentVal);
                 $('.progress-bar').addClass('bg-danger');
                 $('button[type=submit]').removeAttr('disabled');
-                $('.confirm').html('Ops! Ocorreu um erro no processo de importação, verifique se os arquivos foram selecionados para upload!');
+                $('.confirm').html('Ops! Ocorreu um erro no processo de importação, tente novamente!');
             }
         }
     });

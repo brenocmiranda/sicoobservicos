@@ -25,9 +25,10 @@ class BaseCtrl extends Controller
 
 	// Exibir base de conhecimento
 	public function ExibirSuporte(){
-		$fontes = Fontes::where('status', 1)->orderBy('nome', 'ASC')->get();
-		$tipos = Tipos::where('status', 1)->orderBy('nome', 'ASC')->get();
+		$fontes = Base::join('gti_fontes', 'gti_id_fontes', 'gti_fontes.id')->where('gti_fontes.status', 1)->select('gti_fontes.*')->orderBy('nome', 'ASC')->get();
+		$tipos = Base::join('gti_tipos', 'gti_id_tipos', 'gti_tipos.id')->where('gti_tipos.status', 1)->select('gti_tipos.*')->orderBy('nome', 'ASC')->get();
 		return view('suporte.base.exibir')->with('fontes', $fontes)->with('tipos', $tipos);
+		
 	}
 	// Listar todos os itens da base
 	public function Listar($fonte, $tipo){
@@ -71,7 +72,7 @@ class BaseCtrl extends Controller
 	        if ($request->arquivos) {
 	            foreach($request->arquivos as $arq){
 	                $imagem_produto = BaseArquivos::create([
-	                    'sup_id_topico' => $create->id,
+	                    'gti_id_topico' => $create->id,
 	                    'id_arquivo' => $arq                    
 	                ]);
 	            }
@@ -83,7 +84,7 @@ class BaseCtrl extends Controller
 				'url' => route('exibir.base.aprendizagem'),
 				'id_usuario' => Auth::id()
 			]);
-			return redirect()->route('detalhes.base.aprendizagem', $create->id);
+			return redirect()->route('detalhes.base', $create->id);
 		}else{
 			return redirect(route('403'));
 		}
@@ -110,10 +111,10 @@ class BaseCtrl extends Controller
 			]);
 			// Cadastramento de vários arquivos 
 	        if ($request->arquivos){
-	        	BaseArquivos::where('sup_id_topico', $id)->delete();
+	        	BaseArquivos::where('gti_id_topico', $id)->delete();
 	            foreach($request->arquivos as $arq){
 	                $imagem_produto = BaseArquivos::create([
-	                    'sup_id_topico' => $id,
+	                    'gti_id_topico' => $id,
 	                    'id_arquivo' => $arq                    
 	                ]);
 	            }
@@ -142,6 +143,7 @@ class BaseCtrl extends Controller
 				'url' => route('exibir.base.aprendizagem'),
 				'id_usuario' => Auth::id()
 			]);
+			BaseArquivos::where('gti_id_topico', $id)->delete();
 			Base::find($id)->delete();
 			return response()->json(['success' => true]);
 		}else{

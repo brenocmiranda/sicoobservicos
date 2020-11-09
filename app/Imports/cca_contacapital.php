@@ -31,8 +31,8 @@ class cca_contacapital implements ToCollection, WithBatchInserts, WithChunkReadi
                     'direito_rateio' => $row['indicador_associado_direito_rateio'],
                     'data_matricula' => gmdate('Y-m-d', (($row['data_matricula'] - 25569) * 86400)),
                     'saida_matricula' => gmdate('Y-m-d', (($row['data_saida_matricula'] - 25569) * 86400)),
-                    'valor_integralizado' => number_format($row['valor_integralizado'], 2, ',', ''),
-                    'data_movimento' => gmdate('Y-m-d', (($row['data_movimento'] - 25569) * 86400))
+                    'valor_integralizado' => number_format($row['valor_integralizado'], 2, '.', ''),
+                    'data_movimento' => gmdate('Y-m-d', (($row['data_movimento'] - 25569) * 86400)),
                 ]); 
             }else{
                 ContaCapital::create([
@@ -42,8 +42,8 @@ class cca_contacapital implements ToCollection, WithBatchInserts, WithChunkReadi
                     'direito_rateio' => $row['indicador_associado_direito_rateio'],
                     'data_matricula' => gmdate('Y-m-d', (($row['data_matricula'] - 25569) * 86400)),
                     'saida_matricula' => gmdate('Y-m-d', (($row['data_saida_matricula'] - 25569) * 86400)),
-                    'valor_integralizado' => $row['valor_integralizado'],
-                    'data_movimento' => gmdate('Y-m-d', (($row['data_movimento'] - 25569) * 86400))
+                    'valor_integralizado' => number_format($row['valor_integralizado'], 2, '.', ''),
+                    'data_movimento' => gmdate('Y-m-d', (($row['data_movimento'] - 25569) * 86400)),
                     'cli_id_associado' => Associados::where('id_sisbr', $row['numero_cliente_sisbr'])->select('id')->first()->id,
                 ]); 
             }

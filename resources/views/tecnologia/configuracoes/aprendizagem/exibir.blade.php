@@ -91,6 +91,37 @@ Tópicos
 					$(this).css("display", "none");
 			});
 		});
+
+		$('.btn-delete').on('click', function(e){
+	      // Alterando status
+	      e.preventDefault();
+	      var url = $(this).attr('data');
+	      swal({
+	        title: "Tem certeza que deseja remover esse tópico?",
+	        icon: "warning",
+	        buttons: ["Cancelar", "Deletar"],
+	        dangerMode: true,
+	      })
+	      .then((willDelete) => {
+	        if (willDelete) {
+	          $.get(url, function(data){
+	            if(data.success == true){
+	              swal("Tópico removido com sucesso!", {
+	                icon: "success",
+	                button: false
+	              });
+	              window.location.href = "{{route('exibir.base.aprendizagem')}}";
+	            }else{
+	              swal("Não foi possível remover as informações.", {
+	                icon: "error",
+	              });
+	            }
+	          });
+	        } else {
+	          swal.close();
+	        }
+	      });
+	    }); 
 	});
 </script>
 @endsection

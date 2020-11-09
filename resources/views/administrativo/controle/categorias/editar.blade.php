@@ -24,7 +24,7 @@
                 <div class="col-10">
                   <div class="form-group">
                     <label class="col-form-label pb-0">Nome <span class="text-danger">*</span></label>
-                    <input class="form-control form-control-line nome" name="nome" placeholder="Emprestimos Consignados" onkeyup="this.value = this.value.toUpperCase();" required/>
+                    <input class="form-control form-control-line nome" name="nome" placeholder="CANETAS" onkeyup="this.value = this.value.toUpperCase();" required/>
                   </div>
                 </div>
                 <div class="col-12 row">

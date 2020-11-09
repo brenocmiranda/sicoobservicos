@@ -40,7 +40,7 @@ class cli_associados implements ToCollection, WithBatchInserts, WithChunkReading
                 ]);
             }else{
                 Associados::create([
-                    'id_sisbr' => $row['numero_cliente_sisbr'], 
+                    'id_sisbr' => (int) $row['numero_cliente_sisbr'], 
                     'nome' => $row['nome_cliente'], 
                     'nome_fantasia' => $row['nome_fantasia'], 
                     'documento' => $row['cpfcnpj'], 

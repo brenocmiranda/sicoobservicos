@@ -34,7 +34,6 @@ Documentos
 			<div class="col-12 mb-3 mx-3">
 				<table class="table table-striped text-center color-table muted-table rounded" id="table">
 					<thead>
-						<th> ID# </th>
 						<th> Nome </th>
 						<th> Arquivo </th>
 						<th> Status </th>
@@ -71,7 +70,7 @@ Documentos
 		// Criando a datatables
 		$('#table').DataTable({
 			deferRender: true,
-			order: [1, 'asc'],
+			order: [0, 'asc'],
 			paginate: true,
 			select: true,
 			searching: true,
@@ -79,7 +78,6 @@ Documentos
 			ajax: "{{ route('listar.todos.documentos') }}",
 			serverSide: true,
 			"columns": [ 
-			{ "data": "id","name":"id"},
 			{ "data": "nome1", "name":"nome1"},
 			{ "data": "documento", "name":"documento"},
 			{ "data": "status1", "name":"status1"},
@@ -144,7 +142,7 @@ Documentos
 			$(this).parents('tr').addClass('selected');
 			$(this).parent('tr').addClass('selected');
 			var data = table.row('tr.selected').data();
-			var url = "{{url('app/gestao/documentos/alterar')}}/"+data.id;
+			var url = "{{url('app/administrativo/documentos/alterar')}}/"+data.id;
 			swal({
 				title: "Tem certeza que deseja alterar o estado?",
 				icon: "warning",

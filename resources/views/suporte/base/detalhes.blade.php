@@ -40,13 +40,13 @@
                 <span>Voltar</span>
               </a>
             </div>
-            @if(Auth::user()->RelationFuncao->gerenciar_suporte)
+            @if(Auth::user()->RelationFuncao->gerenciar_gti)
             <div class="ml-auto">
-              <a href="{{route('editar.base.aprendizagem', $dados->id)}}" class="btn btn-default btn-rounded btn-outline btn-xs px-3 mx-1">
+              <a href="{{route('editar.base.aprendizagem', $dados->id)}}" class="btn btn-default btn-outline btn-xs px-3 mx-1">
                 <i class="mdi mdi-pencil"></i>
                 <small>Editar</small>
               </a>
-              <a href="javascript:void(0)" data="{{route('delete.base.aprendizagem', $dados->id)}}" class="btn-delete btn btn-default btn-rounded btn-outline btn-xs px-3">
+              <a href="javascript:void(0)" data="{{route('delete.base.aprendizagem', $dados->id)}}" class="btn-delete btn btn-default btn-outline btn-xs px-3">
                 <i class="mdi mdi-close"></i>
                 <small>Deletar</small>
               </a>

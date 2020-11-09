@@ -1,5 +1,5 @@
 @section('title')
-Base de conhecimento
+Aprendizagem
 @endsection
 
 @extends('layouts.index')
@@ -26,55 +26,61 @@ Base de conhecimento
 					</div>
 				</div>
 				<div class="row col-12 mx-auto my-5">
-					<div class="vtabs customvtab w-100">
-                        <ul class="nav tabs-vertical"  id="fontes" style="width: 20em;">
-                        	@foreach($fontes as $fonte)
-								<li class="tab p-0 {{($fonte->id == $fontes->first()->id ? ' active' : '')}}">
-									<a data-toggle="tab" href="#section{{$fonte->id}}"  aria-expanded="true" class="m-0">
-										<div class="border rounded shadow-sm">
-											<div class="col-12 py-3">
-												<div class="text-uppercase">
-													<h5 class="mb-2">{{$fonte->nome}}</h5>
+					@if(isset($fontes[0]))
+						<div class="vtabs customvtab w-100">
+	                        <ul class="nav tabs-vertical"  id="fontes" style="width: 20em;">
+	                        	@foreach($fontes as $fonte)
+									<li class="tab p-0 {{($fonte->id == $fontes->first()->id ? ' active' : '')}}">
+										<a data-toggle="tab" href="#section{{$fonte->id}}"  aria-expanded="true" class="m-0">
+											<div class="border rounded shadow-sm">
+												<div class="col-12 py-3">
+													<div class="text-uppercase">
+														<h5 class="mb-2">{{$fonte->nome}}</h5>
+													</div>
 												</div>
 											</div>
-										</div>
-									</a>
-								</li>
-							@endforeach
-						</ul>
-                        <div class="tab-content">
-                        	<?php $i=0; ?> 
-                        	@foreach($fontes as $fonte)
-	                            <div id="section{{$fonte->id}}" class="tab-pane{{($fonte->id == $fontes->first()->id ? ' active' : '')}}">
-	                                <div class="col-12">
-	                                	<div class="mx-4">
-		                                	<h4 class="mb-2">{{$fonte->nome}}</h4> 
-		                                	<label>{{$fonte->descricao}}</label>
-	                                	</div>
-	                                </div>
-	                                <hr class="mt-3 mx-5">
-	                                <div class="col-12">
-	                                    <ul style="list-style: disc" id="tipos">
-	                                    	@foreach($tipos as $tipo)
-	                                    		@if($tipo->gti_id_fontes == $fonte->id)
-		                                    		<a href="{{route('listar.base', [$fonte->id, $tipo->id])}}">
-		                                    			<li class="pb-3">{{$tipo->nome}}</li>
-		                                    		</a>	        
-		                                    		<?php $i++; ?>                            		
-	                                    		@endif
-	                                    	@endforeach
-	                                    </ul>
-	                                    @if($i == 0)
-                                    		<p class="col-12">Essa modalidade não possui nenhum item cadastrado para consulta.</p>
-                                    	@else
-                                    		<?php $i=0; ?>
-                                    	@endif
-	                                </div>
-	                                <div class="clearfix"></div>
-	                            </div>
-                            @endforeach
-                        </div>
-                    </div>
+										</a>
+									</li>
+								@endforeach
+							</ul>
+	                        <div class="tab-content">
+	                        	<?php $i=0; ?> 
+	                        	@foreach($fontes as $fonte)
+		                            <div id="section{{$fonte->id}}" class="tab-pane{{($fonte->id == $fontes->first()->id ? ' active' : '')}}">
+		                                <div class="col-12">
+		                                	<div class="mx-4">
+			                                	<h4 class="mb-2">{{$fonte->nome}}</h4> 
+			                                	<label>{{$fonte->descricao}}</label>
+		                                	</div>
+		                                </div>
+		                                <hr class="mt-3 mx-5">
+		                                <div class="col-12">
+		                                    <ul style="list-style: disc" id="tipos">
+		                                    	@foreach($tipos as $tipo)
+		                                    		@if($tipo->gti_id_fontes == $fonte->id)
+			                                    		<a href="{{route('listar.base', [$fonte->id, $tipo->id])}}">
+			                                    			<li class="pb-3">{{$tipo->nome}}</li>
+			                                    		</a>	        
+			                                    		<?php $i++; ?>                            		
+		                                    		@endif
+		                                    	@endforeach
+		                                    </ul>
+		                                    @if($i == 0)
+	                                    		<p class="col-12">Essa modalidade não possui nenhum item cadastrado para consulta.</p>
+	                                    	@else
+	                                    		<?php $i=0; ?>
+	                                    	@endif
+		                                </div>
+		                                <div class="clearfix"></div>
+		                            </div>
+	                            @endforeach
+	                        </div>
+	                    </div>
+                    @else
+                    	<div class="row mx-auto w-100">
+							<label class="alert alert-secondary col-12 rounded">Não temos nenhum tópico cadastrado até o momento.</label>
+						</div>
+                    @endif
 				</div>
 			</div>
 		</div>

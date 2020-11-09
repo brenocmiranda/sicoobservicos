@@ -30,7 +30,7 @@ class cli_conglomerados implements ToCollection, WithBatchInserts, WithChunkRead
                 ]); 
             }else{
                 Conglomerados::create([
-                    'codigo' => $row['codigo_grupo_economico'], 
+                    'codigo' => (int) $row['codigo_grupo_economico'], 
                     'descricao' => $row['descricao_do_grupo_economico_do_cliente'],
                     'cli_id_associado' => Associados::where('id_sisbr', $row['numero_cliente_sisbr'])->select('id')->first()->id,
                 ]); 

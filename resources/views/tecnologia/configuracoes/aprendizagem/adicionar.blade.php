@@ -39,7 +39,7 @@ Adicionar tópico
 								<div class="form-group">
 									<label class="col-form-label pb-0">Fonte <span class="text-danger">*</span></label>
 									<select class="form-control form-control-line gti_id_fontes" name="gti_id_fontes" required>
-										<option disabled>Selecione</option>
+										<option value="">Selecione</option>
 										@foreach($fontes as $fonte)
 										<option value="{{$fonte->id}}">{{$fonte->nome}}</option>
 										@endforeach

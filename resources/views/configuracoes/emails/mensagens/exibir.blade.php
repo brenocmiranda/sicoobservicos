@@ -18,17 +18,17 @@ Mensagens e-mails
 			</ol>
 		</div>
 	</div>
-
-	@if(Session::has('alteracao'))
-	<p class="mx-auto col-sm-12 alert alert-{{ Session::get('alteracao')['class'] }}">
-		{{ Session::get('alteracao')['mensagem'] }}
-		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-		</button>
-	</p>
-	@endif
+	
 	<form method="POST" class="form-sample" action="{{route('salvar.mensagens.emails')}}" enctype="multipart/form-data" autocomplete="off">
 	@csrf
+		@if(Session::has('alteracao'))
+		<p class="mx-auto col-sm-12 alert alert-{{ Session::get('alteracao')['class'] }}">
+			{{ Session::get('alteracao')['mensagem'] }}
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</p>
+		@endif
 
 		<div class="card mb-4">
 			<div class="card-header" style="border-top-right-radius: 0.6em; border-top-left-radius: 0.6em;">

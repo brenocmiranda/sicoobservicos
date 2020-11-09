@@ -3,10 +3,10 @@
 namespace App\Imports;
 
 use App\Models\ContaCorrente;
-use App\Models\CreArquivos;
-use App\Models\Produtos;
-use App\Models\Modalidades;
 use App\Models\Associados;
+use App\Models\CreArquivos;
+use App\Models\ProdutosCred;
+use App\Models\Modalidades;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
@@ -35,21 +35,21 @@ class cco_contacorrente implements ToCollection, WithBatchInserts, WithChunkRead
                         ($row['modalidade_conta_corrente'] == 'CONTA INVESTIMENTO' ? Modalidades::where('codigo', 805)->select('id')->first()->id :
                         ($row['modalidade_conta_corrente'] == 'CONTA SALÁRIO' ? Modalidades::where('codigo', 806)->select('id')->first()->id :
                         ($row['modalidade_conta_corrente'] == 'CORRESPONDENTE BANCÁRIO' ? Modalidades::where('codigo', 807)->select('id')->first()->id : Modalidades::where('codigo', 99999)->select('id')->first()->id))))))),
-                    'cre_id_produtos' => Produtos::where('codigo', 3)->select('id')->first()->id,
+                    'cre_id_produtos' => ProdutosCred::where('codigo', 3)->select('id')->first()->id,
                 ]);
                 ContaCorrente::where('cli_id_associado', $associado->id)->update([
-                    'num_contrato' => $row['numero_conta_corrente'],
+                    'num_contrato' => (int) $row['numero_conta_corrente'],
                     'situacao' => $row['situacao_conta_corrente'],
                     'modalidade_conta' => $row['modalidade_conta_corrente'],
                     'tipo_conta' => $row['tipo_conta_corrente'],
                     'categoria_conta' => $row['categoria_conta_corrente'],
-                    'taxa_limite' => number_format($row['taxa_limite_credito'], 2, ',', ''),
+                    'taxa_limite' => number_format($row['taxa_limite_credito'], 2, '.', ''),
                     'utlizacao_limite' => $row['quantidade_dias_utilizacao_limite_credito'],
-                    'valor_contratado' => number_format($row['valor_limite_credito_contratato'], 2, ',', ''),
-                    'valor_utilizado' => number_format($row['valor_saldo_devedor_limite_credito'], 2, ',', ''),
-                    'taxa_adp' => number_format($row['taxa_adp'], 2, ',', ''),
+                    'valor_contratado' => number_format($row['valor_limite_credito_contratato'], 2, '.', ''),
+                    'valor_utilizado' => number_format($row['valor_saldo_devedor_limite_credito'], 2, '.', ''),
+                    'taxa_adp' => number_format($row['taxa_adp'], 2, '.', ''),
                     'utlizacao_adp' => $row['quantidade_dias_utilizacao_adp'],
-                    'valor_adp' => number_format($row['valor_saldo_devedor_adp'], 2, ',', ''),
+                    'valor_adp' => number_format($row['valor_saldo_devedor_adp'], 2, '.', ''),
                     'sem_movimentacao' => $row['dias_sem_movimentacao'],
                     'ultima_movimentacao' =>  gmdate('Y-m-d', (($row['data_utimo_movimento_conta_corrente'] - 25569) * 86400)),
                     'data_abertura' => gmdate('Y-m-d', (($row['data_abertura_conta_corrente'] - 25569) * 86400)),
@@ -66,21 +66,21 @@ class cco_contacorrente implements ToCollection, WithBatchInserts, WithChunkRead
                         ($row['modalidade_conta_corrente'] == 'CONTA INVESTIMENTO' ? Modalidades::where('codigo', 805)->select('id')->first()->id :
                         ($row['modalidade_conta_corrente'] == 'CONTA SALÁRIO' ? Modalidades::where('codigo', 806)->select('id')->first()->id :
                         ($row['modalidade_conta_corrente'] == 'CORRESPONDENTE BANCÁRIO' ? Modalidades::where('codigo', 807)->select('id')->first()->id : Modalidades::where('codigo', 99999)->select('id')->first()->id))))))),
-                    'cre_id_produtos' => Produtos::where('codigo', 3)->select('id')->first()->id,
+                    'cre_id_produtos' => ProdutosCred::where('codigo', 3)->select('id')->first()->id,
                 ]);
                 ContaCorrente::create([
-                    'num_contrato' => $row['numero_conta_corrente'],
+                     'num_contrato' => (int) $row['numero_conta_corrente'],
                     'situacao' => $row['situacao_conta_corrente'],
                     'modalidade_conta' => $row['modalidade_conta_corrente'],
                     'tipo_conta' => $row['tipo_conta_corrente'],
                     'categoria_conta' => $row['categoria_conta_corrente'],
-                    'taxa_limite' => number_format($row['taxa_limite_credito'], 2, ',', ''),
+                    'taxa_limite' => number_format($row['taxa_limite_credito'], 2, '.', ''),
                     'utlizacao_limite' => $row['quantidade_dias_utilizacao_limite_credito'],
-                    'valor_contratado' => number_format($row['valor_limite_credito_contratato'], 2, ',', ''),
-                    'valor_utilizado' => number_format($row['valor_saldo_devedor_limite_credito'], 2, ',', ''),
-                    'taxa_adp' => number_format($row['taxa_adp'], 2, ',', ''),
+                    'valor_contratado' => number_format($row['valor_limite_credito_contratato'], 2, '.', ''),
+                    'valor_utilizado' => number_format($row['valor_saldo_devedor_limite_credito'], 2, '.', ''),
+                    'taxa_adp' => number_format($row['taxa_adp'], 2, '.', ''),
                     'utlizacao_adp' => $row['quantidade_dias_utilizacao_adp'],
-                    'valor_adp' => number_format($row['valor_saldo_devedor_adp'], 2, ',', ''),
+                    'valor_adp' => number_format($row['valor_saldo_devedor_adp'], 2, '.', ''),
                     'sem_movimentacao' => $row['dias_sem_movimentacao'],
                     'ultima_movimentacao' =>  gmdate('Y-m-d', (($row['data_utimo_movimento_conta_corrente'] - 25569) * 86400)),
                     'data_abertura' => gmdate('Y-m-d', (($row['data_abertura_conta_corrente'] - 25569) * 86400)),

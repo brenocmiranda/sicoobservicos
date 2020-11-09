@@ -35,7 +35,6 @@ Materiais
 			<div class="col-12 mb-3 mx-3">
 				<table class="table table-striped text-center color-table muted-table rounded" id="table">
 					<thead>
-						<th> ID# </th>
 						<th> Nome </th>
 						<th> Categoria </th>
 						<th> Quantidade </th>
@@ -81,7 +80,6 @@ Materiais
 			ajax: "{{ route('listar.todos.materiais') }}",
 			serverSide: true,
 			"columns": [ 
-			{ "data": "id","name":"id"},
 			{ "data": "nome1", "name":"nome1"},
 			{ "data": "categoria1", "name":"categoria1"},
 			{ "data": "quantidade", "name":"quantidade"},
