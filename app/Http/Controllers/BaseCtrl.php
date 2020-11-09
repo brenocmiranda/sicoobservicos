@@ -84,7 +84,7 @@ class BaseCtrl extends Controller
 				'url' => route('exibir.base.aprendizagem'),
 				'id_usuario' => Auth::id()
 			]);
-			return redirect()->route('detalhes.base', $create->id);
+			return redirect()->route('exibir.base');
 		}else{
 			return redirect(route('403'));
 		}
@@ -127,7 +127,7 @@ class BaseCtrl extends Controller
 				'url' => route('exibir.base.aprendizagem'),
 				'id_usuario' => Auth::id()
 			]);
-			return redirect()->route('detalhes.base', $id);
+			return redirect()->route('exibir.base');
 		}else{
 			return redirect(route('403'));
 		}

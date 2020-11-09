@@ -35,7 +35,7 @@
                 </div>
                 <div class="col-6">
                   <div class="form-group">
-                    <label class="col-form-label pb-0">Login <span class="text-danger">*</span></label>
+                    <label class="col-form-label pb-0">Login <span class="text-danger">*</span> <small>(Apenas letras minúsculas)</small></label>
                     <input type="text" class="login form-control form-control-line" placeholder="adminm4133_00" name="login" required/>
                   </div>
                 </div>

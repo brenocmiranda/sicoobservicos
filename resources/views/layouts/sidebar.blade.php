@@ -62,7 +62,7 @@
           <span class="hide-menu"> Atendimento <span class="fa arrow"></span> </span>
         </a>
         <ul class="nav nav-second-level {{ (Request::segment(2) == 'atendimento' ? ' collapse in' : '') }}">
-          <li> <a href="#"><span class="hide-menu">Painel comercial</span></a> </li>
+          <li> <a href="{{route('exibir.painel.atendimento')}}"><span class="hide-menu">Painel comercial</span></a> </li>
         </ul>
       </li>
       

@@ -35,7 +35,6 @@ Tipos
 			<div class="col-12 mb-3 mx-3">
 				<table class="table table-striped text-center color-table muted-table rounded" id="table">
 					<thead>
-						<th> ID# </th>
 						<th> Nome </th>
 						<th> Fonte </th>
 						<th> Status </th>
@@ -80,7 +79,6 @@ Tipos
 			ajax: "{{ route('listar.tipos.chamados') }}",
 			serverSide: true,
 			"columns": [ 
-			{ "data": "id","name":"id"},
 			{ "data": "nome1", "name":"nome1"},
 			{ "data": "fonte", "name":"fonte"},
 			{ "data": "status1", "name":"status1"},

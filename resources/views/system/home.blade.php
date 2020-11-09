@@ -21,9 +21,12 @@ Página inicial
 		        </div>
 	        	<hr>
 	        	<div>
+	        		<label class="font-weight-bold pb-3 d-block">Novos tópicos disponíveis:</label>
+	        		<ul style="list-style: circle;" class="col-12 ml-3">
 	        		@foreach($base as $b)
-	        		<a href="{{route('detalhes.base', $b->id)}}">{{$b->titulo}}</a>
+	        			<li class="pb-2"><a href="{{route('detalhes.base', $b->id)}}" class="text-truncate">{{$b->titulo}}</a></li>
 	        		@endforeach
+	        		</ul>
 	        	</div>
 	        </div>
         </div>

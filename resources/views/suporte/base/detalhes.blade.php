@@ -35,7 +35,7 @@
         <div class="card-body">
           <div class="row col-12 mx-auto pb-3">
             <div class="mr-auto">
-              <a href="javascript:history.back()">
+              <a href="{{route('exibir.base')}}" class="btn btn-danger btn-outline btn-xs px-3">
                 <i class="mdi mdi-arrow-left"></i>
                 <span>Voltar</span>
               </a>
@@ -48,7 +48,7 @@
               </a>
               <a href="javascript:void(0)" data="{{route('delete.base.aprendizagem', $dados->id)}}" class="btn-delete btn btn-default btn-outline btn-xs px-3">
                 <i class="mdi mdi-close"></i>
-                <small>Deletar</small>
+                <small>Remover</small>
               </a>
             </div>
             @endif
@@ -80,7 +80,7 @@
                 </div>
                 @endforeach
               <hr>
-              <p><?php echo $dados->descricao; ?></p>
+              <p class="w-100"><?php echo $dados->descricao; ?></p>
               <hr>
               <small><b>Data de criação:</b> {{$dados->created_at->format('d/m/Y H:i:s')}}</small>
               <br> 

@@ -35,7 +35,6 @@ Funções
 			<div class="col-12 mb-3 mx-3">
 				<table class="table table-striped text-center color-table muted-table rounded" id="table">
 					<thead>
-						<th> ID# </th>
 						<th> Nome </th>
 						<th> Status </th>
 						<th> Ações </th>
@@ -78,7 +77,6 @@ Funções
 			ajax: "{{ route('listar.funcoes.administrativo') }}",
 			serverSide: true,
 			"columns": [ 
-			{ "data": "id","name":"id"},
 			{ "data": "nome1", "name":"nome1"},
 			{ "data": "status1", "name":"status1"},
 			{ "data": "acoes","name":"acoes"},

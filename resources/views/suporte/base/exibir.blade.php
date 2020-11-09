@@ -22,7 +22,7 @@ Aprendizagem
 			<div class="col-12">
 				<div class="col-12 row mx-auto">
 					<div class="col-8 mx-auto">
-						<input type="search" class="form-control rounded" placeholder="Pesquise...">
+						<input type="search" class="form-control rounded" style="border-radius:20px !important;" placeholder="Pesquise...">
 					</div>
 				</div>
 				<div class="row col-12 mx-auto my-5">

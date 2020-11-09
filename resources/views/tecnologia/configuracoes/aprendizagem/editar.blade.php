@@ -63,7 +63,7 @@ Editar tópico
                 <div class="form-group">
                   <label class="col-form-label pb-0">Titulo <span class="text-danger">*</span></label>
                   <div class="">
-                    <input class="form-control form-control-line" name="titulo" value="{{$base->titulo}}" required/>
+                    <input class="form-control form-control-line" name="titulo" value="{{$base->titulo}}" onkeyup="this.value = this.value.toUpperCase();" required/>
                   </div>
                 </div>
               </div>
@@ -71,7 +71,7 @@ Editar tópico
                 <div class="form-group">
                   <label class="col-form-label pb-0">Sub-título <span class="text-danger">*</span></label>
                   <div class="">
-                    <input class="form-control form-control-line" name="subtitulo" value="{{$base->subtitulo}}" required/>
+                    <input class="form-control form-control-line" name="subtitulo" value="{{$base->subtitulo}}" onkeyup="this.value = this.value.toUpperCase();" required/>
                   </div>
                 </div>
               </div>

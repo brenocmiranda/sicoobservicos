@@ -109,6 +109,16 @@ Route::group(['prefix' => 'app'], function(){
 	});
 
 	#---------------------------------------------------------------------
+	# Módulo Atendimento
+	#---------------------------------------------------------------------
+	Route::group(['prefix' => 'atendimento'], function(){
+		// Painel comercial
+		Route::group(['prefix' => 'painel'], function(){
+			Route::get('', 'AtendimentoCtrl@ExibirPainel')->name('exibir.painel.atendimento');
+		});
+	});
+
+	#---------------------------------------------------------------------
 	# Módulo de Crédito
 	#---------------------------------------------------------------------
 	Route::group(['prefix' => 'credito'], function(){

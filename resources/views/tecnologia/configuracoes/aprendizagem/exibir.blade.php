@@ -35,7 +35,7 @@ Tópicos
 						<h5>Todos os tópicos cadastrados</h5>
 						<hr class="mt-2">
 					</div>
-					<div class="col-12 p-0">
+					<div class="col-12">
 						@if(isset($topicos[0]))
 							<ul class="p-0" id="topicos">
 								@foreach($topicos as $topico)
@@ -58,7 +58,7 @@ Tópicos
 								              </a>
 								              <a href="javascript:void(0)" data="{{route('delete.base.aprendizagem', $topico->id)}}" class="btn-delete btn btn-default btn-rounded btn-outline btn-xs px-3 my-1 col-10">
 								                <i class="mdi mdi-close"></i>
-								                <small>Deletar</small>
+								                <small>Remover</small>
 								              </a>
 								            </div>
 										</div>
