@@ -22,14 +22,28 @@ class cca_contacapital implements ToCollection, WithBatchInserts, WithChunkReadi
         foreach ($rows as $row) 
         {  
             $associado = Associados::where('id_sisbr', $row['numero_cliente_sisbr'])->select('id')->first();
-            $dados = Emails::where('cli_id_associado', $associado->id)->first();
+            $dados = ContaCapital::where('cli_id_associado', $associado->id)->first();
             if(isset($dados)){
-                Emails::where('cli_id_associado', $associado->id)->update([
-                    'email' => $row['email']
+                ContaCapital::where('cli_id_associado', $associado->id)->update([
+                    'num_capital' => $row['numero_conta_capital'],
+                    'situacao_capital' => $row['situacao_conta_capital'],
+                    'direito_voto' => $row['indicador_associado_direito_voto'],
+                    'direito_rateio' => $row['indicador_associado_direito_rateio'],
+                    'data_matricula' => gmdate('Y-m-d', (($row['data_matricula'] - 25569) * 86400)),
+                    'saida_matricula' => gmdate('Y-m-d', (($row['data_saida_matricula'] - 25569) * 86400)),
+                    'valor_integralizado' => number_format($row['valor_integralizado'], 2, ',', ''),
+                    'data_movimento' => gmdate('Y-m-d', (($row['data_movimento'] - 25569) * 86400))
                 ]); 
             }else{
-                Emails::create([
-                    'email' => $row['email'], 
+                ContaCapital::create([
+                    'num_capital' => $row['numero_conta_capital'],
+                    'situacao_capital' => $row['situacao_conta_capital'],
+                    'direito_voto' => $row['indicador_associado_direito_voto'],
+                    'direito_rateio' => $row['indicador_associado_direito_rateio'],
+                    'data_matricula' => gmdate('Y-m-d', (($row['data_matricula'] - 25569) * 86400)),
+                    'saida_matricula' => gmdate('Y-m-d', (($row['data_saida_matricula'] - 25569) * 86400)),
+                    'valor_integralizado' => $row['valor_integralizado'],
+                    'data_movimento' => gmdate('Y-m-d', (($row['data_movimento'] - 25569) * 86400))
                     'cli_id_associado' => Associados::where('id_sisbr', $row['numero_cliente_sisbr'])->select('id')->first()->id,
                 ]); 
             }

@@ -40,7 +40,11 @@ Importações
                                 <input type="file" name="cli_associados" accept=".xlsx">
                             </div>
                             <div class="col-4 p-0 m-auto text-right">
-                                <label>Última atualização: <b>{{date('d/m/Y H:i', strtotime(@$dBaseAssociado->updated_at))}}</b></label>
+                                <label class="mb-0 d-block">
+                                    <b>{!! ( strtotime(date('Y-m-d', strtotime(@$cli_associados->updated_at))) == 
+                                    strtotime(date('Y-m-d')) ? '<i class="mdi mdi-check mdi-24px text-success px-2"></i>'."Atualizado" : '<i class="mdi mdi-close mdi-24px text-danger px-2"></i>'."Desatualizado")!!}</b>
+                                </label>
+                                <small>{{date('d/m/Y H:i:s', strtotime(@$cli_associados->updated_at))}}</small>
                             </div>
                         </div>
                     </div>
@@ -52,7 +56,11 @@ Importações
                                 <input type="file" name="cli_emails" accept=".xlsx">
                             </div>
                             <div class="col-4 p-0 m-auto text-right">
-                                <label>Última atualização: <b>{{date('d/m/Y H:i', strtotime(@$dBaseEmails->updated_at))}}</b></label>
+                                <label class="mb-0 d-block">
+                                    <b>{!! ( strtotime(date('Y-m-d', strtotime(@$cli_emails->updated_at))) == 
+                                    strtotime(date('Y-m-d')) ? '<i class="mdi mdi-check mdi-24px text-success px-2"></i>'."Atualizado" : '<i class="mdi mdi-close mdi-24px text-danger px-2"></i>'."Desatualizado")!!}</b>
+                                </label>
+                                <small>{{date('d/m/Y H:i:s', strtotime(@$cli_emails->updated_at))}}</small>
                             </div>
                         </div>
                     </div>
@@ -64,7 +72,11 @@ Importações
                                 <input type="file" name="cli_telefones" accept=".xlsx">
                             </div>
                             <div class="col-4 p-0 m-auto text-right">
-                                <label>Última atualização: <b>{{date('d/m/Y H:i', strtotime(@$dBaseTelefones->updated_at))}}</b></label>
+                                <label class="mb-0 d-block">
+                                    <b>{!! ( strtotime(date('Y-m-d', strtotime(@$cli_telefones->updated_at))) == 
+                                    strtotime(date('Y-m-d')) ? '<i class="mdi mdi-check mdi-24px text-success px-2"></i>'."Atualizado" : '<i class="mdi mdi-close mdi-24px text-danger px-2"></i>'."Desatualizado")!!}</b>
+                                </label>
+                                <small>{{date('d/m/Y H:i:s', strtotime(@$cli_telefones->updated_at))}}</small>
                             </div>
                         </div>
                     </div>
@@ -76,7 +88,91 @@ Importações
                                 <input type="file" name="cli_enderecos" accept=".xlsx">
                             </div>
                             <div class="col-4 p-0 m-auto text-right">
-                                <label>Última atualização: <b>{{date('d/m/Y H:i', strtotime(@$dBaseEnderecos->updated_at))}}</b></label>
+                                <label class="mb-0 d-block">
+                                    <b>{!! ( strtotime(date('Y-m-d', strtotime(@$cli_enderecos->updated_at))) == 
+                                    strtotime(date('Y-m-d')) ? '<i class="mdi mdi-check mdi-24px text-success px-2"></i>'."Atualizado" : '<i class="mdi mdi-close mdi-24px text-danger px-2"></i>'."Desatualizado")!!}</b>
+                                </label>
+                                <small>{{date('d/m/Y H:i:s', strtotime(@$cli_enderecos->updated_at))}}</small>
+                            </div>
+                        </div>
+                    </div>
+                     <hr class="col-12 my-2">
+                    <div class="col-12">
+                         <div class="form-group col-12 row">
+                            <div class="col-8 p-0">
+                                <label class="col-form-label mb-2">cli_conglomerados.xlsx</label>
+                                <input type="file" name="cli_conglomerados" accept=".xlsx">
+                            </div>
+                            <div class="col-4 p-0 m-auto text-right">
+                                <label class="mb-0 d-block">
+                                    <b>{!! ( strtotime(date('Y-m-d', strtotime(@$cli_conglomerados->updated_at))) == 
+                                    strtotime(date('Y-m-d')) ? '<i class="mdi mdi-check mdi-24px text-success px-2"></i>'."Atualizado" : '<i class="mdi mdi-close mdi-24px text-danger px-2"></i>'."Desatualizado")!!}</b>
+                                </label>
+                                <small>{{date('d/m/Y H:i:s', strtotime(@$cli_conglomerados->updated_at))}}</small>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="col-12 my-2">
+                    <div class="col-12">
+                         <div class="form-group col-12 row">
+                            <div class="col-8 p-0">
+                                <label class="col-form-label mb-2">cca_contacapital.xlsx</label>
+                                <input type="file" name="cca_contacapital" accept=".xlsx">
+                            </div>
+                            <div class="col-4 p-0 m-auto text-right">
+                                <label class="mb-0 d-block">
+                                    <b>{!! ( strtotime(date('Y-m-d', strtotime(@$cca_contacapital->updated_at))) == 
+                                    strtotime(date('Y-m-d')) ? '<i class="mdi mdi-check mdi-24px text-success px-2"></i>'."Atualizado" : '<i class="mdi mdi-close mdi-24px text-danger px-2"></i>'."Desatualizado")!!}</b>
+                                </label>
+                                <small>{{date('d/m/Y H:i:s', strtotime(@$cca_contacapital->updated_at))}}</small>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="col-12 my-2">
+                    <div class="col-12">
+                         <div class="form-group col-12 row">
+                            <div class="col-8 p-0">
+                                <label class="col-form-label mb-2">cco_contacorrente.xlsx</label>
+                                <input type="file" name="cco_contacorrente" accept=".xlsx">
+                            </div>
+                            <div class="col-4 p-0 m-auto text-right">
+                                <label class="mb-0 d-block">
+                                    <b>{!! ( strtotime(date('Y-m-d', strtotime(@$cco_contacorrente->updated_at))) == 
+                                    strtotime(date('Y-m-d')) ? '<i class="mdi mdi-check mdi-24px text-success px-2"></i>'."Atualizado" : '<i class="mdi mdi-close mdi-24px text-danger px-2"></i>'."Desatualizado")!!}</b>
+                                </label>
+                                <small>{{date('d/m/Y H:i:s', strtotime(@$cco_contacorrente->updated_at))}}</small>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="col-12 my-2">
+                    <div class="col-12">
+                         <div class="form-group col-12 row">
+                            <div class="col-8 p-0">
+                                <label class="col-form-label mb-2">cre_contratos.xlsx</label>
+                                <input type="file" name="cre_contratos" accept=".xlsx">
+                            </div>
+                            <div class="col-4 p-0 m-auto text-right">
+                                <label class="mb-0 d-block">
+                                    <b>{!! ( strtotime(date('Y-m-d', strtotime(@$cre_contratos->updated_at))) == 
+                                    strtotime(date('Y-m-d')) ? '<i class="mdi mdi-check mdi-24px text-success px-2"></i>'."Atualizado" : '<i class="mdi mdi-close mdi-24px text-danger px-2"></i>'."Desatualizado")!!}</b>
+                                </label>
+                                <small>{{date('d/m/Y H:i:s', strtotime(@$cre_contratos->updated_at))}}</small>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="col-12 my-2">
+                    <div class="col-12">
+                         <div class="form-group col-12 row">
+                            <div class="col-8 p-0">
+                                <label class="col-form-label mb-2">crt_cartaocredito.xlsx</label>
+                                <input type="file" name="crt_cartaocredito" accept=".xlsx">
+                            </div>
+                            <div class="col-4 p-0 m-auto text-right">
+                                <label class="mb-0 d-block">
+                                    <b>{!! ( strtotime(date('Y-m-d', strtotime(@$crt_cartaocredito->updated_at))) == 
+                                    strtotime(date('Y-m-d')) ? '<i class="mdi mdi-check mdi-24px text-success px-2"></i>'."Atualizado" : '<i class="mdi mdi-close mdi-24px text-danger px-2"></i>'."Desatualizado")!!}</b>
+                                </label>
+                                <small>{{date('d/m/Y H:i:s', strtotime(@$crt_cartaocredito->updated_at))}}</small>
                             </div>
                         </div>
                     </div>

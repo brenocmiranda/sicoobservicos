@@ -17,10 +17,11 @@ class CreateCreContratos extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->integer('num_contrato')->unique();
-            $table->enum('situacao', ['vigente', 'quitado', 'prejuizo']);
+            $table->string('situacao');
             $table->date('data_operacao');
             $table->date('data_vencimento');
             $table->double('valor_contrato');
+            $table->string('finalidade');
             $table->boolean('renegociacao')->nullable();
             $table->string('renegociacao_contrato')->nullable();
             $table->text('observacoes')->nullable();

@@ -17,7 +17,7 @@ class CreateCrtCartaocredito extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->integer('num_contrato')->unique();
-            $table->enum('situacao', ['vigente', 'quitado', 'prejuizo']);
+            $table->string('situacao');
             $table->integer('cod_cliente')->nullable();
             $table->string('funcao_cartao');
             $table->string('produto_cartao')->nullable();

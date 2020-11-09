@@ -126,17 +126,6 @@ Configurações
 					</a>
 				</div>
 				<div class="col-10 rounded m-3">
-					<a href="{{ route('exibir.finalidades.credito') }}" class="row">
-						<div class="border rounded row align-items-center shadow-sm">
-							<i class="mdi mdi-book mdi-dark mdi-24px px-4"></i>
-						</div>
-						<div class="col-10 text-secondary mx-4">
-							<h5 class="mb-1 text-primary"> Finalidades </h5>
-							<label> Gerencie as finalidades disponíveis nos contratos de crédito. </label>
-						</div>
-					</a>
-				</div>
-				<div class="col-10 rounded m-3">
 					<a href="{{ route('exibir.modalidades.credito') }}" class="row">
 						<div class="border rounded row align-items-center shadow-sm">
 							 <i class="mdi mdi-bookmark-outline mdi-dark mdi-24px px-4"></i>

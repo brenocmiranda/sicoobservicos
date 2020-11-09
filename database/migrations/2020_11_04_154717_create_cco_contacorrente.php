@@ -17,7 +17,7 @@ class CreateCcoContacorrente extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->integer('num_contrato')->unique();
-            $table->enum('situacao', ['vigente', 'quitado', 'prejuizo']);
+            $table->string('situacao');
             $table->string('modalidade_conta');
             $table->string('tipo_conta')->nullable();
             $table->string('categoria_conta')->nullable();

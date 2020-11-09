@@ -202,15 +202,6 @@ Route::group(['prefix' => 'app'], function(){
 				Route::get('alterar/{id}', 'ModalidadesCtrl@Alterar')->name('alterar.modalidades.credito');
 				Route::any('detalhes/{id}', 'ModalidadesCtrl@Detalhes')->name('detalhes.modalidades.credito');
 			});
-			// Finalidades
-			Route::group(['prefix' => 'finalidades'], function(){
-				Route::get('', 'FinalidadesCtrl@Exibir')->name('exibir.finalidades.credito');
-				Route::get('listar', 'FinalidadesCtrl@Datatables')->name('listar.finalidades.credito');
-				Route::post('adicionar', 'FinalidadesCtrl@Adicionar')->name('adicionar.finalidades.credito');
-				Route::post('editar/{id}', 'FinalidadesCtrl@Editar')->name('editar.finalidades.credito');
-				Route::get('alterar/{id}', 'FinalidadesCtrl@Alterar')->name('alterar.finalidades.credito');
-				Route::any('detalhes/{id}', 'FinalidadesCtrl@Detalhes')->name('detalhes.finalidades.credito');
-			});
 			// Produtos
 			Route::group(['prefix' => 'produtos'], function(){
 				Route::get('', 'ProdutosCredCtrl@Exibir')->name('exibir.produtos.credito');

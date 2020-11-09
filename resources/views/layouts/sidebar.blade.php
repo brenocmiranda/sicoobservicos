@@ -84,7 +84,6 @@
             </a>
             <ul class="nav nav-third-level {{ (Request::segment(2) == 'credito' && Request::segment(3) == 'configuracoes' ? ' collapse in' : '') }}">
               <li> <a href="{{route('exibir.armarios.credito')}}"><span class="hide-menu">Armários</span></a> </li>
-              <li> <a href="{{route('exibir.finalidades.credito')}}"><span class="hide-menu">Finalidades</span></a> </li>
               <li> <a href="{{route('exibir.modalidades.credito')}}"><span class="hide-menu">Modalidades</span></a> </li>
               <li> <a href="{{route('exibir.produtos.credito')}}"><span class="hide-menu">Produtos</span></a> </li>
             </ul>

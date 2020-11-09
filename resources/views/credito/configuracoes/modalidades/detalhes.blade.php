@@ -34,7 +34,7 @@
                 <div class="col-5">
                   <div class="form-group">
                     <label class="col-form-label pb-0">Código</label>
-                    <input class="form-control form-control-line" name="codigo" disabled/>
+                    <input class="form-control form-control-line codigo" name="codigo" disabled/>
                   </div>
                 </div>
                 <div class="col-12 row">

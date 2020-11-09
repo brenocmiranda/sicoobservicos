@@ -22,14 +22,16 @@ class cli_conglomerados implements ToCollection, WithBatchInserts, WithChunkRead
         foreach ($rows as $row) 
         {  
             $associado = Associados::where('id_sisbr', $row['numero_cliente_sisbr'])->select('id')->first();
-            $dados = Emails::where('cli_id_associado', $associado->id)->first();
+            $dados = Conglomerados::where('cli_id_associado', $associado->id)->first();
             if(isset($dados)){
-                Emails::where('cli_id_associado', $associado->id)->update([
-                    'email' => $row['email']
+                Conglomerados::where('cli_id_associado', $associado->id)->update([
+                    'email' => $row['codigo_grupo_economico'],
+                    'descricao' => $row['descricao_do_grupo_economico_do_cliente']
                 ]); 
             }else{
-                Emails::create([
-                    'email' => $row['email'], 
+                Conglomerados::create([
+                    'codigo' => $row['codigo_grupo_economico'], 
+                    'descricao' => $row['descricao_do_grupo_economico_do_cliente'],
                     'cli_id_associado' => Associados::where('id_sisbr', $row['numero_cliente_sisbr'])->select('id')->first()->id,
                 ]); 
             }
