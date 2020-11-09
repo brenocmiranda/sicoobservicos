@@ -25,6 +25,8 @@ class CreateCrtCartaocredito extends Migration
             $table->string('fatura')->nullable();
             $table->integer('venc_fatura')->nullable();
             $table->date('data_abertura');
+            $table->date('data_limite');
+            $table->date('data_fechamento');
             $table->double('valor_atribuido');
             $table->double('valor_disponivel')->nullable();
             $table->double('valor_utilizado')->nullable();

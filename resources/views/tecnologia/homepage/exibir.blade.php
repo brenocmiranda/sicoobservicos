@@ -1,7 +1,3 @@
-@section('title')
-Home
-@endsection
-
 @include('layouts.header')
 <div class="col-12 h-100 position-absolute imagem" style="background: url({{ (isset($homepage[0]) ? asset('storage/app/').'/'.$homepage->last()->endereco : asset('public/img/home.png').'?'.rand())}})"></div>
 <div class="container-fluid h-100">

@@ -4,6 +4,10 @@ namespace App\Imports;
 
 use App\Models\CartoesCredito;
 use App\Models\Associados;
+use App\Models\CreArquivos;
+use App\Models\Produtos;
+use App\Models\Modalidades;
+use App\Models\Associados;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
@@ -22,16 +26,51 @@ class crt_cartaocredito implements ToCollection, WithBatchInserts, WithChunkRead
         foreach ($rows as $row) 
         {  
             $associado = Associados::where('id_sisbr', $row['numero_cliente_sisbr'])->select('id')->first();
-            $dados = Emails::where('cli_id_associado', $associado->id)->first();
+            $dados = CartoesCredito::where('cli_id_associado', $associado->id)->first();
             if(isset($dados)){
-                Emails::where('cli_id_associado', $associado->id)->update([
-                    'email' => $row['email']
-                ]); 
+                CreArquivos::find($dados->cre_id_arquivo)->update([
+                    'cre_id_modalidades' => Modalidades::where('codigo', 99999)->select('id')->first()->id),
+                    'cre_id_produtos' => Produtos::where('codigo', 99)->select('id')->first()->id,
+                ]);
+                CartoesCredito::where('cli_id_associado', $associado->id)->update([
+                    'num_contrato' => $row['numero_conta_cartao'],
+                    'situacao' => $row['situacao_conta_cartao'],
+                    'cod_cliente' => $row['codigo_cliente'],
+                    'funcao_cartao' => $row['funcao_cartao'],
+                    'produto_cartao' => $row['produto_cartao'],
+                    'bandeira_cartao' => $row['descricao_da_bandeira_cartao'],
+                    'fatura' => $row['indicador_fatura_online'],
+                    'venc_fatura' => $row['dia_vencimento_fatura'],
+                    'data_abertura' => gmdate('Y-m-d', (($row['data_abertura_conta'] - 25569) * 86400)),
+                    'data_limite' => gmdate('Y-m-d', (($row['data_limite'] - 25569) * 86400)),
+                    'data_fechamento' => gmdate('Y-m-d', (($row['data_fechamento_conta'] - 25569) * 86400)),
+                    'valor_atribuido' => number_format($row['valor_limite_atribuido'], 2, ',', ''),
+                    'valor_disponivel' => number_format($row['valor_limite_disponivel'], 2, ',', ''),
+                    'valor_utilizado' => number_format($row['valor_limite_utilizado'], 2, ',', ''),
+                    'cre_id_arquivo' => $dados->cre_id_arquivo 
             }else{
-                Emails::create([
-                    'email' => $row['email'], 
+                $arquivo = CreArquivos::create([
+                    'cre_id_modalidades' => Modalidades::where('codigo', 99999)->select('id')->first()->id),
+                    'cre_id_produtos' => Produtos::where('codigo', 99)->select('id')->first()->id,
+                ]);
+                CartoesCredito::create([
+                     'num_contrato' => $row['numero_conta_cartao'],
+                    'situacao' => $row['situacao_conta_cartao'],
+                    'cod_cliente' => $row['codigo_cliente'],
+                    'funcao_cartao' => $row['funcao_cartao'],
+                    'produto_cartao' => $row['produto_cartao'],
+                    'bandeira_cartao' => $row['descricao_da_bandeira_cartao'],
+                    'fatura' => $row['indicador_fatura_online'],
+                    'venc_fatura' => $row['dia_vencimento_fatura'],
+                    'data_abertura' => gmdate('Y-m-d', (($row['data_abertura_conta'] - 25569) * 86400)),
+                    'data_limite' => gmdate('Y-m-d', (($row['data_limite'] - 25569) * 86400)),
+                    'data_fechamento' => gmdate('Y-m-d', (($row['data_fechamento_conta'] - 25569) * 86400)),
+                    'valor_atribuido' => number_format($row['valor_limite_atribuido'], 2, ',', ''),
+                    'valor_disponivel' => number_format($row['valor_limite_disponivel'], 2, ',', ''),
+                    'valor_utilizado' => number_format($row['valor_limite_utilizado'], 2, ',', ''),
+                    'cre_id_arquivo' => $dados->cre_id_arquivo,  
                     'cli_id_associado' => Associados::where('id_sisbr', $row['numero_cliente_sisbr'])->select('id')->first()->id,
-                ]); 
+                ]);   
             }
         }   
     }

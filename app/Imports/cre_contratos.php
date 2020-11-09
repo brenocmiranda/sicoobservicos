@@ -6,7 +6,6 @@ use App\Models\Contratos;
 use App\Models\Associados;
 use App\Models\CreArquivos;
 use App\Models\Produtos;
-use App\Models\Finalidades;
 use App\Models\Modalidades;
 use App\Models\Associados;
 use Illuminate\Support\Collection;
