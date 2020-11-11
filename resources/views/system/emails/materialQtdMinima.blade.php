@@ -32,7 +32,7 @@
 											<p style="text-align:justify">
 												<ul>
 													<li><b>Produto:</b> {{$material->RelationMaterial->nome}}</li>
-													<li><b>Quantidade restantes:</b> {{$material->quantidade}} unidades</li>
+													<li><b>Quantidade restantes:</b> {{$material->RelationMaterial->quantidade}} unidades</li>
 												</ul>
 												<div>
 													<label><a href="{{route('exibir.solicitacoes.administrativo')}}"><b>Aprove as solicitações de materiais</b></a></label>

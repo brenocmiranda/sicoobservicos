@@ -35,11 +35,13 @@
           <span class="hide-menu"> Administrativo <span class="fa arrow"></span> </span>
         </a>
         <ul class="nav nav-second-level {{ (Request::segment(2) == 'administrativo' ? ' collapse in' : '') }}">
+          @if(Auth::user()->RelationFuncao->gerenciar_administrativo == 1)
           <li> <a href="{{route('dashboard.administrativo')}}"><span class="hide-menu">Dashboard</span></a> </li>
           <li> <a href="{{route('exibir.aniversariantes.administrativo')}}"><span class="hide-menu">Aniversariantes</span></a> </li>
+          @endif
           <li> <a href="{{route('exibir.bens.administrativo')}}"><span class="hide-menu">Bens</span></a> </li>
-          <li> <a href="{{route('exibir.todos.documentos')}}"><span class="hide-menu">Documentos</span></a> </li>
           @if(Auth::user()->RelationFuncao->gerenciar_administrativo == 1)
+          <li> <a href="{{route('exibir.todos.documentos')}}"><span class="hide-menu">Documentos</span></a> </li>
           <li> 
             <a href="javascript:void(0)" class="waves-effect {{ (Request::segment(2) == 'administrativo' && Request::segment(3) == 'configuracoes' ? ' active' : '') }}">
               <span class="hide-menu">Controle de estoque </span><span class="fa arrow"></span>
@@ -62,7 +64,7 @@
           <span class="hide-menu"> Atendimento <span class="fa arrow"></span> </span>
         </a>
         <ul class="nav nav-second-level {{ (Request::segment(2) == 'atendimento' ? ' collapse in' : '') }}">
-          <li> <a href="{{route('exibir.painel.atendimento')}}"><span class="hide-menu">Painel comercial</span></a> </li>
+          <li> <a href="{{route('exibir.painel.atendimento')}}"><span class="hide-menu">Painel do associado</span></a> </li>
         </ul>
       </li>
       

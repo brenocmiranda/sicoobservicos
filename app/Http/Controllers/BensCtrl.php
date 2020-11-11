@@ -18,8 +18,12 @@ class BensCtrl extends Controller
 	}
 
 	public function Exibir(){
-		$bens = Bens::orderBy('nome', 'ASC')->get();
-		return view('administrativo.bens.exibir')->with('bens', $bens);
+		if(Auth::user()->RelationFuncao->ver_administrativo == 1){
+			$bens = Bens::orderBy('nome', 'ASC')->get();
+			return view('administrativo.bens.exibir')->with('bens', $bens);
+		}else{
+			return redirect(route('403'));
+		}
 	}
 	// Adicionando novos itens
 	public function Adicionar(){
