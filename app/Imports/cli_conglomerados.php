@@ -25,7 +25,7 @@ class cli_conglomerados implements ToCollection, WithBatchInserts, WithChunkRead
             $dados = Conglomerados::where('cli_id_associado', $associado->id)->first();
             if(isset($dados)){
                 Conglomerados::where('cli_id_associado', $associado->id)->update([
-                    'email' => $row['codigo_grupo_economico'],
+                    'codigo' => $row['codigo_grupo_economico'],
                     'descricao' => $row['descricao_do_grupo_economico_do_cliente']
                 ]); 
             }else{

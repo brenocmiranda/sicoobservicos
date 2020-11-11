@@ -31,6 +31,11 @@ class CreateCliAssociados extends Migration
             $table->date('data_relacionamento');
             $table->date('data_renovacao');
             $table->string('PA');
+            $table->string('nome_gerente');
+            $table->text('descricao_identidade');
+            $table->string('numero_identidade');
+            $table->string('politicamente_exposta');
+            $table->text('profissao');
 
             $table->timestamps();
         });
@@ -52,6 +57,11 @@ class CreateCliAssociados extends Migration
                 'data_relacionamento' => '2020-01-01 00:00:00',
                 'data_renovacao' => '2020-01-01 00:00:00',
                 'PA' => '4133-00',
+                'nome_gerente' => 'OUTROS',
+                'descricao_identidade' => 'OUTROS',
+                'numero_identidade' => 'OUTROS',
+                'politicamente_exposta' => 'OUTROS',
+                'profissao' => 'OUTROS',
                 ])
         );
     }

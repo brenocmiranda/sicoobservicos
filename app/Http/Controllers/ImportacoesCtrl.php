@@ -48,6 +48,9 @@ class ImportacoesCtrl extends Controller
 
 	// Importação manual dos arquivos
 	public function Importar(Request $request){
+
+		//return (new HeadingRowImport)->toArray($request->cli_associados);
+
 		if ($request->hasFile('cli_associados') || $request->hasFile('cli_emails') || $request->hasFile('cli_telefones') || $request->hasFile('cli_enderecos') || $request->hasFile('cli_conglomerados') || $request->hasFile('cca_contacapital') || $request->hasFile('cco_contacorrente') || $request->hasFile('cre_contratos') || $request->hasFile('crt_cartaocredito')){
 			Logs::create(['mensagem' => 'Importação manual executada.']);
 			// cli_associados

@@ -36,7 +36,12 @@ class cli_associados implements ToCollection, WithBatchInserts, WithChunkReading
                     'funcionario' => $row['indicador_funcionario'], 
                     'data_relacionamento' => gmdate('Y-m-d', (($row['data_inicio_relacionamento'] - 25569) * 86400)),
                     'data_renovacao' => gmdate('Y-m-d', (($row['data_ultima_renovacao_cadastral'] - 25569) * 86400)),  
-                    'PA' => $row['numero_pa']
+                    'PA' => $row['numero_pa'],
+                    'nome_gerente' => $row['nome_do_gerente'],
+                    'descricao_identidade' => $row['descricao_documento_identidade'],
+                    'numero_identidade' => $row['numero_documento_identidade'],
+                    'politicamente_exposta' => $row['indicador_pessoa_politicamente_exposta'],
+                    'profissao' => $row['profissao']
                 ]);
             }else{
                 Associados::create([
@@ -54,7 +59,12 @@ class cli_associados implements ToCollection, WithBatchInserts, WithChunkReading
                     'funcionario' => $row['indicador_funcionario'], 
                     'data_relacionamento' => gmdate('Y-m-d', (($row['data_inicio_relacionamento'] - 25569) * 86400)),
                     'data_renovacao' => gmdate('Y-m-d', (($row['data_ultima_renovacao_cadastral'] - 25569) * 86400)),  
-                    'PA' => $row['numero_pa']
+                    'PA' => $row['numero_pa'],
+                    'nome_gerente' => $row['nome_do_gerente'],
+                    'descricao_identidade' => $row['descricao_documento_identidade'],
+                    'numero_identidade' => $row['numero_documento_identidade'],
+                    'politicamente_exposta' => $row['indicador_pessoa_politicamente_exposta'],
+                    'profissao' => $row['profissao']
                 ]);
             }
         }

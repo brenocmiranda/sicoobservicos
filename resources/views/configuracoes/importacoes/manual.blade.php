@@ -202,52 +202,76 @@ Importações
     var bar = $('.bar');
     var percent = $('.percent');
     var status = $('#status');
- 
-    $('#form').ajaxForm({
-        beforeSend: function() {
-            $('.progress-bar').removeClass('bg-success');
-            $('.progress-bar').removeClass('bg-danger');
-            $('.progress').fadeIn();
-            $('.percent').fadeIn();
-            status.empty();
-            var percentVal = '0';
-            var posterValue = $('input[name=file]').fieldValue();
-            bar.width(percentVal+'%')
-            percent.html(percentVal);
-        },
-        uploadProgress: function(event, position, total, percentComplete) {
-            var percentVal = '25';
-            bar.width(percentVal+'%')
-            percent.html(percentVal);
-            $('button[type=submit]').attr('disabled', 'disabled');
-            $('.confirm').html('Importando arquivos...');
-        },
-        success: function() {
-            $('.confirm').html('Aguarde, finalizando importação...');
-            var percentVal = '50';
-            bar.width(percentVal+'%')
-            percent.html(percentVal);
-        },
-        complete: function(xhr) {
-            console.log(xhr.responseText);
-            if(xhr.responseText == "true"){
-                var percentVal = '100';
-                bar.width(percentVal+'%')
-                percent.html(percentVal);
-                $('.progress-bar').addClass('bg-success');
-                $('.confirm').html('Upload efetuado com sucesso!');   
-                setTimeout( function(){
-                    location.reload();
-                }, 1000);  
-            }else{
-                var percentVal = '25';
-                bar.width(percentVal+'%')
-                percent.html(percentVal);
-                $('.progress-bar').addClass('bg-danger');
-                $('button[type=submit]').removeAttr('disabled');
-                $('.confirm').html('Ops! Ocorreu um erro no processo de importação, tente novamente!');
+    
+    $("#form input[type=file]").on('change', function(){
+        $('.confirm').html('');
+        $('.progress').fadeOut();
+        $('.percent').fadeOut();
+    });
+
+    $('#form').on('submit', function(e){
+        $("#form input[type=file]").each(function(dados) {
+            if($(this).val() != ''){
+                $('#form').ajaxSubmit({
+                    beforeSend: function() {
+                        $('.progress-bar').removeClass('bg-success');
+                        $('.progress-bar').removeClass('bg-danger');
+                        $('.progress').fadeIn();
+                        $('.percent').fadeIn();
+                        status.empty();
+                        var percentVal = '0';
+                        var posterValue = $('input[name=file]').fieldValue();
+                        bar.width(percentVal+'%')
+                        percent.html(percentVal);
+                    },
+                    uploadProgress: function(event, position, total, percentComplete) {
+                        var percentVal = '25';
+                        bar.width(percentVal+'%')
+                        percent.html(percentVal);
+                        $('button[type=submit]').attr('disabled', 'disabled');
+                        $('.confirm').html('Importando arquivos...');
+                    },
+                    success: function() {
+                        $('.confirm').html('Aguarde, finalizando importação...');
+                        var percentVal = '50';
+                        bar.width(percentVal+'%')
+                        percent.html(percentVal);
+                    },
+                    complete: function(xhr) {
+                        //console.log(xhr.responseText);
+                        if(xhr.responseText == "true"){
+                            var percentVal = '100';
+                            bar.width(percentVal+'%')
+                            percent.html(percentVal);
+                            $('.progress-bar').addClass('bg-success');
+                            swal("Upload efetuado com sucesso!", {
+                                icon: "success",
+                            });
+                            $('.confirm').html('');   
+                            setTimeout( function(){
+                                location.reload();
+                            }, 1000);  
+                        }else{
+                            var percentVal = '25';
+                            bar.width(percentVal+'%')
+                            percent.html(percentVal);
+                            $('.progress-bar').addClass('bg-danger');
+                            $('button[type=submit]').removeAttr('disabled');
+                            $('.confirm').html('Ocorreu um erro no processo de importação, tente novamente!');
+                            swal("Ocorreu um erro no processo de importação, tente novamente!", {
+                                icon: "error",
+                            });
+                        }
+                    }
+                });
+                return false;
+            }else if(dados == 8){
+                swal("Nenhum arquivo selecionado para upload!", {
+                    icon: "error",
+                });
             }
-        }
+        });
+        e.preventDefault();
     });
      
     })();

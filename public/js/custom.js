@@ -103,9 +103,9 @@ $(document).ready(function () {
                 collapseOpts = {};
             }
             wrapper.collapse(collapseOpts).on('hide.bs.collapse', function () {
-                child.removeClass('ti-minus').addClass('ti-plus');
+                child.removeClass('ti-angle-up').addClass('ti-angle-down');
             }).on('show.bs.collapse', function () {
-                child.removeClass('ti-plus').addClass('ti-minus');
+                child.removeClass('ti-angle-down').addClass('ti-angle-up');
             });
         });
 

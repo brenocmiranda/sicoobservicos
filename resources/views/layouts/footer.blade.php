@@ -38,6 +38,7 @@
 <script src="{{ asset('public/vendor/summernote/dist/summernote.min.js') }}"></script>
 <script src="{{ asset('public/js/jquery-ui.js')}}"></script>
 <script src="{{ asset('public/vendor/bootstrap-treeview-master/src/js/bootstrap-treeview.js') }}"></script>
+<script src="{{ asset('public/vendor/blockUI/jquery.blockUI.js') }}"></script>
 
 <script type="text/javascript">
 	$(document).ready(function() {

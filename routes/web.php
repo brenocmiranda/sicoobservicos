@@ -114,7 +114,9 @@ Route::group(['prefix' => 'app'], function(){
 	Route::group(['prefix' => 'atendimento'], function(){
 		// Painel comercial
 		Route::group(['prefix' => 'painel'], function(){
-			Route::get('', 'AtendimentoCtrl@ExibirPainel')->name('exibir.painel.atendimento');
+			Route::get('', 'AtendimentoCtrl@Exibir')->name('exibir.painel.atendimento');
+			Route::any('pesquisar', 'AtendimentoCtrl@Pesquisar')->name('pesquisar.associado.atendimento');
+			Route::any('exibir', 'AtendimentoCtrl@Mostrar')->name('exibir.associado.atendimento');
 		});
 	});
 
@@ -189,8 +191,6 @@ Route::group(['prefix' => 'app'], function(){
 		// Associados *
 		Route::group(['prefix' => 'associados'], function(){
 			Route::get('', 'AssociadosCtrl@Listar')->name('listar.associado.credito');
-			Route::get('detalhes/{id}', 'AssociadosCtrl@Detalhes')->name('detalhes.associado.credito');
-			Route::post('adicionar', 'AssociadosCtrl@Adicionar')->name('adicionar.associado.credito');
 		});
 		// Configurações
 		Route::group(['prefix' => 'configuracoes'], function(){
