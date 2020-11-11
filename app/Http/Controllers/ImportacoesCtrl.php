@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use App\Imports\cli_associados;
+use App\Imports\cli_consolidado;
 use App\Imports\cli_emails;
 use App\Imports\cli_telefones;
 use App\Imports\cli_enderecos;
@@ -16,6 +17,7 @@ use App\Imports\cre_contratos;
 use Maatwebsite\Excel\HeadingRowImport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Associados;
+use App\Models\AssociadosConsolidado;
 use App\Models\Emails;
 use App\Models\Telefones;
 use App\Models\Enderecos;
@@ -35,6 +37,7 @@ class ImportacoesCtrl extends Controller
     // Exibindo items de importação
 	public function Exibir(){
 		$cli_associados = Associados::select('updated_at')->orderBy('updated_at', 'DESC')->first();
+		$cli_consolidado = AssociadosConsolidado::select('updated_at')->orderBy('updated_at', 'DESC')->first();
 		$cli_emails = Emails::select('updated_at')->orderBy('updated_at', 'DESC')->first();
 		$cli_telefones = Telefones::select('updated_at')->orderBy('updated_at', 'DESC')->first();
 		$cli_enderecos = Enderecos::select('updated_at')->orderBy('updated_at', 'DESC')->first();
@@ -43,15 +46,15 @@ class ImportacoesCtrl extends Controller
 		$cco_contacorrente = ContaCorrente::select('updated_at')->orderBy('updated_at', 'DESC')->first();
 		$cre_contratos = Contratos::select('updated_at')->orderBy('updated_at', 'DESC')->first();
 		$crt_cartaocredito = CartoesCredito::select('updated_at')->orderBy('updated_at', 'DESC')->first();
-		return view('configuracoes.importacoes.manual')->with('cli_associados', $cli_associados)->with('cli_emails', $cli_emails)->with('cli_enderecos', $cli_enderecos)->with('cli_telefones', $cli_telefones)->with('cca_contacapital', $cca_contacapital)->with('cco_contacorrente', $cco_contacorrente)->with('crt_cartaocredito', $crt_cartaocredito)->with('cli_conglomerados', $cli_conglomerados)->with('cre_contratos', $cre_contratos);
+		return view('configuracoes.importacoes.manual')->with('cli_associados', $cli_associados)->with('cli_consolidado', $cli_consolidado)->with('cli_emails', $cli_emails)->with('cli_enderecos', $cli_enderecos)->with('cli_telefones', $cli_telefones)->with('cca_contacapital', $cca_contacapital)->with('cco_contacorrente', $cco_contacorrente)->with('crt_cartaocredito', $crt_cartaocredito)->with('cli_conglomerados', $cli_conglomerados)->with('cre_contratos', $cre_contratos);
 	}
 
 	// Importação manual dos arquivos
 	public function Importar(Request $request){
 
-		//return (new HeadingRowImport)->toArray($request->cli_associados);
+		//return (new HeadingRowImport)->toArray($request->cli_consolidado);
 
-		if ($request->hasFile('cli_associados') || $request->hasFile('cli_emails') || $request->hasFile('cli_telefones') || $request->hasFile('cli_enderecos') || $request->hasFile('cli_conglomerados') || $request->hasFile('cca_contacapital') || $request->hasFile('cco_contacorrente') || $request->hasFile('cre_contratos') || $request->hasFile('crt_cartaocredito')){
+		if ($request->hasFile('cli_associados') || $request->hasFile('cli_consolidado') || $request->hasFile('cli_emails') || $request->hasFile('cli_telefones') || $request->hasFile('cli_enderecos') || $request->hasFile('cli_conglomerados') || $request->hasFile('cca_contacapital') || $request->hasFile('cco_contacorrente') || $request->hasFile('cre_contratos') || $request->hasFile('crt_cartaocredito')){
 			Logs::create(['mensagem' => 'Importação manual executada.']);
 			// cli_associados
 			if($request->hasFile('cli_associados') && $request->file('cli_associados')->isValid()){
@@ -61,6 +64,15 @@ class ImportacoesCtrl extends Controller
 				Logs::create(['mensagem' => 'Processando o arquivo cli_associados.xlsx...']);
 				Excel::import(new cli_associados, getcwd().'/storage/app/importacoes/'.$nameFile);
 				Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de cli_associados.xlsx efetuada com sucesso!</span>']);
+			}
+			// cli_consolidado
+			if($request->hasFile('cli_consolidado') && $request->file('cli_consolidado')->isValid()){
+				Logs::create(['mensagem' => 'Localizado arquivo cli_consolidado.xlsx.']);
+				$nameFile = 'cli_consolidado-'.date('dmYHis').'.'.request()->file('cli_consolidado')->getClientOriginalExtension();
+				$upload = $request->cli_consolidado->storeAs('importacoes', $nameFile);
+				Logs::create(['mensagem' => 'Processando o arquivo cli_consolidado.xlsx...']);
+				Excel::import(new cli_consolidado, getcwd().'/storage/app/importacoes/'.$nameFile);
+				Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de cli_consolidado.xlsx efetuada com sucesso!</span>']);
 			}
 			// cli_emails
 			if($request->hasFile('cli_emails') && $request->file('cli_emails')->isValid()){
@@ -161,6 +173,17 @@ class ImportacoesCtrl extends Controller
 	            Logs::create(['mensagem' => 'Processando o arquivo cli_associados.xlsx...']);
 	            Excel::import(new cli_associados, getcwd().'/storage/app/importacoes/'.$nameFile);
 	            Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de cli_associados.xlsx efetuada com sucesso!</span>']);
+			}
+			// cli_consolidado
+			if($arquivo == 'cli_consolidado.xlsx'){
+				Logs::create(['mensagem' => 'Importação automática executada.']);
+				Logs::create(['mensagem' => 'Localizado arquivo cli_consolidado.xlsx.']);
+	            $nameFile = 'cli_consolidado'.date('dmY-His').'.xlsx';
+	            copy('//SICOOB_SERVICE/outlook/cli_consolidado.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
+	            unlink('//SICOOB_SERVICE/outlook/cli_consolidado.xlsx');
+	            Logs::create(['mensagem' => 'Processando o arquivo cli_consolidado.xlsx...']);
+	            Excel::import(new cli_consolidado, getcwd().'/storage/app/importacoes/'.$nameFile);
+	            Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de cli_consolidado.xlsx efetuada com sucesso!</span>']);
 			}
 			// cli_emails
 			if($arquivo == 'cli_emails.xlsx'){

@@ -24,7 +24,7 @@ Página inicial
 	        		<label class="font-weight-bold pb-3 d-block">Novos tópicos disponíveis:</label>
 	        		<ul style="list-style: circle;" class="col-12 ml-3">
 	        		@foreach($base as $b)
-	        			<li class="pb-2"><a href="{{route('detalhes.base', $b->id)}}" class="text-truncate">{{$b->titulo}}</a></li>
+	        			<li class="pb-2"><a href="{{route('detalhes.base', $b->id)}}" class="text-truncate">{{$b->titulo}} <small>({{date('d/m/Y', strtotime($b->created_at))}})</small></a></li>
 	        		@endforeach
 	        		</ul>
 	        	</div>

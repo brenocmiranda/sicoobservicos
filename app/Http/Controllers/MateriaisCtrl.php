@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use App\Notifications\SolicitacaoMaterialCliente;
+use App\Notifications\SolicitacaoMaterialQtdMinima;
 use App\Notifications\SolicitacaoMaterialAdmin;
 use App\Http\Requests\MateriaisRqt;
 use App\Models\Atividades;
@@ -28,7 +29,7 @@ class MateriaisCtrl extends Controller
 	public function ExibirSuporte(){
 		$historico = MateriaisHistorico::where('id_usuario', Auth::id())->orderBy('created_at', 'DESC')->get();
 		$pendencias = MateriaisHistorico::where('status', 0)->orderBy('created_at', 'DESC')->get();
-		$categorias = MateriaisCategorias::where('status', 1)->orderBy('created_at', 'ASC')->get();
+		$categorias = MateriaisCategorias::where('status', 1)->orderBy('nome', 'ASC')->get();
 		return view('suporte.materiais.exibir')->with('pendencias', $pendencias)->with('requisicoes', $historico)->with('categorias', $categorias);
 	}
 	// Efetuar solicitação
@@ -65,7 +66,7 @@ class MateriaisCtrl extends Controller
 	public function ExibirSuporteAdmin(){
 		if(Auth::user()->RelationFuncao->ver_administrativo == 1 || Auth::user()->RelationFuncao->gerenciar_administrativo == 1){
 			$pendencias = MateriaisHistorico::where('status', 0)->orderBy('created_at', 'DESC')->get();
-			$categorias = MateriaisCategorias::where('status', 1)->get();
+			$categorias = MateriaisCategorias::where('status', 1)->orderBy('nome', 'ASC')->get();
 			return view('administrativo.materiais.exibir')->with('pendencias', $pendencias)->with('categorias', $categorias);
 		}else{
 			return redirect(route('403'));
@@ -78,7 +79,12 @@ class MateriaisCtrl extends Controller
 			if($historico->RelationMaterial->quantidade >= $historico->quantidade){
 				MateriaisHistorico::find($id)->update(['status' => 1]);
 				Materiais::find($historico->id_material)->decrement('quantidade', $historico->quantidade);
+				$material = Materiais::find($historico->id_material);
+				if($material->quantidade <= $material->quantidade_min){
+					$this->email->notify(new SolicitacaoMaterialQtdMinima($historico));
+				}
 				$historico->RelationUsuario->notify(new SolicitacaoMaterialCliente($historico));	
+				
 				Atividades::create([
 					'nome' => 'Aprovação de solicitação de material',
 					'descricao' => 'Você acabou de aprovar a solicitação do material, '.$historico->RelationMaterial->nome.'.',

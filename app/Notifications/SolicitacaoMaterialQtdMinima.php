@@ -8,7 +8,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use App\Models\CogEmailsMaterial;
 
-class SolicitacaoMaterialAdmin extends Notification implements ShouldQueue
+class SolicitacaoMaterialQtdMinima extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -22,9 +22,8 @@ class SolicitacaoMaterialAdmin extends Notification implements ShouldQueue
      */
     public function __construct($create)
     {
-       $this->material = $create;
-       $this->configuracoes = CogEmailsMaterial::first();
-       
+        $this->material = $create;
+        $this->configuracoes = CogEmailsMaterial::first();
     }
 
     /**
@@ -46,11 +45,10 @@ class SolicitacaoMaterialAdmin extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-         // Abertura de solicitação
         return (new MailMessage)
                     ->from('servicos@sicoobsertaominas.com.br')
-                    ->subject('Nova solicitação de material =)')
-                    ->view('system.emails.materialAdmin', ['material' => $this->material, 'configuracoes' => $this->configuracoes]);
+                    ->subject('Reabasteça seu estoque...')
+                    ->view('system.emails.materialQtdMinima', ['material' => $this->material, 'configuracoes' => $this->configuracoes]);
     }
 
     /**

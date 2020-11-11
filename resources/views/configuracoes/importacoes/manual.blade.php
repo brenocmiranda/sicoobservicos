@@ -50,6 +50,22 @@ Importações
                     </div>
                     <hr class="col-12 my-2">
                     <div class="col-12">
+                         <div class="form-group col-12 row">
+                            <div class="col-8 p-0">
+                                <label class="col-form-label mb-2">cli_consolidado.xlsx</label>
+                                <input type="file" name="cli_consolidado" accept=".xlsx">
+                            </div>
+                            <div class="col-4 p-0 m-auto text-right">
+                                <label class="mb-0 d-block">
+                                    <b>{!! ( strtotime(date('Y-m-d', strtotime(@$cli_consolidado->updated_at))) == 
+                                    strtotime(date('Y-m-d')) ? '<i class="mdi mdi-check mdi-24px text-success px-2"></i>'."Atualizado" : '<i class="mdi mdi-close mdi-24px text-danger px-2"></i>'."Desatualizado")!!}</b>
+                                </label>
+                                <small>{{date('d/m/Y H:i:s', strtotime(@$cli_consolidado->updated_at))}}</small>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="col-12 my-2">
+                    <div class="col-12">
                         <div class="form-group col-12 row">
                             <div class="col-8 p-0">
                                 <label class="col-form-label mb-2">cli_emails.xlsx</label>
