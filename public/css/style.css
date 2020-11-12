@@ -3861,21 +3861,27 @@ ul.common li a:hover {
 .customtab2 {
 	border-bottom: 1px solid #f7fafc;
 	border-top: 1px solid #f7fafc;
-	padding: 10px 0
+	padding: 10px 0;
 }
 
 .customtab2 li.active a,
 .customtab2 li.active a:focus,
 .customtab2 li.active a:hover {
-	background: #2cabe3;
-	border: 1px solid #2cabe3;
+	background: #40c3b2;
+	border: 1px solid #40c3b2;
 	color: #fff
 }
 
-.customtab2 li a,
+.customtab2 li a{
+	color: white;
+	border: 0;
+	border-radius: 10px;
+}
+
 .customtab2 li a:focus,
 .customtab2 li a:hover {
-	border: 0
+	color: black;
+	border-radius: 10px;
 }
 
 .vtabs {

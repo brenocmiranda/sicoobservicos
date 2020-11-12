@@ -12,4 +12,5 @@ class Arquivos extends Model
     protected $table = 'sys_arquivos';
     protected $primaryKey = 'id';
     protected $fillable = ['id', 'tipo', 'endereco', 'created_at', 'updated_at'];
+
 }

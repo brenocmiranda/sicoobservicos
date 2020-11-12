@@ -25,14 +25,13 @@ class cre_contratos implements ToCollection, WithBatchInserts, WithChunkReading,
         foreach ($rows as $row) 
         {  
             $associado = Associados::where('id_sisbr', $row['numero_cliente_sisbr'])->select('id')->first();
-            $dados = Contratos::where('cli_id_associado', $associado->id)->first();
+            $dados = Contratos::where('num_contrato', $row['numero_contrato_credito'])->first();
             if(isset($dados)){
                 CreArquivos::find($dados->cre_id_arquivo)->update([
                     'cre_id_modalidades' => Modalidades::where('codigo', $row['codigo_modalidade_produto'])->select('id')->first()->id,
                     'cre_id_produtos' => ProdutosCred::where('codigo', $row['codigo_produto'])->select('id')->first()->id,
                 ]);
-                Contratos::where('cli_id_associado', $associado->id)->update([
-                    'num_contrato' => (int) $row['numero_contrato_credito'],
+                Contratos::where('num_contrato', $row['numero_contrato_credito'])->update([
                     'situacao' => $row['situacao_contrato'],
                     'data_operacao' => gmdate('Y-m-d', (($row['data_operacao_contrato'] - 25569) * 86400)),
                     'data_vencimento' => gmdate('Y-m-d', (($row['data_vencimento_contrato'] - 25569) * 86400)),

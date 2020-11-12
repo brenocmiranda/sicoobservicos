@@ -26,13 +26,6 @@ class Contratos extends Model
         return $this->belongsToMany(Associados::class, 'cre_avalistas', 'cre_id_contrato', 'cli_id_associado');
     }
 
-    public function RelationProdutos(){
-        return $this->belongsTo(ProdutosCred::class, 'cre_id_produtos', 'id');
-    }
-
-    public function RelationModalidades(){
-        return $this->belongsTo(Modalidades::class, 'cre_id_modalidades', 'id');
-    }
 
     public function RelationFinalidades(){
         return $this->belongsTo(Finalidades::class, 'cre_id_finalidades', 'id');
@@ -42,7 +35,7 @@ class Contratos extends Model
         return $this->belongsTo(Associados::class, 'cli_id_associado', 'id');
     }
 
-    public function RelationArmarios(){
-        return $this->belongsTo(Armarios::class, 'cre_id_armarios', 'id');
+    public function RelationArquivos(){
+        return $this->belongsTo(CreArquivos::class, 'cre_id_arquivo', 'id');
     }
 }

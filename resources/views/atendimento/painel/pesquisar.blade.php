@@ -32,7 +32,7 @@ Painel comercial
 							<input type="search" class="form-control" placeholder="Entre com nome, razão social ou documento do associado..." aria-controls="table" name="pesquisar" id="pesquisar" style="border-top-left-radius:6px;border-bottom-left-radius:6px;" required>	
 							<div class="input-group-addon p-0 m-0 border-0">
 								<button type="submit" class="btn btn-success" style="border-top-right-radius:6px;border-bottom-right-radius:6px;"> 
-									<i class="mdi mdi-account-search pr-2"></i> 
+									<i class="mdi mdi-magnify pr-2"></i> 
 									<span>Pesquisar</span> 
 								</button>
 							</div>

@@ -25,7 +25,7 @@ use App\Models\Conglomerados;
 use App\Models\ContaCapital;
 use App\Models\ContaCorrente;
 use App\Models\Contratos;
-use App\Models\CartoesCredito;
+use App\Models\CartaoCredito;
 use App\Models\Logs;
 
 class ImportacoesCtrl extends Controller
@@ -45,7 +45,7 @@ class ImportacoesCtrl extends Controller
 		$cca_contacapital = ContaCapital::select('updated_at')->orderBy('updated_at', 'DESC')->first();
 		$cco_contacorrente = ContaCorrente::select('updated_at')->orderBy('updated_at', 'DESC')->first();
 		$cre_contratos = Contratos::select('updated_at')->orderBy('updated_at', 'DESC')->first();
-		$crt_cartaocredito = CartoesCredito::select('updated_at')->orderBy('updated_at', 'DESC')->first();
+		$crt_cartaocredito = CartaoCredito::select('updated_at')->orderBy('updated_at', 'DESC')->first();
 		return view('configuracoes.importacoes.manual')->with('cli_associados', $cli_associados)->with('cli_consolidado', $cli_consolidado)->with('cli_emails', $cli_emails)->with('cli_enderecos', $cli_enderecos)->with('cli_telefones', $cli_telefones)->with('cca_contacapital', $cca_contacapital)->with('cco_contacorrente', $cco_contacorrente)->with('crt_cartaocredito', $crt_cartaocredito)->with('cli_conglomerados', $cli_conglomerados)->with('cre_contratos', $cre_contratos);
 	}
 

@@ -97,7 +97,7 @@ $(document).ready(function () {
                 },
                 parent = $(this).closest('.panel'),
                 wrapper = parent.find('.panel-wrapper'),
-                child = $(this).children('i');
+                child = $(this).children('div i');
             if (!wrapper.length) {
                 wrapper = parent.children('.panel-heading').nextAll().wrapAll('<div/>').parent().addClass('panel-wrapper');
                 collapseOpts = {};

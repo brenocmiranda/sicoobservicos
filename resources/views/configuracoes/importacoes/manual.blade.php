@@ -281,7 +281,7 @@ Importações
                     }
                 });
                 return false;
-            }else if(dados == 8){
+            }else if(dados == 10){
                 swal("Nenhum arquivo selecionado para upload!", {
                     icon: "error",
                 });
