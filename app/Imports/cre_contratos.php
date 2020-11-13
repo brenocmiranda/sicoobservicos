@@ -4,7 +4,7 @@ namespace App\Imports;
 
 use App\Models\Contratos;
 use App\Models\Associados;
-use App\Models\CreArquivos;
+use App\Models\ContratosArquivos;
 use App\Models\ProdutosCred;
 use App\Models\Modalidades;
 use Illuminate\Support\Collection;
@@ -27,7 +27,7 @@ class cre_contratos implements ToCollection, WithBatchInserts, WithChunkReading,
             $associado = Associados::where('id_sisbr', $row['numero_cliente_sisbr'])->select('id')->first();
             $dados = Contratos::where('num_contrato', $row['numero_contrato_credito'])->first();
             if(isset($dados)){
-                CreArquivos::find($dados->cre_id_arquivo)->update([
+                ContratosArquivos::find($dados->cre_id_arquivo)->update([
                     'cre_id_modalidades' => Modalidades::where('codigo', $row['codigo_modalidade_produto'])->select('id')->first()->id,
                     'cre_id_produtos' => ProdutosCred::where('codigo', $row['codigo_produto'])->select('id')->first()->id,
                 ]);
@@ -48,7 +48,7 @@ class cre_contratos implements ToCollection, WithBatchInserts, WithChunkReading,
                     'cre_id_arquivo' => $dados->cre_id_arquivo,
                 ]);
             }else{
-                $arquivo = CreArquivos::create([
+                $arquivo = ContratosArquivos::create([
                     'cre_id_modalidades' => Modalidades::where('codigo', $row['codigo_modalidade_produto'])->select('id')->first()->id,
                     'cre_id_produtos' => ProdutosCred::where('codigo', $row['codigo_produto'])->select('id')->first()->id,
                 ]);

@@ -16,7 +16,7 @@ class CreateCrtCartaocredito extends Migration
         Schema::create('crt_cartaocredito', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->integer('num_contrato')->unique();
+            $table->bigInteger('num_contrato')->unique();
             $table->string('situacao');
             $table->integer('cod_cliente')->nullable();
             $table->string('funcao_cartao');

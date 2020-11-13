@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use Illuminate\Routing\Controller;
 use App\Models\Associados;
+use App\Models\AssociadosAtividades;
+use App\Models\Conglomerados;
 use App\Models\Atividades;
 
 class AtendimentoCtrl extends Controller
@@ -34,7 +36,13 @@ class AtendimentoCtrl extends Controller
 		if(isset($request->pesquisar)){
 			$documento = explode(': ', $request->pesquisar);
 	  		$associado = Associados::where('documento', $documento[1])->first();
-	  		return view('atendimento.painel.exibir')->with('associado', $associado);
+	  		if($associado->RelationConglomerados){
+	  			$conglomerado = Conglomerados::where('codigo', $associado->RelationConglomerados->codigo)->get();
+	  		}else{
+	  			$conglomerado = null;
+	  		}
+	  		$atividades = AssociadosAtividades::where('cli_id_associado', $associado->id)->orderBy('created_at', 'DESC')->paginate(7);
+	  		return view('atendimento.painel.exibir')->with('associado', $associado)->with('conglomerado', $conglomerado)->with('atividades', $atividades);
 		}else{
 			\Session::flash('login', array(
 					'class' => 'danger',
@@ -42,5 +50,33 @@ class AtendimentoCtrl extends Controller
 				));
 			return view('atendimento.painel.pesquisar');
 		}
+	}
+
+	// Cadastrando nova atividade
+	public function Atividades(Request $request){
+  		AssociadosAtividades::create([
+  			'tipo' => $request->tipo, 
+  			'descricao' => $request->descricao, 
+  			'contato' => $request->contato, 
+  			'cli_id_associado' => $request->cli_id_associado,
+  			'usr_id_usuario' => Auth::id(),
+  		]);
+  		return response()->json(['success' => true]);
+	}
+
+	// Editando a atividade
+	public function Editando(Request $request){
+  		AssociadosAtividades::find($request->id)->update([
+  			'tipo' => $request->tipo, 
+  			'descricao' => $request->descricao, 
+  			'contato' => $request->contato
+  		]);
+  		return response()->json(['success' => true]);
+	}
+	
+	// Detalhes da atividade
+	public function Detalhes($id){
+  		$atividade = AssociadosAtividades::find($id);
+  		return response()->json($atividade);
 	}
 }

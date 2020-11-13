@@ -4,7 +4,7 @@ namespace App\Imports;
 
 use App\Models\ContaCorrente;
 use App\Models\Associados;
-use App\Models\CreArquivos;
+use App\Models\ContratosArquivos;
 use App\Models\ProdutosCred;
 use App\Models\Modalidades;
 use Illuminate\Support\Collection;
@@ -27,7 +27,7 @@ class cco_contacorrente implements ToCollection, WithBatchInserts, WithChunkRead
             $associado = Associados::where('id_sisbr', $row['numero_cliente_sisbr'])->select('id')->first();
             $dados = ContaCorrente::where('num_contrato', $row['numero_conta_corrente'])->first();
             if(isset($dados)){
-                CreArquivos::find($dados->cre_id_arquivo)->update([
+                ContratosArquivos::find($dados->cre_id_arquivo)->update([
                     'cre_id_modalidades' => (
                         $row['modalidade_conta_corrente'] == 'CHEQUE ADMINISTRATIVO' ? Modalidades::where('codigo', 801)->select('id')->first()->id : 
                         ($row['modalidade_conta_corrente'] == 'CONTA BENEFÍCIO INSS' ? Modalidades::where('codigo', 802)->select('id')->first()->id : 
@@ -59,7 +59,7 @@ class cco_contacorrente implements ToCollection, WithBatchInserts, WithChunkRead
                     'cre_id_arquivo' => $dados->cre_id_arquivo,
                 ]); 
             }else{
-                $arquivo = CreArquivos::create([
+                $arquivo = ContratosArquivos::create([
                     'cre_id_modalidades' => (
                         $row['modalidade_conta_corrente'] == 'CHEQUE ADMINISTRATIVO' ? Modalidades::where('codigo', 801)->select('id')->first()->id : 
                         ($row['modalidade_conta_corrente'] == 'CONTA BENEFÍCIO INSS' ? Modalidades::where('codigo', 802)->select('id')->first()->id : 

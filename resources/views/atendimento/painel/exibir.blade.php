@@ -24,27 +24,57 @@ Painel do associado
       <a href="{{route('exibir.painel.atendimento')}}" class="mx-2"><i class="mdi mdi-arrow-left pr-2"></i>Voltar</a>
     </div>
     <div class="ml-auto">
-      <a href="#" class="mx-2"><i class="mdi mdi-plus pr-2"></i>Cadastro de atividade</a>
-      <a href="#" class="mx-2"><i class="mdi mdi-printer pr-2"></i>Imprimir</a>
+      <a href="javascript:" data-toggle="modal" data-target="#modal-atividades" class="mx-2"><i class="mdi mdi-plus pr-2"></i>Cadastro de atividade</a>
+      <a href="javascript:" class="mx-2"><i class="mdi mdi-printer pr-2"></i>Imprimir</a>
     </div>
   </div>
 
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <!-- Nav tabs -->
     <ul class="nav nav-tabs customtab2 p-4 row justify-content-center" role="tablist" style="background: #38565a;border-radius: 10px;">
-        <li role="presentation" class="active"> <a href="#dadoscadastrais" aria-controls="dadoscadastrais" role="tab" data-toggle="tab" aria-expanded="true"> <span>Dados cadastrais</span> </a> </li> 
+        <li role="presentation"  class="active"> <a href="#atividades" aria-controls="iap" role="tab" data-toggle="tab" aria-expanded="true"> <span>Atividades</span> </a> </li> 
+        <li role="presentation"> <a href="#dadoscadastrais" aria-controls="dadoscadastrais" role="tab" data-toggle="tab" aria-expanded="true"> <span>Dados cadastrais</span> </a> </li> 
         <li role="presentation"> <a href="#contacapital" aria-controls="contacapital" role="tab" data-toggle="tab" aria-expanded="true"> <span>C. Capital</span> </a> </li> 
         <li role="presentation"> <a href="#contacorrente" aria-controls="contacorrente" role="tab" data-toggle="tab" aria-expanded="true"> <span>C. Corrente</span> </a> </li> 
         <li role="presentation"> <a href="#cartaocredito" aria-controls="cartaocredito" role="tab" data-toggle="tab" aria-expanded="true"> <span>Cartão de Crédito</span> </a> </li> 
-        <li role="presentation"> <a href="#carteiracredito" aria-controls="carteiracredito" role="tab" data-toggle="tab" aria-expanded="true"> <span>Carteira de Crédito</span> </a> </li> 
+        <li role="presentation"> <a href="#carteiracredito" aria-controls="carteiracredito" role="tab" data-toggle="tab" aria-expanded="true"> <span>Carteira de Crédito</span> </a> </li>
         <li role="presentation"> <a href="#poupanca" aria-controls="poupanca" role="tab" data-toggle="tab" aria-expanded="true"> <span>Poupança</span> </a> </li> 
         <li role="presentation"> <a href="#aplicacoes" aria-controls="aplicacoes" role="tab" data-toggle="tab" aria-expanded="true"> <span>Aplicações</span> </a> </li> 
-        <li role="presentation"> <a href="#iap" aria-controls="iap" role="tab" data-toggle="tab" aria-expanded="true"> <span>IAP</span> </a> </li> 
-        <li role="presentation"> <a href="#produtos" aria-controls="iap" role="tab" data-toggle="tab" aria-expanded="true"> <span>Produtos</span> </a> </li> 
+        <li role="presentation"> <a href="#iap" aria-controls="iap" role="tab" data-toggle="tab" aria-expanded="true"> <span>IAP</span> </a> </li>  
     </ul>
     <!-- Tab panes -->
     <div class="tab-content white-box mt-0">
-      <div role="tabpanel" class="tab-pane fade active in" id="dadoscadastrais">
+      <div role="tabpanel" class="tab-pane fade  active in" id="atividades">
+          <div class="row">
+            @if(isset($atividades[0]))
+              @foreach($atividades as $atividade)
+              <div class="col-12">
+                <h5 class="text-capitalize">{{$atividade->tipo}}</h5>
+                <h6 class="font-weight-normal">Contato por: <b class="text-capitalize">{{$atividade->contato}}</b></h6>
+                <label class="d-block">{{$atividade->descricao}}</label>
+                <div class="row col-12">
+                  <small class="text-capitalize mr-auto"><b>{{$atividade->RelationUsuarios->RelationAssociado->nome}}</b> - {{date('d/m/Y H:i:s', strtotime($atividade->created_at))}}</small>
+                  @if(Auth::id() == $atividade->usr_id_usuario)
+                  <small class="ml-auto">
+                    <a href="javascript:" class="editarAtividade" data="{{route('detalhes.atividade.associado.atendimento', $atividade->id)}}"><i class="ti-pencil pr-2"></i>Editar</a>
+                  </small>
+                  @endif
+                </div>
+                <hr>
+              </div>
+              @endforeach
+            @else
+              <div class="mx-auto">
+                <h5>Ops! Nenhuma informação encontrada.</h5>
+              </div>
+            @endif
+          </div>
+          <div class="row justify-content-center">
+               {!! (isset($atividades) ? $atividades->links() : '') !!}
+          </div>
+          <div class="clearfix"></div>
+      </div>
+      <div role="tabpanel" class="tab-pane fade" id="dadoscadastrais">
         <div class="col-12"> 
           <div class="row">
             <div class="col-6">
@@ -144,12 +174,40 @@ Painel do associado
                 <label>R$ {{number_format($associado->renda, 2, ',', '.')}}</label>
               </div>
               <div class="col-3">
-                <h6>Valor bens <small>(Total)</small></h6>
+                <h6>Valor bens móveis <small>(Total)</small></h6>
                 <label>R$ {{(isset($associado->RelationConsolidado) ? number_format(@$associado->RelationConsolidado->valor_movel, 2, ',', '.') : '-')}}</label>
               </div>
               <div class="col-3">
-                <h6>Valor imóveis <small>(Total)</small></h6>
+                <h6>Valor bens imóveis <small>(Total)</small></h6>
                 <label>R$ {{(isset($associado->RelationConsolidado) ? number_format(@$associado->RelationConsolidado->valor_imovel, 2, ',', '.') : '-')}}</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-5">
+          <h5>Conglomerado</h5>
+          <hr class="mt-2">
+          <div class="col-12">
+            <div class="row">
+              <div class="col-3">
+                <h6>Participa de conglomerado?</h6>
+                <label>{{(isset($associado->RelationConglomerados) ? 'Sim' : 'Não')}}</label>
+              </div>
+              <div class="col-9">
+                <h6>Nome</h6>
+                <label>{{(isset($associado->RelationConglomerados) ? $associado->RelationConglomerados->descricao : '-')}}</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <h6>Participantes</h6>
+                @if(isset($conglomerado))
+                  @foreach($conglomerado as $participante)
+                  <label class="d-block">{{$participante->RelationAssociado->nome}}</label>
+                  @endforeach
+                @else
+                  <label>-</label>
+                @endif
               </div>
             </div>
           </div>
@@ -161,7 +219,7 @@ Painel do associado
             <div class="row">
               <div class="col-3">
                 <h6>Indicador de Produtor</h6>
-                <label>{{(isset($associado->RelationConsolidado) ? ($associado->RelationConsolidado->inidicador_rural == 1 ? 'Sim' : 'Não') : '-')}}</label>
+                <label>{{(isset($associado->RelationConsolidado) ? ($associado->RelationConsolidado->indicador_rural == 1 ? 'Sim' : 'Não') : '-')}}</label>
               </div>
               <div class="col-6">
                 <h6>Categoria de Produtor</h6>
@@ -238,6 +296,7 @@ Painel do associado
             </div>
           </div>
         </div>
+
         <div class="clearfix"></div>
       </div>
       <div role="tabpanel" class="tab-pane fade" id="contacapital">
@@ -470,13 +529,108 @@ Painel do associado
           </div>
           <div class="clearfix"></div>
       </div>
-      <div role="tabpanel" class="tab-pane fade" id="produtos">
-          <div class="text-center">
-            <h3>Painel em desenvolvimento</h3>
-          </div>
-          <div class="clearfix"></div>
-      </div>
     </div>
   </div>
 </div>
 @endsection
+
+@section('modal')
+  @include('atendimento.painel.adicionarAtividade')
+  @include('atendimento.painel.editarAtividade')
+@endsection
+
+@section('suporte')
+  <script type="text/javascript">
+    $(document).ready( function (){
+      // Adicionando novas atividades
+      $('#modal-adicionar #formAdicionar').on('submit', function(e){
+        e.preventDefault();
+        $.ajax({
+          url: '{{ route("atividade.associado.atendimento") }}',
+          type: 'POST',
+          data: $('#modal-adicionar #formAdicionar').serialize(),
+          beforeSend: function(){
+            $('.modal-body, .modal-footer').addClass('d-none');
+            $('.carregamento').html('<div class="mx-auto text-center my-5"> <div class="col-12"> <div class="spinner-border my-4" role="status"> <span class="sr-only"> Loading... </span> </div> </div> <label>Salvando informações...</label></div>');
+            $('#modal-adicionar #err').html('');
+          },
+          success: function(data){
+            $('.modal-body, .modal-footer').addClass('d-none');
+            $('.carregamento').html('<div class="mx-auto text-center my-5"><div class="col-12"><i class="col-2 mdi mdi-check-all mdi-48px"></i></div><label>Informações alteradas com sucesso!</label></div>');
+            setTimeout(function(){
+              location.reload();
+            }, 2000);
+          }, error: function (data) {
+            setTimeout(function(){
+              $('.modal-body, .modal-footer').removeClass('d-none');
+              $('.carregamento').html('');
+              if(!data.responseJSON){
+                console.log(data.responseText);
+                $('#modal-adicionar #err').html(data.responseText);
+              }else{
+                $('#modal-adicionar #err').html('');
+                $('input').removeClass('border-bottom border-danger');
+                $.each(data.responseJSON.errors, function(key, value){
+                  $('#modal-adicionar #err').append('<div class="text-danger mx-4"><p>'+value+'</p></div>');
+                  $('input[name="'+key+'"]').addClass('border-bottom border-danger');
+                });
+              }
+            }, 2000);
+          }
+        });
+      });
+
+      // Retornando dados da atividade
+      $('.editarAtividade').on('click', function(){
+        url = $(this).attr('data');
+        $.get(url, function(data){
+          $('#modal-editar #identificador').val(data.id);
+          $('#modal-editar .tipo').val(data.tipo);
+          $('#modal-editar .descricao').html(data.descricao);
+          $('#modal-editar .contato').val(data.contato);
+        });
+        $('#modal-editar').modal('show');
+      });
+
+      // Editando atividade
+      $('#modal-editar #formEditar').on('submit', function(e){
+        e.preventDefault();
+        $.ajax({
+          url: '{{ route("editando.atividade.associado.atendimento") }}',
+          type: 'POST',
+          data: $('#modal-editar #formEditar').serialize(),
+          beforeSend: function(){
+            $('.modal-body, .modal-footer').addClass('d-none');
+            $('.carregamento').html('<div class="mx-auto text-center my-5"> <div class="col-12"> <div class="spinner-border my-4" role="status"> <span class="sr-only"> Loading... </span> </div> </div> <label>Salvando informações...</label></div>');
+            $('#modal-editar #err').html('');
+          },
+          success: function(data){
+            $('.modal-body, .modal-footer').addClass('d-none');
+            $('.carregamento').html('<div class="mx-auto text-center my-5"><div class="col-12"><i class="col-2 mdi mdi-check-all mdi-48px"></i></div><label>Informações alteradas com sucesso!</label></div>');
+            setTimeout(function(){
+              location.reload();
+            }, 2000);
+          }, error: function (data) {
+            setTimeout(function(){
+              $('.modal-body, .modal-footer').removeClass('d-none');
+              $('.carregamento').html('');
+              if(!data.responseJSON){
+                console.log(data.responseText);
+                $('#modal-editar #err').html(data.responseText);
+              }else{
+                $('#modal-editar #err').html('');
+                $('input').removeClass('border-bottom border-danger');
+                $.each(data.responseJSON.errors, function(key, value){
+                  $('#modal-editar #err').append('<div class="text-danger mx-4"><p>'+value+'</p></div>');
+                  $('input[name="'+key+'"]').addClass('border-bottom border-danger');
+                });
+              }
+            }, 2000);
+          }
+        });
+      });
+
+    });
+  </script>
+@endsection
+

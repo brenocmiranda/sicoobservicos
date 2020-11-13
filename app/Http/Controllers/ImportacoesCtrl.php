@@ -13,11 +13,17 @@ use App\Imports\cca_contacapital;
 use App\Imports\cco_contacorrente;
 use App\Imports\crt_cartaocredito;
 use App\Imports\cli_conglomerados;
+use App\Imports\pop_poupanca;
+use App\Imports\dep_aplicacoes;
+use App\Imports\cli_iap;
 use App\Imports\cre_contratos;
 use Maatwebsite\Excel\HeadingRowImport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Associados;
 use App\Models\AssociadosConsolidado;
+use App\Models\Poupancas;
+use App\Models\Aplicacoes;
+use App\Models\IAPs;
 use App\Models\Emails;
 use App\Models\Telefones;
 use App\Models\Enderecos;
@@ -46,15 +52,17 @@ class ImportacoesCtrl extends Controller
 		$cco_contacorrente = ContaCorrente::select('updated_at')->orderBy('updated_at', 'DESC')->first();
 		$cre_contratos = Contratos::select('updated_at')->orderBy('updated_at', 'DESC')->first();
 		$crt_cartaocredito = CartaoCredito::select('updated_at')->orderBy('updated_at', 'DESC')->first();
-		return view('configuracoes.importacoes.manual')->with('cli_associados', $cli_associados)->with('cli_consolidado', $cli_consolidado)->with('cli_emails', $cli_emails)->with('cli_enderecos', $cli_enderecos)->with('cli_telefones', $cli_telefones)->with('cca_contacapital', $cca_contacapital)->with('cco_contacorrente', $cco_contacorrente)->with('crt_cartaocredito', $crt_cartaocredito)->with('cli_conglomerados', $cli_conglomerados)->with('cre_contratos', $cre_contratos);
+		$pop_poupanca = Poupancas::select('updated_at')->orderBy('updated_at', 'DESC')->first();
+		$dep_aplicacoes = Aplicacoes::select('updated_at')->orderBy('updated_at', 'DESC')->first();
+		$cli_iap = IAPs::select('updated_at')->orderBy('updated_at', 'DESC')->first();
+		return view('configuracoes.importacoes.manual')->with('cli_associados', $cli_associados)->with('cli_consolidado', $cli_consolidado)->with('cli_emails', $cli_emails)->with('cli_enderecos', $cli_enderecos)->with('cli_telefones', $cli_telefones)->with('cca_contacapital', $cca_contacapital)->with('cco_contacorrente', $cco_contacorrente)->with('crt_cartaocredito', $crt_cartaocredito)->with('cli_conglomerados', $cli_conglomerados)->with('cre_contratos', $cre_contratos)->with('pop_poupanca', $pop_poupanca)->with('dep_aplicacoes', $dep_aplicacoes)->with('cli_iap', $cli_iap);
 	}
 
 	// Importação manual dos arquivos
 	public function Importar(Request $request){
 
-		//return (new HeadingRowImport)->toArray($request->cli_consolidado);
-
-		if ($request->hasFile('cli_associados') || $request->hasFile('cli_consolidado') || $request->hasFile('cli_emails') || $request->hasFile('cli_telefones') || $request->hasFile('cli_enderecos') || $request->hasFile('cli_conglomerados') || $request->hasFile('cca_contacapital') || $request->hasFile('cco_contacorrente') || $request->hasFile('cre_contratos') || $request->hasFile('crt_cartaocredito')){
+		//return (new HeadingRowImport)->toArray($request->pop_poupanca);
+		if ($request->hasFile('cli_associados') || $request->hasFile('cli_consolidado') || $request->hasFile('cli_emails') || $request->hasFile('cli_telefones') || $request->hasFile('cli_enderecos') || $request->hasFile('cli_conglomerados') || $request->hasFile('cca_contacapital') || $request->hasFile('cco_contacorrente') || $request->hasFile('cre_contratos') || $request->hasFile('crt_cartaocredito') || $request->hasFile('pop_poupanca') || $request->hasFile('dep_aplicacoes') || $request->hasFile('cli_iap')){
 			Logs::create(['mensagem' => 'Importação manual executada.']);
 			// cli_associados
 			if($request->hasFile('cli_associados') && $request->file('cli_associados')->isValid()){
@@ -145,6 +153,33 @@ class ImportacoesCtrl extends Controller
 				Logs::create(['mensagem' => 'Processando o arquivo crt_cartaocredito.xlsx...']);
 				Excel::import(new crt_cartaocredito, getcwd().'/storage/app/importacoes/'.$nameFile);
 				Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de crt_cartaocredito.xlsx efetuada com sucesso!</span>']);
+			}
+			// pop_poupanca
+			if($request->hasFile('pop_poupanca') && $request->file('pop_poupanca')->isValid()){
+				Logs::create(['mensagem' => 'Localizado arquivo pop_poupanca.xlsx.']);
+				$nameFile = 'pop_poupanca-'.date('dmYHis').'.'.request()->file('pop_poupanca')->getClientOriginalExtension();
+				$upload = $request->pop_poupanca->storeAs('importacoes', $nameFile);
+				Logs::create(['mensagem' => 'Processando o arquivo pop_poupanca.xlsx...']);
+				Excel::import(new pop_poupanca, getcwd().'/storage/app/importacoes/'.$nameFile);
+				Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de pop_poupanca.xlsx efetuada com sucesso!</span>']);
+			}
+			// dep_aplicacoes
+			if($request->hasFile('dep_aplicacoes') && $request->file('dep_aplicacoes')->isValid()){
+				Logs::create(['mensagem' => 'Localizado arquivo dep_aplicacoes.xlsx.']);
+				$nameFile = 'dep_aplicacoes-'.date('dmYHis').'.'.request()->file('dep_aplicacoes')->getClientOriginalExtension();
+				$upload = $request->dep_aplicacoes->storeAs('importacoes', $nameFile);
+				Logs::create(['mensagem' => 'Processando o arquivo dep_aplicacoes.xlsx...']);
+				Excel::import(new dep_aplicacoes, getcwd().'/storage/app/importacoes/'.$nameFile);
+				Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de dep_aplicacoes.xlsx efetuada com sucesso!</span>']);
+			}
+			// cli_iap
+			if($request->hasFile('cli_iap') && $request->file('cli_iap')->isValid()){
+				Logs::create(['mensagem' => 'Localizado arquivo cli_iap.xlsx.']);
+				$nameFile = 'cli_iap-'.date('dmYHis').'.'.request()->file('cli_iap')->getClientOriginalExtension();
+				$upload = $request->cli_iap->storeAs('importacoes', $nameFile);
+				Logs::create(['mensagem' => 'Processando o arquivo cli_iap.xlsx...']);
+				Excel::import(new cli_iap, getcwd().'/storage/app/importacoes/'.$nameFile);
+				Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de cli_iap.xlsx efetuada com sucesso!</span>']);
 			}
 			return response()->json(true);
 		}else{
@@ -271,6 +306,39 @@ class ImportacoesCtrl extends Controller
 	           	Logs::create(['mensagem' => 'Processando o arquivo crt_cartaocredito.xlsx...']);
 	            Excel::import(new crt_cartaocredito, getcwd().'/storage/app/importacoes/'.$nameFile);
 	            Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de crt_cartaocredito.xlsx efetuada com sucesso!</span>']);
+			}
+			// pop_poupanca
+			if($arquivo == 'pop_poupanca.xlsx'){
+				Logs::create(['mensagem' => 'Importação automática executada.']);
+				Logs::create(['mensagem' => 'Localizado arquivo pop_poupanca.xlsx.']);
+	            $nameFile = 'pop_poupanca'.date('dmY-His').'.xlsx';
+	            copy('//SICOOB_SERVICE/outlook/pop_poupanca.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
+	            unlink('//SICOOB_SERVICE/outlook/pop_poupanca.xlsx');
+	           	Logs::create(['mensagem' => 'Processando o arquivo pop_poupanca.xlsx...']);
+	            Excel::import(new pop_poupanca, getcwd().'/storage/app/importacoes/'.$nameFile);
+	            Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de pop_poupanca.xlsx efetuada com sucesso!</span>']);
+			}
+			// dep_aplicacoes
+			if($arquivo == 'dep_aplicacoes.xlsx'){
+				Logs::create(['mensagem' => 'Importação automática executada.']);
+				Logs::create(['mensagem' => 'Localizado arquivo dep_aplicacoes.xlsx.']);
+	            $nameFile = 'dep_aplicacoes'.date('dmY-His').'.xlsx';
+	            copy('//SICOOB_SERVICE/outlook/dep_aplicacoes.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
+	            unlink('//SICOOB_SERVICE/outlook/dep_aplicacoes.xlsx');
+	           	Logs::create(['mensagem' => 'Processando o arquivo dep_aplicacoes.xlsx...']);
+	            Excel::import(new dep_aplicacoes, getcwd().'/storage/app/importacoes/'.$nameFile);
+	            Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de dep_aplicacoes.xlsx efetuada com sucesso!</span>']);
+			}
+			// cli_iap
+			if($arquivo == 'cli_iap.xlsx'){
+				Logs::create(['mensagem' => 'Importação automática executada.']);
+				Logs::create(['mensagem' => 'Localizado arquivo cli_iap.xlsx.']);
+	            $nameFile = 'cli_iap'.date('dmY-His').'.xlsx';
+	            copy('//SICOOB_SERVICE/outlook/cli_iap.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
+	            unlink('//SICOOB_SERVICE/outlook/cli_iap.xlsx');
+	           	Logs::create(['mensagem' => 'Processando o arquivo cli_iap.xlsx...']);
+	            Excel::import(new cli_iap, getcwd().'/storage/app/importacoes/'.$nameFile);
+	            Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de cli_iap.xlsx efetuada com sucesso!</span>']);
 			}
 		}
 		$diretorio->close();

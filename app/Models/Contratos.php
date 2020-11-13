@@ -36,6 +36,6 @@ class Contratos extends Model
     }
 
     public function RelationArquivos(){
-        return $this->belongsTo(CreArquivos::class, 'cre_id_arquivo', 'id');
+        return $this->belongsTo(ContratosArquivos::class, 'cre_id_arquivo', 'id');
     }
 }

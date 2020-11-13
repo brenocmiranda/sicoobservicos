@@ -117,6 +117,12 @@ Route::group(['prefix' => 'app'], function(){
 			Route::get('', 'AtendimentoCtrl@Exibir')->name('exibir.painel.atendimento');
 			Route::any('pesquisar', 'AtendimentoCtrl@Pesquisar')->name('pesquisar.associado.atendimento');
 			Route::any('exibir', 'AtendimentoCtrl@Mostrar')->name('exibir.associado.atendimento');
+			// Atividades
+			Route::group(['prefix' => 'atividades'], function(){
+				Route::post('', 'AtendimentoCtrl@Atividades')->name('atividade.associado.atendimento');
+				Route::get('detalhes/{id}', 'AtendimentoCtrl@Detalhes')->name('detalhes.atividade.associado.atendimento');
+				Route::post('editando', 'AtendimentoCtrl@Editando')->name('editando.atividade.associado.atendimento');
+			});
 		});
 	});
 

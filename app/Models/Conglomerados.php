@@ -13,4 +13,7 @@ class Conglomerados extends Model
     protected $primaryKey = 'id';
     protected $fillable = ['id', 'codigo', 'descricao', 'cli_id_associado', 'created_at', 'updated_at'];
 
+    public function RelationAssociado(){
+        return $this->belongsTo(Associados::class, 'cli_id_associado');
+    }
 }

@@ -37,15 +37,23 @@ class Associados extends Model
         return $this->belongsTo(ContaCapital::class, 'id', 'cli_id_associado');
     }
 
+    public function RelationConglomerados(){
+        return $this->belongsTo(Conglomerados::class, 'id', 'cli_id_associado');
+    }
+
     public function RelationContaCorrente(){
-       return $this->hasMany(ContaCorrente::class, 'cli_id_associado');
+        return $this->hasMany(ContaCorrente::class, 'cli_id_associado');
     }
 
     public function RelationCartaoCredito(){
-       return $this->hasMany(CartaoCredito::class, 'cli_id_associado');
+        return $this->hasMany(CartaoCredito::class, 'cli_id_associado');
     }
 
     public function RelationCarteiraCredito(){
-       return $this->hasMany(Contratos::class, 'cli_id_associado');
+        return $this->hasMany(Contratos::class, 'cli_id_associado');
+    }
+
+    public function RelationAtividades(){
+        return $this->hasMany(AssociadosAtividades::class, 'cli_id_associado');
     }
 }

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CreArquivos extends Model
+class ContratosArquivos extends Model
 {
     use HasFactory;
 
