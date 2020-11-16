@@ -41,6 +41,10 @@ class Associados extends Model
         return $this->belongsTo(Conglomerados::class, 'id', 'cli_id_associado');
     }
 
+    public function RelationIAP(){
+        return $this->belongsTo(IAPs::class, 'id', 'cli_id_associado');
+    }
+
     public function RelationContaCorrente(){
         return $this->hasMany(ContaCorrente::class, 'cli_id_associado');
     }
@@ -51,6 +55,14 @@ class Associados extends Model
 
     public function RelationCarteiraCredito(){
         return $this->hasMany(Contratos::class, 'cli_id_associado');
+    }
+
+    public function RelationPoupancas(){
+        return $this->hasMany(Poupancas::class, 'cli_id_associado');
+    }
+
+    public function RelationAplicacoes(){
+        return $this->hasMany(Aplicacoes::class, 'cli_id_associado');
     }
 
     public function RelationAtividades(){

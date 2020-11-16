@@ -263,7 +263,19 @@ class ImportacoesCtrl extends Controller
 	           	Logs::create(['mensagem' => 'Processando o arquivo cli_conglomerados.xlsx...']);
 	            Excel::import(new cli_conglomerados, getcwd().'/storage/app/importacoes/'.$nameFile);
 	            Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de cli_conglomerados.xlsx efetuada com sucesso!</span>']);
-			}// cca_contacapital
+			}
+			// cli_iap
+			if($arquivo == 'cli_iap.xlsx'){
+				Logs::create(['mensagem' => 'Importação automática executada.']);
+				Logs::create(['mensagem' => 'Localizado arquivo cli_iap.xlsx.']);
+	            $nameFile = 'cli_iap'.date('dmY-His').'.xlsx';
+	            copy('//SICOOB_SERVICE/outlook/cli_iap.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
+	            unlink('//SICOOB_SERVICE/outlook/cli_iap.xlsx');
+	           	Logs::create(['mensagem' => 'Processando o arquivo cli_iap.xlsx...']);
+	            Excel::import(new cli_iap, getcwd().'/storage/app/importacoes/'.$nameFile);
+	            Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de cli_iap.xlsx efetuada com sucesso!</span>']);
+			}
+			// cca_contacapital
 			if($arquivo == 'cca_contacapital.xlsx'){
 				Logs::create(['mensagem' => 'Importação automática executada.']);
 				Logs::create(['mensagem' => 'Localizado arquivo cca_contacapital.xlsx.']);
@@ -329,17 +341,7 @@ class ImportacoesCtrl extends Controller
 	            Excel::import(new dep_aplicacoes, getcwd().'/storage/app/importacoes/'.$nameFile);
 	            Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de dep_aplicacoes.xlsx efetuada com sucesso!</span>']);
 			}
-			// cli_iap
-			if($arquivo == 'cli_iap.xlsx'){
-				Logs::create(['mensagem' => 'Importação automática executada.']);
-				Logs::create(['mensagem' => 'Localizado arquivo cli_iap.xlsx.']);
-	            $nameFile = 'cli_iap'.date('dmY-His').'.xlsx';
-	            copy('//SICOOB_SERVICE/outlook/cli_iap.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
-	            unlink('//SICOOB_SERVICE/outlook/cli_iap.xlsx');
-	           	Logs::create(['mensagem' => 'Processando o arquivo cli_iap.xlsx...']);
-	            Excel::import(new cli_iap, getcwd().'/storage/app/importacoes/'.$nameFile);
-	            Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de cli_iap.xlsx efetuada com sucesso!</span>']);
-			}
+			
 		}
 		$diretorio->close();
 	}

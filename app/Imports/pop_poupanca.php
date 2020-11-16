@@ -22,10 +22,9 @@ class pop_poupanca implements ToCollection, WithBatchInserts, WithChunkReading, 
         foreach ($rows as $row) 
         {   
             $associado = Associados::where('id_sisbr', $row['numero_cliente_sisbr'])->select('id')->first();
-            $dados = Poupancas::where('cli_id_associado', $associado->id)->first();
+            $dados = Poupancas::where('num_conta', $row['numero_conta_poupanca'])->first();
             if(isset($dados)){
-                 Poupancas::where('cli_id_associado', $associado->id)->update([
-                    'num_conta' => (int) $row['numero_conta_poupanca'], 
+                 Poupancas::where('num_conta', $row['numero_conta_poupanca'])->update([
                     'situacao' => $row['situacao_da_conta'], 
                     'tipo_conta' => $row['tipo_conta_poupanca'], 
                     'tipo_poupanca' => $row['tipo_poupanca'], 

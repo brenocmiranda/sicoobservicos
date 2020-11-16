@@ -23,10 +23,9 @@ class dep_aplicacoes implements ToCollection, WithBatchInserts, WithChunkReading
         foreach ($rows as $row) 
         {   
             $associado = Associados::where('id_sisbr', $row['numero_cliente_sisbr'])->select('id')->first();
-            $dados = Aplicacoes::where('num_conta', $associado->id)->first();
+            $dados = Aplicacoes::where('num_conta', $row['numero_conta_aplicacao'])->first();
             if(isset($dados)){
-                 Aplicacoes::where('cli_id_associado', $associado->id)->update([
-                    'num_conta' => (int) $row['numero_conta_aplicacao'], 
+                 Aplicacoes::where('num_conta', $row['numero_conta_aplicacao'])->update([
                     'modalidade' => $row['modalidade_captacao'], 
                     'tipo' => $row['tipo_modalidade_captacao'], 
                     'valor_correcao' => number_format($row['valor_correcao_monetaria'], 2, '.', ''),

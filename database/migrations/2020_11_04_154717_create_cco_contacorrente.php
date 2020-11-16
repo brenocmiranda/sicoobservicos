@@ -30,6 +30,8 @@ class CreateCcoContacorrente extends Migration
             $table->double('valor_adp')->nullable();
             $table->integer('sem_movimentacao')->nullable();
             $table->date('ultima_movimentacao')->nullable();
+            $table->double('valor_saldo')->nullable();
+            $table->double('valor_pacote')->nullable();
             $table->date('data_abertura');
             $table->date('data_encerramento')->nullable();
             $table->integer('cli_id_associado')->unsigned();
