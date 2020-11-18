@@ -50,8 +50,9 @@ Adicionar bens
 										<label class="col-form-label pb-0">Tipo <span class="text-danger">*</span></label>
 										<select class="form-control form-control-line" name="tipo" required>
 											<option value="">Selecione</option>
-											<option value="automovel">Automóvel</option>
+											<option value="veiculos">Veículos</option>
 											<option value="imovel">Imóvel</option>
+											<option value="outros">Outros</option>
 										</select>
 									</div>
 								</div>

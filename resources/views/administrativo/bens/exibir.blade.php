@@ -42,7 +42,7 @@ Bens
 													<img src="{{asset('storage/app').'/'.$item->RelationImagemPrincipal->endereco}}" class="rounded" height="100" width="140">
 												</div>
 												<div class="col-8 pr-0">
-													<h5>{{$item->nome}} <small>{{($item->tipo == 'automovel' ? "Móvel" : "Imóvel")}}</small></h5>
+													<h5>{{$item->nome}} <small>{{($item->tipo == 'veiculos' ? "Veículos" : ($item->tipo == 'imovel' ? "Imóvel" : "Outros"))}}</small></h5>
 													@if(isset($item->cep))
 													<div style="line-height: 15px">
 														<small class="text-dark d-block">{{(isset($item->rua) ? $item->rua.',' : '')}} {{$item->numero}}, {{$item->bairro}}</small>
@@ -115,7 +115,7 @@ Bens
 								icon: "success",
 								button: false
 							});
-							table.ajax.reload();
+							location.reload();
 						}else{
 							swal("Não foi possível remover as informações.", {
 				              icon: "error",

@@ -74,7 +74,7 @@ Route::group(['prefix' => 'app'], function(){
 			Route::post('salvar', 'BensCtrl@AdicionarSalvar')->name('salvar.bens.administrativo');
 			Route::get('editar/{id}', 'BensCtrl@Editar')->name('editar.bens.administrativo');
 			Route::post('editando/{id}', 'BensCtrl@EditarSalvar')->name('editando.bens.administrativo');
-			Route::get('delete/{id}', 'BensCtrl@Alterar')->name('delete.bens.administrativo');
+			Route::get('delete/{id}', 'BensCtrl@Delete')->name('delete.bens.administrativo');
 			Route::any('detalhes/{id}', 'BensCtrl@Detalhes')->name('detalhes.bens.administrativo');
 			Route::post('addImagens', 'BensCtrl@Imagens')->name('adicionar.imagens.bens.administrativo');
 			Route::get('removeImagem/{id}', 'BensCtrl@RemoveImagem')->name('remover.imagens.bens.administrativo');

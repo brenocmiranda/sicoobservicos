@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Materiais;
 use App\Models\MateriaisHistorico;
 use App\Models\Status;
+use App\Models\Bens;
+use App\Models\Documentos;
 use App\Models\Ativos;
 use App\Models\ChamadosStatus;
 use App\Models\Chamados;
@@ -23,8 +25,14 @@ class DashboardCtrl extends Controller
 	// Dashboard do ativo
 	public function DashAdministrativo(){
 		$materiais = Materiais::all();
+		$materiaisCategoria = Materiais::join('adm_materiais_categorias', 'id_categoria', 'adm_materiais_categorias.id')->select('id_categoria', 'adm_materiais_categorias.nome', \DB::raw('count(id_categoria) as quantidade'))->groupBy('id_categoria')->where('adm_materiais.status', 1)->get();
 		$materiaisHistorico = MateriaisHistorico::all();
-		return view('administrativo.dashboard')->with('materiais', $materiais)->with('materiaisHistorico', $materiaisHistorico);
+		$bens = Bens::all();
+		$bensBairro = Bens::whereNotNull('bairro')->select('bairro')->groupBy('bairro')->get();
+		$bensCidade = Bens::whereNotNull('cidade')->select('cidade')->groupBy('cidade')->get();
+		$documentos = Documentos::all();
+
+		return view('administrativo.dashboard')->with('bens', $bens)->with('bensBairro', $bensBairro)->with('bensCidade', $bensCidade)->with('documentos', $documentos)->with('materiais', $materiais)->with('materiaisHistorico', $materiaisHistorico)->with('materiaisCategoria', $materiaisCategoria);
 	}
 	
 	// Dashboard do ativo

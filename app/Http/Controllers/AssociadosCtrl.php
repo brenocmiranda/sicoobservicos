@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use Illuminate\Routing\Controller;
@@ -39,7 +40,6 @@ class AssociadosCtrl extends Controller
     if(Auth::user()->RelationFuncao->gerenciar_administrativo == 1 || Auth::user()->RelationFuncao->ver_administrativo == 1){
       if($request->orientacao == 'paisagem'){
         $result = Associados::where('funcionario', 1)->whereMonth('data_nascimento', $request->mes)->where('id', '<>', 1)->select('nome', 'data_nascimento')->orderByRaw('day(data_nascimento) asc')->get();
-        //return PDF::loadView('administrativo.aniversariantes.relatorio-paisagem', compact('result'))->stream();
         Atividades::create([
           'nome' => 'Geração de relatório de aniversariantes',
           'descricao' => 'Você gerou o relatório de aniversariantes do mês '.$request->mes.'.',
@@ -47,7 +47,10 @@ class AssociadosCtrl extends Controller
           'url' => route('exibir.aniversariantes.administrativo'),
           'id_usuario' => Auth::id()
         ]);
-        return view('administrativo.aniversariantes.relatorio-paisagem')->with('result', $result);
+
+        $pdf = PDF::loadView('administrativo.aniversariantes.relatorio-paisagem', compact('result'))->setPaper('a4', 'landscape');
+        return $pdf->stream();
+
       }else{
         $result = Associados::where('funcionario', 1)->whereMonth('data_nascimento', $request->mes)->where('id', '<>', 1)->select('nome', 'data_nascimento')->orderByRaw('day(data_nascimento) asc')->get();
         Atividades::create([
@@ -57,7 +60,11 @@ class AssociadosCtrl extends Controller
           'url' => route('exibir.aniversariantes.administrativo'),
           'id_usuario' => Auth::id()
         ]);
-        return view('administrativo.aniversariantes.relatorio-retrato')->with('result', $result);
+
+
+        $pdf = PDF::loadView('administrativo.aniversariantes.relatorio-retrato', compact('result'))->setPaper('a4', 'portrait');
+        return $pdf->stream();
+
       }
     }else{
       return redirect(route('403'));

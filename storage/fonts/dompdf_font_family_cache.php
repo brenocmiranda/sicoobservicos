@@ -87,7 +87,7 @@
     'normal' => $fontDir . '/rubik-normal_bf07aaa1ca18f0c67fbd22e8cb0879a6',
   ),
   'poppins' => array(
-    'normal' => $fontDir . '/poppins-normal_f108bf8fea64822c353829a2646a50bd',
+    'normal' => $fontDir . '/poppins-normal_c1b7381dfaadf37a84cf14d786076e6d',
   ),
   'fontawesome' => array(
     'normal' => $fontDir . '/fontawesome-normal_9ba088eb0b4f148832f63119ad7fa627',
@@ -121,5 +121,15 @@
   ),
   'linea-weather-10' => array(
     'normal' => $fontDir . '/linea-weather-10-normal_2e8a2116d5a2b24c2aff09ebc73ca541',
+  ),
+  'asap' => array(
+    'normal' => $fontDir . '/asap-normal_a4ebce2d1ee7dde852412307d9f1ed9a',
+    '500' => $fontDir . '/asap-500_e9a0e0022de3beb0b5c68c30e2a43fcb',
+    'italic' => $fontDir . '/asap-italic_38a10f1e4ce5eac4f21ad42f345911d5',
+    '500_italic' => $fontDir . '/asap-500-italic_720c6428e97799a81cc82065822d42e8',
+    '600_italic' => $fontDir . '/asap-600-italic_3f287dfbf4b610b6acf6f331661d0cce',
+    'bold_italic' => $fontDir . '/asap-bold-italic_c97324e93a019cc238f29e97e7cb55b0',
+    '600' => $fontDir . '/asap-600_2bd81cd61ded7ba0262e30af93b35ae4',
+    'bold' => $fontDir . '/asap-bold_4993fb0bf330777d14fa32c5f5dd9d39',
   ),
 ) ?>

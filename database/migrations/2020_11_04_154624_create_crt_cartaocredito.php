@@ -30,6 +30,7 @@ class CreateCrtCartaocredito extends Migration
             $table->double('valor_atribuido');
             $table->double('valor_disponivel')->nullable();
             $table->double('valor_utilizado')->nullable();
+            $table->date('data_movimento');
             $table->integer('cli_id_associado')->unsigned();
             $table->foreign('cli_id_associado')->references('id')->on('cli_associados');
             $table->integer('cre_id_arquivo')->unsigned();

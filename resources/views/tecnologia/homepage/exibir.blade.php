@@ -1,8 +1,12 @@
+@section('title')
+Homepage
+@endsection
+
 @include('layouts.header')
 <div class="col-12 h-100 position-absolute imagem" style="background: url({{ (isset($homepage[0]) ? asset('storage/app/').'/'.$homepage->last()->endereco : asset('public/img/home.png').'?'.rand())}})"></div>
 <div class="container-fluid h-100">
 	<div class="col-12 row">
-		<div class="pt-5 row ml-auto dropdown">
+		<div class="pt-5 row ml-auto dropdown pb-5 pb-lg-0">
 			@if(Auth::check())
 			<a href="{{route('inicio')}}" class="text-white text-truncate my-auto font-weight-normal pr-4">
             	<h5 class="text-white">Início</h5>
@@ -123,9 +127,9 @@
 	    </div>
     </div>
 	<div class="col-10 mx-auto px-0 row pb-5">
-		<img src="{{ asset('public/img/logo.png').'?'.rand() }}" class="mx-auto mt-3" style="max-width: 24em">
+		<img src="{{ asset('public/img/logo.png').'?'.rand() }}" class="mx-auto mt-3 w-100 col-lg-4 col-sm-6 col-12 h-50">
 	</div>
-	<div class="col-sm-12 col-lg-12 mx-auto py-5">
+	<div class="col-sm-8 col-lg-12 mx-auto py-5">
 		<div class="col-sm-12 col-lg-8 mx-auto input-group input-search">
 			<span class="input-group-addon bg-white" style="border-top-left-radius: 20px; border-bottom-left-radius: 20px;">
         	 	<i class="mdi mdi-magnify mdi-24px mdi-dark"></i>

@@ -150,6 +150,7 @@ class BensCtrl extends Controller
 				'url' => route('exibir.bens.administrativo'),
 				'id_usuario' => Auth::id()
 			]);
+			BensImagens::where('id_bens', $id)->delete();
 			Bens::find($id)->delete();
 			return response()->json(['success' => true]);
 		}else{

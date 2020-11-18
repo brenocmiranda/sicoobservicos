@@ -45,6 +45,7 @@ class crt_cartaocredito implements ToCollection, WithBatchInserts, WithChunkRead
                     'valor_atribuido' => number_format($row['valor_limite_atribuido'], 2, '.', ''),
                     'valor_disponivel' => number_format($row['valor_limite_disponivel'], 2, '.', ''),
                     'valor_utilizado' => number_format($row['valor_limite_utilizado'], 2, '.', ''),
+                    'data_movimento' => gmdate('Y-m-d', (($row['data_movimento'] - 25569) * 86400)),
                     'cre_id_arquivo' => $dados->cre_id_arquivo
                 ]);
             }else{
@@ -67,6 +68,7 @@ class crt_cartaocredito implements ToCollection, WithBatchInserts, WithChunkRead
                     'valor_atribuido' => number_format($row['valor_limite_atribuido'], 2, '.', ''),
                     'valor_disponivel' => number_format($row['valor_limite_disponivel'], 2, '.', ''),
                     'valor_utilizado' => number_format($row['valor_limite_utilizado'], 2, '.', ''),
+                    'data_movimento' => gmdate('Y-m-d', (($row['data_movimento'] - 25569) * 86400)),
                     'cre_id_arquivo' => $arquivo->id,  
                     'cli_id_associado' => Associados::where('id_sisbr', $row['numero_cliente_sisbr'])->select('id')->first()->id,
                 ]);   

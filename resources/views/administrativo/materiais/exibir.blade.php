@@ -67,7 +67,7 @@ Solicitações de materiais
 							</ul>
 						@else
 							<div class="row p-0">
-								<label class="alert alert-secondary col-12 rounded">Você não possui nenhuma pêndencia.</label>
+								<label class="alert alert-secondary col-12 rounded">Você não possui nenhuma pendência.</label>
 							</div>
 						@endif
 					</div>

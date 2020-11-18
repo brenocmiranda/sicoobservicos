@@ -6195,7 +6195,7 @@ ul.list-icons li i {
 	margin: 0
 }
 
-#morris-donut-chart svg text {
+.morris-donut-chart svg text {
 	font-family: Rubik, sans-serif!important;
 	font-weight: 400!important
 }
