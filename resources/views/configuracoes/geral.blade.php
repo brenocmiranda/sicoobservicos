@@ -262,7 +262,7 @@ Configurações
 					</a>
 				</div>
 				<div class="col-10 rounded m-3">
-					<a href="{{ route('exibir.importacoes') }}" class="row">
+					<a href="{{ route('exibir.logs.importacoes') }}" class="row">
 						<div class="border rounded row align-items-center shadow-sm">
 							<i class="mdi mdi-file-document mdi-dark mdi-24px px-4"></i>
 						</div>

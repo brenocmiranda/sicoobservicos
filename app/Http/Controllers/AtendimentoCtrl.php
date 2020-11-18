@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
-use Illuminate\Routing\Controller;
 use App\Models\Associados;
 use App\Models\AssociadosAtividades;
 use App\Models\Conglomerados;
@@ -14,25 +14,26 @@ use App\Models\Atividades;
 class AtendimentoCtrl extends Controller
 {
   
-  public function __construct()
+  	public function __construct()
 	{
 		$this->middleware('auth');
 	}
 
+	#-------------------------------------------------------------------
+	# Painel do associado
+	#-------------------------------------------------------------------
 	// Listando painel
- 	public function Exibir(){
+ 	public function ExibirPainel(){
     	return view('atendimento.painel.pesquisar');
 	}
-
 	// Pesquisando associados por partes do nome
-	public function Pesquisar(Request $request){
+	public function PesquisarPainel(Request $request){
   		$search = $request->get('term');
   		$result = Associados::where('nome', 'LIKE', '%'. $search. '%')->orWhere('nome_fantasia', 'LIKE', '%'. $search. '%')->orWhere('documento', 'LIKE', '%'. $search. '%')->select('nome', 'documento', 'id')->get();
   		return response()->json($result);
 	}
-
 	// Retorno de dados completos do associado
-	public function Mostrar(Request $request){
+	public function MostrarPainel(Request $request){
 		if(isset($request->pesquisar)){
 			$documento = explode(': ', $request->pesquisar);
 	  		$associado = Associados::where('documento', $documento[1])->first();
@@ -51,9 +52,8 @@ class AtendimentoCtrl extends Controller
 			return view('atendimento.painel.pesquisar');
 		}
 	}
-
 	// Cadastrando nova atividade
-	public function Atividades(Request $request){
+	public function AtividadesPainel(Request $request){
   		AssociadosAtividades::create([
   			'tipo' => $request->tipo, 
   			'descricao' => $request->descricao, 
@@ -63,9 +63,8 @@ class AtendimentoCtrl extends Controller
   		]);
   		return response()->json(['success' => true]);
 	}
-
 	// Editando a atividade
-	public function Editando(Request $request){
+	public function EditandoPainel(Request $request){
   		AssociadosAtividades::find($request->id)->update([
   			'tipo' => $request->tipo, 
   			'descricao' => $request->descricao, 
@@ -73,9 +72,8 @@ class AtendimentoCtrl extends Controller
   		]);
   		return response()->json(['success' => true]);
 	}
-	
 	// Detalhes da atividade
-	public function Detalhes($id){
+	public function DetalhesPainel($id){
   		$atividade = AssociadosAtividades::find($id);
   		return response()->json($atividade);
 	}

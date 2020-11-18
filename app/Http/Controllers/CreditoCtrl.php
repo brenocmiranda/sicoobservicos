@@ -3,9 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
-use Illuminate\Routing\Controller;
+use App\Notifications\SolicitacaoContratoAdmin;
+use App\Notifications\SolicitacaoContratoCliente;
+use App\Http\Requests\ArmariosRqt;
+use App\Http\Requests\ModalidadesRqt;
+use App\Http\Requests\ProdutosCredRqt;
 use App\Models\Armarios;
 use App\Models\Associados;
 use App\Models\Avalistas;
@@ -15,16 +20,99 @@ use App\Models\Garantias;
 use App\Models\Modalidades;
 use App\Models\ProdutosCred;
 use App\Models\Atividades;
+use App\Models\Ativos;
+use App\Models\Chamados;
+use App\Models\Solicitacoes;
+use App\Models\SolicitacoesStatus;
+use App\Models\CogEmailsContrato;
 
 class CreditoCtrl extends Controller
 {
 
 	public function __construct(){
+		$this->email = CogEmailsContrato::first();
 		$this->middleware('auth');
+	}
+	#-------------------------------------------------------------------
+	# Dashboard
+	#-------------------------------------------------------------------
+	public function Dashboard(){
+		$ativos = Ativos::all();
+		$chamados = Chamados::all();
+		$homepage = Chamados::all();
+		return view('credito.dashboard')->with('ativos', $ativos)->with('homepage', $homepage)->with('chamados', json_encode($chamados));
 	}
 
 	#-------------------------------------------------------------------
-	# Contratos em Geral
+	# Disposição
+	#-------------------------------------------------------------------
+	// Exibindo a disposição atual
+	public function Disposicao(){
+		if(Auth::user()->RelationFuncao->ver_credito == 1 || Auth::user()->RelationFuncao->gerenciar_credito == 1){
+			$produtos = ProdutosCred::where('status', 1)->get(); 
+			$modalidades = Modalidades::where('status', 1)->get();
+			$finalidades = Finalidades::where('status', 1)->get();  
+			$armarios = Armarios::where('status', 1)->orderBy('referencia')->get(); 
+			return view('credito.disposicao.listar')->with('armarios', $armarios)->with('produtos', $produtos)->with('modalidades', $modalidades)->with('finalidades', $finalidades);
+		}else{
+			return redirect(route('403'));
+		}
+	}
+	// Listando os contratos da gaveta
+	public function ExibirDisposicao($id){
+		if(Auth::user()->RelationFuncao->ver_credito == 1 || Auth::user()->RelationFuncao->gerenciar_credito == 1){
+			$arm = Armarios::find($id); 
+			$armarios = Armarios::where('status', 1)->get(); 
+			$produtos = ProdutosCred::where('status', 1)->get(); 
+			$modalidades = Modalidades::where('status', 1)->get();
+			$finalidades = Finalidades::where('status', 1)->get();  
+			return view('credito.disposicao.gaveta')->with('armarios', $armarios)->with('produtos', $produtos)->with('modalidades', $modalidades)->with('finalidades', $finalidades)->with('arm', $arm);
+		}else{
+			return redirect(route('403'));
+		}
+	}
+	public function DatatablesDisposicao(Request $request, $id){
+		if(Auth::user()->RelationFuncao->gerenciar_credito == 1){
+			$dados = Contratos::where('cre_id_armarios', $id)->get();
+			foreach ($dados as $key => $value) {
+				$dados[$key]->acoes = "
+				<button class='btn btn-dark btn-xs btn-rounded' name='editar' id='editar' title='Editar informações do contrato'><i class='mx-0 mdi mdi-settings'></i></button>
+				<button class='btn btn-dark btn-xs btn-rounded mx-1' name='alterar' id='alterar' title='Alterar status do contrato'><i class='mx-0 mdi mdi-swap-horizontal'></i></button>";
+				$dados[$key]->status1 = '<label class="badge'.($dados[$key]->status == "vigente" ? " badge-success" : ($dados[$key]->status == 'quitado' ? " badge-danger" : " badge-warning" )).'">'.($dados[$key]->status == "vigente" ? "Vigente" : ($dados[$key]->status == 'quitado' ? "Quitado" : "Prejuízo" )).'</label>';
+				$dados[$key]->valor_contrato = number_format($dados[$key]->valor_contrato, 2, ',', '.');
+				$dados[$key]->valor_contrato1 = 'R$ '.$dados[$key]->valor_contrato;
+				$dados[$key]->produto = $dados[$key]->RelationProdutos;
+				$dados[$key]->modalidade = $dados[$key]->RelationModalidades;
+				$dados[$key]->finalidade = $dados[$key]->RelationFinalidades;
+				$dados[$key]->associado = $dados[$key]->RelationAssociados;
+				$dados[$key]->armario = $dados[$key]->RelationArmarios;
+				$dados[$key]->taxa_operacao = number_format($dados[$key]->taxa_operacao, 2, ',', '');
+				$dados[$key]->taxa_mora = number_format($dados[$key]->taxa_mora, 2, ',', '');
+				$dados[$key]->taxa_multa = number_format($dados[$key]->taxa_multa, 2, ',', '');
+			}
+			return response()->json($dados);
+		}else{
+			$dados = Contratos::where('cre_id_armarios', $id)->get();
+			foreach ($dados as $key => $value) {
+				$dados[$key]->acoes = '';
+				$dados[$key]->status1 = '<label class="badge'.($dados[$key]->status == "vigente" ? " badge-success" : ($dados[$key]->status == 'quitado' ? " badge-danger" : " badge-warning" )).'">'.($dados[$key]->status == "vigente" ? "Vigente" : ($dados[$key]->status == 'quitado' ? "Quitado" : "Prejuízo" )).'</label>';
+				$dados[$key]->valor_contrato = number_format($dados[$key]->valor_contrato, 2, ',', '.');
+				$dados[$key]->valor_contrato1 = 'R$ '.$dados[$key]->valor_contrato;
+				$dados[$key]->produto = $dados[$key]->RelationProdutos;
+				$dados[$key]->modalidade = $dados[$key]->RelationModalidades;
+				$dados[$key]->finalidade = $dados[$key]->RelationFinalidades;
+				$dados[$key]->associado = $dados[$key]->RelationAssociados;
+				$dados[$key]->armario = $dados[$key]->RelationArmarios;
+				$dados[$key]->taxa_operacao = number_format($dados[$key]->taxa_operacao, 2, ',', '');
+				$dados[$key]->taxa_mora = number_format($dados[$key]->taxa_mora, 2, ',', '');
+				$dados[$key]->taxa_multa = number_format($dados[$key]->taxa_multa, 2, ',', '');
+			}
+			return response()->json($dados);
+		}
+	}
+
+	#-------------------------------------------------------------------
+	# Contratos
 	#-------------------------------------------------------------------
 	// Exibindo status e fazendo a pesquisa
 	public function Contratos(){
@@ -63,7 +151,6 @@ class CreditoCtrl extends Controller
 		}
 		return response()->json($dados);
 	}
-
 	// Listando por status
 	public function Exibir(Request $request){
 		if(Auth::user()->RelationFuncao->ver_credito == 1 || Auth::user()->RelationFuncao->gerenciar_credito == 1){
@@ -99,7 +186,6 @@ class CreditoCtrl extends Controller
 		}
 		return response()->json($dados);
 	}
-
 	// Adicionando novo contrato
 	public function Adicionar(Request $request){
 		// Retornando dados do associado
@@ -186,7 +272,6 @@ class CreditoCtrl extends Controller
 			return redirect(route('403'));
 		}
 	}
-
 	// Editando informações do contrato
 	public function Editar(Request $request, $id){
 		if(Auth::user()->RelationFuncao->gerenciar_credito == 1){
@@ -286,7 +371,6 @@ class CreditoCtrl extends Controller
 			return redirect(route('403'));
 		}
 	}
-
 	// Alterar o status do contrato
 	public function Alterar(Request $request, $id){
 		if(Auth::user()->RelationFuncao->gerenciar_credito == 1){
@@ -323,84 +407,657 @@ class CreditoCtrl extends Controller
 			return redirect(route('403'));
 		}
 	}
-	
-
-    #-------------------------------------------------------------------
-	# Disposição de arquivos
-	#-------------------------------------------------------------------
-	public function Disposicao(){
-		if(Auth::user()->RelationFuncao->ver_credito == 1 || Auth::user()->RelationFuncao->gerenciar_credito == 1){
-			$produtos = ProdutosCred::where('status', 1)->get(); 
-			$modalidades = Modalidades::where('status', 1)->get();
-			$finalidades = Finalidades::where('status', 1)->get();  
-			$armarios = Armarios::where('status', 1)->orderBy('referencia')->get(); 
-			return view('credito.disposicao.listar')->with('armarios', $armarios)->with('produtos', $produtos)->with('modalidades', $modalidades)->with('finalidades', $finalidades);
-		}else{
-			return redirect(route('403'));
-		}
-	}
-
-	// Listando os contratos da gaveta
-	public function ExibirDisposicao($id){
-		if(Auth::user()->RelationFuncao->ver_credito == 1 || Auth::user()->RelationFuncao->gerenciar_credito == 1){
-			$arm = Armarios::find($id); 
-			$armarios = Armarios::where('status', 1)->get(); 
-			$produtos = ProdutosCred::where('status', 1)->get(); 
-			$modalidades = Modalidades::where('status', 1)->get();
-			$finalidades = Finalidades::where('status', 1)->get();  
-			return view('credito.disposicao.gaveta')->with('armarios', $armarios)->with('produtos', $produtos)->with('modalidades', $modalidades)->with('finalidades', $finalidades)->with('arm', $arm);
-		}else{
-			return redirect(route('403'));
-		}
-	}
-	public function DatatablesDisposicao(Request $request, $id){
-		if(Auth::user()->RelationFuncao->gerenciar_credito == 1){
-			$dados = Contratos::where('cre_id_armarios', $id)->get();
-			foreach ($dados as $key => $value) {
-				$dados[$key]->acoes = "
-				<button class='btn btn-dark btn-xs btn-rounded' name='editar' id='editar' title='Editar informações do contrato'><i class='mx-0 mdi mdi-settings'></i></button>
-				<button class='btn btn-dark btn-xs btn-rounded mx-1' name='alterar' id='alterar' title='Alterar status do contrato'><i class='mx-0 mdi mdi-swap-horizontal'></i></button>";
-				$dados[$key]->status1 = '<label class="badge'.($dados[$key]->status == "vigente" ? " badge-success" : ($dados[$key]->status == 'quitado' ? " badge-danger" : " badge-warning" )).'">'.($dados[$key]->status == "vigente" ? "Vigente" : ($dados[$key]->status == 'quitado' ? "Quitado" : "Prejuízo" )).'</label>';
-				$dados[$key]->valor_contrato = number_format($dados[$key]->valor_contrato, 2, ',', '.');
-				$dados[$key]->valor_contrato1 = 'R$ '.$dados[$key]->valor_contrato;
-				$dados[$key]->produto = $dados[$key]->RelationProdutos;
-				$dados[$key]->modalidade = $dados[$key]->RelationModalidades;
-				$dados[$key]->finalidade = $dados[$key]->RelationFinalidades;
-				$dados[$key]->associado = $dados[$key]->RelationAssociados;
-				$dados[$key]->armario = $dados[$key]->RelationArmarios;
-				$dados[$key]->taxa_operacao = number_format($dados[$key]->taxa_operacao, 2, ',', '');
-				$dados[$key]->taxa_mora = number_format($dados[$key]->taxa_mora, 2, ',', '');
-				$dados[$key]->taxa_multa = number_format($dados[$key]->taxa_multa, 2, ',', '');
-			}
-			return response()->json($dados);
-		}else{
-			$dados = Contratos::where('cre_id_armarios', $id)->get();
-			foreach ($dados as $key => $value) {
-				$dados[$key]->acoes = '';
-				$dados[$key]->status1 = '<label class="badge'.($dados[$key]->status == "vigente" ? " badge-success" : ($dados[$key]->status == 'quitado' ? " badge-danger" : " badge-warning" )).'">'.($dados[$key]->status == "vigente" ? "Vigente" : ($dados[$key]->status == 'quitado' ? "Quitado" : "Prejuízo" )).'</label>';
-				$dados[$key]->valor_contrato = number_format($dados[$key]->valor_contrato, 2, ',', '.');
-				$dados[$key]->valor_contrato1 = 'R$ '.$dados[$key]->valor_contrato;
-				$dados[$key]->produto = $dados[$key]->RelationProdutos;
-				$dados[$key]->modalidade = $dados[$key]->RelationModalidades;
-				$dados[$key]->finalidade = $dados[$key]->RelationFinalidades;
-				$dados[$key]->associado = $dados[$key]->RelationAssociados;
-				$dados[$key]->armario = $dados[$key]->RelationArmarios;
-				$dados[$key]->taxa_operacao = number_format($dados[$key]->taxa_operacao, 2, ',', '');
-				$dados[$key]->taxa_mora = number_format($dados[$key]->taxa_mora, 2, ',', '');
-				$dados[$key]->taxa_multa = number_format($dados[$key]->taxa_multa, 2, ',', '');
-			}
-			return response()->json($dados);
-		}
-	}
-
-	#-------------------------------------------------------------------
-	# Funções Extras
-	#-------------------------------------------------------------------
 	// Retornado as garantias do contrato
 	public function Garantias($id){
 		$garantias[] = Avalistas::rightJoin('cli_associados', 'cli_id_associado', 'cli_associados.id')->where('cre_id_contrato', $id)->select('nome', 'documento', 'cre_avalistas.id')->get();
 		$garantias[] = Garantias::where('cre_id_contrato', $id)->select('tipo', 'descricao', 'cre_garantias.id')->get();
 		return $garantias;
 	}
+	
+
+	#-------------------------------------------------------------------
+	# Configurações (Armários)
+	#-------------------------------------------------------------------
+	// Listando todos os armários
+	public function ExibirArmarios(){
+		if(Auth::user()->RelationFuncao->ver_credito == 1 || Auth::user()->RelationFuncao->gerenciar_credito == 1){
+			return view('credito.configuracoes.armarios.listar');
+		}else{
+			return redirect(route('403'));
+		}
+	}
+	public function DatatablesArmarios(){
+		if(Auth::user()->RelationFuncao->gerenciar_credito == 1){
+			return datatables()->of(Armarios::all())
+			->editColumn('nome1', function(Armarios $dados){ 
+				return '<a href="javascript:void(0)" id="detalhes">'.$dados->nome.'</a>';
+			})
+			->editColumn('referencia', function(Armarios $dados){
+				return $dados->referencia;
+			})
+			->editColumn('status1', function(Armarios $dados){
+				return '<label class="badge'.($dados->status == 1 ? " badge-success" : " badge-danger").'">'.($dados->status == 1 ? "Ativo" : "Desativado").'</label>';
+			})
+			->editColumn('acoes', function(Armarios $dados){ 
+				return ($dados->status == 1 ? '
+					<button class="btn btn-dark btn-xs btn-rounded mx-1" id="editar" title="Editar informações da função"><i class="mx-0 mdi mdi-settings"></i></button>
+					<button class="btn btn-dark btn-xs btn-rounded" id="alterar" title="Desativar a função"><i class="mx-0 mdi mdi-close"></i></button>' : '
+					<button class="btn btn-dark btn-xs btn-rounded mx-1" id="editar" title="Editar informações do armário"><i class="mx-0 mdi mdi-settings"></i></button>
+					<button class="btn btn-dark btn-xs btn-rounded" id="alterar" title="Ativar a função"><i class="mx-0 mdi mdi-check"></i></button>');
+			})->rawColumns(['nome1', 'referencia', 'status1','acoes'])->make(true);
+		}else{
+			return datatables()->of(Armarios::all())
+			->editColumn('nome1', function(Armarios $dados){ 
+				return '<a href="javascript:void(0)" id="detalhes">'.$dados->nome.'</a>';
+			})
+			->editColumn('referencia', function(Armarios $dados){
+				return $dados->referencia;
+			})
+			->editColumn('status1', function(Armarios $dados){
+				return '<label class="badge'.($dados->status == 1 ? " badge-success" : " badge-danger").'">'.($dados->status == 1 ? "Ativo" : "Desativado").'</label>';
+			})
+			->editColumn('acoes', function(Armarios $dados){ 
+				return '';
+			})->rawColumns(['nome1', 'referencia', 'status1','acoes'])->make(true);
+		}
+	}
+	// Adicionando novo armário
+	public function AdicionarArmarios(ArmariosRqt $request){
+		if(Auth::user()->RelationFuncao->gerenciar_credito == 1){
+			$create = Armarios::create([
+				'nome' => $request->nome, 
+				'referencia' => $request->referencia,
+				'status' => ($request->status == "on" ? 1 : 0)
+			]);
+			Atividades::create([
+				'nome' => 'Cadastro de novo armário de crédito',
+				'descricao' => 'Você cadastrou um novo armário de crédito, '.$create->nome.'.',
+				'icone' => 'mdi-plus',
+				'url' => route('exibir.armarios.credito'),
+				'id_usuario' => Auth::id()
+			]);
+			return response()->json(['success' => true]);
+		}else{
+			return redirect(route('403'));
+		}
+	}
+	// Editando informações do armário
+	public function EditarArmarios(ArmariosRqt $request, $id){
+		if(Auth::user()->RelationFuncao->gerenciar_credito == 1){
+			Armarios::find($id)->update([
+				'nome' => $request->nome, 
+				'referencia' => $request->referencia,
+				'status' => ($request->status == "on" ? 1 : 0)
+			]);
+			$create = Armarios::find($id);
+			Atividades::create([
+				'nome' => 'Edição de informações',
+				'descricao' => 'Você modificou as informações do armário de crédito '.$create->nome.'.',
+				'icone' => 'mdi-auto-fix',
+				'url' => route('exibir.armarios.credito'),
+				'id_usuario' => Auth::id()
+			]);
+			return response()->json(['success' => true]);
+		}else{
+			return redirect(route('403'));
+		}
+	}
+	// Alterar o status
+	public function AlterarArmarios($id){
+		if(Auth::user()->RelationFuncao->gerenciar_credito == 1){
+			$tipos = Armarios::find($id);
+			if($tipos->status == 1){
+				Armarios::find($id)->update(['status' => 0]);
+			}else{
+				Armarios::find($id)->update(['status' => 1]);
+			}
+			Atividades::create([
+				'nome' => 'Alteração de estado',
+				'descricao' => 'Você alterou o status do armário de crédito '.$create->nome.'.',
+				'icone' => 'mdi-rotate-3d',
+				'url' => route('exibir.armarios.credito'),
+				'id_usuario' => Auth::id()
+			]);
+			return response()->json(['success' => true]);
+		}else{
+			return redirect(route('403'));
+		}
+	}
+	// Detallhes do armário
+	public function DetalhesArmarios($id){
+		$dados = Armarios::find($id);
+		return $dados;
+	}
+
+
+	#-------------------------------------------------------------------
+	# Configurações (Modalidades)
+	#-------------------------------------------------------------------
+	// Listando todas as modalidades
+	public function ExibirModalidades(){
+		if(Auth::user()->RelationFuncao->ver_credito == 1 || Auth::user()->RelationFuncao->gerenciar_credito == 1){
+			return view('credito.configuracoes.modalidades.listar');
+		}else{
+			return redirect(route('403'));
+		}
+	}
+	public function DatatablesModalidades(){
+		if(Auth::user()->RelationFuncao->gerenciar_credito == 1){
+			return datatables()->of(Modalidades::all())
+	            ->editColumn('nome1', function(Modalidades $dados){ 
+	                return '<a href="javascript:void(0)" id="detalhes">'.$dados->nome.'</a>';
+	            })
+	            ->editColumn('sigla', function(Modalidades $dados){
+	                return $dados->sigla;
+	            })
+	            ->editColumn('status1', function(Modalidades $dados){
+	                return '<label class="badge'.($dados->status == 1 ? " badge-success" : " badge-danger").'">'.($dados->status == 1 ? "Ativo" : "Desativado").'</label>';
+	            })
+	            ->editColumn('acoes', function(Modalidades $dados){ 
+	                return ($dados->status == 1 ? '
+						<button class="btn btn-dark btn-xs btn-rounded mx-1" id="editar" title="Editar informações da função"><i class="mx-0 mdi mdi-settings"></i></button>
+						<button class="btn btn-dark btn-xs btn-rounded" id="alterar" title="Desativar a função"><i class="mx-0 mdi mdi-close"></i></button>' : '
+						<button class="btn btn-dark btn-xs btn-rounded mx-1" id="editar" title="Editar informações do armário"><i class="mx-0 mdi mdi-settings"></i></button>
+						<button class="btn btn-dark btn-xs btn-rounded" id="alterar" title="Ativar a função"><i class="mx-0 mdi mdi-check"></i></button>');
+	            })->rawColumns(['nome1', 'sigla', 'status1','acoes'])->make(true);
+	   	}else{
+	   		return datatables()->of(Modalidades::all())
+	            ->editColumn('nome1', function(Modalidades $dados){ 
+	                return '<a href="javascript:void(0)" id="detalhes">'.$dados->nome.'</a>';
+	            })
+	            ->editColumn('sigla', function(Modalidades $dados){
+	                return $dados->sigla;
+	            })
+	            ->editColumn('status1', function(Modalidades $dados){
+	                return '<label class="badge'.($dados->status == 1 ? " badge-success" : " badge-danger").'">'.($dados->status == 1 ? "Ativo" : "Desativado").'</label>';
+	            })
+	            ->editColumn('acoes', function(Modalidades $dados){ 
+	                return '';
+	            })->rawColumns(['nome1', 'sigla', 'status1','acoes'])->make(true);
+	   	}
+	}
+	// Adicionando nova modalidade
+	public function AdicionarModalidades(ModalidadesRqt $request){
+		if(Auth::user()->RelationFuncao->gerenciar_credito == 1){
+			$create = Modalidades::create([
+				'nome' => $request->nome, 
+				'codigo' => $request->codigo,
+				'sigla' => $request->sigla,
+				'status' => ($request->status == "on" ? 1 : 0)
+			]);
+			Atividades::create([
+				'nome' => 'Cadastro de nova modalidade de crédito',
+				'descricao' => 'Você cadastrou um nova modalidade de crédito, '.$create->nome.'.',
+				'icone' => 'mdi-plus',
+				'url' => route('exibir.modalidades.credito'),
+				'id_usuario' => Auth::id()
+			]);
+			return response()->json(['success' => true]);
+		}else{
+			return redirect(route('403'));
+		}
+	}
+	// Editando informações da modalidade
+	public function EditarModalidades(ModalidadesRqt $request, $id){
+		if(Auth::user()->RelationFuncao->gerenciar_credito == 1){
+			Modalidades::find($id)->update([
+				'nome' => $request->nome, 
+				'codigo' => $request->codigo,
+				'sigla' => $request->sigla,
+				'status' => ($request->status == "on" ? 1 : 0)
+			]);
+			$create	= Modalidades::find($id);
+			Atividades::create([
+				'nome' => 'Edição de informações',
+				'descricao' => 'Você modificou as informações da modalidade de crédito '.$create->nome.'.',
+				'icone' => 'mdi-auto-fix',
+				'url' => route('exibir.modalidades.credito'),
+				'id_usuario' => Auth::id()
+			]);
+			return response()->json(['success' => true]);
+		}else{
+			return redirect(route('403'));
+		}
+	}
+	// Alterar o status
+	public function AlterarModalidades($id){
+		if(Auth::user()->RelationFuncao->gerenciar_credito == 1){
+			$modalidades = Modalidades::find($id);
+			if($modalidades->status == 1){
+				Modalidades::find($id)->update(['status' => 0]);
+			}else{
+				Modalidades::find($id)->update(['status' => 1]);
+			}
+			Atividades::create([
+				'nome' => 'Alteração de estado',
+				'descricao' => 'Você alterou o status da modalidade de crédito '.$modalidades->nome.'.',
+				'icone' => 'mdi-rotate-3d',
+				'url' => route('exibir.modalidades.credito'),
+				'id_usuario' => Auth::id()
+			]);
+			return response()->json(['success' => true]);
+		}else{
+			return redirect(route('403'));
+		}
+	}
+	// Detallhes da modalidade
+	public function DetalhesModalidades($id){
+		$dados = Modalidades::find($id);
+		return $dados;
+	}
+
+
+	#-------------------------------------------------------------------
+	# Configurações (Produtos)
+	#-------------------------------------------------------------------
+	// Listando todos os produtos
+	public function ExibirProdutos(){
+		if(Auth::user()->RelationFuncao->ver_credito == 1 || Auth::user()->RelationFuncao->gerenciar_credito == 1){
+			return view('credito.configuracoes.produtos.listar');
+		}else{
+			return redirect(route('403'));
+		}
+	}
+	public function DatatablesProdutos(){
+		if(Auth::user()->RelationFuncao->gerenciar_credito == 1){
+			return datatables()->of(ProdutosCred::all())
+	            ->editColumn('nome1', function(ProdutosCred $dados){ 
+	                return '<a href="javascript:void(0)" id="detalhes">'.$dados->nome.'</a>';
+	            })
+	            ->editColumn('codigo', function(ProdutosCred $dados){
+	                return $dados->codigo;
+	            })
+	            ->editColumn('status1', function(ProdutosCred $dados){
+	                return '<label class="badge'.($dados->status == 1 ? " badge-success" : " badge-danger").'">'.($dados->status == 1 ? "Ativo" : "Desativado").'</label>';
+	            })
+	            ->editColumn('acoes', function(ProdutosCred $dados){ 
+	                return ($dados->status == 1 ? '
+						<button class="btn btn-dark btn-xs btn-rounded mx-1" id="editar" title="Editar informações da função"><i class="mx-0 mdi mdi-settings"></i></button>
+						<button class="btn btn-dark btn-xs btn-rounded" id="alterar" title="Desativar a função"><i class="mx-0 mdi mdi-close"></i></button>' : '
+						<button class="btn btn-dark btn-xs btn-rounded mx-1" id="editar" title="Editar informações do armário"><i class="mx-0 mdi mdi-settings"></i></button>
+						<button class="btn btn-dark btn-xs btn-rounded" id="alterar" title="Ativar a função"><i class="mx-0 mdi mdi-check"></i></button>');
+	            })->rawColumns(['nome1', 'codigo', 'status1','acoes'])->make(true);
+	    }else{
+	    	return datatables()->of(ProdutosCred::all())
+	            ->editColumn('nome1', function(ProdutosCred $dados){ 
+	                return '<a href="javascript:void(0)" id="detalhes">'.$dados->nome.'</a>';
+	            })
+	            ->editColumn('codigo', function(ProdutosCred $dados){
+	                return $dados->codigo;
+	            })
+	            ->editColumn('status1', function(ProdutosCred $dados){
+	                return '<label class="badge'.($dados->status == 1 ? " badge-success" : " badge-danger").'">'.($dados->status == 1 ? "Ativo" : "Desativado").'</label>';
+	            })
+	            ->editColumn('acoes', function(ProdutosCred $dados){ 
+	                return '';
+	            })->rawColumns(['nome1', 'codigo', 'status1','acoes'])->make(true);
+	    }
+	}
+	// Adicionando novo produto
+	public function AdicionarProdutos(ProdutosCredRqt $request){
+		if(Auth::user()->RelationFuncao->gerenciar_credito == 1){
+			$create = ProdutosCred::create([
+				'nome' => $request->nome, 
+				'codigo' => $request->codigo,
+				'status' => ($request->status == "on" ? 1 : 0)
+			]);
+			Atividades::create([
+				'nome' => 'Cadastro de novo produto de crédito',
+				'descricao' => 'Você cadastrou um novo produto de crédito, '.$create->nome.'.',
+				'icone' => 'mdi-plus',
+				'url' => route('exibir.produtos.credito'),
+				'id_usuario' => Auth::id()
+			]);
+			return response()->json(['success' => true]);
+		}else{
+			return redirect(route('403'));
+		}
+	}
+	// Editando informações do produto
+	public function EditarProdutos(ProdutosCredRqt $request, $id){
+		if(Auth::user()->RelationFuncao->gerenciar_credito == 1){
+			ProdutosCred::find($id)->update([
+				'nome' => $request->nome, 
+				'codigo' => $request->codigo,
+				'status' => ($request->status == "on" ? 1 : 0)
+			]);
+			$create = ProdutosCred::find($id);
+			Atividades::create([
+				'nome' => 'Edição de informações',
+				'descricao' => 'Você modificou as informações do produto de crédito '.$create->nome.'.',
+				'icone' => 'mdi-auto-fix',
+				'url' => route('exibir.produtos.credito'),
+				'id_usuario' => Auth::id()
+			]);
+			return response()->json(['success' => true]);
+		}else{
+			return redirect(route('403'));
+		}
+	}
+	// Alterar o status
+	public function AlterarProdutos($id){
+		if(Auth::user()->RelationFuncao->gerenciar_credito == 1){
+			$produtos = ProdutosCred::find($id);
+			if($produtos->status == 1){
+				ProdutosCred::find($id)->update(['status' => 0]);
+			}else{
+				ProdutosCred::find($id)->update(['status' => 1]);
+			}
+			Atividades::create([
+				'nome' => 'Alteração de estado',
+				'descricao' => 'Você alterou o status do produto de crédito '.$produtos->nome.'.',
+				'icone' => 'mdi-rotate-3d',
+				'url' => route('exibir.produtos.credito'),
+				'id_usuario' => Auth::id()
+			]);
+			return response()->json(['success' => true]);
+		}else{
+			return redirect(route('403'));
+		}
+	}
+	// Detallhes do produto
+	public function DetalhesProdutos($id){
+		$dados = ProdutosCred::find($id);
+		return $dados;
+	}
+
+
+	#-------------------------------------------------------------------
+	# Garantias
+	#-------------------------------------------------------------------
+	// Listando garantias fidunciárias
+	public function ExibirFiduciaria(Request $request){
+		if(Auth::user()->RelationFuncao->ver_credito == 1 || Auth::user()->RelationFuncao->gerenciar_credito == 1){
+			$contratos = Contratos::all();
+			return view('credito.garantias.fiduciarias.listar')->with('contratos', $contratos);
+		}else{
+			return redirect(route('403'));
+		}
+	}
+	public function DatatablesFiduciaria(Request $request){
+		if(Auth::user()->RelationFuncao->gerenciar_credito == 1){
+			return datatables()->of(Garantias::all())
+				->editColumn('contrato1', function(Garantias $dados){
+	                return $dados->RelationContrato->num_contrato;
+	            })
+	            ->editColumn('nome1', function(Garantias $dados){
+	            	return '<a href="javascript:void(0)" id="detalhes">'.$dados->RelationContrato->RelationAssociados->nome.'</a>';                
+	            })
+	            ->editColumn('produto1', function(Garantias $dados){
+	                return $dados->RelationContrato->RelationProdutos->nome;
+	            })
+	            ->editColumn('acoes', function(Garantias $dados){ 
+	                return "<button class='btn btn-dark btn-xs btn-rounded' name='editar' id='editar' title='Editar informações da garantia'><i class='mx-0 mdi mdi-settings'></i></button>
+	                	<button class='btn btn-dark btn-xs btn-rounded' name='alterar' id='alterar' title='Remover garantia'><i class='mx-0 mdi mdi-close'></i></button>";
+	            })->rawColumns(['nome1', 'contrato1', 'produto1', 'acoes'])->make(true);
+	    }else{
+	        return datatables()->of(Garantias::all())
+				->editColumn('contrato1', function(Garantias $dados){
+	                return $dados->RelationContrato->num_contrato;
+	            })
+	            ->editColumn('nome1', function(Garantias $dados){
+	            	return '<a href="javascript:void(0)" id="detalhes">'.$dados->RelationContrato->RelationAssociados->nome.'</a>';                
+	            })
+	            ->editColumn('produto1', function(Garantias $dados){
+	                return $dados->RelationContrato->RelationProdutos->nome;
+	            })
+	            ->editColumn('acoes', function(Garantias $dados){ 
+	                return '';
+	            })->rawColumns(['nome1', 'contrato1', 'produto1', 'acoes'])->make(true);
+	   	}
+	}
+	// Listando garantias fidejussórias
+	public function ExibirFidejussoria(Request $request){
+		if(Auth::user()->RelationFuncao->ver_credito == 1 || Auth::user()->RelationFuncao->gerenciar_credito == 1){
+			$contratos = Contratos::all();
+			return view('credito.garantias.fidejussorias.listar')->with('contratos', $contratos);
+		}else{
+			return redirect(route('403'));
+		}
+	}
+	public function DatatablesFidejussoria(Request $request){
+		if(Auth::user()->RelationFuncao->gerenciar_credito == 1){
+			return datatables()->of(Avalistas::all())
+				->editColumn('nome1', function(Avalistas $dados){
+	            	return '<a href="javascript:void(0)" id="detalhes">'.$dados->RelationContrato->RelationAssociados->nome.'</a>';                
+	            })
+	            ->editColumn('contrato1', function(Avalistas $dados){
+	                return $dados->RelationContrato->num_contrato;
+	            })
+	            ->editColumn('produto1', function(Avalistas $dados){
+	                return $dados->RelationContrato->RelationProdutos->nome;
+	            })
+	            ->editColumn('avalista', function(Avalistas $dados){
+	                return $dados->RelationAssociados->nome;
+	            })
+	            ->editColumn('acoes', function(Avalistas $dados){ 
+	                return "<button class='btn btn-dark btn-xs btn-rounded' name='editar' id='editar' title='Editar informações da garantia'><i class='mx-0 mdi mdi-settings'></i></button>
+	                	<button class='btn btn-dark btn-xs btn-rounded' name='alterar' id='alterar' title='Remover garantia'><i class='mx-0 mdi mdi-close'></i></button>";
+	            })->rawColumns(['nome1', 'contrato1', 'produto1', 'avalista', 'acoes'])->make(true);
+        }else{
+        	return datatables()->of(Avalistas::all())
+				->editColumn('nome1', function(Avalistas $dados){
+	            	return '<a href="javascript:void(0)" id="detalhes">'.$dados->RelationContrato->RelationAssociados->nome.'</a>';                
+	            })
+	            ->editColumn('contrato1', function(Avalistas $dados){
+	                return $dados->RelationContrato->num_contrato;
+	            })
+	            ->editColumn('produto1', function(Avalistas $dados){
+	                return $dados->RelationContrato->RelationProdutos->nome;
+	            })
+	            ->editColumn('avalista', function(Avalistas $dados){
+	                return $dados->RelationAssociados->nome;
+	            })
+	            ->editColumn('acoes', function(Avalistas $dados){ 
+	                return '';
+	            })->rawColumns(['nome1', 'contrato1', 'produto1', 'avalista', 'acoes'])->make(true);
+        }
+	}
+    // Adicionando nova garantia
+	public function AdicionarGarantias(Request $request){
+		if(Auth::user()->RelationFuncao->gerenciar_credito == 1){
+			// Inserindo avalistas
+			if(isset($request->avalista)){
+				for ($i=0; $i < count($request->avalista); $i++){
+					$documento = explode(': ', $request->avalista[$i]);
+					$associado = Associados::where('documento', $documento[1])->select('id')->first();
+					$avalista = Avalistas::create([
+						'cre_id_contrato' => $request->contrato, 
+						'cli_id_associado' => $associado->id, 
+						'data_movimento' => date("Y-m-d H:i:s")
+					]);
+				}
+				Atividades::create([
+					'nome' => 'Cadastro de nova garantia fidejussórias',
+					'descricao' => 'Você cadastrou uma nova garantia de crédito no contrato, '.$avalista->RelationContrato->num_contrato.'.',
+					'icone' => 'mdi-plus',
+					'url' => route('exibir.garantias.fidejussoria.credito'),
+					'id_usuario' => Auth::id()
+				]);
+			}
+			// Inserindo garantias
+			if(isset($request->tipoGarantia)){
+				for ($i=0; $i < count($request->tipoGarantia); $i++){
+					$garantia = Garantias::create([
+						'cre_id_contrato' => $request->contrato,
+						'tipo' => $request->tipoGarantia[$i], 
+						'descricao' => $request->descricaoGarantia[$i],
+						'data_movimento' => date("Y-m-d H:i:s")
+					]);
+				}
+				Atividades::create([
+					'nome' => 'Cadastro de nova garantia fidunciárias',
+					'descricao' => 'Você cadastrou uma nova garantia de crédito no contrato, '.$garantia->RelationContrato->num_contrato.'.',
+					'icone' => 'mdi-plus',
+					'url' => route('exibir.garantias.fiduciaria.credito'),
+					'id_usuario' => Auth::id()
+				]);	
+			}
+		}else{
+			return redirect(route('403'));
+		}
+	}
+	// Editando garantia do contrato
+	public function EditarGarantias(Request $request, $avalista, $id){
+		if(Auth::user()->RelationFuncao->gerenciar_credito == 1){
+			// Inserindo avalistas
+			if($avalista == 'fidejussoria'){
+				$documento = explode(': ', $request->avalista);
+				$associado = Associados::where('documento', $documento[1])->select('id')->first();
+				$avalista = Avalistas::find($id)->update([
+					'cli_id_associado' => $associado->id, 
+					'data_movimento' => date("Y-m-d H:i:s")
+				]);
+				Atividades::create([
+					'nome' => 'Edição de informações da garantia fidejussórias',
+					'descricao' => 'Você editou as informações da garantia do contrato, '.$avalista->RelationContrato->num_contrato.'.',
+					'icone' => 'mdi-auto-fix',
+					'url' => route('exibir.garantias.fidejussoria.credito'),
+					'id_usuario' => Auth::id()
+				]);
+				return response()->json(['success' => true]);
+			}else{
+				$garantia = Garantias::find($id)->update([
+					'tipo' => $request->tipoGarantia, 
+					'descricao' => $request->descricaoGarantia,
+					'data_movimento' => date("Y-m-d H:i:s")
+				]);
+				Atividades::create([
+					'nome' => 'Edição de informações da garantia fidunciárias',
+					'descricao' => 'Você editou as informações da garantia do contrato, '.$garantia->RelationContrato->num_contrato.'.',
+					'icone' => 'mdi-auto-fix',
+					'url' => route('exibir.garantias.fiduciaria.credito'),
+					'id_usuario' => Auth::id()
+				]);	
+				return response()->json(['success' => true]);
+			}
+		}else{
+			return redirect(route('403'));
+		}
+	}
+	// Removendo a garantia
+	public function AlterarGarantias($avalista, $id){
+		if(Auth::user()->RelationFuncao->gerenciar_credito == 1){
+			if($avalista == 'fidejussoria'){
+				$avalista = Garantias::find($id);
+				Atividades::create([
+					'nome' => 'Exclusão de garantia fidejussórias',
+					'descricao' => 'Você removeu uma das garantias do contrato, '.$avalista->RelationContrato->num_contrato.'.',
+					'icone' => 'mdi-close',
+					'url' => route('exibir.garantias.fidejussoria.credito'),
+					'id_usuario' => Auth::id()
+				]);
+				Avalistas::find($id)->delete();
+				return response()->json(['success' => true]);
+			}else{
+				$garantia = Garantias::find($id);
+				Atividades::create([
+					'nome' => 'Exclusão de garantia fidunciárias',
+					'descricao' => 'Você removeu uma das garantias do contrato, '.$garantia->RelationContrato->num_contrato.'.',
+					'icone' => 'mdi-close',
+					'url' => route('exibir.garantias.fiduciaria.credito'),
+					'id_usuario' => Auth::id()
+				]);	
+				Garantias::find($id)->delete();
+				return response()->json(['success' => true]);
+			}
+		}else{
+			return redirect(route('403'));
+		}
+	}
+	// Detalhes da garantia
+	public function DetalhesGarantias($id){
+		$garantias[] = Avalistas::join('cli_associados', 'cli_id_associado', 'cli_associados.id')->where('cre_avalistas.id', $id)->select('nome', 'documento', 'cre_avalistas.id')->get();
+		$garantias[] = Garantias::where('cre_id_contrato', $id)->select('tipo', 'descricao', 'cre_garantias.id')->get();
+		return $garantias;
+	}
+
+	#-------------------------------------------------------------------
+	# Solicitações
+	#-------------------------------------------------------------------
+	// Listando todos produtos
+	public function ExibirSolicitacoes(){
+		if(Auth::user()->RelationFuncao->ver_credito == 1 || Auth::user()->RelationFuncao->gerenciar_credito == 1){
+			$dados = Solicitacoes::orderBy('created_at', 'DESC')->get();
+			$contratos = Contratos::all();
+			$produtos = ProdutosCred::where('status', 1)->orderBy('nome', 'ASC')->get(); 
+			$modalidades = Modalidades::where('status', 1)->orderBy('nome', 'ASC')->get();
+			return view('credito.solicitacoes.exibir')->with('dados', $dados)->with('contratos', $contratos)->with('produtos', $produtos)->with('modalidades', $modalidades);
+		}else{
+			return redirect(route('403'));
+		}
+	}
+	// Efetuando a solicitação
+	public function SolicitarSolicitacoes(Request $request){
+		$create = Solicitacoes::create([
+			'usr_id_usuario' => Auth::id(),
+			'cre_id_contratos' => $request->contrato,
+			'observacoes' => $request->observacoes
+		]);
+		SolicitacoesStatus::create([
+			'status' => 'aberto',
+			'usr_id_usuario_alteracao' => Auth::id(),
+			'cre_id_solicitacoes' => $create->id
+		]);
+
+		Auth::user()->notify(new SolicitacaoContratoCliente($create));  
+        $this->email->notify(new SolicitacaoContratoAdmin($create));
+
+		Atividades::create([
+			'nome' => 'Nova solicitação de contrato de crédito',
+			'descricao' => 'Você efetuou uma solicitação do contrato, '.$create->RelationContratos->num_contrato.'.',
+			'icone' => 'mdi-plus',
+			'url' => route('exibir.solicitacoes.credito'),
+			'id_usuario' => Auth::id()
+		]);
+		return response()->json(['success' => true]);
+	}
+	// Relatório da solicitação
+    public function RelatorioSolicitacoes($id){
+        $dados = Solicitacoes::find($id);
+        return view('credito.solicitacoes.relatorio')->with('requisicao', $dados);
+    }
+	// Remover a solicitação
+	public function RemoverSolicitacoes($id){
+		$dados = Solicitacoes::find($id);
+		Atividades::create([
+			'nome' => 'Exclusão de solicitação de contrato',
+			'descricao' => 'Você removeu uma solicitação do contrato de crédito, '.$dados->RelationContratos->num_contrato.'.',
+			'icone' => 'mdi-close',
+			'url' => route('exibir.solicitacoes.credito'),
+			'id_usuario' => Auth::id()
+		]);
+		SolicitacoesStatus::where('cre_id_solicitacoes', $id)->delete();
+		Solicitacoes::find($id)->delete();
+		return response()->json(['success' => true]);
+	}
+	// Alteração de status
+	public function AlterarSolicitacoes(Request $request){
+		if(Auth::user()->RelationFuncao->gerenciar_credito == 1){
+			Atividades::create([
+				'nome' => 'Alteração de estado de solicitação',
+				'descricao' => 'Você alterou o status da solicitação de nº '.$request->id.'.',
+				'icone' => 'mdi-rotate-3d',
+				'url' => route('exibir.setores.administrativo'),
+				'id_usuario' => Auth::id()
+			]);
+			SolicitacoesStatus::create([
+				'status' => $request->status,
+				'usr_id_usuario_alteracao' => Auth::id(),
+				'cre_id_solicitacoes' => $request->id
+			]);
+			$solicitacao = Solicitacoes::find($request->id);
+			$solicitacao->RelationUsuarios->notify(new SolicitacaoContratoCliente($solicitacao));  
+			return response()->json(['success' => true]);
+		}else{
+			return redirect(route('403'));
+		}
+	}
+	// Retornado detalhes do contrato
+	public function DetalhesContratoSolicitacoes($id){
+		$contrato = Contratos::find($id);
+		return $contrato;
+	}
+	
 
 }

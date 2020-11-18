@@ -1,10 +1,10 @@
 <?php
 
 #---------------------------------------------------------------------
-# Website
+# Hotsite
 #---------------------------------------------------------------------
 Route::group(['prefix' => '/'], function(){
-	Route::get('', 'HomepageCtrl@Exibir')->name('homepage');
+	Route::get('', 'PublicCtrl@Homepage')->name('homepage');
 });
 
 
@@ -17,29 +17,30 @@ Route::group(['prefix' => 'app'], function(){
 	# Funções internas
 	#---------------------------------------------------------------------
 	Route::group(['prefix' => ''], function(){
-		Route::get('login', 'UsuariosCtrl@Login')->name('login');
-		Route::post('redirect', 'UsuariosCtrl@Redirecionar')->name('redirect');
-		Route::get('logout', 'UsuariosCtrl@Sair')->name('logout');
-		Route::get('home', 'UsuariosCtrl@Inicio')->name('inicio')->middleware('auth');
-		Route::get('atividades', 'UsuariosCtrl@Atividades')->name('atividades')->middleware('auth');
-		Route::get('403', 'UsuariosCtrl@Permission403')->name('403')->middleware('auth');
-
-		// Primeiro acesso a plataforma
-		Route::group(['prefix' => 'new'], function(){
-			Route::get('', 'UsuariosCtrl@PrimeiroAcesso')->name('primeiro.acesso')->middleware('auth');
-			Route::post('salvar', 'UsuariosCtrl@SalvarPrimeiroAcesso')->name('salvar.primeiro.acesso')->middleware('auth');
-		});
-		// Recuperação de senha
+		// Funções externas
+		Route::get('login', 'PublicCtrl@Login')->name('login');
+		Route::post('redirect', 'PublicCtrl@Redirecionar')->name('redirect');
 		Route::group(['prefix' => 'password'], function(){
-			Route::post('solicitar', 'UsuariosCtrl@Solicitar')->name('recuperar.password');
-			Route::any('redefinir/{token}', 'UsuariosCtrl@Verificar')->name('view.password');
-			Route::any('trocar', 'UsuariosCtrl@Trocar')->name('redefinindo.password');
+			// Recuperação de senha
+			Route::post('solicitar', 'PublicCtrl@Solicitar')->name('recuperar.password');
+			Route::any('redefinir/{token}', 'PublicCtrl@Verificar')->name('view.password');
+			Route::any('trocar', 'PublicCtrl@Trocar')->name('redefinindo.password');
 		});
-		
-		// Gestão do perfil
+
+		// Funções internas
+		Route::get('home', 'PrivateCtrl@Inicio')->name('inicio');
+		Route::get('logout', 'PrivateCtrl@Sair')->name('logout');
+		Route::get('atividades', 'PrivateCtrl@Atividades')->name('atividades');
+		Route::get('403', 'PrivateCtrl@Permission403')->name('403');
+		Route::group(['prefix' => 'new'], function(){
+			// Primeiro acesso a plataforma
+			Route::get('', 'PrivateCtrl@PrimeiroAcesso')->name('primeiro.acesso');
+			Route::post('salvar', 'PrivateCtrl@SalvarPrimeiroAcesso')->name('salvar.primeiro.acesso');
+		});
 		Route::group(['prefix' => 'perfil'], function(){
-			Route::get('', 'UsuariosCtrl@Perfil')->name('perfil')->middleware('auth');
-			Route::post('salvar', 'UsuariosCtrl@SalvarPerfil')->name('perfil.salvar')->middleware('auth');
+			// Gestão do perfil
+			Route::get('', 'PrivateCtrl@Perfil')->name('perfil');
+			Route::post('salvar', 'PrivateCtrl@SalvarPerfil')->name('perfil.salvar');
 		});
 	});
 
@@ -49,62 +50,60 @@ Route::group(['prefix' => 'app'], function(){
 	Route::group(['prefix' => 'administrativo'], function(){
 		// Dashboard
 		Route::group(['prefix' => ''], function(){
-			Route::get('dashboard', 'DashboardCtrl@DashAdministrativo')->name('dashboard.administrativo');
+			Route::get('dashboard', 'AdministrativoCtrl@Dashboard')->name('dashboard.administrativo');
 		});
-		// Solicitações de materiais
-		Route::group(['prefix' => 'solicitacoes'], function(){
-			Route::get('', 'MateriaisCtrl@ExibirSuporteAdmin')->name('exibir.solicitacoes.administrativo');
-			Route::get('alterar/{id}', 'MateriaisCtrl@SolicitacaoAprovacao')->name('aprovar.solicitacoes.administrativo');
-			
+		// Bens 
+		Route::group(['prefix' => 'bens'], function(){
+			Route::get('', 'AdministrativoCtrl@ExibirBens')->name('exibir.bens.administrativo');
+			Route::get('adicionar', 'AdministrativoCtrl@AdicionarBens')->name('adicionar.bens.administrativo');
+			Route::post('salvar', 'AdministrativoCtrl@AdicionarSalvarBens')->name('salvar.bens.administrativo');
+			Route::get('editar/{id}', 'AdministrativoCtrl@EditarBens')->name('editar.bens.administrativo');
+			Route::post('editando/{id}', 'AdministrativoCtrl@EditarSalvarBens')->name('editando.bens.administrativo');
+			Route::get('delete/{id}', 'AdministrativoCtrl@DeleteBens')->name('delete.bens.administrativo');
+			Route::any('detalhes/{id}', 'AdministrativoCtrl@DetalhesBens')->name('detalhes.bens.administrativo');
+			Route::post('addImagens', 'AdministrativoCtrl@ImagensBens')->name('adicionar.imagens.bens.administrativo');
+			Route::get('removeImagem/{id}', 'AdministrativoCtrl@RemoveImagemBens')->name('remover.imagens.bens.administrativo');
 		});
 		// Documentos
 		Route::group(['prefix' => 'documentos'], function(){
-			Route::get('', 'DocumentosCtrl@Exibir')->name('exibir.todos.documentos');
-			Route::get('listar', 'DocumentosCtrl@Datatables')->name('listar.todos.documentos');
-			Route::post('adicionar', 'DocumentosCtrl@Adicionar')->name('adicionar.todos.documentos');
-			Route::post('editar/{id}', 'DocumentosCtrl@Editar')->name('editar.todos.documentos');
-			Route::get('alterar/{id}', 'DocumentosCtrl@Alterar')->name('alterar.todos.documentos');
-			Route::any('detalhes/{id}', 'DocumentosCtrl@Detalhes')->name('detalhes.todos.documentos');
+			Route::get('', 'AdministrativoCtrl@ExibirDocumentos')->name('exibir.todos.documentos');
+			Route::get('listar', 'AdministrativoCtrl@DatatablesDocumentos')->name('listar.todos.documentos');
+			Route::post('adicionar', 'AdministrativoCtrl@AdicionarDocumentos')->name('adicionar.todos.documentos');
+			Route::post('editar/{id}', 'AdministrativoCtrl@EditarDocumentos')->name('editar.todos.documentos');
+			Route::get('alterar/{id}', 'AdministrativoCtrl@AlterarDocumentos')->name('alterar.todos.documentos');
+			Route::any('detalhes/{id}', 'AdministrativoCtrl@DetalhesDocumentos')->name('detalhes.todos.documentos');
 		});
-
-		// Bens 
-		Route::group(['prefix' => 'bens'], function(){
-			Route::get('', 'BensCtrl@Exibir')->name('exibir.bens.administrativo');
-			Route::get('adicionar', 'BensCtrl@Adicionar')->name('adicionar.bens.administrativo');
-			Route::post('salvar', 'BensCtrl@AdicionarSalvar')->name('salvar.bens.administrativo');
-			Route::get('editar/{id}', 'BensCtrl@Editar')->name('editar.bens.administrativo');
-			Route::post('editando/{id}', 'BensCtrl@EditarSalvar')->name('editando.bens.administrativo');
-			Route::get('delete/{id}', 'BensCtrl@Delete')->name('delete.bens.administrativo');
-			Route::any('detalhes/{id}', 'BensCtrl@Detalhes')->name('detalhes.bens.administrativo');
-			Route::post('addImagens', 'BensCtrl@Imagens')->name('adicionar.imagens.bens.administrativo');
-			Route::get('removeImagem/{id}', 'BensCtrl@RemoveImagem')->name('remover.imagens.bens.administrativo');
-		});
-		// Aniversariantes
-		Route::group(['prefix' => 'aniversariantes'], function(){
-			Route::get('', 'AssociadosCtrl@ExibirAniversariantes')->name('exibir.aniversariantes.administrativo');
-			Route::any('relatorio', 'AssociadosCtrl@GerarAniversariantes')->name('gerar.aniversariantes.administrativo');
-		});
-
 		// Controle de estoque
 		Route::group(['prefix' => 'controle'], function(){
 			// Todos
 			Route::group(['prefix' => 'todos'], function(){
-				Route::get('', 'MateriaisCtrl@Exibir')->name('exibir.todos.materiais');
-				Route::get('listar', 'MateriaisCtrl@Datatables')->name('listar.todos.materiais');
-				Route::post('adicionar', 'MateriaisCtrl@Adicionar')->name('adicionar.todos.materiais');
-				Route::post('editar/{id}', 'MateriaisCtrl@Editar')->name('editar.todos.materiais');
-				Route::get('alterar/{id}', 'MateriaisCtrl@Alterar')->name('alterar.todos.materiais');
-				Route::any('detalhes/{id}', 'MateriaisCtrl@Detalhes')->name('detalhes.todos.materiais');
+				Route::get('', 'AdministrativoCtrl@ExibirMateriais')->name('exibir.todos.materiais');
+				Route::get('listar', 'AdministrativoCtrl@DatatablesMateriais')->name('listar.todos.materiais');
+				Route::post('adicionar', 'AdministrativoCtrl@AdicionarMateriais')->name('adicionar.todos.materiais');
+				Route::post('editar/{id}', 'AdministrativoCtrl@EditarMateriais')->name('editar.todos.materiais');
+				Route::get('alterar/{id}', 'AdministrativoCtrl@AlterarMateriais')->name('alterar.todos.materiais');
+				Route::any('detalhes/{id}', 'AdministrativoCtrl@DetalhesMateriais')->name('detalhes.todos.materiais');			
+				Route::post('reposicao', 'AdministrativoCtrl@ReposicaoMateriais')->name('efetuar.reposicao.materiais');
 			});
 			// Categorias
 			Route::group(['prefix' => 'categorias'], function(){
-				Route::get('', 'CategoriasCtrl@Exibir')->name('exibir.categorias.materiais');
-				Route::get('listar', 'CategoriasCtrl@Datatables')->name('listar.categorias.materiais');
-				Route::post('adicionar', 'CategoriasCtrl@Adicionar')->name('adicionar.categorias.materiais');
-				Route::post('editar/{id}', 'CategoriasCtrl@Editar')->name('editar.categorias.materiais');
-				Route::get('alterar/{id}', 'CategoriasCtrl@Alterar')->name('alterar.categorias.materiais');
-				Route::any('detalhes/{id}', 'CategoriasCtrl@Detalhes')->name('detalhes.categorias.materiais');
+				Route::get('', 'AdministrativoCtrl@ExibirCategorias')->name('exibir.categorias.materiais');
+				Route::get('listar', 'AdministrativoCtrl@DatatablesCategorias')->name('listar.categorias.materiais');
+				Route::post('adicionar', 'AdministrativoCtrl@AdicionarCategorias')->name('adicionar.categorias.materiais');
+				Route::post('editar/{id}', 'AdministrativoCtrl@EditarCategorias')->name('editar.categorias.materiais');
+				Route::get('alterar/{id}', 'AdministrativoCtrl@AlterarCategorias')->name('alterar.categorias.materiais');
+				Route::any('detalhes/{id}', 'AdministrativoCtrl@DetalhesCategorias')->name('detalhes.categorias.materiais');
 			});
+		});
+		// Solicitações de materiais
+		Route::group(['prefix' => 'solicitacoes'], function(){
+			Route::get('', 'AdministrativoCtrl@ExibirMateriaisAdmin')->name('exibir.solicitacoes.administrativo');
+			Route::get('alterar/{id}', 'AdministrativoCtrl@SolicitacaoMateriaisAdmin')->name('aprovar.solicitacoes.administrativo');	
+		});
+		// Relatórios
+		Route::group(['prefix' => 'aniversariantes'], function(){
+			Route::get('', 'AdministrativoCtrl@ExibirAniversariantes')->name('exibir.aniversariantes.administrativo');
+			Route::any('relatorio', 'AdministrativoCtrl@GerarAniversariantes')->name('gerar.aniversariantes.administrativo');
 		});
 	});
 
@@ -114,14 +113,14 @@ Route::group(['prefix' => 'app'], function(){
 	Route::group(['prefix' => 'atendimento'], function(){
 		// Painel comercial
 		Route::group(['prefix' => 'painel'], function(){
-			Route::get('', 'AtendimentoCtrl@Exibir')->name('exibir.painel.atendimento');
-			Route::any('pesquisar', 'AtendimentoCtrl@Pesquisar')->name('pesquisar.associado.atendimento');
-			Route::any('exibir', 'AtendimentoCtrl@Mostrar')->name('exibir.associado.atendimento');
+			Route::get('', 'AtendimentoCtrl@ExibirPainel')->name('exibir.painel.atendimento');
+			Route::any('pesquisar', 'AtendimentoCtrl@PesquisarPainel')->name('pesquisar.associado.atendimento');
+			Route::any('exibir', 'AtendimentoCtrl@MostrarPainel')->name('exibir.associado.atendimento');
 			// Atividades
 			Route::group(['prefix' => 'atividades'], function(){
-				Route::post('', 'AtendimentoCtrl@Atividades')->name('atividade.associado.atendimento');
-				Route::get('detalhes/{id}', 'AtendimentoCtrl@Detalhes')->name('detalhes.atividade.associado.atendimento');
-				Route::post('editando', 'AtendimentoCtrl@Editando')->name('editando.atividade.associado.atendimento');
+				Route::post('', 'AtendimentoCtrl@AtividadesPainel')->name('atividade.associado.atendimento');
+				Route::get('detalhes/{id}', 'AtendimentoCtrl@DetalhesPainel')->name('detalhes.atividade.associado.atendimento');
+				Route::post('editando', 'AtendimentoCtrl@EditandoPainel')->name('editando.atividade.associado.atendimento');
 			});
 		});
 	});
@@ -132,7 +131,7 @@ Route::group(['prefix' => 'app'], function(){
 	Route::group(['prefix' => 'credito'], function(){
 		// Dashboard
 		Route::group(['prefix' => ''], function(){
-			Route::get('dashboard', 'DashboardCtrl@DashCredito')->name('dashboard.credito');
+			Route::get('dashboard', 'CreditoCtrl@Dashboard')->name('dashboard.credito');
 		});
 		// Contratos
 		Route::group(['prefix' => 'contratos'], function(){
@@ -172,27 +171,27 @@ Route::group(['prefix' => 'app'], function(){
 		Route::group(['prefix' => 'garantias'], function(){
 			// Garantias fiduciárias
 			Route::group(['prefix' => 'fiduciaria'], function(){
-				Route::get('', 'GarantiasCtrl@ExibirFiduciaria')->name('exibir.garantias.fiduciaria.credito');
-				Route::get('listar', 'GarantiasCtrl@DatatablesFiduciaria')->name('listar.garantias.fiduciaria.credito');
+				Route::get('', 'CreditoCtrl@ExibirFiduciaria')->name('exibir.garantias.fiduciaria.credito');
+				Route::get('listar', 'CreditoCtrl@DatatablesFiduciaria')->name('listar.garantias.fiduciaria.credito');
 			});
 			// Garantias fidejussórias
 			Route::group(['prefix' => 'fidejussoria'], function(){
-				Route::get('', 'GarantiasCtrl@ExibirFidejussoria')->name('exibir.garantias.fidejussoria.credito');
-				Route::get('listar', 'GarantiasCtrl@DatatablesFidejussoria')->name('listar.garantias.fidejussoria.credito');
+				Route::get('', 'CreditoCtrl@ExibirFidejussoria')->name('exibir.garantias.fidejussoria.credito');
+				Route::get('listar', 'CreditoCtrl@DatatablesFidejussoria')->name('listar.garantias.fidejussoria.credito');
 			});
-			Route::post('adicionar', 'GarantiasCtrl@Adicionar')->name('adicionar.garantias.credito');
-			Route::post('editar/{avalista}/{id}', 'GarantiasCtrl@Editar')->name('editar.garantias.credito');
-			Route::any('detalhes/{id}', 'GarantiasCtrl@Detalhes')->name('detalhes.garantias.credito');
-			Route::any('alterar/{avalista}/{id}', 'GarantiasCtrl@Alterar')->name('alterar.garantias.credito');
+			Route::post('adicionar', 'CreditoCtrl@AdicionarGarantias')->name('adicionar.garantias.credito');
+			Route::post('editar/{avalista}/{id}', 'CreditoCtrl@EditarGarantias')->name('editar.garantias.credito');
+			Route::any('detalhes/{id}', 'CreditoCtrl@DetalhesGarantias')->name('detalhes.garantias.credito');
+			Route::any('alterar/{avalista}/{id}', 'CreditoCtrl@AlterarGarantias')->name('alterar.garantias.credito');
 		});
 		// Solicitações
 		Route::group(['prefix' => 'solicitacoes'], function(){
-			Route::get('', 'SolicitacoesCtrl@Exibir')->name('exibir.solicitacoes.credito');
-			Route::post('solicitar', 'SolicitacoesCtrl@Solicitar')->name('solicitar.solicitacoes.credito');
-			Route::post('alterar', 'SolicitacoesCtrl@Alterar')->name('alterar.solicitacoes.credito');
-			Route::get('imprimir/{id}', 'SolicitacoesCtrl@Relatorio')->name('imprimir.solicitacoes.credito');
-			Route::any('remover/{id}', 'SolicitacoesCtrl@Remover')->name('remover.solicitacoes.credito');
-			Route::get('detalhes/{id}', 'SolicitacoesCtrl@DetalhesContrato')->name('detalhes.solicitacoes.credito');
+			Route::get('', 'CreditoCtrl@ExibirSolicitacoes')->name('exibir.solicitacoes.credito');
+			Route::post('solicitar', 'CreditoCtrl@SolicitarSolicitacoes')->name('solicitar.solicitacoes.credito');
+			Route::post('alterar', 'CreditoCtrl@AlterarSolicitacoes')->name('alterar.solicitacoes.credito');
+			Route::get('imprimir/{id}', 'CreditoCtrl@RelatorioSolicitacoes')->name('imprimir.solicitacoes.credito');
+			Route::any('remover/{id}', 'CreditoCtrl@RemoverSolicitacoes')->name('remover.solicitacoes.credito');
+			Route::get('detalhes/{id}', 'CreditoCtrl@DetalhesContratoSolicitacoes')->name('detalhes.solicitacoes.credito');
 		});
 		// Associados *
 		Route::group(['prefix' => 'associados'], function(){
@@ -202,30 +201,30 @@ Route::group(['prefix' => 'app'], function(){
 		Route::group(['prefix' => 'configuracoes'], function(){
 			// Armários
 			Route::group(['prefix' => 'armarios'], function(){
-				Route::get('', 'ArmariosCtrl@Exibir')->name('exibir.armarios.credito');
-				Route::get('listar', 'ArmariosCtrl@Datatables')->name('listar.armarios.credito');
-				Route::post('adicionar', 'ArmariosCtrl@Adicionar')->name('adicionar.armarios.credito');
-				Route::post('editar/{id}', 'ArmariosCtrl@Editar')->name('editar.armarios.credito');
-				Route::get('alterar/{id}', 'ArmariosCtrl@Alterar')->name('alterar.armarios.credito');
-				Route::any('detalhes/{id}', 'ArmariosCtrl@Detalhes')->name('detalhes.armarios.credito');
+				Route::get('', 'CreditoCtrl@ExibirArmarios')->name('exibir.armarios.credito');
+				Route::get('listar', 'CreditoCtrl@DatatablesArmarios')->name('listar.armarios.credito');
+				Route::post('adicionar', 'CreditoCtrl@AdicionarArmarios')->name('adicionar.armarios.credito');
+				Route::post('editar/{id}', 'CreditoCtrl@EditarArmarios')->name('editar.armarios.credito');
+				Route::get('alterar/{id}', 'CreditoCtrl@AlterarArmarios')->name('alterar.armarios.credito');
+				Route::any('detalhes/{id}', 'CreditoCtrl@DetalhesArmarios')->name('detalhes.armarios.credito');
 			});
 			// Modalidades
 			Route::group(['prefix' => 'modalidades'], function(){
-				Route::get('', 'ModalidadesCtrl@Exibir')->name('exibir.modalidades.credito');
-				Route::get('listar', 'ModalidadesCtrl@Datatables')->name('listar.modalidades.credito');
-				Route::post('adicionar', 'ModalidadesCtrl@Adicionar')->name('adicionar.modalidades.credito');
-				Route::post('editar/{id}', 'ModalidadesCtrl@Editar')->name('editar.modalidades.credito');
-				Route::get('alterar/{id}', 'ModalidadesCtrl@Alterar')->name('alterar.modalidades.credito');
-				Route::any('detalhes/{id}', 'ModalidadesCtrl@Detalhes')->name('detalhes.modalidades.credito');
+				Route::get('', 'CreditoCtrl@ExibirModalidades')->name('exibir.modalidades.credito');
+				Route::get('listar', 'CreditoCtrl@DatatablesModalidades')->name('listar.modalidades.credito');
+				Route::post('adicionar', 'CreditoCtrl@AdicionarModalidades')->name('adicionar.modalidades.credito');
+				Route::post('editar/{id}', 'CreditoCtrl@EditarModalidades')->name('editar.modalidades.credito');
+				Route::get('alterar/{id}', 'CreditoCtrl@AlterarModalidades')->name('alterar.modalidades.credito');
+				Route::any('detalhes/{id}', 'CreditoCtrl@DetalhesModalidades')->name('detalhes.modalidades.credito');
 			});
 			// Produtos
 			Route::group(['prefix' => 'produtos'], function(){
-				Route::get('', 'ProdutosCredCtrl@Exibir')->name('exibir.produtos.credito');
-				Route::get('listar', 'ProdutosCredCtrl@Datatables')->name('listar.produtos.credito');
-				Route::post('adicionar', 'ProdutosCredCtrl@Adicionar')->name('adicionar.produtos.credito');
-				Route::post('editar/{id}', 'ProdutosCredCtrl@Editar')->name('editar.produtos.credito');
-				Route::get('alterar/{id}', 'ProdutosCredCtrl@Alterar')->name('alterar.produtos.credito');
-				Route::any('detalhes/{id}', 'ProdutosCredCtrl@Detalhes')->name('detalhes.produtos.credito');
+				Route::get('', 'CreditoCtrl@ExibirProdutos')->name('exibir.produtos.credito');
+				Route::get('listar', 'CreditoCtrl@DatatablesProdutos')->name('listar.produtos.credito');
+				Route::post('adicionar', 'CreditoCtrl@AdicionarProdutos')->name('adicionar.produtos.credito');
+				Route::post('editar/{id}', 'CreditoCtrl@EditarProdutos')->name('editar.produtos.credito');
+				Route::get('alterar/{id}', 'CreditoCtrl@AlterarProdutos')->name('alterar.produtos.credito');
+				Route::any('detalhes/{id}', 'CreditoCtrl@DetalhesProdutos')->name('detalhes.produtos.credito');
 			});
 		});
 	});
@@ -234,124 +233,125 @@ Route::group(['prefix' => 'app'], function(){
 	# Módulo Suporte
 	#---------------------------------------------------------------------
 	Route::group(['prefix' => 'suporte'], function(){
-		// Base de conhecimento
+		// Aprendizagem
 		Route::group(['prefix' => 'base'], function(){
-			Route::get('', 'BaseCtrl@ExibirSuporte')->name('exibir.base');
-			Route::get('listar/{fonte}/{tipo}', 'BaseCtrl@Listar')->name('listar.base');
-			Route::get('detalhes/{id}', 'BaseCtrl@Detalhes')->name('detalhes.base');
+			Route::get('', 'SuporteCtrl@Aprendizagem')->name('exibir.base');
+			Route::get('listar/{fonte}/{tipo}', 'SuporteCtrl@AprendizagemListar')->name('listar.base');
+			// Módulo Tecnologia
+			Route::get('detalhes/{id}', 'TecnologiaCtrl@DetalhesAprendizagem')->name('detalhes.base');
 		});
 		// Chamados
 		Route::group(['prefix' => 'chamados'], function(){
-			Route::get('', 'ChamadosCtrl@ExibirUsuarios')->name('exibir.chamados');
-			Route::get('abertura', 'ChamadosCtrl@Abertura')->name('abertura.chamados');
-			Route::post('aberturaEnviar', 'ChamadosCtrl@AberturaEnviar')->name('abertura.chamados.enviar');
-			Route::post('finalizar/{id}', 'ChamadosCtrl@Finalizar')->name('finalizar.chamados');
-			Route::get('relatorio/{id}', 'ChamadosCtrl@Relatorio')->name('relatorio.chamados');
-			Route::get('reabrir/{id}', 'ChamadosCtrl@Reabertura')->name('reabertura.chamados');
-			Route::get('detalhes/{id}', 'ChamadosCtrl@Detalhes')->name('detalhes.chamados');
-			Route::any('tipos/{idFonte}', 'ChamadosCtrl@ListarTipos')->name('tipos.chamados');
-			Route::any('base/{idTipo}/{idFonte}', 'ChamadosCtrl@ListarBase')->name('base.chamados');
-			Route::post('addArquivos', 'ChamadosCtrl@Arquivos')->name('adicionar.arquivos.chamados');
-			Route::get('removeArquivo/{id}', 'ChamadosCtrl@RemoveArquivos')->name('remover.arquivos.chamados');
+			Route::get('', 'SuporteCtrl@Chamados')->name('exibir.chamados');
+			Route::get('abertura', 'SuporteCtrl@AberturaChamados')->name('abertura.chamados');
+			Route::post('aberturaEnviar', 'SuporteCtrl@AberturaEnviarChamados')->name('abertura.chamados.enviar');
+			Route::post('finalizar/{id}', 'SuporteCtrl@FinalizarChamados')->name('finalizar.chamados');
+			Route::get('relatorio/{id}', 'SuporteCtrl@RelatorioChamados')->name('relatorio.chamados');
+			Route::get('reabrir/{id}', 'SuporteCtrl@ReaberturaChamados')->name('reabertura.chamados');
+			Route::get('detalhes/{id}', 'SuporteCtrl@DetalhesChamados')->name('detalhes.chamados');
+			Route::any('tipos/{idFonte}', 'SuporteCtrl@ListarTiposChamados')->name('tipos.chamados');
+			Route::any('base/{idTipo}/{idFonte}', 'SuporteCtrl@ListarBaseChamados')->name('base.chamados');
+			Route::post('addArquivos', 'SuporteCtrl@ArquivosChamados')->name('adicionar.arquivos.chamados');
+			Route::get('removeArquivo/{id}', 'SuporteCtrl@RemoveArquivosChamados')->name('remover.arquivos.chamados');
 		});
 		// Solicitações de materiais
 		Route::group(['prefix' => 'materiais'], function(){
-			Route::get('', 'MateriaisCtrl@ExibirSuporte')->name('exibir.solicitacoes.materiais');
-			Route::post('solicitacao', 'MateriaisCtrl@Solicitacao')->name('efetuar.solicitacoes.materiais');
-			Route::post('reposicao', 'MateriaisCtrl@Reposicao')->name('efetuar.reposicao.materiais');
-			Route::get('categorias/{id}', 'MateriaisCtrl@ListarMateriais')->name('categorias.solicitacoes.materiais');
+			Route::get('', 'SuporteCtrl@Materiais')->name('exibir.solicitacoes.materiais');
+			Route::post('solicitacao', 'SuporteCtrl@MateriaisSolicitacao')->name('efetuar.solicitacoes.materiais');
+			Route::get('categorias/{id}', 'SuporteCtrl@MateriaisListar')->name('categorias.solicitacoes.materiais');
 		});
-		// Documentos para download
+		// Documentos
 		Route::group(['prefix' => 'documentos'], function(){
-			Route::get('', 'DocumentosCtrl@ExibirDocumentos')->name('exibir.documentos');
+			Route::get('', 'SuporteCtrl@Documentos')->name('exibir.documentos');
 		});
 	});
 
 	#---------------------------------------------------------------------
-	# Módulo de GTI 
+	# Módulo de Tecnologia 
 	#---------------------------------------------------------------------
 	Route::group(['prefix' => 'gti'], function(){
 		// Dashboard
 		Route::group(['prefix' => ''], function(){
-			Route::get('dashboard', 'DashboardCtrl@DashTecnologia')->name('dashboard.gti');
+			Route::get('dashboard', 'TecnologiaCtrl@Dashboard')->name('dashboard.gti');
 		});
 		// Equipamentos
 		Route::group(['prefix' => 'equipamentos'], function(){
-			Route::get('geral', 'AtivosCtrl@Exibir')->name('exibir.geral.equipamentos');
-			Route::get('usuarios', 'AtivosCtrl@ExibirUsuarios')->name('exibir.usuarios.equipamentos');
-			Route::get('termo', 'AtivosCtrl@ExibirTermo')->name('exibir.termo.equipamentos');
-			Route::post('gerarTermo', 'AtivosCtrl@GerarTermo')->name('gerar.termo.equipamentos');
-			Route::get('listar', 'AtivosCtrl@Datatables')->name('listar.equipamentos');
-			Route::get('adicionar', 'AtivosCtrl@Adicionar')->name('adicionar.equipamentos');
-			Route::post('salvar', 'AtivosCtrl@AdicionarSalvar')->name('salvar.adicionar.equipamentos');
-			Route::get('editar/{id}', 'AtivosCtrl@Editar')->name('editar.equipamentos');
-			Route::post('salvarEditar/{id}', 'AtivosCtrl@EditarSalvar')->name('salvar.editar.equipamentos');
-			Route::get('remover/{id}', 'AtivosCtrl@Delete')->name('remover.equipamentos');
-			Route::any('detalhes/{id}', 'AtivosCtrl@Detalhes')->name('detalhes.equipamentos');
-			Route::post('addImagens', 'AtivosCtrl@Imagens')->name('adicionar.imagens.equipamentos');
+			Route::get('geral', 'TecnologiaCtrl@ExibirInventario')->name('exibir.geral.equipamentos');
+			Route::get('usuarios', 'TecnologiaCtrl@ExibirUsuariosInventario')->name('exibir.usuarios.equipamentos');
+			Route::get('termo', 'TecnologiaCtrl@ExibirTermoInventario')->name('exibir.termo.equipamentos');
+			Route::post('gerarTermo', 'TecnologiaCtrl@GerarTermoInventario')->name('gerar.termo.equipamentos');
+			Route::get('listar', 'TecnologiaCtrl@DatatablesInventario')->name('listar.equipamentos');
+			Route::get('adicionar', 'TecnologiaCtrl@AdicionarInventario')->name('adicionar.equipamentos');
+			Route::post('salvar', 'TecnologiaCtrl@AdicionarSalvarInventario')->name('salvar.adicionar.equipamentos');
+			Route::get('editar/{id}', 'TecnologiaCtrl@EditarInventario')->name('editar.equipamentos');
+			Route::post('salvarEditar/{id}', 'TecnologiaCtrl@EditarSalvarInventario')->name('salvar.editar.equipamentos');
+			Route::get('remover/{id}', 'TecnologiaCtrl@DeleteInventario')->name('remover.equipamentos');
+			Route::any('detalhes/{id}', 'TecnologiaCtrl@DetalhesInventario')->name('detalhes.equipamentos');
+			Route::post('addImagens', 'TecnologiaCtrl@ImagensInventario')->name('adicionar.imagens.equipamentos');
 			
 		});
 		// Chamados
 		Route::group(['prefix' => 'chamados'], function(){
-			Route::get('', 'ChamadosCtrl@ExibirGTI')->name('exibir.chamados.gti');
-			Route::get('detalhes/{id}', 'ChamadosCtrl@DetalhesGTI')->name('detalhes.chamados.gti');
-			Route::post('finalizar/{id}', 'ChamadosCtrl@FinalizarGTI')->name('finalizar.chamados.gti');
-			Route::get('atualizacao/{id_chamado}/{id_status}', 'ChamadosCtrl@MonitorarGTI')->name('monitorar.chamados.gti');
-			Route::get('relatorio/{id}', 'ChamadosCtrl@RelatorioGTI')->name('relatorio.chamados.gti');
-			Route::post('status/{id}', 'ChamadosCtrl@StatusGTI')->name('status.chamados.gti');
-			Route::get('info/{id}', 'ChamadosCtrl@InfoGTI')->name('info.chamados.gti');
-			Route::get('remove/{id}', 'ChamadosCtrl@RemoveGTI')->name('remove.chamados.gti');
-			Route::post('descricao', 'ChamadosCtrl@DescricaoGTI')->name('descricao.chamados.gti');
+			Route::get('', 'TecnologiaCtrl@ExibirChamados')->name('exibir.chamados.gti');
+			Route::get('detalhes/{id}', 'TecnologiaCtrl@DetalhesChamados')->name('detalhes.chamados.gti');
+			Route::post('finalizar/{id}', 'TecnologiaCtrl@FinalizarChamados')->name('finalizar.chamados.gti');
+			Route::get('atualizacao/{id_chamado}/{id_status}', 'TecnologiaCtrl@MonitorarChamados')->name('monitorar.chamados.gti');
+			Route::get('relatorio/{id}', 'TecnologiaCtrl@RelatorioChamados')->name('relatorio.chamados.gti');
+			Route::post('status/{id}', 'TecnologiaCtrl@StatusChamados')->name('status.chamados.gti');
+			Route::get('info/{id}', 'TecnologiaCtrl@InfoChamados')->name('info.chamados.gti');
+			Route::get('remove/{id}', 'TecnologiaCtrl@RemoveChamados')->name('remove.chamados.gti');
+			Route::post('descricao', 'TecnologiaCtrl@DescricaoChamados')->name('descricao.chamados.gti');
 		});
 		// Homepage
 		Route::group(['prefix' => 'homepage'], function(){
-			Route::get('', 'HomepageCtrl@Listar')->name('exibir.homepage')->middleware('auth');
-			Route::post('adicionar', 'HomepageCtrl@Adicionar')->name('adicionar.homepage')->middleware('auth');
-			Route::post('editar/{id}', 'HomepageCtrl@Editar')->name('editar.homepage')->middleware('auth');
-			Route::any('delete/{id}', 'HomepageCtrl@Delete')->name('delete.homepage')->middleware('auth');
-			Route::any('detalhes/{id}', 'HomepageCtrl@Detalhes')->name('detalhes.homepage')->middleware('auth');
+			Route::get('', 'TecnologiaCtrl@ExibirHomepage')->name('exibir.homepage');
+			Route::post('adicionar', 'TecnologiaCtrl@AdicionarHomepage')->name('adicionar.homepage');
+			Route::post('editar/{id}', 'TecnologiaCtrl@EditarHomepage')->name('editar.homepage');
+			Route::any('delete/{id}', 'TecnologiaCtrl@DeleteHomepage')->name('delete.homepage');
+			Route::any('detalhes/{id}', 'TecnologiaCtrl@DetalhesHomepage')->name('detalhes.homepage');
 		});
-
+		// Configurações
 		Route::group(['prefix' => 'configuracoes'], function(){
 			// Aprendizagem
-			Route::group(['prefix' => 'aprendizagem'], function(){		
-				Route::get('', 'BaseCtrl@Exibir')->name('exibir.base.aprendizagem');
-				Route::get('adicionar', 'BaseCtrl@Adicionar')->name('adicionar.base.aprendizagem');
-				Route::post('salvar', 'BaseCtrl@AdicionarSalvar')->name('salvar.adicionar.base.aprendizagem');
-				Route::get('editar/{id}', 'BaseCtrl@Editar')->name('editar.base.aprendizagem');
-				Route::post('salvarEditar/{id}', 'BaseCtrl@EditarSalvar')->name('salvar.editar.base.aprendizagem');
-				Route::get('detele/{id}', 'BaseCtrl@Delete')->name('delete.base.aprendizagem');
-				Route::post('addArquivos', 'BaseCtrl@Arquivos')->name('adicionar.arquivos.aprendizagem');
-				Route::get('removeArquivo/{id}', 'BaseCtrl@RemoveArquivos')->name('remover.arquivos.aprendizagem');
-				Route::any('tipos/{idFonte}', 'ChamadosCtrl@ListarTipos')->name('tipos.chamados');
-				Route::any('base/{idTipo}/{idFonte}', 'ChamadosCtrl@ListarBase')->name('base.chamados');
+			Route::group(['prefix' => 'aprendizagem'], function(){
+				Route::get('', 'TecnologiaCtrl@ExibirAprendizagem')->name('exibir.base.aprendizagem');
+				Route::get('adicionar', 'TecnologiaCtrl@AdicionarAprendizagem')->name('adicionar.base.aprendizagem');
+				Route::post('salvar', 'TecnologiaCtrl@AdicionarSalvarAprendizagem')->name('salvar.adicionar.base.aprendizagem');
+				Route::get('editar/{id}', 'TecnologiaCtrl@EditarAprendizagem')->name('editar.base.aprendizagem');
+				Route::post('salvarEditar/{id}', 'TecnologiaCtrl@EditarSalvarAprendizagem')->name('salvar.editar.base.aprendizagem');
+				Route::get('detele/{id}', 'TecnologiaCtrl@DeleteAprendizagem')->name('delete.base.aprendizagem');
+				Route::post('addArquivos', 'TecnologiaCtrl@ArquivosAprendizagem')->name('adicionar.arquivos.aprendizagem');
+				Route::get('removeArquivo/{id}', 'TecnologiaCtrl@RemoveArquivosAprendizagem')->name('remover.arquivos.aprendizagem');
+				// Módulo suporte
+				Route::any('tipos/{idFonte}', 'SuporteCtrl@ListarTiposChamados')->name('tipos.chamados');
+				Route::any('base/{idTipo}/{idFonte}', 'SuporteCtrl@ListarBaseChamados')->name('base.chamados');
 			});
 			// Fontes
 			Route::group(['prefix' => 'fontes'], function(){
-				Route::get('', 'FontesCtrl@Exibir')->name('exibir.fontes.chamados');
-				Route::get('listar', 'FontesCtrl@Datatables')->name('listar.fontes.chamados');
-				Route::post('adicionar', 'FontesCtrl@Adicionar')->name('adicionar.fontes.chamados');
-				Route::post('editar/{id}', 'FontesCtrl@Editar')->name('editar.fontes.chamados');
-				Route::get('alterar/{id}', 'FontesCtrl@Alterar')->name('alterar.fontes.chamados');
-				Route::any('detalhes/{id}', 'FontesCtrl@Detalhes')->name('detalhes.fontes.chamados');
+				Route::get('', 'TecnologiaCtrl@ExibirFontes')->name('exibir.fontes.chamados');
+				Route::get('listar', 'TecnologiaCtrl@DatatablesFontes')->name('listar.fontes.chamados');
+				Route::post('adicionar', 'TecnologiaCtrl@AdicionarFontes')->name('adicionar.fontes.chamados');
+				Route::post('editar/{id}', 'TecnologiaCtrl@EditarFontes')->name('editar.fontes.chamados');
+				Route::get('alterar/{id}', 'TecnologiaCtrl@AlterarFontes')->name('alterar.fontes.chamados');
+				Route::any('detalhes/{id}', 'TecnologiaCtrl@DetalhesFontes')->name('detalhes.fontes.chamados');
 			});		
 			// Tipos
 			Route::group(['prefix' => 'tipos'], function(){
-				Route::get('', 'TiposCtrl@Exibir')->name('exibir.tipos.chamados');
-				Route::get('listar', 'TiposCtrl@Datatables')->name('listar.tipos.chamados');
-				Route::post('adicionar', 'TiposCtrl@Adicionar')->name('adicionar.tipos.chamados');
-				Route::post('editar/{id}', 'TiposCtrl@Editar')->name('editar.tipos.chamados');
-				Route::get('alterar/{id}', 'TiposCtrl@Alterar')->name('alterar.tipos.chamados');
-				Route::any('detalhes/{id}', 'TiposCtrl@Detalhes')->name('detalhes.tipos.chamados');
+				Route::get('', 'TecnologiaCtrl@ExibirTipos')->name('exibir.tipos.chamados');
+				Route::get('listar', 'TecnologiaCtrl@DatatablesTipos')->name('listar.tipos.chamados');
+				Route::post('adicionar', 'TecnologiaCtrl@AdicionarTipos')->name('adicionar.tipos.chamados');
+				Route::post('editar/{id}', 'TecnologiaCtrl@EditarTipos')->name('editar.tipos.chamados');
+				Route::get('alterar/{id}', 'TecnologiaCtrl@AlterarTipos')->name('alterar.tipos.chamados');
+				Route::any('detalhes/{id}', 'TecnologiaCtrl@DetalhesTipos')->name('detalhes.tipos.chamados');
 			});
 			// Status
 			Route::group(['prefix' => 'status'], function(){
-				Route::get('', 'StatusCtrl@Exibir')->name('exibir.status.chamados');
-				Route::get('listar', 'StatusCtrl@Datatables')->name('listar.status.chamados');
-				Route::post('adicionar', 'StatusCtrl@Adicionar')->name('adicionar.status.chamados');
-				Route::post('editar/{id}', 'StatusCtrl@Editar')->name('editar.status.chamados');
-				Route::get('alterar/{id}', 'StatusCtrl@Alterar')->name('alterar.status.chamados');
-				Route::any('detalhes/{id}', 'StatusCtrl@Detalhes')->name('detalhes.status.chamados');
+				Route::get('', 'TecnologiaCtrl@ExibirStatus')->name('exibir.status.chamados');
+				Route::get('listar', 'TecnologiaCtrl@DatatablesStatus')->name('listar.status.chamados');
+				Route::post('adicionar', 'TecnologiaCtrl@AdicionarStatus')->name('adicionar.status.chamados');
+				Route::post('editar/{id}', 'TecnologiaCtrl@EditarStatus')->name('editar.status.chamados');
+				Route::get('alterar/{id}', 'TecnologiaCtrl@AlterarStatus')->name('alterar.status.chamados');
+				Route::any('detalhes/{id}', 'TecnologiaCtrl@DetalhesStatus')->name('detalhes.status.chamados');
 			});
 		});
 	});
@@ -360,65 +360,70 @@ Route::group(['prefix' => 'app'], function(){
 	# Módulo de Configurações 
 	#---------------------------------------------------------------------
 	Route::group(['prefix' => 'configuracoes'], function(){
-		Route::get('', 'UsuariosCtrl@Configuracoes')->name('configuracoes')->middleware('auth');
+		Route::get('', 'ConfiguracoesCtrl@Configuracoes')->name('configuracoes');
 		Route::group(['prefix' => 'administrativo'], function(){
 			// Funções
 			Route::group(['prefix' => 'funcoes'], function(){
-				Route::get('', 'FuncoesCtrl@Exibir')->name('exibir.funcoes.administrativo');
-				Route::get('listar', 'FuncoesCtrl@Datatables')->name('listar.funcoes.administrativo');
-				Route::post('adicionar', 'FuncoesCtrl@Adicionar')->name('adicionar.funcoes.administrativo');
-				Route::post('editar/{id}', 'FuncoesCtrl@Editar')->name('editar.funcoes.administrativo');
-				Route::get('alterar/{id}', 'FuncoesCtrl@Alterar')->name('alterar.funcoes.administrativo');
-				Route::any('detalhes/{id}', 'FuncoesCtrl@Detalhes')->name('detalhes.funcoes.administrativo');
+				Route::get('', 'ConfiguracoesCtrl@ExibirFuncoes')->name('exibir.funcoes.administrativo');
+				Route::get('listar', 'ConfiguracoesCtrl@DatatablesFuncoes')->name('listar.funcoes.administrativo');
+				Route::post('adicionar', 'ConfiguracoesCtrl@AdicionarFuncoes')->name('adicionar.funcoes.administrativo');
+				Route::post('editar/{id}', 'ConfiguracoesCtrl@EditarFuncoes')->name('editar.funcoes.administrativo');
+				Route::get('alterar/{id}', 'ConfiguracoesCtrl@AlterarFuncoes')->name('alterar.funcoes.administrativo');
+				Route::any('detalhes/{id}', 'ConfiguracoesCtrl@DetalhesFuncoes')->name('detalhes.funcoes.administrativo');
 			});
 			// Instituições
 			Route::group(['prefix' => 'instituicoes'], function(){
-				Route::get('', 'InstituicoesCtrl@Exibir')->name('exibir.instituicoes.administrativo');
-				Route::post('adicionar', 'InstituicoesCtrl@Adicionar')->name('adicionar.instituicoes.administrativo');
-				Route::post('editar/{id}', 'InstituicoesCtrl@Editar')->name('editar.instituicoes.administrativo');
-				Route::get('alterar/{id}', 'InstituicoesCtrl@Alterar')->name('alterar.instituicoes.administrativo');
-				Route::any('detalhes/{id}', 'InstituicoesCtrl@Detalhes')->name('detalhes.instituicoes.administrativo');
+				Route::get('', 'ConfiguracoesCtrl@ExibirInstituicoes')->name('exibir.instituicoes.administrativo');
+				Route::post('adicionar', 'ConfiguracoesCtrl@AdicionarInstituicoes')->name('adicionar.instituicoes.administrativo');
+				Route::post('editar/{id}', 'ConfiguracoesCtrl@EditarInstituicoes')->name('editar.instituicoes.administrativo');
+				Route::get('alterar/{id}', 'ConfiguracoesCtrl@AlterarInstituicoes')->name('alterar.instituicoes.administrativo');
+				Route::any('detalhes/{id}', 'ConfiguracoesCtrl@DetalhesInstituicoes')->name('detalhes.instituicoes.administrativo');
 			});
 			// Setores
 			Route::group(['prefix' => 'setores'], function(){
-				Route::get('', 'SetoresCtrl@Exibir')->name('exibir.setores.administrativo');
-				Route::get('listar', 'SetoresCtrl@Datatables')->name('listar.setores.administrativo');
-				Route::post('adicionar', 'SetoresCtrl@Adicionar')->name('adicionar.setores.administrativo');
-				Route::post('editar/{id}', 'SetoresCtrl@Editar')->name('editar.setores.administrativo');
-				Route::get('alterar/{id}', 'SetoresCtrl@Alterar')->name('alterar.setores.administrativo');
-				Route::any('detalhes/{id}', 'SetoresCtrl@Detalhes')->name('detalhes.setores.administrativo');
+				Route::get('', 'ConfiguracoesCtrl@ExibirSetores')->name('exibir.setores.administrativo');
+				Route::get('listar', 'ConfiguracoesCtrl@DatatablesSetores')->name('listar.setores.administrativo');
+				Route::post('adicionar', 'ConfiguracoesCtrl@AdicionarSetores')->name('adicionar.setores.administrativo');
+				Route::post('editar/{id}', 'ConfiguracoesCtrl@EditarSetores')->name('editar.setores.administrativo');
+				Route::get('alterar/{id}', 'ConfiguracoesCtrl@AlterarSetores')->name('alterar.setores.administrativo');
+				Route::any('detalhes/{id}', 'ConfiguracoesCtrl@DetalhesSetores')->name('detalhes.setores.administrativo');
 			});
 			// Unidades
 			Route::group(['prefix' => 'unidades'], function(){
-				Route::get('', 'UnidadesCtrl@Exibir')->name('exibir.unidades.administrativo');
-				Route::post('adicionar', 'UnidadesCtrl@Adicionar')->name('adicionar.unidades.administrativo');
-				Route::post('editar/{id}', 'UnidadesCtrl@Editar')->name('editar.unidades.administrativo');
-				Route::get('alterar/{id}', 'UnidadesCtrl@Alterar')->name('alterar.unidades.administrativo');
-				Route::any('detalhes/{id}', 'UnidadesCtrl@Detalhes')->name('detalhes.unidades.administrativo');
+				Route::get('', 'ConfiguracoesCtrl@ExibirUnidades')->name('exibir.unidades.administrativo');
+				Route::post('adicionar', 'ConfiguracoesCtrl@AdicionarUnidades')->name('adicionar.unidades.administrativo');
+				Route::post('editar/{id}', 'ConfiguracoesCtrl@EditarUnidades')->name('editar.unidades.administrativo');
+				Route::get('alterar/{id}', 'ConfiguracoesCtrl@AlterarUnidades')->name('alterar.unidades.administrativo');
+				Route::any('detalhes/{id}', 'ConfiguracoesCtrl@DetalhesUnidades')->name('detalhes.unidades.administrativo');
 			});
 			// Usuários
 			Route::group(['prefix' => 'usuarios'], function(){
-				Route::get('', 'UsuariosCtrl@Exibir')->name('exibir.usuarios.administrativo')->middleware('auth');
-				Route::get('listar', 'UsuariosCtrl@Datatables')->name('listar.usuarios.administrativo')->middleware('auth');
-				Route::post('adicionar', 'UsuariosCtrl@Adicionar')->name('adicionar.usuarios.administrativo')->middleware('auth');
-				Route::post('editar/{id}', 'UsuariosCtrl@Editar')->name('editar.usuarios.administrativo')->middleware('auth');
-				Route::post('alterar/{id}', 'UsuariosCtrl@Alterar')->name('alterar.usuarios.administrativo')->middleware('auth');
-				Route::any('detalhes/{id}', 'UsuariosCtrl@Detalhes')->name('detalhes.usuarios.administrativo')->middleware('auth');
-				Route::any('resetar/{id}', 'UsuariosCtrl@Resetar')->name('resetar.usuarios.administrativo')->middleware('auth');
+				Route::get('', 'ConfiguracoesCtrl@ExibirUsuarios')->name('exibir.usuarios.administrativo')->middleware('auth');
+				Route::get('listar', 'ConfiguracoesCtrl@DatatablesUsuarios')->name('listar.usuarios.administrativo')->middleware('auth');
+				Route::post('adicionar', 'ConfiguracoesCtrl@AdicionarUsuarios')->name('adicionar.usuarios.administrativo')->middleware('auth');
+				Route::post('editar/{id}', 'ConfiguracoesCtrl@EditarUsuarios')->name('editar.usuarios.administrativo')->middleware('auth');
+				Route::post('alterar/{id}', 'ConfiguracoesCtrl@AlterarUsuarios')->name('alterar.usuarios.administrativo')->middleware('auth');
+				Route::any('detalhes/{id}', 'ConfiguracoesCtrl@DetalhesUsuarios')->name('detalhes.usuarios.administrativo')->middleware('auth');
+				Route::any('resetar/{id}', 'ConfiguracoesCtrl@ResetarUsuarios')->name('resetar.usuarios.administrativo')->middleware('auth');
 			});
 		});	
 		// Emails
 		Route::group(['prefix' => 'emails'], function(){
 			// Ajustes
 			Route::group(['prefix' => 'ajustes'], function(){
-				Route::get('', 'EmailsCtrl@ExibirAjustes')->name('exibir.ajustes.emails');
-				Route::post('salvar', 'EmailsCtrl@SalvarAjustes')->name('salvar.ajustes.emails');
+				Route::get('', 'ConfiguracoesCtrl@ExibirAjustesEmails')->name('exibir.ajustes.emails');
+				Route::post('salvar', 'ConfiguracoesCtrl@SalvarAjustesEmails')->name('salvar.ajustes.emails');
 			});
 			// Menssagens
 			Route::group(['prefix' => 'mensagens'], function(){
-				Route::get('', 'EmailsCtrl@ExibirMensagens')->name('exibir.mensagens.emails');
-				Route::post('salvar', 'EmailsCtrl@SalvarMensagens')->name('salvar.mensagens.emails');
+				Route::get('', 'ConfiguracoesCtrl@ExibirMensagensEmails')->name('exibir.mensagens.emails');
+				Route::post('salvar', 'ConfiguracoesCtrl@SalvarMensagensEmails')->name('salvar.mensagens.emails');
 			});
+		});
+		// Ajustes
+		Route::group(['prefix' => 'ajustes'], function(){
+			Route::get('', 'ConfiguracoesCtrl@ExibirAjustes')->name('exibir.ajustes');
+			Route::post('salvar', 'ConfiguracoesCtrl@SalvarAjustes')->name('salvar.ajustes');
 		});
 		// Importações
 		Route::group(['prefix' => 'importacoes'], function(){
@@ -435,11 +440,6 @@ Route::group(['prefix' => 'app'], function(){
 			Route::group(['prefix' => 'logs'], function(){
 				Route::get('', 'ImportacoesCtrl@ExibirLogs')->name('exibir.logs.importacoes');
 			});
-		});
-		// Ajustes
-		Route::group(['prefix' => 'ajustes'], function(){
-			Route::get('', 'AjustesCtrl@Exibir')->name('exibir.ajustes');
-			Route::post('salvar', 'AjustesCtrl@Salvar')->name('salvar.ajustes');
 		});
 	});
 });

@@ -37,7 +37,6 @@
         <ul class="nav nav-second-level {{ (Request::segment(2) == 'administrativo' ? ' collapse in' : '') }}">
           @if(Auth::user()->RelationFuncao->gerenciar_administrativo == 1)
           <li> <a href="{{route('dashboard.administrativo')}}"><span class="hide-menu">Dashboard</span></a> </li>
-          <li> <a href="{{route('exibir.aniversariantes.administrativo')}}"><span class="hide-menu">Aniversariantes</span></a> </li>
           @endif
           <li> <a href="{{route('exibir.bens.administrativo')}}"><span class="hide-menu">Bens</span></a> </li>
           @if(Auth::user()->RelationFuncao->gerenciar_administrativo == 1)
@@ -51,8 +50,11 @@
               <li> <a href="{{route('exibir.categorias.materiais')}}"><span class="hide-menu">Categorias</span></a> </li>
             </ul>
           </li>
-          @endif
           <li> <a href="{{route('exibir.solicitacoes.administrativo')}}"><span class="hide-menu">Solicitações</span></a> </li>
+          <li> <a href="{{route('exibir.aniversariantes.administrativo')}}"><span class="hide-menu">Relatórios</span></a> </li>
+          @endif
+          
+          
         </ul>
       </li>
       @endif

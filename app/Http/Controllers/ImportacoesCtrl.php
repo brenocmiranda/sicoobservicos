@@ -70,7 +70,8 @@ class ImportacoesCtrl extends Controller
 				$nameFile = 'cli_associados-'.date('dmYHis').'.'.request()->file('cli_associados')->getClientOriginalExtension();
 				$upload = $request->cli_associados->storeAs('importacoes', $nameFile);
 				Logs::create(['mensagem' => 'Processando o arquivo cli_associados.xlsx...']);
-				Excel::import(new cli_associados, getcwd().'/storage/app/importacoes/'.$nameFile);
+				$import = Excel::import(new cli_associados, getcwd().'/storage/app/importacoes/'.$nameFile);
+				dd($import->errors());
 				Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de cli_associados.xlsx efetuada com sucesso!</span>']);
 			}
 			// cli_consolidado

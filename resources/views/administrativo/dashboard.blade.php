@@ -18,22 +18,21 @@ Dashboard
 		</div>
 	</div>
 	<div class="row mx-auto">
-		<div class="sttabs tabs-style-iconbox">
+		<div class="sttabs tabs-style-iconbox" style="border-radius: 0.6em; border: transparent;">
 			<nav>
-				<ul>
+				<ul style="background: transparent; border: transparent;">
 					<li class="tab-current"><a href="#section-iconbox-1" class="sticon ti-car"><span>Bens da cooperativa</span></a></li>
 					<li><a href="#section-iconbox-2" class="sticon ti-files"><span>Documentos</span></a></li>
 					<li><a href="#section-iconbox-3" class="sticon ti-package"><span>Materiais</span></a></li>
 				</ul>
 			</nav>
-
 			<div class="content-wrap">
 				<section id="section-iconbox-1"  class="content-current">
 					<div class="row col-12  white-box">
 						<div class="col-lg-6 col-sm-12 col-xs-12">
 							<h3 class="box-title text-center mb-0">Total de bens</h3>
 							<hr class="mt-2">
-							<div class="col-lg-12 col-sm-12 col-xs-12 text-center row m-auto align-items-center justify-content-center h-100 pb-5">
+							<div class="col-lg-12 col-sm-12 col-xs-12 text-center row m-auto align-items-center justify-content-center h-75 pb-5">
 								<h1 style="font-size: 55px;">{{count($bens)}} 
 									<small>cadastrados</small>
 								</h1>
@@ -42,14 +41,14 @@ Dashboard
 						<div class="col-lg-6 col-sm-12 col-xs-12">
 							<h3 class="box-title mb-0 text-center">Quantidade por tipo</h3>
 							<hr class="mt-2">
-							<div id="morris-donut-chart" class="morris-donut-chart"></div>
+							<div id="morris-donut-chart" class="morris-donut-chart" style="height: 300px"></div>
 
 						</div>
 						<div class="col-lg-12 col-sm-12 col-xs-12 mt-4">
 							<h3 class="box-title mb-0">Adicionados recentes</h3>
 							<hr class="mt-2">
 							<div class="table-responsive">
-								<table class="table">
+								<table class="table color-table muted-table" id="table1">
 									<thead>
 										<tr>
 											<th>Nome</th>
@@ -59,14 +58,13 @@ Dashboard
 										</tr>
 									</thead>
 									<tbody>
-										@foreach($bens->sortByDesc('created_at') as $key => $dados)
+										@foreach($bens->sortByDesc('created_at') as $dados)
 										<tr class="text-center">
 											<td class="txt-oflo">{{$dados->nome}}</td>
 											<td>{{($dados->tipo == 'veiculos' ? "Veículos" : ($dados->tipo == 'imovel' ? "Imóvel" : "Outros"))}}</td>
 											<td class="txt-oflo">R$ {{number_format($dados->valor, 2, ',', '.')}}</td>
-											<td class="txt-oflo">{{$dados->created_at->format('d/m/Y H:i')}}</td>
+											<td class="txt-oflo">{{date('d/m/Y H:i', strtotime($dados->created_at))}}</td>
 										</tr>
-										@break($key == 5)
 										@endforeach
 									</tbody>
 								</table>
@@ -107,7 +105,7 @@ Dashboard
 						<div class="col-lg-6 col-sm-12 col-xs-12">
 							<h3 class="box-title mb-0 text-center">Total de documentos</h3>
 							<hr class="mt-2">
-							<div class="col-lg-12 col-sm-12 col-xs-12 text-center row m-auto align-items-center justify-content-center h-100 pb-5">
+							<div class="col-lg-12 col-sm-12 col-xs-12 text-center row m-auto align-items-center justify-content-center h-75 pb-5">
 								<h1 style="font-size: 55px;">{{count($documentos)}} 
 									<small>cadastrados</small>
 								</h1>
@@ -117,13 +115,13 @@ Dashboard
 						<div class="col-lg-6 col-sm-12 col-xs-12">
 							<h3 class="box-title mb-0 text-center">Quantidade por status</h3>
 							<hr class="mt-2">
-							<div id="morris-donut-chart1" class="morris-donut-chart"></div>
+							<div id="morris-donut-chart1" class="morris-donut-chart" style="height: 300px"></div>
 						</div>
 						<div class="col-lg-12 col-sm-12 col-xs-12 mt-4">
 							<h3 class="box-title mb-0">Adicionados recentes</h3>
 							<hr class="mt-2">
 							<div class="table-responsive">
-								<table class="table">
+								<table class="table color-table muted-table" id="table2">
 									<thead>
 										<tr>
 											<th>Nome</th>
@@ -138,7 +136,6 @@ Dashboard
 											<td>{{($dados->status == 1 ? "Ativo" : "Desativado")}}</td>
 											<td class="txt-oflo">{{$dados->created_at->format('d/m/Y H:i')}}</td>
 										</tr>
-										@break($key == 5)
 										@endforeach
 									</tbody>
 								</table>
@@ -204,28 +201,43 @@ Dashboard
                                 </ul>
                             </div>
                         </div>
-
                         <div class="col-lg-6 col-sm-12 col-xs-12">
 							<h3 class="box-title mb-0 text-center">Total de materiais</h3>
 							<hr class="mt-2">
-							<div class="col-lg-12 col-sm-12 col-xs-12 text-center row m-auto align-items-center justify-content-center h-100 pb-5">
+							<div class="col-lg-12 col-sm-12 col-xs-12 text-center row m-auto align-items-center justify-content-center h-75 pb-5">
 								<h1 style="font-size: 55px;">{{count($materiais->where('status', 1))}} 
 									<small>cadastrados</small>
 								</h1>
 							</div>
-							
 						</div>
 						<div class="col-lg-6 col-sm-12 col-xs-12">
 							<h3 class="box-title mb-0 text-center">Quantidade de materiais por categoria</h3>
 							<hr class="mt-2">
-							<div id="morris-donut-chart2" class="morris-donut-chart"></div>
+							<div id="morris-donut-chart2" class="morris-donut-chart" style="height: 300px"></div>
 						</div>
-
 						<div class="col-lg-12 col-sm-12 col-xs-12 mt-5">
-							<h3 class="box-title mb-0">Histórico de saídas <span class="label label-rouded label-danger">{{count($materiaisHistorico->where('tipo', 's'))}}</span></h3>
+							<h3 class="box-title mb-0">Materiais com quantidade mínima</h3>
+							<hr class="mt-2">
+							<ul class="country-state">
+								@foreach($materiais as $dados)
+									@if($dados->quantidade <= $dados->quantidade_min)
+									<li>
+										<h5>{{$dados->nome}}</h5>
+										<small>{{$dados->quantidade}} restantes </small>
+										<div class="pull-right">{{$dados->quantidade_min}} <i class="fa fa-level-down text-danger"></i></div>
+										<div class="progress">
+											<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="(($dados->quantidade*100)/$dados->quantidade_min)}}" aria-valuemin="0" aria-valuemax="100" style="width: {{(($dados->quantidade*100)/$dados->quantidade_min)}}%"> <span class="sr-only">{{(($dados->quantidade*100)/$dados->quantidade_min)}}% Complete</span></div>
+										</div>
+									</li>
+									@endif
+								@endforeach
+							</ul>
+						</div> 
+						<div class="col-lg-12 col-sm-12 col-xs-12 mt-5">
+							<h3 class="box-title mb-0">Histórico de saídas</h3>
 							<hr class="mt-2">
 							<div class="table-responsive">
-								<table class="table color-table muted-table" id="table1">
+								<table class="table color-table muted-table" id="table3">
 									<thead>
 										<tr>
 											<th>Produto</th>
@@ -251,10 +263,10 @@ Dashboard
 						</div>
 
 						<div class="col-lg-12 col-sm-12 col-xs-12 mt-5">	
-							<h3 class="box-title mb-0">Histórico de entradas <span class="label label-rouded label-success">{{count($materiaisHistorico->where('tipo', 'e'))}}</span></h3>
+							<h3 class="box-title mb-0">Histórico de entradas</h3>
 							<hr class="mt-2">		
-							<div class="table-responsive color-table muted-table">
-								<table class="table" id="table">
+							<div class="table-responsive">
+								<table class="table color-table muted-table" id="table4">
 									<thead>
 										<tr>
 											<th>Produto</th>
@@ -337,16 +349,29 @@ Dashboard
 	    	resize: true
 	    });
 
-	    $('#table').DataTable({
-	    	searching: false
-	    });
-
 	    $('#table1').DataTable({
-	    	searching: false
+	    	searching: false,
+	    	pageLength: 5,
+	    	ordering: false
 	    });
 
-	    
-	    
+	    $('#table2').DataTable({
+	    	searching: false,
+	    	pageLength: 5,
+	    	ordering: false
+	    });
+
+	    $('#table3').DataTable({
+	    	searching: false,
+	    	pageLength: 5,
+	    	ordering: false
+	    });
+
+	    $('#table4').DataTable({
+	    	searching: false,
+	    	pageLength: 5,
+	    	ordering: false
+	    });
 
 	    $('.sttabs').tabs({active: 0});
 
