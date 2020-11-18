@@ -21,6 +21,7 @@
   <link href="{{ asset('public/css/style.css') }}" rel="stylesheet">
   <link href="{{ asset('public/css/animate.css') }}" rel="stylesheet">
   <link href="{{ asset('public/css/colors/default.css') }}" id="theme" rel="stylesheet">
+  <link href="{{ asset('public/css/jquery-ui.css')  }}" rel="stylesheet">
   <link href="{{ asset('public/vendor/sidebar-nav/dist/sidebar-nav.min.css') }}" rel="stylesheet">
   <link href="{{ asset('public/vendor/toast-master/css/jquery.toast.css') }}" rel="stylesheet">
   <link href="{{ asset('public/vendor/morrisjs/morris.css') }}" rel="stylesheet">
@@ -39,6 +40,7 @@
   <link href="{{ asset('public/vendor/owl.carousel/owl.carousel.min.css')  }}" rel="stylesheet" type="text/css">
   <link href="{{ asset('public/vendor/owl.carousel/owl.theme.default.css')  }}" rel="stylesheet" type="text/css">
   <link href="{{ asset('public/vendor/summernote/dist/summernote.css')  }}" rel="stylesheet">
+  
 
   @yield('header-support')
 </head>

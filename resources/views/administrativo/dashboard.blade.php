@@ -72,10 +72,10 @@ Dashboard
 								</table>
 							</div>
 						</div>
-						<div class="col-lg-12 col-sm-12 col-xs-12">
+						<div class="col-lg-12 col-sm-12 col-xs-12 mt-5">
 							<h3 class="box-title mb-0">Bens por bairro</h3>
 							<hr class="mt-2">
-							<ul class="country-state p-t-20">
+							<ul class="country-state">
 								@foreach($bensBairro as $dados)
 								<li>
 									<h2>{{count($bens->whereNotNull('bairro')->where('bairro', $dados->bairro))}}</h2> <small>{{$dados->bairro}}</small>
@@ -86,10 +86,10 @@ Dashboard
 								@endforeach
 							</ul>
 						</div> 
-						<div class="col-lg-12 col-sm-12 col-xs-12">
+						<div class="col-lg-12 col-sm-12 col-xs-12 mt-5">
 							<h3 class="box-title mb-0">Bens por cidade</h3>
 							<hr class="mt-2">
-							<ul class="country-state p-t-20">
+							<ul class="country-state">
 								@foreach($bensCidade as $dados)
 								<li>
 									<h2>{{count($bens->whereNotNull('cidade')->where('cidade', $dados->cidade))}}</h2> <small>{{$dados->cidade}}</small>
