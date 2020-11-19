@@ -101,9 +101,9 @@ Route::group(['prefix' => 'app'], function(){
 			Route::get('alterar/{id}', 'AdministrativoCtrl@SolicitacaoMateriaisAdmin')->name('aprovar.solicitacoes.administrativo');	
 		});
 		// Relatórios
-		Route::group(['prefix' => 'aniversariantes'], function(){
-			Route::get('', 'AdministrativoCtrl@ExibirAniversariantes')->name('exibir.aniversariantes.administrativo');
-			Route::any('relatorio', 'AdministrativoCtrl@GerarAniversariantes')->name('gerar.aniversariantes.administrativo');
+		Route::group(['prefix' => 'relatorios'], function(){
+			Route::get('', 'AdministrativoCtrl@Relatorios')->name('exibir.relatorios.administrativo');
+			Route::any('relatorio', 'AdministrativoCtrl@RelatoriosAniversariantes')->name('relatorio.aniversariantes.administrativo');
 		});
 	});
 
@@ -274,22 +274,6 @@ Route::group(['prefix' => 'app'], function(){
 		Route::group(['prefix' => ''], function(){
 			Route::get('dashboard', 'TecnologiaCtrl@Dashboard')->name('dashboard.gti');
 		});
-		// Equipamentos
-		Route::group(['prefix' => 'equipamentos'], function(){
-			Route::get('geral', 'TecnologiaCtrl@ExibirInventario')->name('exibir.geral.equipamentos');
-			Route::get('usuarios', 'TecnologiaCtrl@ExibirUsuariosInventario')->name('exibir.usuarios.equipamentos');
-			Route::get('termo', 'TecnologiaCtrl@ExibirTermoInventario')->name('exibir.termo.equipamentos');
-			Route::post('gerarTermo', 'TecnologiaCtrl@GerarTermoInventario')->name('gerar.termo.equipamentos');
-			Route::get('listar', 'TecnologiaCtrl@DatatablesInventario')->name('listar.equipamentos');
-			Route::get('adicionar', 'TecnologiaCtrl@AdicionarInventario')->name('adicionar.equipamentos');
-			Route::post('salvar', 'TecnologiaCtrl@AdicionarSalvarInventario')->name('salvar.adicionar.equipamentos');
-			Route::get('editar/{id}', 'TecnologiaCtrl@EditarInventario')->name('editar.equipamentos');
-			Route::post('salvarEditar/{id}', 'TecnologiaCtrl@EditarSalvarInventario')->name('salvar.editar.equipamentos');
-			Route::get('remover/{id}', 'TecnologiaCtrl@DeleteInventario')->name('remover.equipamentos');
-			Route::any('detalhes/{id}', 'TecnologiaCtrl@DetalhesInventario')->name('detalhes.equipamentos');
-			Route::post('addImagens', 'TecnologiaCtrl@ImagensInventario')->name('adicionar.imagens.equipamentos');
-			
-		});
 		// Chamados
 		Route::group(['prefix' => 'chamados'], function(){
 			Route::get('', 'TecnologiaCtrl@ExibirChamados')->name('exibir.chamados.gti');
@@ -301,14 +285,6 @@ Route::group(['prefix' => 'app'], function(){
 			Route::get('info/{id}', 'TecnologiaCtrl@InfoChamados')->name('info.chamados.gti');
 			Route::get('remove/{id}', 'TecnologiaCtrl@RemoveChamados')->name('remove.chamados.gti');
 			Route::post('descricao', 'TecnologiaCtrl@DescricaoChamados')->name('descricao.chamados.gti');
-		});
-		// Homepage
-		Route::group(['prefix' => 'homepage'], function(){
-			Route::get('', 'TecnologiaCtrl@ExibirHomepage')->name('exibir.homepage');
-			Route::post('adicionar', 'TecnologiaCtrl@AdicionarHomepage')->name('adicionar.homepage');
-			Route::post('editar/{id}', 'TecnologiaCtrl@EditarHomepage')->name('editar.homepage');
-			Route::any('delete/{id}', 'TecnologiaCtrl@DeleteHomepage')->name('delete.homepage');
-			Route::any('detalhes/{id}', 'TecnologiaCtrl@DetalhesHomepage')->name('detalhes.homepage');
 		});
 		// Configurações
 		Route::group(['prefix' => 'configuracoes'], function(){
@@ -353,6 +329,33 @@ Route::group(['prefix' => 'app'], function(){
 				Route::get('alterar/{id}', 'TecnologiaCtrl@AlterarStatus')->name('alterar.status.chamados');
 				Route::any('detalhes/{id}', 'TecnologiaCtrl@DetalhesStatus')->name('detalhes.status.chamados');
 			});
+		});
+		// Homepage
+		Route::group(['prefix' => 'homepage'], function(){
+			Route::get('', 'TecnologiaCtrl@ExibirHomepage')->name('exibir.homepage');
+			Route::post('adicionar', 'TecnologiaCtrl@AdicionarHomepage')->name('adicionar.homepage');
+			Route::post('editar/{id}', 'TecnologiaCtrl@EditarHomepage')->name('editar.homepage');
+			Route::any('delete/{id}', 'TecnologiaCtrl@DeleteHomepage')->name('delete.homepage');
+			Route::any('detalhes/{id}', 'TecnologiaCtrl@DetalhesHomepage')->name('detalhes.homepage');
+		});
+		// Inventário
+		Route::group(['prefix' => 'equipamentos'], function(){
+			Route::get('geral', 'TecnologiaCtrl@ExibirInventario')->name('exibir.geral.equipamentos');
+			Route::get('usuarios', 'TecnologiaCtrl@ExibirUsuariosInventario')->name('exibir.usuarios.equipamentos');
+			Route::get('listar', 'TecnologiaCtrl@DatatablesInventario')->name('listar.equipamentos');
+			Route::get('adicionar', 'TecnologiaCtrl@AdicionarInventario')->name('adicionar.equipamentos');
+			Route::post('salvar', 'TecnologiaCtrl@AdicionarSalvarInventario')->name('salvar.adicionar.equipamentos');
+			Route::get('editar/{id}', 'TecnologiaCtrl@EditarInventario')->name('editar.equipamentos');
+			Route::post('salvarEditar/{id}', 'TecnologiaCtrl@EditarSalvarInventario')->name('salvar.editar.equipamentos');
+			Route::get('remover/{id}', 'TecnologiaCtrl@DeleteInventario')->name('remover.equipamentos');
+			Route::any('detalhes/{id}', 'TecnologiaCtrl@DetalhesInventario')->name('detalhes.equipamentos');
+			Route::post('addImagens', 'TecnologiaCtrl@ImagensInventario')->name('adicionar.imagens.equipamentos');
+		});
+		
+		// Relatórios
+		Route::group(['prefix' => 'relatorios'], function(){
+			Route::get('', 'TecnologiaCtrl@Relatorios')->name('exibir.relatorios.tecnologia');
+			Route::any('relatorio', 'TecnologiaCtrl@RelatoriosInventario')->name('relatorio.termoUso.tecnologia');
 		});
 	});
 

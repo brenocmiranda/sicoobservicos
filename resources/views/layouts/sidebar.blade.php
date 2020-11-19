@@ -30,7 +30,7 @@
 
       @if(Auth::user()->RelationFuncao->ver_administrativo == 1 || Auth::user()->RelationFuncao->gerenciar_administrativo == 1)
       <li> 
-        <a href="#" class="waves-effect {{ (Request::segment(2) == 'administrativo' ? 'active' : '') }}">
+        <a href="javascript:" class="waves-effect {{ (Request::segment(2) == 'administrativo' ? 'active' : '') }}">
           <i class="mdi mdi-bank pr-3" data-icon="v"></i> 
           <span class="hide-menu"> Administrativo <span class="fa arrow"></span> </span>
         </a>
@@ -51,17 +51,15 @@
             </ul>
           </li>
           <li> <a href="{{route('exibir.solicitacoes.administrativo')}}"><span class="hide-menu">Solicitações</span></a> </li>
-          <li> <a href="{{route('exibir.aniversariantes.administrativo')}}"><span class="hide-menu">Relatórios</span></a> </li>
+          <li> <a href="{{route('exibir.relatorios.administrativo')}}"><span class="hide-menu">Relatórios</span></a> </li>
           @endif
-          
-          
         </ul>
       </li>
       @endif
 
 
       <li> 
-        <a href="#" class="waves-effect {{ (Request::segment(2) == 'atendimento' ? 'active' : '') }}">
+        <a href="javascript:" class="waves-effect {{ (Request::segment(2) == 'atendimento' ? 'active' : '') }}">
           <i class="mdi mdi-account-outline pr-3" data-icon="v"></i> 
           <span class="hide-menu"> Atendimento <span class="fa arrow"></span> </span>
         </a>
@@ -73,7 +71,7 @@
 
       @if(Auth::user()->RelationFuncao->ver_credito == 1 || Auth::user()->RelationFuncao->gerenciar_credito == 1)
       <li> 
-        <a href="#" class="waves-effect {{ (Request::segment(2) == 'credito' ? 'active' : '') }}">
+        <a href="javascript:" class="waves-effect {{ (Request::segment(2) == 'credito' ? 'active' : '') }}">
           <i class="mdi mdi-currency-usd pr-3" data-icon="v"></i> 
           <span class="hide-menu"> Crédito <span class="fa arrow"></span> </span>
         </a>
@@ -108,7 +106,7 @@
       @endif
 
       <li> 
-        <a href="#" class="waves-effect {{ (Request::segment(2) == 'suporte' ? 'active' : '') }}">
+        <a href="javascript:" class="waves-effect {{ (Request::segment(2) == 'suporte' ? 'active' : '') }}">
           <i class="mdi mdi-hangouts pr-3" data-icon="v"></i> 
           <span class="hide-menu"> Suporte <span class="fa arrow"></span> </span>
         </a>
@@ -124,7 +122,7 @@
 
       @if(Auth::user()->RelationFuncao->ver_gti == 1 || Auth::user()->RelationFuncao->gerenciar_gti == 1)
       <li> 
-        <a href="#" class="waves-effect {{ (Request::segment(2) == 'gti' ? 'active' : '') }}">
+        <a href="javascript:" class="waves-effect {{ (Request::segment(2) == 'gti' ? 'active' : '') }}">
           <i class="mdi mdi-dns pr-3" data-icon="v"></i> 
           <span class="hide-menu"> Tecnologia <span class="fa arrow"></span> </span>
         </a>
@@ -152,10 +150,9 @@
             <ul class="nav nav-third-level {{ (Request::segment(2) == 'gti' && Request::segment(3) == 'equipamentos' ? ' collapse in' : '') }}">
               <li> <a href="{{route('exibir.geral.equipamentos')}}"><span class="hide-menu">Geral</span></a> </li>
               <li> <a href="{{route('exibir.usuarios.equipamentos')}}"><span class="hide-menu">Por usuário</span></a> </li>
-              <li> <a href="{{route('exibir.termo.equipamentos')}}"><span class="hide-menu">Termo</span></a> </li>
             </ul>
           </li>
-          <li> <a href="#"><span class="hide-menu">Relatórios</span></a> </li>
+          <li> <a href="{{route('exibir.relatorios.tecnologia')}}"><span class="hide-menu">Relatórios</span></a> </li>
         </ul>
       </li>
       @endif

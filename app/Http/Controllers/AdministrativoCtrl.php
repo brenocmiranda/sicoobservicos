@@ -673,14 +673,16 @@ class AdministrativoCtrl extends Controller
 	#-------------------------------------------------------------------
 	# Relatórios 
 	#-------------------------------------------------------------------
-	public function ExibirAniversariantes(){
+	// Listando lista de relatórios
+	public function Relatorios(){
 	    if(Auth::user()->RelationFuncao->gerenciar_administrativo == 1 || Auth::user()->RelationFuncao->ver_administrativo == 1){
-	      return view('administrativo.aniversariantes.exibir');
+	      return view('administrativo.relatorios');
 	    }else{
 	      return redirect(route('403'));
 	    }
 	}
-	public function GerarAniversariantes(Request $request){
+	// Gerando relatório de aniversariantes
+	public function RelatoriosAniversariantes(Request $request){
 	    if(Auth::user()->RelationFuncao->gerenciar_administrativo == 1 || Auth::user()->RelationFuncao->ver_administrativo == 1){
 	      if($request->orientacao == 'paisagem'){
 	        $result = Associados::where('funcionario', 1)->whereMonth('data_nascimento', $request->mes)->where('id', '<>', 1)->select('nome', 'data_nascimento')->orderByRaw('day(data_nascimento) asc')->get();
@@ -688,10 +690,10 @@ class AdministrativoCtrl extends Controller
 	          'nome' => 'Geração de relatório de aniversariantes',
 	          'descricao' => 'Você gerou o relatório de aniversariantes do mês '.$request->mes.'.',
 	          'icone' => 'mdi-file-document',
-	          'url' => route('exibir.aniversariantes.administrativo'),
+	          'url' => 'javascript:',
 	          'id_usuario' => Auth::id()
 	        ]);
-	        $pdf = PDF::loadView('administrativo.aniversariantes.relatorio-paisagem', compact('result'))->setPaper('a4', 'landscape');
+	        $pdf = PDF::loadView('administrativo.relatorio-aniversariantes.paisagem', compact('result'))->setPaper('a4', 'landscape');
 	        return $pdf->stream();
 	      }else{
 	        $result = Associados::where('funcionario', 1)->whereMonth('data_nascimento', $request->mes)->where('id', '<>', 1)->select('nome', 'data_nascimento')->orderByRaw('day(data_nascimento) asc')->get();
@@ -699,10 +701,10 @@ class AdministrativoCtrl extends Controller
 	          'nome' => 'Geração de relatório de aniversariantes',
 	          'descricao' => 'Você gerou o relatório de aniversariantes do mês '.$request->mes.'.',
 	          'icone' => 'mdi-file-document',
-	          'url' => route('exibir.aniversariantes.administrativo'),
+	          'url' => 'javascript:',
 	          'id_usuario' => Auth::id()
 	        ]);
-	        $pdf = PDF::loadView('administrativo.aniversariantes.relatorio-retrato', compact('result'))->setPaper('a4', 'portrait');
+	        $pdf = PDF::loadView('administrativo.relatorio-aniversariantes.retrato', compact('result'))->setPaper('a4', 'portrait');
 	        return $pdf->stream();
 
 	      }

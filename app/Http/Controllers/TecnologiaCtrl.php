@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
@@ -42,10 +43,34 @@ class TecnologiaCtrl extends Controller
 	# Dashboard 
 	#-------------------------------------------------------------------
 	public function Dashboard(){
-		$ativos = Ativos::all();
-		$chamados = Chamados::all();
 		$homepage = Homepage::all();
-		return view('tecnologia.dashboard')->with('ativos', $ativos)->with('homepage', $homepage)->with('chamados', json_encode($chamados));
+		$chamados = Chamados::all();
+		$chamadosEmaberto = 0;
+		$chamadosEmandamento = 0;
+		$chamadosEncerrado = 0;
+		foreach ($chamados as $value) {
+			if($value->RelationStatus->first()->pivot->gti_id_status == 1){
+				$chamadosEmaberto++;
+			}elseif ($value->RelationStatus->first()->pivot->gti_id_status == 2) {
+				$chamadosEmandamento++;
+			}elseif ($value->RelationStatus->first()->pivot->gti_id_status == 3) {
+				$chamadosEncerrado++;
+			}
+		}
+		$chamadosTipos = Chamados::join('gti_tipos', 'gti_id_tipos', 'gti_tipos.id')->select('gti_id_tipos', 'gti_tipos.nome', \DB::raw('count(gti_id_tipos) as quantidade'))->groupBy('gti_id_tipos')->get();
+		$chamadosFontes = Chamados::join('gti_fontes', 'gti_id_fontes', 'gti_fontes.id')->select('gti_id_fontes', 'gti_fontes.nome', \DB::raw('count(gti_id_fontes) as quantidade'))->groupBy('gti_id_fontes')->get();
+		$chamadosUsuarios = Chamados::join('gti_fontes', 'gti_id_fontes', 'gti_fontes.id')->select('gti_id_fontes', 'gti_fontes.nome', \DB::raw('count(gti_id_fontes) as quantidade'))->groupBy('gti_id_fontes')->get();
+		$chamadosDia = Chamados::select(\DB::raw('DATE(created_at) as data'), \DB::raw('count(created_at) as quantidade'))->groupBy(\DB::raw('DATE(created_at)'))->get();
+		$chamadosUsuarios = Chamados::groupBy('usr_id_usuarios')->select('usr_id_usuarios', \DB::raw('count(usr_id_usuarios) as quantidade'))->get();
+
+
+		$equipamentosSetor = Ativos::join('usr_setores', 'id_setor', 'usr_setores.id')->select('id_setor', 'usr_setores.nome', \DB::raw('count(id_setor) as quantidade'))->groupBy('id_setor')->get();
+		$equipamentosPA = Ativos::join('usr_unidades', 'id_unidade', 'usr_unidades.id')->select('id_unidade', 'usr_unidades.nome', \DB::raw('count(id_unidade) as quantidade'))->groupBy('id_unidade')->get();
+		$equipamentosUsuarios = AtivosUsuarios::groupBy('usr_id_usuarios')->whereNotNull('dataDevolucao')->select('usr_id_usuarios', \DB::raw('count(usr_id_usuarios) as quantidade'))->get();
+
+		$equipamentosMarca = Ativos::groupBy('marca')->select('marca', \DB::raw('count(marca) as quantidade'))->get();
+
+		return view('tecnologia.dashboard')->with('homepage', $homepage)->with('chamados', $chamados)->with('chamadosEmaberto', $chamadosEmaberto) ->with('chamadosEmandamento', $chamadosEmandamento) ->with('chamadosEncerrado', $chamadosEncerrado) ->with('chamadosTipos', $chamadosTipos) ->with('chamadosFontes', $chamadosFontes) ->with('chamadosDia', $chamadosDia) ->with('chamadosUsuarios', $chamadosUsuarios) ->with('equipamentosSetor', $equipamentosSetor) ->with('equipamentosPA', $equipamentosPA) ->with('equipamentosMarca', $equipamentosMarca) ->with('equipamentosUsuarios', $equipamentosUsuarios); 
 	}
 
 	#-------------------------------------------------------------------
@@ -820,7 +845,7 @@ class TecnologiaCtrl extends Controller
 	                return $dados->RelationUsuario->last()->RelationAssociado->nome;
 	            })
 	            ->editColumn('nome1', function(Ativos $dados){ 
-	                return '<label>'.$dados->nome.'</label><br><small>'.$dados->marca.' <b>&#183</b> '.$dados->modelo.'</small>';
+	                return '<a href="javascript:void(0)" id="detalhes">'.$dados->nome.'<br><small>'.$dados->marca.' <b>&#183</b> '.$dados->modelo.'</small></a>';
 	            })
 	            ->editColumn('acoes', function(Ativos $dados){ 
 	                return '
@@ -839,7 +864,7 @@ class TecnologiaCtrl extends Controller
 		                return $dados->RelationUsuario->last()->RelationAssociado->nome;
 		            })
 		            ->editColumn('nome1', function(Ativos $dados){ 
-		                return '<label>'.$dados->nome.'</label><br><small>'.$dados->marca.' <b>&#183</b> '.$dados->modelo.'</small>';
+		                return '<a href="javascript:void(0)" id="detalhes">'.$dados->nome.'<br><small>'.$dados->marca.' <b>&#183</b> '.$dados->modelo.'</small></a>';
 		            })
 		            ->editColumn('acoes', function(Ativos $dados){ 
 		                return '';
@@ -851,24 +876,10 @@ class TecnologiaCtrl extends Controller
 		if(Auth::user()->RelationFuncao->ver_gti == 1 || Auth::user()->RelationFuncao->gerenciar_gti == 1){
 			$equipamentos = Ativos::all();
 			$usuarios = Usuarios::all();
-			return view('tecnologia.equipamentos.listar-usuarios')->with('ativos', $equipamentos)->with('usuarios', $usuarios);
+			return view('tecnologia.equipamentos.listarUsuarios')->with('ativos', $equipamentos)->with('usuarios', $usuarios);
 		}else{
 			return redirect(route('403'));
 		}
-	}
-	// Listando o termo de emissão
-	public function ExibirTermoInventario(){
-		if(Auth::user()->RelationFuncao->ver_gti == 1 || Auth::user()->RelationFuncao->gerenciar_gti == 1){
-			$usuarios = AtivosUsuarios::join('usr_usuarios', 'usr_id_usuarios', 'usr_usuarios.id')->join('cli_associados', 'usr_usuarios.cli_id_associado', 'cli_associados.id')->whereNull('dataDevolucao')->select('cli_associados.nome', 'usr_usuarios.id')->groupBy('id')->get();
-			return view('tecnologia.equipamentos.listar-termo')->with('usuarios', $usuarios);
-		}else{
-			return redirect(route('403'));
-		}
-	}
-	// Relatório do equipamento
-	public function GerarTermoInventario(Request $request){
-		$equipamentos = AtivosUsuarios::join('gti_ativos', 'gti_id_ativos', 'gti_ativos.id')->whereNull('dataDevolucao')->where('usr_id_usuarios', $request->usuario)->get();
-		return view('tecnologia.equipamentos.relatorio')->with('equipamentos', $equipamentos);
 	}
 	// Adicionando novos equipamentos
 	public function AdicionarInventario(){
@@ -1043,5 +1054,24 @@ class TecnologiaCtrl extends Controller
 			}
 		}
 		return response()->json($imagens);
+	}
+
+
+	#-------------------------------------------------------------------
+	# Relatórios
+	#-------------------------------------------------------------------
+	// Listando lista de relatórios
+	public function Relatorios(){
+	    if(Auth::user()->RelationFuncao->gerenciar_administrativo == 1 || Auth::user()->RelationFuncao->ver_administrativo == 1){
+	    	$usuarios = AtivosUsuarios::join('usr_usuarios', 'usr_id_usuarios', 'usr_usuarios.id')->join('cli_associados', 'usr_usuarios.cli_id_associado', 'cli_associados.id')->whereNull('dataDevolucao')->select('cli_associados.nome', 'usr_usuarios.id')->groupBy('id')->get();
+	      	return view('tecnologia.relatorios')->with('usuarios', $usuarios);
+	    }else{
+	      return redirect(route('403'));
+	    }
+	}
+	// Relatório do equipamento
+	public function RelatoriosInventario(Request $request){
+		$equipamentos = AtivosUsuarios::join('gti_ativos', 'gti_id_ativos', 'gti_ativos.id')->whereNull('dataDevolucao')->where('usr_id_usuarios', $request->usuario)->get();
+		return view('tecnologia.equipamentos.relatorio')->with('equipamentos', $equipamentos);
 	}
 }

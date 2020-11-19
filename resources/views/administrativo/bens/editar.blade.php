@@ -42,7 +42,7 @@ Editar bens
                 <div class="col-10">
                   <div class="form-group">
                     <label class="col-form-label pb-0">Nome <span class="text-danger">*</span></label>
-                    <input class="form-control form-control-line" name="nome" onkeyup="this.value = this.value.toUpperCase();" placeholder="VEÍCULOS FIAT ESTRADA" value="{{$bens->nome}}" required/>
+                    <input class="form-control form-control-line" name="nome" onkeyup="this.value = this.value.toUpperCase();" placeholder="VEÍCULOS FIAT ESTRADA" value="{{$bens->nome}}" onchange="this.value = this.value.toUpperCase();" required/>
                   </div>
                 </div>
                 <div class="col-5">

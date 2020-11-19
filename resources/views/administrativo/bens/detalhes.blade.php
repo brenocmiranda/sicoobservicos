@@ -22,7 +22,7 @@ Detalhes do bem
     <div class="row mb-5">
       <div class="col-12">
           <div class="row mx-auto">
-              <div class="col-6">
+              <div class="col-6 p-0">
                 <div class="card">
                   <div class="card-body">
                     <div class="panel panel-default">
@@ -42,29 +42,28 @@ Detalhes do bem
                   </div>
                 </div>
               </div>
-              <div class="col-6">
+              <div class="col-6 pr-0">
                 <div class="card h-100">
                   <div class="card-body">
                     <h3>{{$bens->nome}} <small>{{($bens->tipo == 'veiculos' ? "Veículos" : ($bens->tipo == 'imovel' ? "Imóvel" : "Outros"))}}</small></h3>
                     <hr class="mt-2">
-                    <div class="h-100">
-                      <div class="pb-2" style="line-height: 15px">
+                    <div>
+                      <div class="d-block pb-2" style="line-height: 15px">
                         <h5>Descrição:</h5>
                         <p>{!! $bens->descricao !!}</p>
                       </div>
                       @if(isset($bens->cep))
-                      <div class="py-2" style="line-height: 15px">
+                      <div class="d-block py-2" style="line-height: 15px">
                         <h5>Localização:</h5>
                         <label class="text-dark d-block">{{(isset($bens->rua) ? $bens->rua.',' : '')}} {{$bens->numero}}, {{$bens->bairro}}</label>
                         <label class="text-dark d-block">{{$bens->cep}} - {{$bens->cidade}}/{{$bens->estado}}</label>
                       </div>
                       @endif
-                      <div class="">
-                        <h2 class="py-4">R$ {{number_format($bens->valor,2,",",".")}}</h2> 
+                      <div class="d-block">
+                        <h2 class="py-2">R$ {{number_format($bens->valor,2,",",".")}}</h2> 
                       </div>
                     </div>
-                    
-                    <div class="row col-12 justify-content-center m-auto footer pt-1" style="border-bottom-right-radius: 0.6em; border-bottom-left-radius: 0.6em;">
+                    <div class="row col-12 justify-content-center">
                       <hr class="col-12 p-0">
                       <a href="{{route('exibir.bens.administrativo')}}" class="btn btn-danger btn-outline col-4 d-flex align-items-center justify-content-center mx-2">
                         <i class="mdi mdi-arrow-left pr-2"></i> 

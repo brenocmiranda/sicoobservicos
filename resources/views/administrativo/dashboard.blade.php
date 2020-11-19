@@ -23,7 +23,7 @@ Dashboard
 				<ul style="background: transparent; border: transparent;">
 					<li class="tab-current"><a href="#section-iconbox-1" class="sticon ti-car"><span>Bens da cooperativa</span></a></li>
 					<li><a href="#section-iconbox-2" class="sticon ti-files"><span>Documentos</span></a></li>
-					<li><a href="#section-iconbox-3" class="sticon ti-package"><span>Materiais</span></a></li>
+					<li><a href="#section-iconbox-3" class="sticon ti-ruler-pencil"><span>Materiais</span></a></li>
 				</ul>
 			</nav>
 			<div class="content-wrap">
@@ -53,6 +53,7 @@ Dashboard
 										<tr>
 											<th>Nome</th>
 											<th>Tipo</th>
+											<th>Localização</th>
 											<th>Valor</th>
 											<th>Data de inclusão</th>
 										</tr>
@@ -62,6 +63,7 @@ Dashboard
 										<tr class="text-center">
 											<td class="txt-oflo">{{$dados->nome}}</td>
 											<td>{{($dados->tipo == 'veiculos' ? "Veículos" : ($dados->tipo == 'imovel' ? "Imóvel" : "Outros"))}}</td>
+											<td class="txt-oflo">{{$dados->cidade}}</td>
 											<td class="txt-oflo">R$ {{number_format($dados->valor, 2, ',', '.')}}</td>
 											<td class="txt-oflo">{{date('d/m/Y H:i', strtotime($dados->created_at))}}</td>
 										</tr>
@@ -70,20 +72,6 @@ Dashboard
 								</table>
 							</div>
 						</div>
-						<div class="col-lg-12 col-sm-12 col-xs-12 mt-5">
-							<h3 class="box-title mb-0">Bens por bairro</h3>
-							<hr class="mt-2">
-							<ul class="country-state">
-								@foreach($bensBairro as $dados)
-								<li>
-									<h2>{{count($bens->whereNotNull('bairro')->where('bairro', $dados->bairro))}}</h2> <small>{{$dados->bairro}}</small>
-									<div class="progress">
-										<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{(100*count($bens->whereNotNull('bairro')->where('bairro', $dados->bairro)))/count($bens)}}%" aria-valuemin="0" aria-valuemax="100" style="width:{{(100*count($bens->whereNotNull('bairro')->where('bairro', $dados->bairro)))/count($bens)}}%"> <span class="sr-only">{{(100*count($bens->whereNotNull('bairro')->where('bairro', $dados->bairro)))/count($bens)}}% Complete</span></div>
-									</div>
-								</li>
-								@endforeach
-							</ul>
-						</div> 
 						<div class="col-lg-12 col-sm-12 col-xs-12 mt-5">
 							<h3 class="box-title mb-0">Bens por cidade</h3>
 							<hr class="mt-2">

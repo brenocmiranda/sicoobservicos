@@ -11,6 +11,7 @@ use App\Http\Requests\LoginRqt;
 use App\Models\Atividades; 
 use App\Models\Base; 
 use App\Models\Usuarios;
+use App\Models\Homepage;
 use App\Models\Imagens;
 
 class PublicCtrl extends Controller

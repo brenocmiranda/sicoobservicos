@@ -78,10 +78,10 @@ Invetário geral
 		// -------------------------------------------------
 		// Retornando informações 
 		// -------------------------------------------------
-		$('#table tbody').on('dblclick', 'tr', function () {
+		$('#table tbody').on('click', 'a#detalhes', function () {
 			var table = $('#table').DataTable();
 			table.$('tr.active').removeClass('active');
-			$(this).addClass('active');
+			$(this).parents('tr').addClass('active');
 			$(this).parent('tr').addClass('active');
 			var data = table.row('tr.active').data();
 			$('.modal .nome').html(data.nome);
