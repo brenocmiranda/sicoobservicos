@@ -38,7 +38,6 @@ Relatórios
                 </select>
               </div>
             </div>
-         
             <div id="termoUso" style="display:none;">
                 <form class="form-sample" target="_blank" action="{{route('relatorio.termoUso.tecnologia')}}" method="POST" enctype="multipart/form-data" autocomplete="off">
                 @csrf

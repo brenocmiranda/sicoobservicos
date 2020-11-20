@@ -227,7 +227,7 @@ return array(
          *
          * @var bool
          */
-        "enable_remote" => true,
+        "enable_remote" => false,
 
         /**
          * A ratio applied to the fonts height to be more like browsers' line height
@@ -237,7 +237,7 @@ return array(
         /**
          * Use the more-than-experimental HTML5 Lib parser
          */
-        "enable_html5_parser" => false,
+        "enable_html5_parser" => true,
     ),
 
 

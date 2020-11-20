@@ -32,6 +32,7 @@ use App\Models\Usuarios;
 use App\Models\Setores;
 use App\Models\Unidades;
 use App\Models\CogEmailsChamado;
+use PDF;
 
 class TecnologiaCtrl extends Controller
 {
@@ -1064,7 +1065,7 @@ class TecnologiaCtrl extends Controller
 	public function Relatorios(){
 	    if(Auth::user()->RelationFuncao->gerenciar_administrativo == 1 || Auth::user()->RelationFuncao->ver_administrativo == 1){
 	    	$usuarios = AtivosUsuarios::join('usr_usuarios', 'usr_id_usuarios', 'usr_usuarios.id')->join('cli_associados', 'usr_usuarios.cli_id_associado', 'cli_associados.id')->whereNull('dataDevolucao')->select('cli_associados.nome', 'usr_usuarios.id')->groupBy('id')->get();
-	      	return view('tecnologia.relatorios')->with('usuarios', $usuarios);
+	      	return view('tecnologia.relatorios.exibir')->with('usuarios', $usuarios);
 	    }else{
 	      return redirect(route('403'));
 	    }
@@ -1072,6 +1073,7 @@ class TecnologiaCtrl extends Controller
 	// Relatório do equipamento
 	public function RelatoriosInventario(Request $request){
 		$equipamentos = AtivosUsuarios::join('gti_ativos', 'gti_id_ativos', 'gti_ativos.id')->whereNull('dataDevolucao')->where('usr_id_usuarios', $request->usuario)->get();
-		return view('tecnologia.equipamentos.relatorio')->with('equipamentos', $equipamentos);
+		$pdf = PDF::loadView('tecnologia.relatorios.termo', compact('equipamentos'))->setPaper('a4', 'portrait');
+	    return $pdf->stream();
 	}
 }

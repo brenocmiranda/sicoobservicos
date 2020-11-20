@@ -15,6 +15,7 @@ use App\Http\Requests\MateriaisRqt;
 use App\Http\Requests\DocumentosRqt;
 use App\Models\Associados;
 use App\Models\Atividades; 
+use App\Models\Arquivos; 
 use App\Models\Bens; 
 use App\Models\BensImagens; 
 use App\Models\Documentos;
@@ -676,7 +677,7 @@ class AdministrativoCtrl extends Controller
 	// Listando lista de relatórios
 	public function Relatorios(){
 	    if(Auth::user()->RelationFuncao->gerenciar_administrativo == 1 || Auth::user()->RelationFuncao->ver_administrativo == 1){
-	      return view('administrativo.relatorios');
+	      return view('administrativo.relatorios.exibir');
 	    }else{
 	      return redirect(route('403'));
 	    }
@@ -693,7 +694,7 @@ class AdministrativoCtrl extends Controller
 	          'url' => 'javascript:',
 	          'id_usuario' => Auth::id()
 	        ]);
-	        $pdf = PDF::loadView('administrativo.relatorio-aniversariantes.paisagem', compact('result'))->setPaper('a4', 'landscape');
+	        $pdf = PDF::loadView('administrativo.relatorios.niver-p', compact('result'))->setPaper('a4', 'landscape');
 	        return $pdf->stream();
 	      }else{
 	        $result = Associados::where('funcionario', 1)->whereMonth('data_nascimento', $request->mes)->where('id', '<>', 1)->select('nome', 'data_nascimento')->orderByRaw('day(data_nascimento) asc')->get();
@@ -704,7 +705,7 @@ class AdministrativoCtrl extends Controller
 	          'url' => 'javascript:',
 	          'id_usuario' => Auth::id()
 	        ]);
-	        $pdf = PDF::loadView('administrativo.relatorio-aniversariantes.retrato', compact('result'))->setPaper('a4', 'portrait');
+	        $pdf = PDF::loadView('administrativo.relatorios.niver-r', compact('result'))->setPaper('a4', 'portrait');
 	        return $pdf->stream();
 
 	      }

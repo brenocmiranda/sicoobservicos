@@ -223,7 +223,7 @@ class SuporteCtrl extends Controller
 	# Solicitação de materiais
 	#-------------------------------------------------------------------
 	public function Materiais(){
-		$historico = MateriaisHistorico::where('id_usuario', Auth::id())->orderBy('created_at', 'DESC')->get();
+		$historico = MateriaisHistorico::where('id_usuario', Auth::id())->where('tipo', 's')->orderBy('created_at', 'DESC')->get();
 		$pendencias = MateriaisHistorico::where('status', 0)->orderBy('created_at', 'DESC')->get();
 		$categorias = MateriaisCategorias::where('status', 1)->orderBy('nome', 'ASC')->get();
 		return view('suporte.materiais.exibir')->with('pendencias', $pendencias)->with('requisicoes', $historico)->with('categorias', $categorias);

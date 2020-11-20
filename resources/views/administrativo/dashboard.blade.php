@@ -28,7 +28,7 @@ Dashboard
 			</nav>
 			<div class="content-wrap">
 				<section id="section-iconbox-1"  class="content-current">
-					<div class="row col-12  white-box">
+					<div class="row col-12 white-box">
 						<div class="col-lg-6 col-sm-12 col-xs-12">
 							<h3 class="box-title text-center mb-0">Total de bens</h3>
 							<hr class="mt-2">
@@ -132,8 +132,8 @@ Dashboard
 					</div>
 				</section>
 				<section id="section-iconbox-3">
-					<div class="row col-12 white-box">
-						<div class="row row-in mb-5 pb-5">
+					<div class="row col-12 white-box mx-auto">
+						<div class="w-100 mb-5 pb-5">
                             <div class="col-lg-4 col-sm-6 row-in-br">
                                 <ul class="col-in">
                                     <li>
