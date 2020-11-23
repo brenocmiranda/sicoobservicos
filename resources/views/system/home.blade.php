@@ -21,12 +21,24 @@ Página inicial
 		        </div>
 	        	<hr>
 	        	<div>
-	        		<label class="font-weight-bold pb-3 d-block">Novos tópicos disponíveis:</label>
-	        		<ul style="list-style: circle;" class="col-12 ml-3">
-	        		@foreach($base as $b)
-	        			<li class="pb-2"><a href="{{route('detalhes.base', $b->id)}}" class="text-truncate">{{$b->titulo}} <small>({{date('d/m/Y', strtotime($b->created_at))}})</small></a></li>
-	        		@endforeach
-	        		</ul>
+	        		<label class="font-weight-bold pb-3 d-block">Novos tópicos disponíveis <small>(acesse Suporte > Aprendizagem)</small></label>
+	        		@if(isset($base[0]))
+	        			<ul style="list-style: circle;" class="col-12 ml-3">
+			        		@foreach($base as $b)
+			        			<li class="pb-2">
+			        				<a href="{{route('detalhes.base', $b->id)}}">
+			        					<span class="text-truncate d-block">
+			        						<small>{{(date('Y-m-d H:i:s', strtotime('+15 days')) <= $b->created_at ? date('d/m/Y', strtotime($b->created_at)) : date('d/m/Y', strtotime($b->updated_at)))}} &#183</small>
+			        						<span>{{$b->titulo}}</span>
+			        					</span> 
+			        				</a>
+			        			</li>
+			        		@endforeach
+			        	</ul>
+		        	@else
+		        		<label>Opss! Nenhum novo tópico cadastrado.</label>
+		        	@endif
+	        		
 	        	</div>
 	        </div>
         </div>

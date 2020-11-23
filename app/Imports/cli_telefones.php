@@ -3,7 +3,7 @@
 namespace App\Imports;
 
 use App\Models\Associados;
-use App\Models\Telefones;
+use App\Models\AssociadosTelefones;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
@@ -22,9 +22,9 @@ class cli_telefones implements ToCollection, WithBatchInserts, WithChunkReading,
         foreach ($rows as $row) 
         {   
             $associado = Associados::where('id_sisbr', $row['numero_cliente_sisbr'])->select('id')->first();
-            $dados = Telefones::where('cli_id_associado', $associado->id)->first();
+            $dados = AssociadosTelefones::where('cli_id_associado', $associado->id)->first();
             if(isset($dados)){
-                Telefones::where('cli_id_associado', $associado->id)->update([
+                AssociadosTelefones::where('cli_id_associado', $associado->id)->update([
                     'numero_celular' => $row['telefone_celular'], 
                     'numero_comercial' => $row['telefone_comercial'], 
                     'numero_residencial' => $row['telefone_residencial'], 
@@ -32,7 +32,7 @@ class cli_telefones implements ToCollection, WithBatchInserts, WithChunkReading,
                     'numero_recado' => $row['telefone_recado']
                 ]);
             }else{
-                Telefones::create([
+                AssociadosTelefones::create([
                     'numero_celular' => $row['telefone_celular'], 
                     'numero_comercial' => $row['telefone_comercial'], 
                     'numero_residencial' => $row['telefone_residencial'], 

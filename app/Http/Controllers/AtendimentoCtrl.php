@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use App\Models\Associados;
 use App\Models\AssociadosAtividades;
-use App\Models\Conglomerados;
+use App\Models\AssociadosConglomerados;
 use App\Models\Atividades;
 
 class AtendimentoCtrl extends Controller
@@ -38,7 +38,7 @@ class AtendimentoCtrl extends Controller
 			$documento = explode(': ', $request->pesquisar);
 	  		$associado = Associados::where('documento', $documento[1])->first();
 	  		if($associado->RelationConglomerados){
-	  			$conglomerado = Conglomerados::where('codigo', $associado->RelationConglomerados->codigo)->get();
+	  			$conglomerado = AssociadosConglomerados::where('codigo', $associado->RelationConglomerados->codigo)->get();
 	  		}else{
 	  			$conglomerado = null;
 	  		}

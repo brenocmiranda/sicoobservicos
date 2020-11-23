@@ -3,7 +3,7 @@
 namespace App\Imports;
 
 use App\Models\Associados;
-use App\Models\Emails;
+use App\Models\AssociadosEmails;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
@@ -22,13 +22,13 @@ class cli_emails implements ToCollection, WithBatchInserts, WithChunkReading, Wi
         foreach ($rows as $row) 
         {  
             $associado = Associados::where('id_sisbr', $row['numero_cliente_sisbr'])->select('id')->first();
-            $dados = Emails::where('cli_id_associado', $associado->id)->first();
+            $dados = AssociadosEmails::where('cli_id_associado', $associado->id)->first();
             if(isset($dados)){
-                Emails::where('cli_id_associado', $associado->id)->update([
+                AssociadosEmails::where('cli_id_associado', $associado->id)->update([
                     'email' => $row['email']
                 ]); 
             }else{
-                Emails::create([
+                AssociadosEmails::create([
                     'email' => $row['email'], 
                     'cli_id_associado' => Associados::where('id_sisbr', $row['numero_cliente_sisbr'])->select('id')->first()->id,
                 ]); 

@@ -18,15 +18,15 @@ class Associados extends Model
     }
 
     public function RelationEnderecos(){
-        return $this->belongsTo(Enderecos::class, 'id', 'cli_id_associado');
+        return $this->belongsTo(AssociadosEnderecos::class, 'id', 'cli_id_associado');
     }
 
     public function RelationTelefones(){
-        return $this->belongsTo(Telefones::class, 'id', 'cli_id_associado');
+        return $this->belongsTo(AssociadosTelefones::class, 'id', 'cli_id_associado');
     }
 
     public function RelationEmails(){
-        return $this->belongsTo(Emails::class, 'id', 'cli_id_associado');
+        return $this->belongsTo(AssociadosEmails::class, 'id', 'cli_id_associado');
     }
 
     public function RelationConsolidado(){
@@ -38,11 +38,11 @@ class Associados extends Model
     }
 
     public function RelationConglomerados(){
-        return $this->belongsTo(Conglomerados::class, 'id', 'cli_id_associado');
+        return $this->belongsTo(AssociadosConglomerados::class, 'id', 'cli_id_associado');
     }
 
     public function RelationIAP(){
-        return $this->belongsTo(IAPs::class, 'id', 'cli_id_associado');
+        return $this->belongsTo(AssociadosIAPs::class, 'id', 'cli_id_associado');
     }
 
     public function RelationContaCorrente(){
@@ -67,5 +67,9 @@ class Associados extends Model
 
     public function RelationAtividades(){
         return $this->hasMany(AssociadosAtividades::class, 'cli_id_associado');
+    }
+
+    public function RelationBacen(){
+        return $this->hasMany(AssociadosBacen::class, 'cli_id_associado');
     }
 }

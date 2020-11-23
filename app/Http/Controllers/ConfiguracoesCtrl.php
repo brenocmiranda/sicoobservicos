@@ -459,7 +459,7 @@ class ConfiguracoesCtrl extends Controller
 	}
 	public function DatatablesUsuarios(){
 		if(Auth::user()->RelationFuncao->gerenciar_configuracoes == 1){
-			return datatables()->of(Usuarios::where('id', '!=', Auth::id())->get())
+			return datatables()->of(Usuarios::where('id', '!=', Auth::id())->where('id', '<>', 1)->get())
 	            ->editColumn('image', function(Usuarios $dados){ 
 	                return '<div class="text-center"><img class="img-circle" width="36" height="36" src="'.($dados->id_imagem != null ? asset('storage/app/'.$dados->RelationImagem->endereco) : asset('public/img/user.png'))."?".rand().'"></div>';
 	            })
@@ -481,7 +481,7 @@ class ConfiguracoesCtrl extends Controller
 					<button class="btn btn-dark btn-xs btn-rounded" name="alterar" id="alterar" title="Alterar estado do usuário"><i class="mx-0 mdi mdi-account-switch"></i></button>');
 	            })->rawColumns(['image', 'funcao', 'nome', 'status1', 'acoes'])->make(true);
 	    }else{
-	    	return datatables()->of(Usuarios::where('id', '!=', Auth::id())->get())
+	    	return datatables()->of(Usuarios::where('id', '!=', Auth::id())->where('id', '<>', 1)->get())
 	            ->editColumn('image', function(Usuarios $dados){ 
 	                return '<div class="text-center"><img class="img-circle" width="36" height="36" src="'.($dados->id_imagem != null ? asset('storage/app/'.$dados->RelationImagem->endereco) : asset('public/img/user.png'))."?".rand().'"></div>';
 	            })

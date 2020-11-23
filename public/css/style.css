@@ -3876,6 +3876,7 @@ ul.common li a:hover {
 	color: white;
 	border: 0;
 	border-radius: 10px;
+	padding: 7px 10px;
 }
 
 .customtab2 li a:focus,

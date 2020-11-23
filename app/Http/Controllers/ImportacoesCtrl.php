@@ -9,30 +9,32 @@ use App\Imports\cli_consolidado;
 use App\Imports\cli_emails;
 use App\Imports\cli_telefones;
 use App\Imports\cli_enderecos;
+use App\Imports\cli_conglomerados;
+use App\Imports\cli_bacen;
+use App\Imports\cli_iap;
 use App\Imports\cca_contacapital;
 use App\Imports\cco_contacorrente;
 use App\Imports\crt_cartaocredito;
-use App\Imports\cli_conglomerados;
 use App\Imports\pop_poupanca;
 use App\Imports\dep_aplicacoes;
-use App\Imports\cli_iap;
 use App\Imports\cre_contratos;
 use Maatwebsite\Excel\HeadingRowImport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Associados;
 use App\Models\AssociadosConsolidado;
-use App\Models\Poupancas;
-use App\Models\Aplicacoes;
-use App\Models\IAPs;
-use App\Models\Emails;
-use App\Models\Telefones;
-use App\Models\Enderecos;
-use App\Models\Conglomerados;
+use App\Models\AssociadosBacen;
+use App\Models\AssociadosIAPs;
+use App\Models\AssociadosEmails;
+use App\Models\AssociadosTelefones;
+use App\Models\AssociadosEnderecos;
+use App\Models\AssociadosConglomerados;
 use App\Models\ContaCapital;
 use App\Models\ContaCorrente;
 use App\Models\Contratos;
 use App\Models\CartaoCredito;
 use App\Models\Logs;
+use App\Models\Poupancas;
+use App\Models\Aplicacoes;
 
 class ImportacoesCtrl extends Controller
 {
@@ -44,25 +46,27 @@ class ImportacoesCtrl extends Controller
 	public function Exibir(){
 		$cli_associados = Associados::select('updated_at')->orderBy('updated_at', 'DESC')->first();
 		$cli_consolidado = AssociadosConsolidado::select('updated_at')->orderBy('updated_at', 'DESC')->first();
-		$cli_emails = Emails::select('updated_at')->orderBy('updated_at', 'DESC')->first();
-		$cli_telefones = Telefones::select('updated_at')->orderBy('updated_at', 'DESC')->first();
-		$cli_enderecos = Enderecos::select('updated_at')->orderBy('updated_at', 'DESC')->first();
-		$cli_conglomerados = Conglomerados::select('updated_at')->orderBy('updated_at', 'DESC')->first();
+		$cli_emails = AssociadosEmails::select('updated_at')->orderBy('updated_at', 'DESC')->first();
+		$cli_telefones = AssociadosTelefones::select('updated_at')->orderBy('updated_at', 'DESC')->first();
+		$cli_enderecos = AssociadosEnderecos::select('updated_at')->orderBy('updated_at', 'DESC')->first();
+		$cli_conglomerados = AssociadosConglomerados::select('updated_at')->orderBy('updated_at', 'DESC')->first();
 		$cca_contacapital = ContaCapital::select('updated_at')->orderBy('updated_at', 'DESC')->first();
 		$cco_contacorrente = ContaCorrente::select('updated_at')->orderBy('updated_at', 'DESC')->first();
 		$cre_contratos = Contratos::select('updated_at')->orderBy('updated_at', 'DESC')->first();
 		$crt_cartaocredito = CartaoCredito::select('updated_at')->orderBy('updated_at', 'DESC')->first();
 		$pop_poupanca = Poupancas::select('updated_at')->orderBy('updated_at', 'DESC')->first();
 		$dep_aplicacoes = Aplicacoes::select('updated_at')->orderBy('updated_at', 'DESC')->first();
-		$cli_iap = IAPs::select('updated_at')->orderBy('updated_at', 'DESC')->first();
-		return view('configuracoes.importacoes.manual')->with('cli_associados', $cli_associados)->with('cli_consolidado', $cli_consolidado)->with('cli_emails', $cli_emails)->with('cli_enderecos', $cli_enderecos)->with('cli_telefones', $cli_telefones)->with('cca_contacapital', $cca_contacapital)->with('cco_contacorrente', $cco_contacorrente)->with('crt_cartaocredito', $crt_cartaocredito)->with('cli_conglomerados', $cli_conglomerados)->with('cre_contratos', $cre_contratos)->with('pop_poupanca', $pop_poupanca)->with('dep_aplicacoes', $dep_aplicacoes)->with('cli_iap', $cli_iap);
+		$cli_iap = AssociadosIAPs::select('updated_at')->orderBy('updated_at', 'DESC')->first();
+		$cli_bacen = AssociadosBacen::select('updated_at')->orderBy('updated_at', 'DESC')->first();
+		return view('configuracoes.importacoes.manual')->with('cli_associados', $cli_associados)->with('cli_consolidado', $cli_consolidado)->with('cli_emails', $cli_emails)->with('cli_enderecos', $cli_enderecos)->with('cli_telefones', $cli_telefones)->with('cca_contacapital', $cca_contacapital)->with('cco_contacorrente', $cco_contacorrente)->with('crt_cartaocredito', $crt_cartaocredito)->with('cli_conglomerados', $cli_conglomerados)->with('cre_contratos', $cre_contratos)->with('pop_poupanca', $pop_poupanca)->with('dep_aplicacoes', $dep_aplicacoes)->with('cli_iap', $cli_iap)->with('cli_bacen', $cli_bacen);
 	}
 
 	// Importação manual dos arquivos
 	public function Importar(Request $request){
 
-		//return (new HeadingRowImport)->toArray($request->pop_poupanca);
-		if ($request->hasFile('cli_associados') || $request->hasFile('cli_consolidado') || $request->hasFile('cli_emails') || $request->hasFile('cli_telefones') || $request->hasFile('cli_enderecos') || $request->hasFile('cli_conglomerados') || $request->hasFile('cca_contacapital') || $request->hasFile('cco_contacorrente') || $request->hasFile('cre_contratos') || $request->hasFile('crt_cartaocredito') || $request->hasFile('pop_poupanca') || $request->hasFile('dep_aplicacoes') || $request->hasFile('cli_iap')){
+		//return (new HeadingRowImport)->toArray($request->cli_bacen);
+
+		if ($request->hasFile('cli_associados') || $request->hasFile('cli_consolidado') || $request->hasFile('cli_emails') || $request->hasFile('cli_telefones') || $request->hasFile('cli_enderecos') || $request->hasFile('cli_conglomerados') || $request->hasFile('cca_contacapital') || $request->hasFile('cco_contacorrente') || $request->hasFile('cre_contratos') || $request->hasFile('crt_cartaocredito') || $request->hasFile('pop_poupanca') || $request->hasFile('dep_aplicacoes') || $request->hasFile('cli_iap') || $request->hasFile('cli_bacen')){
 			Logs::create(['mensagem' => 'Importação manual executada.']);
 			// cli_associados
 			if($request->hasFile('cli_associados') && $request->file('cli_associados')->isValid()){
@@ -239,6 +243,20 @@ class ImportacoesCtrl extends Controller
 					Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de cli_iap.xlsx efetuada com sucesso!</span>']);
 				} catch (\Exception $ex){
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cli_iap.xlsx!</span>']);
+					
+				}
+			}
+			// cli_bacen
+			if($request->hasFile('cli_bacen') && $request->file('cli_bacen')->isValid()){
+				Logs::create(['mensagem' => 'Localizado arquivo cli_bacen.xlsx.']);
+				$nameFile = 'cli_bacen-'.date('dmYHis').'.'.request()->file('cli_bacen')->getClientOriginalExtension();
+				$upload = $request->cli_bacen->storeAs('importacoes', $nameFile);
+				Logs::create(['mensagem' => 'Processando o arquivo cli_bacen.xlsx...']);
+				try{
+					Excel::import(new cli_bacen, getcwd().'/storage/app/importacoes/'.$nameFile);
+					Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de cli_bacen.xlsx efetuada com sucesso!</span>']);
+				} catch (\Exception $ex){
+					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cli_bacen.xlsx!</span>']);
 					
 				}
 			}
@@ -465,7 +483,21 @@ class ImportacoesCtrl extends Controller
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo dep_aplicacoes.xlsx!</span>']);
 				}
 			}
-			
+			// cli_bacen
+			if($arquivo == 'cli_bacen.xlsx'){
+				Logs::create(['mensagem' => 'Importação automática executada.']);
+				Logs::create(['mensagem' => 'Localizado arquivo cli_bacen.xlsx.']);
+				Logs::create(['mensagem' => 'Processando o arquivo cli_bacen.xlsx...']);
+				try{
+					$nameFile = 'cli_bacen'.date('dmY-His').'.xlsx';
+					copy('//SICOOB_SERVICE/outlook/cli_bacen.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
+					Excel::import(new cli_bacen, getcwd().'/storage/app/importacoes/'.$nameFile);
+					unlink('//SICOOB_SERVICE/outlook/cli_bacen.xlsx');
+					Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de cli_bacen.xlsx efetuada com sucesso!</span>']);
+				} catch (\Exception $ex){
+					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cli_bacen.xlsx!</span>']);
+				}
+			}	
 		}
 		$diretorio->close();
 	}

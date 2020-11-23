@@ -3,7 +3,7 @@
 namespace App\Imports;
 
 use App\Models\Associados;
-use App\Models\Enderecos;
+use App\Models\AssociadosEnderecos;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
@@ -22,9 +22,9 @@ class cli_enderecos implements ToCollection, WithBatchInserts, WithChunkReading,
         foreach ($rows as $row) 
         {   
             $associado = Associados::where('id_sisbr', $row['numero_cliente_sisbr'])->select('id')->first();
-            $dados = Enderecos::where('cli_id_associado', $associado->id)->first();
+            $dados = AssociadosEnderecos::where('cli_id_associado', $associado->id)->first();
             if(isset($dados)){
-                 Enderecos::where('cli_id_associado', $associado->id)->update([
+                 AssociadosEnderecos::where('cli_id_associado', $associado->id)->update([
                     'rua' => $row['logradouro'], 
                     'bairro' => $row['bairro'], 
                     'numero' => $row['numero_logradouro'], 
@@ -34,7 +34,7 @@ class cli_enderecos implements ToCollection, WithBatchInserts, WithChunkReading,
                     'pais' => 'BRASIL'
                 ]);
             }else{
-                Enderecos::create([
+                AssociadosEnderecos::create([
                     'rua' => $row['logradouro'], 
                     'bairro' => $row['bairro'], 
                     'numero' => $row['numero_logradouro'], 

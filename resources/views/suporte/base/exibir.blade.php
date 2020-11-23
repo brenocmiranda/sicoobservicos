@@ -34,7 +34,7 @@ Aprendizagem
 										<a data-toggle="tab" href="#section{{$fonte->id}}"  aria-expanded="true" class="m-0">
 											<div class="border rounded shadow-sm">
 												<div class="col-12 py-3">
-													<div class="text-uppercase">
+													<div class="text-uppercase text-center">
 														<h5 class="mb-2">{{$fonte->nome}}</h5>
 													</div>
 												</div>

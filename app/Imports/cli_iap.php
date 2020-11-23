@@ -3,7 +3,7 @@
 namespace App\Imports;
 
 use App\Models\Associados;
-use App\Models\IAPs;
+use App\Models\AssociadosIAPs;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
@@ -22,9 +22,9 @@ class cli_iap implements ToCollection, WithBatchInserts, WithChunkReading, WithH
         foreach ($rows as $row) 
         {   
             $associado = Associados::where('id_sisbr', $row['numero_cliente_sisbr'])->select('id')->first();
-            $dados = IAPs::where('cli_id_associado', $associado->id)->first();
+            $dados = AssociadosIAPs::where('cli_id_associado', $associado->id)->first();
             if(isset($dados)){
-                IAPs::where('cli_id_associado', $associado->id)->update([
+                AssociadosIAPs::where('cli_id_associado', $associado->id)->update([
                     'indicador_conta_limite' => ($row['indicador_produto_cheque_especial_conta_garantida'] == 'SIM' ? 1 : 0), 
                     'indicador_cobranca' => ($row['indicador_produto_cobranca'] == 'SIM' ? 1 : 0), 
                     'indicador_consorcio' => ($row['indicador_produto_consorcio'] == 'SIM' ? 1 : 0), 
@@ -54,7 +54,7 @@ class cli_iap implements ToCollection, WithBatchInserts, WithChunkReading, WithH
                     'data_movimento' => $row['ano_mes_movimento']
                 ]);
             }else{
-                IAPs::create([
+                AssociadosIAPs::create([
                    	'indicador_conta_limite' => ($row['indicador_produto_cheque_especial_conta_garantida'] == 'SIM' ? 1 : 0), 
                     'indicador_cobranca' => ($row['indicador_produto_cobranca'] == 'SIM' ? 1 : 0), 
                     'indicador_consorcio' => ($row['indicador_produto_consorcio'] == 'SIM' ? 1 : 0), 

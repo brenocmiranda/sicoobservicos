@@ -13,7 +13,7 @@ Logs de importação
         <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
             <ol class="breadcrumb">
                 <li><a href="{{route('inicio')}}">Configurações</a></li>
-                <li class="active">Importações</li>
+                <li><a href="{{route('exibir.importacoes')}}">Importações</a></li></li>
                 <li class="active">Logs</li>
             </ol>
         </div>
@@ -22,17 +22,17 @@ Logs de importação
     <div class="card">
         <div class="card-body">
             @if($logs[0])
-            <div class="row mb-3">
+            <div class="row col-12 mb-3">
                 <label class="col-2 font-weight-bold">Data de execução</label>
                 <label class="col-10 font-weight-bold">Mensagem</label>
             </div>
                 @foreach($logs as $log)
-                <div class="row">
+                <div class="row col-12">
                     <label class="col-2">{{date('d/m/Y H:i:s', strtotime($log->created_at))}}</label>
                     <label class="col-10">{!!$log->mensagem!!}</label>
                 </div>
                 @endforeach
-                <div class="row mx-4 justify-content-end">
+                <div class="row col-12 mx-4 justify-content-end">
                     {{$logs->links()}}
                 </div>
             @else

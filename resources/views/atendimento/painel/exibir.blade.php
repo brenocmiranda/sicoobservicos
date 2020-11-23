@@ -33,14 +33,16 @@ Painel do associado
     <!-- Nav tabs -->
     <ul class="nav nav-tabs customtab2 p-4 row justify-content-center" role="tablist" style="background: #38565a;border-radius: 10px;">
       <li role="presentation"  class="active"> <a href="#atividades" aria-controls="iap" role="tab" data-toggle="tab" aria-expanded="true"> <span>Atividades</span> </a> </li> 
-      <li role="presentation"> <a href="#dadoscadastrais" aria-controls="dadoscadastrais" role="tab" data-toggle="tab" aria-expanded="true"> <span>Dados cadastrais</span> </a> </li> 
-      <li role="presentation"> <a href="#contacapital" aria-controls="contacapital" role="tab" data-toggle="tab" aria-expanded="true"> <span>C. Capital</span> </a> </li> 
-      <li role="presentation"> <a href="#contacorrente" aria-controls="contacorrente" role="tab" data-toggle="tab" aria-expanded="true"> <span>C. Corrente</span> </a> </li> 
-      <li role="presentation"> <a href="#cartaocredito" aria-controls="cartaocredito" role="tab" data-toggle="tab" aria-expanded="true"> <span>Cartão de Crédito</span> </a> </li> 
-      <li role="presentation"> <a href="#carteiracredito" aria-controls="carteiracredito" role="tab" data-toggle="tab" aria-expanded="true"> <span>Carteira de Crédito</span> </a> </li>
+      <li role="presentation"> <a href="#cadastro" aria-controls="dadoscadastrais" role="tab" data-toggle="tab" aria-expanded="true"> <span>Cadastro</span> </a> </li> 
+      <li role="presentation"> <a href="#bacen" aria-controls="dadoscadastrais" role="tab" data-toggle="tab" aria-expanded="true"> <span>BACEN</span> </a> </li> 
+      <li role="presentation"> <a href="#contacapital" aria-controls="contacapital" role="tab" data-toggle="tab" aria-expanded="true"> <span>Conta capital</span> </a> </li> 
+      <li role="presentation"> <a href="#contacorrente" aria-controls="contacorrente" role="tab" data-toggle="tab" aria-expanded="true"> <span>Conta corrente</span> </a> </li> 
+      <li role="presentation"> <a href="#cartaocredito" aria-controls="cartaocredito" role="tab" data-toggle="tab" aria-expanded="true"> <span>Conta cartão</span> </a> </li> 
+      <li role="presentation"> <a href="#carteiracredito" aria-controls="carteiracredito" role="tab" data-toggle="tab" aria-expanded="true"> <span>Emprestimos</span> </a> </li>
       <li role="presentation"> <a href="#poupanca" aria-controls="poupanca" role="tab" data-toggle="tab" aria-expanded="true"> <span>Poupança</span> </a> </li> 
       <li role="presentation"> <a href="#aplicacoes" aria-controls="aplicacoes" role="tab" data-toggle="tab" aria-expanded="true"> <span>Aplicações</span> </a> </li> 
       <li role="presentation"> <a href="#iap" aria-controls="iap" role="tab" data-toggle="tab" aria-expanded="true"> <span>IAP</span> </a> </li>  
+      <li role="presentation"> <a href="#inadimplencia" aria-controls="dadoscadastrais" role="tab" data-toggle="tab" aria-expanded="true"> <span>Inadimplência</span> </a> </li>
     </ul>
     <!-- Tab panes -->
     <div class="tab-content white-box mt-0">
@@ -76,7 +78,7 @@ Painel do associado
         </div>
         <div class="clearfix"></div>
       </div>
-      <div role="tabpanel" class="tab-pane fade" id="dadoscadastrais">
+      <div role="tabpanel" class="tab-pane fade" id="cadastro">
         <div class="col-12"> 
           <div class="row">
             <div class="col-6">
@@ -130,7 +132,7 @@ Painel do associado
           </div>
           <div class="row">
             <div class="col-3">
-              <h6>Nível CRL <small>(Vigência até: {{(isset($associado->RelationConsolidado) ? date('d/m/Y', strtotime($associado->RelationConsolidado->data_crl)) : '-')}})</small></h6>
+              <h6>Nível CRL <small class="text-dark">(Vigência até: {{(isset($associado->RelationConsolidado) ? (date('d/m/Y', strtotime($associado->RelationConsolidado->data_crl)) != date('d/m/Y', strtotime('1899-12-31')) ? date('d/m/Y', strtotime($associado->RelationConsolidado->data_crl)) : '-') : '-')}})</small></h6>
               <label>{{(isset($associado->RelationConsolidado) ? $associado->RelationConsolidado->nivel_risco_crl : '-')}}</label>
             </div>
             <div class="col-3">
@@ -172,15 +174,15 @@ Painel do associado
                 <label>{{$associado->tipo_renda}}</label>
               </div>
               <div class="col-3">
-                <h6>Renda/Faturamento <small>(Mensal bruto)</small></h6>
+                <h6>Renda/Faturamento <small class="text-dark">(Mensal bruto)</small></h6>
                 <label>R$ {{number_format($associado->renda, 2, ',', '.')}}</label>
               </div>
               <div class="col-3">
-                <h6>Valor bens móveis <small>(Total)</small></h6>
+                <h6>Valor bens móveis <small class="text-dark">(Total)</small></h6>
                 <label>R$ {{(isset($associado->RelationConsolidado) ? number_format(@$associado->RelationConsolidado->valor_movel, 2, ',', '.') : '-')}}</label>
               </div>
               <div class="col-3">
-                <h6>Valor bens imóveis <small>(Total)</small></h6>
+                <h6>Valor bens imóveis <small class="text-dark">(Total)</small></h6>
                 <label>R$ {{(isset($associado->RelationConsolidado) ? number_format(@$associado->RelationConsolidado->valor_imovel, 2, ',', '.') : '-')}}</label>
               </div>
             </div>
@@ -244,11 +246,11 @@ Painel do associado
                 <label>{{$associado->RelationEnderecos->bairro}}</label>
               </div>
               <div class="col-3">
-                <h6>Número <small>(Total)</small></h6>
+                <h6>Número</h6>
                 <label>{{$associado->RelationEnderecos->numero}}</label>
               </div>
               <div class="col-3">
-                <h6>Complemento <small>(Total)</small></h6>
+                <h6>Complemento</h6>
                 <label>{{$associado->RelationEnderecos->complemento}}</label>
               </div>
             </div>
@@ -262,7 +264,7 @@ Painel do associado
                 <label>{{$associado->RelationEnderecos->estado}}</label>
               </div>
               <div class="col-3">
-                <h6>País <small>(Total)</small></h6>
+                <h6>País</h6>
                 <label>{{$associado->RelationEnderecos->pais}}</label>
               </div>
             </div>
@@ -301,13 +303,13 @@ Painel do associado
         <div class="clearfix"></div>
       </div>
       <div role="tabpanel" class="tab-pane fade" id="contacapital">
-        <div class="row mx-auto bg-light justify-content-center mt-n4 mb-4 p-3 rounded">
+        <div class="row mx-auto bg-light justify-content-center mt-n4 mb-5 p-3 rounded">
           <label class="m-auto font-weight-bold">Data base: {{date('d/m/Y', strtotime($associado->RelationCapital->data_movimento))}}</label>
         </div>
         <div class="col-12">
           <div class="row">
             <div class="col-3">
-              <h6 class="mt-0">Conta</h6>
+              <h6 class="mt-0">Nº matrícula</h6>
               <label>{{(isset($associado->RelationCapital) ? $associado->RelationCapital->num_capital : '-')}}</label>
             </div>
             <div class="col-3">
@@ -342,7 +344,7 @@ Painel do associado
       </div>
       <div role="tabpanel" class="tab-pane fade" id="contacorrente">
         @if(isset($associado->RelationContaCorrente[0]))
-          <div class="row bg-light justify-content-center mt-n4 mb-4 p-3 rounded">
+          <div class="row bg-light justify-content-center mt-n4 mb-5 p-3 rounded">
             <label class="m-auto font-weight-bold">Data base: {{date('d/m/Y', strtotime($associado->RelationContaCorrente[0]->data_movimento))}}</label>
           </div>
           @foreach($associado->RelationContaCorrente->sortByDesc('data_abertura') as $conta)
@@ -401,14 +403,15 @@ Painel do associado
           @endforeach
         @else
         <div class="text-center">
-          <h5>Ops! Nenhuma informação encontrada.</h5>
+          <i class="mdi mdi-36px mdi-close-octagon-outline"></i>
+          <h5>Nenhuma informação encontrada.</h5>
         </div>
         @endif
         <div class="clearfix"></div>
       </div>
       <div role="tabpanel" class="tab-pane fade" id="cartaocredito">
         @if(isset($associado->RelationCartaoCredito[0]))
-          <div class="row bg-light justify-content-center mt-n4 mb-4 p-3 rounded">
+          <div class="row bg-light justify-content-center mt-n4 mb-5 p-3 rounded">
             <label class="m-auto font-weight-bold">Data base: {{date('d/m/Y', strtotime($associado->RelationCartaoCredito[0]->data_movimento))}}</label>
           </div>
           @foreach($associado->RelationCartaoCredito->sortByDesc('situacao') as $cartao)
@@ -457,14 +460,15 @@ Painel do associado
           @endforeach
         @else
           <div class="text-center">
-            <h5>Ops! Nenhuma informação encontrada.</h5>
+            <i class="mdi mdi-36px mdi-close-octagon-outline"></i>
+            <h5>Nenhuma informação encontrada.</h5>
           </div>
         @endif
         <div class="clearfix"></div>
       </div>
       <div role="tabpanel" class="tab-pane fade" id="carteiracredito">
         @if(isset($associado->RelationCarteiraCredito[0]))
-          <div class="row bg-light justify-content-center mt-n4 mb-4 p-3 rounded">
+          <div class="row bg-light justify-content-center mt-n4 mb-5 p-3 rounded">
             <label class="m-auto font-weight-bold">Data base: {{date('d/m/Y', strtotime($associado->RelationCarteiraCredito[0]->data_movimento))}}</label>
           </div>
           @foreach($associado->RelationCarteiraCredito->sortByDesc('data_operacao') as $carteira)
@@ -531,14 +535,15 @@ Painel do associado
           @endforeach
         @else
           <div class="text-center">
-            <h5>Ops! Nenhuma informação encontrada.</h5>
+            <i class="mdi mdi-36px mdi-close-octagon-outline"></i>
+            <h5>Nenhuma informação encontrada.</h5>
           </div>
         @endif
         <div class="clearfix"></div>
       </div>
       <div role="tabpanel" class="tab-pane fade" id="poupanca">
         @if(isset($associado->RelationPoupancas[0]))
-          <div class="row bg-light justify-content-center mt-n4 mb-4 p-3 rounded">
+          <div class="row bg-light justify-content-center mt-n4 mb-5 p-3 rounded">
             <label class="m-auto font-weight-bold">Data base: {{date('d/m/Y', strtotime($associado->RelationPoupancas[0]->data_movimento))}}</label>
           </div>
           @foreach($associado->RelationPoupancas->sortByDesc('data_abertura') as $poupanca)
@@ -569,15 +574,16 @@ Painel do associado
           @endforeach
         @else
           <div class="text-center">
-            <h5>Ops! Nenhuma informação encontrada.</h5>
+            <i class="mdi mdi-36px mdi-close-octagon-outline"></i>
+            <h5>Nenhuma informação encontrada.</h5>
           </div>
         @endif
         <div class="clearfix"></div>
       </div>
       <div role="tabpanel" class="tab-pane fade" id="aplicacoes">
         @if(isset($associado->RelationAplicacoes[0]))
-          <div class="row bg-light justify-content-center mt-n4 mb-4 p-3 rounded">
-            <label class="m-auto font-weight-bold">Data base: {{date('d/m/Y', strtotime($associado->RelationAplicacoes[0]->data_movimento))}}</label>
+          <div class="row bg-light justify-content-center mt-n4 mb-5 p-3 rounded">
+            <label class="m-auto font-weight-bold">Data base: {{date('d/m/Y', strtotime($associado->RelationAplicacoes[0]->data_movimento))}}({{$aplicacao->tipo}})</label>
           </div>
           @foreach($associado->RelationAplicacoes->sortByDesc('data_abertura') as $aplicacao)
           <div class="col-12"> 
@@ -617,13 +623,14 @@ Painel do associado
           @endforeach
         @else
           <div class="text-center">
-            <h5>Ops! Nenhuma informação encontrada.</h5>
+            <i class="mdi mdi-36px mdi-close-octagon-outline"></i>
+            <h5>Nenhuma informação encontrada.</h5>
           </div>
         @endif
         <div class="clearfix"></div>
       </div>
       <div role="tabpanel" class="tab-pane fade" id="iap">
-        <div class="row bg-light justify-content-center mt-n4 mb-4 p-3 rounded">
+        <div class="row bg-light justify-content-center mt-n4 mb-5 p-3 rounded">
           <label class="m-auto font-weight-bold">Data base: {{date('m/Y', strtotime($associado->RelationIAP->data_movimento))}}</label>
         </div>
         <div class="col-12"> 
@@ -943,6 +950,39 @@ Painel do associado
               @endif
             </div>   
           </div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+
+      <div role="tabpanel" class="tab-pane fade" id="bacen">
+        <div class="col-12 text-center mb-5">
+          <i class="ti-hummer" style="font-size: 30px"></i>
+          <h4>Página em desenvolvimento!</h4>
+        </div>
+        <div class="row">
+          <div class="col-3">
+            <h6>Total a vencer</h6>
+            <label>R$ 0,00</label>
+          </div>
+          <div class="col-3">
+            <h6>Total vencido</h6>
+            <label>R$ 0,00</label>
+          </div>
+          <div class="col-3">
+            <h6>Prejuízo</h6>
+            <label>R$ 0,00</label>
+          </div>
+          <div class="col-3">
+            <h6>Respon. Total</h6>
+            <label>R$ 0,00</label>
+          </div> 
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      <div role="tabpanel" class="tab-pane fade" id="inadimplencia">
+        <div class="col-12 text-center">
+          <i class="ti-hummer" style="font-size: 30px"></i>
+          <h4>Página em desenvolvimento!</h4>
         </div>
         <div class="clearfix"></div>
       </div>

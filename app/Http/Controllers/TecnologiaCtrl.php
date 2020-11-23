@@ -1073,6 +1073,13 @@ class TecnologiaCtrl extends Controller
 	// Relatório do equipamento
 	public function RelatoriosInventario(Request $request){
 		$equipamentos = AtivosUsuarios::join('gti_ativos', 'gti_id_ativos', 'gti_ativos.id')->whereNull('dataDevolucao')->where('usr_id_usuarios', $request->usuario)->get();
+		Atividades::create([
+	          'nome' => 'Geração do relatório de termo de uso',
+	          'descricao' => 'Você gerou o relatório de termo de uso do associado '.$equipamentos->first()->RelationUsuarios->RelationAssociado->nome.'.',
+	          'icone' => 'mdi-file-document',
+	          'url' => 'javascript:',
+	          'id_usuario' => Auth::id()
+	        ]);
 		$pdf = PDF::loadView('tecnologia.relatorios.termo', compact('equipamentos'))->setPaper('a4', 'portrait');
 	    return $pdf->stream();
 	}

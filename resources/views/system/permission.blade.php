@@ -12,7 +12,8 @@
         		<i class="mdi mdi-lock-outline mdi-dark" style="font-size: 90px"></i>
         	</div>
         	<div class="col-12 text-center mb-auto">
-        		<h3 class="text-muted">Você não possui permissão para acessar essas informações.</h3>
+        		<h3 class="text-muted">Sem permissão</h3>
+                <h5>Você não possui permissão para acessar essas informações.</h5>
         	</div>
         </div>
     </section>

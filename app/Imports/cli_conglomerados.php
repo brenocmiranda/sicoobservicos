@@ -2,8 +2,8 @@
 
 namespace App\Imports;
 
-use App\Models\Conglomerados;
 use App\Models\Associados;
+use App\Models\AssociadosConglomerados;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
@@ -22,14 +22,14 @@ class cli_conglomerados implements ToCollection, WithBatchInserts, WithChunkRead
         foreach ($rows as $row) 
         {  
             $associado = Associados::where('id_sisbr', $row['numero_cliente_sisbr'])->select('id')->first();
-            $dados = Conglomerados::where('cli_id_associado', $associado->id)->first();
+            $dados = AssociadosConglomerados::where('cli_id_associado', $associado->id)->first();
             if(isset($dados)){
-                Conglomerados::where('cli_id_associado', $associado->id)->update([
+                AssociadosConglomerados::where('cli_id_associado', $associado->id)->update([
                     'codigo' => $row['codigo_grupo_economico'],
                     'descricao' => $row['descricao_do_grupo_economico_do_cliente']
                 ]); 
             }else{
-                Conglomerados::create([
+                AssociadosConglomerados::create([
                     'codigo' => (int) $row['codigo_grupo_economico'], 
                     'descricao' => $row['descricao_do_grupo_economico_do_cliente'],
                     'cli_id_associado' => Associados::where('id_sisbr', $row['numero_cliente_sisbr'])->select('id')->first()->id,

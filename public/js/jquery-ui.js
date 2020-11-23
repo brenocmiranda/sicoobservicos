@@ -5870,7 +5870,7 @@ $.widget( "ui.autocomplete", {
 			}
 		} );
 
-		this.liveRegion = $( "<div>", {
+		this.liveRegion = $( "<div class='d-none'>", {
 			role: "status",
 			"aria-live": "assertive",
 			"aria-relevant": "additions"
@@ -18289,7 +18289,7 @@ $.widget( "ui.tooltip", {
 		this.parents = {};
 
 		// Append the aria-live region so tooltips announce correctly
-		this.liveRegion = $( "<div>" )
+		this.liveRegion = $( "<div class='d-none'>" )
 			.attr( {
 				role: "log",
 				"aria-live": "assertive",
