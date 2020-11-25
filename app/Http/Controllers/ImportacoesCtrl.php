@@ -316,15 +316,15 @@ class ImportacoesCtrl extends Controller
 				Logs::create(['mensagem' => 'Importação automática executada.']);
 				Logs::create(['mensagem' => 'Localizado arquivo cli_associados.xlsx.']);
 				Logs::create(['mensagem' => 'Processando o arquivo cli_associados.xlsx...']);
+				$nameFile = 'cli_associados'.date('dmY-His').'.xlsx';
 				try{
-					$nameFile = 'cli_associados'.date('dmY-His').'.xlsx';
 					copy('//SICOOB_SERVICE/outlook/cli_associados.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
-					Excel::import(new cli_associados, getcwd().'/storage/app/importacoes/'.$nameFile);
 					unlink('//SICOOB_SERVICE/outlook/cli_associados.xlsx');
+					Excel::import(new cli_associados, getcwd().'/storage/app/importacoes/'.$nameFile);
 					Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de cli_associados.xlsx efetuada com sucesso!</span>']);
 				} catch (\Exception $ex){
+					copy(getcwd().'/storage/app/importacoes/'.$nameFile, '//SICOOB_SERVICE/outlook/cli_associados.xlsx');
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cli_associados.xlsx!</span>']);
-					
 				}
 			}
 			// cli_consolidado
@@ -332,15 +332,15 @@ class ImportacoesCtrl extends Controller
 				Logs::create(['mensagem' => 'Importação automática executada.']);
 				Logs::create(['mensagem' => 'Localizado arquivo cli_consolidado.xlsx.']);
 				Logs::create(['mensagem' => 'Processando o arquivo cli_consolidado.xlsx...']);
+				$nameFile = 'cli_consolidado'.date('dmY-His').'.xlsx';
 				try{
-					$nameFile = 'cli_consolidado'.date('dmY-His').'.xlsx';
 					copy('//SICOOB_SERVICE/outlook/cli_consolidado.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
-					Excel::import(new cli_consolidado, getcwd().'/storage/app/importacoes/'.$nameFile);
 					unlink('//SICOOB_SERVICE/outlook/cli_consolidado.xlsx');
+					Excel::import(new cli_consolidado, getcwd().'/storage/app/importacoes/'.$nameFile);
 					Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de cli_consolidado.xlsx efetuada com sucesso!</span>']);
 				} catch (\Exception $ex){
+					copy(getcwd().'/storage/app/importacoes/'.$nameFile, '//SICOOB_SERVICE/outlook/cli_consolidado.xlsx');
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cli_consolidado.xlsx!</span>']);
-					
 				}
 			}
 			// cli_emails
@@ -348,15 +348,15 @@ class ImportacoesCtrl extends Controller
 				Logs::create(['mensagem' => 'Importação automática executada.']);
 				Logs::create(['mensagem' => 'Localizado arquivo cli_emails.xlsx.']);
 				Logs::create(['mensagem' => 'Processando o arquivo cli_emails.xlsx...']);
+				$nameFile = 'cli_emails'.date('dmY-His').'.xlsx';
 				try{
-					$nameFile = 'cli_emails'.date('dmY-His').'.xlsx';
 					copy('//SICOOB_SERVICE/outlook/cli_emails.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
-					Excel::import(new cli_emails, getcwd().'/storage/app/importacoes/'.$nameFile);
 					unlink('//SICOOB_SERVICE/outlook/cli_emails.xlsx');
+					Excel::import(new cli_emails, getcwd().'/storage/app/importacoes/'.$nameFile);
 					Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de cli_emails.xlsx efetuada com sucesso!</span>']);
 				} catch (\Exception $ex){
+					copy(getcwd().'/storage/app/importacoes/'.$nameFile, '//SICOOB_SERVICE/outlook/cli_emails.xlsx');
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cli_emails.xlsx!</span>']);
-					
 				}
 			}
 			// cli_telefones
@@ -364,15 +364,15 @@ class ImportacoesCtrl extends Controller
 				Logs::create(['mensagem' => 'Importação automática executada.']);
 				Logs::create(['mensagem' => 'Localizado arquivo cli_telefones.xlsx.']);
 				Logs::create(['mensagem' => 'Processando o arquivo cli_telefones.xlsx...']);
+				$nameFile = 'cli_telefones'.date('dmY-His').'.xlsx';
 				try{
-					$nameFile = 'cli_telefones'.date('dmY-His').'.xlsx';
 					copy('//SICOOB_SERVICE/outlook/cli_telefones.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
-					Excel::import(new cli_telefones, getcwd().'/storage/app/importacoes/'.$nameFile);
 					unlink('//SICOOB_SERVICE/outlook/cli_telefones.xlsx');
+					Excel::import(new cli_telefones, getcwd().'/storage/app/importacoes/'.$nameFile);
 					Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de cli_telefones.xlsx efetuada com sucesso!</span>']);
 				} catch (\Exception $ex){
+					copy(getcwd().'/storage/app/importacoes/'.$nameFile, '//SICOOB_SERVICE/outlook/cli_telefones.xlsx');
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cli_telefones.xlsx!</span>']);
-					
 				}
 			}
 			// cli_enderecos
@@ -380,15 +380,15 @@ class ImportacoesCtrl extends Controller
 				Logs::create(['mensagem' => 'Importação automática executada.']);
 				Logs::create(['mensagem' => 'Localizado arquivo cli_enderecos.xlsx.']);
 				Logs::create(['mensagem' => 'Processando o arquivo cli_enderecos.xlsx...']);
+				$nameFile = 'cli_enderecos'.date('dmY-His').'.xlsx';
 				try{
-					$nameFile = 'cli_enderecos'.date('dmY-His').'.xlsx';
 					copy('//SICOOB_SERVICE/outlook/cli_enderecos.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
-					Excel::import(new cli_enderecos, getcwd().'/storage/app/importacoes/'.$nameFile);
 					unlink('//SICOOB_SERVICE/outlook/cli_enderecos.xlsx');
+					Excel::import(new cli_enderecos, getcwd().'/storage/app/importacoes/'.$nameFile);
 					Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de cli_enderecos.xlsx efetuada com sucesso!</span>']);
 				} catch (\Exception $ex){
+					copy(getcwd().'/storage/app/importacoes/'.$nameFile, '//SICOOB_SERVICE/outlook/cli_enderecos.xlsx');
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cli_enderecos.xlsx!</span>']);
-					
 				}
 			}
 			// cli_conglomerados
@@ -396,15 +396,15 @@ class ImportacoesCtrl extends Controller
 				Logs::create(['mensagem' => 'Importação automática executada.']);
 				Logs::create(['mensagem' => 'Localizado arquivo cli_conglomerados.xlsx.']);
 				Logs::create(['mensagem' => 'Processando o arquivo cli_conglomerados.xlsx...']);
+				$nameFile = 'cli_conglomerados'.date('dmY-His').'.xlsx';
 				try{
-					$nameFile = 'cli_conglomerados'.date('dmY-His').'.xlsx';
 					copy('//SICOOB_SERVICE/outlook/cli_conglomerados.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
-					Excel::import(new cli_conglomerados, getcwd().'/storage/app/importacoes/'.$nameFile);
 					unlink('//SICOOB_SERVICE/outlook/cli_conglomerados.xlsx');
+					Excel::import(new cli_conglomerados, getcwd().'/storage/app/importacoes/'.$nameFile);
 					Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de cli_conglomerados.xlsx efetuada com sucesso!</span>']);
 				} catch (\Exception $ex){
+					copy(getcwd().'/storage/app/importacoes/'.$nameFile, '//SICOOB_SERVICE/outlook/cli_conglomerados.xlsx');
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cli_conglomerados.xlsx!</span>']);
-					
 				}
 			}
 			// cli_iap
@@ -412,15 +412,15 @@ class ImportacoesCtrl extends Controller
 				Logs::create(['mensagem' => 'Importação automática executada.']);
 				Logs::create(['mensagem' => 'Localizado arquivo cli_iap.xlsx.']);
 				Logs::create(['mensagem' => 'Processando o arquivo cli_iap.xlsx...']);
+				$nameFile = 'cli_iap'.date('dmY-His').'.xlsx';
 				try{
-					$nameFile = 'cli_iap'.date('dmY-His').'.xlsx';
 					copy('//SICOOB_SERVICE/outlook/cli_iap.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
-					Excel::import(new cli_iap, getcwd().'/storage/app/importacoes/'.$nameFile);
 					unlink('//SICOOB_SERVICE/outlook/cli_iap.xlsx');
+					Excel::import(new cli_iap, getcwd().'/storage/app/importacoes/'.$nameFile);
 					Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de cli_iap.xlsx efetuada com sucesso!</span>']);
 				} catch (\Exception $ex){
+					copy(getcwd().'/storage/app/importacoes/'.$nameFile, '//SICOOB_SERVICE/outlook/cli_iap.xlsx');
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cli_iap.xlsx!</span>']);
-					
 				}
 			}
 			// cca_contacapital
@@ -428,15 +428,15 @@ class ImportacoesCtrl extends Controller
 				Logs::create(['mensagem' => 'Importação automática executada.']);
 				Logs::create(['mensagem' => 'Localizado arquivo cca_contacapital.xlsx.']);
 				Logs::create(['mensagem' => 'Processando o arquivo cca_contacapital.xlsx...']);
+				$nameFile = 'cca_contacapital'.date('dmY-His').'.xlsx';
 				try{
-					$nameFile = 'cca_contacapital'.date('dmY-His').'.xlsx';
 					copy('//SICOOB_SERVICE/outlook/cca_contacapital.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
-					Excel::import(new cca_contacapital, getcwd().'/storage/app/importacoes/'.$nameFile);
 					unlink('//SICOOB_SERVICE/outlook/cca_contacapital.xlsx');
+					Excel::import(new cca_contacapital, getcwd().'/storage/app/importacoes/'.$nameFile);
 					Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de cca_contacapital.xlsx efetuada com sucesso!</span>']);
 				} catch (\Exception $ex){
+					copy(getcwd().'/storage/app/importacoes/'.$nameFile, '//SICOOB_SERVICE/outlook/cca_contacapital.xlsx');
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cca_contacapital.xlsx!</span>']);
-					
 				}
 			}
 			// cco_contacorrente
@@ -444,15 +444,15 @@ class ImportacoesCtrl extends Controller
 				Logs::create(['mensagem' => 'Importação automática executada.']);
 				Logs::create(['mensagem' => 'Localizado arquivo cco_contacorrente.xlsx.']);
 				Logs::create(['mensagem' => 'Processando o arquivo cco_contacorrente.xlsx...']);
+				$nameFile = 'cco_contacorrente'.date('dmY-His').'.xlsx';
 				try{
-					$nameFile = 'cco_contacorrente'.date('dmY-His').'.xlsx';
 					copy('//SICOOB_SERVICE/outlook/cco_contacorrente.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
-					Excel::import(new cco_contacorrente, getcwd().'/storage/app/importacoes/'.$nameFile);
 					unlink('//SICOOB_SERVICE/outlook/cco_contacorrente.xlsx');
+					Excel::import(new cco_contacorrente, getcwd().'/storage/app/importacoes/'.$nameFile);
 					Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de cco_contacorrente.xlsx efetuada com sucesso!</span>']);
 				} catch (\Exception $ex){
+					copy(getcwd().'/storage/app/importacoes/'.$nameFile, '//SICOOB_SERVICE/outlook/cco_contacorrente.xlsx');
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cco_contacorrente.xlsx!</span>']);
-					
 				}
 			}
 			// cre_contratos
@@ -460,15 +460,15 @@ class ImportacoesCtrl extends Controller
 				Logs::create(['mensagem' => 'Importação automática executada.']);
 				Logs::create(['mensagem' => 'Localizado arquivo cre_contratos.xlsx.']);
 				Logs::create(['mensagem' => 'Processando o arquivo cre_contratos.xlsx...']);
+				$nameFile = 'cre_contratos'.date('dmY-His').'.xlsx';
 				try{
-					$nameFile = 'cre_contratos'.date('dmY-His').'.xlsx';
 					copy('//SICOOB_SERVICE/outlook/cre_contratos.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
-					Excel::import(new cre_contratos, getcwd().'/storage/app/importacoes/'.$nameFile);
 					unlink('//SICOOB_SERVICE/outlook/cre_contratos.xlsx');
+					Excel::import(new cre_contratos, getcwd().'/storage/app/importacoes/'.$nameFile);
 					Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de cre_contratos.xlsx efetuada com sucesso!</span>']);
 				} catch (\Exception $ex){
+					copy(getcwd().'/storage/app/importacoes/'.$nameFile, '//SICOOB_SERVICE/outlook/cre_contratos.xlsx');
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cre_contratos.xlsx!</span>']);
-					
 				}
 			}
 			// crt_cartaocredito
@@ -476,15 +476,15 @@ class ImportacoesCtrl extends Controller
 				Logs::create(['mensagem' => 'Importação automática executada.']);
 				Logs::create(['mensagem' => 'Localizado arquivo crt_cartaocredito.xlsx.']);
 				Logs::create(['mensagem' => 'Processando o arquivo crt_cartaocredito.xlsx...']);
+				$nameFile = 'crt_cartaocredito'.date('dmY-His').'.xlsx';
 				try{
-					$nameFile = 'crt_cartaocredito'.date('dmY-His').'.xlsx';
 					copy('//SICOOB_SERVICE/outlook/crt_cartaocredito.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
-					Excel::import(new crt_cartaocredito, getcwd().'/storage/app/importacoes/'.$nameFile);
 					unlink('//SICOOB_SERVICE/outlook/crt_cartaocredito.xlsx');
+					Excel::import(new crt_cartaocredito, getcwd().'/storage/app/importacoes/'.$nameFile);
 					Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de crt_cartaocredito.xlsx efetuada com sucesso!</span>']);
 				} catch (\Exception $ex){
+					copy(getcwd().'/storage/app/importacoes/'.$nameFile, '//SICOOB_SERVICE/outlook/crt_cartaocredito.xlsx');
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo crt_cartaocredito.xlsx!</span>']);
-					
 				}
 			}
 			// pop_poupanca
@@ -492,13 +492,14 @@ class ImportacoesCtrl extends Controller
 				Logs::create(['mensagem' => 'Importação automática executada.']);
 				Logs::create(['mensagem' => 'Localizado arquivo pop_poupanca.xlsx.']);
 				Logs::create(['mensagem' => 'Processando o arquivo pop_poupanca.xlsx...']);
+				$nameFile = 'pop_poupanca'.date('dmY-His').'.xlsx';
 				try{
-					$nameFile = 'pop_poupanca'.date('dmY-His').'.xlsx';
 					copy('//SICOOB_SERVICE/outlook/pop_poupanca.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
+					unlink('//SICOOB_SERVICE/outlook/pop_poupanca.xlsx');
 					Excel::import(new pop_poupanca, getcwd().'/storage/app/importacoes/'.$nameFile);
 					Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de pop_poupanca.xlsx efetuada com sucesso!</span>']);
-					unlink('//SICOOB_SERVICE/outlook/pop_poupanca.xlsx');
 				} catch (\Exception $ex){
+					copy(getcwd().'/storage/app/importacoes/'.$nameFile, '//SICOOB_SERVICE/outlook/pop_poupanca.xlsx');
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo pop_poupanca.xlsx!</span>']);
 				}
 			}
@@ -507,13 +508,14 @@ class ImportacoesCtrl extends Controller
 				Logs::create(['mensagem' => 'Importação automática executada.']);
 				Logs::create(['mensagem' => 'Localizado arquivo dep_aplicacoes.xlsx.']);
 				Logs::create(['mensagem' => 'Processando o arquivo dep_aplicacoes.xlsx...']);
+				$nameFile = 'dep_aplicacoes'.date('dmY-His').'.xlsx';
 				try{
-					$nameFile = 'dep_aplicacoes'.date('dmY-His').'.xlsx';
 					copy('//SICOOB_SERVICE/outlook/dep_aplicacoes.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
-					Excel::import(new dep_aplicacoes, getcwd().'/storage/app/importacoes/'.$nameFile);
 					unlink('//SICOOB_SERVICE/outlook/dep_aplicacoes.xlsx');
+					Excel::import(new dep_aplicacoes, getcwd().'/storage/app/importacoes/'.$nameFile);
 					Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de dep_aplicacoes.xlsx efetuada com sucesso!</span>']);
 				} catch (\Exception $ex){
+					copy(getcwd().'/storage/app/importacoes/'.$nameFile, '//SICOOB_SERVICE/outlook/dep_aplicacoes.xlsx');
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo dep_aplicacoes.xlsx!</span>']);
 				}
 			}
@@ -522,13 +524,14 @@ class ImportacoesCtrl extends Controller
 				Logs::create(['mensagem' => 'Importação automática executada.']);
 				Logs::create(['mensagem' => 'Localizado arquivo cli_bacen.xlsx.']);
 				Logs::create(['mensagem' => 'Processando o arquivo cli_bacen.xlsx...']);
+				$nameFile = 'cli_bacen'.date('dmY-His').'.xlsx';
 				try{
-					$nameFile = 'cli_bacen'.date('dmY-His').'.xlsx';
 					copy('//SICOOB_SERVICE/outlook/cli_bacen.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
-					Excel::import(new cli_bacen, getcwd().'/storage/app/importacoes/'.$nameFile);
 					unlink('//SICOOB_SERVICE/outlook/cli_bacen.xlsx');
+					Excel::import(new cli_bacen, getcwd().'/storage/app/importacoes/'.$nameFile);
 					Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de cli_bacen.xlsx efetuada com sucesso!</span>']);
 				} catch (\Exception $ex){
+					copy(getcwd().'/storage/app/importacoes/'.$nameFile, '//SICOOB_SERVICE/outlook/cli_bacen.xlsx');
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cli_bacen.xlsx!</span>']);
 				}
 			}
@@ -537,13 +540,14 @@ class ImportacoesCtrl extends Controller
 				Logs::create(['mensagem' => 'Importação automática executada.']);
 				Logs::create(['mensagem' => 'Localizado arquivo cre_avalistas.xlsx.']);
 				Logs::create(['mensagem' => 'Processando o arquivo cre_avalistas.xlsx...']);
+				$nameFile = 'cre_avalistas'.date('dmY-His').'.xlsx';
 				try{
-					$nameFile = 'cre_avalistas'.date('dmY-His').'.xlsx';
 					copy('//SICOOB_SERVICE/outlook/cre_avalistas.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
-					Excel::import(new cre_avalistas, getcwd().'/storage/app/importacoes/'.$nameFile);
 					unlink('//SICOOB_SERVICE/outlook/cre_avalistas.xlsx');
+					Excel::import(new cre_avalistas, getcwd().'/storage/app/importacoes/'.$nameFile);
 					Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de cre_avalistas.xlsx efetuada com sucesso!</span>']);
 				} catch (\Exception $ex){
+					copy(getcwd().'/storage/app/importacoes/'.$nameFile, '//SICOOB_SERVICE/outlook/cre_avalistas.xlsx');
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cre_avalistas.xlsx!</span>']);
 				}
 			}	
@@ -552,13 +556,14 @@ class ImportacoesCtrl extends Controller
 				Logs::create(['mensagem' => 'Importação automática executada.']);
 				Logs::create(['mensagem' => 'Localizado arquivo cre_garantias.xlsx.']);
 				Logs::create(['mensagem' => 'Processando o arquivo cre_garantias.xlsx...']);
+				$nameFile = 'cre_garantias'.date('dmY-His').'.xlsx';
 				try{
-					$nameFile = 'cre_garantias'.date('dmY-His').'.xlsx';
 					copy('//SICOOB_SERVICE/outlook/cre_garantias.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
-					Excel::import(new cre_garantias, getcwd().'/storage/app/importacoes/'.$nameFile);
 					unlink('//SICOOB_SERVICE/outlook/cre_garantias.xlsx');
+					Excel::import(new cre_garantias, getcwd().'/storage/app/importacoes/'.$nameFile);
 					Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de cre_garantias.xlsx efetuada com sucesso!</span>']);
 				} catch (\Exception $ex){
+					copy(getcwd().'/storage/app/importacoes/'.$nameFile, '//SICOOB_SERVICE/outlook/cre_garantias.xlsx');
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cre_garantias.xlsx!</span>']);
 				}
 			}		
