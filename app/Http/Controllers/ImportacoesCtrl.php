@@ -18,6 +18,8 @@ use App\Imports\crt_cartaocredito;
 use App\Imports\pop_poupanca;
 use App\Imports\dep_aplicacoes;
 use App\Imports\cre_contratos;
+use App\Imports\cre_avalistas;
+use App\Imports\cre_garantias;
 use Maatwebsite\Excel\HeadingRowImport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Associados;
@@ -31,10 +33,12 @@ use App\Models\AssociadosConglomerados;
 use App\Models\ContaCapital;
 use App\Models\ContaCorrente;
 use App\Models\Contratos;
+use App\Models\Avalistas;
+use App\Models\Garantias;
 use App\Models\CartaoCredito;
-use App\Models\Logs;
 use App\Models\Poupancas;
 use App\Models\Aplicacoes;
+use App\Models\Logs;
 
 class ImportacoesCtrl extends Controller
 {
@@ -58,15 +62,17 @@ class ImportacoesCtrl extends Controller
 		$dep_aplicacoes = Aplicacoes::select('updated_at')->orderBy('updated_at', 'DESC')->first();
 		$cli_iap = AssociadosIAPs::select('updated_at')->orderBy('updated_at', 'DESC')->first();
 		$cli_bacen = AssociadosBacen::select('updated_at')->orderBy('updated_at', 'DESC')->first();
-		return view('configuracoes.importacoes.manual')->with('cli_associados', $cli_associados)->with('cli_consolidado', $cli_consolidado)->with('cli_emails', $cli_emails)->with('cli_enderecos', $cli_enderecos)->with('cli_telefones', $cli_telefones)->with('cca_contacapital', $cca_contacapital)->with('cco_contacorrente', $cco_contacorrente)->with('crt_cartaocredito', $crt_cartaocredito)->with('cli_conglomerados', $cli_conglomerados)->with('cre_contratos', $cre_contratos)->with('pop_poupanca', $pop_poupanca)->with('dep_aplicacoes', $dep_aplicacoes)->with('cli_iap', $cli_iap)->with('cli_bacen', $cli_bacen);
+		$cre_avalistas = Avalistas::select('updated_at')->orderBy('updated_at', 'DESC')->first();
+		$cre_garantias = Garantias::select('updated_at')->orderBy('updated_at', 'DESC')->first();
+		return view('configuracoes.importacoes.manual')->with('cli_associados', $cli_associados)->with('cli_consolidado', $cli_consolidado)->with('cli_emails', $cli_emails)->with('cli_enderecos', $cli_enderecos)->with('cli_telefones', $cli_telefones)->with('cca_contacapital', $cca_contacapital)->with('cco_contacorrente', $cco_contacorrente)->with('crt_cartaocredito', $crt_cartaocredito)->with('cli_conglomerados', $cli_conglomerados)->with('cre_contratos', $cre_contratos)->with('pop_poupanca', $pop_poupanca)->with('dep_aplicacoes', $dep_aplicacoes)->with('cli_iap', $cli_iap)->with('cli_bacen', $cli_bacen)->with('cre_avalistas', $cre_avalistas)->with('cre_garantias', $cre_garantias);
 	}
 
 	// Importação manual dos arquivos
 	public function Importar(Request $request){
 
-		//return (new HeadingRowImport)->toArray($request->cli_bacen);
+		//return (new HeadingRowImport)->toArray($request->cre_avalistas);
 
-		if ($request->hasFile('cli_associados') || $request->hasFile('cli_consolidado') || $request->hasFile('cli_emails') || $request->hasFile('cli_telefones') || $request->hasFile('cli_enderecos') || $request->hasFile('cli_conglomerados') || $request->hasFile('cca_contacapital') || $request->hasFile('cco_contacorrente') || $request->hasFile('cre_contratos') || $request->hasFile('crt_cartaocredito') || $request->hasFile('pop_poupanca') || $request->hasFile('dep_aplicacoes') || $request->hasFile('cli_iap') || $request->hasFile('cli_bacen')){
+		if ($request->hasFile('cli_associados') || $request->hasFile('cli_consolidado') || $request->hasFile('cli_emails') || $request->hasFile('cli_telefones') || $request->hasFile('cli_enderecos') || $request->hasFile('cli_conglomerados') || $request->hasFile('cca_contacapital') || $request->hasFile('cco_contacorrente') || $request->hasFile('cre_contratos') || $request->hasFile('crt_cartaocredito') || $request->hasFile('pop_poupanca') || $request->hasFile('dep_aplicacoes') || $request->hasFile('cli_iap') || $request->hasFile('cli_bacen') || $request->hasFile('cre_avalistas') || $request->hasFile('cre_garantias')){
 			Logs::create(['mensagem' => 'Importação manual executada.']);
 			// cli_associados
 			if($request->hasFile('cli_associados') && $request->file('cli_associados')->isValid()){
@@ -257,6 +263,34 @@ class ImportacoesCtrl extends Controller
 					Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de cli_bacen.xlsx efetuada com sucesso!</span>']);
 				} catch (\Exception $ex){
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cli_bacen.xlsx!</span>']);
+					
+				}
+			}
+			// cre_avalistas
+			if($request->hasFile('cre_avalistas') && $request->file('cre_avalistas')->isValid()){
+				Logs::create(['mensagem' => 'Localizado arquivo cre_avalistas.xlsx.']);
+				$nameFile = 'cre_avalistas-'.date('dmYHis').'.'.request()->file('cre_avalistas')->getClientOriginalExtension();
+				$upload = $request->cre_avalistas->storeAs('importacoes', $nameFile);
+				Logs::create(['mensagem' => 'Processando o arquivo cre_avalistas.xlsx...']);
+				try{
+					Excel::import(new cre_avalistas, getcwd().'/storage/app/importacoes/'.$nameFile);
+					Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de cre_avalistas.xlsx efetuada com sucesso!</span>']);
+				} catch (\Exception $ex){
+					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cre_avalistas.xlsx!</span>']);
+					
+				}
+			}
+			// cre_garantias
+			if($request->hasFile('cre_garantias') && $request->file('cre_garantias')->isValid()){
+				Logs::create(['mensagem' => 'Localizado arquivo cre_garantias.xlsx.']);
+				$nameFile = 'cre_garantias-'.date('dmYHis').'.'.request()->file('cre_garantias')->getClientOriginalExtension();
+				$upload = $request->cre_garantias->storeAs('importacoes', $nameFile);
+				Logs::create(['mensagem' => 'Processando o arquivo cre_garantias.xlsx...']);
+				try{
+					Excel::import(new cre_garantias, getcwd().'/storage/app/importacoes/'.$nameFile);
+					Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de cre_garantias.xlsx efetuada com sucesso!</span>']);
+				} catch (\Exception $ex){
+					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cre_garantias.xlsx!</span>']);
 					
 				}
 			}
@@ -497,7 +531,37 @@ class ImportacoesCtrl extends Controller
 				} catch (\Exception $ex){
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cli_bacen.xlsx!</span>']);
 				}
+			}
+			// cre_avalistas
+			if($arquivo == 'cre_avalistas.xlsx'){
+				Logs::create(['mensagem' => 'Importação automática executada.']);
+				Logs::create(['mensagem' => 'Localizado arquivo cre_avalistas.xlsx.']);
+				Logs::create(['mensagem' => 'Processando o arquivo cre_avalistas.xlsx...']);
+				try{
+					$nameFile = 'cre_avalistas'.date('dmY-His').'.xlsx';
+					copy('//SICOOB_SERVICE/outlook/cre_avalistas.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
+					Excel::import(new cre_avalistas, getcwd().'/storage/app/importacoes/'.$nameFile);
+					unlink('//SICOOB_SERVICE/outlook/cre_avalistas.xlsx');
+					Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de cre_avalistas.xlsx efetuada com sucesso!</span>']);
+				} catch (\Exception $ex){
+					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cre_avalistas.xlsx!</span>']);
+				}
 			}	
+			// cre_garantias
+			if($arquivo == 'cre_garantias.xlsx'){
+				Logs::create(['mensagem' => 'Importação automática executada.']);
+				Logs::create(['mensagem' => 'Localizado arquivo cre_garantias.xlsx.']);
+				Logs::create(['mensagem' => 'Processando o arquivo cre_garantias.xlsx...']);
+				try{
+					$nameFile = 'cre_garantias'.date('dmY-His').'.xlsx';
+					copy('//SICOOB_SERVICE/outlook/cre_garantias.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
+					Excel::import(new cre_garantias, getcwd().'/storage/app/importacoes/'.$nameFile);
+					unlink('//SICOOB_SERVICE/outlook/cre_garantias.xlsx');
+					Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de cre_garantias.xlsx efetuada com sucesso!</span>']);
+				} catch (\Exception $ex){
+					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cre_garantias.xlsx!</span>']);
+				}
+			}		
 		}
 		$diretorio->close();
 	}

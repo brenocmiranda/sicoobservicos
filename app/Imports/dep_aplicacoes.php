@@ -13,16 +13,11 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 class dep_aplicacoes implements ToCollection, WithBatchInserts, WithChunkReading, WithHeadingRow
 {
-    /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
+
     public function collection(Collection $rows)
     {
         foreach ($rows as $row) 
         {   
-            $associado = Associados::where('id_sisbr', $row['numero_cliente_sisbr'])->select('id')->first();
             $dados = Aplicacoes::where('num_conta', $row['numero_conta_aplicacao'])->first();
             if(isset($dados)){
                  Aplicacoes::where('num_conta', $row['numero_conta_aplicacao'])->update([

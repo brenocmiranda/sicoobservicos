@@ -16,6 +16,7 @@ class CreateCreAvalistas extends Migration
         Schema::create('cre_avalistas', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
+            $table->integer('codigo');
             $table->integer('cli_id_associado')->unsigned();
             $table->foreign('cli_id_associado')->references('id')->on('cli_associados');
             $table->integer('cre_id_arquivo')->unsigned();

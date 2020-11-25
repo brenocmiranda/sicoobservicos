@@ -212,6 +212,38 @@ Importações
                     <div class="col-12">
                          <div class="form-group col-12 row">
                             <div class="col-8 p-0">
+                                <label class="col-form-label mb-2">cre_avalistas.xlsx</label>
+                                <input type="file" name="cre_avalistas" accept=".xlsx">
+                            </div>
+                            <div class="col-4 p-0 m-auto text-right">
+                                <label class="mb-0 d-block">
+                                    <b>{!! ( strtotime(date('Y-m-d', strtotime(@$cre_avalistas->updated_at))) == 
+                                    strtotime(date('Y-m-d')) ? '<i class="mdi mdi-check mdi-24px text-success px-2"></i>'."Atualizado" : '<i class="mdi mdi-close mdi-24px text-danger px-2"></i>'."Desatualizado")!!}</b>
+                                </label>
+                                <small>{{date('d/m/Y H:i:s', strtotime(@$cre_avalistas->updated_at))}}</small>
+                            </div>
+                        </div>
+                    </div>
+                     <hr class="col-12 my-2">
+                    <div class="col-12">
+                         <div class="form-group col-12 row">
+                            <div class="col-8 p-0">
+                                <label class="col-form-label mb-2">cre_garantias.xlsx</label>
+                                <input type="file" name="cre_garantias" accept=".xlsx">
+                            </div>
+                            <div class="col-4 p-0 m-auto text-right">
+                                <label class="mb-0 d-block">
+                                    <b>{!! ( strtotime(date('Y-m-d', strtotime(@$cre_garantias->updated_at))) == 
+                                    strtotime(date('Y-m-d')) ? '<i class="mdi mdi-check mdi-24px text-success px-2"></i>'."Atualizado" : '<i class="mdi mdi-close mdi-24px text-danger px-2"></i>'."Desatualizado")!!}</b>
+                                </label>
+                                <small>{{date('d/m/Y H:i:s', strtotime(@$cre_garantias->updated_at))}}</small>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="col-12 my-2">
+                    <div class="col-12">
+                         <div class="form-group col-12 row">
+                            <div class="col-8 p-0">
                                 <label class="col-form-label mb-2">crt_cartaocredito.xlsx</label>
                                 <input type="file" name="crt_cartaocredito" accept=".xlsx">
                             </div>

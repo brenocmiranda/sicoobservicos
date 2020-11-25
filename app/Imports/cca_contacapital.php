@@ -12,11 +12,6 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 class cca_contacapital implements ToCollection, WithBatchInserts, WithChunkReading, WithHeadingRow
 {
-    /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
     public function collection(Collection $rows)
     {
         foreach ($rows as $row) 

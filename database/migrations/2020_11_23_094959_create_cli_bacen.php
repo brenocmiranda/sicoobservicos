@@ -18,6 +18,7 @@ class CreateCliBacen extends Migration
             $table->increments('id');
 
             $table->string('data_movimento');
+            $table->integer('codigo');
             $table->string('modalidade');
             $table->string('submodalidade');
             $table->double('saldo_prejuizo');
@@ -49,8 +50,6 @@ class CreateCliBacen extends Migration
             $table->double('saldo_vencido_301360');
             $table->double('saldo_vencido_361540');
             $table->double('saldo_vencido_540');
-            $table->double('saldo_vencido_ate90');
-            $table->double('saldo_vencido_acima90');
 
             $table->timestamps();
         });

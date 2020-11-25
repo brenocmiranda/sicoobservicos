@@ -16,6 +16,7 @@ class CreateCreGarantias extends Migration
         Schema::create('cre_garantias', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
+            $table->integer('codigo');
             $table->string('tipo');
             $table->text('descricao');
             $table->integer('cre_id_arquivo')->unsigned();

@@ -953,32 +953,117 @@ Painel do associado
         </div>
         <div class="clearfix"></div>
       </div>
-
       <div role="tabpanel" class="tab-pane fade" id="bacen">
-        <div class="col-12 text-center mb-5">
-          <i class="ti-hummer" style="font-size: 30px"></i>
-          <h4>Página em desenvolvimento!</h4>
-        </div>
-        <div class="row">
-          <div class="col-3">
-            <h6>Total a vencer</h6>
-            <label>R$ 0,00</label>
+        @if(isset($associado->RelationBacen[0]))
+          <div class="col-12 row">
+            <div class="col-3">
+              <h6>Total a vencer</h6>
+              <label>R$ {{$associado->RelationBacen->sum('saldo_avencer')}}</label>
+            </div>
+            <div class="col-3">
+              <h6>Total vencido</h6>
+              <label>R$ {{$associado->RelationBacen->sum('saldo_vencido')}}</label>
+            </div>
+            <div class="col-3">
+              <h6>Prejuízo</h6>
+              <label>R$ {{$associado->RelationBacen->sum('saldo_prejuizo')}}</label>
+            </div>
+            <div class="col-3">
+              <h6>Respon. Total</h6>
+              <label>R$ {{$associado->RelationBacen->sum('saldo_responsabilidade')}}</label>
+            </div> 
           </div>
-          <div class="col-3">
-            <h6>Total vencido</h6>
-            <label>R$ 0,00</label>
+          @foreach($associado->RelationBacen->sortBy('modalidade') as $dados)
+          <div class="mt-5">
+            <h5>{{$dados->modalidade}} &#183 {{$dados->submodalidade}}</h5>
+            <hr class="my-2">
+              <table>
+                <tbody>
+                  @if(!empty($dados->saldo_avencer_30))
+                  <tr>
+                    <td style="width: 200px;"><h6 class="my-1">A VENCER ATÉ 30 DIAS</h6></td>
+                    <td><label class="pl-5 ml-5 my-1">R$ {{$dados->saldo_avencer_30}}</label></td>
+                  </tr>
+                  @endif
+                  @if(!empty($dados->saldo_avencer_3160))
+                  <tr>
+                    <td style="width: 200px;"><h6 class="my-1">A VENCER DE 31 A 60 DIAS</h6></td>
+                    <td><label class="pl-5 ml-5 my-1">R$ {{$dados->saldo_avencer_3160}}</label></td>
+                  </tr>
+                  @endif
+                  @if(!empty($dados->saldo_avencer_3160))
+                  <tr>
+                    <td style="width: 200px;"><h6 class="my-1">A VENCER DE 61 A 90 DIAS</h6></td>
+                    <td><label class="pl-5 ml-5 my-1">R$ {{$dados->saldo_avencer_6190}}</label></td>
+                  </tr>
+                  @endif
+                  @if(!empty($dados->saldo_avencer_3160))
+                  <tr>
+                    <td style="width: 200px;"><h6 class="my-1">A VENCER DE 91 A 180 DIAS</h6></td>
+                    <td><label class="pl-5 ml-5 my-1">R$ {{$dados->saldo_avencer_91180}}</label></td>
+                  </tr>
+                  @endif
+                  @if(!empty($dados->saldo_avencer_181360))
+                  <tr>
+                    <td style="width: 200px;"><h6 class="my-1">A VENCER DE 181 A 360 DIAS</h6></td>
+                    <td><label class="pl-5 ml-5 my-1">R$ {{$dados->saldo_avencer_181360}}</label></td>
+                  </tr>
+                  @endif
+                  @if(!empty($dados->saldo_avencer_361720))
+                  <tr>
+                    <td style="width: 200px;"><h6 class="my-1">A VENCER DE 361 A 720 DIAS</h6></td>
+                    <td><label class="pl-5 ml-5 my-1">R$ {{$dados->saldo_avencer_361720}}</label></td>
+                  </tr>
+                  @endif
+                   @if(!empty($dados->saldo_avencer_7211080))
+                  <tr>
+                    <td style="width: 200px;"><h6 class="my-1">A VENCER DE 721 A 1080 DIAS</h6></td>
+                    <td><label class="pl-5 ml-5 my-1">R$ {{$dados->saldo_avencer_7211080}}</label></td>
+                  </tr>
+                  @endif
+                  @if(!empty($dados->saldo_avencer_10811440))
+                  <tr>
+                    <td style="width: 200px;"><h6 class="my-1">A VENCER DE 1081 A 1440 DIAS</h6></td>
+                    <td><label class="pl-5 ml-5 my-1">R$ {{$dados->saldo_avencer_10811440}}</label></td>
+                  </tr>
+                  @endif
+                  @if(!empty($dados->saldo_avencer_14411800))
+                  <tr>
+                    <td style="width: 200px;"><h6 class="my-1">A VENCER DE 1441 A 1800 DIAS</h6></td>
+                    <td><label class="pl-5 ml-5 my-1">R$ {{$dados->saldo_avencer_14411800}}</label></td>
+                  </tr>
+                  @endif
+                  @if(!empty($dados->saldo_avencer_18015400))
+                  <tr>
+                    <td style="width: 200px;"><h6 class="my-1">A VENCER DE 1801 A 5400 DIAS</h6></td>
+                    <td><label class="pl-5 ml-5 my-1">R$ {{$dados->saldo_avencer_18015400}}</label></td>
+                  </tr>
+                  @endif
+                  @if(!empty($dados->saldo_avencer_5400))
+                  <tr>
+                    <td style="width: 200px;"><h6 class="my-1">A VENCER ACIMA DE 5401 DIAS</h6></td>
+                    <td><label class="pl-5 ml-5 my-1">R$ {{$dados->saldo_avencer_5400}}</label></td>
+                  </tr>
+                  @endif
+                  @if(!empty($dados->saldo_avencer_indeterminado))
+                  <tr>
+                    <td style="width: 200px;"><h6 class="my-1">A VENCER DE 361 A 720 DIAS</h6></td>
+                    <td><label class="pl-5 ml-5 my-1">R$ {{$dados->saldo_avencer_indeterminado}}</label></td>
+                  </tr>
+                  @endif
+                </tbody>
+              </table>
           </div>
-          <div class="col-3">
-            <h6>Prejuízo</h6>
-            <label>R$ 0,00</label>
+          @endforeach
+        @else
+          <div class="text-center">
+            <i class="mdi mdi-36px mdi-close-octagon-outline"></i>
+            <h5>Nenhuma informação encontrada.</h5>
           </div>
-          <div class="col-3">
-            <h6>Respon. Total</h6>
-            <label>R$ 0,00</label>
-          </div> 
-        </div>
+        @endif
         <div class="clearfix"></div>
       </div>
+      
       <div role="tabpanel" class="tab-pane fade" id="inadimplencia">
         <div class="col-12 text-center">
           <i class="ti-hummer" style="font-size: 30px"></i>
@@ -986,6 +1071,7 @@ Painel do associado
         </div>
         <div class="clearfix"></div>
       </div>
+
     </div>
   </div>
   @endsection

@@ -15,16 +15,11 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 class crt_cartaocredito implements ToCollection, WithBatchInserts, WithChunkReading, WithHeadingRow
 {
-    /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
+
     public function collection(Collection $rows)
     {
         foreach ($rows as $row) 
         {  
-            $associado = Associados::where('id_sisbr', $row['numero_cliente_sisbr'])->select('id')->first();
             $dados = CartaoCredito::where('num_contrato', $row['numero_conta_cartao'])->first();
             if(isset($dados)){
                 ContratosArquivos::find($dados->cre_id_arquivo)->update([

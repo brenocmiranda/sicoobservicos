@@ -24,7 +24,6 @@ class cre_contratos implements ToCollection, WithBatchInserts, WithChunkReading,
     {
         foreach ($rows as $row) 
         {  
-            $associado = Associados::where('id_sisbr', $row['numero_cliente_sisbr'])->select('id')->first();
             $dados = Contratos::where('num_contrato', $row['numero_contrato_credito'])->first();
             $dados1 = Modalidades::where('codigo', $row['codigo_modalidade_produto'])->first();
             if(isset($dados)){

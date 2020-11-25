@@ -12,16 +12,10 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 class pop_poupanca implements ToCollection, WithBatchInserts, WithChunkReading, WithHeadingRow
 {
-    /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
     public function collection(Collection $rows)
     {
         foreach ($rows as $row) 
         {   
-            $associado = Associados::where('id_sisbr', $row['numero_cliente_sisbr'])->select('id')->first();
             $dados = Poupancas::where('num_conta', $row['numero_conta_poupanca'])->first();
             if(isset($dados)){
                  Poupancas::where('num_conta', $row['numero_conta_poupanca'])->update([
