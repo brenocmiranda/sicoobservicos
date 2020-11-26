@@ -17,12 +17,13 @@ class CreateCliBacen extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
 
-            $table->string('data_movimento');
+            $table->date('data_movimento');
             $table->integer('codigo');
             $table->string('modalidade');
             $table->string('submodalidade');
             $table->double('saldo_prejuizo');
             $table->double('saldo_responsabilidade');
+            $table->double('saldo_credito_liberar');
             $table->integer('cli_id_associado')->unsigned();
             $table->foreign('cli_id_associado')->references('id')->on('cli_associados');
             $table->double('saldo_avencer');

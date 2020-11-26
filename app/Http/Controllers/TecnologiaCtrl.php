@@ -63,12 +63,9 @@ class TecnologiaCtrl extends Controller
 		$chamadosUsuarios = Chamados::join('gti_fontes', 'gti_id_fontes', 'gti_fontes.id')->select('gti_id_fontes', 'gti_fontes.nome', \DB::raw('count(gti_id_fontes) as quantidade'))->groupBy('gti_id_fontes')->get();
 		$chamadosDia = Chamados::select(\DB::raw('DATE(created_at) as data'), \DB::raw('count(created_at) as quantidade'))->groupBy(\DB::raw('DATE(created_at)'))->get();
 		$chamadosUsuarios = Chamados::groupBy('usr_id_usuarios')->select('usr_id_usuarios', \DB::raw('count(usr_id_usuarios) as quantidade'))->get();
-
-
 		$equipamentosSetor = Ativos::join('usr_setores', 'id_setor', 'usr_setores.id')->select('id_setor', 'usr_setores.nome', \DB::raw('count(id_setor) as quantidade'))->groupBy('id_setor')->get();
 		$equipamentosPA = Ativos::join('usr_unidades', 'id_unidade', 'usr_unidades.id')->select('id_unidade', 'usr_unidades.nome', \DB::raw('count(id_unidade) as quantidade'))->groupBy('id_unidade')->get();
 		$equipamentosUsuarios = AtivosUsuarios::groupBy('usr_id_usuarios')->whereNotNull('dataDevolucao')->select('usr_id_usuarios', \DB::raw('count(usr_id_usuarios) as quantidade'))->get();
-
 		$equipamentosMarca = Ativos::groupBy('marca')->select('marca', \DB::raw('count(marca) as quantidade'))->get();
 
 		return view('tecnologia.dashboard')->with('homepage', $homepage)->with('chamados', $chamados)->with('chamadosEmaberto', $chamadosEmaberto) ->with('chamadosEmandamento', $chamadosEmandamento) ->with('chamadosEncerrado', $chamadosEncerrado) ->with('chamadosTipos', $chamadosTipos) ->with('chamadosFontes', $chamadosFontes) ->with('chamadosDia', $chamadosDia) ->with('chamadosUsuarios', $chamadosUsuarios) ->with('equipamentosSetor', $equipamentosSetor) ->with('equipamentosPA', $equipamentosPA) ->with('equipamentosMarca', $equipamentosMarca) ->with('equipamentosUsuarios', $equipamentosUsuarios); 
@@ -876,7 +873,8 @@ class TecnologiaCtrl extends Controller
 	public function ExibirUsuariosInventario(){
 		if(Auth::user()->RelationFuncao->ver_gti == 1 || Auth::user()->RelationFuncao->gerenciar_gti == 1){
 			$equipamentos = Ativos::all();
-			$usuarios = Usuarios::all();
+			$usuarios = AtivosUsuarios::join('usr_usuarios', 'usr_id_usuarios', 'usr_usuarios.id')->join('cli_associados', 'usr_usuarios.cli_id_associado', 'cli_associados.id')->whereNull('dataDevolucao')->select('cli_associados.nome', 'usr_usuarios.id')->groupBy('id')->get();
+		
 			return view('tecnologia.equipamentos.listarUsuarios')->with('ativos', $equipamentos)->with('usuarios', $usuarios);
 		}else{
 			return redirect(route('403'));

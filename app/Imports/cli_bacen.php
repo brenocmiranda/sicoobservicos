@@ -19,11 +19,12 @@ class cli_bacen implements ToCollection, WithBatchInserts, WithChunkReading, Wit
             $dados = AssociadosBacen::where('codigo', $row['codigo'])->first();
             if(isset($dados)){
                     AssociadosBacen::where('codigo', $dados->codigo)->update([
-                        'data_movimento' => $row['ano_mes_movimento'],
+                        'data_movimento' => gmdate('Y-m-d', (($row['data_movimento'] - 25569) * 86400)),
                         'modalidade' => $row['modalidade_bacen'],
                         'submodalidade' => $row['submodalidade_bacen'],
                         'saldo_prejuizo' => number_format($row['valor_prejuizo_sfn'], 2, '.', ''),
                         'saldo_responsabilidade' => number_format($row['valor_saldo_devedor_sfn'], 2, '.', ''),
+                        'saldo_credito_liberar' => number_format($row['valor_credito_a_liberar_sfn'], 2, '.', ''),
                         'saldo_avencer' => number_format($row['valor_a_vencer_sfn'], 2, '.', ''),
                         'saldo_avencer_30' => number_format($row['valor_a_vencer_ate_30_dias_sfn'], 2, '.', ''),
                         'saldo_avencer_3160' => number_format($row['valor_a_vencer_31_a_60_dias_sfn'], 2, '.', ''),
@@ -53,12 +54,13 @@ class cli_bacen implements ToCollection, WithBatchInserts, WithChunkReading, Wit
                     ]); 
             }else{
                 AssociadosBacen::create([
-                    'data_movimento' => $row['ano_mes_movimento'],
+                    'data_movimento' => gmdate('Y-m-d', (($row['data_movimento'] - 25569) * 86400)),
                     'codigo' => $row['codigo'],
                     'modalidade' => $row['modalidade_bacen'],
                     'submodalidade' => $row['submodalidade_bacen'],
                     'saldo_prejuizo' => number_format($row['valor_prejuizo_sfn'], 2, '.', ''),
                     'saldo_responsabilidade' => number_format($row['valor_saldo_devedor_sfn'], 2, '.', ''),
+                    'saldo_credito_liberar' => number_format($row['valor_credito_a_liberar_sfn'], 2, '.', ''),
                     'saldo_avencer' => number_format($row['valor_a_vencer_sfn'], 2, '.', ''),
                     'saldo_avencer_30' => number_format($row['valor_a_vencer_ate_30_dias_sfn'], 2, '.', ''),
                     'saldo_avencer_3160' => number_format($row['valor_a_vencer_31_a_60_dias_sfn'], 2, '.', ''),

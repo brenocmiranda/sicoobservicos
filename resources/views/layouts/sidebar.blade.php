@@ -1,5 +1,6 @@
 <div class="navbar-default sidebar" role="navigation">
   <div class="sidebar-nav slimscrollsidebar">
+
     <div class="sidebar-head">
       <h3>
         <span class="fa-fw open-close">
@@ -8,6 +9,7 @@
         <span class="hide-menu">Menu</span>
       </h3> 
     </div>
+
     <div class="user-profile">
       <hr class="mx-5 mt-0">
       <div class="user-pro-body my-3">
@@ -198,7 +200,7 @@
         </ul>
       </li>
       @endif
-
     </ul>
+    
   </div>
 </div>

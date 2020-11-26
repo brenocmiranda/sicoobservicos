@@ -35,7 +35,7 @@ Homepage
 			<ul class="row col-12 m-auto py-3" id="homepage">
 				@if(isset($homepages[0]))
 					@foreach($homepages as $homepage)
-					<li class="col-2">
+					<li class="col-lg-2 col-sm-6 col-12">
 						<div class="p-3 h-100">
 							<div class="text-center">
 								<img src="{{ asset('storage/app/'.$homepage->RelationImagem->endereco) }}" class="border img-circle p-2 bg-ligth" width="60" height="60">

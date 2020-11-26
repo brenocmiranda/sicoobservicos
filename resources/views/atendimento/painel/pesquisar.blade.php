@@ -1,5 +1,5 @@
 @section('title')
-Painel comercial
+Painel do associado
 @endsection
 
 @extends('layouts.index')
@@ -8,12 +8,12 @@ Painel comercial
 <div class="container-fluid">
 	<div class="row bg-title">
 		<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-			<h4 class="page-title">Painel comercial</h4> 
+			<h4 class="page-title">Painel do associado</h4> 
 		</div>
 		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
 			<ol class="breadcrumb">
 				<li><a href="javascript:void(0)">Atendimento</a></li>
-				<li><a class="active">Painel comercial</a></li>
+				<li><a class="active">Painel do associado</a></li>
 			</ol>
 		</div>
 	</div>
@@ -28,7 +28,7 @@ Painel comercial
 					</div>
 					<hr class="col-10 my-0">
 					<div class="card-body">
-						<div class="input-group col-10 mx-auto"> 
+						<div class="input-group col-lg-10 col-12 mx-auto"> 
 							<input type="search" class="form-control" placeholder="Entre com nome, razão social ou documento do associado..." aria-controls="table" name="pesquisar" id="pesquisar" style="border-top-left-radius:6px;border-bottom-left-radius:6px;" required>	
 							<div class="input-group-addon p-0 m-0 border-0">
 								<button type="submit" class="btn btn-success" style="border-top-right-radius:6px;border-bottom-right-radius:6px;"> 

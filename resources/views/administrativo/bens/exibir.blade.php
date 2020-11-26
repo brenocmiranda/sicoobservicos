@@ -34,7 +34,7 @@ Bens
 						@if(isset($bens[0]))
 							<ul class="row p-0" id="bens">
 								@foreach($bens as $item)
-								<li class="col-6">
+								<li class="col-lg-6 col-sm-6 col-12">
 									<div class="row mx-auto col-12 border shadow-sm rounded my-3 p-3">
 										<div class="col-12">
 											<a href="{{route('detalhes.bens.administrativo', $item->id)}}" class="row">

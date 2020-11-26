@@ -19,9 +19,11 @@ Documentos
 	</div>
 	<div class="card">
 		<div class="card-body">
-			<div class="col-12 row mx-auto justify-content-center">
-				@include('layouts.search')
-			</div>
+			<div class="col-12 row mx-auto">
+					<div class="col-12 col-lg-8 mx-auto">
+						<input type="search" class="form-control rounded" style="border-radius:20px !important;" placeholder="Pesquise...">
+					</div>
+				</div>
 			<ul class="row p-5" id="documentos">
 				@foreach($dados->sortBy('nome') as $documento)
 				<li class="col-12 mx-auto">

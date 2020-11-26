@@ -53,10 +53,14 @@ Solicitações de materiais
 											</div>
 										</div>
 										@if(Auth::user()->RelationFuncao->gerenciar_administrativo == 1)
-										<div class="col-2 m-auto row justify-content-center">
-											<a href="javascript:void(0)" class="btn btn-success btn-outline btn-alterar" data="{{route('aprovar.solicitacoes.administrativo', $pendencia->id)}}">
+										<div class="col-3 m-auto row justify-content-center">
+											<a href="javascript:void(0)" class="btn btn-success btn-outline btn-alterar mx-2" data="{{route('aprovar.solicitacoes.administrativo', $pendencia->id)}}">
 												<i class="mdi mdi-check pr-2"></i>
 												<span>Aprovar</span>
+											</a>
+											<a href="javascript:void(0)" class="btn btn-danger btn-outline mx-2">
+												<i class="mdi mdi-close pr-2"></i>
+												<span>Recusar</span>
 											</a>
 										</div>
 										@endif

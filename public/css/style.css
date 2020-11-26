@@ -19894,35 +19894,35 @@ ul.pro-amenities li span i {
 		display: none;
 	}
 	.navbar-top-links {
-		float: left
+		float: left;
 	}
 	.navbar-top-links .profile-pic img {
-		margin-right: 0
+		margin-right: 0;
 	}
 	.navbar-top-links>li:last-child {
-		margin-right: 0
+		margin-right: 0;
 	}
 	.navbar-top-links>li>a {
-		padding: 0 12px
+		padding: 0 12px;
 	}
 	.navbar-top-links .dropdown-alerts,
 	.navbar-top-links .dropdown-messages,
 	.navbar-top-links .dropdown-tasks {
-		width: 260px
+		width: 260px;
 	}
 	.show-sidebar .sidebar {
 		width: 240px;
-		top: 0
+		top: 0;
 	}
 	.show-sidebar .sidebar .hide-menu {
-		display: inline
+		display: inline;
 	}
 	.show-sidebar .sidebar .nav-small-cap {
-		display: block
+		display: block;
 	}
 	.show-sidebar .sidebar .sidebar-head {
 		width: 240px;
-		display: block
+		display: block;
 	}
 	.sidebar {
 		z-index: 1001;

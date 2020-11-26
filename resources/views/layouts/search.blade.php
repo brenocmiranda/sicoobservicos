@@ -1,11 +1,11 @@
-<div class="p-0 col-7 input-group d-flex">
+<div class="p-0 col-lg-7 col-sm-7 col-12 input-group d-flex">
 	<div>
 		<button class="btn btn-lg btn-icon icon-left btn-default btn-outline waves-effect waves-light" data-toggle="modal">
 			<i class="fa fa-filter"></i> 
 			<span>Filtrar</span>
 		</button>
 	</div>
-	<div class="col-8 px-2">
+	<div class="col-lg-8 col-sm-8 col-12 px-2">
 		<input type="search" class="form-control rounded" placeholder="Buscar..." aria-controls="table" id="pesquisar">
 	</div>
 	<div class="dropdown">

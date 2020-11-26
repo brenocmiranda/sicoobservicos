@@ -21,7 +21,7 @@ Aprendizagem
 		<div class="card-body">
 			<div class="col-12">
 				<div class="col-12 row mx-auto">
-					<div class="col-8 mx-auto">
+					<div class="col-12 col-lg-8 mx-auto">
 						<input type="search" class="form-control rounded" style="border-radius:20px !important;" placeholder="Pesquise...">
 					</div>
 				</div>

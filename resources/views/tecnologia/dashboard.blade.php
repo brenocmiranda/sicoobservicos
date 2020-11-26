@@ -29,9 +29,9 @@ Tecnologia
 			<div class="content-wrap">
 				<section id="section-iconbox-1" class="content-current">
 					<div class="white-box row mb-0">
-	                    <div class="col-lg-3 col-sm-6 col-xs-12 px-2">
+	                    <div class="col-lg-3 col-sm-6 col-xs-12 px-2 pb-3 pb-lg-0">
 	                    	<div class="p-3 border shadow-sm" style="background-color: #eeeeee40!important; border-radius: 5px">
-							<div class="analytics-info">
+							<div class="analytics-info p-3">
 								<h3 class="box-title">Em aberto</h3>
 								<ul class="list-inline two-part">
 									<li>
@@ -44,9 +44,9 @@ Tecnologia
 							</div>
 							</div>
 						</div>
-						<div class="col-lg-3 col-sm-6 col-xs-12 px-2">
+						<div class="col-lg-3 col-sm-6 col-xs-12 px-2 pb-3 pb-lg-0">
 							<div class="p-3 border shadow-sm" style="background-color: #eeeeee40!important; border-radius: 5px">
-							<div class="analytics-info">
+							<div class="analytics-info p-3">
 								<h3 class="box-title">Em andamento</h3>
 								<ul class="list-inline two-part">
 									<li>
@@ -59,9 +59,9 @@ Tecnologia
 							</div>
 						</div>
 						</div>
-						<div class="col-lg-3 col-sm-6 col-xs-12 px-2">
+						<div class="col-lg-3 col-sm-6 col-xs-12 px-2 pb-3 pb-lg-0">
 							<div class="p-3 border shadow-sm" style="background-color: #eeeeee40!important; border-radius: 5px">
-							<div class="analytics-info">
+							<div class="analytics-info p-3">
 								<h3 class="box-title">Encerrado</h3>
 								<ul class="list-inline two-part">
 									<li>
@@ -74,9 +74,9 @@ Tecnologia
 							</div>
 						</div>
 						</div>
-						<div class="col-lg-3 col-sm-6 col-xs-12 px-2">
+						<div class="col-lg-3 col-sm-6 col-xs-12 px-2 pb-3 pb-lg-0">
 							<div class="p-3 border shadow-sm" style="background-color: #eeeeee40!important; border-radius: 5px">
-							<div class="analytics-info">
+							<div class="analytics-info p-3">
 								<h3 class="box-title">Total de chamados</h3>
 								<ul class="list-inline two-part">
 									<li>
@@ -155,8 +155,8 @@ Tecnologia
 								<table class="table color-table muted-table" id="table2">
 									<thead>
 										<tr>
-											<th>Nome</th>
-											<th>Status</th>
+											<th>Título</th>
+											<th>Subtítulo</th>
 											<th>Data de inclusão</th>
 										</tr>
 									</thead>

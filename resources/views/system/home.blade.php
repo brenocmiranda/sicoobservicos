@@ -7,8 +7,8 @@ Página inicial
 @section('content')
 <div class="container-fluid home mx-auto">
 	 <section class="section h-100">
-        <div class="col-12 h-100 d-flex align-items-center">
-        	<div class="col-6 m-auto">
+        <div class="col-12 h-100 row mx-auto align-items-center">
+        	<div class="col-lg-6 col-12 m-auto">
         		<div class="mb-5 d-flex">
         			<div>
 			        	<h1 class="mb-3 text-dark">Olá, {{explode(" ", ucfirst(strtolower(Auth::user()->RelationAssociado->nome)))[0]}}!</h1>
@@ -21,9 +21,9 @@ Página inicial
 		        </div>
 	        	<hr>
 	        	<div>
-	        		<label class="font-weight-bold pb-3 d-block">Novos tópicos disponíveis <small>(acesse Suporte > Aprendizagem)</small></label>
+	        		<label class="font-weight-bold pb-3 d-block">Novos tópicos disponíveis &#183 <a href="{{route('exibir.base')}}"><small>Saiba mais!</small></a></label>
 	        		@if(isset($base[0]))
-	        			<ul style="list-style: circle;" class="col-12 ml-3">
+	        			<ul style="list-style: disc;" class="col-12 ml-3">
 			        		@foreach($base as $b)
 			        			<li class="pb-2">
 			        				<a href="{{route('detalhes.base', $b->id)}}">
