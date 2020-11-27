@@ -11,7 +11,7 @@ class MateriaisHistorico extends Model
 
     protected $table = 'adm_materiais_historico';
     protected $primaryKey = 'id';
-    protected $fillable = ['id', 'tipo', 'quantidade', 'id_material', 'id_usuario', 'status', 'created_at', 'updated_at'];
+    protected $fillable = ['id', 'tipo', 'quantidade', 'observacao', 'id_material', 'id_usuario', 'status', 'created_at', 'updated_at'];
 
     public function RelationMaterial(){
     	return $this->belongsTo(Materiais::class, 'id_material', 'id');

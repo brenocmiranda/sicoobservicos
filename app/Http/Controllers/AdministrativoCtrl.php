@@ -642,7 +642,7 @@ class AdministrativoCtrl extends Controller
 		}
 	}
 	// Aprovando solicitação de material
-	public function SolicitacaoMateriaisAdmin($id){
+	public function SolicitacaoMateriaisAdminAprovar($id){
 		if(Auth::user()->RelationFuncao->gerenciar_administrativo == 1){
 			$historico = MateriaisHistorico::find($id);
 			if($historico->RelationMaterial->quantidade >= $historico->quantidade){
@@ -657,7 +657,7 @@ class AdministrativoCtrl extends Controller
 				Atividades::create([
 					'nome' => 'Aprovação de solicitação de material',
 					'descricao' => 'Você acabou de aprovar a solicitação do material, '.$historico->RelationMaterial->nome.'.',
-					'icone' => ' mdi-cube-outline',
+					'icone' => ' mdi-cube-send',
 					'url' => route('exibir.solicitacoes.administrativo'),
 					'id_usuario' => Auth::id()
 				]);
@@ -665,6 +665,26 @@ class AdministrativoCtrl extends Controller
 			}else{
 				return response()->json(['success' => false]);
 			}
+		}else{
+			return redirect(route('403'));
+		}
+	}
+	// Desaprovando solicitação de material
+	public function SolicitacaoMateriaisAdminDesaprovar(Request $request){
+		if(Auth::user()->RelationFuncao->gerenciar_administrativo == 1){
+				MateriaisHistorico::find($request->id)->update(['status' => 2, 'observacao' => $request->observacao]);
+				$historico = MateriaisHistorico::find($request->id);
+				$historico->RelationUsuario->notify(new SolicitacaoMaterialCliente($historico));
+				$this->email->notify(new SolicitacaoMaterialAdmin($historico));
+				Atividades::create([
+					'nome' => 'Desaprovação de solicitação de material',
+					'descricao' => 'Você acabou de cancelar a solicitação do material, '.$historico->RelationMaterial->nome.'.',
+					'icone' => ' mdi-delete-forever',
+					'url' => route('exibir.solicitacoes.administrativo'),
+					'id_usuario' => Auth::id()
+				]);
+
+				return response()->json(['success' => true]);
 		}else{
 			return redirect(route('403'));
 		}

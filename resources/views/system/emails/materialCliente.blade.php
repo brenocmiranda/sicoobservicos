@@ -8,7 +8,7 @@
 						<table>
 							<tbody>
 								<tr>
-									<td style="padding:15px 15px 15px 30px"><img src="http://10.11.26.31/sicoob/public/img/logo.png" alt="" height="50">
+									<td style="padding:15px 15px 15px 30px"><img src="https://media.solumbox.com//img/i/6887ace8-40a3-43b2-be7a-e4a0b61e2213/1000" alt="" height="50">
 									</td>
 								</tr>
 							</tbody>
@@ -26,12 +26,26 @@
 											</p>
 											@if($material->status == 0)
 												{!! $configuracoes->abertura_solicitacao_material !!}
-											@else
+
+											@elseif($material->status == 1)
 												{!! $configuracoes->fechamento_solicitacao_material !!}
 												<ul>
 													<li><b>Produto:</b> {{$material->RelationMaterial->nome}}</li>
 													<li><b>Quantidade:</b> {{$material->quantidade}} unidades</li>
 												</ul>
+												
+											@else
+												<p>
+													<b>Eitaaa, a sua solicitação de material de nº {{$material->id}} acaba de ser cancelada!</b>
+												</p>
+												<label>Veja mais informações sobre essa solicitação:</label>
+												<br>
+												<p style="text-align:justify">
+													<ul>
+														<li><b>Mótivo:</b> {{$material->observacao}}</li>
+														<li><b>Produto:</b> {{$material->RelationMaterial->nome}} ({{$material->quantidade}} unidades)</li>										
+													</ul>
+												</p>
 											@endif
 											<p style="text-align:justify">
 												<div>
@@ -69,7 +83,7 @@
 																	<div>
 																		<p style="margin-top:0px;margin-bottom:10px">
 																			<b>Equipe {{env('APP_NAME')}}</b><br>
-																			<a href="http://sicoobservicos.coop.br" target="_blank">http://sicoobservicos.coop.br</a><br>
+																			<a href="{{env('APP_URL')}}" target="_blank">http://sicoobservicos.coop.br</a><br>
 																		</p>
 																	</div>
 																</td>

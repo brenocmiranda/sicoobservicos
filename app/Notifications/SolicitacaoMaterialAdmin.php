@@ -47,10 +47,18 @@ class SolicitacaoMaterialAdmin extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
          // Abertura de solicitação
-        return (new MailMessage)
+        if($this->material->status == 0){
+            return (new MailMessage)
                     ->from('servicos@sicoobsertaominas.com.br')
                     ->subject('Nova solicitação de material =)')
                     ->view('system.emails.materialAdmin', ['material' => $this->material, 'configuracoes' => $this->configuracoes]);
+        }else{
+            return (new MailMessage)
+                    ->from('servicos@sicoobsertaominas.com.br')
+                    ->subject('Cancelamento de solicitação de material =(')
+                    ->view('system.emails.materialAdmin', ['material' => $this->material, 'configuracoes' => $this->configuracoes]);
+        }
+        
     }
 
     /**

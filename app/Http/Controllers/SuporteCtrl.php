@@ -223,31 +223,52 @@ class SuporteCtrl extends Controller
 	# Solicitação de materiais
 	#-------------------------------------------------------------------
 	public function Materiais(){
-		$historico = MateriaisHistorico::where('id_usuario', Auth::id())->where('tipo', 's')->orderBy('created_at', 'DESC')->get();
+		$historico = MateriaisHistorico::where('id_usuario', Auth::id())->where('tipo', 's')->orderBy('created_at', 'DESC')->orderBy('status', 'ASC')->get();
 		$pendencias = MateriaisHistorico::where('status', 0)->orderBy('created_at', 'DESC')->get();
 		$categorias = MateriaisCategorias::where('status', 1)->orderBy('nome', 'ASC')->get();
 		return view('suporte.materiais.exibir')->with('pendencias', $pendencias)->with('requisicoes', $historico)->with('categorias', $categorias);
 	}
 	// Efetuar solicitação
 	public function MateriaisSolicitacao(Request $request){
-		$create = MateriaisHistorico::create([
-			'tipo' => 's',
-			'quantidade' => $request->quantidade,
-			'id_material' => $request->id_material, 
-			'id_usuario' => Auth::id(), 
-			'status' => 0,
-		]);
-		Auth::user()->notify(new SolicitacaoMaterialCliente($create));	
-		$this->email->notify(new SolicitacaoMaterialAdmin($create));
-		Atividades::create([
-			'nome' => 'Solicitação de material',
-			'descricao' => 'Você acabou de solicitar o material '.$create->RelationMaterial->nome.'.',
-			'icone' => 'mdi-cube-send',
-			'url' => route('exibir.solicitacoes.materiais'),
-			'id_usuario' => Auth::id()
-		]);
+        foreach ($request->id_material as $key => $value) {      
+    		$create = MateriaisHistorico::create([
+    			'tipo' => 's',
+    			'quantidade' => $request->quantidade[$key],
+    			'id_material' =>$request->id_material[$key], 
+    			'id_usuario' => Auth::id(), 
+    			'status' => 0,
+    		]);
+    		$this->email->notify(new SolicitacaoMaterialAdmin($create));
+    		Atividades::create([
+    			'nome' => 'Solicitação de materiais',
+    			'descricao' => 'Você acabou de solicitar o material '.$create->RelationMaterial->nome.'.',
+    			'icone' => 'mdi-cube-send',
+    			'url' => route('exibir.solicitacoes.materiais'),
+    			'id_usuario' => Auth::id()
+    		]);
+        }
+        Auth::user()->notify(new SolicitacaoMaterialCliente($create));
 		return response()->json(['success' => true]);
 	}
+    // Cancelar solicitação 
+    public function MateriaisSolicitacaoCancelar(Request $request){
+        MateriaisHistorico::find($request->id)->update(['status' => 2, 'observacao' => $request->observacao]);
+        $historico = MateriaisHistorico::find($request->id);
+        $historico->RelationUsuario->notify(new SolicitacaoMaterialCliente($historico));
+        $this->email->notify(new SolicitacaoMaterialAdmin($historico));
+        Atividades::create([
+            'nome' => 'Cancelamento de solicitação de material',
+            'descricao' => 'Você cancelou a sua solicitação do material, '.$historico->RelationMaterial->nome.'.',
+            'icone' => ' mdi-delete-forever',
+            'url' => route('exibir.solicitacoes.materiais'),
+            'id_usuario' => Auth::id()
+        ]);
+
+        return response()->json(['success' => true]);
+    }
+
+
+    
 	// Listando materiais para solicitação
 	public function MateriaisListar($id){
 		$dados = Materiais::where('id_categoria', $id)->get();

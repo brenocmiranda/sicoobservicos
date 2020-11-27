@@ -98,7 +98,8 @@ Route::group(['prefix' => 'app'], function(){
 		// Solicitações de materiais
 		Route::group(['prefix' => 'solicitacoes'], function(){
 			Route::get('', 'AdministrativoCtrl@ExibirMateriaisAdmin')->name('exibir.solicitacoes.administrativo');
-			Route::get('alterar/{id}', 'AdministrativoCtrl@SolicitacaoMateriaisAdmin')->name('aprovar.solicitacoes.administrativo');	
+			Route::get('aprovar/{id}', 'AdministrativoCtrl@SolicitacaoMateriaisAdminAprovar')->name('aprovar.solicitacoes.administrativo');	
+			Route::post('desaprovar/{id}', 'AdministrativoCtrl@SolicitacaoMateriaisAdminDesaprovar')->name('desaprovar.solicitacoes.administrativo');
 		});
 		// Relatórios
 		Route::group(['prefix' => 'relatorios'], function(){
@@ -258,6 +259,7 @@ Route::group(['prefix' => 'app'], function(){
 		Route::group(['prefix' => 'materiais'], function(){
 			Route::get('', 'SuporteCtrl@Materiais')->name('exibir.solicitacoes.materiais');
 			Route::post('solicitacao', 'SuporteCtrl@MateriaisSolicitacao')->name('efetuar.solicitacoes.materiais');
+			Route::post('cancelar/{id}', 'SuporteCtrl@MateriaisSolicitacaoCancelar')->name('cancelar.solicitacoes.materiais');
 			Route::get('categorias/{id}', 'SuporteCtrl@MateriaisListar')->name('categorias.solicitacoes.materiais');
 		});
 		// Documentos

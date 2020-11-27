@@ -8,7 +8,7 @@
 						<table>
 							<tbody>
 								<tr>
-									<td style="padding:15px 15px 15px 30px"><img src="http://10.11.26.31/sicoob/public/img/logo.png" alt="" height="50">
+									<td style="padding:15px 15px 15px 30px"><img src="https://media.solumbox.com//img/i/6887ace8-40a3-43b2-be7a-e4a0b61e2213/1000" alt="" height="50">
 									</td>
 								</tr>
 							</tbody>
@@ -24,21 +24,38 @@
 										<div><span>
 											<p style="margin-top:0px;margin-bottom:10px">
 											</p>
-											<p>
-												<b>Obaaa, recebemos uma nova solicitação de material!</b>
-											</p>
-											<label>Neste momento separe os itens para entrega e encaminhe para o usuário que solicitou. Veja abaixo, os dados da solicitação:</label>
-											<br>
-											<p style="text-align:justify">
-												<ul>
-													<li><b>Produto:</b> {{$material->RelationMaterial->nome}}</li>
-													<li><b>Quantidade:</b> {{$material->quantidade}} unidades</li>
-													<li><b>Usuário:</b> {{$material->RelationUsuario->RelationAssociado->nome}}</li>
-												</ul>
-												<div>
-													<label><a href="{{route('exibir.solicitacoes.administrativo')}}"><b>Aprove as solicitações de materiais</b></a></label>
-												</div>
-											</p>
+											@if($material->status == 0)
+												<p>
+													<b>Obaaa, recebemos uma nova solicitação de material!</b>
+												</p>
+												<label>Neste momento separe os itens para entrega e encaminhe para o usuário que solicitou. Veja abaixo, os dados da solicitação:</label>
+												<br>
+												<p style="text-align:justify">
+													<ul>
+														<li><b>Produto:</b> {{$material->RelationMaterial->nome}}</li>
+														<li><b>Quantidade:</b> {{$material->quantidade}} unidades</li>
+														<li><b>Usuário:</b> {{$material->RelationUsuario->RelationAssociado->nome}}</li>
+													</ul>
+													<div>
+														<label><a href="{{route('exibir.solicitacoes.administrativo')}}"><b>Gerencie suas solicitações de materiais</b></a></label>
+													</div>
+												</p>
+											@else
+												<p>
+													<b>Eitaaa, a solicitação de material de nº {{$material->id}} acaba de ser cancelada!</b>
+												</p>
+												<label>Veja mais informações sobre essa solicitação:</label>
+												<br>
+												<p style="text-align:justify">
+													<ul>
+														<li><b>Mótivo:</b> {{$material->observacao}}</li>
+														<li><b>Produto:</b> {{$material->RelationMaterial->nome}} ({{$material->quantidade}} unidades)</li>										
+													</ul>
+													<div>
+														<label><a href="{{route('exibir.solicitacoes.administrativo')}}"><b>Gerencie suas solicitações de materiais</b></a></label>
+													</div>
+												</p>
+											@endif
 											<p style="margin-top:10px;margin-bottom:10px"><span style="color:rgb(0,0,0)"><span></span></span></p>
 											<p></p><p></p></span></div>
 										</td>
@@ -70,7 +87,7 @@
 																	<div>
 																		<p style="margin-top:0px;margin-bottom:10px">
 																			<b>Equipe {{env('APP_NAME')}}</b><br>
-																			<a href="http://sicoobservicos.coop.br" target="_blank">http://sicoobservicos.coop.br</a><br>
+																			<a href="{{env('APP_URL')}}" target="_blank">http://sicoobservicos.coop.br</a><br>
 																			
 																		</p>
 																	</div>

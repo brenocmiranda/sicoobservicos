@@ -18,11 +18,12 @@ class CreateAdmMateriaisHistorico extends Migration
             $table->bigIncrements('id');
             $table->enum('tipo', ['e', 's']); // s -> saída  e -> entrada
             $table->integer('quantidade');
+            $table->text('observacao')->nullable();
             $table->bigInteger('id_material')->unsigned();
             $table->foreign('id_material')->references('id')->on('adm_materiais');
             $table->integer('id_usuario')->unsigned();
             $table->foreign('id_usuario')->references('id')->on('usr_usuarios');
-            $table->boolean('status')->default(1);
+            $table->boolean('status')->default(0); // 0 - Pendente, 1 - Aprovado, 2 - Reprovado
 
             $table->timestamps();
         });

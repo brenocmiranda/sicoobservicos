@@ -53,14 +53,18 @@ Solicitações de materiais
 											</div>
 										</div>
 										@if(Auth::user()->RelationFuncao->gerenciar_administrativo == 1)
-										<div class="col-3 m-auto row justify-content-center">
-											<a href="javascript:void(0)" class="btn btn-success btn-outline btn-alterar mx-2" data="{{route('aprovar.solicitacoes.administrativo', $pendencia->id)}}">
+										<div class="col-3 m-auto row justify-content-end">
+											@if($pendencia->RelationMaterial->quantidade > $pendencia->quantidade)
+											<a href="javascript:void(0)" class="btn btn-success btn-outline btn-alterar m-2 col-8" data="{{route('aprovar.solicitacoes.administrativo', $pendencia->id)}}">
 												<i class="mdi mdi-check pr-2"></i>
-												<span>Aprovar</span>
+												<small>Aprovar</small>
 											</a>
-											<a href="javascript:void(0)" class="btn btn-danger btn-outline mx-2">
+											@else
+												<span class="text-danger text-right mb-3">* Não possui estoque para aprovação.</span>
+											@endif
+											<a href="javascript:void(0)" class="btn btn-danger btn-outline btn-desaprovar m-2 col-8" data="{{$pendencia->id}}">
 												<i class="mdi mdi-close pr-2"></i>
-												<span>Recusar</span>
+												<small>Desaprovar</small>
 											</a>
 										</div>
 										@endif
@@ -80,6 +84,10 @@ Solicitações de materiais
 		</div>
 	</div>
 </div>
+@endsection
+
+@section('modal')
+	@include('administrativo.materiais.cancelar')
 @endsection
 
 @section('suporte')
@@ -120,6 +128,53 @@ Solicitações de materiais
 					});
 				} else {
 					swal.close();
+				}
+			});
+		});
+		// Modal de recusar
+		$('.btn-desaprovar').on('click', function(e){
+			e.preventDefault();
+			var id = $(this).attr('data');
+			$('#modal-desaprovar #identificador').val(id);
+			$('#modal-desaprovar').modal('show');
+		});
+
+		$('#modal-desaprovar #formDesaprovar').on('submit', function(e){
+			e.preventDefault();
+			// Desaprovando solicitações
+			$.ajax({
+				url: 'solicitacoes/desaprovar/'+$('#modal-desaprovar #identificador').val(),
+				type: 'POST',
+				data: new FormData(this),
+				processData: false,
+		        contentType: false,
+				beforeSend: function(){
+					$('.modal-body, .modal-footer').addClass('d-none');
+					$('.carregamento').html('<div class="mx-auto text-center my-5"> <div class="col-12"> <div class="spinner-border my-4" role="status"> <span class="sr-only"> Loading... </span> </div> </div> <label>Salvando informações...</label></div>');
+					$('#modal-desaprovar #err').html('');
+				},
+				success: function(data){
+					$('.modal-body, .modal-footer').addClass('d-none');
+					$('.carregamento').html('<div class="mx-auto text-center my-5"><div class="col-12"><i class="col-2 mdi mdi-check-all mdi-48px"></i></div><label>Informações alteradas com sucesso!</label></div>');
+					setTimeout(function(){
+						location.reload()
+					}, 2000);
+				}, error: function (data) {
+					setTimeout(function(){
+						$('.modal-body, .modal-footer').removeClass('d-none');
+						$('.carregamento').html('');
+						if(!data.responseJSON){
+							console.log(data.responseText);
+							$('#modal-desaprovar #err').html(data.responseText);
+						}else{
+							$('#modal-desaprovar #err').html('');
+							$('input').removeClass('border-bottom border-danger');
+							$.each(data.responseJSON.errors, function(key, value){
+								$('#modal-desaprovar #err').append('<div class="text-danger mx-4"><p>'+value+'</p></div>');
+								$('input[name="'+key+'"]').addClass('border-bottom border-danger');
+							});
+						}
+					}, 2000);
 				}
 			});
 		});
