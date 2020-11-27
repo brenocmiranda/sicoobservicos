@@ -3,15 +3,13 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<title>Termo de responsabilidade e compromisso para uso dos equipamentos corporativos</title>
-	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link href="https://fonts.googleapis.com/css2?family=Asap:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
 
 	<style type="text/css">
 		@font-face {
 			font-family: 'Asap';
 			font-style: normal;
 			font-weight: 400;
-			src: url('{{public_path().'/storage/fonts/Asap-Regular.ttf'}}') format("truetype");
+			src: url('{{public_path().'/fonts/Asap-Regular.ttf'}}') format("truetype");
 		}
 
 		body {
@@ -33,7 +31,7 @@
 			<div class="page p-5">
 				<div class="header row px-5">
 					<div class="pl-4 text-left col-12">
-						<img src="{{ public_path('\img\logo-dark.png') }}" width="200">
+						<img src="{{ public_path('img\logo-dark.png') }}" width="200">
 					</div>
 					<br>
 					<div class="col-12 pt-5" style="text-align: center">

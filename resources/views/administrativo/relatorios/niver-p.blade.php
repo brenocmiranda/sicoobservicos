@@ -17,15 +17,12 @@
 					explode('-', $result[0]->data_nascimento)[1] == 11 ? 'Novembro' : (
 					explode('-', $result[0]->data_nascimento)[1] == 12 ? 'Dezembro' : 'mês'))))))))))))}}</title>
 
-	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link href="https://fonts.googleapis.com/css2?family=Asap:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
-
   	<style type="text/css">
   		@font-face {
 		    font-family: 'Asap';
 		    font-style: normal;
 		    font-weight: 400;
-		    src: url('{{ asset('storage/fonts/Asap-Regular.ttf') }}') format("truetype");
+		  	src: url('{{ public_path('fonts/Asap-Regular.ttf') }}') format("truetype");
 		}
 
 		body {
