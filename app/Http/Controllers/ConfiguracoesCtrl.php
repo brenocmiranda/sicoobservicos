@@ -461,13 +461,16 @@ class ConfiguracoesCtrl extends Controller
 		if(Auth::user()->RelationFuncao->gerenciar_configuracoes == 1){
 			return datatables()->of(Usuarios::where('id', '!=', Auth::id())->where('id', '<>', 1)->get())
 	            ->editColumn('image', function(Usuarios $dados){ 
-	                return '<div class="text-center"><img class="img-circle" width="36" height="36" src="'.($dados->id_imagem != null ? asset('storage/app/'.$dados->RelationImagem->endereco) : asset('public/img/user.png'))."?".rand().'"></div>';
+	                return '<div class="text-center px-3"><img class="img-circle" width="36" height="36" src="'.($dados->id_imagem != null ? asset('storage/app/'.$dados->RelationImagem->endereco) : asset('public/img/user.png'))."?".rand().'"></div>';
 	            })
 	            ->editColumn('funcao', function(Usuarios $dados){ 
 	                return $dados->RelationFuncao->nome;
 	            })
+	            ->editColumn('acesso', function(Usuarios $dados){ 
+	                return date('d/m/Y H:i:s', strtotime($dados->updated_at));
+	            })
 	            ->editColumn('nome', function(Usuarios $dados){
-	                return '<a href="javascript:void(0)" id="detalhes">'.$dados->RelationAssociado->nome.'</a>';
+	                return '<div class="text-left"><a href="javascript:void(0)" id="detalhes">'.$dados->RelationAssociado->nome.'</a><br><small>'.$dados->login.'</small></div>';
 	            })
 	            ->editColumn('status1', function(Usuarios $dados){
 	                return '<label class="badge'.($dados->status == 'Ativo' ? " badge-success" : ($dados->status == 'Bloqueado' ? " badge-warning" : " badge-danger")).'">'.($dados->status == 'Ativo' ? "Ativo" : ($dados->status == 'Bloqueado' ? "Bloqueado" : "Desativado")).'</label>';

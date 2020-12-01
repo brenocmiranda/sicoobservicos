@@ -37,9 +37,9 @@ Usuários
 				<table class="table text-center color-table muted-table rounded" id="table">
 					<thead>
 						<th> Nick </th>
-						<th> Nome </th>
-						<th> Instituição </th>
+						<th> Nome </th>						
 						<th> Função </th>
+						<th> Último acesso </th>
 						<th> Status </th>
 						<th> Ações </th>
 					</thead>
@@ -88,8 +88,8 @@ Usuários
 			"columns": [ 
 			{ "data": "image","name":"image"},
 			{ "data": "nome","name":"nome"},
-			{ "data": "login", "name":"login"},
 			{ "data": "funcao","name":"funcao"},
+			{ "data": "acesso", "name":"acesso"},
 			{ "data": "status1","name":"status1"},
 			{ "data": "acoes","name":"acoes"},
 			],
