@@ -5,7 +5,7 @@ Homepage
 @include('layouts.header')
 <div class="col-12 h-100 position-absolute imagem" style="background: url({{ (isset($homepage[0]) ? asset('storage/app/').'/'.$homepage->last()->endereco : asset('public/img/home.png').'?'.rand())}})"></div>
 <div class="container-fluid h-100">
-	<div class="col-12 row">
+	<div class="col-12 row mx-auto px-5">
 		<div class="pt-5 row ml-auto dropdown pb-5 pb-lg-0">
 			@if(Auth::check())
 			<a href="{{route('inicio')}}" class="text-white text-truncate my-auto font-weight-normal pr-4">
@@ -129,7 +129,7 @@ Homepage
 	<div class="col-10 mx-auto px-0 row pb-5">
 		<img src="{{ asset('public/img/logo.png').'?'.rand() }}" class="mx-auto mt-3 w-100 col-lg-4 col-sm-6 col-12 h-50">
 	</div>
-	<div class="col-sm-8 col-lg-12 mx-auto py-5">
+	<div class="col-12 col-sm-10 col-lg-12 mx-auto py-5">
 		<div class="col-sm-12 col-lg-8 mx-auto input-group input-search">
 			<span class="input-group-addon bg-white" style="border-top-left-radius: 20px; border-bottom-left-radius: 20px;">
         	 	<i class="mdi mdi-magnify mdi-24px mdi-dark"></i>
@@ -139,7 +139,7 @@ Homepage
       	</div>
 	</div>	
 	<div class="col-10 mx-auto px-0 text-uppercase py-5">
-		<ul class="row h-100 pt-4">
+		<ul class="row justify-content-center h-100 pt-4 pl-0 p-lg-5">
 			@foreach($homepages as $homepage)
 			<li class="mb-5" style="height: 110px;width: 132px;">
 				<a href="{{ url($homepage->endereco) }}" target="_blank" class="text-center">

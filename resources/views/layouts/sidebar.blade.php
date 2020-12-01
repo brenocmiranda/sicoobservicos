@@ -10,7 +10,7 @@
       </h3> 
     </div>
 
-    <div class="user-profile">
+    <div class="user-profile d-table ml-n3 ml-lg-auto">
       <hr class="mx-5 mt-0">
       <div class="user-pro-body my-3">
         <div>

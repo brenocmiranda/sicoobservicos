@@ -25,7 +25,7 @@ Painel do associado
     </div>
     <div class="ml-auto">
       <a href="javascript:void(0)" data-toggle="modal" data-target="#modal-adicionar" class="mx-2"><i class="mdi mdi-plus pr-2"></i>Cadastro de atividade</a>
-      <a href="javascript:void(0)" class="mx-2"><i class="mdi mdi-printer pr-2"></i>Imprimir</a>
+      <a href="javascript:void(0)" data-toggle="modal" data-target="#modal-impressao" class="mx-2 btn-imprimir"><i class="mdi mdi-printer pr-2"></i>Imprimir</a>
     </div>
   </div>
 
@@ -33,8 +33,8 @@ Painel do associado
     <!-- Nav tabs -->
     <ul class="nav nav-tabs customtab2 p-4 row justify-content-center" role="tablist" style="background: #38565a;border-radius: 10px;">
       <li role="presentation"  class="active"> <a href="#atividades" aria-controls="iap" role="tab" data-toggle="tab" aria-expanded="true"> <span>Atividades</span> </a> </li> 
-      <li role="presentation"> <a href="#cadastro" aria-controls="dadoscadastrais" role="tab" data-toggle="tab" aria-expanded="true"> <span>Cadastro</span> </a> </li> 
-      <li role="presentation"> <a href="#bacen" aria-controls="dadoscadastrais" role="tab" data-toggle="tab" aria-expanded="true"> <span>BACEN</span> </a> </li> 
+      <li role="presentation"> <a href="#cadastro" aria-controls="cadastro" role="tab" data-toggle="tab" aria-expanded="true"> <span>Cadastro</span> </a> </li> 
+      <li role="presentation"> <a href="#bacen" aria-controls="bacen" role="tab" data-toggle="tab" aria-expanded="true"> <span>BACEN</span> </a> </li> 
       <li role="presentation"> <a href="#contacapital" aria-controls="contacapital" role="tab" data-toggle="tab" aria-expanded="true"> <span>Conta capital</span> </a> </li> 
       <li role="presentation"> <a href="#contacorrente" aria-controls="contacorrente" role="tab" data-toggle="tab" aria-expanded="true"> <span>Conta corrente</span> </a> </li> 
       <li role="presentation"> <a href="#cartaocredito" aria-controls="cartaocredito" role="tab" data-toggle="tab" aria-expanded="true"> <span>Conta cartão</span> </a> </li> 
@@ -42,7 +42,7 @@ Painel do associado
       <li role="presentation"> <a href="#poupanca" aria-controls="poupanca" role="tab" data-toggle="tab" aria-expanded="true"> <span>Poupança</span> </a> </li> 
       <li role="presentation"> <a href="#aplicacoes" aria-controls="aplicacoes" role="tab" data-toggle="tab" aria-expanded="true"> <span>Aplicações</span> </a> </li> 
       <li role="presentation"> <a href="#iap" aria-controls="iap" role="tab" data-toggle="tab" aria-expanded="true"> <span>IAP</span> </a> </li>  
-      <li role="presentation"> <a href="#inadimplencia" aria-controls="dadoscadastrais" role="tab" data-toggle="tab" aria-expanded="true"> <span>Inadimplência</span> </a> </li>
+      <li role="presentation"> <a href="#inadimplencia" aria-controls="inadimplencia" role="tab" data-toggle="tab" aria-expanded="true"> <span>Inadimplência</span> </a> </li>
     </ul>
     <!-- Tab panes -->
     <div class="tab-content white-box mt-0">
@@ -301,6 +301,233 @@ Painel do associado
             </div>
           </div>
         </div>
+        <div class="clearfix"></div>
+      </div>
+      <div role="tabpanel" class="tab-pane fade" id="bacen">
+        @if(isset($associado->RelationBacen[0]))
+          <div class="row bg-light justify-content-center mt-n4 mb-3 p-3 rounded">
+            <label class="m-auto font-weight-bold">Data base: {{date('m/Y', strtotime($associado->RelationBacen->first()->data_movimento))}}</label>
+          </div>
+          <div class="col-12 row m-0 p-0">
+            <div class="col-3">
+              <h6>Total a vencer</h6>
+              <label>R$ {{number_format($associado->RelationBacen->sum('saldo_avencer'), 2, ',', '.')}}</label>
+            </div>
+            <div class="col-3">
+              <h6>Total vencido</h6>
+              <label class="{{(!empty($associado->RelationBacen->sum('saldo_vencido')) ? 'text-danger' : '')}}">R$ {{number_format($associado->RelationBacen->sum('saldo_vencido'), 2, ',', '.')}}</label>
+            </div>
+            <div class="col-3">
+              <h6>Prejuízo</h6>
+              <label class="{{(!empty($associado->RelationBacen->sum('saldo_prejuizo')) ? 'text-danger' : '')}}">R$ {{number_format($associado->RelationBacen->sum('saldo_prejuizo'), 2, ',', '.')}}</label>
+            </div>
+            <div class="col-3">
+              <h6>Respon. Total</h6>
+              <label>R$ {{number_format(($associado->RelationBacen->sum('saldo_prejuizo')+$associado->RelationBacen->sum('saldo_vencido')+$associado->RelationBacen->sum('saldo_avencer')), 2, ',', '.')}}</label>
+            </div> 
+          </div>
+          @foreach($associado->RelationBacen->sortBy('modalidade') as $dados)
+          <div class="col-12 mt-5">
+            <h5>{{$dados->modalidade}} &#183 {{$dados->submodalidade}}</h5>
+            <hr class="my-2">
+            <div>
+              <table class="col-12">
+                <tbody class="col-12">
+                  @if(!empty($dados->saldo_avencer_30))
+                  <tr>
+                    <td style="width: 300px;"><h6 class="my-1 font-weight-normal">A VENCER ATÉ 30 DIAS</h6></td>
+                    <td><label class="pl-5 ml-5 my-1">R$ {{number_format($dados->saldo_avencer_30, 2, ',', '.')}}</label></td>
+                  </tr>
+                  @endif
+                  @if(!empty($dados->saldo_avencer_3160))
+                  <tr>
+                    <td style="width: 300px;"><h6 class="my-1 font-weight-normal">A VENCER DE 31 A 60 DIAS</h6></td>
+                    <td><label class="pl-5 ml-5 my-1">R$ {{number_format($dados->saldo_avencer_3160, 2, ',', '.')}}</label></td>
+                  </tr>
+                  @endif
+                  @if(!empty($dados->saldo_avencer_6190))
+                  <tr>
+                    <td style="width: 300px;"><h6 class="my-1 font-weight-normal">A VENCER DE 61 A 90 DIAS</h6></td>
+                    <td><label class="pl-5 ml-5 my-1">R$ {{number_format($dados->saldo_avencer_6190, 2, ',', '.')}}</label></td>
+                  </tr>
+                  @endif
+                  @if(!empty($dados->saldo_avencer_91180))
+                  <tr>
+                    <td style="width: 300px;"><h6 class="my-1 font-weight-normal">A VENCER DE 91 A 180 DIAS</h6></td>
+                    <td><label class="pl-5 ml-5 my-1">R$ {{number_format($dados->saldo_avencer_91180, 2, ',', '.')}}</label></td>
+                  </tr>
+                  @endif
+                  @if(!empty($dados->saldo_avencer_181360))
+                  <tr>
+                    <td style="width: 300px;"><h6 class="my-1 font-weight-normal">A VENCER DE 181 A 360 DIAS</h6></td>
+                    <td><label class="pl-5 ml-5 my-1">R$ {{number_format($dados->saldo_avencer_181360, 2, ',', '.')}}</label></td>
+                  </tr>
+                  @endif
+                  @if(!empty($dados->saldo_avencer_361720))
+                  <tr>
+                    <td style="width: 300px;"><h6 class="my-1 font-weight-normal">A VENCER DE 361 A 720 DIAS</h6></td>
+                    <td><label class="pl-5 ml-5 my-1">R$ {{number_format($dados->saldo_avencer_361720, 2, ',', '.')}}</label></td>
+                  </tr>
+                  @endif
+                   @if(!empty($dados->saldo_avencer_7211080))
+                  <tr>
+                    <td style="width: 300px;"><h6 class="my-1 font-weight-normal">A VENCER DE 721 A 1080 DIAS</h6></td>
+                    <td><label class="pl-5 ml-5 my-1">R$ {{number_format($dados->saldo_avencer_7211080, 2, ',', '.')}}</label></td>
+                  </tr>
+                  @endif
+                  @if(!empty($dados->saldo_avencer_10811440))
+                  <tr>
+                    <td style="width: 300px;"><h6 class="my-1 font-weight-normal">A VENCER DE 1081 A 1440 DIAS</h6></td>
+                    <td><label class="pl-5 ml-5 my-1">R$ {{number_format($dados->saldo_avencer_10811440, 2, ',', '.')}}</label></td>
+                  </tr>
+                  @endif
+                  @if(!empty($dados->saldo_avencer_14411800))
+                  <tr>
+                    <td style="width: 300px;"><h6 class="my-1 font-weight-normal">A VENCER DE 1441 A 1800 DIAS</h6></td>
+                    <td><label class="pl-5 ml-5 my-1">R$ {{number_format($dados->saldo_avencer_14411800, 2, ',', '.')}}</label></td>
+                  </tr>
+                  @endif
+                  @if(!empty($dados->saldo_avencer_18015400))
+                  <tr>
+                    <td style="width: 300px;"><h6 class="my-1 font-weight-normal">A VENCER DE 1801 A 5400 DIAS</h6></td>
+                    <td><label class="pl-5 ml-5 my-1">R$ {{number_format($dados->saldo_avencer_18015400, 2, ',', '.')}}</label></td>
+                  </tr>
+                  @endif
+                  @if(!empty($dados->saldo_avencer_5400))
+                  <tr>
+                    <td style="width: 300px;"><h6 class="my-1 font-weight-normal">A VENCER ACIMA DE 5401 DIAS</h6></td>
+                    <td><label class="pl-5 ml-5 my-1">R$ {{number_format($dados->saldo_avencer_5400, 2, ',', '.')}}</label></td>
+                  </tr>
+                  @endif
+                  @if(!empty($dados->saldo_avencer_indeterminado))
+                  <tr>
+                    <td style="width: 300px;"><h6 class="my-1 font-weight-normal">A VENCER DE 361 A 720 DIAS</h6></td>
+                    <td><label class="pl-5 ml-5 my-1">R$ {{number_format($dados->saldo_avencer_indeterminado, 2, ',', '.')}}</label></td>
+                  </tr>
+                  @endif
+                  @if(!empty($dados->saldo_avencer))
+                  <tr class="border-top border-bottom">
+                    <td style="width: 300px;"><h6 class="my-1">TOTAL A VENCER</h6></td>
+                    <td><label class="pl-5 ml-5 my-1 font-weight-bold">R$ {{number_format( ($dados->saldo_avencer), 2, ',', '.')}}</label></td>
+                  </tr>
+                  @endif
+
+                  <!-- Dados vencidos -->
+
+                  @if(!empty($dados->saldo_vencido_1530))
+                  <tr class="text-danger">
+                    <td style="width: 300px;"><h6 class="my-1 font-weight-normal">VENCIDOS DE 15 A 30 DIAS</h6></td>
+                    <td><label class="pl-5 ml-5 my-1">R$ {{number_format($dados->saldo_vencido_1530, 2, ',', '.')}}</label></td>
+                  </tr>
+                  @endif
+                  @if(!empty($dados->saldo_vencido_3160))
+                  <tr class="text-danger">
+                    <td style="width: 300px;"><h6 class="my-1 font-weight-normal">VENCIDOS DE 31 A 60 DIAS</h6></td>
+                    <td><label class="pl-5 ml-5 my-1">R$ {{number_format($dados->saldo_vencido_3160, 2, ',', '.')}}</label></td>
+                  </tr>
+                  @endif
+                  @if(!empty($dados->saldo_vencido_6190))
+                  <tr class="text-danger">
+                    <td style="width: 300px;"><h6 class="my-1 font-weight-normal">VENCIDOS DE 61 A 90 DIAS</h6></td>
+                    <td><label class="pl-5 ml-5 my-1">R$ {{number_format($dados->saldo_vencido_6190, 2, ',', '.')}}</label></td>
+                  </tr>
+                  @endif
+                  @if(!empty($dados->saldo_vencido_91120))
+                  <tr class="text-danger">
+                    <td style="width: 300px;"><h6 class="my-1 font-weight-normal">VENCIDOS DE 91 A 120 DIAS</h6></td>
+                    <td><label class="pl-5 ml-5 my-1">R$ {{number_format($dados->saldo_vencido_91120, 2, ',', '.')}}</label></td>
+                  </tr>
+                  @endif
+                  @if(!empty($dados->saldo_vencido_121150))
+                  <tr class="text-danger">
+                    <td style="width: 300px;"><h6 class="my-1 font-weight-normal">VENCIDOS DE 121 A 150 DIAS</h6></td>
+                    <td><label class="pl-5 ml-5 my-1">R$ {{number_format($dados->saldo_vencido_121150, 2, ',', '.')}}</label></td>
+                  </tr>
+                  @endif
+                  @if(!empty($dados->saldo_vencido_151180))
+                  <tr class="text-danger">
+                    <td style="width: 300px;"><h6 class="my-1 font-weight-normal">VENCIDOS DE 151 A 180 DIAS</h6></td>
+                    <td><label class="pl-5 ml-5 my-1">R$ {{number_format($dados->saldo_vencido_151180, 2, ',', '.')}}</label></td>
+                  </tr>
+                  @endif
+                   @if(!empty($dados->saldo_vencido_181240))
+                  <tr class="text-danger">
+                    <td style="width: 300px;"><h6 class="my-1 font-weight-normal">VENCIDOS DE 181 A 240 DIAS</h6></td>
+                    <td><label class="pl-5 ml-5 my-1">R$ {{number_format($dados->saldo_vencido_181240, 2, ',', '.')}}</label></td>
+                  </tr>
+                  @endif
+                  @if(!empty($dados->saldo_vencido_241300))
+                  <tr class="text-danger">
+                    <td style="width: 300px;"><h6 class="my-1 font-weight-normal">VENCIDOS DE 241 A 300 DIAS</h6></td>
+                    <td><label class="pl-5 ml-5 my-1">R$ {{number_format($dados->saldo_vencido_241300, 2, ',', '.')}}</label></td>
+                  </tr>
+                  @endif
+                  @if(!empty($dados->saldo_vencido_301360))
+                  <tr class="text-danger">
+                    <td style="width: 300px;"><h6 class="my-1 font-weight-normal">VENCIDOS DE 301 A 360 DIAS</h6></td>
+                    <td><label class="pl-5 ml-5 my-1">R$ {{number_format($dados->saldo_vencido_301360, 2, ',', '.')}}</label></td>
+                  </tr>
+                  @endif
+                  @if(!empty($dados->saldo_vencido_361540))
+                  <tr class="text-danger">
+                    <td style="width: 300px;"><h6 class="my-1 font-weight-normal">VENCIDOS DE 361 A 540 DIAS</h6></td>
+                    <td><label class="pl-5 ml-5 my-1">R$ {{number_format($dados->saldo_vencido_361540, 2, ',', '.')}}</label></td>
+                  </tr>
+                  @endif
+                  @if(!empty($dados->saldo_vencido_540))
+                  <tr class="text-danger">
+                    <td style="width: 300px;"><h6 class="my-1 font-weight-normal">VENCIDOS ACIMA DE 540 DIAS</h6></td>
+                    <td><label class="pl-5 ml-5 my-1">R$ {{number_format($dados->saldo_vencido_540, 2, ',', '.')}}</label></td>
+                  </tr>
+                  @endif
+                  @if(!empty($dados->saldo_vencido))
+                  <tr class="border-top">
+                    <td style="width: 300px;"><h6 class="my-1">TOTAL VENCIDO</h6></td>
+                    <td><label class="pl-5 ml-5 my-1 font-weight-bold">R$ {{number_format( ($dados->saldo_vencido), 2, ',', '.')}}</label></td>
+                  </tr>
+                  @endif
+
+                  <!-- Dados de prejuízo -->
+
+                  @if(!empty($dados->saldo_prejuizo))
+                  <tr class="text-danger">
+                    <td style="width: 300px;"><h6 class="my-1 font-weight-normal">CRÉDITOS BAIXADOS PARA PREJUIZO</h6></td>
+                    <td><label class="pl-5 ml-5 my-1">R$ {{number_format($dados->saldo_prejuizo, 2, ',', '.')}}</label></td>
+                  </tr>
+                  @endif
+                  @if(!empty($dados->saldo_prejuizo))
+                  <tr class="border-top">
+                    <td style="width: 300px;"><h6 class="my-1">TOTAL PREJUÍZO</h6></td>
+                    <td><label class="pl-5 ml-5 my-1 font-weight-bold">R$ {{number_format( ($dados->saldo_prejuizo), 2, ',', '.')}}</label></td>
+                  </tr>
+                  @endif
+
+                   <!-- Créditos a liberar -->
+
+                  @if(!empty($dados->saldo_credito_liberar))
+                  <tr>
+                    <td style="width: 300px;"><h6 class="my-1 font-weight-normal">LIMITE DE CRÉDITO</h6></td>
+                    <td><label class="pl-5 ml-5 my-1">R$ {{number_format($dados->saldo_credito_liberar, 2, ',', '.')}}</label></td>
+                  </tr>
+                  @endif
+                  @if(!empty($dados->saldo_credito_liberar))
+                  <tr class="border-top">
+                    <td style="width: 300px;"><h6 class="my-1">TOTAL LIMITE</h6></td>
+                    <td><label class="pl-5 ml-5 my-1 font-weight-bold">R$ {{number_format( ($dados->saldo_credito_liberar), 2, ',', '.')}}</label></td>
+                  </tr>
+                  @endif
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+          @endforeach
+        @else
+          <div class="text-center">
+            <i class="mdi mdi-36px mdi-close-octagon-outline"></i>
+            <h5>Nenhuma informação encontrada.</h5>
+          </div>
+        @endif
         <div class="clearfix"></div>
       </div>
       <div role="tabpanel" class="tab-pane fade" id="contacapital">
@@ -968,233 +1195,6 @@ Painel do associado
         @endif
         <div class="clearfix"></div>
       </div>
-      <div role="tabpanel" class="tab-pane fade" id="bacen">
-        @if(isset($associado->RelationBacen[0]))
-          <div class="row bg-light justify-content-center mt-n4 mb-3 p-3 rounded">
-            <label class="m-auto font-weight-bold">Data base: {{date('m/Y', strtotime($associado->RelationBacen->first()->data_movimento))}}</label>
-          </div>
-          <div class="col-12 row m-0 p-0">
-            <div class="col-3">
-              <h6>Total a vencer</h6>
-              <label>R$ {{number_format($associado->RelationBacen->sum('saldo_avencer'), 2, ',', '.')}}</label>
-            </div>
-            <div class="col-3">
-              <h6>Total vencido</h6>
-              <label class="{{(!empty($associado->RelationBacen->sum('saldo_vencido')) ? 'text-danger' : '')}}">R$ {{number_format($associado->RelationBacen->sum('saldo_vencido'), 2, ',', '.')}}</label>
-            </div>
-            <div class="col-3">
-              <h6>Prejuízo</h6>
-              <label class="{{(!empty($associado->RelationBacen->sum('saldo_prejuizo')) ? 'text-danger' : '')}}">R$ {{number_format($associado->RelationBacen->sum('saldo_prejuizo'), 2, ',', '.')}}</label>
-            </div>
-            <div class="col-3">
-              <h6>Respon. Total</h6>
-              <label>R$ {{number_format(($associado->RelationBacen->sum('saldo_prejuizo')+$associado->RelationBacen->sum('saldo_vencido')+$associado->RelationBacen->sum('saldo_avencer')), 2, ',', '.')}}</label>
-            </div> 
-          </div>
-          @foreach($associado->RelationBacen->sortBy('modalidade') as $dados)
-          <div class="col-12 mt-5">
-            <h5>{{$dados->modalidade}} &#183 {{$dados->submodalidade}}</h5>
-            <hr class="my-2">
-            <div>
-              <table class="col-12">
-                <tbody class="col-12">
-                  @if(!empty($dados->saldo_avencer_30))
-                  <tr>
-                    <td style="width: 300px;"><h6 class="my-1 font-weight-normal">A VENCER ATÉ 30 DIAS</h6></td>
-                    <td><label class="pl-5 ml-5 my-1">R$ {{number_format($dados->saldo_avencer_30, 2, ',', '.')}}</label></td>
-                  </tr>
-                  @endif
-                  @if(!empty($dados->saldo_avencer_3160))
-                  <tr>
-                    <td style="width: 300px;"><h6 class="my-1 font-weight-normal">A VENCER DE 31 A 60 DIAS</h6></td>
-                    <td><label class="pl-5 ml-5 my-1">R$ {{number_format($dados->saldo_avencer_3160, 2, ',', '.')}}</label></td>
-                  </tr>
-                  @endif
-                  @if(!empty($dados->saldo_avencer_6190))
-                  <tr>
-                    <td style="width: 300px;"><h6 class="my-1 font-weight-normal">A VENCER DE 61 A 90 DIAS</h6></td>
-                    <td><label class="pl-5 ml-5 my-1">R$ {{number_format($dados->saldo_avencer_6190, 2, ',', '.')}}</label></td>
-                  </tr>
-                  @endif
-                  @if(!empty($dados->saldo_avencer_91180))
-                  <tr>
-                    <td style="width: 300px;"><h6 class="my-1 font-weight-normal">A VENCER DE 91 A 180 DIAS</h6></td>
-                    <td><label class="pl-5 ml-5 my-1">R$ {{number_format($dados->saldo_avencer_91180, 2, ',', '.')}}</label></td>
-                  </tr>
-                  @endif
-                  @if(!empty($dados->saldo_avencer_181360))
-                  <tr>
-                    <td style="width: 300px;"><h6 class="my-1 font-weight-normal">A VENCER DE 181 A 360 DIAS</h6></td>
-                    <td><label class="pl-5 ml-5 my-1">R$ {{number_format($dados->saldo_avencer_181360, 2, ',', '.')}}</label></td>
-                  </tr>
-                  @endif
-                  @if(!empty($dados->saldo_avencer_361720))
-                  <tr>
-                    <td style="width: 300px;"><h6 class="my-1 font-weight-normal">A VENCER DE 361 A 720 DIAS</h6></td>
-                    <td><label class="pl-5 ml-5 my-1">R$ {{number_format($dados->saldo_avencer_361720, 2, ',', '.')}}</label></td>
-                  </tr>
-                  @endif
-                   @if(!empty($dados->saldo_avencer_7211080))
-                  <tr>
-                    <td style="width: 300px;"><h6 class="my-1 font-weight-normal">A VENCER DE 721 A 1080 DIAS</h6></td>
-                    <td><label class="pl-5 ml-5 my-1">R$ {{number_format($dados->saldo_avencer_7211080, 2, ',', '.')}}</label></td>
-                  </tr>
-                  @endif
-                  @if(!empty($dados->saldo_avencer_10811440))
-                  <tr>
-                    <td style="width: 300px;"><h6 class="my-1 font-weight-normal">A VENCER DE 1081 A 1440 DIAS</h6></td>
-                    <td><label class="pl-5 ml-5 my-1">R$ {{number_format($dados->saldo_avencer_10811440, 2, ',', '.')}}</label></td>
-                  </tr>
-                  @endif
-                  @if(!empty($dados->saldo_avencer_14411800))
-                  <tr>
-                    <td style="width: 300px;"><h6 class="my-1 font-weight-normal">A VENCER DE 1441 A 1800 DIAS</h6></td>
-                    <td><label class="pl-5 ml-5 my-1">R$ {{number_format($dados->saldo_avencer_14411800, 2, ',', '.')}}</label></td>
-                  </tr>
-                  @endif
-                  @if(!empty($dados->saldo_avencer_18015400))
-                  <tr>
-                    <td style="width: 300px;"><h6 class="my-1 font-weight-normal">A VENCER DE 1801 A 5400 DIAS</h6></td>
-                    <td><label class="pl-5 ml-5 my-1">R$ {{number_format($dados->saldo_avencer_18015400, 2, ',', '.')}}</label></td>
-                  </tr>
-                  @endif
-                  @if(!empty($dados->saldo_avencer_5400))
-                  <tr>
-                    <td style="width: 300px;"><h6 class="my-1 font-weight-normal">A VENCER ACIMA DE 5401 DIAS</h6></td>
-                    <td><label class="pl-5 ml-5 my-1">R$ {{number_format($dados->saldo_avencer_5400, 2, ',', '.')}}</label></td>
-                  </tr>
-                  @endif
-                  @if(!empty($dados->saldo_avencer_indeterminado))
-                  <tr>
-                    <td style="width: 300px;"><h6 class="my-1 font-weight-normal">A VENCER DE 361 A 720 DIAS</h6></td>
-                    <td><label class="pl-5 ml-5 my-1">R$ {{number_format($dados->saldo_avencer_indeterminado, 2, ',', '.')}}</label></td>
-                  </tr>
-                  @endif
-                  @if(!empty($dados->saldo_avencer))
-                  <tr class="border-top border-bottom">
-                    <td style="width: 300px;"><h6 class="my-1">TOTAL A VENCER</h6></td>
-                    <td><label class="pl-5 ml-5 my-1 font-weight-bold">R$ {{number_format( ($dados->saldo_avencer), 2, ',', '.')}}</label></td>
-                  </tr>
-                  @endif
-
-                  <!-- Dados vencidos -->
-
-                  @if(!empty($dados->saldo_vencido_1530))
-                  <tr class="text-danger">
-                    <td style="width: 300px;"><h6 class="my-1 font-weight-normal">VENCIDOS DE 15 A 30 DIAS</h6></td>
-                    <td><label class="pl-5 ml-5 my-1">R$ {{number_format($dados->saldo_vencido_1530, 2, ',', '.')}}</label></td>
-                  </tr>
-                  @endif
-                  @if(!empty($dados->saldo_vencido_3160))
-                  <tr class="text-danger">
-                    <td style="width: 300px;"><h6 class="my-1 font-weight-normal">VENCIDOS DE 31 A 60 DIAS</h6></td>
-                    <td><label class="pl-5 ml-5 my-1">R$ {{number_format($dados->saldo_vencido_3160, 2, ',', '.')}}</label></td>
-                  </tr>
-                  @endif
-                  @if(!empty($dados->saldo_vencido_6190))
-                  <tr class="text-danger">
-                    <td style="width: 300px;"><h6 class="my-1 font-weight-normal">VENCIDOS DE 61 A 90 DIAS</h6></td>
-                    <td><label class="pl-5 ml-5 my-1">R$ {{number_format($dados->saldo_vencido_6190, 2, ',', '.')}}</label></td>
-                  </tr>
-                  @endif
-                  @if(!empty($dados->saldo_vencido_91120))
-                  <tr class="text-danger">
-                    <td style="width: 300px;"><h6 class="my-1 font-weight-normal">VENCIDOS DE 91 A 120 DIAS</h6></td>
-                    <td><label class="pl-5 ml-5 my-1">R$ {{number_format($dados->saldo_vencido_91120, 2, ',', '.')}}</label></td>
-                  </tr>
-                  @endif
-                  @if(!empty($dados->saldo_vencido_121150))
-                  <tr class="text-danger">
-                    <td style="width: 300px;"><h6 class="my-1 font-weight-normal">VENCIDOS DE 121 A 150 DIAS</h6></td>
-                    <td><label class="pl-5 ml-5 my-1">R$ {{number_format($dados->saldo_vencido_121150, 2, ',', '.')}}</label></td>
-                  </tr>
-                  @endif
-                  @if(!empty($dados->saldo_vencido_151180))
-                  <tr class="text-danger">
-                    <td style="width: 300px;"><h6 class="my-1 font-weight-normal">VENCIDOS DE 151 A 180 DIAS</h6></td>
-                    <td><label class="pl-5 ml-5 my-1">R$ {{number_format($dados->saldo_vencido_151180, 2, ',', '.')}}</label></td>
-                  </tr>
-                  @endif
-                   @if(!empty($dados->saldo_vencido_181240))
-                  <tr class="text-danger">
-                    <td style="width: 300px;"><h6 class="my-1 font-weight-normal">VENCIDOS DE 181 A 240 DIAS</h6></td>
-                    <td><label class="pl-5 ml-5 my-1">R$ {{number_format($dados->saldo_vencido_181240, 2, ',', '.')}}</label></td>
-                  </tr>
-                  @endif
-                  @if(!empty($dados->saldo_vencido_241300))
-                  <tr class="text-danger">
-                    <td style="width: 300px;"><h6 class="my-1 font-weight-normal">VENCIDOS DE 241 A 300 DIAS</h6></td>
-                    <td><label class="pl-5 ml-5 my-1">R$ {{number_format($dados->saldo_vencido_241300, 2, ',', '.')}}</label></td>
-                  </tr>
-                  @endif
-                  @if(!empty($dados->saldo_vencido_301360))
-                  <tr class="text-danger">
-                    <td style="width: 300px;"><h6 class="my-1 font-weight-normal">VENCIDOS DE 301 A 360 DIAS</h6></td>
-                    <td><label class="pl-5 ml-5 my-1">R$ {{number_format($dados->saldo_vencido_301360, 2, ',', '.')}}</label></td>
-                  </tr>
-                  @endif
-                  @if(!empty($dados->saldo_vencido_361540))
-                  <tr class="text-danger">
-                    <td style="width: 300px;"><h6 class="my-1 font-weight-normal">VENCIDOS DE 361 A 540 DIAS</h6></td>
-                    <td><label class="pl-5 ml-5 my-1">R$ {{number_format($dados->saldo_vencido_361540, 2, ',', '.')}}</label></td>
-                  </tr>
-                  @endif
-                  @if(!empty($dados->saldo_vencido_540))
-                  <tr class="text-danger">
-                    <td style="width: 300px;"><h6 class="my-1 font-weight-normal">VENCIDOS ACIMA DE 540 DIAS</h6></td>
-                    <td><label class="pl-5 ml-5 my-1">R$ {{number_format($dados->saldo_vencido_540, 2, ',', '.')}}</label></td>
-                  </tr>
-                  @endif
-                  @if(!empty($dados->saldo_vencido))
-                  <tr class="border-top">
-                    <td style="width: 300px;"><h6 class="my-1">TOTAL VENCIDO</h6></td>
-                    <td><label class="pl-5 ml-5 my-1 font-weight-bold">R$ {{number_format( ($dados->saldo_vencido), 2, ',', '.')}}</label></td>
-                  </tr>
-                  @endif
-
-                  <!-- Dados de prejuízo -->
-
-                  @if(!empty($dados->saldo_prejuizo))
-                  <tr class="text-danger">
-                    <td style="width: 300px;"><h6 class="my-1 font-weight-normal">CRÉDITOS BAIXADOS PARA PREJUIZO</h6></td>
-                    <td><label class="pl-5 ml-5 my-1">R$ {{number_format($dados->saldo_prejuizo, 2, ',', '.')}}</label></td>
-                  </tr>
-                  @endif
-                  @if(!empty($dados->saldo_prejuizo))
-                  <tr class="border-top">
-                    <td style="width: 300px;"><h6 class="my-1">TOTAL PREJUÍZO</h6></td>
-                    <td><label class="pl-5 ml-5 my-1 font-weight-bold">R$ {{number_format( ($dados->saldo_prejuizo), 2, ',', '.')}}</label></td>
-                  </tr>
-                  @endif
-
-                   <!-- Créditos a liberar -->
-
-                  @if(!empty($dados->saldo_credito_liberar))
-                  <tr>
-                    <td style="width: 300px;"><h6 class="my-1 font-weight-normal">LIMITE DE CRÉDITO</h6></td>
-                    <td><label class="pl-5 ml-5 my-1">R$ {{number_format($dados->saldo_credito_liberar, 2, ',', '.')}}</label></td>
-                  </tr>
-                  @endif
-                  @if(!empty($dados->saldo_credito_liberar))
-                  <tr class="border-top">
-                    <td style="width: 300px;"><h6 class="my-1">TOTAL LIMITE</h6></td>
-                    <td><label class="pl-5 ml-5 my-1 font-weight-bold">R$ {{number_format( ($dados->saldo_credito_liberar), 2, ',', '.')}}</label></td>
-                  </tr>
-                  @endif
-
-                </tbody>
-              </table>
-            </div>
-          </div>
-          @endforeach
-        @else
-          <div class="text-center">
-            <i class="mdi mdi-36px mdi-close-octagon-outline"></i>
-            <h5>Nenhuma informação encontrada.</h5>
-          </div>
-        @endif
-        <div class="clearfix"></div>
-      </div>
       
       <div role="tabpanel" class="tab-pane fade" id="inadimplencia">
         <div class="col-12 text-center">
@@ -1210,9 +1210,12 @@ Painel do associado
   @section('modal')
     @include('atendimento.painel.adicionarAtividade')
     @include('atendimento.painel.editarAtividade')
+    @include('atendimento.painel.impressao')
   @endsection
 
   @section('suporte')
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
   <script type="text/javascript">
     $(document).ready( function (){
       // Adicionando novas atividades
@@ -1303,6 +1306,17 @@ Painel do associado
         });
       });
 
+      // Relatório de impressão
+      $('#modal-impressao #formImpressao').on('submit', function(e){
+        $('#modal-impressao .modal-body, #modal-impressao .modal-footer').addClass('d-none');
+        $('#modal-impressao .carregamento').removeClass('d-none');
+        $('#modal-impressao .carregamento').html('<div class="mx-auto text-center my-5"><div class="col-12"><i class="col-2 mdi mdi-check-all mdi-48px"></i></div><label>Relatório gerado com sucesso!</label></div>');
+        setTimeout(function(){
+          $('#modal-impressao').modal('hide');
+          $('#modal-impressao .modal-body, #modal-impressao .modal-footer').removeClass('d-none');
+          $('#modal-impressao .carregamento').addClass('d-none');
+        }, 2000);      
+      });
     });
   </script>
   @endsection

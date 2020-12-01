@@ -33,7 +33,7 @@ class PublicCtrl extends Controller
 	}
 	// Autenticação de usuário
 	public function Redirecionar(LoginRqt $request){
-		//Auth::logoutOtherDevices($request->password);
+		Auth::logoutOtherDevices($request->password);
 		if (Auth::attempt(['login' => $request->login, 'password' => $request->password])){
 			if(Usuarios::where('login', $request->login)->where('status', 'Ativo')->first()){
 				Atividades::create([

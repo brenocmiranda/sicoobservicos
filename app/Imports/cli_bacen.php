@@ -14,11 +14,12 @@ class cli_bacen implements ToCollection, WithBatchInserts, WithChunkReading, Wit
 {
     public function collection(Collection $rows)
     {   
-        foreach ($rows as $row) 
-        {  
-            $dados = AssociadosBacen::where('codigo', $row['codigo'])->first();
-            $dataBase = gmdate('Y-m-d', (($row['data_movimento'] - 25569) * 86400));
-            if(strtotime($dataBase) > strtotime($dados->data_movimento)){
+        $dataBaseAtual = AssociadosBacen::first();
+        $dataBaseNova = gmdate('Y-m-d', (($rows[0]['data_movimento'] - 25569) * 86400));
+        if(strtotime($dataBaseNova) > strtotime($dataBaseAtual->data_movimento)){
+            foreach ($rows as $row) 
+            {  
+                $dados = AssociadosBacen::where('codigo', $row['codigo'])->first();
                 if(isset($dados)){
                         AssociadosBacen::where('codigo', $dados->codigo)->update([
                             'data_movimento' => gmdate('Y-m-d', (($row['data_movimento'] - 25569) * 86400)),
@@ -91,10 +92,8 @@ class cli_bacen implements ToCollection, WithBatchInserts, WithChunkReading, Wit
                         'cli_id_associado' => Associados::where('id_sisbr', $row['numero_cliente_sisbr'])->select('id')->first()->id,
                     ]); 
                 }
-            }else{
-                break;
-            }
-        }   
+            }  
+        } 
     }
 
     public function batchSize(): int

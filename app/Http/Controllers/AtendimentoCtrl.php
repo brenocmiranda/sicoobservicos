@@ -10,6 +10,7 @@ use App\Models\Associados;
 use App\Models\AssociadosAtividades;
 use App\Models\AssociadosConglomerados;
 use App\Models\Atividades;
+use PDF;
 
 class AtendimentoCtrl extends Controller
 {
@@ -76,5 +77,20 @@ class AtendimentoCtrl extends Controller
 	public function DetalhesPainel($id){
   		$atividade = AssociadosAtividades::find($id);
   		return response()->json($atividade);
+	}
+
+	// Detalhes da atividade
+	public function Relatorio(Request $request, $id){
+	  	$associado = Associados::find($id);
+	  	$atividades = AssociadosAtividades::where('cli_id_associado', $id)->orderBy('created_at', 'DESC')->get();
+	  	$imprimir = $request->except('_token');
+	  	if($associado->RelationConglomerados){
+	  		$conglomerado = AssociadosConglomerados::where('codigo', $associado->RelationConglomerados->codigo)->get();
+	  	}else{
+	  		$conglomerado = null;
+	  	}
+
+	  	$pdf = PDF::loadView('atendimento.painel.relatorio', compact('associado', 'conglomerado', 'atividades', 'imprimir'))->setPaper('a4', 'portrait');
+	    return $pdf->stream();
 	}
 }
