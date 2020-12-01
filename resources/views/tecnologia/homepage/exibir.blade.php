@@ -129,7 +129,7 @@ Homepage
 	<div class="col-10 mx-auto px-0 row pb-5">
 		<img src="{{ asset('public/img/logo.png').'?'.rand() }}" class="mx-auto mt-3 w-100 col-lg-4 col-sm-6 col-12 h-50">
 	</div>
-	<div class="col-12 col-sm-10 col-lg-12 mx-auto py-5">
+	<div class="col-12 col-sm-12 col-lg-12 mx-auto py-5">
 		<div class="col-sm-12 col-lg-8 mx-auto input-group input-search">
 			<span class="input-group-addon bg-white" style="border-top-left-radius: 20px; border-bottom-left-radius: 20px;">
         	 	<i class="mdi mdi-magnify mdi-24px mdi-dark"></i>
@@ -138,7 +138,7 @@ Homepage
         	  style="border-top-right-radius: 20px; border-bottom-right-radius: 20px;padding: 21px;" placeholder="Pesquise..." id="txtBusca">
       	</div>
 	</div>	
-	<div class="col-10 mx-auto px-0 text-uppercase py-5">
+	<div class="col-10 col-sm-12 mx-auto px-0 text-uppercase py-5">
 		<ul class="row justify-content-center h-100 pt-4 pl-0 p-lg-5">
 			@foreach($homepages as $homepage)
 			<li class="mb-5" style="height: 110px;width: 132px;">
