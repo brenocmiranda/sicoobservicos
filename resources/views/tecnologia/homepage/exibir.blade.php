@@ -6,7 +6,7 @@ Homepage
 <div class="col-12 h-100 position-absolute imagem" style="background: url({{ (isset($homepage[0]) ? asset('storage/app/').'/'.$homepage->last()->endereco : asset('public/img/home.png').'?'.rand())}})"></div>
 <div class="container-fluid h-100">
 	<div class="col-12 row mx-auto px-5">
-		<div class="pt-5 row ml-auto dropdown pb-5 pb-lg-0">
+		<div class="pt-4 row ml-auto dropdown pb-5 pb-lg-0">
 			@if(Auth::check())
 			<a href="{{route('inicio')}}" class="text-white text-truncate my-auto font-weight-normal pr-4">
             	<h5 class="text-white">Início</h5>
