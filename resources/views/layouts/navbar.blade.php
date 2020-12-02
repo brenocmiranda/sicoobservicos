@@ -112,7 +112,7 @@
                     @endif
                     <li>
                         <a href="javascript:" class="sobre">
-                            <i class="ti-info pr-2"></i> Sobre
+                            <i class="ti-info-alt pr-2"></i> Sobre
                         </a>
                     </li>
                     <li role="separator" class="divider"></li>
