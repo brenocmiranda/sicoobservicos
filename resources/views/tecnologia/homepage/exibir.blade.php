@@ -18,10 +18,24 @@ Homepage
 					</h5>
 				</a>
 				<ul class="dropdown-menu dropdown-menu-right animated flipInY text-center row p-4" style="width: 330px;border-radius: 5px;">
+					@if(Auth::user()->RelationFuncao->ver_administrativo)
+		            <li class="col-4 p-0 float-left">
+		                <a href="{{route('dashboard.administrativo')}}" class="text-secondary px-2">
+		                	<i class="mdi mdi-city mdi-36px d-block"></i>
+		                	<label class="text-truncate">Administrativo</label>
+		                </a>
+		            </li>
+		            @endif
 					<li class="col-4 p-0 float-left">
 		                <a href="{{route('exibir.base')}}" class="text-secondary px-2">
 		                	<i class="mdi mdi-book-open-page-variant mdi-36px d-block"></i>
 		                	<label class="text-truncate">Aprendizagem</label>
+		                </a>
+		            </li>
+		            <li class="col-4 p-0 float-left">
+		                <a href="{{route('exibir.painel.atendimento')}}" class="text-secondary px-2">
+		                	<i class="mdi mdi-account-outline mdi-36px d-block"></i>
+		                	<label class="text-truncate">Atendimento</label>
 		                </a>
 		            </li>
 		            <li class="col-4 p-0 float-left">
@@ -30,6 +44,22 @@ Homepage
 		                	<label class="text-truncate">Chamados</label>
 		                </a>
 		            </li>	
+		            @if(Auth::user()->RelationFuncao->ver_configuracoes)
+		            <li class="col-4 p-0 float-left">
+		                <a href="{{route('configuracoes')}}" class="text-secondary px-2">
+		                	<i class="mdi mdi-settings mdi-36px d-block"></i>
+		                	<label class="text-truncate">Configurações</label>
+		                </a>
+		            </li>
+		            @endif
+		            @if(Auth::user()->RelationFuncao->ver_credito)
+		            <li class="col-4 p-0 float-left">
+		                <a href="{{route('dashboard.credito')}}" class="text-secondary px-2">
+		                	<i class="mdi mdi-currency-usd mdi-36px d-block"></i>
+		                	<label class="text-truncate">Crédito</label>
+		                </a>
+		            </li>
+		            @endif 
 		            <li class="col-4 p-0 float-left">
 		                <a href="{{route('exibir.documentos')}}" class="text-secondary px-2">
 		                	<i class="mdi mdi-file-outline mdi-36px d-block"></i>
@@ -42,38 +72,11 @@ Homepage
 		                	<label class="text-truncate">Materiais</label>
 		                </a>
 		            </li>
-		            @if(Auth::user()->RelationFuncao->ver_administrativo)
-		            <li class="col-4 p-0 float-left">
-		                <a href="{{route('dashboard.administrativo')}}" class="text-secondary px-2">
-		                	<i class="mdi mdi-city mdi-36px d-block"></i>
-		                	<label class="text-truncate">Administrativo</label>
-		                </a>
-		            </li>
-		            @endif
-
-		            @if(Auth::user()->RelationFuncao->ver_credito)
-		            <li class="col-4 p-0 float-left">
-		                <a href="{{route('dashboard.credito')}}" class="text-secondary px-2">
-		                	<i class="mdi mdi-currency-usd mdi-36px d-block"></i>
-		                	<label class="text-truncate">Crédito</label>
-		                </a>
-		            </li>
-		            @endif 
-
 		            @if(Auth::user()->RelationFuncao->ver_gti)
 		            <li class="col-4 p-0 float-left">
 		                <a href="{{route('dashboard.gti')}}" class="text-secondary px-2">
 		                	<i class="mdi mdi-dns mdi-36px d-block"></i>
 		                	<label class="text-truncate">Tecnologia</label>
-		                </a>
-		            </li>
-		            @endif
-
-		            @if(Auth::user()->RelationFuncao->ver_configuracoes)
-		            <li class="col-4 p-0 float-left">
-		                <a href="{{route('configuracoes')}}" class="text-secondary px-2">
-		                	<i class="mdi mdi-settings mdi-36px d-block"></i>
-		                	<label class="text-truncate">Configurações</label>
 		                </a>
 		            </li>
 		            @endif
