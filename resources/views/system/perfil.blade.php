@@ -51,7 +51,7 @@ Meu perfil
 		<div class="col-12">
 			<div class="card">
 				<div class="row card-body py-0 pr-0">
-					<div class="col-7 px-0 py-5">
+					<div class="col-12 col-lg-7 px-0 py-5">
 						<div class="tab-content mt-0">
 							<div role="tabpanel" class="tab-pane fade active in" id="geral">
 								<div class="col-12">
@@ -169,7 +169,7 @@ Meu perfil
 							</button>
 						</div>
 					</div>
-					<div class="col-5 p-0">
+					<div class="col-12 col-lg-5 p-0">
 						<div class="row mx-auto rounded h-100">
 							<img src="{{asset('public/img/fundo-dark.png').'?'.rand()}}" class="rounded position-absolute h-100 w-100" style="filter: brightness(0.5);">
 							<div class="col-sm-12 row text-center align-items-center m-auto">

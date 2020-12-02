@@ -12,16 +12,17 @@
       </div>
       <div class="modal-body">
         <div class="col-12 grid-margin mb-0">
-          <div class="card-body py-0">
-            <div class="text-left">
-              <label style="font-size: 15px">A plataforma Sicoob Serviços vem sendo desenvolvida com a finalidade de agilizar e automatizar os processos internos das cooperativas. O projeto começou a ser desenvolvido por volta de julho de 2020, através da equipe de Tecnologia do Sicoob Sertão Minas.</label>
+          <div class="card-body rounded">
+            <div class="text-center">
+              <img src="{{asset('public/img/logo.png')}}" width="200" class="mb-5">
+              <label style="font-size: 16px">A plataforma Sicoob Serviços vem sendo desenvolvida com a finalidade de agilizar e automatizar os processos internos das cooperativas. O projeto começou a ser desenvolvido por volta de julho de 2020, através da equipe de Tecnologia do Sicoob Sertão Minas.</label>
             </div>
           </div>
         </div>
       </div>
       <div class="modal-footer">
         <div class="row col-12 p-0 mx-0 justify-content-center">
-          <button class="btn btn-danger btn-outline col-4" data-dismiss="modal" aria-label="Close">
+          <button class="btn btn-danger btn-outline btn-lg col-8 col-sm-8 col-lg-4" data-dismiss="modal" aria-label="Close">
             <span>Fechar</span>
           </button>
         </div>
