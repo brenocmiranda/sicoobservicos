@@ -109,11 +109,16 @@
                             <i class="ti-settings pr-2"></i> Configurações
                         </a>
                     </li>
-                    <li role="separator" class="divider"></li>
                     @endif
+                    <li>
+                        <a href="javascript:" class="sobre">
+                            <i class="ti-info pr-2"></i> Sobre
+                        </a>
+                    </li>
+                    <li role="separator" class="divider"></li>
 
                     <li>
-                        <a href="javascript:void(0)" class="logout">
+                        <a href="javascript:" class="logout">
                             <i class="fa fa-power-off pr-2"></i> Sair
                         </a>
                     </li>

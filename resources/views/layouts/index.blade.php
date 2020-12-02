@@ -15,7 +15,8 @@
 	</div>
 
 	@yield('modal') 
-
+	
+	@include('system.sobre')
 	@include('layouts.footer')
 @else
 	@include('system.new')

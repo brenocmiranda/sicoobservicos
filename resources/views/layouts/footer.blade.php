@@ -67,6 +67,11 @@
 			});
 		});
 
+		// Função para abrir modal sobre
+		$('.sobre').on('click', function() {
+			$('#modal-sobre').modal('show');
+		});
+
 		// Remover enter para fechamento de modal
 		$('input').keypress( function(e) {
 			var code = null;
