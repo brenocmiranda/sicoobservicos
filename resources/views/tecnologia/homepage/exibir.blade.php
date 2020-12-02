@@ -139,7 +139,7 @@ Homepage
       	</div>
 	</div>	
 	<div class="col-12 col-sm-12 col-lg-10 mx-auto px-0 text-uppercase pt-5">
-		<ul class="row justify-content-center h-100 pt-4 pl-0 p-lg-5">
+		<ul class="row justify-content-center h-100 pt-4 pl-0 p-lg-0">
 			@foreach($homepages as $homepage)
 			<li class="mb-5" style="height: 110px;width: 132px;">
 				<a href="{{ url($homepage->endereco) }}" target="_blank" class="text-center">

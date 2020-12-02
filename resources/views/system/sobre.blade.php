@@ -13,8 +13,8 @@
       <div class="modal-body">
         <div class="col-12 grid-margin mb-0">
           <div class="card-body py-0">
-            <div class="text-center">
-              <label style="font-size: 16px">A plataforma Sicoob Serviços vem sendo desenvolvida com a finalidade de agilizar e automatizar os processos internos das cooperativas. O projeto começou a ser desenvolvido por volta de julho de 2020, através da equipe de Tecnologia do Sicoob Sertão Minas.</label>
+            <div class="text-left">
+              <label style="font-size: 15px">A plataforma Sicoob Serviços vem sendo desenvolvida com a finalidade de agilizar e automatizar os processos internos das cooperativas. O projeto começou a ser desenvolvido por volta de julho de 2020, através da equipe de Tecnologia do Sicoob Sertão Minas.</label>
             </div>
           </div>
         </div>
