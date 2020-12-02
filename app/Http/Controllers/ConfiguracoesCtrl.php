@@ -467,7 +467,7 @@ class ConfiguracoesCtrl extends Controller
 	                return $dados->RelationFuncao->nome;
 	            })
 	            ->editColumn('acesso', function(Usuarios $dados){ 
-	                return date('d/m/Y H:i:s', strtotime($dados->updated_at));
+	                return date('d/m/Y H:i:s', strtotime(@$dados->RelationAtividades->created_at));
 	            })
 	            ->editColumn('nome', function(Usuarios $dados){
 	                return '<div class="text-left"><a href="javascript:void(0)" id="detalhes">'.$dados->RelationAssociado->nome.'</a><br><small>'.$dados->login.'</small></div>';
