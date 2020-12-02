@@ -72,7 +72,7 @@
 																	<div>
 																		<p style="margin-top:0px;margin-bottom:10px">
 																			<b>Equipe {{env('APP_NAME')}}</b><br>
-																			<a href="{{env('APP_URL')}}" target="_blank">http://sicoobservicos.coop.br</a><br>
+																			<a href="{{env('APP_URL')}}" target="_blank">{{env('APP_URL')}}</a><br>
 																			
 																		</p>
 																	</div>
