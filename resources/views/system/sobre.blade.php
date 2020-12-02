@@ -2,7 +2,7 @@
 <div class="modal fade" id="modal-sobre" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true" data-backdrop="static" style="overflow-y: hidden;">
   <div class="modal-dialog modal-md modal-dialog-scrollable modal-dialog-centered" role="document">
     <div class="modal-content">
-      <div class="modal-header d-block pb-0">
+      <div class="modal-header d-block">
         <div class="col-12">
           <button type="button" class="close px-0 py-2" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -20,8 +20,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <div class="row col-12 justify-content-center">
-          <button class="btn btn-danger btn-outline col-3 mx-1 close" data-dismiss="modal" aria-label="Close">
+        <div class="row col-12 p-0 mx-0 justify-content-center">
+          <button class="btn btn-danger btn-outline col-4" data-dismiss="modal" aria-label="Close">
             <span>Fechar</span>
           </button>
         </div>
