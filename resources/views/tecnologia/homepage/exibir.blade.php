@@ -3,7 +3,7 @@ Homepage
 @endsection
 
 @include('layouts.header')
-<div class="col-12 w-100 position-absolute imagem" style="background: url({{ (isset($homepage[0]) ? asset('storage/app/').'/'.$homepage->last()->endereco : asset('public/img/home.png').'?'.rand())}})"></div>
+<div class="col-12 h-100 position-absolute imagem" style="background: url({{ (isset($homepage[0]) ? asset('storage/app/').'/'.$homepage->last()->endereco : asset('public/img/home.png').'?'.rand())}})"></div>
 <div class="container-fluid h-100 row justify-content-center mx-auto">
 	<div class="col-12 row mx-auto px-5 pt-4">
 		<div class="pt-3 row ml-auto dropdown pb-5 pb-lg-0">
@@ -127,7 +127,7 @@ Homepage
 	    </div>
     </div>
 	<div class="col-9 col-sm-9 col-lg-9 mx-auto px-0 row pb-5">
-		<img src="{{ asset('public/img/logo.png').'?'.rand() }}" class="mx-auto mt-3 w-100 col-lg-4 col-sm-6 col-12 h-100">
+		<img src="{{ asset('public/img/logo.png').'?'.rand() }}" class="mx-auto mt-3 w-100 col-lg-4 col-sm-6 col-12 w-100">
 	</div>
 	<div class="col-12 col-sm-12 col-lg-12 mx-auto py-5">
 		<div class="col-sm-12 col-lg-8 mx-auto input-group input-search">
