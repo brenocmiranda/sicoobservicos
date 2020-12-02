@@ -1,0 +1,2 @@
+C:\wamp64\bin\mysql\mysql5.7.31\bin\mysqldump -u sicoob -pR0cKy^&Cr^&^&D sicoob -r "C:\wamp64\www\sicoob\backup\%date:~0,2%-%date:~3,2%-%date:~6,4%-%time:~0,2%%time:~3,2%.sql"
+C:\wamp64\bin\mysql\mysql5.7.31\bin\mysqldump.exe -u sicoob -pR0cKy^&Cr^&^&D sicoob1 -r "C:\wamp64\www\sicoob1\backup\%date:~0,2%-%date:~3,2%-%date:~6,4%-%time:~0,2%%time:~3,2%.sql"
