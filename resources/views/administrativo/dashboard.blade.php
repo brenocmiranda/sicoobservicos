@@ -173,16 +173,16 @@ Dashboard
                             <div class="col-lg-4 col-sm-6">
                                 <ul class="col-in">
                                     <li>
-                                        <span class="circle circle-md bg-info"><i class="ti-package"></i></span>
+                                        <span class="circle circle-md bg-danger"><i class="ti-package"></i></span>
                                     </li>
                                     <li class="col-last">
-                                        <h3 class="counter text-right m-t-15">{{count($materiaisHistorico->where('tipo', 's'))}}</h3>
+                                        <h3 class="counter text-right m-t-15">{{count($materiaisHistorico->where('tipo', 's')->where('status', 2))}}</h3>
                                     </li>
                                     <li class="col-middle">
-                                        <h4>Total solicitações</h4>
+                                        <h4>Solicitações recusadas</h4>
                                         <div class="progress">
-                                            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{(100*count($materiaisHistorico->where('tipo', 's')))/count($materiaisHistorico->where('tipo', 's'))}}" aria-valuemin="0" aria-valuemax="100" style="width: {{(100*count($materiaisHistorico->where('tipo', 's')))/count($materiaisHistorico->where('tipo', 's'))}}%">
-                                                <span class="sr-only">{{(100*count($materiaisHistorico->where('tipo', 's')))/count($materiaisHistorico->where('tipo', 's'))}}% Complete (success)</span>
+                                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="{{(100*count($materiaisHistorico->where('tipo', 's')->where('status', 2)))/count($materiaisHistorico->where('tipo', 's'))}}" aria-valuemin="0" aria-valuemax="100" style="width: {{(100*count($materiaisHistorico->where('tipo', 's')->where('status', 2)))/count($materiaisHistorico->where('tipo', 's'))}}%">
+                                                <span class="sr-only">{{(100*count($materiaisHistorico->where('tipo', 's')->where('status', 2)))/count($materiaisHistorico->where('tipo', 's'))}}% Complete (success)</span>
                                             </div>
                                         </div>
                                     </li>

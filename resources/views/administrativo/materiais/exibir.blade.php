@@ -26,7 +26,7 @@ Solicitações de materiais
 
 				<div class="row col-12 mx-auto my-5">
 					<div class="col-12 p-0">
-						<h5>Solicitações pendetes de aprovação</h5>
+						<h5>Solicitações pendetes</h5>
 						<hr class="mt-2">
 					</div>
 					<div class="col-12">
@@ -68,6 +68,55 @@ Solicitações de materiais
 											</a>
 										</div>
 										@endif
+									</div>
+								</li>
+								@endforeach
+							
+							</ul>
+						@else
+							<div class="row p-0">
+								<label class="alert alert-secondary col-12 rounded">Você não possui nenhuma pendência.</label>
+							</div>
+						@endif
+					</div>
+				</div>
+
+				<div class="row col-12 mx-auto my-5">
+					<div class="col-12 p-0">
+						<h5>Histórico de solicitações</h5>
+						<hr class="mt-2">
+					</div>
+					<div class="col-12">
+						@if(isset($historico[0]))
+							<ul class="p-0" id="prendencias">
+								@foreach($historico as $item)
+								<li class="row">
+									<div class="row mx-auto col-12 border shadow-sm rounded my-2 p-3">
+										<div class="col-1 m-auto row justify-content-center">
+											<i class="mdi {{($item->status == 1 ? 'mdi-comment-check-outline text-success' : ($item->status == 0 ? 'mdi-comment-question-outline text-warning' : 'mdi-comment-remove-outline text-danger'))}} mdi-48px"></i>
+										</div>
+										<div class="col-9">
+											<div>
+												<h5 class="my-1">{{$item->RelationMaterial->nome}} <small>{{$item->RelationMaterial->RelationCategoria->nome}}</small></h5>
+												<small>{{$item->quantidade}} unidades</small>
+											</div>
+											<div>
+												<h6 class="mt-4 mb-2 font-weight-normal">
+													<b>Usuário:</b> <span class="text-secondary">{{$item->RelationUsuario->RelationAssociado->nome}}</span>
+												</h6>
+											</div>
+											<div>
+												<small><b>Data da solicitação:</b> {{$item->created_at->format('d/m/Y H:i')}}</small>
+											</div>
+										</div>
+										<div class="col-2 m-auto row justify-content-center">
+											<div class="col-12 badge badge-{{($item->status == 1 ? 'success' : ($item->status == 0 ? 'warning' : 'danger'))}} px-3">
+												<label class="text-white my-auto">
+													<i class="mdi {{($item->status == 1 ? 'mdi-check' : ($item->status == 0 ? 'mdi-alert-circle-outline' : 'mdi-close'))}} pr-2"></i>
+													<h6 class="text-white float-right my-1 font-weight-normal">{{($item->status == 1 ? 'Atendida' : ($item->status == 0 ? 'Pendente' : 'Cancelada'))}}</h6>
+												</label>
+											</div>
+										</div>
 									</div>
 								</li>
 								@endforeach

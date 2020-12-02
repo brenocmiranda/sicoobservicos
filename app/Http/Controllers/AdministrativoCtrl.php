@@ -634,9 +634,10 @@ class AdministrativoCtrl extends Controller
 	// Listando todas solicitações para aprovação
 	public function ExibirMateriaisAdmin(){
 		if(Auth::user()->RelationFuncao->ver_administrativo == 1 || Auth::user()->RelationFuncao->gerenciar_administrativo == 1){
+			$historico = MateriaisHistorico::where('status', 1)->orWhere('status', 2)->orderBy('created_at', 'DESC')->get();
 			$pendencias = MateriaisHistorico::where('status', 0)->orderBy('created_at', 'DESC')->get();
 			$categorias = MateriaisCategorias::where('status', 1)->orderBy('nome', 'ASC')->get();
-			return view('administrativo.materiais.exibir')->with('pendencias', $pendencias)->with('categorias', $categorias);
+			return view('administrativo.materiais.exibir')->with('pendencias', $pendencias)->with('categorias', $categorias)->with('historico', $historico);
 		}else{
 			return redirect(route('403'));
 		}
