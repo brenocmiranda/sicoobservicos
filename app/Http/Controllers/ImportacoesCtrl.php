@@ -302,7 +302,7 @@ class ImportacoesCtrl extends Controller
 
 	// Importação automática
 	public function ImportarAutomatica(){
-		$path = "C:/wamp64/www/sicoob/outlook";
+		$path = "outlook";
 		$diretorio = dir($path);
 
 		// Copiando os arquivos para pasta de importação e removendo os existentes do outlook

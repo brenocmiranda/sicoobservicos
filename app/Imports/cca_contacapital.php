@@ -16,7 +16,6 @@ class cca_contacapital implements ToCollection, WithBatchInserts, WithChunkReadi
     {
         foreach ($rows as $row) 
         {  
-            $associado = Associados::where('id_sisbr', $row['numero_cliente_sisbr'])->select('id')->first();
             $dados = ContaCapital::where('num_capital', $row['numero_conta_capital'])->first();
             if(isset($dados)){
                 ContaCapital::where('num_capital', $row['numero_conta_capital'])->update([
