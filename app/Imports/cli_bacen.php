@@ -22,7 +22,6 @@ class cli_bacen implements ToCollection, WithHeadingRow
             {  
                 AssociadosBacen::create([
                     'data_movimento' => gmdate('Y-m-d', (($row['data_movimento'] - 25569) * 86400)),
-                    'codigo' => $row['codigo'],
                     'modalidade' => $row['modalidade_bacen'],
                     'submodalidade' => $row['submodalidade_bacen'],
                     'saldo_prejuizo' => number_format($row['valor_prejuizo_sfn'], 2, '.', ''),
@@ -58,6 +57,7 @@ class cli_bacen implements ToCollection, WithHeadingRow
             }  
         }else{
             AssociadosBacen::find(1)->update('updated_at', date('Y-m-d H:i:s'));
+            return true;
         }
     }
 }

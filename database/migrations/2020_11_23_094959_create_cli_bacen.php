@@ -18,7 +18,6 @@ class CreateCliBacen extends Migration
             $table->increments('id');
 
             $table->date('data_movimento');
-            $table->integer('codigo');
             $table->string('modalidade');
             $table->string('submodalidade');
             $table->double('saldo_prejuizo');
