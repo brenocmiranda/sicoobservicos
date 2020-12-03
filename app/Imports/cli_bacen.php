@@ -10,7 +10,7 @@ use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class cli_bacen implements ToCollection, WithBatchInserts, WithChunkReading, WithHeadingRow
+class cli_bacen implements ToCollection, WithHeadingRow
 {
     public function collection(Collection $rows)
     {   
@@ -97,15 +97,5 @@ class cli_bacen implements ToCollection, WithBatchInserts, WithChunkReading, Wit
         }else{
             AssociadosBacen::find(1)->update('data_movimento', date('Y-m-d'));
         }
-    }
-
-    public function batchSize(): int
-    {
-        return 1000;
-    }
-    
-    public function chunkSize(): int
-    {
-        return 1000;
     }
 }
