@@ -15,7 +15,7 @@ class cli_bacen implements ToCollection, WithHeadingRow
     public function collection(Collection $rows)
     {   
         $dataBaseAtual = AssociadosBacen::orderBy('data_movimento', 'ASC')->first();
-        $dataBaseNova = gmdate('Y-m-d', (($rows[0]['data_movimento'] - 25569) * 86400));
+        $dataBaseNova = gmdate('Y-m-d', (($rows[1]['data_movimento'] - 25569) * 86400));
         if(strtotime($dataBaseNova) > strtotime($dataBaseAtual->data_movimento)){
             AssociadosBacen::truncate();
             foreach ($rows as $row) 
@@ -56,7 +56,7 @@ class cli_bacen implements ToCollection, WithHeadingRow
                 ]); 
             }  
         }else{
-            AssociadosBacen::find(1)->update('updated_at', date('Y-m-d H:i:s'));
+            AssociadosBacen::find(1)->update(['updated_at' => date('Y-m-d H:i:s')]);
             return true;
         }
     }
