@@ -585,7 +585,7 @@ Painel do associado
           @foreach($associado->RelationContaCorrente->sortByDesc('data_abertura') as $conta)
           <div class="col-12"> 
             <div class="mb-5">
-              <h5 class="font-weight-normal"><b>{{$conta->num_contrato}}</b> <small>({{$conta->situacao}})</small></h5>
+              <h5 class="font-weight-normal"><b>{{$conta->num_contrato}}</b> <small class="{{($conta->situacao == 'ATIVA' ? 'badge badge-success' : ($conta->situacao == 'ENCERRADA' ? 'badge badge-danger' : 'badge badge-info'))}}">{{$conta->situacao}}</small></h5>
               <hr class="mt-2">
               <div class="row">
                 <div class="col-3">
@@ -652,7 +652,7 @@ Painel do associado
           @foreach($associado->RelationCartaoCredito->sortByDesc('situacao') as $cartao)
           <div class="col-12"> 
             <div class="mb-5">
-              <h5 class="font-weight-normal"><b>{{$cartao->num_contrato}}</b> <small>({{$cartao->situacao}})</small></h5>
+              <h5 class="font-weight-normal"><b>{{$cartao->num_contrato}}</b> <small class="{{($cartao->situacao == 'Operativo' ? 'badge badge-success' : ($cartao->situacao == 'Anulada pela entidade' ? 'badge badge-danger' : 'badge badge-info'))}}">{{$cartao->situacao}}</small></h5>
               <hr class="mt-2">
               <div class="row">
                 <div class="col-3">
@@ -709,7 +709,7 @@ Painel do associado
           @foreach($associado->RelationCarteiraCredito->sortByDesc('data_operacao') as $carteira)
           <div class="col-12"> 
             <div class="mb-5">
-              <h5 class="font-weight-normal"><b>{{$carteira->num_contrato}}</b> <small>({{$carteira->situacao}})</small></h5>
+              <h5 class="font-weight-normal"><b>{{$carteira->num_contrato}}</b> <small class="{{($carteira->situacao == 'ENTRADA NORMAL' ? 'badge badge-success' : ($carteira->situacao == 'QUITADO' ? 'badge badge-danger' : 'badge badge-info'))}}">{{$carteira->situacao}}</small></h5>
               <hr class="mt-2">
               <div class="row">
                 <div class="col-3">
@@ -784,7 +784,7 @@ Painel do associado
           @foreach($associado->RelationPoupancas->sortByDesc('data_abertura') as $poupanca)
           <div class="col-12"> 
             <div class="mb-5">
-              <h5 class="font-weight-normal"><b>{{$poupanca->num_conta}}</b> <small>({{$poupanca->situacao}})</small></h5>
+              <h5 class="font-weight-normal"><b>{{$poupanca->num_conta}}</b> <small class="{{($poupanca->situacao == 'ATIVA' ? 'badge badge-success' : ($poupanca->situacao == 'ENCERRADA' ? 'badge badge-danger' : 'badge badge-info'))}}">{{$poupanca->situacao}}</small></h5>
               <hr class="mt-2">
               <div class="row">
                 <div class="col-3">
