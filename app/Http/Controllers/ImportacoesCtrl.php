@@ -326,7 +326,7 @@ class ImportacoesCtrl extends Controller
 					copy(getcwd().'/storage/app/importacoes/'.$nameFile, 'C:/wamp64/www/sicoob/outlook/cli_associados.xlsx');
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cli_associados.xlsx!</span>']);
 				}
-			}
+			}else
 			// cli_consolidado
 			if($arquivo == 'cli_consolidado.xlsx'){
 				Logs::create(['mensagem' => 'Importação automática executada.']);
@@ -342,7 +342,7 @@ class ImportacoesCtrl extends Controller
 					copy(getcwd().'/storage/app/importacoes/'.$nameFile, 'C:/wamp64/www/sicoob/outlook/cli_consolidado.xlsx');
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cli_consolidado.xlsx!</span>']);
 				}
-			}
+			}else
 			// cli_emails
 			if($arquivo == 'cli_emails.xlsx'){
 				Logs::create(['mensagem' => 'Importação automática executada.']);
@@ -358,7 +358,7 @@ class ImportacoesCtrl extends Controller
 					copy(getcwd().'/storage/app/importacoes/'.$nameFile, 'C:/wamp64/www/sicoob/outlook/cli_emails.xlsx');
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cli_emails.xlsx!</span>']);
 				}
-			}
+			}else
 			// cli_telefones
 			if($arquivo == 'cli_telefones.xlsx'){
 				Logs::create(['mensagem' => 'Importação automática executada.']);
@@ -374,7 +374,7 @@ class ImportacoesCtrl extends Controller
 					copy(getcwd().'/storage/app/importacoes/'.$nameFile, 'C:/wamp64/www/sicoob/outlook/cli_telefones.xlsx');
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cli_telefones.xlsx!</span>']);
 				}
-			}
+			}else
 			// cli_enderecos
 			if($arquivo == 'cli_enderecos.xlsx'){
 				Logs::create(['mensagem' => 'Importação automática executada.']);
@@ -390,7 +390,7 @@ class ImportacoesCtrl extends Controller
 					copy(getcwd().'/storage/app/importacoes/'.$nameFile, 'C:/wamp64/www/sicoob/outlook/cli_enderecos.xlsx');
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cli_enderecos.xlsx!</span>']);
 				}
-			}
+			}else
 			// cli_conglomerados
 			if($arquivo == 'cli_conglomerados.xlsx'){
 				Logs::create(['mensagem' => 'Importação automática executada.']);
@@ -406,7 +406,7 @@ class ImportacoesCtrl extends Controller
 					copy(getcwd().'/storage/app/importacoes/'.$nameFile, 'C:/wamp64/www/sicoob/outlook/cli_conglomerados.xlsx');
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cli_conglomerados.xlsx!</span>']);
 				}
-			}
+			}else
 			// cli_iap
 			if($arquivo == 'cli_iap.xlsx'){
 				Logs::create(['mensagem' => 'Importação automática executada.']);
@@ -422,7 +422,7 @@ class ImportacoesCtrl extends Controller
 					copy(getcwd().'/storage/app/importacoes/'.$nameFile, 'C:/wamp64/www/sicoob/outlook/cli_iap.xlsx');
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cli_iap.xlsx!</span>']);
 				}
-			}
+			}else
 			// cca_contacapital
 			if($arquivo == 'cca_contacapital.xlsx'){
 				Logs::create(['mensagem' => 'Importação automática executada.']);
@@ -438,7 +438,7 @@ class ImportacoesCtrl extends Controller
 					copy(getcwd().'/storage/app/importacoes/'.$nameFile, 'C:/wamp64/www/sicoob/outlook/cca_contacapital.xlsx');
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cca_contacapital.xlsx!</span>']);
 				}
-			}
+			}else
 			// cco_contacorrente
 			if($arquivo == 'cco_contacorrente.xlsx'){
 				Logs::create(['mensagem' => 'Importação automática executada.']);
@@ -454,7 +454,7 @@ class ImportacoesCtrl extends Controller
 					copy(getcwd().'/storage/app/importacoes/'.$nameFile, 'C:/wamp64/www/sicoob/outlook/cco_contacorrente.xlsx');
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cco_contacorrente.xlsx!</span>']);
 				}
-			}
+			}else
 			// cre_contratos
 			if($arquivo == 'cre_contratos.xlsx'){
 				Logs::create(['mensagem' => 'Importação automática executada.']);
@@ -470,7 +470,7 @@ class ImportacoesCtrl extends Controller
 					copy(getcwd().'/storage/app/importacoes/'.$nameFile, 'C:/wamp64/www/sicoob/outlook/cre_contratos.xlsx');
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cre_contratos.xlsx!</span>']);
 				}
-			}
+			}else
 			// crt_cartaocredito
 			if($arquivo == 'crt_cartaocredito.xlsx'){
 				Logs::create(['mensagem' => 'Importação automática executada.']);
@@ -486,7 +486,7 @@ class ImportacoesCtrl extends Controller
 					copy(getcwd().'/storage/app/importacoes/'.$nameFile, 'C:/wamp64/www/sicoob/outlook/crt_cartaocredito.xlsx');
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo crt_cartaocredito.xlsx!</span>']);
 				}
-			}
+			}else
 			// pop_poupanca
 			if($arquivo == 'pop_poupanca.xlsx'){
 				Logs::create(['mensagem' => 'Importação automática executada.']);
@@ -502,7 +502,7 @@ class ImportacoesCtrl extends Controller
 					copy(getcwd().'/storage/app/importacoes/'.$nameFile, 'C:/wamp64/www/sicoob/outlook/pop_poupanca.xlsx');
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo pop_poupanca.xlsx!</span>']);
 				}
-			}
+			}else
 			// dep_aplicacoes
 			if($arquivo == 'dep_aplicacoes.xlsx'){
 				Logs::create(['mensagem' => 'Importação automática executada.']);
@@ -518,7 +518,7 @@ class ImportacoesCtrl extends Controller
 					copy(getcwd().'/storage/app/importacoes/'.$nameFile, 'C:/wamp64/www/sicoob/outlook/dep_aplicacoes.xlsx');
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo dep_aplicacoes.xlsx!</span>']);
 				}
-			}
+			}else
 			// cli_bacen
 			if($arquivo == 'cli_bacen.xlsx'){
 				Logs::create(['mensagem' => 'Importação automática executada.']);
@@ -534,7 +534,7 @@ class ImportacoesCtrl extends Controller
 					copy(getcwd().'/storage/app/importacoes/'.$nameFile, 'C:/wamp64/www/sicoob/outlook/cli_bacen.xlsx');
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cli_bacen.xlsx!</span>']);
 				}
-			}
+			}else
 			// cre_avalistas
 			if($arquivo == 'cre_avalistas.xlsx'){
 				Logs::create(['mensagem' => 'Importação automática executada.']);
@@ -550,7 +550,7 @@ class ImportacoesCtrl extends Controller
 					copy(getcwd().'/storage/app/importacoes/'.$nameFile, 'C:/wamp64/www/sicoob/outlook/cre_avalistas.xlsx');
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cre_avalistas.xlsx!</span>']);
 				}
-			}	
+			}else	
 			// cre_garantias
 			if($arquivo == 'cre_garantias.xlsx'){
 				Logs::create(['mensagem' => 'Importação automática executada.']);

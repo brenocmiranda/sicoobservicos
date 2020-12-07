@@ -57,7 +57,7 @@ class cli_bacen implements ToCollection, WithHeadingRow
             }  
         }else{
             AssociadosBacen::find(1)->update(['updated_at' => date('Y-m-d H:i:s')]);
-            return true;
+            return response()->json(false);
         }
     }
 }
