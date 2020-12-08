@@ -2,8 +2,8 @@
 
 namespace App\Imports;
 
-use App\Models\ContaCapital;
 use App\Models\Associados;
+use App\Models\ContaCapital;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
