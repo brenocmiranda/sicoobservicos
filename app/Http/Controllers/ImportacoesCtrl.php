@@ -17,6 +17,7 @@ use App\Imports\cco_contacorrente;
 use App\Imports\crt_cartaocredito;
 use App\Imports\pop_poupanca;
 use App\Imports\dep_aplicacoes;
+use App\Imports\cre_contratos_mensal;
 use App\Imports\cre_contratos;
 use App\Imports\cre_avalistas;
 use App\Imports\cre_garantias;
@@ -72,7 +73,7 @@ class ImportacoesCtrl extends Controller
 
 		//return (new HeadingRowImport)->toArray($request->cre_avalistas);
 
-		if ($request->hasFile('cli_associados') || $request->hasFile('cli_consolidado') || $request->hasFile('cli_emails') || $request->hasFile('cli_telefones') || $request->hasFile('cli_enderecos') || $request->hasFile('cli_conglomerados') || $request->hasFile('cca_contacapital') || $request->hasFile('cco_contacorrente') || $request->hasFile('cre_contratos') || $request->hasFile('crt_cartaocredito') || $request->hasFile('pop_poupanca') || $request->hasFile('dep_aplicacoes') || $request->hasFile('cli_iap') || $request->hasFile('cli_bacen') || $request->hasFile('cre_avalistas') || $request->hasFile('cre_garantias')){
+		if ($request->hasFile('cli_associados') || $request->hasFile('cli_consolidado') || $request->hasFile('cli_emails') || $request->hasFile('cli_telefones') || $request->hasFile('cli_enderecos') || $request->hasFile('cli_conglomerados') || $request->hasFile('cca_contacapital') || $request->hasFile('cco_contacorrente') || $request->hasFile('cre_contratos') || $request->hasFile('crt_cartaocredito') || $request->hasFile('pop_poupanca') || $request->hasFile('dep_aplicacoes') || $request->hasFile('cli_iap') || $request->hasFile('cli_bacen') || $request->hasFile('cre_avalistas') || $request->hasFile('cre_garantias') || $request->hasFile('cre_contratos_mensal')){
 			// Criando pasta de importação ou verificando se existe
 			if(!(getcwd().'/storage/app/importacoes')){
 				mkdir(getcwd().'/storage/app/importacoes', 0755);
@@ -268,6 +269,20 @@ class ImportacoesCtrl extends Controller
 					Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de cli_bacen.xlsx efetuada com sucesso!</span>']);
 				} catch (\Exception $ex){
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cli_bacen.xlsx!</span>']);
+					
+				}
+			}
+			// cre_contratos_mensal
+			if($request->hasFile('cre_contratos_mensal') && $request->file('cre_contratos_mensal')->isValid()){
+				Logs::create(['mensagem' => 'Localizado arquivo cre_contratos_mensal.xlsx.']);
+				$nameFile = 'cre_contratos_mensal-'.date('dmYHis').'.'.request()->file('cre_contratos_mensal')->getClientOriginalExtension();
+				$upload = $request->cre_contratos_mensal->storeAs('importacoes', $nameFile);
+				Logs::create(['mensagem' => 'Processando o arquivo cre_contratos_mensal.xlsx...']);
+				Excel::import(new cre_contratos_mensal, getcwd().'/storage/app/importacoes/'.$nameFile);
+				try{
+					Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de cre_contratos_mensal.xlsx efetuada com sucesso!</span>']);
+				} catch (\Exception $ex){
+					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cre_contratos_mensal.xlsx!</span>']);
 					
 				}
 			}
