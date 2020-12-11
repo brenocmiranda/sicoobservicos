@@ -9,7 +9,17 @@ use Yajra\Datatables\Datatables;
 use App\Models\Associados;
 use App\Models\AssociadosAtividades;
 use App\Models\AssociadosConglomerados;
+use App\Models\AssociadosBacen;
+use App\Models\AssociadosIAPs;
 use App\Models\Atividades;
+use App\Models\ContaCapital;
+use App\Models\ContaCorrente;
+use App\Models\Contratos;
+use App\Models\Avalistas;
+use App\Models\Garantias;
+use App\Models\CartaoCredito;
+use App\Models\Poupancas;
+use App\Models\Aplicacoes;
 use PDF;
 
 class AtendimentoCtrl extends Controller
@@ -44,7 +54,17 @@ class AtendimentoCtrl extends Controller
 	  			$conglomerado = null;
 	  		}
 	  		$atividades = AssociadosAtividades::where('cli_id_associado', $associado->id)->orderBy('created_at', 'DESC')->paginate(7);
-	  		return view('atendimento.painel.exibir')->with('associado', $associado)->with('conglomerado', $conglomerado)->with('atividades', $atividades);
+	  		$cli_iap = AssociadosIAPs::select('updated_at', 'data_movimento')->orderBy('updated_at', 'DESC')->first();
+			$cli_bacen = AssociadosBacen::select('updated_at', 'data_movimento')->orderBy('updated_at', 'DESC')->first();
+			$cre_contratos = Contratos::select('updated_at', 'data_movimento')->orderBy('updated_at', 'DESC')->first();
+			$cre_avalistas = Avalistas::select('updated_at', 'data_movimento')->orderBy('updated_at', 'DESC')->first();
+			$cre_garantias = Garantias::select('updated_at', 'data_movimento')->orderBy('updated_at', 'DESC')->first();
+			$cca_contacapital = ContaCapital::select('updated_at', 'data_movimento')->orderBy('updated_at', 'DESC')->first();
+			$cco_contacorrente = ContaCorrente::select('updated_at', 'data_movimento')->orderBy('updated_at', 'DESC')->first();
+			$crt_cartaocredito = CartaoCredito::select('updated_at', 'data_movimento')->orderBy('updated_at', 'DESC')->first();
+			$pop_poupanca = Poupancas::select('updated_at', 'data_movimento')->orderBy('updated_at', 'DESC')->first();
+			$dep_aplicacoes = Aplicacoes::select('updated_at', 'data_movimento')->orderBy('updated_at', 'DESC')->first();
+	  		return view('atendimento.painel.exibir')->with('associado', $associado)->with('conglomerado', $conglomerado)->with('atividades', $atividades)->with('cca_contacapital', $cca_contacapital)->with('cco_contacorrente', $cco_contacorrente)->with('crt_cartaocredito', $crt_cartaocredito)->with('cre_contratos', $cre_contratos)->with('pop_poupanca', $pop_poupanca)->with('dep_aplicacoes', $dep_aplicacoes)->with('cli_iap', $cli_iap)->with('cli_bacen', $cli_bacen)->with('cre_avalistas', $cre_avalistas)->with('cre_garantias', $cre_garantias);
 		}else{
 			\Session::flash('login', array(
 					'class' => 'danger',

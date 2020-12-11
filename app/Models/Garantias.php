@@ -11,6 +11,6 @@ class Garantias extends Model
 
     protected $table = 'cre_garantias';
     protected $primaryKey = 'id';
-    protected $fillable = ['id', 'codigo', 'tipo', 'descricao', 'cre_id_arquivo', 'data_movimento', 'created_at', 'updated_at'];
+    protected $fillable = ['id', 'tipo', 'descricao', 'cre_id_arquivo', 'data_movimento', 'created_at', 'updated_at'];
 
 }

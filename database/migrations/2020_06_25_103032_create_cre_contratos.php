@@ -20,23 +20,25 @@ class CreateCreContratos extends Migration
             $table->string('situacao');
             $table->date('data_operacao');
             $table->date('data_vencimento');
+            $table->date('data_quitacao')->nullable();
             $table->double('valor_contrato');
             $table->string('finalidade');
-            $table->boolean('renegociacao')->nullable();
-            $table->string('renegociacao_contrato')->nullable();
-            $table->text('observacoes')->nullable();
+            $table->string('renegociacao');
             $table->integer('cli_id_associado')->unsigned();
             $table->foreign('cli_id_associado')->references('id')->on('cli_associados');
             $table->integer('cre_id_arquivo')->unsigned();
             $table->foreign('cre_id_arquivo')->references('id')->on('cre_arquivos');
+            $table->double('taxa_operacao');
+            $table->double('taxa_mora');
+            $table->double('taxa_multa');
+
             // Informações complementares
             $table->string('nivel_risco')->nullable();
-            $table->double('taxa_operacao')->nullable();
-            $table->double('taxa_mora')->nullable();
-            $table->double('taxa_multa')->nullable();
             $table->double('valor_devido')->nullable();
             $table->integer('qtd_parcelas')->nullable();
             $table->integer('qtd_parcelas_pagas')->nullable();
+            $table->string('renegociacao_contrato')->nullable();
+            $table->text('observacoes')->nullable();
             // Informações complementares
 
             $table->date('data_movimento');

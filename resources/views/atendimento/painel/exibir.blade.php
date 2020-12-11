@@ -146,8 +146,8 @@ Painel do associado
             </div>
             <div class="col-3">
               <h6>Data de renovação</h6>
-              <label class="{{( strtotime(date('Y-m-d', strtotime($associado->data_renovacao.'+ 1 year'))) < strtotime(date('Y-m-d')) ? 'bg-danger px-3 py-1 text-white' : '')}}" style="{{( strtotime(date('Y-m-d', strtotime($associado->data_renovacao.'+ 1 year'))) < strtotime(date('Y-m-d')) ? 'border-radius:15px' : '')}}">
-                {{date('d/m/Y', strtotime($associado->data_renovacao))}}</label>
+              <small class="{{( strtotime(date('Y-m-d', strtotime($associado->data_renovacao.'+ 1 year'))) < strtotime(date('Y-m-d')) ? 'bg-danger px-3 py-1 text-white rounded' : '')}}" style="{{( strtotime(date('Y-m-d', strtotime($associado->data_renovacao.'+ 1 year'))) < strtotime(date('Y-m-d')) ? 'border-radius:15px' : '')}}">
+                {{date('d/m/Y', strtotime($associado->data_renovacao))}}</small>
             </div>
           </div>
           <div class="row">
@@ -306,7 +306,7 @@ Painel do associado
       <div role="tabpanel" class="tab-pane fade" id="bacen">
         @if(isset($associado->RelationBacen[0]))
           <div class="row bg-light justify-content-center mt-n4 mb-3 p-3 rounded">
-            <label class="m-auto font-weight-bold">Data base: {{date('m/Y', strtotime($associado->RelationBacen->first()->data_movimento))}}</label>
+            <label class="m-auto font-weight-bold">Data base: {{date('m/Y', strtotime($cli_bacen->data_movimento))}}</label>
           </div>
           <div class="col-12 row m-0 p-0">
             <div class="col-3">
@@ -533,7 +533,7 @@ Painel do associado
       <div role="tabpanel" class="tab-pane fade" id="contacapital">
         @if(isset($associado->RelationCapital))
           <div class="row mx-auto bg-light justify-content-center mt-n4 mb-5 p-3 rounded">
-            <label class="m-auto font-weight-bold">Data base: {{date('d/m/Y', strtotime($associado->RelationCapital->data_movimento))}}</label>
+            <label class="m-auto font-weight-bold">Data base: {{date('d/m/Y', strtotime($cca_contacapital->data_movimento))}}</label>
           </div>
           <div class="col-12">
             <div class="row">
@@ -580,7 +580,7 @@ Painel do associado
       <div role="tabpanel" class="tab-pane fade" id="contacorrente">
         @if(isset($associado->RelationContaCorrente[0]))
           <div class="row bg-light justify-content-center mt-n4 mb-5 p-3 rounded">
-            <label class="m-auto font-weight-bold">Data base: {{date('d/m/Y', strtotime($associado->RelationContaCorrente[0]->data_movimento))}}</label>
+            <label class="m-auto font-weight-bold">Data base: {{date('d/m/Y', strtotime($cco_contacorrente->data_movimento))}}</label>
           </div>
           @foreach($associado->RelationContaCorrente->sortByDesc('data_abertura') as $conta)
           <div class="col-12"> 
@@ -647,7 +647,7 @@ Painel do associado
       <div role="tabpanel" class="tab-pane fade" id="cartaocredito">
         @if(isset($associado->RelationCartaoCredito[0]))
           <div class="row bg-light justify-content-center mt-n4 mb-5 p-3 rounded">
-            <label class="m-auto font-weight-bold">Data base: {{date('d/m/Y', strtotime($associado->RelationCartaoCredito[0]->data_movimento))}}</label>
+            <label class="m-auto font-weight-bold">Data base: {{date('d/m/Y', strtotime($crt_cartaocredito->data_movimento))}}</label>
           </div>
           @foreach($associado->RelationCartaoCredito->sortByDesc('situacao') as $cartao)
           <div class="col-12"> 
@@ -704,7 +704,7 @@ Painel do associado
       <div role="tabpanel" class="tab-pane fade" id="carteiracredito">
         @if(isset($associado->RelationCarteiraCredito[0]))
           <div class="row bg-light justify-content-center mt-n4 mb-5 p-3 rounded">
-            <label class="m-auto font-weight-bold">Data base: {{date('d/m/Y', strtotime($associado->RelationCarteiraCredito[0]->data_movimento))}}</label>
+            <label class="m-auto font-weight-bold">Data base: {{date('d/m/Y', strtotime($cre_contratos->data_movimento))}}</label>
           </div>
           @foreach($associado->RelationCarteiraCredito->sortByDesc('data_operacao') as $carteira)
           <div class="col-12"> 
@@ -721,19 +721,33 @@ Painel do associado
                   <label>{{$carteira->RelationArquivos->RelationModalidades->nome}}</label>
                 </div>
                 <div class="col-3">
-                  <h6 class="mt-0">Data da operação</h6>
-                  <label>{{date('d/m/Y', strtotime($carteira->data_operacao))}}</label>
+                  <h6  class="mt-0">Finalidade</h6>
+                  <label>{{$carteira->finalidade}}</label>
                 </div>
                 <div class="col-3">
-                  <h6 class="mt-0">Data da vencimento</h6>
-                  <label>{{date('d/m/Y', strtotime($carteira->data_vencimento))}}</label>
+                  <h6  class="mt-0">Renegociação?</h6>
+                  <label>{{$carteira->renegociacao}}</label>
                 </div>
               </div>
               <div class="row">
-                <div class="col-3">
+                 <div class="col-3">
                   <h6>Nível de risco</h6>
                   <label>{{$carteira->nivel_risco}}</label>
                 </div>
+                <div class="col-3">
+                  <h6>Data da operação</h6>
+                  <label>{{date('d/m/Y', strtotime($carteira->data_operacao))}}</label>
+                </div>
+                <div class="col-3">
+                  <h6>Data da vencimento</h6>
+                  <label>{{date('d/m/Y', strtotime($carteira->data_vencimento))}}</label>
+                </div>
+                <div class="col-3">
+                  <h6>Data de quitação</h6>
+                  <label>{{date('d/m/Y', strtotime($carteira->data_quitacao))}}</label>
+                </div>
+              </div>
+              <div class="row">   
                 <div class="col-3">
                   <h6>Taxa da operação</h6>
                   <label>{{number_format($carteira->taxa_operacao, 2, ',', '')}} %</label>
@@ -745,6 +759,10 @@ Painel do associado
                 <div class="col-3">
                   <h6>Taxa de multa</h6>
                   <label>{{number_format($carteira->taxa_multa, 2, ',', '')}} %</label>
+                </div>            
+                <div class="col-3">
+                  <h6>Valor contratado</h6>
+                  <label>R$ {{number_format($carteira->valor_contrato, 2, ',', '.')}}</label>
                 </div>
               </div>
               <div class="row">               
@@ -753,15 +771,15 @@ Painel do associado
                   <label>{{$carteira->qtd_parcelas}}</label>
                 </div>
                 <div class="col-3">
+                  <h6>Qtd de parcelas abertas</h6>
+                  <label>{{$carteira->qtd_parcelas-$carteira->qtd_parcelas_pagas}}</label>
+                </div>
+                <div class="col-3">
                   <h6>Qtd de parcelas pagas</h6>
                   <label>{{$carteira->qtd_parcelas_pagas}}</label>
                 </div>
                 <div class="col-3">
-                  <h6>Valor contratado</h6>
-                  <label>R$ {{number_format($carteira->valor_contrato, 2, ',', '.')}}</label>
-                </div>
-                <div class="col-3">
-                  <h6>Valor devido*</h6>
+                  <h6>Valor devido</h6>
                   <label>R$ {{number_format($carteira->valor_devido, 2, ',', '.')}}</label>
                 </div>
               </div>
@@ -779,7 +797,7 @@ Painel do associado
       <div role="tabpanel" class="tab-pane fade" id="poupanca">
         @if(isset($associado->RelationPoupancas[0]))
           <div class="row bg-light justify-content-center mt-n4 mb-5 p-3 rounded">
-            <label class="m-auto font-weight-bold">Data base: {{date('d/m/Y', strtotime($associado->RelationPoupancas[0]->data_movimento))}}</label>
+            <label class="m-auto font-weight-bold">Data base: {{date('d/m/Y', strtotime($pop_poupanca->data_movimento))}}</label>
           </div>
           @foreach($associado->RelationPoupancas->sortByDesc('data_abertura') as $poupanca)
           <div class="col-12"> 
@@ -818,7 +836,7 @@ Painel do associado
       <div role="tabpanel" class="tab-pane fade" id="aplicacoes">
         @if(isset($associado->RelationAplicacoes[0]))
           <div class="row bg-light justify-content-center mt-n4 mb-5 p-3 rounded">
-            <label class="m-auto font-weight-bold">Data base: {{date('d/m/Y', strtotime($associado->RelationAplicacoes->first()->data_movimento))}}</label>
+            <label class="m-auto font-weight-bold">Data base: {{date('d/m/Y', strtotime($dep_aplicacoes->data_movimento))}}</label>
           </div>
           @foreach($associado->RelationAplicacoes->sortByDesc('data_abertura') as $aplicacao)
           <div class="col-12"> 
@@ -867,7 +885,7 @@ Painel do associado
       <div role="tabpanel" class="tab-pane fade" id="iap">
         @if(isset($associado->RelationIAP))
           <div class="row bg-light justify-content-center mt-n4 mb-5 p-3 rounded">
-            <label class="m-auto font-weight-bold">Data base: {{date('m/Y', strtotime($associado->RelationIAP->data_movimento))}}</label>
+            <label class="m-auto font-weight-bold">Data base: {{date('m/Y', strtotime($cli_iap->data_movimento))}}</label>
           </div>
           <div class="col-12"> 
             <h5 class="font-weight-normal"><b>Associado possui {{($associado->sigla == 'PF' ? $associado->RelationIAP->produtos_pf : $associado->RelationIAP->produtos_pj)}} produtos</b></h5>
@@ -1195,7 +1213,6 @@ Painel do associado
         @endif
         <div class="clearfix"></div>
       </div>
-      
       <div role="tabpanel" class="tab-pane fade" id="inadimplencia">
         <div class="col-12 text-center">
           <i class="ti-hummer" style="font-size: 30px"></i>

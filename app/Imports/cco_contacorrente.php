@@ -7,16 +7,24 @@ use App\Models\Associados;
 use App\Models\ContratosArquivos;
 use App\Models\ProdutosCred;
 use App\Models\Modalidades;
+use App\Models\Logs;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
-use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Maatwebsite\Excel\Events\AfterImport;
+use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Concerns\RegistersEventListeners;
 
-class cco_contacorrente implements ToCollection, WithBatchInserts, WithChunkReading, WithHeadingRow
-{
+class cco_contacorrente implements ToCollection, WithChunkReading, WithHeadingRow, ShouldQueue, WithEvents
+{   
+    use RegistersEventListeners;
+
     public function collection(Collection $rows)
-    {
+    {   
+        Logs::create(['mensagem' => 'Inicilizando importação de cco_contacorrente.xlsx.']);
+        Logs::create(['mensagem' => 'Processando o arquivo cco_contacorrente.xlsx...']);
         foreach ($rows as $row) 
         {  
             $dados = ContaCorrente::where('num_contrato', $row['numero_conta_corrente'])->first();
@@ -94,13 +102,20 @@ class cco_contacorrente implements ToCollection, WithBatchInserts, WithChunkRead
         }   
     }
 
-    public function batchSize(): int
+    public function registerEvents(): array
     {
-        return 1000;
+        return [
+            AfterImport::class => function(AfterImport $event) {
+                Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de cco_contacorrente.xlsx efetuada com sucesso!</span>']);
+            },
+            ImportFailed::class => function(ImportFailed $event) {
+               Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cco_contacorrente.xlsx!</span>']);
+            },
+        ];
     }
-    
+
     public function chunkSize(): int
     {
-        return 1000;
+        return 50000;
     }
 }

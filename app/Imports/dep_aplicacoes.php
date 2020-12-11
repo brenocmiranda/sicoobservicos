@@ -5,17 +5,24 @@ namespace App\Imports;
 use App\Models\Associados;
 use App\Models\Aplicacoes;
 use App\Models\ContaCorrente;
+use App\Models\Logs;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
-use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Maatwebsite\Excel\Events\AfterImport;
+use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Concerns\RegistersEventListeners;
 
-class dep_aplicacoes implements ToCollection, WithBatchInserts, WithChunkReading, WithHeadingRow
+class dep_aplicacoes implements ToCollection, WithChunkReading, WithHeadingRow, ShouldQueue, WithEvents
 {
+    use RegistersEventListeners;
 
     public function collection(Collection $rows)
-    {
+    {   
+        Logs::create(['mensagem' => 'Inicilizando importação de dep_aplicacoes.xlsx...']);
+        Logs::create(['mensagem' => 'Processando o arquivo dep_aplicacoes.xlsx...']);
         foreach ($rows as $row) 
         {   
             $dados = Aplicacoes::where('num_conta', $row['numero_conta_aplicacao'])->first();
@@ -45,13 +52,20 @@ class dep_aplicacoes implements ToCollection, WithBatchInserts, WithChunkReading
         }
     }
 
-     public function batchSize(): int
+    public function registerEvents(): array
     {
-        return 1000;
+        return [
+            AfterImport::class => function(AfterImport $event) {
+                Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de dep_aplicacoes.xlsx efetuada com sucesso!</span>']);
+            },
+            ImportFailed::class => function(ImportFailed $event) {
+               Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo dep_aplicacoes.xlsx!</span>']);
+            },
+        ];
     }
-    
+
     public function chunkSize(): int
     {
-        return 1000;
+        return 50000;
     }
 }

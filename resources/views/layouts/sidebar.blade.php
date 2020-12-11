@@ -192,6 +192,7 @@
               <span class="hide-menu">Importações</span><span class="fa arrow"></span>
             </a>
             <ul class="nav nav-third-level {{ (Request::segment(2) == 'configuracoes' && Request::segment(3) == 'importacoes' ? ' collapse in' : '') }}">
+              <li> <a href="{{route('exibir.data.importacoes')}}"><span class="hide-menu">Database</span></a> </li>
               <li> <a href="{{route('exibir.importacoes')}}"><span class="hide-menu">Importar</span></a> </li>
               <li> <a href="{{route('exibir.logs.importacoes')}}"><span class="hide-menu">Logs</span></a> </li>
             </ul>

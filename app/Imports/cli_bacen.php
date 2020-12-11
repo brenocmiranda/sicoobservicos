@@ -4,18 +4,27 @@ namespace App\Imports;
 
 use App\Models\Associados;
 use App\Models\AssociadosBacen;
+use App\Models\Logs;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
-use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Maatwebsite\Excel\Events\AfterImport;
+use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Concerns\RegistersEventListeners;
 
-class cli_bacen implements ToCollection, WithHeadingRow
+class cli_bacen implements ToCollection, WithChunkReading, WithHeadingRow, ShouldQueue, WithEvents
 {
+    use RegistersEventListeners;
+
     public function collection(Collection $rows)
     {   
+        Logs::create(['mensagem' => 'Inicilizando importação de cli_bacen.xlsx...']);
+        Logs::create(['mensagem' => 'Processando o arquivo cli_bacen.xlsx...']);
         $dataBaseAtual = AssociadosBacen::orderBy('data_movimento', 'ASC')->first();
         $dataBaseNova = gmdate('Y-m-d', (($rows[1]['data_movimento'] - 25569) * 86400));
+        // Verifica se a data do novo arquivo é maior que a salva no banco
         if(strtotime($dataBaseNova) > strtotime($dataBaseAtual->data_movimento)){
             AssociadosBacen::truncate();
             foreach ($rows as $row) 
@@ -59,5 +68,22 @@ class cli_bacen implements ToCollection, WithHeadingRow
             AssociadosBacen::find(1)->update(['updated_at' => date('Y-m-d H:i:s')]);
             return response()->json(true);
         }
+    }
+
+    public function registerEvents(): array
+    {
+        return [
+            AfterImport::class => function(AfterImport $event) {
+                Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de cli_bacen.xlsx efetuada com sucesso!</span>']);
+            },
+            ImportFailed::class => function(ImportFailed $event) {
+               Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cli_bacen.xlsx!</span>']);
+            },
+        ];
+    }
+
+    public function chunkSize(): int
+    {
+        return 50000;
     }
 }

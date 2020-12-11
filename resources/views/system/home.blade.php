@@ -36,7 +36,7 @@ Página inicial
 			        		@endforeach
 			        	</ul>
 		        	@else
-		        		<label>Opss! Nenhum novo tópico cadastrado.</label>
+		        		<label class="pl-3">Opss! Nenhum novo tópico cadastrado.</label>
 		        	@endif
 	        		
 	        	</div>

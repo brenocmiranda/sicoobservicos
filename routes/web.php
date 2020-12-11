@@ -433,14 +433,15 @@ Route::group(['prefix' => 'app'], function(){
 		});
 		// Importações
 		Route::group(['prefix' => 'importacoes'], function(){
-			// Automática
-			Route::group(['prefix' => 'automatica'], function(){
-				Route::any('', 'ImportacoesCtrl@ImportarAutomatica')->name('importAuto.importacoes');
+			// Importar
+			Route::group(['prefix' => 'upload'], function(){
+				Route::get('', 'ImportacoesCtrl@ExibirImportar')->name('exibir.importacoes');
+				Route::any('manual', 'ImportacoesCtrl@ImportarManual')->name('importManual.importacoes');
+				Route::any('automatica', 'ImportacoesCtrl@ImportarAutomatica')->name('importAuto.importacoes');
 			});
-			// Manual
-			Route::group(['prefix' => 'manual'], function(){
-				Route::get('', 'ImportacoesCtrl@Exibir')->name('exibir.importacoes');
-				Route::any('executar', 'ImportacoesCtrl@Importar')->name('executar.importacoes');
+			// Data base
+			Route::group(['prefix' => 'data'], function(){
+				Route::get('', 'ImportacoesCtrl@ExibirData')->name('exibir.data.importacoes');
 			});
 			// Logs
 			Route::group(['prefix' => 'logs'], function(){

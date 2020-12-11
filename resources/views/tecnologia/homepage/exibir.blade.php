@@ -138,7 +138,7 @@ Homepage
         	 	<i class="mdi mdi-magnify mdi-24px mdi-dark"></i>
         	 </span>
         	 <input type="email" class="form-control border-0"
-        	  style="border-top-right-radius: 20px; border-bottom-right-radius: 20px;padding: 21px;" placeholder="Pesquise..." id="txtBusca">
+        	  style="border-top-right-radius: 20px; border-bottom-right-radius: 20px;padding: 21px;" placeholder="Encontre aqui o procura :)" id="txtBusca">
       	</div>
 	</div>	
 	<div class="col-12 col-sm-12 col-lg-10 mx-auto px-0 text-uppercase pt-4">
@@ -168,7 +168,6 @@ Homepage
 	$(function(){
 	    $("#txtBusca").keyup(function(){
 	        var texto = $(this).val().toUpperCase();
-	         
 	        $("ul li").css("display", "block");
 	        $("ul li").each(function(){
 	            if($(this).text().indexOf(texto) < 0)
