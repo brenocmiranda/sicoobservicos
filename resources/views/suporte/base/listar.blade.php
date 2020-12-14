@@ -23,15 +23,15 @@ Tópicos
 			<div class="col-12">
 				<div class="col-12 row mx-auto">
 					<div class="col-8 mx-auto">
-						<input type="search" class="form-control rounded" style="border-radius:20px !important;" placeholder="Pesquise...">
+						<input type="search" class="form-control rounded" placeholder="Encontre rapidamente o que procura :)">
 					</div>
 				</div>
 				<div class="row col-12 mx-4">
 					<h4>{{$fonte->nome}} &#183 <h5 class="pl-2 my-auto">{{$tipo->nome}}</h5></h4>
 				</div>
 				<hr class="mx-5 mt-1">
-				<ul class="row col-12 m-auto" id="tipos">
-					@if(!empty($todos[0]))
+				@if(!empty($todos[0]))
+					<ul class="row col-12 m-auto" id="tipos">
 						@foreach($todos as $todos)
 							<li class="col-12">
 								<a href="{{route('detalhes.base', $todos->id)}}">
@@ -47,25 +47,25 @@ Tópicos
 								</a>
 							</li>
 						@endforeach
-						<div class="row mx-auto col-12">
-							<a href="javascript:history.back()" class="btn btn-outline btn-danger col-3 mx-auto mt-4">
-								<i class="mdi mdi-arrow-left"></i>
-								<span>Voltar</span>
-							</a>
-						</div>
-					@else
-						<div class="row mx-auto col-12 p-0">
-							<label class="alert alert-secondary col-12 rounded">Você não possui nenhum tópico cadastrado para essa fonte.</label>
-						</div>
-						<hr>
-						<div class="row mx-auto col-12">
-							<a href="javascript:history.back()" class="btn btn-outline btn-danger col-3 mx-auto">
-								<i class="mdi mdi-arrow-left"></i>
-								<span>Voltar</span>
-							</a>
-						</div>
-					@endif
-				</ul>
+					</ul>
+					<div class="row mx-auto col-12">
+						<a href="javascript:history.back()" class="btn btn-outline btn-danger col-3 mx-auto mt-4">
+							<i class="mdi mdi-arrow-left"></i>
+							<span>Voltar</span>
+						</a>
+					</div>
+				@else
+					<div class="row mx-auto col-12 p-0">
+						<label class="alert alert-secondary col-12 rounded"><i class="mdi mdi-alert-outline mdi-24px pr-4"></i> Você não possui nenhum tópico cadastrado para essa fonte.</label>
+					</div>
+					<hr>
+					<div class="row mx-auto col-12">
+						<a href="javascript:history.back()" class="btn btn-outline btn-danger col-3 mx-auto">
+							<i class="mdi mdi-arrow-left"></i>
+							<span>Voltar</span>
+						</a>
+					</div>
+				@endif
 			</div>
 		</div>
 	</div>

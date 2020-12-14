@@ -33,7 +33,7 @@ Materiais
 						<h5>Minhas solicitações</h5>
 						<hr class="mt-2">
 					</div>
-					<div class="col-12">
+					<div class="col-12 p-0">
 						@if(isset($requisicoes[0]))
 						<ul class="p-0" id="requisicoes">
 							@foreach($requisicoes as $requisicao)
@@ -85,7 +85,7 @@ Materiais
 						</ul>
 						@else
 							<div class="row mx-auto">
-								<label class="alert alert-secondary col-12 rounded">Você não possui nenhuma solicitação.</label>
+								<label class="alert alert-secondary col-12 rounded"><i class="mdi mdi-alert-outline mdi-24px pr-4"></i> Você não possui nenhuma solicitação.</label>
 							</div>
 						@endif
 					</div>

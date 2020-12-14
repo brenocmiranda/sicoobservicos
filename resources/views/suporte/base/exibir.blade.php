@@ -22,10 +22,10 @@ Aprendizagem
 			<div class="col-12">
 				<div class="col-12 row mx-auto">
 					<div class="col-12 col-lg-8 mx-auto">
-						<input type="search" class="form-control rounded" style="border-radius:20px !important;" placeholder="Pesquise...">
+						<input type="search" class="form-control rounded" placeholder="Encontre rapidamente o que procura :)">
 					</div>
 				</div>
-				<div class="row col-12 mx-auto my-5">
+				<div class="row col-12 mx-auto mt-5 p-0">
 					@if(isset($fontes[0]))
 						<div class="vtabs customvtab w-100">
 	                        <ul class="nav tabs-vertical"  id="fontes" style="width: 20em;">
@@ -78,7 +78,7 @@ Aprendizagem
 	                    </div>
                     @else
                     	<div class="row mx-auto w-100">
-							<label class="alert alert-secondary col-12 rounded">Não temos nenhum tópico cadastrado até o momento.</label>
+							<label class="alert alert-secondary col-12 rounded"><i class="mdi mdi-alert-outline mdi-24px pr-4"></i>Não temos nenhum tópico cadastrado até o momento.</label>
 						</div>
                     @endif
 				</div>
