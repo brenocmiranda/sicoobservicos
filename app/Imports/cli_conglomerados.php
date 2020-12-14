@@ -12,7 +12,6 @@ use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Maatwebsite\Excel\Events\AfterImport;
-use Maatwebsite\Excel\Events\BeforeSheet;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\RegistersEventListeners;
 
@@ -44,21 +43,21 @@ class cli_conglomerados implements ToCollection, WithChunkReading, WithHeadingRo
     public function registerEvents(): array
     {
         return [
-            BeforeSheet::class => function(BeforeSheet $event) {
+            AfterImport::class => function(AfterImport $event) {
                 Logs::create(['mensagem' => 'Inicilizando importação de cli_conglomerados.xlsx...']);
                 Logs::create(['mensagem' => 'Processando o arquivo cli_conglomerados.xlsx...']);
-            },
-            AfterImport::class => function(AfterImport $event) {
                 Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de cli_conglomerados.xlsx efetuada com sucesso!</span>']);
             },
             ImportFailed::class => function(ImportFailed $event) {
-               Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cli_conglomerados.xlsx!</span>']);
+                Logs::create(['mensagem' => 'Inicilizando importação de cli_conglomerados.xlsx...']);
+                Logs::create(['mensagem' => 'Processando o arquivo cli_conglomerados.xlsx...']);
+                Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cli_conglomerados.xlsx!</span>']);
             },
         ];
     }
 
     public function chunkSize(): int
     {
-        return 50000;
+        return 1000;
     }
 }

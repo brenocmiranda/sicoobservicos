@@ -15,7 +15,6 @@ use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Maatwebsite\Excel\Events\AfterImport;
-use Maatwebsite\Excel\Events\BeforeSheet;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\RegistersEventListeners;
 
@@ -98,21 +97,21 @@ class cre_contratos implements ToCollection, WithChunkReading, WithHeadingRow, S
     public function registerEvents(): array
     {
         return [
-            BeforeSheet::class => function(BeforeSheet $event) {
+            AfterImport::class => function(AfterImport $event) {
                 Logs::create(['mensagem' => 'Inicilizando importação de cre_contratos.xlsx...']);
                 Logs::create(['mensagem' => 'Processando o arquivo cre_contratos.xlsx...']);
-            },
-            AfterImport::class => function(AfterImport $event) {
                 Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de cre_contratos.xlsx efetuada com sucesso!</span>']);
             },
             ImportFailed::class => function(ImportFailed $event) {
-               Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cre_contratos.xlsx!</span>']);
+                Logs::create(['mensagem' => 'Inicilizando importação de cre_contratos.xlsx...']);
+                Logs::create(['mensagem' => 'Processando o arquivo cre_contratos.xlsx...']);
+                Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cre_contratos.xlsx!</span>']);
             },
         ];
     }
 
     public function chunkSize(): int
     {
-        return 50000;
+        return 1000;
     }
 }

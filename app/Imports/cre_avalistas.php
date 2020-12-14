@@ -13,7 +13,6 @@ use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Maatwebsite\Excel\Events\AfterImport;
-use Maatwebsite\Excel\Events\BeforeSheet;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\RegistersEventListeners;
 
@@ -45,21 +44,21 @@ class cre_avalistas implements ToCollection, WithChunkReading, WithHeadingRow, S
     public function registerEvents(): array
     {
         return [
-            BeforeSheet::class => function(BeforeSheet $event) {
+            AfterImport::class => function(AfterImport $event) {
                 Logs::create(['mensagem' => 'Inicilizando importação de cre_avalistas.xlsx...']);
                 Logs::create(['mensagem' => 'Processando o arquivo cre_avalistas.xlsx...']);
-            },
-            AfterImport::class => function(AfterImport $event) {
                 Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de cre_avalistas.xlsx efetuada com sucesso!</span>']);
             },
             ImportFailed::class => function(ImportFailed $event) {
-               Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cre_avalistas.xlsx!</span>']);
+                Logs::create(['mensagem' => 'Inicilizando importação de cre_avalistas.xlsx...']);
+                Logs::create(['mensagem' => 'Processando o arquivo cre_avalistas.xlsx...']);
+                Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cre_avalistas.xlsx!</span>']);
             },
         ];
     }
 
     public function chunkSize(): int
     {
-        return 50000;
+        return 1000;
     }
 }

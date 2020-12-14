@@ -11,8 +11,7 @@ use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Maatwebsite\Excel\Events\AfterImport;
-use Maatwebsite\Excel\Events\BeforeSheet;
+use Maatwebsite\Excel\Events\AfterImport;;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\RegistersEventListeners;
 
@@ -62,22 +61,22 @@ class cli_consolidado implements ToCollection, WithChunkReading, WithHeadingRow,
     public function registerEvents(): array
     {
         return [
-            BeforeSheet::class => function(BeforeSheet $event) {
+            AfterImport::class => function(AfterImport $event) {
                 Logs::create(['mensagem' => 'Inicilizando importação de cli_consolidado.xlsx...']);
                 Logs::create(['mensagem' => 'Processando o arquivo cli_consolidado.xlsx...']);
-            },
-            AfterImport::class => function(AfterImport $event) {
                 Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de cli_consolidado.xlsx efetuada com sucesso!</span>']);
             },
             ImportFailed::class => function(ImportFailed $event) {
-               Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cli_consolidado.xlsx!</span>']);
+                Logs::create(['mensagem' => 'Inicilizando importação de cli_consolidado.xlsx...']);
+                Logs::create(['mensagem' => 'Processando o arquivo cli_consolidado.xlsx...']);
+                Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cli_consolidado.xlsx!</span>']);
             },
         ];
     }
 
     public function chunkSize(): int
     {
-        return 50000;
+        return 1000;
     }
 }
 

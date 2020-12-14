@@ -13,7 +13,6 @@ use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Maatwebsite\Excel\Events\AfterImport;
-use Maatwebsite\Excel\Events\BeforeSheet;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\RegistersEventListeners;
 
@@ -55,14 +54,14 @@ class dep_aplicacoes implements ToCollection, WithChunkReading, WithHeadingRow, 
     public function registerEvents(): array
     {
         return [
-            BeforeSheet::class => function(BeforeSheet $event) {
+            AfterImport::class => function(AfterImport $event) {
                 Logs::create(['mensagem' => 'Inicilizando importação de pop_poupanca.xlsx...']);
                 Logs::create(['mensagem' => 'Processando o arquivo pop_poupanca.xlsx...']);
-            },
-            AfterImport::class => function(AfterImport $event) {
                 Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de dep_aplicacoes.xlsx efetuada com sucesso!</span>']);
             },
             ImportFailed::class => function(ImportFailed $event) {
+                Logs::create(['mensagem' => 'Inicilizando importação de pop_poupanca.xlsx...']);
+                Logs::create(['mensagem' => 'Processando o arquivo pop_poupanca.xlsx...']);
                 Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo dep_aplicacoes.xlsx!</span>']);
             },
         ];
@@ -70,6 +69,6 @@ class dep_aplicacoes implements ToCollection, WithChunkReading, WithHeadingRow, 
 
     public function chunkSize(): int
     {
-        return 50000;
+        return 1000;
     }
 }
