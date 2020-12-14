@@ -57,17 +57,17 @@ class ImportacoesCtrl extends Controller
 		$cli_telefones = AssociadosTelefones::select('updated_at')->orderBy('updated_at', 'DESC')->first();
 		$cli_enderecos = AssociadosEnderecos::select('updated_at')->orderBy('updated_at', 'DESC')->first();
 		$cli_conglomerados = AssociadosConglomerados::select('updated_at')->orderBy('updated_at', 'DESC')->first();
-		$cli_consolidado = AssociadosConsolidado::select('updated_at', 'data_movimento')->orderBy('updated_at', 'DESC')->first();
-		$cli_iap = AssociadosIAPs::select('updated_at', 'data_movimento')->orderBy('updated_at', 'DESC')->first();
-		$cli_bacen = AssociadosBacen::select('updated_at', 'data_movimento')->orderBy('updated_at', 'DESC')->first();
-		$cre_contratos = Contratos::select('updated_at', 'data_movimento')->orderBy('updated_at', 'DESC')->first();
-		$cre_avalistas = Avalistas::select('updated_at', 'data_movimento')->orderBy('updated_at', 'DESC')->first();
-		$cre_garantias = Garantias::select('updated_at', 'data_movimento')->orderBy('updated_at', 'DESC')->first();
-		$cca_contacapital = ContaCapital::select('updated_at', 'data_movimento')->orderBy('updated_at', 'DESC')->first();
-		$cco_contacorrente = ContaCorrente::select('updated_at', 'data_movimento')->orderBy('updated_at', 'DESC')->first();
-		$crt_cartaocredito = CartaoCredito::select('updated_at', 'data_movimento')->orderBy('updated_at', 'DESC')->first();
-		$pop_poupanca = Poupancas::select('updated_at', 'data_movimento')->orderBy('updated_at', 'DESC')->first();
-		$dep_aplicacoes = Aplicacoes::select('updated_at', 'data_movimento')->orderBy('updated_at', 'DESC')->first();
+		$cli_consolidado = AssociadosConsolidado::select('updated_at', 'data_movimento')->orderBy('data_movimento', 'DESC')->first();
+		$cli_iap = AssociadosIAPs::select('updated_at', 'data_movimento')->orderBy('data_movimento', 'DESC')->first();
+		$cli_bacen = AssociadosBacen::select('updated_at', 'data_movimento')->orderBy('data_movimento', 'DESC')->first();
+		$cre_contratos = Contratos::select('updated_at', 'data_movimento')->orderBy('data_movimento', 'DESC')->first();
+		$cre_avalistas = Avalistas::select('updated_at', 'data_movimento')->orderBy('data_movimento', 'DESC')->first();
+		$cre_garantias = Garantias::select('updated_at', 'data_movimento')->orderBy('data_movimento', 'DESC')->first();
+		$cca_contacapital = ContaCapital::select('updated_at', 'data_movimento')->orderBy('data_movimento', 'DESC')->first();
+		$cco_contacorrente = ContaCorrente::select('updated_at', 'data_movimento')->orderBy('data_movimento', 'DESC')->first();
+		$crt_cartaocredito = CartaoCredito::select('updated_at', 'data_movimento')->orderBy('data_movimento', 'DESC')->first();
+		$pop_poupanca = Poupancas::select('updated_at', 'data_movimento')->orderBy('data_movimento', 'DESC')->first();
+		$dep_aplicacoes = Aplicacoes::select('updated_at', 'data_movimento')->orderBy('data_movimento', 'DESC')->first();
 
 		return view('configuracoes.importacoes.data')->with('cli_associados', $cli_associados)->with('cli_consolidado', $cli_consolidado)->with('cli_emails', $cli_emails)->with('cli_enderecos', $cli_enderecos)->with('cli_telefones', $cli_telefones)->with('cca_contacapital', $cca_contacapital)->with('cco_contacorrente', $cco_contacorrente)->with('crt_cartaocredito', $crt_cartaocredito)->with('cli_conglomerados', $cli_conglomerados)->with('cre_contratos', $cre_contratos)->with('pop_poupanca', $pop_poupanca)->with('dep_aplicacoes', $dep_aplicacoes)->with('cli_iap', $cli_iap)->with('cli_bacen', $cli_bacen)->with('cre_avalistas', $cre_avalistas)->with('cre_garantias', $cre_garantias);
 	}

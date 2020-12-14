@@ -128,14 +128,14 @@ Database
                         </tr>
                         <tr>
                             <td>cre_avalistas</td>
-                            <td>Diário</td>
+                            <td>Mensal</td>
                             <td>{{date('d/m/Y', strtotime(@$cre_avalistas->data_movimento))}}</td>
                             <td>{{date('d/m/Y H:i:s', strtotime(@$cre_avalistas->updated_at))}}</td>
                             <td>{!! ( strtotime(date('Y-m-d', strtotime(@$cre_avalistas->updated_at))) == strtotime(date('Y-m-d')) ? '<i class="mdi mdi-check text-success px-2"></i>'.'Atualizado' : '<i class="mdi mdi-close text-danger px-2"></i>'.'Desatualizado')!!}</td>
                         </tr>
                         <tr>
                             <td>cre_garantias</td>
-                            <td>Diário</td>
+                            <td>Mensal</td>
                             <td>{{date('d/m/Y', strtotime(@$cre_garantias->data_movimento))}}</td>
                             <td>{{date('d/m/Y H:i:s', strtotime(@$cre_garantias->updated_at))}}</td>
                             <td>{!! ( strtotime(date('Y-m-d', strtotime(@$cre_garantias->updated_at))) == strtotime(date('Y-m-d')) ? '<i class="mdi mdi-check text-success px-2"></i>'.'Atualizado' : '<i class="mdi mdi-close text-danger px-2"></i>'.'Desatualizado')!!}</td>

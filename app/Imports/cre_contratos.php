@@ -9,22 +9,22 @@ use App\Models\ProdutosCred;
 use App\Models\Modalidades;
 use App\Models\Logs;
 use Illuminate\Support\Collection;
+use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Maatwebsite\Excel\Events\AfterImport;
+use Maatwebsite\Excel\Events\BeforeSheet;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\RegistersEventListeners;
 
 class cre_contratos implements ToCollection, WithChunkReading, WithHeadingRow, ShouldQueue, WithEvents
 {
-    use RegistersEventListeners;
+    use Importable, RegistersEventListeners;
 
     public function collection(Collection $rows)
     {
-        Logs::create(['mensagem' => 'Inicilizando importação de cre_contratos.xlsx...']);
-        Logs::create(['mensagem' => 'Processando o arquivo cre_contratos.xlsx...']);
         foreach ($rows as $row) 
         {  
             $dados1 = Modalidades::where('codigo', $row['codigo_modalidade_produto'])->first();
@@ -98,6 +98,10 @@ class cre_contratos implements ToCollection, WithChunkReading, WithHeadingRow, S
     public function registerEvents(): array
     {
         return [
+            BeforeSheet::class => function(BeforeSheet $event) {
+                Logs::create(['mensagem' => 'Inicilizando importação de cre_contratos.xlsx...']);
+                Logs::create(['mensagem' => 'Processando o arquivo cre_contratos.xlsx...']);
+            },
             AfterImport::class => function(AfterImport $event) {
                 Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de cre_contratos.xlsx efetuada com sucesso!</span>']);
             },

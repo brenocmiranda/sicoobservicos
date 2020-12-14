@@ -6,22 +6,22 @@ use App\Models\Associados;
 use App\Models\AssociadosConsolidado;
 use App\Models\Logs;
 use Illuminate\Support\Collection;
+use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Maatwebsite\Excel\Events\AfterImport;
+use Maatwebsite\Excel\Events\BeforeSheet;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\RegistersEventListeners;
 
 class cli_consolidado implements ToCollection, WithChunkReading, WithHeadingRow, ShouldQueue, WithEvents
 {
-    use RegistersEventListeners;
+    use Importable, RegistersEventListeners;
 
     public function collection(Collection $rows)
     {
-        Logs::create(['mensagem' => 'Inicilizando importação de cli_consolidado.xlsx...']);
-        Logs::create(['mensagem' => 'Processando o arquivo cli_consolidado.xlsx...']);
         foreach ($rows as $row) 
         {  
             $associado = Associados::where('id_sisbr', $row['numero_cliente_sisbr'])->select('id')->first();
@@ -62,6 +62,10 @@ class cli_consolidado implements ToCollection, WithChunkReading, WithHeadingRow,
     public function registerEvents(): array
     {
         return [
+            BeforeSheet::class => function(BeforeSheet $event) {
+                Logs::create(['mensagem' => 'Inicilizando importação de cli_consolidado.xlsx...']);
+                Logs::create(['mensagem' => 'Processando o arquivo cli_consolidado.xlsx...']);
+            },
             AfterImport::class => function(AfterImport $event) {
                 Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de cli_consolidado.xlsx efetuada com sucesso!</span>']);
             },

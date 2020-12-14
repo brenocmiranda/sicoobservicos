@@ -437,7 +437,7 @@ Route::group(['prefix' => 'app'], function(){
 			Route::group(['prefix' => 'upload'], function(){
 				Route::get('', 'ImportacoesCtrl@ExibirImportar')->name('exibir.importacoes');
 				Route::any('manual', 'ImportacoesCtrl@ImportarManual')->name('importManual.importacoes');
-				Route::any('automatica', 'ImportacoesCtrl@ImportarAutomatica')->name('importAuto.importacoes');
+				Route::any('automatico', 'ImportacoesCtrl@ImportarAutomatica')->name('importAuto.importacoes');
 			});
 			// Data base
 			Route::group(['prefix' => 'data'], function(){

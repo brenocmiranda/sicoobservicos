@@ -6,22 +6,22 @@ use App\Models\Associados;
 use App\Models\AssociadosBacen;
 use App\Models\Logs;
 use Illuminate\Support\Collection;
+use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Maatwebsite\Excel\Events\AfterImport;
+use Maatwebsite\Excel\Events\BeforeSheet;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\RegistersEventListeners;
 
 class cli_bacen implements ToCollection, WithChunkReading, WithHeadingRow, ShouldQueue, WithEvents
 {
-    use RegistersEventListeners;
+    use Importable, RegistersEventListeners;
 
     public function collection(Collection $rows)
     {   
-        Logs::create(['mensagem' => 'Inicilizando importação de cli_bacen.xlsx...']);
-        Logs::create(['mensagem' => 'Processando o arquivo cli_bacen.xlsx...']);
         $dataBaseAtual = AssociadosBacen::orderBy('data_movimento', 'ASC')->first();
         $dataBaseNova = gmdate('Y-m-d', (($rows[1]['data_movimento'] - 25569) * 86400));
         // Verifica se a data do novo arquivo é maior que a salva no banco
@@ -73,6 +73,10 @@ class cli_bacen implements ToCollection, WithChunkReading, WithHeadingRow, Shoul
     public function registerEvents(): array
     {
         return [
+            BeforeSheet::class => function(BeforeSheet $event) {
+                Logs::create(['mensagem' => 'Inicilizando importação de cli_bacen.xlsx...']);
+                Logs::create(['mensagem' => 'Processando o arquivo cli_bacen.xlsx...']);
+            },
             AfterImport::class => function(AfterImport $event) {
                 Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de cli_bacen.xlsx efetuada com sucesso!</span>']);
             },
