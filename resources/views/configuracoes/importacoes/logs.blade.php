@@ -36,8 +36,8 @@ Logs de importação
                     {{$logs->links()}}
                 </div>
             @else
-                <div class="row mx-auto">
-                    <label class="alert alert-secondary col-12 rounded">Você não possui nenhum log de importação.</label>
+                <div class="row mx-auto col-12 p-0">
+                    <label class="alert alert-secondary col-12 rounded"><i class="mdi mdi-alert-outline mdi-24px pr-4"></i> Você não possui nenhum log de importação.</label>
                 </div>
             @endif
         </div>
