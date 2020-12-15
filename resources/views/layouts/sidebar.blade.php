@@ -15,7 +15,7 @@
       <div class="user-pro-body my-3">
         <div>
           <img src="{{(isset(Auth::user()->RelationImagem) ? asset('storage/app/'.Auth::user()->RelationImagem->endereco).'?'.rand() : asset('public/img/user.png').'?'.rand())}}" alt="Imagem usuário" class="rounded-circle">
-          <a href="{{route('perfil')}}" class="position-absolute rounded-circle bg-light px-2 py-1 mt-n5 ml-4"><i class="ti-pencil"></i></a>
+          <a href="{{route('perfil')}}" class="position-absolute rounded-circle bg-light px-2 py-1 mt-n5 ml-4 text-dark"><i class="ti-pencil"></i></a>
         </div>
         <label class="d-block text-capitalize text-truncate font-weight-bold mb-0 px-5">{{ strtolower(Auth::user()->RelationAssociado->nome) }}</label>
         <small class="d-block text-capitalize py-2">{{ Auth::user()->RelationSetor->nome }}</small>
