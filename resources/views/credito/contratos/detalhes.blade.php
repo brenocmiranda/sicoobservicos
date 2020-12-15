@@ -154,9 +154,6 @@
                         <label class="col-form-label pb-0">Finalidade</label>
                         <select class="cre_id_finalidades form-control form-control-line" name="cre_id_finalidades" disabled>
                           <option value=""> Selecione a finalidade</option>
-                          @foreach($finalidades as $finalidade)
-                          <option value="{{$finalidade->id}}">{{$finalidade->nome}}</option>
-                          @endforeach
                         </select>
                       </div>
                     </div>

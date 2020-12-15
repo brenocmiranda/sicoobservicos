@@ -33,15 +33,13 @@ class CreateUsrFuncoes extends Migration
         DB::table('usr_funcoes')->insert(
             array([   
                 'nome' => 'Administradores',
+                'status' => 1,
                 'ver_administrativo' => 1,
                 'gerenciar_administrativo' => 1,
-                'status' => 1,
                 'ver_credito' => 1,
                 'gerenciar_credito' => 1,
                 'ver_gti' => 1,
                 'gerenciar_gti' => 1,
-                'ver_suporte' => 1,
-                'gerenciar_suporte' => 1,
                 'ver_configuracoes' => 1,
                 'gerenciar_configuracoes' => 1,
                 ])

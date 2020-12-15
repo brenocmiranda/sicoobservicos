@@ -48,7 +48,7 @@ class CreateUsrUsuarios extends Migration
                 'email' => 'breno.miranda@sicoobsertaominas.com.br',
                 'email_verified_at' => now(),
                 'telefone' => '+5538991680335',
-                'retaguarda' => '1',
+                'remember_token' => csrf_token(),
                 'status' => 'Ativo',
                 'usr_id_setor' => '1',
                 'usr_id_funcao' => '1',

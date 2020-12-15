@@ -160,9 +160,6 @@
                         <div class="" ass="input-field mt-0">
                           <select class="form-control form-control-line" name="cre_id_finalidades">
                             <option value=""> Selecione a finalidade</option>
-                            @foreach($finalidades as $finalidade)
-                            <option value="{{$finalidade->id}}">{{$finalidade->nome}}</option>
-                            @endforeach
                           </select>
                         </div>
                       </div>

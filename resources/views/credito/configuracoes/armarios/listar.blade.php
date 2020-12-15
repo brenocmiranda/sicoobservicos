@@ -35,7 +35,6 @@ Armários
 			<div class="col-12 mb-3 mx-3">
 				<table class="table table-striped text-center color-table muted-table rounded" id="table">
 					<thead>
-						<th> ID# </th>
 						<th> Nome </th>
 						<th> Referência </th>
 						<th> Status </th>
@@ -71,7 +70,7 @@ Armários
 		// Criando a datatables
 		$('#table').DataTable({
 			deferRender: true,
-			order: [2, 'asc'],
+			order: [0, 'asc'],
 			paginate: true,
 			select: true,
 			searching: true,
@@ -79,7 +78,6 @@ Armários
 			ajax: "{{ route('listar.armarios.credito') }}",
 			serverSide: true,
 			"columns": [ 
-			{ "data": "id","name":"id"},
 			{ "data": "nome1", "name":"nome1"},
 			{ "data": "referencia", "name":"referencia"},
 			{ "data": "status1", "name":"status1"},

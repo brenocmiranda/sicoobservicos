@@ -1,5 +1,5 @@
 @section('title')
-Contratos em Prejuízo
+Contratos Vigentes
 @endsection
 
 @extends('layouts.index')
@@ -8,13 +8,13 @@ Contratos em Prejuízo
 <div class="container-fluid">
 	<div class="row bg-title">
 		<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-			<h4 class="page-title">Contratos em Prejuízo</h4> 
+			<h4 class="page-title">Contratos vigentes</h4> 
 		</div>
 		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
 			<ol class="breadcrumb">
 				<li><a href="{{route('dashboard.credito')}}">Crédito</a></li>
 				<li><a href="{{ route('exibir.contratos.credito') }}">Contratos</a></li>
-				<li><a class="active">Em prejuízo</a></li>
+				<li><a class="active">Vigentes</a></li>
 			</ol>
 		</div>
 	</div>
@@ -63,7 +63,7 @@ Contratos em Prejuízo
 @endsection
 
 @section('suporte')
-<script type="text/javascript">
+<script type="text/javascript">	
 	function excluirAvalista(id){
 		$('#avalista'+id).remove();
 		return true;
@@ -164,7 +164,7 @@ Contratos em Prejuízo
 
 		// Criando a datatables
 		$.ajax({
-			url: '{{ route("listar.prejuizo.credito") }}',
+			url: '{{ route("listar.vigente.credito") }}',
 			type: 'GET',
 			success: function(table){
 				$('#table').DataTable({
@@ -182,7 +182,7 @@ Contratos em Prejuízo
 					{ "data": "armario.referencia","name":"armario.referencia"},
 					{ "data": "acoes","name":"acoes"},
 					]
-				});
+				});	
 
 				// Carregamento de dados
 				$('.processing-in').addClass('d-none');
@@ -333,13 +333,13 @@ Contratos em Prejuízo
 					// Função para retorno das garantias
 					$.get("garantias/"+data.id, function(dataGarantias){
 						// Retorno dos avalistas da operação
-						for (var i = 0; i < dataGarantias[0].length; i++){
-							$(".adicionarAvalista").append('<div class="form-group rounded" id="avalista'+contador+'"> <div class="col-12"> <div class="d-flex"> <input type="text" name="avalista[]" class="avalista form-control form-control-line mr-2" value="'+dataGarantias[0][i].nome+" : "+dataGarantias[0][i].documento+'" disabled>  </div> </div> </div>');
+						for (var i = 0; i < dataGarantias[0].length; i++) {
+							$(".adicionarAvalista").append('<div class="form-group rounded" id="avalista'+contador+'"> <div class="col-12"> <div class="d-flex"> <input type="text" name="avalista[]" class="avalista form-control form-control-line mr-2" value="'+dataGarantias[0][i].nome+" : "+dataGarantias[0][i].documento+'" disabled> </div> </div> </div>');
 							contador++;
 						}
 						// Retorno das garantias da operação
 						for (var i = 0; i < dataGarantias[1].length; i++) {
-							$(".adicionarGarantia").append('<div class="form-group rounded" id="garantia'+contador+'"> <div class="d-flex"> <div class="col-4"> <label class="col-form-label pb-0">Tipo</label> <select class="form-control form-control-line" name="tipoGarantia[]" disabled> <option value=""> Selecione </option> <option value="Cessão de direitos creditórios" '+(dataGarantias[1][i].tipo == 'Cessão de direitos creditórios' ? 'selected' : '')+'>Cessão de direitos creditórios</option> <option value="Equipamento" '+(dataGarantias[1][i].tipo == 'Equipamento' ? 'selected' : '')+'>Equipamento</option> <option value="Imóvel" '+(dataGarantias[1][i].tipo == 'Imóvel' ? 'selected' : '')+'>Imóvel</option> <option value="Terreno" '+(dataGarantias[1][i].tipo == 'Terreno' ? 'selected' : '')+'>Terreno</option> <option value="Usina" '+(dataGarantias[1][i].tipo == 'Usina' ? 'selected' : '')+'>Usina</option> <option value="Veículo" '+(dataGarantias[1][i].tipo == 'Veículo' ? 'selected' : '')+'>Veículo</option> <option value="Outros" '+(dataGarantias[1][i].tipo == 'Outros' ? 'selected' : '')+'>Outros</option> </select> </div> <div class="col-7"> <label class="col-form-label pb-0">Descrição</label> <input type="text" class="form-control form-control-line" name="descricaoGarantia[]" value="'+dataGarantias[1][i].descricao+'" disabled/> </div> </div> </div>');
+								$(".adicionarGarantia").append('<div class="form-group rounded" id="garantia'+contador+'"> <div class="d-flex"> <div class="col-4"> <label class="col-form-label pb-0">Tipo</label> <select class="form-control form-control-line" name="tipoGarantia[]" disabled> <option value=""> Selecione </option> <option value="Cessão de direitos creditórios" '+(dataGarantias[1][i].tipo == 'Cessão de direitos creditórios' ? 'selected' : '')+'>Cessão de direitos creditórios</option> <option value="Equipamento" '+(dataGarantias[1][i].tipo == 'Equipamento' ? 'selected' : '')+'>Equipamento</option> <option value="Imóvel" '+(dataGarantias[1][i].tipo == 'Imóvel' ? 'selected' : '')+'>Imóvel</option> <option value="Terreno" '+(dataGarantias[1][i].tipo == 'Terreno' ? 'selected' : '')+'>Terreno</option> <option value="Usina" '+(dataGarantias[1][i].tipo == 'Usina' ? 'selected' : '')+'>Usina</option> <option value="Veículo" '+(dataGarantias[1][i].tipo == 'Veículo' ? 'selected' : '')+'>Veículo</option> <option value="Outros" '+(dataGarantias[1][i].tipo == 'Outros' ? 'selected' : '')+'>Outros</option> </select> </div> <div class="col-7"> <label class="col-form-label pb-0">Descrição</label> <input type="text" class="form-control form-control-line" name="descricaoGarantia[]" value="'+dataGarantias[1][i].descricao+'" disabled/> </div> </div> </div>');
 							contador++;
 						}
 					});

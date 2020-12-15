@@ -35,33 +35,43 @@ Contratos
 					</div>
 					@endif
 				</div>
-				<div class="col-3 border rounded shadow-sm m-3 p-3">
-					<a href="{{ route('exibir.vigente.credito') }}" class="button-size">
+				<div class="col-4 col-sm-4 col-lg-2  border rounded shadow-sm m-3 p-3">
+					<a href="#" class="button-size">
 						<div class="px-4 m-auto text-center">
-							<i class="mdi mdi-package-variant mdi-36px"></i>
+							<i class="mdi mdi-cash-multiple mdi-36px"></i>
 						</div> 
 						<div class="m-auto text-center">
-							<h5 class="mb-3"> Contratos Vigentes </h5>
+							<h5 class="mb-3"> Emprestimos </h5>
 						</div>
 					</a>
 				</div>
-				<div class="col-3 border rounded shadow-sm m-3 p-3">
-					<a href="{{ route('exibir.quitado.credito') }}" class="button-size">
+				<div class="col-4 col-sm-4 col-lg-2 border rounded shadow-sm m-3 p-3">
+					<a href="#" class="button-size">
 						<div class="px-4 m-auto text-center">
-							<i class="mdi mdi-package-variant-closed mdi-36px"></i>
-						</div>
+							<i class="mdi mdi-ticket-account mdi-36px"></i>
+						</div> 
 						<div class="m-auto text-center">
-							<h5 class="mb-3"> Contratos Quitados </h5>
+							<h5 class="mb-3"> Conta Corrente </h5>
 						</div>
 					</a>
 				</div>
-				<div class="col-3 border rounded shadow-sm m-3 p-3">
-					<a href="{{ route('exibir.prejuizo.credito') }}" class="button-size">
+				<div class="col-4 col-sm-4 col-lg-2 border rounded shadow-sm m-3 p-3">
+					<a href="#" class="button-size">
 						<div class="px-4 m-auto text-center">
-							<i class="mdi mdi-minus-circle-outline mdi-36px"></i>
+							<i class="mdi mdi-credit-card-multiple mdi-36px"></i>
 						</div>
 						<div class="m-auto text-center">
-							<h5 class="mb-3"> Contratos em Prejuízo </h5>
+							<h5 class="mb-3"> Cartão de Crédito </h5>
+						</div>
+					</a>
+				</div>
+				<div class="col-4 col-sm-4 col-lg-2 border rounded shadow-sm m-3 p-3">
+					<a href="#" class="button-size">
+						<div class="px-4 m-auto text-center">
+							<i class="mdi mdi-wallet-membership mdi-36px"></i>
+						</div>
+						<div class="m-auto text-center">
+							<h5 class="mb-3"> Titulos descontads </h5>
 						</div>
 					</a>
 				</div>

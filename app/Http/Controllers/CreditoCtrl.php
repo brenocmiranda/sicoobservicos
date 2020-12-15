@@ -15,7 +15,6 @@ use App\Models\Armarios;
 use App\Models\Associados;
 use App\Models\Avalistas;
 use App\Models\Contratos;
-use App\Models\Finalidades;
 use App\Models\Garantias;
 use App\Models\Modalidades;
 use App\Models\ProdutosCred;
@@ -50,10 +49,9 @@ class CreditoCtrl extends Controller
 	public function Disposicao(){
 		if(Auth::user()->RelationFuncao->ver_credito == 1 || Auth::user()->RelationFuncao->gerenciar_credito == 1){
 			$produtos = ProdutosCred::where('status', 1)->get(); 
-			$modalidades = Modalidades::where('status', 1)->get();
-			$finalidades = Finalidades::where('status', 1)->get();  
+			$modalidades = Modalidades::where('status', 1)->get(); 
 			$armarios = Armarios::where('status', 1)->orderBy('referencia')->get(); 
-			return view('credito.disposicao.listar')->with('armarios', $armarios)->with('produtos', $produtos)->with('modalidades', $modalidades)->with('finalidades', $finalidades);
+			return view('credito.disposicao.listar')->with('armarios', $armarios)->with('produtos', $produtos)->with('modalidades', $modalidades);
 		}else{
 			return redirect(route('403'));
 		}
@@ -65,8 +63,7 @@ class CreditoCtrl extends Controller
 			$armarios = Armarios::where('status', 1)->get(); 
 			$produtos = ProdutosCred::where('status', 1)->get(); 
 			$modalidades = Modalidades::where('status', 1)->get();
-			$finalidades = Finalidades::where('status', 1)->get();  
-			return view('credito.disposicao.gaveta')->with('armarios', $armarios)->with('produtos', $produtos)->with('modalidades', $modalidades)->with('finalidades', $finalidades)->with('arm', $arm);
+			return view('credito.disposicao.gaveta')->with('armarios', $armarios)->with('produtos', $produtos)->with('modalidades', $modalidades)->with('arm', $arm);
 		}else{
 			return redirect(route('403'));
 		}
@@ -120,8 +117,7 @@ class CreditoCtrl extends Controller
 			$armarios = Armarios::where('status', 1)->orderBy('referencia', 'ASC')->get(); 
 			$produtos = ProdutosCred::where('status', 1)->orderBy('nome', 'ASC')->get(); 
 			$modalidades = Modalidades::where('status', 1)->orderBy('nome', 'ASC')->get();
-			$finalidades = Finalidades::where('status', 1)->orderBy('nome', 'ASC')->get();  
-			return view('credito.contratos.geral')->with('armarios', $armarios)->with('produtos', $produtos)->with('modalidades', $modalidades)->with('finalidades', $finalidades);
+			return view('credito.contratos.geral')->with('armarios', $armarios)->with('produtos', $produtos)->with('modalidades', $modalidades);
 		}else{
 			return redirect(route('403'));
 		}
@@ -156,9 +152,8 @@ class CreditoCtrl extends Controller
 		if(Auth::user()->RelationFuncao->ver_credito == 1 || Auth::user()->RelationFuncao->gerenciar_credito == 1){
 			$armarios = Armarios::where('status', 1)->orderBy('referencia', 'ASC')->get(); 
 			$produtos = ProdutosCred::where('status', 1)->get(); 
-			$modalidades = Modalidades::where('status', 1)->get();
-			$finalidades = Finalidades::where('status', 1)->get();  
-			return view('credito.contratos.'.$request->segment(4).'.listar')->with('armarios', $armarios)->with('produtos', $produtos)->with('modalidades', $modalidades)->with('finalidades', $finalidades);
+			$modalidades = Modalidades::where('status', 1)->get();  
+			return view('credito.contratos.'.$request->segment(4).'.listar')->with('armarios', $armarios)->with('produtos', $produtos)->with('modalidades', $modalidades);
 		}else{
 			return redirect(route('403'));
 		}

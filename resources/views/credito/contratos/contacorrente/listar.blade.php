@@ -1,5 +1,5 @@
 @section('title')
-Contratos Quitados
+Contratos Vigentes
 @endsection
 
 @extends('layouts.index')
@@ -8,13 +8,13 @@ Contratos Quitados
 <div class="container-fluid">
 	<div class="row bg-title">
 		<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-			<h4 class="page-title">Contratos quitados</h4> 
+			<h4 class="page-title">Contratos vigentes</h4> 
 		</div>
 		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
 			<ol class="breadcrumb">
 				<li><a href="{{route('dashboard.credito')}}">Crédito</a></li>
 				<li><a href="{{ route('exibir.contratos.credito') }}">Contratos</a></li>
-				<li><a class="active">Quitados</a></li>
+				<li><a class="active">Vigentes</a></li>
 			</ol>
 		</div>
 	</div>
@@ -63,7 +63,7 @@ Contratos Quitados
 @endsection
 
 @section('suporte')
-<script type="text/javascript">
+<script type="text/javascript">	
 	function excluirAvalista(id){
 		$('#avalista'+id).remove();
 		return true;
@@ -164,7 +164,7 @@ Contratos Quitados
 
 		// Criando a datatables
 		$.ajax({
-			url: '{{ route("listar.quitado.credito") }}',
+			url: '{{ route("listar.vigente.credito") }}',
 			type: 'GET',
 			success: function(table){
 				$('#table').DataTable({
@@ -182,7 +182,7 @@ Contratos Quitados
 					{ "data": "armario.referencia","name":"armario.referencia"},
 					{ "data": "acoes","name":"acoes"},
 					]
-				});
+				});	
 
 				// Carregamento de dados
 				$('.processing-in').addClass('d-none');
