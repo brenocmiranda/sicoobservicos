@@ -32,7 +32,7 @@ Unidades
 				@endif
 			</div>
 			<ul class="row col-12 m-auto" id="unidades">
-				@foreach($unidades as $unidade)
+				@foreach($unidades->sortBy('referencia') as $unidade)
 				<li class="col-3 p-3">
 					<div class="card p-3 shadow-sm">
 						<div class="text-center">
