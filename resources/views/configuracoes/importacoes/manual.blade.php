@@ -337,7 +337,7 @@ Importar
                     </div>
                     <div class="confirm col-12 text-center mb-3 font-weight-bold"></div>
                     <div class="col-12 my-3 p-0">
-                        <button type="submit" class="btn btn-success btn-lg btn-outline col-3">
+                        <button type="submit" class="btn btn-success btn-lg btn-outline col-lg-3 col-8">
                             <span>Enviar arquivos</span>
                         </button>
                     </div> 

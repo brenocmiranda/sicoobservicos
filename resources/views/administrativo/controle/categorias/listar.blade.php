@@ -25,8 +25,8 @@ Categorias
 					@if(Auth::user()->RelationFuncao->gerenciar_administrativo == 1)
 					<div class="row mx-auto">
 						<button class="btn btn-primary btn-outline ml-auto" id="adicionar" name="adicionar" title="Adicionar nova categoria" data-toggle="modal" data-target="#modal-adicionar" style="z-index: 10">
-							<i class="m-0 pr-1 mdi mdi-plus"></i> 
-							<span>Nova categoria</span> 
+							<i class="m-0 pr-lg-1 mdi mdi-plus"></i> 
+							<span class="hidden-xs">Nova categoria</span> 
 						</button>
 					</div>
 					@endif

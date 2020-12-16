@@ -10,9 +10,9 @@
       </h3> 
     </div>
 
-    <div class="user-profile d-table ml-n3 mx-lg-auto mx-sm-auto">
-      <hr class="mx-5 mt-0">
-      <div class="user-pro-body my-3">
+    <div class="user-profile row text-center justify-content-center">
+      <hr class="mt-0 col-7">
+      <div class="user-pro-body my-3 col-12">
         <div>
           <img src="{{(isset(Auth::user()->RelationImagem) ? asset('storage/app/'.Auth::user()->RelationImagem->endereco).'?'.rand() : asset('public/img/user.png').'?'.rand())}}" alt="Imagem usuário" class="rounded-circle">
           <a href="{{route('perfil')}}" class="position-absolute rounded-circle bg-light px-2 py-1 mt-n5 ml-4 text-dark"><i class="ti-pencil"></i></a>

@@ -17,19 +17,19 @@
         <div class="col-12 grid-margin mb-0"> 
           <div class="card-body py-0">
            <div class="row">
-            <div class="col-8">
+            <div class="col-lg-8 col-12">
               <div class="form-group">
                 <label class="col-form-label pb-0">Nome <span class="text-danger">*</span></label>
                 <input class="nome form-control form-control-line" name="nome" onkeyup="this.value = this.value.toUpperCase();" disabled/>
               </div>
             </div>
-            <div class="col-10">
+            <div class="col-lg-10 col-12">
               <div class="form-group">
                 <label class="col-form-label pb-0">Descrição</label>
                 <textarea class="descricao form-control form-control-line" name="descricao" onkeyup="this.value = this.value.toUpperCase();" disabled></textarea>
               </div>
             </div>
-            <div class="col-10">
+            <div class="col-lg-10 col-12">
               <div class="form-group">
                 <label class="col-form-label pb-0">Arquivo <span class="text-danger">*</span></label>
                 <div class="fileinput fileinput-new input-group" data-provides="fileinput">
@@ -46,7 +46,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-3">
+            <div class="col-lg-3 col-12">
               <div class="form-group">
                 <label class="col-form-label mb-2">Status <span class="text-danger">*</span></label>
                 <div class="switchery-demo">
@@ -60,7 +60,7 @@
     </div>
     <div class="modal-footer">
       <div class="row col-12 justify-content-center">
-       <button class="btn btn-danger btn-outline col-3 mx-1 d-flex align-items-center justify-content-center" data-dismiss="modal" aria-label="Close">
+       <button class="btn btn-danger btn-outline col-lg-3 col-6 mx-1 d-flex align-items-center justify-content-center" data-dismiss="modal" aria-label="Close">
         <i class="mdi mdi-close pr-2"></i> 
         <span>Cancelar</span>
       </button>

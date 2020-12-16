@@ -23,10 +23,12 @@ Bens
 				@if(Auth::user()->RelationFuncao->gerenciar_administrativo == 1)
 				<div class="col-12 row mb-4 mx-auto">
 					@include('layouts.search')
-					<a href="{{route('adicionar.bens.administrativo')}}" class="btn btn-primary btn-outline ml-auto" id="adicionar" name="adicionar" title="Adicionar novo bens da da cooperativa">
-						<i class="m-0 pr-1 mdi mdi-plus"></i> 
-						<span>Novo bem</span>
-					</a>
+					<div class="col-2 col-lg-5 col-sm-5 p-0 row mx-auto">
+						<a href="{{route('adicionar.bens.administrativo')}}" class="btn btn-primary btn-outline ml-auto" id="adicionar" name="adicionar" title="Adicionar novo bens da da cooperativa">
+							<i class="m-0 pr-lg-1 mdi mdi-plus"></i> 
+							<span class="hidden-xs">Cadastrar</span>
+						</a>
+					</div>
 				</div>
 				@endif
 				<div class="row col-12 mx-auto my-5">

@@ -27,7 +27,7 @@
                     <input class="nome form-control form-control-line" name="nome" placeholder="Administrador" required/>
                   </div>
                 </div>
-                <div class="col-3">
+                <div class="col-12 col-lg-3">
                   <div class="form-group">
                     <label class="col-form-label mb-2">Status <span class="text-danger">*</span></label>
                     <div class="switchery-demo">
@@ -39,7 +39,7 @@
                   <label class="col-form-label">Permissões de acesso</label>
                   <hr class="mt-1">
                   <div class="row mx-auto">
-                    <div class="col-3">
+                    <div class="col-6 col-lg-3">
                       <label class="border-bottom pb-2 w-100">Crédito</label>
                       <div class="checkbox checkbox-circle">
                         <input id="checkbox11" type="checkbox" name="ver_credito">
@@ -50,7 +50,7 @@
                         <label for="checkbox12"> Gerenciar </label>
                       </div>
                     </div>
-                    <div class="col-3">
+                    <div class="col-6 col-lg-3">
                       <label class="border-bottom pb-2 w-100">Tecnologia</label>
                       <div class="checkbox checkbox-circle">
                         <input id="checkbox15" type="checkbox" name="ver_gti">
@@ -61,7 +61,7 @@
                         <label for="checkbox16"> Gerenciar </label>
                       </div>
                     </div>
-                    <div class="col-3">
+                    <div class="col-6 col-lg-3">
                       <label class="border-bottom pb-2 w-100">Configurações</label>
                       <div class="checkbox checkbox-circle">
                         <input id="checkbox17" type="checkbox" name="ver_configuracoes">
@@ -72,7 +72,7 @@
                         <label for="checkbox18"> Gerenciar </label>
                       </div>
                     </div>
-                    <div class="col-3">
+                    <div class="col-6 col-lg-3">
                       <label class="border-bottom pb-2 w-100">Administrativo</label>
                       <div class="checkbox checkbox-circle">
                         <input id="checkbox19" type="checkbox" name="ver_administrativo">
@@ -90,12 +90,12 @@
           </div>
         </div>
         <div class="modal-footer">
-          <div class="row col-12 justify-content-center">
-            <button class="btn btn-danger btn-outline col-3 mx-1 d-flex align-items-center justify-content-center" data-dismiss="modal" aria-label="Close">
+          <div class="row col-12 justify-content-center mx-auto">
+            <button class="btn btn-danger btn-outline col-5 col-lg-3 mx-1 d-flex align-items-center justify-content-center" data-dismiss="modal" aria-label="Close">
               <i class="mdi mdi-close pr-2"></i> 
               <span>Cancelar</span>
             </button>
-            <button type="submit" class="btn btn-success btn-outline col-3 mx-1 d-flex align-items-center justify-content-center">
+            <button type="submit" class="btn btn-success btn-outline col-5 col-lg-3 mx-1 d-flex align-items-center justify-content-center">
               <i class="mdi mdi-check pr-2"></i> 
               <span>Salvar</span>
             </button>

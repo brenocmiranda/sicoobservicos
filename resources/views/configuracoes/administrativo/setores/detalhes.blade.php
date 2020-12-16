@@ -27,7 +27,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-3">
+              <div class="col-12">
                 <div class="form-group">
                   <label class="col-form-label">Status</label>
                   <div class="switchery-demo">
@@ -40,8 +40,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <div class="row col-12 justify-content-center">
-          <button class="btn btn-danger btn-outline col-3 mx-1 d-flex align-items-center justify-content-center" data-dismiss="modal" aria-label="Close">
+        <div class="row col-12 justify-content-center mx-auto">
+          <button class="btn btn-danger btn-outline col-lg-3 col-6 mx-1 d-flex align-items-center justify-content-center" data-dismiss="modal" aria-label="Close">
             <i class="mdi mdi-close pr-2"></i> 
             <span>Cancelar</span>
           </button>

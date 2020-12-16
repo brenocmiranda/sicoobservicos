@@ -26,7 +26,7 @@
                 </div>
               </div>
               <div class="row col-12">
-                <div class="col-8">
+                <div class="col-12 col-sm-12 col-lg-8">
                   <div class="form-group">
                     <label class="col-form-label pb-0">E-mail</label>
                     <div class="">
@@ -34,7 +34,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-4">
+                <div class="col-12 col-sm-12 col-lg-4">
                   <div class="form-group">
                     <label class="col-form-label pb-0">Telefone</label>
                     <div class="">
@@ -51,7 +51,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-3">
+              <div class="col-12 col-lg-3">
                 <div class="form-group">
                   <label class="col-form-label mb-2">Status</label>
                   <div class="switchery-demo">
@@ -64,8 +64,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <div class="row col-12 justify-content-center">
-          <button class="btn btn-danger btn-outline col-4 mx-1 d-flex align-items-center justify-content-center" data-dismiss="modal" aria-label="Close">
+        <div class="row col-12 justify-content-center mx-auto">
+          <button class="btn btn-danger btn-outline col-6 mx-1 d-flex align-items-center justify-content-center" data-dismiss="modal" aria-label="Close">
             <i class="mdi mdi-close pr-2"></i> 
             <span>Cancelar</span>
           </button>

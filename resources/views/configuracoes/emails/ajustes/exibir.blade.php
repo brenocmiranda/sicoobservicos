@@ -36,7 +36,7 @@ Ajustes e-mails
 					<div class="row">
 						<div class="col-12">
 							<h5>Chamados</h5>
-							<div class="col-10">
+							<div class="col-lg-10 col-12">
 								<div class="form-group">
 									<label class="col-form-label pb-0">E-mail de recebimento <span class="text-danger">*</span></label>
 									<input class="form-control form-control-line" name="email_chamado" placeholder="ti@sicoobsertaominas.com.br" value="{{$chamado->email_chamado}}" required/>
@@ -45,7 +45,7 @@ Ajustes e-mails
 						</div>
 						<div class="col-12">
 							<h5>Materiais</h5>
-							<div class="col-10">
+							<div class="col-lg-10 col-12">
 								<div class="form-group">
 									<label class="col-form-label pb-0">E-mail de recebimento <span class="text-danger">*</span></label>
 									<input type="email" class="form-control form-control-line" name="email_material" placeholder="administrativo@sicoobsertaominas.com.br" value="{{$material->email_material}}" required/>
@@ -54,7 +54,7 @@ Ajustes e-mails
 						</div>
 						<div class="col-12">
 							<h5>Contratos de crédito</h5>
-							<div class="col-10">
+							<div class="col-lg-10 col-12">
 								<div class="form-group">
 									<label class="col-form-label pb-0">E-mail de recebimento <span class="text-danger">*</span></label>
 									<input  type="email" class="form-control form-control-line" name="email_contrato" placeholder="credito@sicoobsertaominas.com.br" value="{{$contrato->email_contrato}}" required/>
@@ -63,12 +63,12 @@ Ajustes e-mails
 						</div>
 					</div>
 				</div>
-				<div class="mt-5 row col-12 justify-content-center">
-					<button type="reset" class="btn btn-danger btn-outline col-3 mx-1 d-flex align-items-center justify-content-center">
+				<div class="mt-5 row col-12 mx-auto justify-content-center">
+					<button type="reset" class="btn btn-danger btn-outline col-lg-3 col-5 mx-1 d-flex align-items-center justify-content-center">
 						<i class="mdi mdi-close pr-2"></i> 
 						<span>Cancelar</span>
 					</button>
-					<button type="submit" class="btn btn-success btn-outline col-3 mx-1 d-flex align-items-center justify-content-center">
+					<button type="submit" class="btn btn-success btn-outline col-lg-3 col-5 mx-1 d-flex align-items-center justify-content-center">
 						<i class="mdi mdi-check pr-2"></i> 
 						<span>Salvar</span>
 					</button>

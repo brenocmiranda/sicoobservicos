@@ -25,8 +25,8 @@ Materiais
 					@if(Auth::user()->RelationFuncao->gerenciar_administrativo == 1)
 					<div class="row mx-auto">
 						<button class="btn btn-primary btn-outline ml-auto" id="adicionar" name="adicionar" title="Adicionar novo material" data-toggle="modal" data-target="#modal-adicionar" style="z-index: 10">
-							<i class="m-0 pr-1 mdi mdi-plus"></i> 
-							<span>Novo material</span> 
+							<i class="m-0 pr-lg-1 mdi mdi-plus"></i> 
+							<span class="hidden-xs">Novo material</span> 
 						</button>
 					</div>
 					@endif

@@ -38,10 +38,10 @@ Ajustes
 				<div class="col-12">
 					<div class="form-group">
 						<div class="row col-12 mt-3 mx-0 p-0">
-							<div class="border mx-2 rounded col-3 row p-0 mb-4" style="height: 15em;">
+							<div class="border mx-2 rounded col-lg-3 col-12 row p-0 mb-4" style="height: 15em;">
 								<img class="w-100 h-100 p-3" id="PreviewImage1" src="{{ (isset($homepage[0]) ? asset('storage/app/').'/'.$homepage->last()->endereco : asset('public/img/image.png').'?'.rand())}}">
 							</div>
-							<div class="col-8">
+							<div class="col-lg-8 col-12">
 								<h5>Imagem de fundo</h5>
 								<hr class="mt-2 col-12">
 								<input type="file" accept=".png, .jpg, .jpeg .svg" class="pb-4" name="homepage_principal" accept="image/*" title="Selecione a imagem principal" onchange="image1(this)">
@@ -61,10 +61,10 @@ Ajustes
 				<div class="col-12">
 					<div class="form-group">
 						<div class="row col-12 mt-3 mx-0 p-0">
-							<div class="border mx-2 rounded col-3 row p-0 mb-4" style="height: 15em;">
+							<div class="border mx-2 rounded col-lg-3 col-12 row p-0 mb-4" style="height: 15em;">
 								<img class="w-100 h-100 p-3" id="PreviewImage2" src="{{ (isset($login[0]) ? asset('storage/app/').'/'.$login->last()->endereco : asset('public/img/image.png').'?'.rand())}}">
 							</div>
-							<div class="col-8">
+							<div class="col-lg-8 col-12">
 								<h5>Imagem de fundo</h5>
 								<hr class="mt-2 col-12">
 								<input type="file" class="pb-4" accept=".png, .jpg, .jpeg .svg" name="login_principal" accept="image/*" title="Selecione a imagem principal" onchange="image2(this)">
@@ -78,7 +78,7 @@ Ajustes
 		</div>
 		<hr>
 		<div class="col-12 text-center mt-5">
-			<button type="submit" class="btn btn-success btn-lg col-4">
+			<button type="submit" class="btn btn-success btn-lg col-lg-4 col-8">
 				<i class="mdi mdi-check mdi-18px pr-2"></i>
 				<span>Salvar alterações</span>
 			</button>

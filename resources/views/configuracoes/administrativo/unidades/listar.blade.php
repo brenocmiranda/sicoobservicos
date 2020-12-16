@@ -23,17 +23,17 @@ Unidades
 			<div class="col-12 row mb-4 mx-auto">
 				@include('layouts.search')
 				@if(Auth::user()->RelationFuncao->gerenciar_configuracoes == 1)
-				<div class="col-5 p-0">
+				<div class="col-2 col-lg-5 col-sm-5 p-0">
 					<button class="btn btn-primary btn-outline d-flex align-items-center ml-auto" id="adicionar" name="adicionar" title="Adicionar nova unidade" data-toggle="modal" data-target="#modal-adicionar">
-						<i class="m-0 pr-1 mdi mdi-plus"></i> 
-						<span>Nova unidade</span>
+						<i class="m-0 pr-lg-1 mdi mdi-plus"></i> 
+						<span class="hidden-xs">Cadastrar</span>
 					</button>
 				</div>
 				@endif
 			</div>
 			<ul class="row col-12 m-auto" id="unidades">
 				@foreach($unidades->sortBy('referencia') as $unidade)
-				<li class="col-3 p-3">
+				<li class="col-12 col-sm-6 col-lg-3 p-3">
 					<div class="card p-3 shadow-sm">
 						<div class="text-center">
 							<i class="mdi mdi-store mdi-48px mdi-dark"></i>

@@ -141,12 +141,12 @@ Mensagens e-mails
 			</div>
 		</div>
 		<hr>
-		<div class="mt-5 row col-12 justify-content-center">
-			<a href="javascript:void()" onclick="location.reload()" class="btn btn-danger col-3 mx-2 d-flex align-items-center justify-content-center">
+		<div class="mt-5 row col-12 justify-content-center mx-auto">
+			<a href="javascript:void()" onclick="location.reload()" class="btn btn-danger col-lg-3 col-5 mx-2 d-flex align-items-center justify-content-center">
 				<i class="mdi mdi-close pr-2"></i> 
 				<span>Cancelar</span>
 			</a>
-			<button type="submit" class="btn btn-success col-3 mx-2 d-flex align-items-center justify-content-center">
+			<button type="submit" class="btn btn-success col-lg-3 col-5 mx-2 d-flex align-items-center justify-content-center">
 				<i class="mdi mdi-check pr-2"></i> 
 				<span>Salvar</span>
 			</button>

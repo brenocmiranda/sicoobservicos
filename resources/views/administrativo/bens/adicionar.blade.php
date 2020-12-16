@@ -39,13 +39,13 @@ Adicionar bens
 					<div class="card-body">
 						<div class="row col-12 mx-auto">
 							<div class="row col-12 mb-4">
-								<div class="col-10">
+								<div class="col-lg-10 col-12">
 									<div class="form-group">
 										<label class="col-form-label pb-0">Nome <span class="text-danger">*</span></label>
 										<input class="form-control form-control-line" name="nome" onkeyup="this.value = this.value.toUpperCase();" placeholder="VEÍCULOS FIAT ESTRADA" onchange="this.value = this.value.toUpperCase();" required/>
 									</div>
 								</div>
-								<div class="col-5">
+								<div class="col-lg-5 col-12">
 									<div class="form-group">
 										<label class="col-form-label pb-0">Tipo <span class="text-danger">*</span></label>
 										<select class="form-control form-control-line" name="tipo" required>
@@ -56,7 +56,7 @@ Adicionar bens
 										</select>
 									</div>
 								</div>
-								<div class="col-5">
+								<div class="col-lg-5 col-12">
 									<div class="form-group">
 										<label class="col-form-label pb-0">Valor de venda <span class="text-danger">*</span> <small>(R$)</small></label>
 										<input class="money form-control form-control-line" name="valor" placeholder="30.000,00" required/>
@@ -73,7 +73,7 @@ Adicionar bens
 										<label class="col-form-label col-12 row mb-0">Imagem principal <span class="text-danger">*</span></label>
 										<small>Formatos de imagem aceitos: <b>.png</b>, <b>.jpg</b> ou <b>.svg</b></small>
 										<div class="row col-12 mt-3 mx-0 p-0">
-											<div class="border mx-2 rounded col-3 row p-0 mb-4" style="height: 15em;">
+											<div class="border mx-2 rounded col-lg-3 col-12 row p-0 mb-4" style="height: 15em;">
 												<img class="w-100 h-100 p-3" id="PreviewImage" src="{{ asset('public/img/image.png').'?'.rand() }}">
 												<input type="file" class="px-0 col-12 position-absolute mx-auto h-100 pointer" style="opacity: 0; top: 0%; left: 0%" accept=".png, .jpg, .jpeg" name="imagem_principal" accept="image/*" title="Selecione a imagem principal" onchange="image(this)" required>
 											</div>
@@ -85,7 +85,7 @@ Adicionar bens
 										<label class="col-form-label col-12 row mb-0">Selecione outras imagens</label>
 										<small>Todos formatos são aceitos aceitos: <b>.png</b>, <b>.jpg</b>, <b>.jpeg</b></small>
 										<div class="row col-12 mt-3 preview mx-0 p-0">
-											<div class="border mx-2 rounded col-2 row p-0 mb-4" style="height: 10em;">
+											<div class="border mx-2 rounded col-lg-2 col-6 row p-0 mb-4" style="height: 10em;">
 												<i class="mdi mdi-plus mdi-36px m-auto"></i>
 												<input type="file" class="px-0 col-12 position-absolute mx-auto h-100 pointer" style="opacity: 0; top: 0%; left: 0%" id="addImagens" title="Selecione as imagens do bem" multiple>
 											</div>
@@ -104,44 +104,44 @@ Adicionar bens
 					<div class="card-body">
 						<div class="row col-12 mx-auto">		
 							<div class="row col-12">
-								<div class="col-3">
+								<div class="col-lg-3 col-6">
 									<div class="form-group">
 										<label class="col-form-label pb-0">CEP</label>
 										<input class="form-control form-control-line cep" placeholder="39.270-082" name="cep"/>
 									</div>
 								</div>
-								<div class="col-10">
+								<div class="col-lg-10 col-12">
 									<div class="form-group">
 										<label class="col-form-label pb-0">Rua</label>
 										<input class="form-control form-control-line rua" placeholder="AVENIDA ANTONIO NASCIMENTO" name="rua" onkeyup="this.value = this.value.toUpperCase();"/>
 									</div>
 								</div>
-								<div class="col-6">
+								<div class="col-lg-6 col-12">
 									<div class="form-group">
 										<label class="col-form-label pb-0">Bairro</label>
 										<input class="form-control form-control-line bairro" placeholder="CENTRO" name="bairro"  onkeyup="this.value = this.value.toUpperCase();"/>
 									</div>
 								</div>
-								<div class="col-3">
+								<div class="col-lg-6 col-12">
 									<div class="form-group">
 										<label class="col-form-label pb-0">Número</label>
 										<input type="number" class="form-control form-control-line numero" name="numero"/>
 									</div>
 								</div>
-								<div class="col-8">
+								<div class="col-lg-8 col-12">
 									<div class="form-group">
 										<label class="col-form-label pb-0">Complemento</label>
 										<input class="form-control form-control-line complemento" name="complemento" onkeyup="this.value = this.value.toUpperCase();"/>
 									</div>
 								</div>
 								<div class="row col-12">
-									<div class="col-5">
+									<div class="col-lg-5 col-12">
 										<div class="form-group">
 											<label class="col-form-label pb-0">Cidade</label>
 											<input class="form-control form-control-line cidade"  placeholder="PIRAPORA" name="cidade" onkeyup="this.value = this.value.toUpperCase();"/>
 										</div>
 									</div>
-									<div class="col-5">
+									<div class="col-lg-5 col-12">
 										<div class="form-group">
 											<label class="col-form-label pb-0">Estado</label>
 											<select class="form-control form-control-line estado" name="estado">
@@ -183,11 +183,11 @@ Adicionar bens
 
 				<hr class="col-10">
 				<div class="row col-12 justify-content-center mx-auto">
-					<a href="{{route('exibir.bens.administrativo')}}" class="btn btn-danger col-3 d-flex align-items-center justify-content-center mx-2">
+					<a href="{{route('exibir.bens.administrativo')}}" class="btn btn-danger col-5 col-lg-3 d-flex align-items-center justify-content-center mx-2">
 						<i class="mdi mdi-arrow-left pr-2"></i> 
 						<span>Voltar</span>
 					</a>
-					<button type="submit" class="btn btn-success col-3 d-flex align-items-center justify-content-center mx-2">
+					<button type="submit" class="btn btn-success col-5 col-lg-3 d-flex align-items-center justify-content-center mx-2">
 						<i class="mdi mdi-check pr-2"></i> 
 						<span>Salvar</span>
 					</button>

@@ -31,7 +31,7 @@
                   </div>
                 </div>
                 <div class="row col-12">
-                  <div class="col-8">
+                  <div class="col-12 col-sm-12 col-lg-8">
                     <div class="form-group">
                       <label class="col-form-label pb-0">E-mail <span class="text-danger">*</span></label>
                       <div class="">
@@ -39,7 +39,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-4">
+                  <div class="col-12 col-sm-12 col-lg-4">
                     <div class="form-group">
                       <label class="col-form-label pb-0">Telefone <span class="text-danger">*</span></label>
                       <div class="">
@@ -56,7 +56,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-3">
+                <div class="col-12 col-lg-3">
                   <div class="form-group">
                     <label class="col-form-label mb-2">Status <span class="text-danger">*</span></label>
                     <div class="switchery-demo">
@@ -69,12 +69,12 @@
           </div>
         </div>
         <div class="modal-footer">
-          <div class="row col-12 justify-content-center">
-            <button class="btn btn-danger btn-outline col-3 mx-1 d-flex align-items-center justify-content-center" data-dismiss="modal" aria-label="Close">
+          <div class="row col-12 justify-content-center mx-auto">
+            <button class="btn btn-danger btn-outline col-5 col-lg-3 mx-1 d-flex align-items-center justify-content-center" data-dismiss="modal" aria-label="Close">
               <i class="mdi mdi-close pr-2"></i> 
               <span>Cancelar</span>
             </button>
-            <button type="submit" class="btn btn-success btn-outline col-3 mx-1 d-flex align-items-center justify-content-center">
+            <button type="submit" class="btn btn-success btn-outline col-5 col-lg-3 mx-1 d-flex align-items-center justify-content-center">
               <i class="mdi mdi-check pr-2"></i> 
               <span>Salvar</span>
             </button>

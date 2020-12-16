@@ -29,7 +29,7 @@ Relatórios
 
     <div class="card">
         <div class="card-body">
-            <div class="col-8">
+            <div class="col-lg-8 col-12">
               <div class="form-group">
                 <label class="col-form-label pb-0">Dados do relatório <span class="text-danger">*</span></label>
                 <select class="form-control form-control-line" id="dadosrelatorio" required>
@@ -44,7 +44,7 @@ Relatórios
                 @csrf
                     <div class="row col-12">
                         <div class="col-12 row">
-                            <div class="col-5">
+                            <div class="col-lg-6 col-12">
                               <div class="form-group">
                                 <label class="col-form-label pb-0">Mês de referência <span class="text-danger">*</span></label>
                                 <select class="form-control form-control-line" name="mes" required>
@@ -66,7 +66,7 @@ Relatórios
                             </div>
                         </div>
                         <div class="col-12 row">
-                            <div class="col-5">
+                            <div class="col-lg-5 col-12">
                               <div class="form-group">
                                 <label class="col-form-label pb-0">Orientação <span class="text-danger">*</span></label>
                                 <select class="form-control form-control-line" name="orientacao" required>
@@ -78,7 +78,7 @@ Relatórios
                             </div>
                         </div>
                         <div class="row col-12 justify-content-end ml-auto mt-3">
-                            <button type="submit" class="btn btn-success btn-outline col-3 d-flex align-items-center justify-content-center mx-2">
+                            <button type="submit" class="btn btn-success btn-outline col-lg-3 col-8 d-flex align-items-center justify-content-center mx-2">
                                 <i class="mdi mdi-printer pr-2"></i> 
                                 <span>Gerar PDF</span>
                             </button>

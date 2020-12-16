@@ -33,8 +33,8 @@ Database
                 <div class="col-lg-12 position-absolute">
                     <div class="row mx-auto">
                         <a href="{{route('exibir.importacoes')}}" class="btn btn-primary btn-outline ml-auto" title="Importar relatórios" style="z-index: 10">
-                            <i class="m-0 pr-1 mdi mdi-upload"></i> 
-                            <span>Importar relatórios</span> 
+                            <i class="m-0 pr-lg-1 mdi mdi-upload"></i> 
+                            <span class="hidden-xs">Importar relatórios</span> 
                         </a>
                     </div>
                 </div>
