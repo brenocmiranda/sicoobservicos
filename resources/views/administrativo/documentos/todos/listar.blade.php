@@ -25,7 +25,7 @@ Documentos
 					<div class="row mx-auto">
 						<button class="btn btn-primary btn-outline ml-auto" id="adicionar" name="adicionar" title="Adicionar novo documento" data-toggle="modal" data-target="#modal-adicionar" style="z-index: 10">
 							<i class="m-0 pr-lg-1 mdi mdi-plus"></i> 
-							<span class="hidden-xs">Novo documento</span> 
+							<span class="hidden-xs">Cadastrar</span> 
 						</button>
 					</div>
 					@endif
