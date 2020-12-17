@@ -5,6 +5,8 @@
 #---------------------------------------------------------------------
 Route::group(['prefix' => '/'], function(){
 	Route::get('', 'PublicCtrl@Homepage')->name('homepage');
+	Route::get('digitalizar', 'PublicCtrl@ExibirImportacao')->name('digitalizar');
+	Route::post('enviar', 'PublicCtrl@Importar')->name('digitalizar.enviar');
 });
 
 

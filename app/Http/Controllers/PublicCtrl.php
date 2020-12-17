@@ -134,4 +134,23 @@ class PublicCtrl extends Controller
 		]);
 		return redirect(route('login'));
 	}
+
+	// Importação de documentos
+	public function ExibirImportacao(){
+		$usuarios = Usuarios::where('status', 'Ativo')->orderBy('login', 'ASC')->get();
+		$homepage = Imagens::where('tipo', 'homepage_principal')->get();
+		return view('digitalizar.exibir')->with('usuarios', $usuarios)->with('homepage', $homepage);
+	}
+	public function Importar(Request $request){
+		if ($request->arquivos) {
+	        foreach($request->arquivos as $arq){
+            	$nameFile = 'documento-'.date('dmYHis').'.'.$arq->getClientOriginalExtension();
+				$upload = $arq->storeAs('digitalizar', $nameFile); 
+				copy(storage_path().'/app/digitalizar/'.$nameFile, "//10.11.26.1/scanner$/".$request->usuario.'/'.$nameFile); 
+            }
+        }
+		return true;
+	}
+
+
 }
