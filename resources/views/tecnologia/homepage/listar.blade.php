@@ -23,10 +23,10 @@ Homepage
 			<div class="col-12 row mb-4 mx-auto">
 				@include('layouts.search')
 				@if(Auth::user()->RelationFuncao->gerenciar_gti == 1)
-				<div class="col-5 p-0 row mx-auto">
+				<div class="col-2 col-lg-5 col-sm-5 p-0 row mx-auto">
 					<button class="btn btn-primary btn-outline ml-auto" id="adicionar" name="adicionar" title="Adicionar novo atalho" data-toggle="modal" data-target="#modal-adicionar">
-						<i class="m-0 pr-1 mdi mdi-plus"></i> 
-						<span>Nova atalho</span>
+						<i class="m-0 pr-lg-1 mdi mdi-plus"></i> 
+						<span class="hidden-xs">Cadastrar</span>
 					</button>
 				</div>
 				@endif
@@ -65,7 +65,7 @@ Homepage
 					@endforeach
 				@else
 				<div class="row mx-auto col-12 p-0">
-					<label class="alert alert-secondary col-12 rounded">Você não possui nenhum atalho para homepage cadastrado.</label>
+					<label class="alert alert-secondary col-12 rounded"><i class="mdi mdi-alert-outline mdi-24px pr-4"></i> Você não possui nenhum atalho para homepage cadastrado.</label>
 				</div>
 				@endif
 			</ul>

@@ -31,11 +31,11 @@ Editar equipamento
   <form class="form-sample" action="{{route('salvar.editar.equipamentos', $equipamentos->id)}}" method="POST" enctype="multipart/form-data" autocomplete="off">
     @csrf
     <div class="row">
-      <div class="col-8">
+      <div class="col-lg-8 col-12 mb-4 mb-lg-0">
         <div class="card">
           <div class="card-body">
             <div class="row mx-auto">
-              <div class="col-10">
+              <div class="col-lg-10 col-12">
                 <div class="form-group">
                   <label class="col-form-label pb-0">Nome <span class="text-danger">*</span></label>
                   <div class="">
@@ -44,7 +44,7 @@ Editar equipamento
                 </div>
               </div>
               <div class="row col-12">
-                <div class="col-6">
+                <div class="col-lg-6 col-12">
                   <div class="form-group">
                     <label class="col-form-label pb-0">Marca <span class="text-danger">*</span></label>
                     <div class="">
@@ -52,7 +52,7 @@ Editar equipamento
                     </div>
                   </div>
                 </div>
-                <div class="col-6">
+                <div class="col-lg-6 col-12">
                   <div class="form-group">
                     <label class="col-form-label pb-0">Modelo <span class="text-danger">*</span></label>
                     <div class="">
@@ -63,7 +63,7 @@ Editar equipamento
               </div>
 
               <div class="row col-12">
-                <div class="col-6">
+                <div class="col-lg-6 col-12">
                   <div class="form-group">
                     <label class="col-form-label pb-0">Nº patrimônio</label>
                     <div class="">
@@ -71,7 +71,7 @@ Editar equipamento
                     </div>
                   </div>
                 </div>
-                <div class="col-6">
+                <div class="col-lg-6 col-12">
                   <div class="form-group">
                     <label class="col-form-label pb-0">Nº série <span class="text-danger">*</span></label>
                     <div class="">
@@ -81,7 +81,7 @@ Editar equipamento
                 </div>
               </div>
               <div class="row col-12">
-                <div class="col-6">
+                <div class="col-lg-6 col-12">
                   <div class="form-group">
                     <label class="col-form-label pb-0">Setor <span class="text-danger">*</span></label>
                     <select class="form-control form-control-line" name="id_setor" required>
@@ -92,7 +92,7 @@ Editar equipamento
                     </select>
                   </div>
                 </div>
-                <div class="col-6">
+                <div class="col-lg-6 col-12">
                   <div class="form-group">
                     <label class="col-form-label pb-0">PA <span class="text-danger">*</span></label>
                     <select class="form-control form-control-line" name="id_unidade" required>
@@ -104,7 +104,7 @@ Editar equipamento
                   </div>
                 </div>
               </div>
-              <div class="col-8">
+              <div class="col-lg-8 col-12">
                 <div class="form-group">
                   <label class="col-form-label pb-0">Usuário responsável</label>
                   <div class="">
@@ -130,7 +130,7 @@ Editar equipamento
                   <label class="col-form-label col-12 row mb-0">Imagem principal <span class="text-danger">*</span></label>
                   <small>Formatos de imagem aceitos: <b>.png</b>, <b>.jpg</b> ou <b>.svg</b></small>
                   <div class="row col-12 mt-3 mx-0 p-0">
-                    <div class="border mx-2 rounded col-2 row p-0 mb-4" style="height: 8em;">
+                    <div class="border mx-2 rounded col-lg-2 col-6 row p-0 mb-4" style="height: 8em;">
                       <img class="w-100 h-100 p-3" id="PreviewImage" src="{{(isset($equipamentos->RelationImagemPrincipal) ? asset('storage/app/'.$equipamentos->RelationImagemPrincipal->endereco) : asset('public/img/image.png'))}}">
                       <input type="file" class="px-0 col-12 position-absolute mx-auto h-100 pointer" style="opacity: 0; top: 0%; left: 0%" accept=".png, .jpg, .jpeg" name="imagem_principal" accept="image/*" title="Selecione a imagem principal" onchange="image(this)">
                     </div>
@@ -142,12 +142,12 @@ Editar equipamento
                   <label class="col-form-label col-12 row mb-0">Selecione demais imagens</label>
                   <small>Formatos de imagem aceitos: <b>.png</b>, <b>.jpg</b> ou <b>.svg</b></small>
                   <div class="row col-12 mt-3 preview mx-0 p-0">
-                    <div class="border mx-2 rounded col-2 row p-0 mb-4" style="height: 7em;">
+                    <div class="border mx-2 rounded col-lg-2 col-4 row p-0 mb-4" style="height: 7em;">
                       <i class="mdi mdi-plus mdi-36px m-auto"></i>
                       <input type="file" class="px-0 col-12 position-absolute mx-auto h-100 pointer" style="opacity: 0; top: 0%; left: 0%" accept=".png, .jpg, .jpeg" id="addFotoGaleria" accept="image/*" title="Selecione as imagens do problema" multiple>
                     </div>
                     @foreach($equipamentos->RelationImagem as $imagens)
-                    <div class="border mx-2 mb-4 rounded col-2 d-flex p-0" id="PreviewImage{{$imagens->id}}"> 
+                    <div class="border mx-2 mb-4 rounded col-lg-2 col-4 d-flex p-0" id="PreviewImage{{$imagens->id}}"> 
                       <input type="hidden" name="imagens[]" value="{{$imagens->id}}"> 
                       <img class="p-3 w-100" src="{{asset('storage/app/').'/'.$imagens->endereco}}" style="height: 7em;">
                       <a href="javascript:void(0)" onclick="removeImagem('{{$imagens->id}}')" class="btn btn-light rounded-circle m-n3 border btn-xs" style="height: 26px;">x</a> 
@@ -158,11 +158,11 @@ Editar equipamento
               </div>
               <hr class="col-10 mt-0">
               <div class="row col-12 justify-content-center mx-auto">
-                <a href="{{route('exibir.geral.equipamentos')}}" class="btn btn-danger btn-outline col-4 d-flex align-items-center justify-content-center mx-2">
+                <a href="{{route('exibir.geral.equipamentos')}}" class="btn btn-danger btn-outline col-lg-3 col-5 d-flex align-items-center justify-content-center mx-2">
                   <i class="mdi mdi-arrow-left pr-2"></i> 
                   <span>Voltar</span>
                 </a>
-                <button type="submit" class="btn btn-success btn-outline col-4 d-flex align-items-center justify-content-center mx-2">
+                <button type="submit" class="btn btn-success btn-outline col-lg-3 col-5 d-flex align-items-center justify-content-center mx-2">
                   <i class="mdi mdi-check pr-2"></i> 
                   <span>Salvar</span>
                 </button>

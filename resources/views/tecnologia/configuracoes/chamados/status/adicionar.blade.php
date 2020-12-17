@@ -22,7 +22,7 @@
             <div class="card-body py-0">
               <div class="row">
                 <div class="col-12 row">
-                  <div class="col-3">
+                  <div class="col-lg-3 col-12">
                     <div class="form-group">
                       <label class="col-form-label mb-2">Status <span class="text-danger">*</span></label>
                       <div class="switchery-demo">
@@ -31,13 +31,13 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-10">
+                <div class="col-lg-10 col-12">
                   <div class="form-group">
                     <label class="col-form-label pb-0">Nome <span class="text-danger">*</span></label>
                     <input type="text" class="form-control form-control-line" name="nome" placeholder="Em aberto" required/>
                   </div>
                 </div>
-                <div class="col-3">
+                <div class="col-lg-3 col-12">
                   <div class="form-group">
                     <label class="col-form-label pb-0">Tempo de vida <span class="text-danger">*</span></label>
                     <div class="input-group">
@@ -46,7 +46,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-3">
+                <div class="col-lg-3 col-12">
                   <div class="form-group">
                     <label class="col-form-label pb-0">Cor de etiqueta <span class="text-danger">*</span></label>
                     <input type="text" class="form-control form-control-line colorpicker" name="color" required/>
@@ -74,11 +74,11 @@
         </div>
         <div class="modal-footer">
           <div class="row col-12 justify-content-center">
-            <button class="btn btn-danger btn-outline col-3 mx-1 d-flex align-items-center justify-content-center" data-dismiss="modal" aria-label="Close">
+            <button class="btn btn-danger btn-outline col-lg-3 col-5 mx-1 d-flex align-items-center justify-content-center" data-dismiss="modal" aria-label="Close">
               <i class="mdi mdi-close pr-2"></i> 
               <span>Cancelar</span>
             </button>
-            <button type="submit" class="btn btn-success btn-outline col-3 mx-1 d-flex align-items-center justify-content-center">
+            <button type="submit" class="btn btn-success btn-outline col-lg-3 col-5 mx-1 d-flex align-items-center justify-content-center">
               <i class="mdi mdi-check pr-2"></i> 
               <span>Salvar</span>
             </button>

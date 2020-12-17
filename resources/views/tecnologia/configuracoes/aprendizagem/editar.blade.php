@@ -35,7 +35,7 @@ Editar tópico
         <div class="card">
           <div class="card-body">
             <div class="row mx-auto">
-              <div class="col-4">
+              <div class="col-lg-4 col-12">
                 <div class="form-group">
                   <label class="col-form-label pb-0">Fonte <span class="text-danger">*</span></label>
                   <select class="form-control form-control-line gti_id_fontes" name="gti_id_fontes" required>
@@ -46,7 +46,7 @@ Editar tópico
                   </select>
                 </div>
               </div>
-              <div class="col-5">
+              <div class="col-lg-5 col-12">
                 <div class="form-group">
                   <label class="col-form-label pb-0">Tipo</label>
                   <div class="">
@@ -59,7 +59,7 @@ Editar tópico
                   </div>
                 </div>
               </div>
-              <div class="col-10">
+              <div class="col-lg-10 col-12">
                 <div class="form-group">
                   <label class="col-form-label pb-0">Titulo <span class="text-danger">*</span></label>
                   <div class="">
@@ -67,7 +67,7 @@ Editar tópico
                   </div>
                 </div>
               </div>
-              <div class="col-11">
+              <div class="col-lg-11 col-12">
                 <div class="form-group">
                   <label class="col-form-label pb-0">Sub-título <span class="text-danger">*</span></label>
                   <div class="">
@@ -88,12 +88,12 @@ Editar tópico
                   <label class="col-form-label col-12 row mb-0">Selecione os anexos</label>
                   <small>Todos formatos são aceitos aceitos: <b>.png</b>, <b>.jpg</b>, <b>.xls</b>, <b>.pdf</b>, <b>.doc</b>, <b>.docx</b></small>
                   <div class="row col-12 mt-3 preview mx-0 p-0">
-                    <div class="border mx-2 rounded col-2 row p-0 mb-4" style="height: 7em;">
+                    <div class="border mx-2 rounded col-lg-2 col-4 row p-0 mb-4" style="height: 7em;">
                       <i class="mdi mdi-plus mdi-36px m-auto"></i>
                       <input type="file" class="px-0 col-12 position-absolute mx-auto h-100 pointer" style="opacity: 0; top: 0%; left: 0%" id="addArquivo" title="Selecione os anexos do tópico" multiple>
                     </div>
                     @foreach($base->RelationArquivos as $arquivos)
-                    <div class="border mx-2 mb-4 rounded col-2 p-0 row text-center" id="PreviewImage{{$arquivos->id}}"> 
+                    <div class="border mx-2 mb-4 rounded col-lg-2 col-4 p-0 row text-center" id="PreviewImage{{$arquivos->id}}"> 
                       <input type="hidden" name="arquivos[]" value="{{$arquivos->id}}">
                       <a href="javascript:void(0)" onclick="removeImagem({{$arquivos->id}})" class="btn btn-light rounded-circle m-n2 mb-auto border btn-xs position-absolute" style="height: 26px;z-index: 10">x</a>
                       @if( explode(".", $arquivos->endereco)[1] == "docx" || explode(".", $arquivos->endereco)[1] == "doc")
@@ -114,11 +114,11 @@ Editar tópico
               </div>
               <hr class="col-10 mt-0">
               <div class="row col-12 justify-content-center mx-auto">
-                <a href="{{route('exibir.base.aprendizagem')}}" class="btn btn-danger btn-outline col-3 d-flex align-items-center justify-content-center mx-2">
+                <a href="{{route('exibir.base.aprendizagem')}}" class="btn btn-danger btn-outline col-lg-3 col-5 d-flex align-items-center justify-content-center mx-2">
                   <i class="mdi mdi-arrow-left pr-2"></i> 
                   <span>Voltar</span>
                 </a>
-                <button type="submit" class="btn btn-success btn-outline col-3 d-flex align-items-center justify-content-center mx-2">
+                <button type="submit" class="btn btn-success btn-outline col-lg-3 col-5 d-flex align-items-center justify-content-center mx-2">
                   <i class="mdi mdi-check pr-2"></i> 
                   <span>Salvar</span>
                 </button>

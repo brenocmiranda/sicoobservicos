@@ -20,14 +20,16 @@ Tópicos
 	</div>
 	<div class="card">
 		<div class="card-body">
-			<div class="col-12">
+			<div class="col-12  p-0">
 				<div class="col-12 row mb-4 mx-auto">
 					@include('layouts.search')
 					@if(Auth::user()->RelationFuncao->gerenciar_gti == 1)
-					<a href="{{route('adicionar.base.aprendizagem')}}" class="btn btn-primary btn-outline ml-auto" id="adicionar" name="adicionar" title="Adicionar novo tópico">
-						<i class="m-0 pr-1 mdi mdi-plus"></i> 
-						<span>Novo tópico</span>
-					</a>
+					<div class="col-2 col-lg-5 col-sm-5 p-0 row mx-auto">
+						<a href="{{route('adicionar.base.aprendizagem')}}" class="btn btn-primary btn-outline ml-auto" id="adicionar" name="adicionar" title="Adicionar novo tópico">
+							<i class="m-0 pr-lg-1 mdi mdi-plus"></i> 
+							<span class="hidden-xs">Cadastrar</span>
+						</a>
+					</div>
 					@endif
 				</div>
 				<div class="row col-12 mx-auto my-5">
@@ -35,7 +37,7 @@ Tópicos
 						<h5>Todos os tópicos cadastrados</h5>
 						<hr class="mt-2">
 					</div>
-					<div class="col-12">
+					<div class="col-12 p-0">
 						@if(isset($topicos[0]))
 							<ul class="p-0" id="topicos">
 								@foreach($topicos as $topico)
@@ -68,7 +70,7 @@ Tópicos
 							</ul>
 						@else
 							<div class="row mx-auto">
-								<label class="alert alert-secondary col-12 rounded">Você não possui nenhum tópico cadastrado.</label>
+								<label class="alert alert-secondary col-12 rounded"><i class="mdi mdi-alert-outline mdi-24px pr-4"></i> Você não possui nenhum tópico cadastrado.</label>
 							</div>
 						@endif
 					</div>

@@ -22,14 +22,14 @@ Logs de importação
     <div class="card">
         <div class="card-body">
             @if($logs[0])
-            <div class="row col-12 mb-3">
-                <label class="col-lg-2 col-4 font-weight-bold">Data de execução</label>
-                <label class="col-lg-10 col-8 font-weight-bold">Mensagem</label>
+            <div class="row col-12 mb-3 mx-auto p-0">
+                <label class="col-lg-2 col-5 font-weight-bold">Data de execução</label>
+                <label class="col-lg-10 col-7 p-0 font-weight-bold">Mensagem</label>
             </div>
                 @foreach($logs as $log)
-                <div class="row col-12">
-                    <label class="col-lg-2 col-4">{{date('d/m/Y H:i:s', strtotime($log->created_at))}}</label>
-                    <label class="col-lg-10 col-8">{!!$log->mensagem!!}</label>
+                <div class="row col-12 mx-auto p-0">
+                    <label class="col-lg-2 col-5">{{date('d/m/Y H:i:s', strtotime($log->created_at))}}</label>
+                    <label class="col-lg-10 col-7 p-0">{!!$log->mensagem!!}</label>
                 </div>
                 @endforeach
                 <div class="row col-12 mx-4 justify-content-end">

@@ -17,20 +17,20 @@
         <div class="col-12 grid-margin mb-0">
           <div class="card-body py-0">
             <div class="row">
-              <div class="col-8">
+              <div class="col-lg-8 col-10">
                 <div class="form-group">
                   <label class="col-form-label">Nome</label>
                   <div class="">
                     <label class="nome"></label>
                   </div>
                   <div class="row">
-                    <div class="col-6">
+                    <div class="col-lg-6 col-12">
                       <label class="col-form-label">Marca</label>
                       <div class="">
                         <label class="marca"></label>
                       </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-lg-6 col-12">
                       <label class="col-form-label">Modelo</label>
                       <div class="">
                         <label class="modelo"></label>
@@ -38,13 +38,13 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-6">
+                    <div class="col-lg-6 col-12">
                       <label class="col-form-label">Nº patrimônio</label>
                       <div class="">
                         <label class="n_patrimonio"></label>
                       </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-lg-6 col-12">
                       <label class="col-form-label">Nº série</label>
                       <div class="">
                         <label class="serialNumber"></label>
@@ -65,7 +65,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-4 mt-5">
+              <div class="col-lg-4 col-2 mt-5">
                 <div class="form-group">
                   <div class="zoom-gallery border mx-auto rounded col-7 row p-0" style="height: 9em;">
                     <a href="#" id="ImagemPrincipalUrl">
@@ -85,7 +85,7 @@
       </div>
       <div class="modal-footer">
         <div class="row col-12 justify-content-center">
-          <button class="btn btn-danger btn-outline col-4 mx-1 d-flex align-items-center justify-content-center" data-dismiss="modal" aria-label="Close">
+          <button class="btn btn-danger btn-outline col-lg-4 col-6 mx-1 d-flex align-items-center justify-content-center" data-dismiss="modal" aria-label="Close">
             <i class="mdi mdi-close pr-2"></i> 
             <span>Cancelar</span>
           </button>

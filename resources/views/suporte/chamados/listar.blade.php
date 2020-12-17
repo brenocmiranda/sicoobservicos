@@ -106,7 +106,7 @@ Chamados
 							</ul>
 							@if($i == 0)
 							<p class="col-12">
-								<h5 class="text-center font-weight-normal">Você não possui nenhum chamado nesse estado.</h5>
+								<h5 class="text-center font-weight-normal"><i class="mdi mdi-alert-outline mdi-24px pr-4"></i> Você não possui nenhum chamado nesse estado.</h5>
 							</p>
 							@else
 							<?php $i=0; ?>

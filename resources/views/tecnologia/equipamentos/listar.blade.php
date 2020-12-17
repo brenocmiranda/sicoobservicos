@@ -25,8 +25,8 @@ Invetário geral
 					@if(Auth::user()->RelationFuncao->gerenciar_gti == 1)
 					<div class="row mx-auto">
 						<a href="{{route('adicionar.equipamentos')}}" class="btn btn-primary btn-outline ml-auto" id="adicionar" name="adicionar" title="Adicionar novo equipamento" style="z-index: 10">
-							<i class="m-0 pr-1 mdi mdi-plus"></i> 
-							<span>Novo equipamento</span> 
+							<i class="m-0 pr-lg-1 mdi mdi-plus"></i> 
+							<span class="hidden-xs">Cadastrar</span> 
 						</a>
 					</div>
 					@endif

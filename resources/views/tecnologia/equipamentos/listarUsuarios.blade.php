@@ -26,8 +26,8 @@ Invetário por usuário
 					@if(Auth::user()->RelationFuncao->gerenciar_gti == 1)
 					<div class="row mx-auto">
 						<a href="{{route('adicionar.equipamentos')}}" class="btn btn-primary btn-outline ml-auto" id="adicionar" name="adicionar" title="Adicionar novo equipamento" style="z-index: 10">
-							<i class="m-0 pr-1 mdi mdi-plus"></i> 
-							<span>Novo equipamento</span> 
+							<i class="m-0 pr-lg-1 mdi mdi-plus"></i> 
+							<span class="hidden-xs">Cadastrar</span> 
 						</a>
 					</div>
 					@endif
@@ -41,10 +41,10 @@ Invetário por usuário
 						<h5>Descrições do equipamento</h5>
 						<hr class="mt-2">
 						<div class="row">
-							<div class="col-4 row m-auto justify-content-center">
+							<div class="col-lg-4 col-2 row m-auto justify-content-center">
 								<img src="{{ asset('public/img/image.png').'?'.rand() }}" id="imagem" height="80" width="80">
 							</div>
-							<div class="col-8 p-0">
+							<div class="col-lg-8 col-10 p-0">
 								<label class="d-block">
 									<span>Nome:</span>
 									<span id="nome" class="font-weight-bold"></span>

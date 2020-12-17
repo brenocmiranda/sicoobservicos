@@ -104,7 +104,7 @@ Solicitações de suporte
 							</ul>
 							@if($i == 0)
                         		<p class="col-12">
-                        			<h5 class="text-center font-weight-normal">Você não possui nenhum chamado nesse estado.</h5>
+                        			<h5 class="text-center font-weight-normal"><i class="mdi mdi-alert-outline mdi-24px pr-4"></i> Você não possui nenhum chamado nesse estado.</h5>
                         		</p>
                         	@else
                         		<?php $i=0; ?>
@@ -118,7 +118,7 @@ Solicitações de suporte
             </section>
             @else
             <div class="row mx-auto pt-4">
-				<label class="alert alert-secondary col-12 rounded">Você não possui nenhum chamado cadastrado.</label>
+				<label class="alert alert-secondary col-12 rounded"><i class="mdi mdi-alert-outline mdi-24px pr-4"></i> Você não possui nenhum chamado cadastrado.</label>
 			</div>
             @endif
 		</div>
