@@ -24,7 +24,7 @@ Invetário por usuário
 				@include('layouts.search')
 				<div class="col-lg-12 position-absolute">
 					@if(Auth::user()->RelationFuncao->gerenciar_gti == 1)
-					<div class="row mx-auto">
+					<div class="col-12 row mx-auto">
 						<a href="{{route('adicionar.equipamentos')}}" class="btn btn-primary btn-outline ml-auto" id="adicionar" name="adicionar" title="Adicionar novo equipamento" style="z-index: 10">
 							<i class="m-0 pr-lg-1 mdi mdi-plus"></i> 
 							<span class="hidden-xs">Cadastrar</span> 
@@ -34,49 +34,55 @@ Invetário por usuário
 				</div>
 			</div>
 			<div class="row mx-auto mt-5">
-				<div id="treeview" class="col-7"></div>
+				@if(!empty($usuarios[0]))
+					<div id="treeview" class="col-lg-7 col-8"></div>
 
-				<div class="col-5 border" id="equipamentos" style="display: none">
-					<div class="p-3" >
-						<h5>Descrições do equipamento</h5>
-						<hr class="mt-2">
-						<div class="row">
-							<div class="col-lg-4 col-2 row m-auto justify-content-center">
-								<img src="{{ asset('public/img/image.png').'?'.rand() }}" id="imagem" height="80" width="80">
-							</div>
-							<div class="col-lg-8 col-10 p-0">
-								<label class="d-block">
-									<span>Nome:</span>
-									<span id="nome" class="font-weight-bold"></span>
-								</label>
-								<label class="d-block">
-									<span>Marca:</span>
-									<span id="marca" class="font-weight-bold"></span>
-								</label>
-								<label class="d-block">
-									<span >Modelo:</span>
-									<span id="modelo" class="font-weight-bold"></span>
-								</label>
-								<label class="d-block">
-									<span>Nº patrimônio:</span>
-									<span id="n_patrimonio" class="font-weight-bold"></span>
-								</label>
-								<label class="d-block">
-									<span>Serial Number:</span>
-									<span id="serialNumber" class="font-weight-bold"></span>
-								</label>
-								<label class="d-block">
-									<span>Localização:</span>
-									<span id="localizacao" class="font-weight-bold"></span>
-								</label>
-								<label class="d-block">
-									<span>Descrição:</span>
-									<span id="descricao" class="font-weight-bold"></span>
-								</label>
+					<div class="col-lg-5 col-4 border" id="equipamentos" style="display: none">
+						<div class="p-3" >
+							<h5>Descrições do equipamento</h5>
+							<hr class="mt-2">
+							<div class="row">
+								<div class="col-lg-4 col-2 row m-auto justify-content-center">
+									<img src="{{ asset('public/img/image.png').'?'.rand() }}" id="imagem" height="80" width="80">
+								</div>
+								<div class="col-lg-8 col-10 p-0">
+									<label class="d-block">
+										<span>Nome:</span>
+										<span id="nome" class="font-weight-bold"></span>
+									</label>
+									<label class="d-block">
+										<span>Marca:</span>
+										<span id="marca" class="font-weight-bold"></span>
+									</label>
+									<label class="d-block">
+										<span >Modelo:</span>
+										<span id="modelo" class="font-weight-bold"></span>
+									</label>
+									<label class="d-block">
+										<span>Nº patrimônio:</span>
+										<span id="n_patrimonio" class="font-weight-bold"></span>
+									</label>
+									<label class="d-block">
+										<span>Serial Number:</span>
+										<span id="serialNumber" class="font-weight-bold"></span>
+									</label>
+									<label class="d-block">
+										<span>Localização:</span>
+										<span id="localizacao" class="font-weight-bold"></span>
+									</label>
+									<label class="d-block">
+										<span>Descrição:</span>
+										<span id="descricao" class="font-weight-bold"></span>
+									</label>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
+				@else
+					<div class="col-12 row mx-auto">
+						<label class="alert alert-secondary col-12 rounded"><i class="mdi mdi-alert-outline mdi-24px pr-4"></i> Você não possui nenhum equipamento cadastrado.</label>
+					</div>
+				@endif
 			</div>
 		</div>
 	</div>
