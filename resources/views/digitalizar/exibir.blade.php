@@ -3,6 +3,8 @@ Digitalizar
 @endsection
 
 @include('layouts.header')
+
+@include('layouts.preloader')
 <div class="col-12 h-100 position-absolute imagem" style="background: url({{ (isset($homepage[0]) ? asset('storage/app/').'/'.$homepage->last()->endereco : asset('public/img/home.png').'?'.rand())}})"></div>
 <div class="container-fluid h-100 row justify-content-center mx-auto">
 	<div class="col-9 col-sm-9 col-lg-9 mx-auto px-0 row py-5">
@@ -18,9 +20,9 @@ Digitalizar
 		</p>
 		@endif
 
-		<form class="form-sample" method="POST" action="{{route('digitalizar.enviar')}}" enctype="multipart/form-data" autocomplete="off">
+		<form class="form-sample row col-12 mx-auto justify-content-center" method="POST" action="{{route('digitalizar.enviar')}}" enctype="multipart/form-data" autocomplete="off">
         @csrf
-	        <div>
+	        <div class="row col-lg-4 col-12 mx-auto p-0">
 				<div class="col-12">
 					<div class="form-group">
 						<label class="col-form-label text-white">Usuario <span class="text-danger">*</span></label>
@@ -60,8 +62,8 @@ Digitalizar
 					<a href="javascript:" id="btnAdicionar"> <i class="ti-plus pr-2"></i> Adicionar mais arquivos</a>
 				</div>
 			</div>
-			<div class="row mt-5 text-center mx-auto justify-content-center">
-				<button type="submit" class="btn btn-success col-6 mx-4 d-flex align-items-center justify-content-center">
+			<div class="row col-12 col-lg-12 mt-5 text-center mx-auto justify-content-center">
+				<button type="submit" class="btn btn-success mx-4 col-8 col-lg-2 d-flex align-items-center justify-content-center">
 		          	<i class="mdi mdi-send pr-2"></i> 
 		          	<span>Enviar</span>
 		        </button>
@@ -74,7 +76,11 @@ Digitalizar
 <script type="text/javascript">
 	$(document).ready( function (){
 		$('#btnAdicionar').on('click', function(){
-			$('.totalArquivos').append('<input type="file" name="arquivos[]" class="mb-3  text-white col-12" accept=".jpg .jpeg .png .svg">');
+			$('.totalArquivos').append('<input type="file" name="arquivos[]" class="mb-3 text-white col-12" accept=".jpg, .jpeg, .png, .svg">');
+		});
+
+		$('form').on('submit', function(){
+			$('.preloader').fadeIn();
 		});
 	});
 </script>

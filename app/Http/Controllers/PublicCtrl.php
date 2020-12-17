@@ -147,48 +147,61 @@ class PublicCtrl extends Controller
 			if($request->pagina == 1){
 		        foreach($request->arquivos as $arq){
 		        	// Copia arquivo para servidor com a nomeclatura
-	            	$nameFile = 'documento-'.date('dmYHis').'.'.$arq->getClientOriginalExtension();
+	            	$nameFile = 'digitalizacao-'.uniqid(date('dmYHis')).'.'.$arq->getClientOriginalExtension();
 					$upload = $arq->storeAs('digitalizar', $nameFile);
+
+					// Compactando a imagem
+					$info = getimagesize(storage_path().'/app/digitalizar/'.$nameFile);
+					if ($info['mime'] == 'image/jpeg') {
+				        $image = imagecreatefromjpeg(storage_path().'/app/digitalizar/'.$nameFile);
+					}elseif ($info['mime'] == 'image/gif') {
+				        $image = imagecreatefromgif(storage_path().'/app/digitalizar/'.$nameFile);
+					}elseif ($info['mime'] == 'image/png') {
+				        $image = imagecreatefrompng(storage_path().'/app/digitalizar/'.$nameFile);
+					}
+					imagejpeg($image, storage_path().'/app/digitalizar/'.$nameFile, 70);
+
 					// Criando nome do arquivo do PDF
 					$namePdf = str_replace('.'.$arq->getClientOriginalExtension(), '', $nameFile).'.pdf';
 					// HTML para criação do PDF
-					$path = storage_path().'/app/digitalizar/'.$nameFile;
-					$type = pathinfo($path, PATHINFO_EXTENSION);
-					$data = file_get_contents($path);
-					$html = '<img src=data:image/'.$arq->getClientOriginalExtension().';base64,'.base64_encode($data).' style="width:100%">';
+					$html = '<img src='.storage_path().'/app/digitalizar/'.$nameFile.' style="width:100%">';
 					// Gerando PDF
 					if(is_dir("//10.11.26.1/digitalizar_ss$/".$request->usuario)){
-						$pdf = PDF::loadHTML($html)->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 90])->save("//10.11.26.1/digitalizar_ss$/".$request->usuario.'/'.$namePdf);
+						$pdf = PDF::loadHTML($html)->setPaper('a4', $request->orientacao)->save("//10.11.26.1/digitalizar_ss$/".$request->usuario.'/'.$namePdf);
 				    }else{
 				        mkdir("//10.11.26.1/digitalizar_ss$/".$request->usuario, 0755);
-				        $pdf = PDF::loadHTML($html)->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 90])->save("//10.11.26.1/digitalizar_ss$/".$request->usuario.'/'.$namePdf);
+				        $pdf = PDF::loadHTML($html)->setPaper('a4', $request->orientacao)->save("//10.11.26.1/digitalizar_ss$/".$request->usuario.'/'.$namePdf);
 				    }
-					
 	            }
-            }else{
+            }elseif($request->pagina == 2){
             	foreach($request->arquivos as $arq){
 		        	// Copia arquivo para servidor com a nomeclatura
-	            	$nameFile = 'documento-'.date('dmYHis').'.'.$arq->getClientOriginalExtension();
+	            	$nameFile = 'digitalizacao-'.uniqid(date('dmYHis')).'.'.$arq->getClientOriginalExtension();
 					$upload = $arq->storeAs('digitalizar', $nameFile);
+
+					// Compactando a imagem
+					$info = getimagesize(storage_path().'/app/digitalizar/'.$nameFile);
+					if ($info['mime'] == 'image/jpeg') {
+				        $image = imagecreatefromjpeg(storage_path().'/app/digitalizar/'.$nameFile);
+					}elseif ($info['mime'] == 'image/gif') {
+				        $image = imagecreatefromgif(storage_path().'/app/digitalizar/'.$nameFile);
+					}elseif ($info['mime'] == 'image/png') {
+				        $image = imagecreatefrompng(storage_path().'/app/digitalizar/'.$nameFile);
+					}
+
 					// Criando nome do arquivo do PDF
 					$namePdf = str_replace('.'.$arq->getClientOriginalExtension(), '', $nameFile).'.pdf';
-					// HTML para criação do PDF
-					$path = storage_path().'/app/digitalizar/'.$nameFile;
-					$type = pathinfo($path, PATHINFO_EXTENSION);
-					$data = file_get_contents($path);	
 					// Gerando PDF
-					$html = $html.'<img src=data:image/'.$arq->getClientOriginalExtension().';base64,'.base64_encode($data).' style="width:100%"><div style="page-break-after: always;"></div>';
+					$html[] = "<img src=".storage_path().'/app/digitalizar/'.$nameFile." style='width:100%'><div style='page-break-after: always;'></div>";
 				}
 				// Gerando PDF
 				if(is_dir("//10.11.26.1/digitalizar_ss$/".$request->usuario)){
-					$pdf = PDF::loadHTML($html)->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 90])->save("//10.11.26.1/digitalizar_ss$/".$request->usuario.'/'.$namePdf);
+					$pdf = PDF::loadView('digitalizar.todos', compact('html'))->setPaper('a4', $request->orientacao)->save("//10.11.26.1/digitalizar_ss$/".$request->usuario.'/'.$namePdf);
 			    }else{
 			        mkdir("//10.11.26.1/digitalizar_ss$/".$request->usuario, 0755);
-			        $pdf = PDF::loadHTML($html)->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 90])->save("//10.11.26.1/digitalizar_ss$/".$request->usuario.'/'.$namePdf);
+			        $pdf = PDF::loadView('digitalizar.todos', compact('html'))->setPaper('a4', $request->orientacao)->save("//10.11.26.1/digitalizar_ss$/".$request->usuario.'/'.$namePdf);
 			    }
-	            
-	            return true;
-            }
+           	 }
         }
 		\Session::flash('confirm', array(
 			'class' => 'success',
