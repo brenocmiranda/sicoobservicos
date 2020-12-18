@@ -40,7 +40,7 @@ Database
                 </div>
             </div>
             <div class="col-12 mb-3">
-                <table class="table table-striped text-center color-table muted-table rounded d-block" style="overflow-y: auto;">
+                <table class="table table-striped text-center color-table muted-table rounded d-block d-lg-table" style="overflow-y: auto;">
                     <thead>
                         <th>Relatório</th>
                         <th>Tipo</th>
