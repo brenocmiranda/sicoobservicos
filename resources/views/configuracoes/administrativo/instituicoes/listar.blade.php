@@ -53,7 +53,7 @@ Instituições
 							</label>
 							<div class="my-2">
 								<a href="javascript:void(0)" data="{{route('detalhes.instituicoes.administrativo', $instituicao->id)}}" class="btn btn-success btn-outline btn-xs ml-auto btn-editar" title="Editar informações">
-									<i class="mdi mdi-settings"></i>
+									<i class="mdi mdi-pencil"></i>
 									<small>Editar</small>
 								</a>
 								@if($instituicao->status == 1)

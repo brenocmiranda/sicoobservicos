@@ -59,11 +59,7 @@ class SuporteCtrl extends Controller
     public function Chamados(){
         $chamados = Chamados::where('usr_id_usuarios', Auth::id())->orderBy('created_at', 'ASC')->get();
         $status = Status::where('status', 1)->get();
-        if(Auth::user()->RelationFuncao->gerenciar_gti != 1){
-            return view('suporte.chamados.listar')->with('chamados', $chamados)->with('statusAtivos', $status);
-        }else{
-            return redirect(route('exibir.chamados.gti'));
-        }
+        return view('suporte.chamados.listar')->with('chamados', $chamados)->with('statusAtivos', $status);  
     }
 	// Abertura de chamados
 	public function AberturaChamados(){

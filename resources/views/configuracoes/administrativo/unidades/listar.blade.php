@@ -48,7 +48,7 @@ Unidades
 							</h5>
 							<div class="mb-2 mt-4">
 								<a href="javascript:void(0)" data="{{route('detalhes.unidades.administrativo', $unidade->id)}}" class="btn btn-success btn-outline btn-xs ml-auto btn-editar" title="Editar informações">
-									<i class="mdi mdi-settings"></i>
+									<i class="mdi mdi-pencil"></i>
 									<small>Editar</small>
 								</a>
 								@if($unidade->status == 1)

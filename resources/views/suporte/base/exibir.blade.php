@@ -19,7 +19,7 @@ Aprendizagem
 	</div>
 	<div class="card">
 		<div class="card-body">
-			<div class="col-12">
+			<div class="col-12 p-0">
 				<div class="col-12 row mx-auto">
 					<div class="col-12 col-lg-8 mx-auto">
 						<input type="search" class="form-control rounded" placeholder="Encontre rapidamente o que procura :)">

@@ -23,11 +23,11 @@ Abertura de chamado
 	<form class="form-sample" action="{{route('abertura.chamados.enviar')}}" method="POST" enctype="multipart/form-data" autocomplete="off">
 		@csrf
 		<div class="row">
-			<div class="col-8">
+			<div class="col-lg-8 col-12 order-2 order-lg-1">
 				<div class="card">
 					<div class="card-body">
 						<div class="row mx-auto">
-							<div class="col-6">
+							<div class="col-lg-6 col-12">
 								<div class="form-group">
 									<label class="col-form-label pb-0">Fontes <span class="text-danger">*</span></label>
 									<select class="form-control form-control-line fontes" name="fontes" required>
@@ -38,7 +38,7 @@ Abertura de chamado
 									</select>
 								</div>
 							</div>
-							<div class="col-7">
+							<div class="col-lg-7 col-12">
 								<div class="form-group">
 									<label class="col-form-label pb-0">Tipos <span class="text-danger">*</span></label>
 									<select class="form-control form-control-line tipos" name="tipos" required>
@@ -63,7 +63,7 @@ Abertura de chamado
 									<label class="col-form-label col-12 row mb-0">Selecione os anexos</label>
 									<small>Todos formatos são aceitos aceitos: <b>.png</b>, <b>.jpg</b>, <b>.xls</b>, <b>.pdf</b>, <b>.doc</b>, <b>.docx</b></small>
 									<div class="row col-12 mt-3 preview mx-0 p-0">
-										<div class="border mx-2 rounded col-2 row p-0 mb-4" style="height: 7em;">
+										<div class="border mx-2 rounded col-lg-2 col-4 row p-0 mb-4" style="height: 7em;">
 											<i class="mdi mdi-plus mdi-36px m-auto"></i>
 											<input type="file" class="px-0 col-12 position-absolute mx-auto h-100 pointer" style="opacity: 0; top: 0%; left: 0%" id="addArquivo" title="Selecione os anexos do tópico" multiple>
 										</div>
@@ -72,11 +72,11 @@ Abertura de chamado
 							</div>
 							<hr class="col-10 mt-0">
 							<div class="row col-12 justify-content-center mx-auto">
-								<a href="{{route('exibir.chamados')}}" class="btn btn-danger btn-outline col-4 d-flex align-items-center justify-content-center mx-2">
+								<a href="{{route('exibir.chamados')}}" class="btn btn-danger btn-outline col-lg-4 col-5 d-flex align-items-center justify-content-center mx-2">
 									<i class="mdi mdi-arrow-left pr-2"></i> 
 									<span>Voltar</span>
 								</a>
-								<button type="submit" class="btn btn-success btn-outline col-4 d-flex align-items-center justify-content-center mx-2">
+								<button type="submit" class="btn btn-success btn-outline col-lg-4 col-5 d-flex align-items-center justify-content-center mx-2">
 									<i class="mdi mdi-check pr-2"></i> 
 									<span>Abrir chamado</span>
 								</button>
@@ -85,7 +85,7 @@ Abertura de chamado
 					</div>
 				</div>
 			</div>
-			<div class="col-4">
+			<div class="col-lg-4 col-12 pb-4 pt-lg-0 order-1 order-lg-2">
 				<h5 class="text-center">Base do conhecimento</h5>
 				<hr class="mt-2">
 				<div id="info-base">

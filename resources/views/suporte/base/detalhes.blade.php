@@ -21,7 +21,7 @@
 
   <div class="confim row col-12 p-0 mx-auto">
     @if($errors->any())
-    <div class="col-sm-12 alert alert-danger font-weight-normal">
+    <div class="col-12 alert alert-danger font-weight-normal">
       @foreach ($errors->all() as $error)
       <p>{{ $error }}</p>
       @endforeach
@@ -30,7 +30,7 @@
   </div>
 
   <div class="row">
-    <div class="col-8">
+    <div class="col-lg-8 col-12 order-2 order-lg-1">
       <div class="card">
         <div class="card-body">
           <div class="row col-12 mx-auto pb-3">
@@ -44,11 +44,11 @@
             <div class="ml-auto">
               <a href="{{route('editar.base.aprendizagem', $dados->id)}}" class="btn btn-default btn-outline btn-xs px-3 mx-1">
                 <i class="mdi mdi-pencil"></i>
-                <small>Editar</small>
+                <small class="hidden-xs">Editar</small>
               </a>
               <a href="javascript:void(0)" data="{{route('delete.base.aprendizagem', $dados->id)}}" class="btn-delete btn btn-default btn-outline btn-xs px-3">
                 <i class="mdi mdi-close"></i>
-                <small>Remover</small>
+                <small class="hidden-xs">Remover</small>
               </a>
             </div>
             @endif
@@ -90,10 +90,11 @@
         </div>
       </div>
     </div>
-    <div class="col-4">
+    <div class="col-lg-4 col-12 mb-4 mt-lg-0 order-1 order-lg-2">
       <h5 class="text-center">Outros tópicos relacionados</h5>
       <hr class="mt-2">
       <div id="info-base">
+      @if(!empty($topicos[0]))
         @foreach($topicos as $topico)
         <label class="text-muted text-left">
           <div class="panel panel-default border shadow-sm">
@@ -108,6 +109,9 @@
           </div>
         </label>
         @endforeach
+        @else
+          <label class="text-muted text-center">Nenhum tópico relacionado a esse iten. Fique atento, logo estaremos disponibilizando novidades!</label>
+        @endif
       </div>
     </div>  
   </div>

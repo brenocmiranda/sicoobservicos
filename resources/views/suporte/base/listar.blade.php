@@ -1,4 +1,4 @@
-@section('title')
+	@section('title')
 Tópicos
 @endsection
 
@@ -22,11 +22,11 @@ Tópicos
 		<div class="card-body mb-4">
 			<div class="col-12">
 				<div class="col-12 row mx-auto">
-					<div class="col-8 mx-auto">
+					<div class="col-lg-8 col-12 mx-auto">
 						<input type="search" class="form-control rounded" placeholder="Encontre rapidamente o que procura :)">
 					</div>
 				</div>
-				<div class="row col-12 mx-4">
+				<div class="row col-12 mx-4 pt-4">
 					<h4>{{$fonte->nome}} &#183 <h5 class="pl-2 my-auto">{{$tipo->nome}}</h5></h4>
 				</div>
 				<hr class="mx-5 mt-1">
@@ -36,10 +36,10 @@ Tópicos
 							<li class="col-12">
 								<a href="{{route('detalhes.base', $todos->id)}}">
 									<div class="row col-12 m-2">
-										<div class="my-auto border rounded py-2 px-3">
+										<div class="col-2 col-lg-1 py-2 px-3 my-auto border rounded text-center">
 											<i class="mdi mdi-bookmark-outline mdi-24px"></i>
 										</div>
-										<div class="pl-3 my-auto">
+										<div class="col-10 pl-3 my-auto">
 											<h5 class="mb-1 text-primary">{{$todos->titulo}}</h5>
 											<small>{{$todos->subtitulo}}</small>
 										</div>								
@@ -48,8 +48,8 @@ Tópicos
 							</li>
 						@endforeach
 					</ul>
-					<div class="row mx-auto col-12">
-						<a href="javascript:history.back()" class="btn btn-outline btn-danger col-3 mx-auto mt-4">
+					<div class="row mx-auto col-12 mt-4">
+						<a href="javascript:history.back()" class="btn btn-outline btn-danger col-lg-3 col-6 mx-auto mt-4">
 							<i class="mdi mdi-arrow-left"></i>
 							<span>Voltar</span>
 						</a>
@@ -60,7 +60,7 @@ Tópicos
 					</div>
 					<hr>
 					<div class="row mx-auto col-12">
-						<a href="javascript:history.back()" class="btn btn-outline btn-danger col-3 mx-auto">
+						<a href="javascript:history.back()" class="btn btn-outline btn-danger col-lg-3 col-6 mx-auto">
 							<i class="mdi mdi-arrow-left"></i>
 							<span>Voltar</span>
 						</a>

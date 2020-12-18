@@ -22,22 +22,22 @@ Chamados
 		<div class="card-body">
 			<div class="col-12 row mb-4 mx-auto">
 				@include('layouts.search')
-				<div class="col-5 p-0 row mx-auto">
+				<div class="col-2 col-lg-5 col-sm-5 p-0 row mx-auto">
 					<a href="{{route('abertura.chamados')}}" class="btn btn-primary btn-outline ml-auto" id="adicionar" name="adicionar" title="Abrir novo chamado">
-						<i class="m-0 pr-1 mdi mdi-plus"></i> 
-						<span>Novo chamado</span>
+						<i class="m-0 pr-lg-1 mdi mdi-plus"></i> 
+						<span class="hidden-xs">Novo chamado</span>
 					</a>
 				</div>
 			</div>
 			
 			<section class="py-4">
-				<div class="sttabs tabs-style-linetriangle">
-                    <nav class="col-10 mx-auto">
+				<div class="sttabs tabs-style-linetriangle row justify-content-center mx-auto">
+                    <nav class="col-lg-8 col-12 mx-auto">
 						<ul>
 							@foreach($statusAtivos as $status)
 							<li class="{{($status->id == 1 ? 'tab-current' : '')}}">
 								<a href="#section-{{$status->id}}">
-									<span>{{$status->nome}}</span>
+									<span class="font-weight-bold d-block">{{$status->nome}}</span>
 								</a>
 							</li>
 							@endforeach
@@ -52,14 +52,13 @@ Chamados
 								@if($chamado->RelationStatus->first()->id == $status->id)
 								<li class="col-12 border rounded shadow-sm mb-3">
 									<div class="p-3 h-100 row">
-										<div class="text-left col-6">
+										<div class="text-left col-lg-6 col-8">
 											<a href="{{route('detalhes.chamados', $chamado->id)}}">
 												<h5 class="text-uppercase mb-2 text-truncate">
 													<span>{{$chamado->RelationFontes->nome}}</span> 
 													<b>&#183</b> 
 													<span>{{$chamado->RelationTipos->nome}}</span>
 													<div class="badge mx-2" style="background: {{$chamado->RelationStatus->first()->color}}">{{$chamado->RelationStatus->first()->nome}}</div>
-
 												</h5>
 											</a>
 											<label class="text-truncate d-block mb-0">
@@ -80,21 +79,21 @@ Chamados
 											</label>	
 											@endif				
 										</div>
-										<div class="text-right row col-3 ml-auto">
+										<div class="text-right row col-lg-3 col-4 ml-auto">
 											<div class="ml-auto">
 												<a href="{{route('detalhes.chamados.gti', $chamado->id)}}" class="btn btn-default btn-outline btn-rounded col-10 mb-2" title="Detalhes do chamado">
 													<i class="mdi mdi-comment-processing-outline"></i>
-													<small>	Mais informações</small>
+													<small class="hidden-xs">Mais informações</small>
 												</a>	
 												@if($chamado->RelationStatus->first()->finish == 1)
 												<a href="javascript:void(0)" data="{{route('reabertura.chamados', $chamado->id)}}" class="btn-reabrir btn btn-default btn-outline btn-rounded col-10" title="Detalhes do chamado">
 													<i class="mdi mdi-comment-processing-outline"></i>
-													<small>	Reabrir chamado</small>
+													<small class="hidden-xs">Reabrir chamado</small>
 												</a>
 												@endif
 												<a href="{{route('relatorio.chamados.gti', $chamado->id)}}" target="_blank" class="btn btn-default btn-outline btn-rounded col-10 mb-2" title="Relatório do chamado">
 													<i class="mdi mdi-cloud-print-outline"></i>
-													<small>	Gerar relatório</small>
+													<small class="hidden-xs">Gerar relatório</small>
 												</a>
 											</div>
 										</div>

@@ -138,7 +138,7 @@ Homepage
 	    </div>
     </div>
 	<div class="col-9 col-sm-9 col-lg-9 mx-auto px-0 row pb-5">
-		<img src="{{ asset('public/img/logo.png').'?'.rand() }}" class="mx-auto mt-3 col-lg-4 col-sm-6 col-12 h-100">
+		<img src="{{ asset('public/img/logo.png').'?'.rand() }}" class="mx-auto mt-3 col-lg-4 col-sm-9 col-12 h-100">
 	</div>
 	<div class="col-12 col-sm-12 col-lg-12 mx-auto py-5">
 		<div class="col-sm-12 col-lg-8 mx-auto input-group input-search">

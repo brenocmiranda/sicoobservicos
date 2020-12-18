@@ -22,7 +22,7 @@ Detalhes do chamado
   <div class="confirm"></div>
 
   <div class="row" style="height: 600px !important;">
-    <div class="col-7 h-100">
+    <div class="col-lg-7 col-12 h-100">
       <div class="card h-100">
         <div class="card-header" style="border-top-right-radius: 0.6em; border-top-left-radius: 0.6em;">
           <div class="my-4 px-2 row">
@@ -124,7 +124,7 @@ Detalhes do chamado
       </div>
     </div>
 
-    <div class="col-5 h-100">
+    <div class="col-lg-5 col-12 h-100 py-4 py-lg-0">
       <div class="card h-100">
         <div class="card-header {{($chamado->RelationStatus->first()->finish != 1 ? 'p-1' : '')}}" style="border-top-right-radius: 0.6em; border-top-left-radius: 0.6em;">
           <div class="m-4 row">
