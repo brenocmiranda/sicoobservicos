@@ -164,23 +164,24 @@ class PublicCtrl extends Controller
 					// Criando nome do arquivo do PDF
 					$namePdf = str_replace('.'.$arq->getClientOriginalExtension(), '', $nameFile).'.pdf';
 					// HTML para criação do PDF
-					$html = '<img src='.storage_path().'/app/digitalizar/'.$nameFile.' style="width:100%">';
+					$html = '<div><img src='.storage_path().'/app/digitalizar/'.$nameFile.' style="width: 100%; height: 27cm"></div>';
+					$html = preg_replace("/>s+</", "><", $html);
 					// Gerando PDF
 
-					if(is_dir("//10.11.26.1/cadastro$/DIGITALIZAÇÕES/".$request->usuario)){
-						if(is_dir("//10.11.26.1/cadastro$/DIGITALIZAÇÕES/".$request->usuario.'/'.$request->nomePasta)){
-							$pdf = PDF::loadHTML($html)->setPaper('a4', $request->orientacao)->save("//10.11.26.1/cadastro$/DIGITALIZAÇÕES/".$request->usuario.'/'.$request->nomePasta.'/'.$namePdf);
+					if(is_dir("//10.11.26.1/digitalizações ss$/".$request->usuario)){
+						if(is_dir("//10.11.26.1/digitalizações ss$/".$request->usuario.'/'.$request->nomePasta)){
+							$pdf = PDF::loadHTML($html)->setPaper('a4', $request->orientacao)->save("//10.11.26.1/digitalizações ss$/".$request->usuario.'/'.$request->nomePasta.'/'.$namePdf);
 						}else{
-							mkdir("//10.11.26.1/cadastro$/DIGITALIZAÇÕES/".$request->usuario.'/'.$request->nomePasta, 0755);
-							$pdf = PDF::loadHTML($html)->setPaper('a4', $request->orientacao)->save("//10.11.26.1/cadastro$/DIGITALIZAÇÕES/".$request->usuario.'/'.$request->nomePasta.'/'.$namePdf);
+							mkdir("//10.11.26.1/digitalizações ss$/".$request->usuario.'/'.$request->nomePasta, 0755);
+							$pdf = PDF::loadHTML($html)->setPaper('a4', $request->orientacao)->save("//10.11.26.1/digitalizações ss$/".$request->usuario.'/'.$request->nomePasta.'/'.$namePdf);
 						}
 				    }else{
-				    	mkdir("//10.11.26.1/cadastro$/DIGITALIZAÇÕES/".$request->usuario, 0755);
-				    	if(is_dir("//10.11.26.1/cadastro$/DIGITALIZAÇÕES/".$request->usuario.'/'.$request->nomePasta)){
-							$pdf = PDF::loadHTML($html)->setPaper('a4', $request->orientacao)->save("//10.11.26.1/cadastro$/DIGITALIZAÇÕES/".$request->usuario.'/'.$request->nomePasta.'/'.$namePdf);
+				    	mkdir("//10.11.26.1/digitalizações ss$/".$request->usuario, 0755);
+				    	if(is_dir("//10.11.26.1/digitalizações ss$/".$request->usuario.'/'.$request->nomePasta)){
+							$pdf = PDF::loadHTML($html)->setPaper('a4', $request->orientacao)->save("//10.11.26.1/digitalizações ss$/".$request->usuario.'/'.$request->nomePasta.'/'.$namePdf);
 						}else{
-							mkdir("//10.11.26.1/cadastro$/DIGITALIZAÇÕES/".$request->usuario.'/'.$request->nomePasta, 0755);
-							$pdf = PDF::loadHTML($html)->setPaper('a4', $request->orientacao)->save("//10.11.26.1/cadastro$/DIGITALIZAÇÕES/".$request->usuario.'/'.$request->nomePasta.'/'.$namePdf);
+							mkdir("//10.11.26.1/digitalizações ss$/".$request->usuario.'/'.$request->nomePasta, 0755);
+							$pdf = PDF::loadHTML($html)->setPaper('a4', $request->orientacao)->save("//10.11.26.1/digitalizações ss$/".$request->usuario.'/'.$request->nomePasta.'/'.$namePdf);
 						}
 				    }
 	            }
@@ -203,23 +204,23 @@ class PublicCtrl extends Controller
 					// Criando nome do arquivo do PDF
 					$namePdf = str_replace('.'.$arq->getClientOriginalExtension(), '', $nameFile).'.pdf';
 					// Gerando PDF
-					$html[] = "<img src=".storage_path().'/app/digitalizar/'.$nameFile." style='width:100%'><div style='page-break-after: always;'></div>";
+					$html[] = preg_replace("/>s+</", "><", "<img src=".storage_path().'/app/digitalizar/'.$nameFile." style='width: 100%; height: 27cm;'>");
 				}
 				// Gerando PDF 
-				if(is_dir("//10.11.26.1/cadastro$/DIGITALIZAÇÕES/".$request->usuario)){
-					if(is_dir("//10.11.26.1/cadastro$/DIGITALIZAÇÕES/".$request->usuario.'/'.$request->nomePasta)){
-						$pdf = PDF::loadView('digitalizar.todos', compact('html'))->setPaper('a4', $request->orientacao)->save("//10.11.26.1/cadastro$/DIGITALIZAÇÕES/".$request->usuario.'/'.$request->nomePasta.'/'.$namePdf);
+				if(is_dir("//10.11.26.1/digitalizações ss$/".$request->usuario)){
+					if(is_dir("//10.11.26.1/digitalizações ss$/".$request->usuario.'/'.$request->nomePasta)){
+						$pdf = PDF::loadView('digitalizar.todos', compact('html'))->setPaper('a4', $request->orientacao)->save("//10.11.26.1/digitalizações ss$/".$request->usuario.'/'.$request->nomePasta.'/'.$namePdf);
 					}else{
-						mkdir("//10.11.26.1/cadastro$/DIGITALIZAÇÕES/".$request->usuario.'/'.$request->nomePasta, 0755);
-						$pdf = PDF::loadView('digitalizar.todos', compact('html'))->setPaper('a4', $request->orientacao)->save("//10.11.26.1/cadastro$/DIGITALIZAÇÕES/".$request->usuario.'/'.$request->nomePasta.'/'.$namePdf);
+						mkdir("//10.11.26.1/digitalizações ss$/".$request->usuario.'/'.$request->nomePasta, 0755);
+						$pdf = PDF::loadView('digitalizar.todos', compact('html'))->setPaper('a4', $request->orientacao)->save("//10.11.26.1/digitalizações ss$/".$request->usuario.'/'.$request->nomePasta.'/'.$namePdf);
 					}
 			    }else{
-			        mkdir("//10.11.26.1/cadastro$/DIGITALIZAÇÕES/".$request->usuario, 0755);
-			       	if(is_dir("//10.11.26.1/cadastro$/DIGITALIZAÇÕES/".$request->usuario.'/'.$request->nomePasta)){
-						$pdf = PDF::loadView('digitalizar.todos', compact('html'))->setPaper('a4', $request->orientacao)->save("//10.11.26.1/cadastro$/DIGITALIZAÇÕES/".$request->usuario.'/'.$request->nomePasta.'/'.$namePdf);
+			        mkdir("//10.11.26.1/digitalizações ss$/".$request->usuario, 0755);
+			       	if(is_dir("//10.11.26.1/digitalizações ss$/".$request->usuario.'/'.$request->nomePasta)){
+						$pdf = PDF::loadView('digitalizar.todos', compact('html'))->setPaper('a4', $request->orientacao)->save("//10.11.26.1/digitalizações ss$/".$request->usuario.'/'.$request->nomePasta.'/'.$namePdf);
 					}else{
-						mkdir("//10.11.26.1/cadastro$/DIGITALIZAÇÕES/".$request->usuario.'/'.$request->nomePasta, 0755);
-						$pdf = PDF::loadView('digitalizar.todos', compact('html'))->setPaper('a4', $request->orientacao)->save("//10.11.26.1/cadastro$/DIGITALIZAÇÕES/".$request->usuario.'/'.$request->nomePasta.'/'.$namePdf);
+						mkdir("//10.11.26.1/digitalizações ss$/".$request->usuario.'/'.$request->nomePasta, 0755);
+						$pdf = PDF::loadView('digitalizar.todos', compact('html'))->setPaper('a4', $request->orientacao)->save("//10.11.26.1/digitalizações ss$/".$request->usuario.'/'.$request->nomePasta.'/'.$namePdf);
 					}
 			    }
            	 }

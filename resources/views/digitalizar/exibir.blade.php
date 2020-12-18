@@ -73,7 +73,9 @@ Digitalizar
 					<div class="form-group">
 						<label class="col-form-label text-white">Selecione os arquivos <span class="text-danger">*</span></label>
 						<div class="row totalArquivos">
-							<input type="file" name="arquivos[]" class="mb-3 text-white col-12" accept=".jpg, .jpeg, .png, .svg" required>
+							<div class="row mx-auto">
+								<input type="file" name="arquivos[]" class="mb-3 text-white col-lg-11 col-10" accept=".jpg, .jpeg, .png, .svg" required>
+							</div>
 						</div>
 					</div>
 					<a href="javascript:" id="btnAdicionar"> <i class="ti-plus pr-2"></i> Adicionar mais arquivos</a>
@@ -91,9 +93,13 @@ Digitalizar
 
 @section('suporte')
 <script type="text/javascript">
+	function remover(input){
+		$(input).parent('div').remove();
+	}
+
 	$(document).ready( function (){
 		$('#btnAdicionar').on('click', function(){
-			$('.totalArquivos').append('<input type="file" name="arquivos[]" class="mb-3 text-white col-12" accept=".jpg, .jpeg, .png, .svg">');
+			$('.totalArquivos').append('<div class="row mx-auto"> <input type="file" name="arquivos[]" class="mb-3 text-white col-lg-11 col-10" accept=".jpg, .jpeg, .png, .svg" required> <a href="javascript:" title="Remover arquivos" onclick="remover(this);" class="col-1 text-danger"><i class="mdi mdi-delete"></i></a> </div>');
 		});
 
 		$('form').on('submit', function(){
