@@ -5127,7 +5127,7 @@
 					.css( {
 						position: 'relative',
 						overflow: 'auto',
-						width: size( scrollX )
+						width: size( scrollX ),
 					} )
 					.append( table )
 			);

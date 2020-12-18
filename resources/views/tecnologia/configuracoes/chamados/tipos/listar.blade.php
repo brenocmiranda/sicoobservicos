@@ -32,8 +32,8 @@ Tipos
 					@endif
 				</div>
 			</div>
-			<div class="col-12 mb-3 mx-3">
-				<table class="table table-striped text-center color-table muted-table rounded" id="table">
+			<div class="col-12 mb-3">
+				<table class="table table-striped text-center color-table muted-table rounded d-block" id="table" style="overflow-y: auto;">
 					<thead>
 						<th> Nome </th>
 						<th> Fonte </th>
