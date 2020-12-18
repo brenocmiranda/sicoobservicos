@@ -205,7 +205,7 @@ class PublicCtrl extends Controller
 					// Gerando PDF
 					$html[] = "<img src=".storage_path().'/app/digitalizar/'.$nameFile." style='width:100%'><div style='page-break-after: always;'></div>";
 				}
-				// Gerando PDF
+				// Gerando PDF 
 				if(is_dir("//10.11.26.1/cadastro$/DIGITALIZAÇÕES/".$request->usuario)){
 					if(is_dir("//10.11.26.1/cadastro$/DIGITALIZAÇÕES/".$request->usuario.'/'.$request->nomePasta)){
 						$pdf = PDF::loadView('digitalizar.todos', compact('html'))->setPaper('a4', $request->orientacao)->save("//10.11.26.1/cadastro$/DIGITALIZAÇÕES/".$request->usuario.'/'.$request->nomePasta.'/'.$namePdf);
