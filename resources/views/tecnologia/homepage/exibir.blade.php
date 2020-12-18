@@ -8,11 +8,14 @@ Homepage
 	<div class="col-12 row mx-auto px-5 pt-4">
 		<div class="pt-3 row ml-auto dropdown pb-5 pb-lg-0">
 			@if(Auth::check())
-			<a href="{{route('inicio')}}" class="text-white text-truncate my-auto font-weight-normal mx-3">
+			<a href="{{route('inicio')}}" title="Início" class="text-white text-truncate my-auto font-weight-normal mx-3 pr-3">
             	<h5 class="text-white">Início</h5>
             </a>
+           	<a href="{{route('digitalizar')}}" title="Digitalizar" class="text-white text-truncate my-auto font-weight-normal mx-3">
+            	<h5 class="text-white"><i class="mdi mdi-printer-3d mdi-24px"></i></h5>
+            </a>
 			<div class="dropdown dropdown-home mx-3 px-3">
-				<a href="javascript::void(0)" class="dropdown-toggle my-auto" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<a href="javascript::void(0)" title="Menu" class="dropdown-toggle my-auto" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					<h5 class="text-white">
 						<i class="mdi mdi-apps mdi-24px"></i>
 					</h5>
@@ -83,7 +86,7 @@ Homepage
 	            </ul>
             </div>
             <div class="dropdown mx-3">
-				<a href="javascript::void(0)" class="dropdown-toggle my-auto" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+				<a href="javascript::void(0)" title="{{ (Auth::check() ? Auth::user()->nome : 'Faça seu login' )}}" class="dropdown-toggle my-auto" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
 					<img src="{{ (Auth::check() ? asset('storage/app/'.Auth::user()->RelationImagem->endereco).'?'.rand() : asset('public/img/user.png').'?'.rand() )}}" alt="{{ (Auth::check() ? Auth::user()->nome : 'Faça seu login' )}}" width="46" height="46" class="img-circle">
 			    </a>
 			    <ul class="dropdown-menu dropdown-user dropdown-menu-right animated flipInY" style="width: 300px;border-radius: 5px;">
@@ -123,8 +126,13 @@ Homepage
 		        </ul>    
 		    </div>
 		    @else
-	        	<a href="{{route('login')}}" class="btn btn-success rounded btn-lg px-5">
-	        		<span>Fazer login</span>
+		    	<a href="{{route('digitalizar')}}">
+					<h5 class="text-white">
+						<i class="mdi mdi-printer mdi-24px"></i>
+					</h5>
+				</a>
+	        	<a href="{{route('login')}}" class="btn btn-success btn-rounded btn-lg px-5">
+	        		<span>Entrar</span>
 	        	</a>
 	        @endif
 	    </div>

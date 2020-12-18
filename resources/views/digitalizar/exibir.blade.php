@@ -7,7 +7,14 @@ Digitalizar
 @include('layouts.preloader')
 <div class="col-12 h-100 position-absolute imagem" style="background: url({{ (isset($homepage[0]) ? asset('storage/app/').'/'.$homepage->last()->endereco : asset('public/img/home.png').'?'.rand())}})"></div>
 <div class="container-fluid h-100 row justify-content-center mx-auto">
-	<div class="col-9 col-sm-9 col-lg-9 mx-auto px-0 row py-5">
+	<div class="col-12 row mx-auto px-5 pt-4">
+		<div class="row ml-auto dropdown pb-lg-0">
+			<a href="{{route('homepage')}}" class="text-truncate my-auto font-weight-normal px-3">
+            	<h5 class="text-white"><i class="mdi mdi-home-outline mdi-18px pr-1"></i> Homepage</h5>
+            </a>
+	    </div>
+    </div>
+	<div class="col-9 col-sm-9 col-lg-9 mx-auto px-0 row pb-5 pt-3">
 		<img src="{{ asset('public/img/logo.png').'?'.rand() }}" class="mx-auto mt-3 col-lg-4 col-sm-6 col-12 h-100">
 	</div>
 	<div class="row col-12 col-sm-12 col-lg-12 mx-auto py-5 justify-content-center text-left">
@@ -34,16 +41,16 @@ Digitalizar
 						</select>
 					</div>
 				</div>
-				<div class="col-12">
+				<div class="col-6">
 					<div class="form-group">
 						<label class="col-form-label text-white">Tipo <span class="text-danger">*</span></label>
 						<select class="form-control form-control-line px-3" name="pagina" style="border-radius: 10px" required>
-							<option value="1"> Um por arquivo</option> 
-							<option value="2"> Tudo em um mesmo arquivo </option> 
+							<option value="1"> Único</option> 
+							<option value="2"> Juntar todos </option> 
 						</select>
 					</div>
 				</div>
-				<div class="col-12">
+				<div class="col-6">
 					<div class="form-group">
 						<label class="col-form-label text-white">Orientação <span class="text-danger">*</span></label>
 						<select class="form-control form-control-line px-3" name="orientacao" style="border-radius: 10px" required>
@@ -54,9 +61,15 @@ Digitalizar
 				</div>
 				<div class="col-12">
 					<div class="form-group">
+						<label class="col-form-label text-white">Nome da pasta <span class="text-danger">*</span></label>
+						<input class="form-control form-control-line px-3" type="text" name="nomePasta" style="border-radius: 10px" onkeyup="this.value = this.value.toUpperCase();" required>
+					</div>
+				</div>
+				<div class="col-12">
+					<div class="form-group">
 						<label class="col-form-label text-white">Selecione os arquivos <span class="text-danger">*</span></label>
 						<div class="row totalArquivos">
-							<input type="file" name="arquivos[]" class="mb-3 text-white col-12" accept=".jpg .jpeg .png .svg" required>
+							<input type="file" name="arquivos[]" class="mb-3 text-white col-12" accept=".jpg, .jpeg, .png, .svg" required>
 						</div>
 					</div>
 					<a href="javascript:" id="btnAdicionar"> <i class="ti-plus pr-2"></i> Adicionar mais arquivos</a>

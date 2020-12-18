@@ -27,13 +27,13 @@ Painel do associado
 						<h5 class="text-center">Encontre seu associado</h5>
 					</div>
 					<hr class="col-10 my-0">
-					<div class="card-body">
+					<div class="card-body px-3">
 						<div class="input-group col-lg-10 col-12 mx-auto"> 
 							<input type="search" class="form-control" placeholder="Entre com nome, razão social ou documento do associado..." aria-controls="table" name="pesquisar" id="pesquisar" style="border-top-left-radius:6px;border-bottom-left-radius:6px;" required>	
 							<div class="input-group-addon p-0 m-0 border-0">
 								<button type="submit" class="btn btn-success" style="border-top-right-radius:6px;border-bottom-right-radius:6px;"> 
-									<i class="mdi mdi-magnify pr-2"></i> 
-									<span>Pesquisar</span> 
+									<i class="mdi mdi-magnify pr-lg-2"></i> 
+									<span class="hidden-xs">Pesquisar</span> 
 								</button>
 							</div>
 	                    </div>	
