@@ -23,8 +23,8 @@ Materiais
 				<div class="col-12 row mb-4 mx-auto">
 					@include('layouts.search')
 					<button class="btn btn-primary btn-outline ml-auto" id="adicionar" name="adicionar" title="Solicitar novo material" data-toggle="modal" data-target="#modal-solicitacao">
-						<i class="m-0 pr-1 mdi mdi-plus"></i> 
-						<span>Nova solicitação</span>
+						<i class="m-0 pr-lg-1 mdi mdi-plus"></i> 
+						<span class="hidden-xs">Nova solicitação</span>
 					</button>
 				</div>
 
