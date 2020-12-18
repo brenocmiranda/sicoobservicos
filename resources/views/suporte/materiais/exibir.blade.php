@@ -19,7 +19,7 @@ Materiais
 	</div>
 	<div class="card">
 		<div class="card-body">
-			<div class="col-12">
+			<div class="col-12 px-0">
 				<div class="col-12 row mb-4 mx-auto">
 					@include('layouts.search')
 					<div class="col-2 col-lg-5 col-sm-5 p-0 row mx-auto">
@@ -35,7 +35,7 @@ Materiais
 						<h5>Minhas solicitações</h5>
 						<hr class="mt-2">
 					</div>
-					<div class="col-12 p-0">
+					<div class="col-12 px-0">
 						@if(isset($requisicoes[0]))
 						<ul class="p-0" id="requisicoes">
 							@foreach($requisicoes as $requisicao)

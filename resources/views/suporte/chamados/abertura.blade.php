@@ -76,7 +76,7 @@ Abertura de chamado
 									<i class="mdi mdi-arrow-left pr-2"></i> 
 									<span>Voltar</span>
 								</a>
-								<button type="submit" class="btn btn-success btn-outline col-lg-4 col-5 d-flex align-items-center justify-content-center mx-2">
+								<button type="submit" class="btn btn-success btn-outline col-lg-4 col-6 d-flex align-items-center justify-content-center mx-2">
 									<i class="mdi mdi-check pr-2"></i> 
 									<span>Abrir chamado</span>
 								</button>

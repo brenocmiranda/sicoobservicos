@@ -24,11 +24,11 @@ Documentos
 					<input type="search" class="form-control rounded" placeholder="Encontre rapidamente o que procura :)">
 				</div>
 			</div>
-			<div class="col-12">
+			<div class="col-12 px-0 px-lg-5">
 				@if(isset($dados[0]))
 					<ul class="row p-5" id="documentos">
 						@foreach($dados->sortBy('nome') as $documento)
-						<li class="col-12 mx-auto">
+						<li class="col-12 mx-auto px-0">
 							<div class="row">
 								<div class="rounded text-center px-4">
 									@if( explode(".", $documento->RelationArquivo->endereco)[1] == "docx" || explode(".", $documento->RelationArquivo->endereco)[1] == "doc")

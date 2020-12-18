@@ -8,9 +8,13 @@ Digitalizar
 <div class="col-12 h-100 position-absolute imagem" style="background: url({{ (isset($homepage[0]) ? asset('storage/app/').'/'.$homepage->last()->endereco : asset('public/img/home.png').'?'.rand())}})"></div>
 <div class="container-fluid h-100 row justify-content-center mx-auto">
 	<div class="col-12 row mx-auto px-5 pt-4">
-		<div class="row ml-auto dropdown pb-lg-0">
+		<div class="row ml-auto pb-lg-0">
 			<a href="{{route('homepage')}}" class="text-truncate my-auto font-weight-normal px-3">
-            	<h5 class="text-white"><i class="mdi mdi-home-outline mdi-18px pr-1"></i> Homepage</h5>
+            	<h5 class="text-white">
+            		<i class="mdi mdi-home-outline mdi-24px pr-1 visible-xs"></i>
+            		<i class="mdi mdi-home-outline mdi-18px pr-1 hidden-xs"></i>  
+            		<span class="hidden-xs">Homepage</span> 
+            	</h5>
             </a>
 	    </div>
     </div>

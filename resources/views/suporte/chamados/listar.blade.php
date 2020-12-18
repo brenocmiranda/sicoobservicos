@@ -32,7 +32,7 @@ Chamados
 			
 			<section class="py-4">
 				<div class="sttabs tabs-style-linetriangle row justify-content-center mx-auto">
-                    <nav class="col-lg-8 col-12 mx-auto">
+                    <nav class="col-lg-8 col-12 mx-auto px-0">
 						<ul>
 							@foreach($statusAtivos as $status)
 							<li class="{{($status->id == 1 ? 'tab-current' : '')}}">
@@ -43,11 +43,11 @@ Chamados
 							@endforeach
 						</ul>
 					</nav>
-					<div class="content-wrap">
+					<div class="content-wrap col-12 p-0">
 						<?php $i=0; ?>
 						@foreach($statusAtivos as $status)
-						<section id="section-{{$status->id}}">
-							<ul class="row col-12 m-auto">
+						<section id="section-{{$status->id}}" class="px-0 px-lg-5">
+							<ul class="row col-12 m-auto px-0">
 								@foreach($chamados as $chamado)
 								@if($chamado->RelationStatus->first()->id == $status->id)
 								<li class="col-12 border rounded shadow-sm mb-3">
