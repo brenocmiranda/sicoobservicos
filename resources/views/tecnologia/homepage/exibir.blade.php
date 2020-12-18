@@ -126,12 +126,12 @@ Homepage
 		        </ul>    
 		    </div>
 		    @else
-		    	<a href="{{route('digitalizar')}}">
+		    	<a href="{{route('digitalizar')}}" class="mx-3">
 					<h5 class="text-white">
-						<i class="mdi mdi-printer mdi-24px"></i>
+						<i class="mdi mdi-printer-3d mdi-24px"></i>
 					</h5>
 				</a>
-	        	<a href="{{route('login')}}" class="btn btn-success btn-rounded btn-lg px-5">
+	        	<a href="{{route('login')}}" class="btn btn-success btn-rounded btn-lg px-5 my-auto">
 	        		<span>Entrar</span>
 	        	</a>
 	        @endif
