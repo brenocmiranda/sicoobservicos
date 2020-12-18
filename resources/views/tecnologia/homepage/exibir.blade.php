@@ -126,7 +126,7 @@ Homepage
 		        </ul>    
 		    </div>
 		    @else
-		    	<a href="{{route('digitalizar')}}" class="mx-3">
+		    	<a href="{{route('digitalizar')}}" class="mx-3 pr-3">
 					<h5 class="text-white">
 						<i class="mdi mdi-printer-3d mdi-24px"></i>
 					</h5>
