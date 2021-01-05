@@ -92,7 +92,7 @@ Configurações
 						</div>
 						<div class="col-lg-11 col-sm-11 col-9 text-secondary mx-4 pr-0">
 							<h5 class="mb-1 text-primary"> Tópicos </h5>
-							<label> Gerencie as funções responsáveis por dar acessos as funcionalidades da plataforma. </label>
+							<label> Cadastre ou remova os tópicos que estarão disponíveis na base de conhecimento. </label>
 						</div>
 					</a>
 				</div>
@@ -103,7 +103,7 @@ Configurações
 						</div>
 						<div class="col-lg-11 col-sm-11 col-9 text-secondary mx-4 pr-0">
 							<h5 class="mb-1 text-primary"> Anexos </h5>
-							<label> Gerencie as instituições que estarão disponíveis para utilização da plataforma. </label>
+							<label> Gerencie os documentos que estarão disponíveis para os usuários. </label>
 						</div>
 					</a>
 				</div>
@@ -172,7 +172,7 @@ Configurações
 						</div>
 						<div class="col-lg-11 col-sm-11 col-9 text-secondary mx-4 pr-0">
 							<h5 class="mb-1 text-primary"> Tipos </h5>
-							<label> Gerencie os status que estarão disponíveis para controle de fluxo dos chamados. </label>
+							<label> Gerencie os tipos que estarão disponíveis para controle de fluxo dos chamados. </label>
 						</div>
 					</a>
 				</div>
@@ -183,7 +183,7 @@ Configurações
 						</div>
 						<div class="col-lg-11 col-sm-11 col-9 text-secondary mx-4 pr-0">
 							<h5 class="mb-1 text-primary"> Status </h5>
-							<label> Gerencie os tipos de problemas que estarão disponíveis na abertura dos chamados. </label>
+							<label> Gerencie os status de problemas que estarão disponíveis na abertura dos chamados. </label>
 						</div>
 					</a>
 				</div>
@@ -201,7 +201,7 @@ Configurações
 						</div>
 						<div class="col-lg-11 col-sm-11 col-9 text-secondary mx-4 pr-0">
 							<h5 class="mb-1 text-primary"> Materiais </h5>
-							<label> Gerencie as fontes de problemas que estarão disponíveis na abertura de chamados. </label>
+							<label> Cadastre, altere ou desative os materiais que estarão disponíveis para solicitação. </label>
 						</div>
 					</a>
 				</div>
@@ -212,7 +212,7 @@ Configurações
 						</div>
 						<div class="col-lg-11 col-sm-11 col-9 text-secondary mx-4 pr-0">
 							<h5 class="mb-1 text-primary"> Categorias </h5>
-							<label> Gerencie os status que estarão disponíveis para controle de fluxo dos chamados. </label>
+							<label> Gerencie as categorias que estarão disponiveis para o cadastramento de materiais. </label>
 						</div>
 					</a>
 				</div>
@@ -230,7 +230,7 @@ Configurações
 						</div>
 						<div class="col-lg-11 col-sm-11 col-9 text-secondary mx-4 pr-0">
 							<h5 class="mb-1 text-primary"> Ajustes </h5>
-							<label> Gerencie as fontes de problemas que estarão disponíveis na abertura de chamados. </label>
+							<label> Gerencie quais serão os remetentes responsáveis por receber as solicitações. </label>
 						</div>
 					</a>
 				</div>
@@ -241,7 +241,7 @@ Configurações
 						</div>
 						<div class="col-lg-11 col-sm-11 col-9 text-secondary mx-4 pr-0">
 							<h5 class="mb-1 text-primary"> Mensagens </h5>
-							<label> Gerencie os status que estarão disponíveis para controle de fluxo dos chamados. </label>
+							<label> Configure os conteúdos das mensagens que serão enviadas pela plataforma ao executarem as tarefas. </label>
 						</div>
 					</a>
 				</div>
@@ -250,6 +250,17 @@ Configurações
 			<h5 class="mx-5">Importações</h5>
 			<hr class="mt-0 mx-5">
 			<div class="row col-12 justify-content-center mb-5 ml-3">
+				<div class="row col-12 rounded m-3">
+					<a href="{{ route('exibir.importacoes') }}" class="row mx-auto col-12 pr-0">
+						<div class="col-3 col-sm-1 col-lg-1 border rounded row align-items-center shadow-sm justify-content-center my-auto" style="height: 50px">
+							<i class="mdi mdi-update mdi-dark mdi-24px px-4"></i>
+						</div>
+						<div class="col-lg-11 col-sm-11 col-9 text-secondary mx-4 pr-0">
+							<h5 class="mb-1 text-primary"> Database </h5>
+							<label> Analise as datas de atualização de cada um dos relatórios necessários para funcionamento da aplicação. </label>
+						</div>
+					</a>
+				</div>
 				<div class="row col-12 rounded m-3">
 					<a href="{{ route('exibir.importacoes') }}" class="row mx-auto col-12 pr-0">
 						<div class="col-3 col-sm-1 col-lg-1 border rounded row align-items-center shadow-sm justify-content-center my-auto" style="height: 50px">
@@ -268,7 +279,7 @@ Configurações
 						</div>
 						<div class="col-lg-11 col-sm-11 col-9 text-secondary mx-4 pr-0">
 							<h5 class="mb-1 text-primary"> Logs </h5>
-							<label> Execute a importação dos arquivos para atualização dos dados disponíveis na plataforma. </label>
+							<label> Veja o andamento de cada uma das atualizações em tempo real, através dos registros. </label>
 						</div>
 					</a>
 				</div>
