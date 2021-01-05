@@ -24,8 +24,8 @@ Painel do associado
       <a href="{{route('exibir.painel.atendimento')}}" class="mx-2"><i class="mdi mdi-arrow-left pr-2"></i>Voltar</a>
     </div>
     <div class="ml-auto">
-      <a href="javascript:void(0)" data-toggle="modal" data-target="#modal-adicionar" class="mx-2"><i class="mdi mdi-plus pr-2"></i>Cadastro de atividade</a>
-      <a href="javascript:void(0)" data-toggle="modal" data-target="#modal-impressao" class="mx-2 btn-imprimir"><i class="mdi mdi-printer pr-2"></i>Imprimir</a>
+      <a href="javascript:" data-toggle="modal" data-target="#modal-adicionar" class="mx-2"><i class="mdi mdi-plus pr-2"></i>Cadastro de atividade</a>
+      <a href="javascript:" data-toggle="modal" data-target="#modal-impressao" class="mx-2 btn-imprimir"><i class="mdi mdi-printer pr-2"></i>Imprimir</a>
     </div>
   </div>
 
