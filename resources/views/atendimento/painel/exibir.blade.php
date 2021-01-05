@@ -146,8 +146,12 @@ Painel do associado
             </div>
             <div class="col-lg-3 col-12">
               <h6>Data de renovação</h6>
-              <small class="{{( strtotime(date('Y-m-d', strtotime($associado->data_renovacao.'+ 1 year'))) < strtotime(date('Y-m-d')) ? 'bg-danger px-3 py-1 text-white rounded' : '')}}" style="{{( strtotime(date('Y-m-d', strtotime($associado->data_renovacao.'+ 1 year'))) < strtotime(date('Y-m-d')) ? 'border-radius:15px' : '')}}">
+              @if(strtotime(date('Y-m-d', strtotime($associado->data_renovacao.'+ 1 year'))) < strtotime(date('Y-m-d')))
+                <small class="bg-danger px-3 py-1 text-white rounded" style="border-radius:15px">
                 {{date('d/m/Y', strtotime($associado->data_renovacao))}}</small>
+              @else
+                <label>{{date('d/m/Y', strtotime($associado->data_renovacao))}}</label>
+              @endif
             </div>
           </div>
           <div class="row">
