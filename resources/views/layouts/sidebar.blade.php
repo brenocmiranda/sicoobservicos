@@ -83,6 +83,7 @@
           <li> <a href="{{ route('exibir.disposicao.credito') }}"><span class="hide-menu">Disposição</span></a> </li>
           <li> <a href="{{ route('exibir.contratos.credito') }}"><span class="hide-menu">Contratos</span></a> </li>
           @if(Auth::user()->RelationFuncao->gerenciar_credito == 1)
+          <li> <a href="#"><span class="hide-menu">Pendências</span></a> </li>
           <li> 
             <a href="javascript:void(0)" class="waves-effect {{ (Request::segment(2) == 'credito' && Request::segment(3) == 'configuracoes' ? ' active' : '') }}">
               <span class="hide-menu">Configurações </span><span class="fa arrow"></span>

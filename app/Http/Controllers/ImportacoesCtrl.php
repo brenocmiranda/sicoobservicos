@@ -120,7 +120,7 @@ class ImportacoesCtrl extends Controller
 				try{
 					$nameFile = 'cli_consolidado-'.date('dmYHis').'.'.request()->file('myData')->getClientOriginalExtension();
 					$upload = $request->myData->storeAs('importacoes', $nameFile);
-					Excel::queueImport(new cli_consolidado, getcwd().'/storage/app/importacoes/'.$nameFile->onQueue('low'));
+					Excel::queueImport(new cli_consolidado, getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('low');
 					return response()->json(['status' => true]);
 				} catch (\Exception $ex){
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cli_consolidado.xlsx!</span>']);

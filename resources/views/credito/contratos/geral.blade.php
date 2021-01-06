@@ -71,7 +71,7 @@ Contratos
 							<i class="mdi mdi-wallet-membership mdi-36px"></i>
 						</div>
 						<div class="m-auto text-center">
-							<h5 class="mb-3"> Titulos descontads </h5>
+							<h5 class="mb-3"> Titulos descontados </h5>
 						</div>
 					</a>
 				</div>
