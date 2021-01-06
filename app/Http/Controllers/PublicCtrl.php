@@ -227,7 +227,7 @@ class PublicCtrl extends Controller
         }
 		\Session::flash('confirm', array(
 			'class' => 'success',
-			'mensagem' => 'Seu arquivos foram enviados com sucesso.'
+			'mensagem' => 'Seu arquivos foram enviados com sucesso. Para acessar entre no atalho DIGITALIZAR SS na sua área de trabalho.'
 		));
 		return redirect()->route('digitalizar');
 	}
