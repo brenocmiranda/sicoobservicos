@@ -144,7 +144,7 @@
             </ul>
           </li>
           @endif
-          <li> <a href="{{route('exibir.homepage')}}"><span class="hide-menu">Homepage</span></a> </li>
+          <li> <a href="{{route('exibir.atalhos')}}"><span class="hide-menu">Homepage</span></a> </li>
           <li> 
             <a href="javascript:void(0)" class="waves-effect {{ (Request::segment(2) == 'gti' && Request::segment(3) == 'equipamentos' ? ' active' : '') }}">
               <span class="hide-menu">Inventário </span><span class="fa arrow"></span>

@@ -3,7 +3,7 @@ Homepage
 @endsection
 
 @include('layouts.header')
-<div class="col-12 h-100 position-absolute imagem" style="background: url({{ (isset($homepage[0]) ? asset('storage/app/').'/'.$homepage->last()->endereco : asset('public/img/home.png').'?'.rand())}})"></div>
+<div class="col-12 h-100 position-absolute imagem" style="background: url({{ (isset($wallpapers[0]) ? asset('storage/app/').'/'.$wallpapers->last()->endereco : asset('public/img/home.png').'?'.rand())}})"></div>
 <div class="container-fluid h-100 row justify-content-center mx-auto">
 	<div class="col-12 row mx-auto px-5 pt-4">
 		<div class="pt-3 row ml-auto dropdown pb-5 pb-lg-0">
@@ -151,17 +151,17 @@ Homepage
 	</div>	
 	<div class="col-12 col-sm-12 col-lg-10 mx-auto px-0 text-uppercase pt-4">
 		<ul class="row justify-content-center h-100 pt-4 pl-0 p-lg-0 mb-0">
-			@foreach($homepages as $homepage)
+			@foreach($atalhos as $atalho)
 			<li class="mb-5" style="height: 110px;width: 132px;">
-				<a href="{{ url($homepage->endereco) }}" target="_blank" class="text-center">
+				<a href="{{ url($atalho->endereco) }}" target="_blank" class="text-center">
 					<div class="pb-3">
-						<img src="{{ asset('storage/app/'.$homepage->RelationImagem->endereco) }}" class="rounded-circle bg-light p-2" style="height: 60px;width: 60px;">
+						<img src="{{ asset('storage/app/'.$atalho->RelationImagem->endereco) }}" class="rounded-circle bg-light p-2" style="height: 60px;width: 60px;">
 					</div>
 					<div>
-						<label class="text-white font-weight-bold mb-0">{{$homepage->titulo}}</label>
+						<label class="text-white font-weight-bold mb-0">{{$atalho->titulo}}</label>
 					</div>
 					<div>
-						<label class="text-white">{{$homepage->subtitulo}}</label>
+						<label class="text-white">{{$atalho->subtitulo}}</label>
 					</div>
 				</a>
 			</li>

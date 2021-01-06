@@ -713,7 +713,7 @@ class TecnologiaCtrl extends Controller
 	public function ExibirHomepage(){
 		if(Auth::user()->RelationFuncao->ver_gti == 1 || Auth::user()->RelationFuncao->gerenciar_gti == 1){
 			$dados = Homepage::orderBy('titulo')->get();
-			return view('tecnologia.homepage.listar')->with('homepages', $dados);
+			return view('tecnologia.atalhos.listar')->with('atalhos', $dados);
 		}else{
 			return redirect(route('403'));
 		}
@@ -754,7 +754,7 @@ class TecnologiaCtrl extends Controller
 				'nome' => 'Cadastro de novo atalho',
 				'descricao' => 'Você cadastrou um novo atalho da homepage, '.$create->titulo.'.',
 				'icone' => 'mdi-plus',
-				'url' => route('exibir.homepage'),
+				'url' => route('exibir.atalhos'),
 				'id_usuario' => Auth::id()
 			]);
 			return response()->json(['success' => true]);
@@ -786,7 +786,7 @@ class TecnologiaCtrl extends Controller
 				'nome' => 'Edição de informações',
 				'descricao' => 'Você modificou as informações do atalho '.$dados->titulo.'.',
 				'icone' => 'mdi-auto-fix',
-				'url' => route('exibir.homepage'),
+				'url' => route('exibir.atalhos'),
 				'id_usuario' => Auth::id()
 			]);
 			return response()->json(['success' => true]);
@@ -802,7 +802,7 @@ class TecnologiaCtrl extends Controller
 				'nome' => 'Remoção de atalho',
 				'descricao' => 'Você acabou de remover o atalho da homepage '.$create->titulo.'.',
 				'icone' => 'mdi-rotate-3d',
-				'url' => route('exibir.homepage'),
+				'url' => route('exibir.atalhos'),
 				'id_usuario' => Auth::id()
 			]);
 			Homepage::find($id)->delete();

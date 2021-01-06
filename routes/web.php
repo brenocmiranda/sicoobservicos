@@ -335,13 +335,13 @@ Route::group(['prefix' => 'app'], function(){
 				Route::any('detalhes/{id}', 'TecnologiaCtrl@DetalhesStatus')->name('detalhes.status.chamados');
 			});
 		});
-		// Homepage
-		Route::group(['prefix' => 'homepage'], function(){
-			Route::get('', 'TecnologiaCtrl@ExibirHomepage')->name('exibir.homepage');
-			Route::post('adicionar', 'TecnologiaCtrl@AdicionarHomepage')->name('adicionar.homepage');
-			Route::post('editar/{id}', 'TecnologiaCtrl@EditarHomepage')->name('editar.homepage');
-			Route::any('delete/{id}', 'TecnologiaCtrl@DeleteHomepage')->name('delete.homepage');
-			Route::any('detalhes/{id}', 'TecnologiaCtrl@DetalhesHomepage')->name('detalhes.homepage');
+		// Atalhos
+		Route::group(['prefix' => 'atalhos'], function(){
+			Route::get('', 'TecnologiaCtrl@ExibirHomepage')->name('exibir.atalhos');
+			Route::post('adicionar', 'TecnologiaCtrl@AdicionarHomepage')->name('adicionar.atalhos');
+			Route::post('editar/{id}', 'TecnologiaCtrl@EditarHomepage')->name('editar.atalhos');
+			Route::any('delete/{id}', 'TecnologiaCtrl@DeleteHomepage')->name('delete.atalhos');
+			Route::any('detalhes/{id}', 'TecnologiaCtrl@DetalhesHomepage')->name('detalhes.atalhos');
 		});
 		// Inventário
 		Route::group(['prefix' => 'equipamentos'], function(){

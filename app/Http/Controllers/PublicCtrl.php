@@ -19,9 +19,9 @@ class PublicCtrl extends Controller
 {
 	// Tela de homepage
 	public function Homepage(){
-		$homepage = Imagens::where('tipo', 'homepage_principal')->get();
-		$dados = Homepage::orderBy('titulo')->get();
-		return view('tecnologia.homepage.exibir')->with('homepages', $dados)->with('homepage', $homepage);
+		$wallpapers = Imagens::where('tipo', 'homepage_principal')->get();
+		$atalhos = Homepage::orderBy('titulo')->get();
+		return view('tecnologia.atalhos.exibir')->with('atalhos', $atalhos)->with('wallpapers', $wallpapers);
 	}
     // Tela de login
 	public function Login(){

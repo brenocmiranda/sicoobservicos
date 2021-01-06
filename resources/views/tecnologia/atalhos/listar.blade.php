@@ -1,5 +1,5 @@
 @section('title')
-Homepage
+Atalhos
 @endsection
 
 @extends('layouts.index')
@@ -8,12 +8,12 @@ Homepage
 <div class="container-fluid">
 	<div class="row bg-title">
 		<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-			<h4 class="page-title">Homepage</h4> 
+			<h4 class="page-title">Atalhos</h4> 
 		</div>
 		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
 			<ol class="breadcrumb">
 				<li><a href="{{route('dashboard.gti')}}">Tecnologia</a></li>
-				<li class="active">Homepage</li>
+				<li class="active">Atalhos</li>
 			</ol>
 		</div>
 	</div>
@@ -32,29 +32,29 @@ Homepage
 				@endif
 			</div>
 			
-			<ul class="row col-12 m-auto py-3" id="homepage">
-				@if(isset($homepages[0]))
-					@foreach($homepages as $homepage)
+			<ul class="row col-12 m-auto py-3" id="atalhos">
+				@if(isset($atalhos[0]))
+					@foreach($atalhos as $atalho)
 					<li class="col-lg-2 col-sm-6 col-12">
 						<div class="p-3 h-100">
 							<div class="text-center">
-								<img src="{{ asset('storage/app/'.$homepage->RelationImagem->endereco) }}" class="border img-circle p-2 bg-ligth" width="60" height="60">
+								<img src="{{ asset('storage/app/'.$atalho->RelationImagem->endereco) }}" class="border img-circle p-2 bg-ligth" width="60" height="60">
 							</div>
 							<div class="text-center">
 								<h5 class="text-uppercase mb-2 text-truncate">
-									<a href="javascript:void(0)" class="btn-detalhes" data="{{route('detalhes.homepage', $homepage->id)}}">
-										<span>{{$homepage->titulo}}</span>
+									<a href="javascript:void(0)" class="btn-detalhes" data="{{route('detalhes.atalhos', $atalho->id)}}">
+										<span>{{$atalho->titulo}}</span>
 									</a>
 								</h5>
 								<label class="text-truncate text-uppercase d-block">	
-									<span>{{(isset($homepage->subtitulo) ? $homepage->subtitulo : '_')}}</span>
+									<span>{{(isset($atalho->subtitulo) ? $atalho->subtitulo : '_')}}</span>
 								</label>
 								@if(Auth::user()->RelationFuncao->gerenciar_gti == 1)
 								<div class="my-3">
-									<a href="javascript:void(0)" data="{{route('detalhes.homepage', $homepage->id)}}" class="btn btn-default btn-outline btn-xs ml-auto btn-editar" title="Editar informações">
+									<a href="javascript:void(0)" data="{{route('detalhes.atalhos', $atalho->id)}}" class="btn btn-default btn-outline btn-xs ml-auto btn-editar" title="Editar informações">
 										<small>Editar</small>
 									</a>
-									<a href="javascript:void(0)" data="{{route('delete.homepage', $homepage->id)}}" class="btn btn-default btn-outline btn-xs ml-auto btn-remove" title="Excluir atalho">
+									<a href="javascript:void(0)" data="{{route('delete.atalhos', $atalho->id)}}" class="btn btn-default btn-outline btn-xs ml-auto btn-remove" title="Excluir atalho">
 										<small>Deletar</small>
 									</a>
 								</div>
@@ -65,7 +65,7 @@ Homepage
 					@endforeach
 				@else
 				<div class="row mx-auto col-12 p-0">
-					<label class="alert alert-secondary col-12 rounded"><i class="mdi mdi-alert-outline mdi-24px pr-4"></i> Você não possui nenhum atalho para homepage cadastrado.</label>
+					<label class="alert alert-secondary col-12 rounded"><i class="mdi mdi-alert-outline mdi-24px pr-4"></i> Você não possui nenhum atalho cadastrado.</label>
 				</div>
 				@endif
 			</ul>
@@ -75,9 +75,9 @@ Homepage
 @endsection
 
 @section('modal')
-	@include('tecnologia.homepage.adicionar')
-	@include('tecnologia.homepage.editar')
-	@include('tecnologia.homepage.detalhes')
+	@include('tecnologia.atalhos.adicionar')
+	@include('tecnologia.atalhos.editar')
+	@include('tecnologia.atalhos.detalhes')
 @endsection
 
 @section('suporte')
@@ -93,8 +93,8 @@ Homepage
 		// Campo de pesquisa
 		$("input[type=search]").keyup(function(){
 			var texto = $(this).val().toUpperCase();
-			$("#homepage li").css("display", "block");
-			$("#homepage li").each(function(){
+			$("#atalhos li").css("display", "block");
+			$("#atalhos li").each(function(){
 				if($(this).text().indexOf(texto) < 0)
 					$(this).css("display", "none");
 			});
@@ -154,7 +154,7 @@ Homepage
 							});
 							location.reload();
 						}else{
-							swal("Não foi possível remover esse atalho da homepage!", {
+							swal("Não foi possível remover esse atalho da atalhos!", {
 								icon: "error",
 							});
 						}
@@ -187,7 +187,7 @@ Homepage
 			// Adicionando novos
 			e.preventDefault();
 			$.ajax({
-				url: '{{ route("adicionar.homepage") }}',
+				url: '{{ route("adicionar.atalhos") }}',
 				type: 'POST',
 				contentType: false,
 	            cache: false,
@@ -227,7 +227,7 @@ Homepage
 			// Editando as informações
 			e.preventDefault();
 			$.ajax({
-				url: 'homepage/editar/'+$('#formEditar .identificador').val(),
+				url: 'atalhos/editar/'+$('#formEditar .identificador').val(),
 				type: 'POST',
 				contentType: false,
 	            cache: false,
