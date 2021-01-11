@@ -138,7 +138,7 @@ class PublicCtrl extends Controller
 
 	// Importação de documentos
 	public function ExibirImportacao(){
-		$usuarios = Usuarios::where('status', 'Ativo')->orderBy('login', 'ASC')->get();
+		$usuarios = Usuarios::where('id', '<>', 1)->where('status', 'Ativo')->orderBy('login', 'ASC')->get();
 		$homepage = Imagens::where('tipo', 'homepage_principal')->get();
 		return view('digitalizar.exibir')->with('usuarios', $usuarios)->with('homepage', $homepage);
 	}
