@@ -20186,7 +20186,7 @@ input[name=upload_img]{
 .imagem{
 	background-size: cover !important;
 	background-position: center !important;
-	filter: brightness(0.5);
+	filter: brightness(0.2);
 }
 
 .input-search {
