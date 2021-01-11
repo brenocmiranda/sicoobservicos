@@ -11,8 +11,7 @@ Digitalizar
 		<div class="row ml-auto pb-lg-0">
 			<a href="{{route('homepage')}}" class="text-truncate my-auto font-weight-normal px-3">
             	<h5 class="text-white">
-            		<i class="mdi mdi-home-outline mdi-24px pr-1 visible-xs"></i>
-            		<i class="mdi mdi-home-outline mdi-18px pr-1 hidden-xs"></i>  
+            		<i class="mdi mdi-home-outline mdi-24px pr-1 visible-xs"></i>  
             		<span class="hidden-xs">Homepage</span> 
             	</h5>
             </a>

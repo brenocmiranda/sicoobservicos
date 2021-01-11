@@ -20184,7 +20184,8 @@ input[name=upload_img]{
 }
 
 .imagem{
-	background-size: cover !important;
+	    background-size: cover !important;
+    position: fixed !important;
 	background-position: center !important;
 	filter: brightness(0.2);
 }
