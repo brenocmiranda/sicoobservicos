@@ -337,7 +337,7 @@ class ImportacoesCtrl extends Controller
 					$nameFile = 'cli_associados'.date('dmY-His').'.xlsx';
 					copy(getcwd().'/outlook/cli_associados.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
 					unlink(getcwd().'/outlook/cli_associados.xlsx');
-					Excel::queueImport(new cli_associados, getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('high');
+					(new cli_associados)->queue(getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('high');
 				} catch (\Exception $ex){
 					copy(getcwd().'/storage/app/importacoes/'.$nameFile, getcwd().'/cli_associados.xlsx');
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cli_associados.xlsx!</span>']);
@@ -349,7 +349,7 @@ class ImportacoesCtrl extends Controller
 					$nameFile = 'cli_consolidado'.date('dmY-His').'.xlsx';
 					copy(getcwd().'/outlook/cli_consolidado.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
 					unlink(getcwd().'/outlook/cli_consolidado.xlsx');
-					Excel::queueImport(new cli_consolidado, getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('low');
+					(new cli_consolidado)->queue(getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('low')->delay(now()->addMinutes(5));
 				} catch (\Exception $ex){
 					copy(getcwd().'/storage/app/importacoes/'.$nameFile, getcwd().'/cli_consolidado.xlsx');
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cli_consolidado.xlsx!</span>']);
@@ -361,7 +361,7 @@ class ImportacoesCtrl extends Controller
 					$nameFile = 'cli_emails'.date('dmY-His').'.xlsx';
 					copy(getcwd().'/outlook/cli_emails.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
 					unlink(getcwd().'/outlook/cli_emails.xlsx');
-					Excel::queueImport(new cli_emails, getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('low');
+					(new cli_emails)->queue(getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('low')->delay(now()->addMinutes(5));
 				} catch (\Exception $ex){
 					copy(getcwd().'/storage/app/importacoes/'.$nameFile, getcwd().'/cli_emails.xlsx');
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cli_emails.xlsx!</span>']);
@@ -373,7 +373,7 @@ class ImportacoesCtrl extends Controller
 					$nameFile = 'cli_telefones'.date('dmY-His').'.xlsx';
 					copy(getcwd().'/outlook/cli_telefones.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
 					unlink(getcwd().'/outlook/cli_telefones.xlsx');
-					Excel::queueImport(new cli_telefones, getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('low');
+					(new cli_telefones)->queue(getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('low')->delay(now()->addMinutes(5));
 				} catch (\Exception $ex){
 					copy(getcwd().'/storage/app/importacoes/'.$nameFile, getcwd().'/cli_telefones.xlsx');
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cli_telefones.xlsx!</span>']);
@@ -385,7 +385,7 @@ class ImportacoesCtrl extends Controller
 					$nameFile = 'cli_enderecos'.date('dmY-His').'.xlsx';
 					copy(getcwd().'/outlook/cli_enderecos.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
 					unlink(getcwd().'/outlook/cli_enderecos.xlsx');
-					Excel::queueImport(new cli_enderecos, getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('low');
+					(new cli_enderecos)->queue(getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('low')->delay(now()->addMinutes(5));
 				} catch (\Exception $ex){
 					copy(getcwd().'/storage/app/importacoes/'.$nameFile, getcwd().'/cli_enderecos.xlsx');
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cli_enderecos.xlsx!</span>']);
@@ -397,7 +397,7 @@ class ImportacoesCtrl extends Controller
 					$nameFile = 'cli_conglomerados'.date('dmY-His').'.xlsx';
 					copy(getcwd().'/outlook/cli_conglomerados.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
 					unlink(getcwd().'/outlook/cli_conglomerados.xlsx');
-					Excel::queueImport(new cli_conglomerados, getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('low');
+					(new cli_conglomerados)->queue(getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('low')->delay(now()->addMinutes(5));
 				} catch (\Exception $ex){
 					copy(getcwd().'/storage/app/importacoes/'.$nameFile, getcwd().'/cli_conglomerados.xlsx');
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cli_conglomerados.xlsx!</span>']);
@@ -409,7 +409,7 @@ class ImportacoesCtrl extends Controller
 					$nameFile = 'cli_iap'.date('dmY-His').'.xlsx';
 					copy(getcwd().'/outlook/cli_iap.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
 					unlink(getcwd().'/outlook/cli_iap.xlsx');
-					Excel::queueImport(new cli_iap, getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('low');
+					(new cli_iap)->queue(getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('low')->delay(now()->addMinutes(5));
 				} catch (\Exception $ex){
 					copy(getcwd().'/storage/app/importacoes/'.$nameFile, getcwd().'/cli_iap.xlsx');
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cli_iap.xlsx!</span>']);
@@ -421,7 +421,7 @@ class ImportacoesCtrl extends Controller
 					$nameFile = 'cca_contacapital'.date('dmY-His').'.xlsx';
 					copy(getcwd().'/outlook/cca_contacapital.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
 					unlink(getcwd().'/outlook/cca_contacapital.xlsx');
-					Excel::queueImport(new cca_contacapital, getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('low');
+					(new cca_contacapital)->queue(getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('low')->delay(now()->addMinutes(5));
 				} catch (\Exception $ex){
 					copy(getcwd().'/storage/app/importacoes/'.$nameFile, getcwd().'/cca_contacapital.xlsx');
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cca_contacapital.xlsx!</span>']);
@@ -433,7 +433,7 @@ class ImportacoesCtrl extends Controller
 					$nameFile = 'cco_contacorrente'.date('dmY-His').'.xlsx';
 					copy(getcwd().'/outlook/cco_contacorrente.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
 					unlink(getcwd().'/outlook/cco_contacorrente.xlsx');
-					Excel::queueImport(new cco_contacorrente, getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('high');
+					(new cco_contacorrente)->queue(getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('high')->delay(now()->addMinutes(2));
 				} catch (\Exception $ex){
 					copy(getcwd().'/storage/app/importacoes/'.$nameFile, getcwd().'/cco_contacorrente.xlsx');
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cco_contacorrente.xlsx!</span>']);
@@ -445,7 +445,7 @@ class ImportacoesCtrl extends Controller
 					$nameFile = 'cre_contratos_vigentes'.date('dmY-His').'.xlsx';
 					copy(getcwd().'/outlook/cre_contratos_vigentes.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
 					unlink(getcwd().'/outlook/cre_contratos_vigentes.xlsx');
-					Excel::queueImport(new cre_contratos, getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('low');
+					(new cre_contratos)->queue(getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('low')->delay(now()->addMinutes(5));
 				} catch (\Exception $ex){
 					copy(getcwd().'/storage/app/importacoes/'.$nameFile, getcwd().'/cre_contratos_vigentes.xlsx');
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cre_contratos_vigentes.xlsx!</span>']);
@@ -457,7 +457,7 @@ class ImportacoesCtrl extends Controller
 					$nameFile = 'cre_contratos_quitados'.date('dmY-His').'.xlsx';
 					copy(getcwd().'/outlook/cre_contratos_quitados.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
 					unlink(getcwd().'/outlook/cre_contratos_quitados.xlsx');
-					Excel::queueImport(new cre_contratos, getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('low');
+					(new cre_contratos)->queue(getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('low')->delay(now()->addMinutes(5));
 				} catch (\Exception $ex){
 					copy(getcwd().'/storage/app/importacoes/'.$nameFile, getcwd().'/cre_contratos_quitados.xlsx');
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cre_contratos_quitados.xlsx!</span>']);
@@ -469,7 +469,7 @@ class ImportacoesCtrl extends Controller
 					$nameFile = 'crt_cartaocredito'.date('dmY-His').'.xlsx';
 					copy(getcwd().'/outlook/crt_cartaocredito.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
 					unlink(getcwd().'/outlook/crt_cartaocredito.xlsx');
-					Excel::queueImport(new crt_cartaocredito, getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('low');
+					(new crt_cartaocredito)->queue(getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('low')->delay(now()->addMinutes(5));
 				} catch (\Exception $ex){
 					copy(getcwd().'/storage/app/importacoes/'.$nameFile, getcwd().'/crt_cartaocredito.xlsx');
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo crt_cartaocredito.xlsx!</span>']);
@@ -481,7 +481,7 @@ class ImportacoesCtrl extends Controller
 					$nameFile = 'pop_poupanca'.date('dmY-His').'.xlsx';
 					copy(getcwd().'/outlook/pop_poupanca.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
 					unlink(getcwd().'/outlook/pop_poupanca.xlsx');
-					Excel::queueImport(new pop_poupanca, getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('low');
+					(new pop_poupanca)->queue(getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('low')->delay(now()->addMinutes(5));
 				} catch (\Exception $ex){
 					copy(getcwd().'/storage/app/importacoes/'.$nameFile, getcwd().'/pop_poupanca.xlsx');
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo pop_poupanca.xlsx!</span>']);
@@ -493,7 +493,7 @@ class ImportacoesCtrl extends Controller
 					$nameFile = 'dep_aplicacoes'.date('dmY-His').'.xlsx';
 					copy(getcwd().'/outlook/dep_aplicacoes.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
 					unlink(getcwd().'/outlook/dep_aplicacoes.xlsx');
-					Excel::queueImport(new dep_aplicacoes, getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('low');
+					(new dep_aplicacoes)->queue(getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('low')->delay(now()->addMinutes(5));
 				} catch (\Exception $ex){
 					copy(getcwd().'/storage/app/importacoes/'.$nameFile, getcwd().'/dep_aplicacoes.xlsx');
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo dep_aplicacoes.xlsx!</span>']);
@@ -505,7 +505,7 @@ class ImportacoesCtrl extends Controller
 					$nameFile = 'cli_bacen'.date('dmY-His').'.xlsx';
 					copy(getcwd().'/outlook/cli_bacen.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
 					unlink(getcwd().'/outlook/cli_bacen.xlsx');
-					Excel::queueImport(new cli_bacen, getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('low');
+					(new cli_bacen)->queue(getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('low')->delay(now()->addMinutes(10));
 				} catch (\Exception $ex){
 					copy(getcwd().'/storage/app/importacoes/'.$nameFile, getcwd().'/cli_bacen.xlsx');
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cli_bacen.xlsx!</span>']);
@@ -517,7 +517,7 @@ class ImportacoesCtrl extends Controller
 					$nameFile = 'cre_avalistas'.date('dmY-His').'.xlsx';
 					copy(getcwd().'/outlook/cre_avalistas.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
 					unlink(getcwd().'/outlook/cre_avalistas.xlsx');
-					Excel::queueImport(new cre_avalistas, getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('low');
+					(new cre_avalistas)->queue(getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('low')->delay(now()->addMinutes(7));
 				} catch (\Exception $ex){
 					copy(getcwd().'/storage/app/importacoes/'.$nameFile, getcwd().'/cre_avalistas.xlsx');
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cre_avalistas.xlsx!</span>']);
@@ -529,7 +529,7 @@ class ImportacoesCtrl extends Controller
 					$nameFile = 'cre_garantias'.date('dmY-His').'.xlsx';
 					copy(getcwd().'/outlook/cre_garantias.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
 					unlink(getcwd().'/outlook/cre_garantias.xlsx');
-					Excel::queueImport(new cre_garantias, getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('low');
+					(new cre_garantias)->queue(getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('low')->delay(now()->addMinutes(7));
 				} catch (\Exception $ex){
 					copy(getcwd().'/storage/app/importacoes/'.$nameFile, getcwd().'/cre_garantias.xlsx');
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cre_garantias.xlsx!</span>']);

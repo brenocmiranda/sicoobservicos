@@ -20187,10 +20187,10 @@ input[name=upload_img]{
 	background-size: cover !important;
     position: fixed !important;
 	background-position: center !important;
-	filter: brightness(0.2);
-	-webkit-filter: brightness(0.2);
-	-moz-filter: brightness(0.2);
-	-o-filter: brightness(0.2);
+	filter: brightness(0.25);
+	-webkit-filter: brightness(0.25);
+	-moz-filter: brightness(0.25);
+	-o-filter: brightness(0.25);
 }
 
 .input-search {
