@@ -32,15 +32,10 @@
 											<p>
 												<b>Obaaa, temos novidades para você!</b>
 											</p>
-											<label>Seu chamado teve uma atualização no estado, sendo classificado como: <b>{{$chamado->RelationStatus->first()->nome}}.</b> Detalhes do chamado:</label>
+											<label>Seu chamado teve uma atualização no estado, sendo classificado como: <b>{{$chamado->RelationStatus->first()->nome}}.</b> Veja mais detalhes da sua nova atualização:</label>
 											<br>
 											<p style="text-align:justify">
-												<ul>
-													<li><b>Fonte:</b> {{$chamado->RelationFontes->nome}}</li>
-													<li><b>Tipo:</b> {{$chamado->RelationTipos->nome}}</li>
-													<li><b>Assunto:</b> {{$chamado->assunto}}</li>
-													<li><b>Descrição:</b> {{$chamado->descricao}}</li>
-												</ul>
+												<b>{{$chamado->RelationStatus->first()->pivot->descricao}}</b>
 											</p>
 											@endif
 											<p style="text-align:justify">

@@ -38,11 +38,11 @@ Solicitações de suporte
                         	@endforeach
                         </ul>
                     </nav>
-                    <div class="content-wrap">
+                    <div class="content-wrap col-12 px-0">
                     	<?php $i=0; ?>
                     	@foreach($statusAtivos as $status)
                         <section id="section-{{$status->id}}" class="{{($status->id == 1 ? 'content-current' : '')}}">
-                            <ul class="row col-12 m-auto">
+                            <ul class="row col-12 m-auto px-0">
 								@foreach($chamados->sortBy('created_at') as $chamado)
 									@if($chamado->RelationStatus->first()->id == $status->id)
 									<li class="col-12 border rounded shadow-sm mb-3">

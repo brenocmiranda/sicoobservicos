@@ -149,16 +149,6 @@ Detalhes do chamado
                   {{$status->created_at->format('d/m/Y H:i')}} -
                   {{$status->created_at->subMinutes(2)->diffForHumans()}}
                 </small>
-                @if($chamado->RelationStatus->last()->id != $status->id)
-                <a href="javascript::void(0)" id="{{$status->id}}" class="status-remove ml-auto">
-                  <i class="fa fa-close"></i>
-                  <small>Excluir</small>
-                </a>
-                @endif
-                <a href="javascript::void(0)" id="{{$status->id}}" class="status-editar {{($chamado->RelationStatus->last()->id == $status->id ? ' ml-auto' : '')}} pl-3">
-                  <i class="fa fa-pencil-square-o"></i>
-                  <small>Editar</small>
-                </a>
               </div>
               <hr>
             </li>

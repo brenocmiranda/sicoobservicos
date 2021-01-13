@@ -77,7 +77,7 @@ Ajustes
 			</div>
 		</div>
 		<hr>
-		<div class="col-12 text-center mt-5">
+		<div class="row col-12 mx-auto justify-content-center text-center mt-5">
 			<button type="submit" class="btn btn-success btn-lg col-lg-4 col-8">
 				<i class="mdi mdi-check mdi-18px pr-2"></i>
 				<span>Salvar alterações</span>
