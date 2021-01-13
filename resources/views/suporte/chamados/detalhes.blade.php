@@ -112,7 +112,7 @@ Detalhes do chamado
               </div>
               @else
               <div>
-                <a href="javascript:void()" id="{{$chamado->id}}" class="btn-reabrir btn btn-success btn-outline d-flex align-items-center justify-content-center mx-2">
+                <a href="javascript:void()" id="{{$chamado->id}}" class="btn-reabrir btn btn-success btn-outline d-flex align-items-center justify-content-center mx-2" data-toggle="modal" data-target="#modal-reabertura">
                   <i class="mdi mdi-check pr-2"></i> 
                   <span>Reabertura chamado</span>
                 </a>
@@ -163,6 +163,7 @@ Detalhes do chamado
 
 @section('modal')
   @include('suporte.chamados.finalizar')
+  @include('suporte.chamados.reabertura')
 @endsection
 
 @section('suporte')
@@ -179,35 +180,6 @@ Detalhes do chamado
         }
       });
     }, 5000);
-
-    $('.btn-reabrir').on('click', function(e){
-    // Removendo status do chamado
-    var id = this.id;
-    swal({
-      title: "Tem certeza que deseja reabrir o chamado?",
-      icon: "warning",
-      buttons: ["Cancelar", "Reabrir"],
-    })
-    .then((willDelete) => {
-      if (willDelete) {
-        $.get("{{route('reabertura.chamados', $chamado->id)}}", function(data){
-          if(data.success == true){
-            swal("Chamado reaberto com sucesso!", {
-              icon: "success",
-              button: false
-            });
-            location.reload();
-          }else{
-            swal("Não foi possível reabrir o chamado!", {
-              icon: "error",
-            });
-          }
-        });
-      } else {
-        swal.close();
-      }
-    });
-  });
 
    $('#modal-finalizar #formFinalizar').on('submit', function(e){
       // Finalizar chamado
@@ -239,6 +211,44 @@ Detalhes do chamado
               $('input').removeClass('border-bottom border-danger');
               $.each(data.responseJSON.errors, function(key, value){
                 $('#modal-finalizar #err').append('<div class="text-danger mx-4"><p>'+value+'</p></div>');
+                $('input[name="'+key+'"]').addClass('border-bottom border-danger');
+              });
+            }
+          }, 2000);
+        }
+      });
+    });
+
+    $('#modal-reabertura #formReabertura').on('submit', function(e){
+      // Finalizar chamado
+      e.preventDefault();
+      $.ajax({
+        url: "{{route('reabertura.chamados', $chamado->id)}}",
+        type: 'POST',
+        data: $('#modal-reabertura #formReabertura').serialize(),
+        beforeSend: function(){
+          $('.modal-body, .modal-footer').addClass('d-none');
+          $('.carregamento').html('<div class="mx-auto text-center my-5"> <div class="col-12"> <div class="spinner-border my-4" role="status"> <span class="sr-only"> Loading... </span> </div> </div> <label>Salvando informações...</label></div>');
+          $('#modal-reabertura #err').html('');
+        },
+        success: function(data){
+          $('.modal-body, .modal-footer').addClass('d-none');
+          $('.carregamento').html('<div class="mx-auto text-center my-5"><div class="col-12"><i class="col-2 mdi mdi-check-all mdi-48px"></i></div><label>Informações alteradas com sucesso!</label></div>');
+          setTimeout(function(){
+            location.reload();
+          }, 1000);
+        }, error: function (data) {
+          setTimeout(function(){
+            $('.modal-body, .modal-footer').removeClass('d-none');
+            $('.carregamento').html('');
+            if(!data.responseJSON){
+              console.log(data.responseText);
+              $('#modal-reabertura #err').html(data.responseText);
+            }else{
+              $('#modal-reabertura #err').html('');
+              $('input').removeClass('border-bottom border-danger');
+              $.each(data.responseJSON.errors, function(key, value){
+                $('#modal-reabertura #err').append('<div class="text-danger mx-4"><p>'+value+'</p></div>');
                 $('input[name="'+key+'"]').addClass('border-bottom border-danger');
               });
             }

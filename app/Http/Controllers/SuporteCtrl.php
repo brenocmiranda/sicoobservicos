@@ -134,13 +134,15 @@ class SuporteCtrl extends Controller
         return response()->json(['success' => true]);
     }
     // Reabertura chamado
-    public function ReaberturaChamados($id){
+    public function ReaberturaChamados(Request $request, $id){
         $abertura = Status::where('open', 1)->first();
         $status = ChamadosStatus::create([
             'gti_id_chamados' => $id,
             'gti_id_status' => $abertura->id,
-            'descricao' =>  "Chamado reaberto pelo colaborador: ".Auth::user()->RelationAssociado->nome."."
+            'descricao' =>  $request->descricao,
+            'usr_id_usuarios' => Auth::id()
         ]);
+
         $create = Chamados::find($id);
         Auth::user()->notify(new SolicitacaoChamadosReCliente($create));  
         $this->email->notify(new SolicitacaoChamadosReAdmin($create));

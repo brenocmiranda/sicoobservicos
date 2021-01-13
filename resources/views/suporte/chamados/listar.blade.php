@@ -86,7 +86,7 @@ Chamados
 													<small class="hidden-xs">Mais informações</small>
 												</a>	
 												@if($chamado->RelationStatus->first()->finish == 1)
-												<a href="javascript:void(0)" data="{{route('reabertura.chamados', $chamado->id)}}" class="btn-reabrir btn btn-default btn-outline btn-rounded col-10" title="Detalhes do chamado">
+												<a href="javascript:void(0)" id="{{$chamado->id}}" class="btn-reabrir btn btn-default btn-outline btn-rounded col-10 mb-2" title="Detalhes do chamado">
 													<i class="mdi mdi-comment-processing-outline"></i>
 													<small class="hidden-xs">Reabrir chamado</small>
 												</a>
@@ -122,38 +122,55 @@ Chamados
 </div>
 @endsection
 
+@section('modal')
+  @include('suporte.chamados.reabertura')
+@endsection
+
 @section('suporte')
 <script type="text/javascript">
 	$(document).ready( function (){
 		$('.btn-reabrir').on('click', function(e){
-		    // Removendo status do chamado
-		    var id = this.id;
-		    var url = $(this).attr('data');
-		    swal({
-		    	title: "Tem certeza que deseja reabrir o chamado?",
-		    	icon: "warning",
-		    	buttons: ["Cancelar", "Reabrir"],
-		    })
-		    .then((willDelete) => {
-		    	if (willDelete) {
-		    		$.get(url, function(data){
-		    			if(data.success == true){
-		    				swal("Chamado reaberto com sucesso!", {
-		    					icon: "success",
-		    					button: false
-		    				});
-		    				location.reload();
-		    			}else{
-		    				swal("Não foi possível reabrir o chamado!", {
-		    					icon: "error",
-		    				});
-		    			}
-		    		});
-		    	} else {
-		    		swal.close();
-		    	}
-		    });
+		    $('#modal-reabertura .identificador').val($(this).attr('id'));
+		    $('#modal-reabertura').modal('show');		    
 		});
+
+		$('#modal-reabertura #formReabertura').on('submit', function(e){
+	      // Finalizar chamado
+	      e.preventDefault();
+	      $.ajax({
+	        url: 'chamados/reabrir/'+$('#modal-reabertura .identificador').val(),
+	        type: 'POST',
+	        data: $('#modal-reabertura #formReabertura').serialize(),
+	        beforeSend: function(){
+	          $('.modal-body, .modal-footer').addClass('d-none');
+	          $('.carregamento').html('<div class="mx-auto text-center my-5"> <div class="col-12"> <div class="spinner-border my-4" role="status"> <span class="sr-only"> Loading... </span> </div> </div> <label>Salvando informações...</label></div>');
+	          $('#modal-reabertura #err').html('');
+	        },
+	        success: function(data){
+	          $('.modal-body, .modal-footer').addClass('d-none');
+	          $('.carregamento').html('<div class="mx-auto text-center my-5"><div class="col-12"><i class="col-2 mdi mdi-check-all mdi-48px"></i></div><label>Informações alteradas com sucesso!</label></div>');
+	          setTimeout(function(){
+	            location.reload();
+	          }, 1000);
+	        }, error: function (data) {
+	          setTimeout(function(){
+	            $('.modal-body, .modal-footer').removeClass('d-none');
+	            $('.carregamento').html('');
+	            if(!data.responseJSON){
+	              console.log(data.responseText);
+	              $('#modal-reabertura #err').html(data.responseText);
+	            }else{
+	              $('#modal-reabertura #err').html('');
+	              $('input').removeClass('border-bottom border-danger');
+	              $.each(data.responseJSON.errors, function(key, value){
+	                $('#modal-reabertura #err').append('<div class="text-danger mx-4"><p>'+value+'</p></div>');
+	                $('input[name="'+key+'"]').addClass('border-bottom border-danger');
+	              });
+	            }
+	          }, 2000);
+	        }
+	      });
+	    });
 	});
 </script>
 @endsection

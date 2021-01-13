@@ -251,7 +251,7 @@ Route::group(['prefix' => 'app'], function(){
 			Route::post('aberturaEnviar', 'SuporteCtrl@AberturaEnviarChamados')->name('abertura.chamados.enviar');
 			Route::post('finalizar/{id}', 'SuporteCtrl@FinalizarChamados')->name('finalizar.chamados');
 			Route::get('relatorio/{id}', 'SuporteCtrl@RelatorioChamados')->name('relatorio.chamados');
-			Route::get('reabrir/{id}', 'SuporteCtrl@ReaberturaChamados')->name('reabertura.chamados');
+			Route::post('reabrir/{id}', 'SuporteCtrl@ReaberturaChamados')->name('reabertura.chamados');
 			Route::get('detalhes/{id}', 'SuporteCtrl@DetalhesChamados')->name('detalhes.chamados');
 			Route::any('tipos/{idFonte}', 'SuporteCtrl@ListarTiposChamados')->name('tipos.chamados');
 			Route::any('base/{idTipo}/{idFonte}', 'SuporteCtrl@ListarBaseChamados')->name('base.chamados');
