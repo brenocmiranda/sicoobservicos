@@ -23,14 +23,14 @@ Digitalizar
 	<div class="row col-12 col-sm-12 col-lg-12 mx-auto py-5 justify-content-center text-left">
 		@if(Session::has('confirm'))
 		<p class="mx-auto col-sm-12 alert alert-{{ Session::get('confirm')['class'] }}">
-			{{ Session::get('confirm')['mensagem'] }}
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 				<span aria-hidden="true">&times;</span>
 			</button>
+			{{ Session::get('confirm')['mensagem'] }}
 		</p>
 		@endif
 
-		<form class="form-sample row col-12 mx-auto justify-content-center" method="POST" action="{{route('digitalizar.enviar')}}" enctype="multipart/form-data" autocomplete="off">
+		<form class="form-sample row col-12 mx-auto justify-content-center px-0" method="POST" action="{{route('digitalizar.enviar')}}" enctype="multipart/form-data" autocomplete="off">
         @csrf
 	        <div class="row col-lg-4 col-12 mx-auto p-0">
 				<div class="col-12">
@@ -79,8 +79,15 @@ Digitalizar
 					</div>
 					<a href="javascript:" id="btnAdicionar"> <i class="ti-plus pr-2"></i> Adicionar mais arquivos</a>
 				</div>
+				
 			</div>
 			<div class="row col-12 col-lg-12 mt-5 text-center mx-auto justify-content-center">
+				<div class="col-12 p-0">
+					<div class="checkbox checkbox-success text-white">
+                        <input id="checkbox-1" type="checkbox" checked required>
+                        <label for="checkbox-1"> Declaro que os documentos conferem com originais. </label>
+                    </div>
+				</div>
 				<button type="submit" class="btn btn-success mx-4 col-8 col-lg-2 d-flex align-items-center justify-content-center">
 		          	<i class="mdi mdi-send pr-2"></i> 
 		          	<span>Enviar</span>

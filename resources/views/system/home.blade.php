@@ -38,7 +38,6 @@ Página inicial
 		        	@else
 		        		<label>Opss! Nenhum novo tópico cadastrado.</label>
 		        	@endif
-	        		
 	        	</div>
 	        </div>
         </div>
