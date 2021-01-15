@@ -187,7 +187,11 @@ class PublicCtrl extends Controller
 
 					// Criando nome do arquivo do PDF
 					if($request->nomeArquivos[$key]){
-						$namePdf = $request->nomeArquivos[$key].'.pdf';
+						if(is_dir("//10.11.26.1/digitalizações ss$/".$request->usuario.'/'.$request->nomePasta.'/'.$request->nomeArquivos[$key].'.pdf')){
+							$namePdf = $request->nomeArquivos[$key].uniqid(date('HisYmd')).'.pdf';
+						}else{
+							$namePdf = $request->nomeArquivos[$key].'.pdf';
+						}
 					}else{
 						$namePdf = str_replace('.'.$arq->getClientOriginalExtension(), '', $nameFile).'.pdf';
 					}
