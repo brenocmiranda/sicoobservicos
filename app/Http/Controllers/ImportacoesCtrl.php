@@ -319,6 +319,13 @@ class ImportacoesCtrl extends Controller
 					return response()->json(['status' => false, 'error' => $ex]);
 				}
 			}
+			Atividades::create([
+				'nome' => 'Importação de arquivos',
+				'descricao' => 'Você efetuou a importação de arquivos manualmente.',
+				'icone' => 'mdi-upload',
+				'url' => route('importManual.importacoes'),
+				'id_usuario' => Auth::id()
+			]);
 		}else{
 			return response()->json(['status' => false]);
 		}

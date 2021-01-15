@@ -1,5 +1,5 @@
 @section('title')
-Ajustes
+Plataforma
 @endsection
 
 @extends('layouts.index')
@@ -8,17 +8,17 @@ Ajustes
 <div class="container-fluid">
 	<div class="row bg-title">
 		<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-			<h4 class="page-title">Ajustes</h4> 
+			<h4 class="page-title">Plataforma</h4> 
 		</div>
 		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
 			<ol class="breadcrumb">
 				<li><a href="{{route('configuracoes')}}">Configurações</a></li>
-				<li class="active">Ajustes</li>
+				<li class="active">Plataforma</li>
 			</ol>
 		</div>
 	</div>
 
-	<form class="form-sample" method="POST" action="{{ route('salvar.ajustes') }}" enctype="multipart/form-data" autocomplete="off">
+	<form class="form-sample" method="POST" action="{{ route('salvar.plataforma') }}" enctype="multipart/form-data" autocomplete="off">
 		@csrf
 
 		@if(Session::has('alteracao'))

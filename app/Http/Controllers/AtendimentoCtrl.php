@@ -64,6 +64,15 @@ class AtendimentoCtrl extends Controller
 			$crt_cartaocredito = CartaoCredito::select('updated_at', 'data_movimento')->orderBy('updated_at', 'DESC')->first();
 			$pop_poupanca = Poupancas::select('updated_at', 'data_movimento')->orderBy('updated_at', 'DESC')->first();
 			$dep_aplicacoes = Aplicacoes::select('updated_at', 'data_movimento')->orderBy('updated_at', 'DESC')->first();
+
+			Atividades::create([
+				'nome' => 'Acesso ao painel do associado',
+				'descricao' => 'Você pesquisou informações do associado: '.$associado->nome.'.',
+				'icone' => 'mdi-magnify',
+				'url' => route('exibir.painel.atendimento'),
+				'id_usuario' => Auth::id()
+			]);
+
 	  		return view('atendimento.painel.exibir')->with('associado', $associado)->with('conglomerado', $conglomerado)->with('atividades', $atividades)->with('cca_contacapital', $cca_contacapital)->with('cco_contacorrente', $cco_contacorrente)->with('crt_cartaocredito', $crt_cartaocredito)->with('cre_contratos', $cre_contratos)->with('pop_poupanca', $pop_poupanca)->with('dep_aplicacoes', $dep_aplicacoes)->with('cli_iap', $cli_iap)->with('cli_bacen', $cli_bacen)->with('cre_avalistas', $cre_avalistas)->with('cre_garantias', $cre_garantias);
 		}else{
 			\Session::flash('login', array(

@@ -734,11 +734,11 @@ class ConfiguracoesCtrl extends Controller
 	# Ajustes
 	#-------------------------------------------------------------------
 	// Listando página
-	public function ExibirAjustes(){
+	public function ExibirPlataforma(){
         if(Auth::user()->RelationFuncao->gerenciar_configuracoes == 1 || Auth::user()->RelationFuncao->ver_configuracoes == 1){
     		$login = Imagens::where('tipo', 'login_principal')->get();
     		$homepage = Imagens::where('tipo', 'homepage_principal')->get();
-    		return view('configuracoes.ajustes.geral')->with('login', $login)->with('homepage', $homepage);
+    		return view('configuracoes.plataforma.geral')->with('login', $login)->with('homepage', $homepage);
         }else{
             return redirect(route('403'));
         }
@@ -764,7 +764,7 @@ class ConfiguracoesCtrl extends Controller
                 'nome' => 'Alteração das conigurações da plataforma',
                 'descricao' => 'Você alterou as configurações de imagens de fundo da plataforma.',
                 'icone' => 'mdi-settings',
-                'url' => route('exibir.ajustes'),
+                'url' => route('exibir.plataforma'),
                 'id_usuario' => Auth::id()
             ]);
 
@@ -772,7 +772,7 @@ class ConfiguracoesCtrl extends Controller
 				'class' => 'success',
 				'mensagem' => 'Informações foram alteradas com sucesso.'
 			));
-            return redirect(route('exibir.ajustes'));
+            return redirect(route('exibir.plataforma'));
         }else{
             return redirect(route('403'));
         }

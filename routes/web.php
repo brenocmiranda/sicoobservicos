@@ -429,9 +429,9 @@ Route::group(['prefix' => 'app'], function(){
 			});
 		});
 		// Ajustes
-		Route::group(['prefix' => 'ajustes'], function(){
-			Route::get('', 'ConfiguracoesCtrl@ExibirAjustes')->name('exibir.ajustes');
-			Route::post('salvar', 'ConfiguracoesCtrl@SalvarAjustes')->name('salvar.ajustes');
+		Route::group(['prefix' => 'plataforma'], function(){
+			Route::get('', 'ConfiguracoesCtrl@ExibirPlataforma')->name('exibir.plataforma');
+			Route::post('salvar', 'ConfiguracoesCtrl@SalvarPlataforma')->name('salvar.plataforma');
 		});
 		// Importações
 		Route::group(['prefix' => 'importacoes'], function(){

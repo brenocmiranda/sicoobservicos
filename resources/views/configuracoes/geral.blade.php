@@ -284,6 +284,22 @@ Configurações
 					</a>
 				</div>
 			</div>
+			
+			<h5 class="mx-5">Plataforma</h5>
+			<hr class="mt-0 mx-5">
+			<div class="row col-12 justify-content-center mb-5 ml-3">
+				<div class="row col-12 rounded m-3">
+					<a href="{{ route('exibir.plataforma') }}" class="row mx-auto col-12 pr-0">
+						<div class="col-3 col-sm-1 col-lg-1 border rounded row align-items-center shadow-sm justify-content-center my-auto" style="height: 50px">
+							<i class="mdi mdi-eyedropper mdi-dark mdi-24px px-4"></i>
+						</div>
+						<div class="col-lg-11 col-sm-11 col-9 text-secondary mx-4 pr-0">
+							<h5 class="mb-1 text-primary"> Ajustes </h5>
+							<label> Altere as configurações da plataforma, como as imagens que estão disponíveis na tela de login e no fundo da homepage. </label>
+						</div>
+					</a>
+				</div>
+			</div>
 			@endif
 		</div>
 	</div>
