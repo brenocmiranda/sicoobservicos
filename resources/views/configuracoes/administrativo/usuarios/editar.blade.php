@@ -56,22 +56,22 @@
                 </div>
                 <div class="col-6">
                   <div class="form-group">
-                    <label class="col-form-label pb-0">Função <span class="text-danger">*</span></label>
-                    <select class="form-control form-control-line usr_id_funcao" name="usr_id_funcao" required>
+                    <label class="col-form-label pb-0">Setor <span class="text-danger">*</span></label>
+                    <select class="form-control form-control-line usr_id_setor" name="usr_id_setor" required>
                       <option value="">Selecione</option>
-                      @foreach($funcoes as $funcao)
-                      <option value="{{$funcao->id}}">{{$funcao->nome}}</option>
+                      @foreach($setores as $setor)
+                      <option value="{{$setor->id}}">{{$setor->nome}}</option>
                       @endforeach
                     </select>
                   </div>
                 </div>
                 <div class="col-6">
                   <div class="form-group">
-                    <label class="col-form-label pb-0">Setor <span class="text-danger">*</span></label>
-                    <select class="form-control form-control-line usr_id_setor" name="usr_id_setor" required>
+                    <label class="col-form-label pb-0">Função <span class="text-danger">*</span></label>
+                    <select class="form-control form-control-line usr_id_funcao" name="usr_id_funcao" required>
                       <option value="">Selecione</option>
-                      @foreach($setores as $setor)
-                      <option value="{{$setor->id}}">{{$setor->nome}}</option>
+                      @foreach($funcoes as $funcao)
+                      <option value="{{$funcao->id}}">{{$funcao->nome}}</option>
                       @endforeach
                     </select>
                   </div>

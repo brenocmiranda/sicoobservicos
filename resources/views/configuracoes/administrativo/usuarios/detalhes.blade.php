@@ -37,26 +37,15 @@
                 </div>
               </div>
               <div class="col-lg-8 col-12">
-                  <div class="form-group">
-                    <label class="col-form-label pb-0">E-mail</label>
-                    <input type="email" name="email" class="email form-control form-control-line" disabled>
-                  </div>
-                </div>
-                <div class="col-lg-4 col-12">
-                  <div class="form-group">
-                    <label class="col-form-label pb-0">Telefone</label>
-                    <input type="text" name="telefone" class="telefone form-control form-control-line" disabled>
-                  </div>
-                </div>
-              <div class="col-6">
                 <div class="form-group">
-                  <label class="col-form-label pb-0">Função</label>
-                  <select class="form-control form-control-line usr_id_funcao" disabled>
-                    <option value="">Selecione</option>
-                    @foreach($funcoes as $funcao)
-                    <option value="{{$funcao->id}}">{{$funcao->nome}}</option>
-                    @endforeach
-                  </select>
+                  <label class="col-form-label pb-0">E-mail</label>
+                  <input type="email" name="email" class="email form-control form-control-line" disabled>
+                </div>
+              </div>
+              <div class="col-lg-4 col-12">
+                <div class="form-group">
+                  <label class="col-form-label pb-0">Telefone</label>
+                  <input type="text" name="telefone" class="telefone form-control form-control-line" disabled>
                 </div>
               </div>
               <div class="col-6">
@@ -66,6 +55,17 @@
                     <option value="">Selecione</option>
                     @foreach($setores as $setor)
                     <option value="{{$setor->id}}">{{$setor->nome}}</option>
+                    @endforeach
+                  </select>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <label class="col-form-label pb-0">Função</label>
+                  <select class="form-control form-control-line usr_id_funcao" disabled>
+                    <option value="">Selecione</option>
+                    @foreach($funcoes as $funcao)
+                    <option value="{{$funcao->id}}">{{$funcao->nome}}</option>
                     @endforeach
                   </select>
                 </div>

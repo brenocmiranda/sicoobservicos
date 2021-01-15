@@ -214,15 +214,7 @@ Usuários
 					$('.modal-body, .modal-footer').addClass('d-none');
 					$('.carregamento').html('<div class="mx-auto text-center my-5"><div class="col-12"><i class="col-2 mdi mdi-check-all mdi-48px"></i></div><label>Informações alteradas com sucesso!</label></div>');
 					setTimeout(function(){
-						$('#modal-adicionar #formAdicionar').each (function(){
-							this.reset();
-						});
-						table.ajax.reload();
-						$('input').removeClass('border-bottom border-danger');
-						$('#err').html('');
-						$('.carregamento').html('');
-						$('.modal-body, .modal-footer').removeClass('d-none');
-						$('#modal-adicionar').modal('hide');
+						location.reload();
 					}, 2000);
 				}, error: function (data) {
 					setTimeout(function(){
@@ -261,15 +253,7 @@ Usuários
 					$('.modal-body, .modal-footer').addClass('d-none');
 					$('.carregamento').html('<div class="mx-auto text-center my-5"><div class="col-12"><i class="col-2 mdi mdi-check-all mdi-48px"></i></div><label>Informações alteradas com sucesso!</label></div>');
 					setTimeout(function(){
-						$('#modal-editar #formEditar').each (function(){
-							this.reset();
-						});
-						table.ajax.reload();
-						$('input').removeClass('border-bottom border-danger');
-						$('#err').html('');
-						$('.carregamento').html('');
-						$('.modal-body, .modal-footer').removeClass('d-none');
-						$('#modal-editar').modal('hide');
+						location.reload();
 					}, 2000);
 				}, error: function (data) {
 					setTimeout(function(){
