@@ -11,7 +11,7 @@ Homepage
 			<a href="{{route('inicio')}}" title="Início" class="text-white text-truncate my-auto font-weight-normal mx-3 pr-3">
             	<h5 class="text-white">Início</h5>
             </a>
-           	<a href="{{route('digitalizar')}}" target="_blank" title="Digitalizar" class="text-white text-truncate my-auto font-weight-normal mx-3">
+           	<a href="{{route('digitalizar')}}" title="Digitalizar" class="text-white text-truncate my-auto font-weight-normal mx-3">
             	<h5 class="text-white"><i class="mdi mdi-printer-3d mdi-24px"></i></h5>
             </a>
 			<div class="dropdown dropdown-home mx-3 px-3">
@@ -131,7 +131,7 @@ Homepage
 						<i class="mdi mdi-printer-3d mdi-24px"></i>
 					</h5>
 				</a>
-	        	<a href="{{route('login')}}" target="_blank" class="btn btn-success btn-lg px-5 my-auto">
+	        	<a href="{{route('login')}}" class="btn btn-success btn-lg px-5 my-auto">
 	        		<span>Entrar</span>
 	        	</a>
 	        @endif

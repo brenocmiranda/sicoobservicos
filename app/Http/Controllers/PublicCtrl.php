@@ -161,6 +161,7 @@ class PublicCtrl extends Controller
 					}
 					
 					// Alterando a orientação da imagem
+
 					$exif = exif_read_data($arq);
 	                if(!empty($exif['Orientation'])) {
 		                switch($exif['Orientation']) {
@@ -173,6 +174,9 @@ class PublicCtrl extends Controller
 		                case 6:
 		                    $newimage = imagerotate($image,-90,0);
 		                    break;
+		                case 1:
+		                   	$newimage = $image;
+		                    break;
 		                }
 	                }else{
 	                	$newimage = $image;
@@ -182,7 +186,12 @@ class PublicCtrl extends Controller
 					imagejpeg($newimage, storage_path().'/app/digitalizar/'.$nameFile, 30);
 
 					// Criando nome do arquivo do PDF
-					$namePdf = str_replace('.'.$arq->getClientOriginalExtension(), '', $nameFile).'.pdf';
+					if($request->nomeArquivos[$key]){
+						$namePdf = $request->nomeArquivos[$key].'.pdf';
+					}else{
+						$namePdf = str_replace('.'.$arq->getClientOriginalExtension(), '', $nameFile).'.pdf';
+					}
+					
 					// HTML para criação do PDF
 					$usuario = Usuarios::where('login', $request->usuario)->first();
 					$html = '<div><img src="'.asset('storage/app/digitalizar/'.$nameFile).'" style="max-width: 100%; max-height: 27cm;"><div style="font-size: 1.5px !important; text-align:right; color:white; width:100%; background-color: #292828; padding-right: 1px; padding-top: 0.5px; padding-bottom: 0.5px;">Confere com o original <br> '.$usuario->RelationAssociado->nome.'</div></div>';

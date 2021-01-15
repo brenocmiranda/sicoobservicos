@@ -47,7 +47,7 @@ Digitalizar
 				<div class="col-6">
 					<div class="form-group">
 						<label class="col-form-label text-white">Tipo <span class="text-danger">*</span></label>
-						<select class="form-control form-control-line px-3" name="pagina" style="border-radius: 10px" required>
+						<select class="form-control form-control-line px-3" name="pagina" id="pagina" style="border-radius: 10px" required>
 							<option value="1"> Único</option> 
 							<option value="2"> Juntar todos </option> 
 						</select>
@@ -72,12 +72,15 @@ Digitalizar
 					<div class="form-group">
 						<label class="col-form-label text-white">Selecione os arquivos <span class="text-danger">*</span></label>
 						<div class="row totalArquivos">
-							<div class="row mx-auto">
-								<input type="file" name="arquivos[]" class="mb-3 text-white col-lg-11 col-10" accept=".jpg, .jpeg, .png, .svg" required>
+							<div class="row col-12 justify-content-center mx-auto mb-2">
+								<input type="text" class="form-control col-8 px-3 h-100" name="nomeArquivos[]" onkeyup="this.value = this.value.toUpperCase();" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" required>
+								<label for="fupload1" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px"><i class="mdi mdi-file"></i></label>
+								<input type="file" name="arquivos[]" id="fupload1" class="mb-3 text-white col-lg-11 col-10 d-none" accept="image/*" required>
+								<a href="javascript:" title="Remover arquivos" class="btn btn-danger col-2" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-close"></i></a>
 							</div>
 						</div>
 					</div>
-					<a href="javascript:" id="btnAdicionar"> <i class="ti-plus pr-2"></i> Adicionar mais arquivos</a>
+					<a href="javascript:" id="btnAdicionar" class="text-white"> <i class="ti-plus pr-2"></i> Adicionar mais arquivos</a>
 				</div>
 				
 			</div>
@@ -104,8 +107,30 @@ Digitalizar
 	}
 
 	$(document).ready( function (){
+		var t = 1;
 		$('#btnAdicionar').on('click', function(){
-			$('.totalArquivos').append('<div class="row mx-auto"> <input type="file" name="arquivos[]" class="mb-3 text-white col-lg-11 col-10" accept=".jpg, .jpeg, .png, .svg" required> <a href="javascript:" title="Remover arquivos" onclick="remover(this);" class="col-1 text-danger"><i class="mdi mdi-delete"></i></a> </div>');
+			if($('#pagina').val() == 1){
+				t++;
+				$('.totalArquivos').append('<div class="row col-12 justify-content-center mx-auto mb-2"> <input type="text" class="form-control col-8 px-3 h-100" name="nomeArquivos[]" onkeyup="this.value = this.value.toUpperCase();" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" required> <label for="fupload'+t+'" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px"><i class="mdi mdi-file"></i></label> <input type="file" name="arquivos[]" id="fupload'+t+'" class="mb-3 text-white col-lg-11 col-10 d-none" accept=".jpg, .jpeg, .png, .svg" required> <a href="javascript:" title="Remover arquivos" class="btn btn-danger col-2" onclick="remover(this)" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-close"></i></a> </div>'); 
+			}else{
+				t++;
+				$('.totalArquivos').append('<div class="row col-12 justify-content-center mx-auto mb-2"> <input type="text" class="form-control col-8 px-3 h-100" name="nomeArquivos[]" onkeyup="this.value = this.value.toUpperCase();" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" disabled> <label for="fupload'+t+'" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px"><i class="mdi mdi-file"></i></label> <input type="file" name="arquivos[]" id="fupload'+t+'" class="mb-3 text-white col-lg-11 col-10 d-none" accept=".jpg, .jpeg, .png, .svg" required> <a href="javascript:" title="Remover arquivos" class="btn btn-danger col-2" onclick="remover(this)" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-close"></i></a> </div>'); 
+			}
+			
+		});
+
+		$('input[type=file]').on('change', function(){
+			$(this).prev().prev().val(this.value.replace("C:\\fakepath\\", "").split('.')[0]);
+			$(this).prev().html('<i class="mdi mdi-sync"></i>');
+			$(this).prev().addClass('bg-success');
+		});
+
+		$('#pagina').on('change', function(){
+			if(this.value == 2){
+				$('.totalArquivos input[type=text]').attr('disabled', 'disabled');
+			}else{
+				$('.totalArquivos input[type=text]').removeAttr('disabled');
+			}
 		});
 
 		$('form').on('submit', function(){
