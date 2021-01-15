@@ -76,7 +76,7 @@ Bens
 							</ul>
 						@else
 							<div class="row mx-auto">
-								<label class="alert alert-secondary col-12 rounded"><i class="mdi mdi-alert-outline mdi-24px pr-4"></i>Você não possui nenhum bem cadastrado.</label>
+								<label class="alert alert-secondary col-12 rounded mb-0"><i class="mdi mdi-alert-outline mdi-24px pr-4"></i>A sua instituição não possui nenhum bem cadastrado.</label>
 							</div>
 						@endif
 					</div>

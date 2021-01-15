@@ -56,7 +56,7 @@ Tópicos
 					</div>
 				@else
 					<div class="row mx-auto col-12 p-0">
-						<label class="alert alert-secondary col-12 rounded"><i class="mdi mdi-alert-outline mdi-24px pr-4"></i> Você não possui nenhum tópico cadastrado para essa fonte.</label>
+						<label class="alert alert-secondary col-12 rounded"><i class="mdi mdi-alert-outline mdi-24px pr-4"></i> A sua instituição não possui nenhum tópico cadastrado para essa fonte.</label>
 					</div>
 					<hr>
 					<div class="row mx-auto col-12">

@@ -60,7 +60,7 @@ Documentos
 					</ul>
 				@else
 					<div class="row mx-auto mt-5">
-						<label class="alert alert-secondary col-12 rounded"><i class="mdi mdi-alert-outline mdi-24px pr-4"></i> Não temos nenhum documento cadastrado até o momento.</label>
+						<label class="alert alert-secondary col-12 rounded"><i class="mdi mdi-alert-outline mdi-24px pr-4"></i> A sua instituição não possui nenhum documento cadastrado até o momento.</label>
 					</div>
 				@endif
 			</div>
