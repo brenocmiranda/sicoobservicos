@@ -162,7 +162,7 @@ class PublicCtrl extends Controller
 					
 					// Alterando a orientação da imagem
 
-					$exif = exif_read_data($arq);
+					$exif = @exif_read_data($arq);
 	                if(!empty($exif['Orientation'])) {
 		                switch($exif['Orientation']) {
 		                case 8:
@@ -236,7 +236,7 @@ class PublicCtrl extends Controller
 					}
 
 					// Alterando a orientação da imagem
-					$exif = exif_read_data($arq);
+					$exif = @exif_read_data($arq);
 	                if(!empty($exif['Orientation'])) {
 		                switch($exif['Orientation']) {
 		                case 8:
