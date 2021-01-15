@@ -70,7 +70,7 @@ Setores
 		// Criando a datatables
 		$('#table').DataTable({
 			deferRender: true,
-            order: [1, 'asc'],
+            order: [0, 'asc'],
             paginate: true,
             select: true,
             searching: true,
