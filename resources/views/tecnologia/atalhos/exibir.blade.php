@@ -8,7 +8,7 @@ Homepage
 	<div class="col-12 row mx-auto px-5 pt-4">
 		<div class="pt-3 row ml-auto dropdown pb-5 pb-lg-0">
 			@if(Auth::check())
-			<a href="{{route('inicio')}}" title="Início" class="text-white text-truncate my-auto font-weight-normal mx-3 pr-3">
+			<a href="{{route('inicio')}}" title="Início" target="_blank" class="text-white text-truncate my-auto font-weight-normal mx-3 pr-3">
             	<h5 class="text-white">Início</h5>
             </a>
            	<a href="{{route('digitalizar')}}" target="_blank" title="Digitalizar" class="text-white text-truncate my-auto font-weight-normal mx-3">
@@ -23,33 +23,33 @@ Homepage
 				<ul class="dropdown-menu dropdown-menu-right animated flipInY text-center row p-4" style="width: 330px;border-radius: 5px;">
 					@if(Auth::user()->RelationFuncao->ver_administrativo)
 		            <li class="col-4 p-0 float-left">
-		                <a href="{{route('dashboard.administrativo')}}" class="text-secondary px-2">
+		                <a href="{{route('dashboard.administrativo')}}" target="_blank" class="text-secondary px-2">
 		                	<i class="mdi mdi-city mdi-36px d-block"></i>
 		                	<label class="text-truncate">Administrativo</label>
 		                </a>
 		            </li>
 		            @endif
 					<li class="col-4 p-0 float-left">
-		                <a href="{{route('exibir.base')}}" class="text-secondary px-2">
+		                <a href="{{route('exibir.base')}}" target="_blank" class="text-secondary px-2">
 		                	<i class="mdi mdi-book-open-page-variant mdi-36px d-block"></i>
 		                	<label class="text-truncate">Aprendizagem</label>
 		                </a>
 		            </li>
 		            <li class="col-4 p-0 float-left">
-		                <a href="{{route('exibir.painel.atendimento')}}" class="text-secondary px-2">
+		                <a href="{{route('exibir.painel.atendimento')}}" target="_blank" class="text-secondary px-2">
 		                	<i class="mdi mdi-account-outline mdi-36px d-block"></i>
 		                	<label class="text-truncate">Atendimento</label>
 		                </a>
 		            </li>
 		            <li class="col-4 p-0 float-left">
-		                <a href="{{route('exibir.chamados')}}" class="text-secondary px-2">
+		                <a href="{{route('exibir.chamados')}}" target="_blank" class="text-secondary px-2">
 		                	<i class="mdi mdi-hangouts mdi-36px d-block"></i>
 		                	<label class="text-truncate">Chamados</label>
 		                </a>
 		            </li>	
 		            @if(Auth::user()->RelationFuncao->ver_configuracoes)
 		            <li class="col-4 p-0 float-left">
-		                <a href="{{route('configuracoes')}}" class="text-secondary px-2">
+		                <a href="{{route('configuracoes')}}" target="_blank" class="text-secondary px-2">
 		                	<i class="mdi mdi-settings mdi-36px d-block"></i>
 		                	<label class="text-truncate">Configurações</label>
 		                </a>
@@ -57,27 +57,27 @@ Homepage
 		            @endif
 		            @if(Auth::user()->RelationFuncao->ver_credito)
 		            <li class="col-4 p-0 float-left">
-		                <a href="{{route('dashboard.credito')}}" class="text-secondary px-2">
+		                <a href="{{route('dashboard.credito')}}" target="_blank" class="text-secondary px-2">
 		                	<i class="mdi mdi-currency-usd mdi-36px d-block"></i>
 		                	<label class="text-truncate">Crédito</label>
 		                </a>
 		            </li>
 		            @endif 
 		            <li class="col-4 p-0 float-left">
-		                <a href="{{route('exibir.documentos')}}" class="text-secondary px-2">
+		                <a href="{{route('exibir.documentos')}}" target="_blank" class="text-secondary px-2">
 		                	<i class="mdi mdi-file-outline mdi-36px d-block"></i>
 		                	<label class="text-truncate">Documentos</label>
 		                </a>
 		            </li>			
 		            <li class="col-4 p-0 float-left">
-		                <a href="{{route('exibir.solicitacoes.materiais')}}" class="text-secondary px-2">
+		                <a href="{{route('exibir.solicitacoes.materiais')}}" target="_blank" class="text-secondary px-2">
 		                	<i class="mdi mdi-cube-outline mdi-36px d-block"></i>
 		                	<label class="text-truncate">Materiais</label>
 		                </a>
 		            </li>
 		            @if(Auth::user()->RelationFuncao->ver_gti)
 		            <li class="col-4 p-0 float-left">
-		                <a href="{{route('dashboard.gti')}}" class="text-secondary px-2">
+		                <a href="{{route('dashboard.gti')}}" target="_blank" class="text-secondary px-2">
 		                	<i class="mdi mdi-dns mdi-36px d-block"></i>
 		                	<label class="text-truncate">Tecnologia</label>
 		                </a>
@@ -101,17 +101,17 @@ Homepage
 		            </li>
 		            <li role="separator" class="divider"></li>
 		            <li>
-		                <a href="{{route('perfil')}}">
+		                <a href="{{route('perfil')}}" target="_blank">
 		                    <i class="ti-user pr-2"></i> Meu perfil
 		                </a>
 		            </li>
 		            <li>
-		                <a href="#">
+		                <a href="{{route('atividades')}}" target="_blank" >
 		                <i class="ti-layers-alt pr-2"></i> Minhas atividades
 		                </a>
 		            </li>
 		            <li>
-		                <a href="#">
+		                <a href="#" target="_blank">
 		                <i class="ti-comment-alt pr-2"></i> Minhas notificações
 		                </a>
 		            </li>            
@@ -126,7 +126,7 @@ Homepage
 		        </ul>    
 		    </div>
 		    @else
-		    	<a href="{{route('digitalizar')}}" class="mx-3 pr-3">
+		    	<a href="{{route('digitalizar')}}" target="_blank" class="mx-3 pr-3">
 					<h5 class="text-white">
 						<i class="mdi mdi-printer-3d mdi-24px"></i>
 					</h5>

@@ -16,7 +16,7 @@
         <ul class="nav navbar-top-links navbar-left">
             <li><a href="javascript:void(0)" class="open-close waves-effect waves-light"><i class="ti-menu"></i></a></li>
             <li>
-                <a href="{{route('homepage')}}" title="Homepage">
+                <a href="{{route('homepage')}}" target="_blank" title="Homepage">
                     <i class="mdi mdi-home-outline"></i>
                 </a>
             </li>
