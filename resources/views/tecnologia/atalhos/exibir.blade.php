@@ -126,7 +126,7 @@ Homepage
 		        </ul>    
 		    </div>
 		    @else
-		    	<a href="{{route('digitalizar')}}" target="_blank" class="mx-3 pr-3">
+		    	<a href="{{route('digitalizar')}}" title="Digitalizar" target="_blank" class="mx-3 pr-3">
 					<h5 class="text-white">
 						<i class="mdi mdi-camera-front mdi-24px"></i>
 					</h5>
