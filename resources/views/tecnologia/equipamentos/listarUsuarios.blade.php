@@ -75,6 +75,9 @@ Invetário por usuário
 										<span id="descricao" class="font-weight-bold"></span>
 									</label>
 								</div>
+								<div class="col-12 text-right py-2">
+									<a href="#" id="editar"> Editar</a>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -147,6 +150,7 @@ Invetário por usuário
 				$('#localizacao').html(data.setor+" - "+data.unidade);
 				$('#descricao').html(data.descricao);
 				$('#equipamentos').fadeIn();
+				$('#editar').attr('href', 'editar/'+data.id);
 			});
 		});
 

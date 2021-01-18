@@ -1,5 +1,5 @@
 @section('title')
-Status
+Marcas
 @endsection
 
 @extends('layouts.index')
@@ -8,13 +8,13 @@ Status
 <div class="container-fluid">
 	<div class="row bg-title">
 		<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-			<h4 class="page-title">Status</h4> 
+			<h4 class="page-title">Marcas</h4> 
 		</div>
 		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
 			<ol class="breadcrumb">
 				<li><a href="{{route('dashboard.gti')}}">Tecnologia</a></li>
 				<li><a href="{{route('configuracoes')}}">Configurações</a></li>
-				<li class="active">Status</li>
+				<li class="active">Marcas</li>
 			</ol>
 		</div>
 	</div>
@@ -24,7 +24,7 @@ Status
 				<div class="col-lg-12 position-absolute">
 					@if(Auth::user()->RelationFuncao->gerenciar_gti == 1)
 					<div class="row mx-auto">
-						<button class="btn btn-primary btn-outline ml-auto" id="adicionar" name="adicionar" title="Adicionar novo status" data-toggle="modal" data-target="#modal-adicionar" style="z-index: 10">
+						<button class="btn btn-primary btn-outline ml-auto" id="adicionar" name="adicionar" title="Adicionar nova fonte" data-toggle="modal" data-target="#modal-adicionar" style="z-index: 10">
 							<i class="m-0 pr-lg-1 mdi mdi-plus"></i> 
 							<span class="hidden-xs">Cadastrar</span> 
 						</button>
@@ -35,9 +35,7 @@ Status
 			<div class="col-12 mb-3">
 				<table class="table table-striped text-center color-table muted-table rounded d-block d-lg-table" id="table" style="overflow-y: auto;">
 					<thead>
-						<th> # </th>
 						<th> Nome </th>
-						<th> Tempo </th>
 						<th> Status </th>
 						<th> Ações </th>
 					</thead>
@@ -49,16 +47,14 @@ Status
 @endsection
 
 @section('modal')
-	@include('tecnologia.configuracoes.chamados.status.adicionar')
-	@include('tecnologia.configuracoes.chamados.status.editar')
-	@include('tecnologia.configuracoes.chamados.status.detalhes')
+	@include('tecnologia.configuracoes.inventario.marcas.adicionar')
+	@include('tecnologia.configuracoes.inventario.marcas.editar')
+	@include('tecnologia.configuracoes.inventario.marcas.detalhes')
 @endsection
 
 @section('suporte')
 <script type="text/javascript">
 	$(document).ready( function (){
-		$('.tempo').mask('00:00', {reverse: true});
-
 		// Limpando as informações para adicionar
 		$('#adicionar').on('click', function(){
 			$('#modal-adicionar form').each (function(){
@@ -73,17 +69,15 @@ Status
 		// Criando a datatables
 		$('#table').DataTable({
 			deferRender: true,
-			order: [1, 'asc'],
+			order: [0, 'asc'],
 			paginate: true,
 			select: true,
 			searching: true,
 			destroy: true,
-			ajax: "{{ route('listar.status.chamados') }}",
+			ajax: "{{ route('listar.marcas.inventario') }}",
 			serverSide: true,
 			"columns": [ 
-			{ "data": "color1","name":"color1"},
 			{ "data": "nome1", "name":"nome1"},
-			{ "data": "tempo1", "name":"tempo1"},
 			{ "data": "status1", "name":"status1"},
 			{ "data": "acoes","name":"acoes"},
 			],
@@ -105,18 +99,7 @@ Status
 			$(this).parent('tr').addClass('selected');
 			var data = table.row('tr.selected').data();
 			$('.modal .nome').val(data.nome);
-			$('.modal .color').val(data.color);
-			$('.modal .tempo').val(data.tempo.substr(0,5));
-			if(data.open == 1){
-				$('.modal .open').attr('checked', 'checked');
-			}else{
-				$('.modal .open').removeAttr('checked');
-			}
-			if(data.finish == 1){
-				$('.modal .finish').attr('checked', 'checked');
-			}else{
-				$('.modal .finish').removeAttr('checked');
-			}
+			$('.modal .descricao').html(data.descricao);
 			if(data.status == 1){
 				$(".modal .status").prop('checked', false).trigger("click");
 			}else{
@@ -132,18 +115,7 @@ Status
 			$(this).parent('tr').addClass('selected');
 			var data = table.row('tr.selected').data();
 			$('.modal .nome').val(data.nome);
-			$('.modal .color').val(data.color);
-			$('.modal .tempo').val(data.tempo.substr(0,5));
-			if(data.open == 1){
-				$('.modal .open').attr('checked', 'checked');
-			}else{
-				$('.modal .open').removeAttr('checked');
-			}
-			if(data.finish == 1){
-				$('.modal .finish').attr('checked', 'checked');
-			}else{
-				$('.modal .finish').removeAttr('checked');
-			}
+			$('.modal .descricao').html(data.descricao);
 			if(data.status == 1){
 				$('#modal-detalhes .status').removeAttr('disabled');
 				$(".modal .status").prop('checked', false).trigger("click");
@@ -159,6 +131,7 @@ Status
 		// -------------------------------------------------
 		// Requisições
 		// -------------------------------------------------
+
 		$('#table tbody').on('click', 'button#alterar', function () {
 			// Alterando o estado
 			var table = $('#table').DataTable();
@@ -166,7 +139,7 @@ Status
 			$(this).parents('tr').addClass('selected');
 			$(this).parent('tr').addClass('selected');
 			var data = table.row('tr.selected').data();
-			var url = "{{url('app/gti/chamados/status/alterar')}}/"+data.id;
+			var url = "{{url('app/gti/configuracoes/marcas/alterar')}}/"+data.id;
 			swal({
 				title: "Tem certeza que deseja alterar o estado?",
 				icon: "warning",
@@ -197,7 +170,7 @@ Status
 			var data = table.row('tr.selected').data();
 			e.preventDefault();
 			$.ajax({
-				url: '{{ route("adicionar.status.chamados") }}',
+				url: '{{ route("adicionar.marcas.inventario") }}',
 				type: 'POST',
 				data: $('#modal-adicionar #formAdicionar').serialize(),
 				beforeSend: function(){
@@ -243,7 +216,7 @@ Status
 			var data = table.row('tr.selected').data();
 			e.preventDefault();
 			$.ajax({
-				url: 'status/editar/'+data.id,
+				url: 'marcas/editar/'+data.id,
 				type: 'POST',
 				data: $('#modal-editar #formEditar').serialize(),
 				beforeSend: function(){

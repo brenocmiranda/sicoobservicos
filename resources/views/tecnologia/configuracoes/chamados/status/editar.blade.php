@@ -35,7 +35,7 @@
                   <div class="form-group">
                     <label class="col-form-label pb-0">Nome <span class="text-danger">*</span></label>
                     <div class="">
-                      <input class="nome form-control form-control-line" name="nome" placeholder="Administrador" required/>
+                      <input class="nome form-control form-control-line" name="nome" placeholder="Em aberto" required/>
                     </div>
                   </div>
                 </div>

@@ -87,6 +87,7 @@ Invetário geral
 			$('.modal .nome').html(data.nome);
 			$('.modal .marca').html(data.marca);
 			$('.modal .modelo').html(data.modelo);
+			$('.modal .serviceTag').html(data.serviceTag);
 			$('.modal .n_patrimonio').html(data.n_patrimonio);
 			$('.modal .serialNumber').html(data.serialNumber);
 			$('.modal .id_setor').html(data.setor);

@@ -35,75 +35,84 @@ Adicionar equipamento
 				<div class="card">
 					<div class="card-body">
 						<div class="row mx-auto">
-							<div class="col-lg-10 col-12">
+							<div class="col-lg-6 col-12">
 								<div class="form-group">
-									<label class="col-form-label pb-0">Nome <span class="text-danger">*</span></label>
+									<label class="col-form-label pb-0">Equipamento <span class="text-danger">*</span></label>
+									<select class="form-control form-control-line" name="id_equipamento" required>
+										<option value="">Selecione</option>
+										@foreach($equipamentos as $equipamento)
+										<option value="{{$equipamento->id}}">{{$equipamento->nome}}</option>
+										@endforeach
+									</select>
+								</div>
+							</div>
+							<div class="col-lg-6 col-12">
+								<div class="form-group">
+									<label class="col-form-label pb-0">Marca <span class="text-danger">*</span></label>
+									<select class="form-control form-control-line" name="id_marca" required>
+										<option value="">Selecione</option>
+										@foreach($marcas as $marca)
+										<option value="{{$marca->id}}">{{$marca->nome}}</option>
+										@endforeach
+									</select>
+								</div>
+							</div>
+							<div class="col-lg-6 col-12">
+								<div class="form-group">
+									<label class="col-form-label pb-0">Modelo <span class="text-danger">*</span></label>
 									<div class="">
-										<input class="form-control form-control-line" name="nome" placeholder="Monitor 15.7" onkeyup="this.value = this.value.toUpperCase();" required/>
+										<input class="form-control form-control-line" name="modelo" onkeyup="this.value = this.value.toUpperCase();" required/>
 									</div>
 								</div>
 							</div>
-							<div class="row col-12">
-								<div class="col-lg-6 col-12">
-									<div class="form-group">
-										<label class="col-form-label pb-0">Marca <span class="text-danger">*</span></label>
-										<div class="">
-											<input class="form-control form-control-line" name="marca" onkeyup="this.value = this.value.toUpperCase();" required/>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-6 col-12">
-									<div class="form-group">
-										<label class="col-form-label pb-0">Modelo <span class="text-danger">*</span></label>
-										<div class="">
-											<input class="form-control form-control-line" name="modelo" onkeyup="this.value = this.value.toUpperCase();" required/>
-										</div>
+							<div class="col-lg-6 col-12">
+								<div class="form-group">
+									<label class="col-form-label pb-0">Nº série <span class="text-danger">*</span></label>
+									<div class="">
+										<input class="form-control form-control-line" name="serialNumber" onkeyup="this.value = this.value.toUpperCase();" required/>
 									</div>
 								</div>
 							</div>
-							<div class="row col-12">
-								<div class="col-lg-6 col-12">
-									<div class="form-group">
-										<label class="col-form-label pb-0">Nº patrimônio</label>
-										<div class="">
-											<input class="form-control form-control-line" name="n_patrimonio" onkeyup="this.value = this.value.toUpperCase();"/>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-6 col-12">
-									<div class="form-group">
-										<label class="col-form-label pb-0">Nº série <span class="text-danger">*</span></label>
-										<div class="">
-											<input class="form-control form-control-line" name="serialNumber" onkeyup="this.value = this.value.toUpperCase();" required/>
-										</div>
+							<div class="col-lg-6 col-12">
+								<div class="form-group">
+									<label class="col-form-label pb-0">Nº patrimônio</label>
+									<div class="">
+										<input class="form-control form-control-line" name="n_patrimonio" onkeyup="this.value = this.value.toUpperCase();"/>
 									</div>
 								</div>
 							</div>
-							<div class="row col-12">
-								<div class="col-lg-6 col-12">
-									<div class="form-group">
-										<label class="col-form-label pb-0">Setor <span class="text-danger">*</span></label>
-										<select class="form-control form-control-line" name="id_setor" required>
-											<option value="">Selecione</option>
-											@foreach($setores as $setor)
-											<option value="{{$setor->id}}">{{$setor->nome}}</option>
-											@endforeach
-										</select>
-									</div>
-								</div>
-								<div class="col-lg-6 col-12">
-									<div class="form-group">
-										<label class="col-form-label pb-0">PA <span class="text-danger">*</span></label>
-										<select class="form-control form-control-line" name="id_unidade" required>
-											<option value="">Selecione</option>
-											@foreach($unidades as $unidade)
-											<option value="{{$unidade->id}}">{{$unidade->nome}}</option>
-											@endforeach
-										</select>
+							<div class="col-lg-6 col-12">
+								<div class="form-group">
+									<label class="col-form-label pb-0">Service TAG</label>
+									<div class="">
+										<input class="form-control form-control-line" name="serviceTag" onkeyup="this.value = this.value.toUpperCase();" required/>
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-8 col-12">
+							<div class="col-lg-6 col-12">
+								<div class="form-group">
+									<label class="col-form-label pb-0">Setor <span class="text-danger">*</span></label>
+									<select class="form-control form-control-line" name="id_setor" required>
+										<option value="">Selecione</option>
+										@foreach($setores as $setor)
+										<option value="{{$setor->id}}">{{$setor->nome}}</option>
+										@endforeach
+									</select>
+								</div>
+							</div>
+							<div class="col-lg-6 col-12">
+								<div class="form-group">
+									<label class="col-form-label pb-0">PA <span class="text-danger">*</span></label>
+									<select class="form-control form-control-line" name="id_unidade" required>
+										<option value="">Selecione</option>
+										@foreach($unidades as $unidade)
+										<option value="{{$unidade->id}}">{{$unidade->nome}}</option>
+										@endforeach
+									</select>
+								</div>
+							</div>
+						
+							<div class="col-lg-9 col-12">
 								<div class="form-group">
 									<label class="col-form-label pb-0">Usuário responsável</label>
 									<div class="">
@@ -131,7 +140,7 @@ Adicionar equipamento
 									<div class="row col-12 mt-3 mx-0 p-0">
 										<div class="border mx-2 rounded col-lg-2 col-6 row p-0 mb-4" style="height: 8em;">
 											<img class="w-100 h-100 p-3" id="PreviewImage" src="{{ asset('public/img/image.png').'?'.rand() }}">
-											<input type="file" class="px-0 col-12 position-absolute mx-auto h-100 pointer" style="opacity: 0; top: 0%; left: 0%" accept=".png, .jpg, .jpeg" name="imagem_principal" accept="image/*" title="Selecione a imagem principal" onchange="image(this)">
+											<input type="file" class="px-0 col-12 position-absolute mx-auto h-100 pointer" style="opacity: 0; top: 0%; left: 0%" accept=".png, .jpg, .jpeg" name="imagem_principal" accept="image/*" title="Selecione a imagem principal" onchange="image(this)" required>
 										</div>
 									</div> 
 								</div>
@@ -173,7 +182,7 @@ Adicionar equipamento
 							<img src="{{ asset('public/img/image.png').'?'.rand() }}" width="120" height="110" class="border p-3 rounded" id="ImagePrincipal">
 						</div>
 						<div class="d-block">
-							<h5 class="d-block mb-0" id="nome"></h5>
+							<h5 class="d-block mb-0" id="equipamento"></h5>
 							<label class="d-block mb-0 mt-2">
 								<span id="modelo"></span>
 								&#183 
@@ -208,11 +217,11 @@ Adicionar equipamento
 
 	$(document).ready( function (){
 		// Atualizando detalhes do ativo
-		$('form input[name="nome"]').on('keyup', function(){
-			$('#nome').html($('input[name="nome"]').val());
+		$('form select[name="id_equipamento"]').on('keyup', function(){
+			$('#equipamento').html($('select[name="id_equipamento"] option:selected').text());
 		});
-		$('form input[name="marca"]').on('keyup', function(){
-			$('#marca').html($('input[name="marca"]').val());
+		$('form select[name="id_marca"]').on('keyup', function(){
+			$('#marca').html($('select[name="id_marca"] option:selected').text());
 		});
 		$('form input[name="modelo"]').on('keyup', function(){
 			$('#modelo').html($('input[name="modelo"]').val());

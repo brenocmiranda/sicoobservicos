@@ -71,7 +71,7 @@ Tipos
 		// Criando a datatables
 		$('#table').DataTable({
 			deferRender: true,
-			order: [1, 'asc'],
+			order: [0, 'asc'],
 			paginate: true,
 			select: true,
 			searching: true,
@@ -143,7 +143,7 @@ Tipos
 			$(this).parents('tr').addClass('selected');
 			$(this).parent('tr').addClass('selected');
 			var data = table.row('tr.selected').data();
-			var url = "{{url('app/gestao/chamados/tipos/alterar')}}/"+data.id;
+			var url = "{{url('app/gti/chamados/tipos/alterar')}}/"+data.id;
 			swal({
 				title: "Tem certeza que deseja alterar o estado?",
 				icon: "warning",

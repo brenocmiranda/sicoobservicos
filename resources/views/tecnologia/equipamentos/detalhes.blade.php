@@ -51,6 +51,12 @@
                       </div>
                     </div>
                   </div>
+                  <div class="col-lg-6 col-12">
+                    <label class="col-form-label">Service Tag</label>
+                    <div class="">
+                      <label class="serviceTag"></label>
+                    </div>
+                  </div>
                   <label class="col-form-label">Localização</label>
                   <div class="">
                     <label class="id_setor"></label>

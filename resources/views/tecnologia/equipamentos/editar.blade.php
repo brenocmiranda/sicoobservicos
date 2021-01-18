@@ -28,90 +28,98 @@ Editar equipamento
     @endif
   </div>
   
-  <form class="form-sample" action="{{route('salvar.editar.equipamentos', $equipamentos->id)}}" method="POST" enctype="multipart/form-data" autocomplete="off">
+  <form class="form-sample" action="{{route('salvar.editar.equipamentos', $ativo->id)}}" method="POST" enctype="multipart/form-data" autocomplete="off">
     @csrf
     <div class="row">
       <div class="col-lg-8 col-12 mb-4 mb-lg-0">
         <div class="card">
           <div class="card-body">
             <div class="row mx-auto">
-              <div class="col-lg-10 col-12">
+              <div class="col-lg-6 col-12">
                 <div class="form-group">
-                  <label class="col-form-label pb-0">Nome <span class="text-danger">*</span></label>
+                  <label class="col-form-label pb-0">Equipamento <span class="text-danger">*</span></label>
+                  <select class="form-control form-control-line" name="id_equipamento" required>
+                    <option value="">Selecione</option>
+                    @foreach($equipamentos as $equipamento)
+                    <option value="{{$equipamento->id}}">{{$equipamento->nome}}</option>
+                    @endforeach
+                  </select>
+                </div>
+              </div>
+              <div class="col-lg-6 col-12">
+                <div class="form-group">
+                  <label class="col-form-label pb-0">Marcas <span class="text-danger">*</span></label>
+                  <select class="form-control form-control-line" name="id_marca" required>
+                    <option value="">Selecione</option>
+                    @foreach($marcas as $marca)
+                    <option value="{{$marca->id}}">{{$marca->nome}}</option>
+                    @endforeach
+                  </select>
+                </div>
+              </div>
+              <div class="col-lg-6 col-12">
+                <div class="form-group">
+                  <label class="col-form-label pb-0">Modelo <span class="text-danger">*</span></label>
                   <div class="">
-                    <input class="form-control form-control-line" name="nome" placeholder="Monitor 15.7" onkeyup="this.value = this.value.toUpperCase();" value="{{$equipamentos->nome}}" required/>
+                    <input class="form-control form-control-line" name="modelo" onkeyup="this.value = this.value.toUpperCase();" value="{{$ativo->modelo}}" required/>
                   </div>
                 </div>
               </div>
-              <div class="row col-12">
-                <div class="col-lg-6 col-12">
-                  <div class="form-group">
-                    <label class="col-form-label pb-0">Marca <span class="text-danger">*</span></label>
-                    <div class="">
-                      <input class="form-control form-control-line" name="marca" onkeyup="this.value = this.value.toUpperCase();" value="{{$equipamentos->marca}}" required/>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-6 col-12">
-                  <div class="form-group">
-                    <label class="col-form-label pb-0">Modelo <span class="text-danger">*</span></label>
-                    <div class="">
-                      <input class="form-control form-control-line" name="modelo" onkeyup="this.value = this.value.toUpperCase();" value="{{$equipamentos->modelo}}" required/>
-                    </div>
+              <div class="col-lg-6 col-12">
+                <div class="form-group">
+                  <label class="col-form-label pb-0">Nº patrimônio</label>
+                  <div class="">
+                    <input class="form-control form-control-line" name="n_patrimonio" onkeyup="this.value = this.value.toUpperCase();" value="{{$ativo->n_patrimonio}}"/>
                   </div>
                 </div>
               </div>
-
-              <div class="row col-12">
-                <div class="col-lg-6 col-12">
-                  <div class="form-group">
-                    <label class="col-form-label pb-0">Nº patrimônio</label>
-                    <div class="">
-                      <input class="form-control form-control-line" name="n_patrimonio" onkeyup="this.value = this.value.toUpperCase();" value="{{$equipamentos->n_patrimonio}}"/>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-6 col-12">
-                  <div class="form-group">
-                    <label class="col-form-label pb-0">Nº série <span class="text-danger">*</span></label>
-                    <div class="">
-                      <input class="form-control form-control-line" name="serialNumber" onkeyup="this.value = this.value.toUpperCase();" value="{{$equipamentos->serialNumber}}" required/>
-                    </div>
+              <div class="col-lg-6 col-12">
+                <div class="form-group">
+                  <label class="col-form-label pb-0">Service TAG <span class="text-danger">*</span></label>
+                  <div class="">
+                    <input class="form-control form-control-line" name="serviceTag" onkeyup="this.value = this.value.toUpperCase();" required/>
                   </div>
                 </div>
               </div>
-              <div class="row col-12">
-                <div class="col-lg-6 col-12">
-                  <div class="form-group">
-                    <label class="col-form-label pb-0">Setor <span class="text-danger">*</span></label>
-                    <select class="form-control form-control-line" name="id_setor" required>
-                      <option value="">Selecione</option>
-                      @foreach($setores as $setor)
-                      <option value="{{$setor->id}}" {{($setor->id == $equipamentos->id_setor ? 'selected' : '')}}>{{$setor->nome}}</option>
-                      @endforeach
-                    </select>
-                  </div>
-                </div>
-                <div class="col-lg-6 col-12">
-                  <div class="form-group">
-                    <label class="col-form-label pb-0">PA <span class="text-danger">*</span></label>
-                    <select class="form-control form-control-line" name="id_unidade" required>
-                      <option value="">Selecione</option>
-                      @foreach($unidades as $unidade)
-                      <option value="{{$unidade->id}}" {{($unidade->id == $equipamentos->id_unidade ? 'selected' : '')}}>{{$unidade->nome}}</option>
-                      @endforeach
-                    </select>
+              <div class="col-lg-6 col-12">
+                <div class="form-group">
+                  <label class="col-form-label pb-0">Nº série <span class="text-danger">*</span></label>
+                  <div class="">
+                    <input class="form-control form-control-line" name="serialNumber" onkeyup="this.value = this.value.toUpperCase();" value="{{$ativo->serialNumber}}" required/>
                   </div>
                 </div>
               </div>
-              <div class="col-lg-8 col-12">
+              <div class="col-lg-6 col-12">
+                <div class="form-group">
+                  <label class="col-form-label pb-0">Setor <span class="text-danger">*</span></label>
+                  <select class="form-control form-control-line" name="id_setor" required>
+                    <option value="">Selecione</option>
+                    @foreach($setores as $setor)
+                    <option value="{{$setor->id}}" {{($setor->id == $ativo->id_setor ? 'selected' : '')}}>{{$setor->nome}}</option>
+                    @endforeach
+                  </select>
+                </div>
+              </div>
+              <div class="col-lg-6 col-12">
+                <div class="form-group">
+                  <label class="col-form-label pb-0">PA <span class="text-danger">*</span></label>
+                  <select class="form-control form-control-line" name="id_unidade" required>
+                    <option value="">Selecione</option>
+                    @foreach($unidades as $unidade)
+                    <option value="{{$unidade->id}}" {{($unidade->id == $ativo->id_unidade ? 'selected' : '')}}>{{$unidade->nome}}</option>
+                    @endforeach
+                  </select>
+                </div>
+              </div>
+  
+              <div class="col-lg-9 col-12">
                 <div class="form-group">
                   <label class="col-form-label pb-0">Usuário responsável</label>
                   <div class="">
                     <select class="form-control form-control-line" name="usuario" required>
                       <option value="">Selecione</option>
                       @foreach($usuarios as $usuario)
-                      <option value="{{$usuario->id}}" {{($usuario->id == $equipamentos->RelationUsuario->last()->id ? 'selected' : '')}}>{{$usuario->RelationAssociado->nome}}</option>
+                      <option value="{{$usuario->id}}" {{($usuario->id == $ativo->RelationUsuario->last()->id ? 'selected' : '')}}>{{$usuario->RelationAssociado->nome}}</option>
                       @endforeach
                     </select>
                   </div>
@@ -121,7 +129,7 @@ Editar equipamento
                 <div class="form-group">
                   <label class="col-form-label pb-0">Descrição</label>
                   <div class="">
-                    <textarea class="form-control form-control-line descricao" name="descricao" onkeyup="this.value = this.value.toUpperCase();" rows="3" placeholder="Digite suas observações">{{$equipamentos->descricao}}</textarea>
+                    <textarea class="form-control form-control-line descricao" name="descricao" onkeyup="this.value = this.value.toUpperCase();" rows="3" placeholder="Digite suas observações">{{$ativo->descricao}}</textarea>
                   </div>
                 </div>
               </div>
@@ -131,7 +139,7 @@ Editar equipamento
                   <small>Formatos de imagem aceitos: <b>.png</b>, <b>.jpg</b> ou <b>.svg</b></small>
                   <div class="row col-12 mt-3 mx-0 p-0">
                     <div class="border mx-2 rounded col-lg-2 col-6 row p-0 mb-4" style="height: 8em;">
-                      <img class="w-100 h-100 p-3" id="PreviewImage" src="{{(isset($equipamentos->RelationImagemPrincipal) ? asset('storage/app/'.$equipamentos->RelationImagemPrincipal->endereco) : asset('public/img/image.png'))}}">
+                      <img class="w-100 h-100 p-3" id="PreviewImage" src="{{(isset($ativo->RelationImagemPrincipal) ? asset('storage/app/'.$ativo->RelationImagemPrincipal->endereco) : asset('public/img/image.png'))}}">
                       <input type="file" class="px-0 col-12 position-absolute mx-auto h-100 pointer" style="opacity: 0; top: 0%; left: 0%" accept=".png, .jpg, .jpeg" name="imagem_principal" accept="image/*" title="Selecione a imagem principal" onchange="image(this)">
                     </div>
                   </div> 
@@ -146,7 +154,7 @@ Editar equipamento
                       <i class="mdi mdi-plus mdi-36px m-auto"></i>
                       <input type="file" class="px-0 col-12 position-absolute mx-auto h-100 pointer" style="opacity: 0; top: 0%; left: 0%" accept=".png, .jpg, .jpeg" id="addFotoGaleria" accept="image/*" title="Selecione as imagens do problema" multiple>
                     </div>
-                    @foreach($equipamentos->RelationImagem as $imagens)
+                    @foreach($ativo->RelationImagem as $imagens)
                     <div class="border mx-2 mb-4 rounded col-lg-2 col-4 d-flex p-0" id="PreviewImage{{$imagens->id}}"> 
                       <input type="hidden" name="imagens[]" value="{{$imagens->id}}"> 
                       <img class="p-3 w-100" src="{{asset('storage/app/').'/'.$imagens->endereco}}" style="height: 7em;">
@@ -178,20 +186,20 @@ Editar equipamento
           </div>
           <div class="card-body">
             <div class="">
-              <img src="{{(isset($equipamentos->RelationImagemPrincipal) ? asset('storage/app/'.$equipamentos->RelationImagemPrincipal->endereco) : asset('public/img/image.png'))}}" width="120" height="110" class="border p-1 rounded" id="ImagePrincipal">
+              <img src="{{(isset($ativo->RelationImagemPrincipal) ? asset('storage/app/'.$ativo->RelationImagemPrincipal->endereco) : asset('public/img/image.png'))}}" width="120" height="110" class="border p-1 rounded" id="ImagePrincipal">
             </div>
             <div class="d-block">
-              <h5 class="d-block mb-0" id="nome">{{$equipamentos->nome}}</h5>
+              <h5 class="d-block mb-0" id="equipamento">{{$ativo->nome}}</h5>
               <label class="d-block mb-0 mt-2">
-                <span id="modelo">{{$equipamentos->modelo}}</span>
+                <span id="modelo">{{$ativo->modelo}}</span>
                 &#183 
-                <span id="marca">{{$equipamentos->marca}}</span>
+                <span id="marca">{{$ativo->marca}}</span>
               </label>
-              <small class="d-block mt-2" id="n_patrimonio">{{$equipamentos->n_patrimonio}}</small>
+              <small class="d-block mt-2" id="n_patrimonio">{{$ativo->n_patrimonio}}</small>
               <hr class="mx-5">
-              <label class="d-block mt-3 mb-0" id="usuario">{{$equipamentos->RelationUsuario->last()->RelationAssociado->nome}}</label>
-              <label class="mt-2 d-block" id="id_setor">{{$equipamentos->RelationSetor->nome}}</label>
-              <label class="badge badge-info" id="id_unidade">{{$equipamentos->RelationUnidade->nome}}</label>
+              <label class="d-block mt-3 mb-0" id="usuario">{{$ativo->RelationUsuario->last()->RelationAssociado->nome}}</label>
+              <label class="mt-2 d-block" id="id_setor">{{$ativo->RelationSetor->nome}}</label>
+              <label class="badge badge-info" id="id_unidade">{{$ativo->RelationUnidade->nome}}</label>
             </div>
           </div>
         </div>
@@ -210,11 +218,11 @@ Editar equipamento
 
   $(document).ready( function (){
     // Atualizando detalhes do ativo
-    $('form input[name="nome"]').on('keyup', function(){
-      $('#nome').html($('input[name="nome"]').val());
+    $('form select[name="id_equipamento"]').on('keyup', function(){
+      $('#equipamento').html($('select[name="id_equipamento"] option:selected').text());
     });
-    $('form input[name="marca"]').on('keyup', function(){
-      $('#marca').html($('input[name="marca"]').val());
+    $('form select[name="id_marca"]').on('keyup', function(){
+      $('#marca').html($('select[name="id_marca"] option:selected').text());
     });
     $('form input[name="modelo"]').on('keyup', function(){
       $('#modelo').html($('input[name="modelo"]').val());

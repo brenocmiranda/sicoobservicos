@@ -39,9 +39,9 @@ Relatórios
               </div>
             </div>
             <div id="termoUso" style="display:none;">
-                <form class="form-sample" target="_blank" action="{{route('relatorio.termoUso.tecnologia')}}" method="POST" enctype="multipart/form-data" autocomplete="off">
+                <form class="form-sample row col-12 mx-auto" target="_blank" action="{{route('relatorio.termoUso.tecnologia')}}" method="POST" enctype="multipart/form-data" autocomplete="off">
                 @csrf
-                    <div class="row col-12">
+                    <div class="row col-12 px-0">
                         <div class="col-12 row">
                             <div class="col-lg-8 col-12">
                                 <div class="form-group">

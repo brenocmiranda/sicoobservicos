@@ -1,5 +1,5 @@
 @section('title')
-Fontes
+Ambientes
 @endsection
 
 @extends('layouts.index')
@@ -8,13 +8,13 @@ Fontes
 <div class="container-fluid">
 	<div class="row bg-title">
 		<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-			<h4 class="page-title">Fontes</h4> 
+			<h4 class="page-title">Ambientes</h4> 
 		</div>
 		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
 			<ol class="breadcrumb">
 				<li><a href="{{route('dashboard.gti')}}">Tecnologia</a></li>
 				<li><a href="{{route('configuracoes')}}">Configurações</a></li>
-				<li class="active">Fontes</li>
+				<li class="active">Ambientes</li>
 			</ol>
 		</div>
 	</div>
@@ -24,7 +24,7 @@ Fontes
 				<div class="col-lg-12 position-absolute">
 					@if(Auth::user()->RelationFuncao->gerenciar_gti == 1)
 					<div class="row mx-auto">
-						<button class="btn btn-primary btn-outline ml-auto" id="adicionar" name="adicionar" title="Adicionar nova fonte" data-toggle="modal" data-target="#modal-adicionar" style="z-index: 10">
+						<button class="btn btn-primary btn-outline ml-auto" id="adicionar" name="adicionar" title="Adicionar nova ambiente" data-toggle="modal" data-target="#modal-adicionar" style="z-index: 10">
 							<i class="m-0 pr-lg-1 mdi mdi-plus"></i> 
 							<span class="hidden-xs">Cadastrar</span> 
 						</button>
@@ -47,9 +47,9 @@ Fontes
 @endsection
 
 @section('modal')
-	@include('tecnologia.configuracoes.chamados.fontes.adicionar')
-	@include('tecnologia.configuracoes.chamados.fontes.editar')
-	@include('tecnologia.configuracoes.chamados.fontes.detalhes')
+	@include('tecnologia.configuracoes.chamados.ambientes.adicionar')
+	@include('tecnologia.configuracoes.chamados.ambientes.editar')
+	@include('tecnologia.configuracoes.chamados.ambientes.detalhes')
 @endsection
 
 @section('suporte')
@@ -69,12 +69,12 @@ Fontes
 		// Criando a datatables
 		$('#table').DataTable({
 			deferRender: true,
-			order: [1, 'asc'],
+			order: [0, 'asc'],
 			paginate: true,
 			select: true,
 			searching: true,
 			destroy: true,
-			ajax: "{{ route('listar.fontes.chamados') }}",
+			ajax: "{{ route('listar.ambientes.chamados') }}",
 			serverSide: true,
 			"columns": [ 
 			{ "data": "nome1", "name":"nome1"},
@@ -139,7 +139,7 @@ Fontes
 			$(this).parents('tr').addClass('selected');
 			$(this).parent('tr').addClass('selected');
 			var data = table.row('tr.selected').data();
-			var url = "{{url('app/gestao/chamados/fontes/alterar')}}/"+data.id;
+			var url = "{{url('app/gti/chamados/ambientes/alterar')}}/"+data.id;
 			swal({
 				title: "Tem certeza que deseja alterar o estado?",
 				icon: "warning",
@@ -170,7 +170,7 @@ Fontes
 			var data = table.row('tr.selected').data();
 			e.preventDefault();
 			$.ajax({
-				url: '{{ route("adicionar.fontes.chamados") }}',
+				url: '{{ route("adicionar.ambientes.chamados") }}',
 				type: 'POST',
 				data: $('#modal-adicionar #formAdicionar').serialize(),
 				beforeSend: function(){
@@ -216,7 +216,7 @@ Fontes
 			var data = table.row('tr.selected').data();
 			e.preventDefault();
 			$.ajax({
-				url: 'fontes/editar/'+data.id,
+				url: 'ambientes/editar/'+data.id,
 				type: 'POST',
 				data: $('#modal-editar #formEditar').serialize(),
 				beforeSend: function(){

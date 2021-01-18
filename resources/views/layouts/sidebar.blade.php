@@ -130,6 +130,7 @@
         </a>
         <ul class="nav nav-second-level {{ (Request::segment(2) == 'gti' ? ' collapse in' : '') }}">
           <li> <a href="{{route('dashboard.gti')}}"><span class="hide-menu">Dashboard</span></a> </li>
+          <li> <a href="{{route('exibir.base.aprendizagem')}}"><span class="hide-menu">Aprendizagem</span> </a></li> 
           <li> <a href="{{route('exibir.chamados.gti')}}"><span class="hide-menu">Chamados</span></a> </li>
           @if(Auth::user()->RelationFuncao->gerenciar_gti == 1)
           <li> 
@@ -137,9 +138,11 @@
               <span class="hide-menu">Configurações </span><span class="fa arrow"></span>
             </a>
             <ul class="nav nav-third-level {{ (Request::segment(2) == 'gti' && Request::segment(3) == 'configuracoes' ? ' collapse in' : '') }}">
-              <li> <a href="{{route('exibir.base.aprendizagem')}}"><span class="hide-menu">Aprendizagem</span> </a></li> 
+              
+              <li> <a href="{{route('exibir.equipamentos.inventario')}}"><span class="hide-menu">Equipamentos</span></a> </li>
+              <li> <a href="{{route('exibir.ambientes.chamados')}}"><span class="hide-menu">Ambientes</span></a> </li>
+              <li> <a href="{{route('exibir.marcas.inventario')}}"><span class="hide-menu">Marcas</span></a> </li>
               <li> <a href="{{route('exibir.fontes.chamados')}}"><span class="hide-menu">Fontes</span></a> </li>
-              <li> <a href="{{route('exibir.tipos.chamados')}}"><span class="hide-menu">Tipos</span></a> </li>
               <li> <a href="{{route('exibir.status.chamados')}}"><span class="hide-menu">Status</span></a> </li>
             </ul>
           </li>

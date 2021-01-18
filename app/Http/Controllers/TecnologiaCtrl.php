@@ -17,6 +17,8 @@ use App\Http\Requests\HomepageRqt;
 use App\Models\Ativos;
 use App\Models\AtivosImagens;
 use App\Models\AtivosUsuarios;
+use App\Models\AtivosMarcas;
+use App\Models\AtivosEquipamentos;
 use App\Models\Atividades;
 use App\Models\Chamados;
 use App\Models\ChamadosStatus;
@@ -340,6 +342,115 @@ class TecnologiaCtrl extends Controller
 
 
     #-------------------------------------------------------------------
+	# Configurações (Equipamentos)
+	#-------------------------------------------------------------------
+    // Listando todos os equipamentos
+	public function ExibirEquipamentos(){
+		if(Auth::user()->RelationFuncao->ver_gti == 1 || Auth::user()->RelationFuncao->gerenciar_gti == 1){
+			return view('tecnologia.configuracoes.inventario.equipamentos.listar');
+		}else{
+			return redirect(route('403'));
+		}
+	}
+	public function DatatablesEquipamentos(){
+		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
+			return datatables()->of(AtivosEquipamentos::all())
+	            ->editColumn('nome1', function(AtivosEquipamentos $dados){ 
+	                return '<a href="javascript:void(0)" id="detalhes">'.$dados->nome.'</a>';
+	            })
+	            ->editColumn('status1', function(AtivosEquipamentos $dados){
+	                return '<label class="badge'.($dados->status == 1 ? " badge-success" : " badge-danger").'">'.($dados->status == 1 ? "Ativo" : "Desativado").'</label>';
+	            })
+	            ->editColumn('acoes', function(AtivosEquipamentos $dados){ 
+	                return ($dados->status == 1 ? '
+						<button class="btn btn-dark btn-xs btn-rounded mx-1" id="editar" title="Editar informações da fonte"><i class="mx-0 mdi mdi-settings"></i></button>
+						<button class="btn btn-dark btn-xs btn-rounded" id="alterar" title="Desativar a fonte"><i class="mx-0 mdi mdi-close"></i></button>' : '
+						<button class="btn btn-dark btn-xs btn-rounded mx-1" id="editar" title="Editar informações da fonte"><i class="mx-0 mdi mdi-settings"></i></button>
+						<button class="btn btn-dark btn-xs btn-rounded" id="alterar" title="Ativar a fonte"><i class="mx-0 mdi mdi-check"></i></button>');
+	            })->rawColumns(['nome1', 'status1', 'acoes'])->make(true);
+        }else{
+        	return datatables()->of(AtivosEquipamentos::all())
+	            ->editColumn('nome1', function(AtivosEquipamentos $dados){ 
+	                return '<a href="javascript:void(0)" id="detalhes">'.$dados->nome.'</a>';
+	            })
+	            ->editColumn('status1', function(AtivosEquipamentos $dados){
+	                return '<label class="badge'.($dados->status == 1 ? " badge-success" : " badge-danger").'">'.($dados->status == 1 ? "Ativo" : "Desativado").'</label>';
+	            })
+	            ->editColumn('acoes', function(AtivosEquipamentos $dados){ 
+	                return '';
+	            })->rawColumns(['nome1', 'status1', 'acoes'])->make(true);
+        }
+	}
+	// Adicionando novo equipamento
+	public function AdicionarEquipamentos(Request $request){
+		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
+			$create = AtivosEquipamentos::create([
+				'nome' => $request->nome, 
+				'descricao' => $request->descricao,
+				'status' => ($request->status == "on" ? 1 : 0)
+			]);
+			Atividades::create([
+				'nome' => 'Cadastro de novo equipamento',
+				'descricao' => 'Você cadastrou um nova configuração de equipamento, '.$create->nome.'.',
+				'icone' => 'mdi-plus',
+				'url' => route('exibir.equipamentos.inventario'),
+				'id_usuario' => Auth::id()
+			]);
+			return response()->json(['success' => true]);
+		}else{
+			return redirect(route('403'));
+		}
+	}
+	// Editando informações dos equipamentos
+	public function EditarEquipamentos(Request $request, $id){
+		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
+			AtivosEquipamentos::find($id)->update([
+				'nome' => $request->nome, 
+				'descricao' => $request->descricao,
+				'status' => ($request->status == "on" ? 1 : 0)
+			]);
+			$create = AtivosEquipamentos::find($id);
+			Atividades::create([
+				'nome' => 'Edição de informações',
+				'descricao' => 'Você modificou as informações da configuração de equipamento '.$create->nome.'.',
+				'icone' => 'mdi-auto-fix',
+				'url' => route('exibir.equipamentos.inventario'),
+				'id_usuario' => Auth::id()
+			]);
+			return response()->json(['success' => true]);
+		}else{
+			return redirect(route('403'));
+		}
+	}
+	// Alterar o status
+	public function AlterarEquipamentos($id){
+		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
+			$equipamentos = AtivosEquipamentos::find($id);
+			if($equipamentos->status == 1){
+				AtivosEquipamentos::find($id)->update(['status' => 0]);
+			}else{
+				AtivosEquipamentos::find($id)->update(['status' => 1]);
+			}
+			Atividades::create([
+				'nome' => 'Alteração de estado',
+				'descricao' => 'Você alterou o status da configuração de equipamento '.$equipamentos->nome.'.',
+				'icone' => 'mdi-rotate-3d',
+				'url' => route('exibir.equipamentos.inventario'),
+				'id_usuario' => Auth::id()
+			]);
+			return response()->json(['success' => true]);
+		}else{
+			return redirect(route('403'));
+		}
+	}
+	// Detallhes do equipamento
+	public function DetalhesEquipamentos($id){
+		$dados = AtivosEquipamentos::find($id);
+		return $dados;
+	}
+
+
+    #-------------------------------------------------------------------
 	# Configurações (Fontes)
 	#-------------------------------------------------------------------
     // Listando todos os fontes
@@ -447,6 +558,113 @@ class TecnologiaCtrl extends Controller
 		return $dados;
 	}
 
+	#-------------------------------------------------------------------
+	# Configurações (Marcas)
+	#-------------------------------------------------------------------
+    // Listando todos as marcas
+	public function ExibirMarcas(){
+		if(Auth::user()->RelationFuncao->ver_gti == 1 || Auth::user()->RelationFuncao->gerenciar_gti == 1){
+			return view('tecnologia.configuracoes.inventario.marcas.listar');
+		}else{
+			return redirect(route('403'));
+		}
+	}
+	public function DatatablesMarcas(){
+		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
+			return datatables()->of(AtivosMarcas::all())
+	            ->editColumn('nome1', function(AtivosMarcas $dados){ 
+	                return '<a href="javascript:void(0)" id="detalhes">'.$dados->nome.'</a>';
+	            })
+	            ->editColumn('status1', function(AtivosMarcas $dados){
+	                return '<label class="badge'.($dados->status == 1 ? " badge-success" : " badge-danger").'">'.($dados->status == 1 ? "Ativo" : "Desativado").'</label>';
+	            })
+	            ->editColumn('acoes', function(AtivosMarcas $dados){ 
+	                return ($dados->status == 1 ? '
+						<button class="btn btn-dark btn-xs btn-rounded mx-1" id="editar" title="Editar informações da fonte"><i class="mx-0 mdi mdi-settings"></i></button>
+						<button class="btn btn-dark btn-xs btn-rounded" id="alterar" title="Desativar a fonte"><i class="mx-0 mdi mdi-close"></i></button>' : '
+						<button class="btn btn-dark btn-xs btn-rounded mx-1" id="editar" title="Editar informações da fonte"><i class="mx-0 mdi mdi-settings"></i></button>
+						<button class="btn btn-dark btn-xs btn-rounded" id="alterar" title="Ativar a fonte"><i class="mx-0 mdi mdi-check"></i></button>');
+	            })->rawColumns(['nome1', 'status1', 'acoes'])->make(true);
+        }else{
+        	return datatables()->of(AtivosMarcas::all())
+	            ->editColumn('nome1', function(AtivosMarcas $dados){ 
+	                return '<a href="javascript:void(0)" id="detalhes">'.$dados->nome.'</a>';
+	            })
+	            ->editColumn('status1', function(AtivosMarcas $dados){
+	                return '<label class="badge'.($dados->status == 1 ? " badge-success" : " badge-danger").'">'.($dados->status == 1 ? "Ativo" : "Desativado").'</label>';
+	            })
+	            ->editColumn('acoes', function(AtivosMarcas $dados){ 
+	                return '';
+	            })->rawColumns(['nome1', 'status1', 'acoes'])->make(true);
+        }
+	}
+	// Adicionando nova marca
+	public function AdicionarMarcas(Request $request){
+		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
+			$create = AtivosMarcas::create([
+				'nome' => $request->nome, 
+				'descricao' => $request->descricao,
+				'status' => ($request->status == "on" ? 1 : 0)
+			]);
+			Atividades::create([
+				'nome' => 'Cadastro de nova marca',
+				'descricao' => 'Você cadastrou um nova configuração de marca, '.$create->nome.'.',
+				'icone' => 'mdi-plus',
+				'url' => route('exibir.equipamentos.inventario'),
+				'id_usuario' => Auth::id()
+			]);
+			return response()->json(['success' => true]);
+		}else{
+			return redirect(route('403'));
+		}
+	}
+	// Editando informações das marcas
+	public function EditarMarcas(Request $request, $id){
+		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
+			AtivosMarcas::find($id)->update([
+				'nome' => $request->nome, 
+				'descricao' => $request->descricao,
+				'status' => ($request->status == "on" ? 1 : 0)
+			]);
+			$create = AtivosMarcas::find($id);
+			Atividades::create([
+				'nome' => 'Edição de informações',
+				'descricao' => 'Você modificou as informações da configuração de marca '.$create->nome.'.',
+				'icone' => 'mdi-auto-fix',
+				'url' => route('exibir.equipamentos.inventario'),
+				'id_usuario' => Auth::id()
+			]);
+			return response()->json(['success' => true]);
+		}else{
+			return redirect(route('403'));
+		}
+	}
+	// Alterar o status
+	public function AlterarMarcas($id){
+		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
+			$equipamentos = AtivosMarcas::find($id);
+			if($equipamentos->status == 1){
+				AtivosMarcas::find($id)->update(['status' => 0]);
+			}else{
+				AtivosMarcas::find($id)->update(['status' => 1]);
+			}
+			Atividades::create([
+				'nome' => 'Alteração de estado',
+				'descricao' => 'Você alterou o status da configuração da marca '.$equipamentos->nome.'.',
+				'icone' => 'mdi-rotate-3d',
+				'url' => route('exibir.equipamentos.inventario'),
+				'id_usuario' => Auth::id()
+			]);
+			return response()->json(['success' => true]);
+		}else{
+			return redirect(route('403'));
+		}
+	}
+	// Detallhes da marca
+	public function DetalhesMarcas($id){
+		$dados = AtivosMarcas::find($id);
+		return $dados;
+	}
 
 	#-------------------------------------------------------------------
 	# Configurações (Tipos)
@@ -843,7 +1061,7 @@ class TecnologiaCtrl extends Controller
 	                return $dados->RelationUsuario->last()->RelationAssociado->nome;
 	            })
 	            ->editColumn('nome1', function(Ativos $dados){ 
-	                return '<a href="javascript:void(0)" id="detalhes">'.$dados->nome.'<br><small>'.$dados->marca.' <b>&#183</b> '.$dados->modelo.'</small></a>';
+	                return '<a href="javascript:void(0)" id="detalhes">'.$dados->RelationEquipamento->nome.'<br><small>'.$dados->marca.' <b>&#183</b> '.$dados->modelo.'</small></a>';
 	            })
 	            ->editColumn('acoes', function(Ativos $dados){ 
 	                return '
@@ -862,7 +1080,7 @@ class TecnologiaCtrl extends Controller
 		                return $dados->RelationUsuario->last()->RelationAssociado->nome;
 		            })
 		            ->editColumn('nome1', function(Ativos $dados){ 
-		                return '<a href="javascript:void(0)" id="detalhes">'.$dados->nome.'<br><small>'.$dados->marca.' <b>&#183</b> '.$dados->modelo.'</small></a>';
+		                return '<a href="javascript:void(0)" id="detalhes">'.$dados->RelationEquipamento->nome.'<br><small>'.$dados->marca.' <b>&#183</b> '.$dados->modelo.'</small></a>';
 		            })
 		            ->editColumn('acoes', function(Ativos $dados){ 
 		                return '';
@@ -883,10 +1101,12 @@ class TecnologiaCtrl extends Controller
 	// Adicionando novos equipamentos
 	public function AdicionarInventario(){
 		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
-			$usuarios = Usuarios::where('status', 1)->get();
+			$marcas = AtivosMarcas::where('status', 1)->orderBy('nome', 'ASC')->get();
+			$equipamentos = AtivosEquipamentos::where('status', 1)->orderBy('nome', 'ASC')->get();
+			$usuarios = Usuarios::where('status', 1)->orderBy('login', 'ASC')->get();
 			$setores = Setores::where('status', 1)->get();
 			$unidades = Unidades::where('status', 1)->get();
-			return view('tecnologia.equipamentos.adicionar')->with('usuarios', $usuarios)->with('setores', $setores)->with('unidades', $unidades);
+			return view('tecnologia.equipamentos.adicionar')->with('usuarios', $usuarios)->with('setores', $setores)->with('unidades', $unidades)->with('equipamentos', $equipamentos)->with('marcas', $marcas);
 		}else{
 			return redirect(route('403'));
 		}
@@ -897,6 +1117,7 @@ class TecnologiaCtrl extends Controller
 				'nome' => $request->nome,
 				'n_patrimonio' => (isset($request->n_patrimonio) ? $request->n_patrimonio : null), 
 				'serialNumber' => $request->serialNumber, 
+				'serviceTag' => (isset($request->serviceTag) ? $request->serviceTag : null),
 				'marca' => $request->marca,
 				'modelo' => $request->modelo,
 				'id_setor' => $request->id_setor,
@@ -945,10 +1166,12 @@ class TecnologiaCtrl extends Controller
 	public function EditarInventario($id){
 		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
 			$equipamentos = Ativos::find($id);
-			$usuarios = Usuarios::where('status', 1)->get();
+			$marcas = AtivosMarcas::where('status', 1)->orderBy('nome', 'ASC')->get();
+			$ativo = AtivosEquipamentos::where('status', 1)->orderBy('nome', 'ASC')->get();
+			$usuarios = Usuarios::where('status', 1)->orderBy('login', 'ASC')->get();
 			$setores = Setores::where('status', 1)->get();
 			$unidades = Unidades::where('status', 1)->get();
-			return view('tecnologia.equipamentos.editar')->with('usuarios', $usuarios)->with('setores', $setores)->with('equipamentos', $equipamentos)->with('unidades', $unidades);
+			return view('tecnologia.equipamentos.editar')->with('usuarios', $usuarios)->with('setores', $setores)->with('ativo', $ativo)->with('unidades', $unidades);
 		}else{
 			return redirect(route('403'));
 		}
@@ -959,6 +1182,7 @@ class TecnologiaCtrl extends Controller
 				'nome' => $request->nome,
 				'n_patrimonio' => (isset($request->n_patrimonio) ? $request->n_patrimonio : null),  
 				'serialNumber' => $request->serialNumber, 
+				'serviceTag' => (isset($request->serviceTag) ? $request->serviceTag : null),
 				'marca' => $request->marca,
 				'modelo' => $request->modelo,
 				'id_setor' => $request->id_setor,
