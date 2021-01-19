@@ -19,15 +19,7 @@ Detalhes do chamado
     </div>
   </div>
 
-  <div class="confim row col-12 p-0 mx-auto">
-    @if($errors->any())
-    <div class="col-sm-12 alert alert-danger font-weight-normal">
-      @foreach ($errors->all() as $error)
-      <p>{{ $error }}</p>
-      @endforeach
-    </div>
-    @endif
-  </div>
+  <div class="confirm"></div>
 
   <div class="row" style="height: 600px !important;">
     <div class="col-lg-7 col-12 h-100">
@@ -265,7 +257,32 @@ Detalhes do chamado
           contentType: false,
           success: function(data){ 
             for (i = 0; i < data.length; i++) {
-              $('div.preview').append('<div class="border mx-2 mb-4 rounded col-2 p-0 row text-center" id="PreviewImage'+data[i].id+'" style="height:7em"> <input type="hidden" name="arquivos[]" value="'+data[i].id+'"><a href="javascript:void(0)" onclick="removeImagem('+data[i].id+')" class="btn btn-light rounded-circle m-n2 mb-auto border btn-xs position-absolute" style="height: 26px; width: 26px">x</a>'+(data[i].endereco.split('.')[1] == 'docx' || data[i].endereco.split('.')[1] == 'doc' ? '<i class="mdi mdi-file-word mdi-36px mdi-dark m-auto col-12"></i><span class="col-12 text-truncate" title="'+data[i].endereco.replace('chamados/', '')+'">'+data[i].endereco.replace('chamados/', '')+'</span>' : (data[i].endereco.split('.')[1] == 'xls' || data[i].endereco.split('.')[1] == 'xlsx' || data[i].endereco.split('.')[1] == 'xlsm' || data[i].endereco.split('.')[1] == 'csv' ? '<i class="mdi mdi-file-excel mdi-36px mdi-dark m-auto col-12"></i><span class="col-12 text-truncate" title="'+data[i].endereco.replace('chamados/', '')+'">'+data[i].endereco.replace('chamados/', '')+'</span>' : (data[i].endereco.split('.')[1] == 'pdf' ? '<i class="mdi mdi-file-pdf mdi-36px mdi-dark m-auto col-12"></i><span class="col-12 text-truncate" title="'+data[i].endereco.replace('chamados/', '')+'">'+data[i].endereco.replace('chamados/', '')+'</span>' : '<i class="mdi mdi-file-document mdi-36px mdi-dark m-auto col-12"></i><span class="col-12 text-truncate" title="'+data[i].endereco.replace('chamados/', '')+'">'+data[i].endereco.replace('chamados/', '')+'</span>')))+'</div>');
+              $('div.preview').append('<div class="border mx-2 mb-4 rounded col-2 p-0 row text-center" id="PreviewImage'+data[i].id+'" style="height:7em"> <input type="hidden" name="arquivos[]" value="'+data[i].id+'"><a href="javascript:void(0)" onclick="removeImagem('+data[i].id+')" class="btn btn-light rounded-circle m-n2 mb-auto border btn-xs position-absolute" style="height: 26px; width: 26px; z-index:10">x</a>'+(data[i].endereco.split('.')[1] == 'docx' || data[i].endereco.split('.')[1] == 'doc' ? '<i class="mdi mdi-file-word mdi-36px mdi-dark m-auto col-12"></i><span class="col-12 text-truncate" title="'+data[i].endereco.replace('chamados/', '')+'">'+data[i].endereco.replace('chamados/', '')+'</span>' : (data[i].endereco.split('.')[1] == 'xls' || data[i].endereco.split('.')[1] == 'xlsx' || data[i].endereco.split('.')[1] == 'xlsm' || data[i].endereco.split('.')[1] == 'csv' ? '<i class="mdi mdi-file-excel mdi-36px mdi-dark m-auto col-12"></i><span class="col-12 text-truncate" title="'+data[i].endereco.replace('chamados/', '')+'">'+data[i].endereco.replace('chamados/', '')+'</span>' : (data[i].endereco.split('.')[1] == 'pdf' ? '<i class="mdi mdi-file-pdf mdi-36px mdi-dark m-auto col-12"></i><span class="col-12 text-truncate" title="'+data[i].endereco.replace('chamados/', '')+'">'+data[i].endereco.replace('chamados/', '')+'</span>' : '<i class="mdi mdi-file-document mdi-36px mdi-dark m-auto col-12"></i><span class="col-12 text-truncate" title="'+data[i].endereco.replace('chamados/', '')+'">'+data[i].endereco.replace('chamados/', '')+'</span>')))+'</div>');
+            } 
+            $('#addArquivo').val('');   
+          }
+        });
+      }
+    });
+
+    // Pré-visualização de várias imagens no navegador
+    $('#addArquivoFinalizar').on('change', function(event) {
+      var formData = new FormData();
+      formData.append('_token', '{{csrf_token()}}');
+
+      if (this.files) {
+        for (i = 0; i < this.files.length; i++) {
+          formData.append('arquivos[]', this.files[i]);
+        }
+        $.ajax({
+          url: "{{ route('adicionar.arquivos.chamados.status.gti') }}",
+          type: 'POST',
+          data: formData,
+          processData: false,
+          contentType: false,
+          success: function(data){ 
+            for (i = 0; i < data.length; i++) {
+              $('div.preview').append('<div class="border mx-2 mb-4 rounded col-2 p-0 row text-center" id="PreviewImage'+data[i].id+'" style="height:7em"> <input type="hidden" name="arquivos[]" value="'+data[i].id+'"><a href="javascript:void(0)" onclick="removeImagem('+data[i].id+')" class="btn btn-light rounded-circle m-n2 mb-auto border btn-xs position-absolute" style="height: 26px; width: 26px; z-index:10">x</a>'+(data[i].endereco.split('.')[1] == 'docx' || data[i].endereco.split('.')[1] == 'doc' ? '<i class="mdi mdi-file-word mdi-36px mdi-dark m-auto col-12"></i><span class="col-12 text-truncate" title="'+data[i].endereco.replace('chamados/', '')+'">'+data[i].endereco.replace('chamados/', '')+'</span>' : (data[i].endereco.split('.')[1] == 'xls' || data[i].endereco.split('.')[1] == 'xlsx' || data[i].endereco.split('.')[1] == 'xlsm' || data[i].endereco.split('.')[1] == 'csv' ? '<i class="mdi mdi-file-excel mdi-36px mdi-dark m-auto col-12"></i><span class="col-12 text-truncate" title="'+data[i].endereco.replace('chamados/', '')+'">'+data[i].endereco.replace('chamados/', '')+'</span>' : (data[i].endereco.split('.')[1] == 'pdf' ? '<i class="mdi mdi-file-pdf mdi-36px mdi-dark m-auto col-12"></i><span class="col-12 text-truncate" title="'+data[i].endereco.replace('chamados/', '')+'">'+data[i].endereco.replace('chamados/', '')+'</span>' : '<i class="mdi mdi-file-document mdi-36px mdi-dark m-auto col-12"></i><span class="col-12 text-truncate" title="'+data[i].endereco.replace('chamados/', '')+'">'+data[i].endereco.replace('chamados/', '')+'</span>')))+'</div>');
             } 
             $('#addArquivo').val('');   
           }

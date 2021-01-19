@@ -308,6 +308,8 @@ Route::group(['prefix' => 'app'], function(){
 			Route::post('descricao', 'TecnologiaCtrl@DescricaoChamados')->name('descricao.chamados.gti');
 			Route::post('addArquivosStatus', 'TecnologiaCtrl@ArquivosChamadosStatus')->name('adicionar.arquivos.chamados.status.gti');
 			Route::get('removeArquivoStatus/{id}', 'TecnologiaCtrl@RemoveArquivosChamadosStatus')->name('remover.arquivos.chamados.status.gti');
+			//
+			Route::get('atraso', 'TecnologiaCtrl@MonitorarTempoVidaStatus')->name('dados.chamados.gti');
 		});
 		// Configurações
 		Route::group(['prefix' => 'configuracoes'], function(){

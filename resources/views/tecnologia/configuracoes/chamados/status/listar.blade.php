@@ -57,7 +57,7 @@ Status
 @section('suporte')
 <script type="text/javascript">
 	$(document).ready( function (){
-		$('.tempo').mask('00:00', {reverse: true});
+		$('.tempo').mask('00:00:00', {reverse: true});
 
 		// Limpando as informações para adicionar
 		$('#adicionar').on('click', function(){

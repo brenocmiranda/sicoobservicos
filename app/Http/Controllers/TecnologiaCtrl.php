@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use App\Notifications\SolicitacaoChamadosCliente;
+use App\Notifications\SolicitacaoChamadosAdminAtraso;
 use App\Http\Requests\AtivoRqt; 
 use App\Http\Requests\BaseRqt;
 use App\Http\Requests\AmbientesRqt;
@@ -110,6 +111,17 @@ class TecnologiaCtrl extends Controller
                 'descricao' => (isset($request->descricao) ? $request->descricao : "Chamado finalizado por ".Auth::user()->RelationAssociado->nome."."),
                 'usr_id_usuarios' => Auth::id()
             ]);
+            
+            // Cadastramento de vários arquivos 
+	        if ($request->arquivos) {
+	            foreach($request->arquivos as $arq){
+	                $imagem_produto = ChamadosStatusArquivos::create([
+	                    'gti_id_status' => $status->id,
+	                    'id_arquivo' => $arq,                    
+	                ]);
+	            }
+	        }
+
             $create = Chamados::find($id);
             $create->RelationUsuario->notify(new SolicitacaoChamadosCliente($create));
             Atividades::create([
@@ -234,6 +246,18 @@ class TecnologiaCtrl extends Controller
             ChamadosStatusArquivos::where('id_arquivo', $id)->delete();
         }
         Arquivos::find($id)->delete();
+        return response()->json(['success' => true]);
+    }
+    // Monitorando tempo de vida do status
+    public function MonitorarTempoVidaStatus(){
+    	$chamados = Chamados::all();
+        $configuracoes = CogEmailsChamado::first();
+    	foreach($chamados as $dados){
+    		$tempo = explode(':', $dados->RelationStatus->first()->tempo);
+    		if (date('d/m/Y H:i:s', strtotime('-'.$tempo[0].' hours -'.$tempo[1].' minutes -'.$tempo[2].' seconds')) > date('d/m/Y H:i:s', strtotime($dados->RelationStatus->first()->pivot->created_at)) && ($dados->RelationStatus->first()->finish != 1)){
+                $configuracoes->notify(new SolicitacaoChamadosAdminAtraso($dados)); 
+    		}
+    	}
         return response()->json(['success' => true]);
     }
 

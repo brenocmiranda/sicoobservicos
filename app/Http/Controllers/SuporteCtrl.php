@@ -128,8 +128,19 @@ class SuporteCtrl extends Controller
             'gti_id_status' => $finalizar->id,
             'descricao' => (isset($request->descricao) ? $request->descricao : "Chamado finalizado por ".Auth::user()->RelationAssociado->nome.".")
         ]);
+        
+        // Cadastramento de vários arquivos 
+        if ($request->arquivos) {
+            foreach($request->arquivos as $arq){
+                $imagem_produto = ChamadosStatusArquivos::create([
+                    'gti_id_status' => $status->id,
+                    'id_arquivo' => $arq,                    
+                ]);
+            }
+        }
+
         $create = Chamados::find($id);
-        $status->RelationUsuario->notify(new SolicitacaoChamadosCliente($status));  
+        $create->RelationUsuario->notify(new SolicitacaoChamadosCliente($status));  
         Atividades::create([
             'nome' => 'Encerramento de chamado',
             'descricao' => 'Você efetuou o encerramento do chamado, '.$create->assunto.'.',

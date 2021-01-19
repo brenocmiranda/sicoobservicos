@@ -32,6 +32,9 @@ class Kernel extends ConsoleKernel
          })->onFailure(function () {
             echo "Nenhuma importacao para ser executada";
          });
+
+        $schedule->command('TempoVida:monitar')
+        ->everyMinute();
     }
 
     /**

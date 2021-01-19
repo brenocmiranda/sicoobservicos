@@ -41,7 +41,7 @@
                   <div class="form-group">
                     <label class="col-form-label pb-0">Tempo de vida <span class="text-danger">*</span></label>
                     <div class="input-group">
-                      <input type="text"  class="form-control form-control-line tempo" name="tempo" placeholder="1:00" required/>
+                      <input type="text" class="form-control form-control-line tempo" name="tempo" placeholder="1:00" required/>
                       <span class="input-group-addon bg-white border-right-0 border-top-0"><i class="mdi mdi-clock"></i></span>
                     </div>
                   </div>
