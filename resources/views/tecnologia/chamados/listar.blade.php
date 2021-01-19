@@ -134,44 +134,79 @@ Solicitações de Suporte
 
 @section('suporte')
 <script type="text/javascript">
-  $(document).ready( function (){
-    $('#modal-alterar #formAlterar').on('submit', function(e){
-      // Editando as informações
-      e.preventDefault();
-      $.ajax({
-        url: "{{url('app/gti/chamados/status')}}/"+$('#modal-alterar .idChamado').val(),
-        type: 'POST',
-        data: $('#modal-alterar #formAlterar').serialize(),
-        beforeSend: function(){
-          $('.modal-body, .modal-footer').addClass('d-none');
-          $('.carregamento').html('<div class="mx-auto text-center my-5"> <div class="col-12"> <div class="spinner-border my-4" role="status"> <span class="sr-only"> Loading... </span> </div> </div> <label>Salvando informações...</label></div>');
-          $('#modal-alterar #err').html('');
-        },
-        success: function(data){
-          $('.modal-body, .modal-footer').addClass('d-none');
-          $('.carregamento').html('<div class="mx-auto text-center my-5"><div class="col-12"><i class="col-2 mdi mdi-check-all mdi-48px"></i></div><label>Informações alteradas com sucesso!</label></div>');
-          setTimeout(function(){
-            location.reload();
-          }, 1000);
-        }, error: function (data) {
-          setTimeout(function(){
-            $('.modal-body, .modal-footer').removeClass('d-none');
-            $('.carregamento').html('');
-            if(!data.responseJSON){
-              console.log(data.responseText);
-              $('#modal-alterar #err').html(data.responseText);
-            }else{
-              $('#modal-alterar #err').html('');
-              $('input').removeClass('border-bottom border-danger');
-              $.each(data.responseJSON.errors, function(key, value){
-                $('#modal-alterar #err').append('<div class="text-danger mx-4"><p>'+value+'</p></div>');
-                $('input[name="'+key+'"]').addClass('border-bottom border-danger');
-              });
-            }
-          }, 2000);
-        }
-      });
-    });
-  });
+	function removeImagem(id){
+	    $.ajax({
+	      url: "../removeArquivoStatus/"+id,
+	      type: 'GET',
+	      success: function(data){ 
+	        $('#PreviewImage'+id).remove();
+	      }
+	    });
+	  }
+
+	 $(document).ready( function (){
+	 	// Pré-visualização de várias imagens no navegador
+	    $('#addArquivo').on('change', function(event) {
+	      var formData = new FormData();
+	      formData.append('_token', '{{csrf_token()}}');
+
+	      if (this.files) {
+	        for (i = 0; i < this.files.length; i++) {
+	          formData.append('arquivos[]', this.files[i]);
+	        }
+	        $.ajax({
+	          url: "{{ route('adicionar.arquivos.chamados.status.gti') }}",
+	          type: 'POST',
+	          data: formData,
+	          processData: false,
+	          contentType: false,
+	          success: function(data){ 
+	            for (i = 0; i < data.length; i++) {
+	              $('div.preview').append('<div class="border mx-2 mb-4 rounded col-2 p-0 row text-center" id="PreviewImage'+data[i].id+'" style="height:7em"> <input type="hidden" name="arquivos[]" value="'+data[i].id+'"><a href="javascript:void(0)" onclick="removeImagem('+data[i].id+')" class="btn btn-light rounded-circle m-n2 mb-auto border btn-xs position-absolute" style="height: 26px; width: 26px">x</a>'+(data[i].endereco.split('.')[1] == 'docx' || data[i].endereco.split('.')[1] == 'doc' ? '<i class="mdi mdi-file-word mdi-36px mdi-dark m-auto col-12"></i><span class="col-12 text-truncate" title="'+data[i].endereco.replace('chamados/', '')+'">'+data[i].endereco.replace('chamados/', '')+'</span>' : (data[i].endereco.split('.')[1] == 'xls' || data[i].endereco.split('.')[1] == 'xlsx' || data[i].endereco.split('.')[1] == 'xlsm' || data[i].endereco.split('.')[1] == 'csv' ? '<i class="mdi mdi-file-excel mdi-36px mdi-dark m-auto col-12"></i><span class="col-12 text-truncate" title="'+data[i].endereco.replace('chamados/', '')+'">'+data[i].endereco.replace('chamados/', '')+'</span>' : (data[i].endereco.split('.')[1] == 'pdf' ? '<i class="mdi mdi-file-pdf mdi-36px mdi-dark m-auto col-12"></i><span class="col-12 text-truncate" title="'+data[i].endereco.replace('chamados/', '')+'">'+data[i].endereco.replace('chamados/', '')+'</span>' : '<i class="mdi mdi-file-document mdi-36px mdi-dark m-auto col-12"></i><span class="col-12 text-truncate" title="'+data[i].endereco.replace('chamados/', '')+'">'+data[i].endereco.replace('chamados/', '')+'</span>')))+'</div>');
+	            } 
+	            $('#addArquivo').val('');   
+	          }
+	        });
+	      }
+	    });
+    
+	    $('#modal-alterar #formAlterar').on('submit', function(e){
+	      // Editando as informações
+	      e.preventDefault();
+	      $.ajax({
+	        url: "{{url('app/gti/chamados/status')}}/"+$('#modal-alterar .idChamado').val(),
+	        type: 'POST',
+	        data: $('#modal-alterar #formAlterar').serialize(),
+	        beforeSend: function(){
+	          $('.modal-body, .modal-footer').addClass('d-none');
+	          $('.carregamento').html('<div class="mx-auto text-center my-5"> <div class="col-12"> <div class="spinner-border my-4" role="status"> <span class="sr-only"> Loading... </span> </div> </div> <label>Salvando informações...</label></div>');
+	          $('#modal-alterar #err').html('');
+	        },
+	        success: function(data){
+	          $('.modal-body, .modal-footer').addClass('d-none');
+	          $('.carregamento').html('<div class="mx-auto text-center my-5"><div class="col-12"><i class="col-2 mdi mdi-check-all mdi-48px"></i></div><label>Informações alteradas com sucesso!</label></div>');
+	          setTimeout(function(){
+	            location.reload();
+	          }, 1000);
+	        }, error: function (data) {
+	          setTimeout(function(){
+	            $('.modal-body, .modal-footer').removeClass('d-none');
+	            $('.carregamento').html('');
+	            if(!data.responseJSON){
+	              console.log(data.responseText);
+	              $('#modal-alterar #err').html(data.responseText);
+	            }else{
+	              $('#modal-alterar #err').html('');
+	              $('input').removeClass('border-bottom border-danger');
+	              $.each(data.responseJSON.errors, function(key, value){
+	                $('#modal-alterar #err').append('<div class="text-danger mx-4"><p>'+value+'</p></div>');
+	                $('input[name="'+key+'"]').addClass('border-bottom border-danger');
+	              });
+	            }
+	          }, 2000);
+	        }
+	      });
+	    });
+	  });
 </script>
 @endsection

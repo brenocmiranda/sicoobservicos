@@ -24,6 +24,7 @@ use App\Models\MateriaisCategorias;
 use App\Models\MateriaisHistorico;
 use App\Models\Chamados;
 use App\Models\ChamadosArquivos;
+use App\Models\ChamadosStatusArquivos;
 use App\Models\ChamadosStatus;
 use App\Models\CogEmailsChamado;
 
@@ -221,6 +222,17 @@ class SuporteCtrl extends Controller
                 'descricao' => (isset($request->descricao) ? $request->descricao : "Estado do chamado alterado por ".Auth::user()->RelationAssociado->nome."."),
                 'usr_id_usuarios' => Auth::id()
             ]);
+
+            // Cadastramento de vários arquivos 
+            if ($request->arquivos) {
+                foreach($request->arquivos as $arq){
+                    $imagem_produto = ChamadosStatusArquivos::create([
+                        'gti_id_status' => $status->id,
+                        'id_arquivo' => $arq,                    
+                    ]);
+                }
+            }
+
             $this->email->notify(new SolicitacaoChamadosReAdmin($chamado)); 
             Atividades::create([
                 'nome' => 'Nova mensagem cadastrada',
@@ -231,6 +243,35 @@ class SuporteCtrl extends Controller
             ]);
             return response()->json(['success' => true]);
         }
+    }
+
+    // Fazendo upload de arquivos
+    public function ArquivosChamadosStatus(Request $request){
+        // Cadastramento de várias imagens do mesmo produto
+        if ($request->hasFile('arquivos')) {
+            foreach($request->file('arquivos') as $imagem){
+                if($imagem->isValid()){
+                    $string = iconv( "UTF-8" , "ASCII//TRANSLIT//IGNORE" , str_replace($imagem->extension(), '', $imagem->getClientOriginalName()));
+                    $name = preg_replace( array( '/[ ]/' , '/[^A-Za-z0-9\-]/' ) , array( '' , '' ) , $string);
+                    $extension =  $imagem->extension();
+                    $nameFile = "{$name}.{$extension}";
+                    $upload =  $imagem->storeAs('chamados', $nameFile);
+                }
+                $arquivos[] = Arquivos::create(['endereco' => $upload, 'tipo' => 'chamados']);
+            }
+        }
+        return response()->json($arquivos);
+    }
+    // Removendo arquivos de anexo
+    public function RemoveArquivosChamadosStatus($id){
+        $arquivo = Arquivos::find($id);
+        unlink(getcwd().'/storage/app/'.$arquivo->endereco);
+        $dados = ChamadosStatusArquivos::where('id_arquivo', $id)->get();
+        if(isset($dados)){
+            ChamadosStatusArquivos::where('id_arquivo', $id)->delete();
+        }
+        Arquivos::find($id)->delete();
+        return response()->json(['success' => true]);
     }
 
 	#-------------------------------------------------------------------

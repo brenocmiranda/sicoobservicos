@@ -39,6 +39,18 @@
                     <textarea class="form-control form-control-line" name="descricao" placeholder="Escreva aqui um descrição para o colaborador..." rows="2" required  onkeyup="this.value = this.value.toUpperCase();"></textarea>
                   </div>
                 </div>
+                <div class="col-12">
+                  <div class="form-group">
+                    <label class="col-form-label col-12 row mb-0">Selecione os anexos</label>
+                    <small>Todos formatos são aceitos aceitos: <b>.png</b>, <b>.jpg</b>, <b>.xls</b>, <b>.pdf</b>, <b>.doc</b>, <b>.docx</b></small>
+                    <div class="row col-12 mt-3 preview mx-0 p-0">
+                      <div class="border mx-2 rounded col-lg-2 col-4 row p-0 mb-4" style="height: 7em;">
+                        <i class="mdi mdi-plus mdi-36px m-auto"></i>
+                        <input type="file" class="px-0 col-12 position-absolute mx-auto h-100 pointer" style="opacity: 0; top: 0%; left: 0%" id="addArquivo" title="Selecione os anexos do tópico" multiple>
+                      </div>
+                    </div> 
+                  </div>
+                </div>
               </div>
             </div>
           </div>

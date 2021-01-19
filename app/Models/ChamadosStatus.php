@@ -20,4 +20,8 @@ class ChamadosStatus extends Model
     public function RelationUsuarios(){
         return $this->hasOne(Usuarios::class, 'id', 'usr_id_usuarios');
     }
+
+    public function RelationStatusArquivos(){
+        return $this->belongsToMany(Arquivos::class, 'gti_chamados_has_status_arquivos', 'gti_id_status', 'id_arquivo');
+    }
 }

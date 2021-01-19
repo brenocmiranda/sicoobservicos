@@ -36,8 +36,4 @@ class Chamados extends Model
     public function RelationArquivos(){
         return $this->belongsToMany(Arquivos::class, 'gti_chamados_has_arquivos', 'gti_id_chamados', 'id_arquivo');
     }
-
-    public function RelationChamadosMensagens(){
-        return $this->hasMany(ChamadosMensagens::class, 'gti_id_chamados', 'id');
-    }
 }

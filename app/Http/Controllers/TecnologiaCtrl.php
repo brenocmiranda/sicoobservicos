@@ -24,6 +24,7 @@ use App\Models\AtivosEquipamentos;
 use App\Models\Atividades;
 use App\Models\Chamados;
 use App\Models\ChamadosStatus;
+use App\Models\ChamadosStatusArquivos;
 use App\Models\Status;
 use App\Models\Base;
 use App\Models\BaseArquivos; 
@@ -146,7 +147,18 @@ class TecnologiaCtrl extends Controller
                 'descricao' => (isset($request->descricao) ? $request->descricao : "Estado do chamado alterado por ".Auth::user()->RelationAssociado->nome."."),
                 'usr_id_usuarios' => Auth::id()
             ]);
-            $chamado->RelationUsuario->notify(new SolicitacaoChamadosCliente($chamado));  
+            
+            // Cadastramento de vários arquivos 
+	        if ($request->arquivos) {
+	            foreach($request->arquivos as $arq){
+	                $imagem_produto = ChamadosStatusArquivos::create([
+	                    'gti_id_status' => $status->id,
+	                    'id_arquivo' => $arq,                    
+	                ]);
+	            }
+	        }
+
+	        $chamado->RelationUsuario->notify(new SolicitacaoChamadosCliente($chamado));  
             Atividades::create([
                 'nome' => 'Alteração de estado do chamado',
                 'descricao' => 'Você modificou o status do chamado, '.$chamado->assunto.'.',
@@ -184,6 +196,7 @@ class TecnologiaCtrl extends Controller
                 'url' => route('detalhes.chamados.gti', $status->gti_id_chamados),
                 'id_usuario' => Auth::id()
             ]);
+            ChamadosStatusArquivos::where('gti_id_status', $id)->delete();
             ChamadosStatus::find($id)->delete();
             return response()->json(['success' => true]);
         }else{
@@ -194,6 +207,34 @@ class TecnologiaCtrl extends Controller
     public function MonitorarChamados($id_chamado, $id_status){
         $novo = ChamadosStatus::where('gti_id_chamados', $id_chamado)->where('id', '>', $id_status)->get();
         return $novo;
+    }
+    // Fazendo upload de arquivos
+    public function ArquivosChamadosStatus(Request $request){
+        // Cadastramento de várias imagens do mesmo produto
+        if ($request->hasFile('arquivos')) {
+            foreach($request->file('arquivos') as $imagem){
+                if($imagem->isValid()){
+                    $string = iconv( "UTF-8" , "ASCII//TRANSLIT//IGNORE" , str_replace($imagem->extension(), '', $imagem->getClientOriginalName()));
+                    $name = preg_replace( array( '/[ ]/' , '/[^A-Za-z0-9\-]/' ) , array( '' , '' ) , $string);
+                    $extension =  $imagem->extension();
+                    $nameFile = "{$name}.{$extension}";
+                    $upload =  $imagem->storeAs('chamados', $nameFile);
+                }
+                $arquivos[] = Arquivos::create(['endereco' => $upload, 'tipo' => 'chamados']);
+            }
+        }
+        return response()->json($arquivos);
+    }
+    // Removendo arquivos de anexo
+    public function RemoveArquivosChamadosStatus($id){
+        $arquivo = Arquivos::find($id);
+        unlink(getcwd().'/storage/app/'.$arquivo->endereco);
+        $dados = ChamadosStatusArquivos::where('id_arquivo', $id)->get();
+        if(isset($dados)){
+            ChamadosStatusArquivos::where('id_arquivo', $id)->delete();
+        }
+        Arquivos::find($id)->delete();
+        return response()->json(['success' => true]);
     }
 
 

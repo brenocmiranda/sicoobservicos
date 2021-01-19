@@ -160,7 +160,31 @@ Detalhes do chamado
               <div class="badge" style="background: {{$status->RelationStatus->color}}">{{$status->RelationStatus->nome}}</div>
               <label class="col-12 pt-3 px-0">
                 {{$status->descricao}}
-              </label>
+              </label>         
+              @if(!empty($status->RelationStatusArquivos[0]))
+                <small class="font-weight-bold">Anexos:</small>
+                @foreach($status->RelationStatusArquivos as $arquivos)
+                  <div class="row mx-auto mb-3"> 
+                  <a href="{{asset('storage/app/'.$arquivos->endereco)}}" target="_blank" class="row col-12">
+                    <div class="pr-1">
+                      @if( explode(".", $arquivos->endereco)[1] == "docx" || explode(".", $arquivos->endereco)[1] == "doc")
+                      <i class="mdi mdi-file-word mdi-dark mdi-18px m-auto"></i>
+                      @elseif( explode(".", $arquivos->endereco)[1] == "xls" || explode(".", $arquivos->endereco)[1] == "xlsx" || explode(".", $arquivos->endereco)[1] == "xlsm"
+                      || explode(".", $arquivos->endereco)[1] == "csv")
+                      <i class="mdi mdi-file-excel mdi-dark mdi-18px m-auto"></i>
+                      @elseif( explode(".", $arquivos->endereco)[1] == "pdf")
+                      <i class="mdi mdi-file-pdf mdi-dark mdi-18px m-auto"></i>
+                      @else
+                      <i class="mdi mdi-file-document mdi-dark mdi-18px m-auto"></i>
+                      @endif
+                    </div>
+                    <div class="my-auto">
+                      <small class="text-truncate">{{str_replace('chamados/', '', $arquivos->endereco)}}</small>
+                    </div>
+                  </a>
+                  </div>
+                  @endforeach
+              @endif
               <small class="font-weight-normal">
                 {!!(isset($status->RelationUsuarios) ? 'Alterado por: <b>'.$status->RelationUsuarios->RelationAssociado->nome.'</b>' : '')!!}
               </small>
@@ -201,6 +225,16 @@ Detalhes do chamado
 
 @section('suporte')
 <script type="text/javascript">
+  function removeImagem(id){
+    $.ajax({
+      url: "../removeArquivoStatus/"+id,
+      type: 'GET',
+      success: function(data){ 
+        $('#PreviewImage'+id).remove();
+      }
+    });
+  }
+
   $(document).ready( function (){
     setInterval(function(){
       $.ajax({
@@ -214,39 +248,63 @@ Detalhes do chamado
       });
     }, 5000);
 
+    // Pré-visualização de várias imagens no navegador
+    $('#addArquivo').on('change', function(event) {
+      var formData = new FormData();
+      formData.append('_token', '{{csrf_token()}}');
 
-   $('.status-remove').on('click', function(e){
-    // Removendo status do chamado
-    var id = this.id;
-    swal({
-      title: "Tem certeza que deseja remover o status?",
-      text: "Essa remoção irá impactar nas informações visualizadas pelos colaboradores.",
-      icon: "warning",
-      buttons: ["Cancelar", "Confirmar"],
-      dangerMode: true,
-    })
-    .then((willDelete) => {
-      if (willDelete) {
-        $.get("{{url('app/gti/chamados/remove')}}/"+id, function(data){
-          if(data.success == true){
-            swal("Status removido com sucesso!", {
-              icon: "success",
-              button: false
-            });
-            location.reload();
-          }else{
-            swal("Não foi possível remover o status!", {
-              icon: "error",
-            });
+      if (this.files) {
+        for (i = 0; i < this.files.length; i++) {
+          formData.append('arquivos[]', this.files[i]);
+        }
+        $.ajax({
+          url: "{{ route('adicionar.arquivos.chamados.status.gti') }}",
+          type: 'POST',
+          data: formData,
+          processData: false,
+          contentType: false,
+          success: function(data){ 
+            for (i = 0; i < data.length; i++) {
+              $('div.preview').append('<div class="border mx-2 mb-4 rounded col-2 p-0 row text-center" id="PreviewImage'+data[i].id+'" style="height:7em"> <input type="hidden" name="arquivos[]" value="'+data[i].id+'"><a href="javascript:void(0)" onclick="removeImagem('+data[i].id+')" class="btn btn-light rounded-circle m-n2 mb-auto border btn-xs position-absolute" style="height: 26px; width: 26px">x</a>'+(data[i].endereco.split('.')[1] == 'docx' || data[i].endereco.split('.')[1] == 'doc' ? '<i class="mdi mdi-file-word mdi-36px mdi-dark m-auto col-12"></i><span class="col-12 text-truncate" title="'+data[i].endereco.replace('chamados/', '')+'">'+data[i].endereco.replace('chamados/', '')+'</span>' : (data[i].endereco.split('.')[1] == 'xls' || data[i].endereco.split('.')[1] == 'xlsx' || data[i].endereco.split('.')[1] == 'xlsm' || data[i].endereco.split('.')[1] == 'csv' ? '<i class="mdi mdi-file-excel mdi-36px mdi-dark m-auto col-12"></i><span class="col-12 text-truncate" title="'+data[i].endereco.replace('chamados/', '')+'">'+data[i].endereco.replace('chamados/', '')+'</span>' : (data[i].endereco.split('.')[1] == 'pdf' ? '<i class="mdi mdi-file-pdf mdi-36px mdi-dark m-auto col-12"></i><span class="col-12 text-truncate" title="'+data[i].endereco.replace('chamados/', '')+'">'+data[i].endereco.replace('chamados/', '')+'</span>' : '<i class="mdi mdi-file-document mdi-36px mdi-dark m-auto col-12"></i><span class="col-12 text-truncate" title="'+data[i].endereco.replace('chamados/', '')+'">'+data[i].endereco.replace('chamados/', '')+'</span>')))+'</div>');
+            } 
+            $('#addArquivo').val('');   
           }
         });
-      } else {
-        swal.close();
       }
     });
-  });
 
-   $('.status-editar').on('click', function(e){
+    $('.status-remove').on('click', function(e){
+      // Removendo status do chamado
+      var id = this.id;
+      swal({
+        title: "Tem certeza que deseja remover o status?",
+        text: "Essa remoção irá impactar nas informações visualizadas pelos colaboradores.",
+        icon: "warning",
+        buttons: ["Cancelar", "Confirmar"],
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+          $.get("{{url('app/gti/chamados/remove')}}/"+id, function(data){
+            if(data.success == true){
+              swal("Status removido com sucesso!", {
+                icon: "success",
+                button: false
+              });
+              location.reload();
+            }else{
+              swal("Não foi possível remover o status!", {
+                icon: "error",
+              });
+            }
+          });
+        } else {
+          swal.close();
+        }
+      });
+    });
+
+    $('.status-editar').on('click', function(e){
       // Alterando descrição do status
       var id = this.id;
       $.get("{{url('app/gti/chamados/info')}}/"+id, function(data){

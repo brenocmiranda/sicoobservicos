@@ -73,16 +73,15 @@
       </li>
       @endif
 
-
       @if(Auth::user()->RelationFuncao->ver_cadastro == 1 || Auth::user()->RelationFuncao->gerenciar_cadastro == 1)
       <li> 
-        <a href="javascript:" class="waves-effect {{ (Request::segment(2) == 'atendimento' ? 'active' : '') }}">
+        <a href="javascript:" class="waves-effect {{ (Request::segment(2) == 'cadastro' ? 'active' : '') }}">
           <i class="mdi mdi-bookmark-plus-outline pr-3" data-icon="v"></i> 
           <span class="hide-menu"> Cadastro <span class="fa arrow"></span> </span>
         </a>
-        <ul class="nav nav-second-level {{ (Request::segment(2) == 'atendimento' ? ' collapse in' : '') }}">
-          <li> <a href="{{route('exibir.painel.atendimento')}}"><span class="hide-menu">Dashboard</span></a> </li>
-          <li> <a href="{{route('exibir.painel.atendimento')}}"><span class="hide-menu">Solicitações</span></a> </li>
+        <ul class="nav nav-second-level {{ (Request::segment(2) == 'cadastro' ? ' collapse in' : '') }}">
+          <li> <a href="#"><span class="hide-menu">Dashboard</span></a> </li>
+          <li> <a href="#"><span class="hide-menu">Solicitações</span></a> </li>
         </ul>
       </li>
       @endif
@@ -127,12 +126,12 @@
 
       @if(Auth::user()->RelationFuncao->ver_produtos == 1 || Auth::user()->RelationFuncao->gerenciar_produtos == 1)
       <li> 
-        <a href="javascript:" class="waves-effect {{ (Request::segment(2) == 'atendimento' ? 'active' : '') }}">
+        <a href="javascript:" class="waves-effect {{ (Request::segment(2) == 'produtos' ? 'active' : '') }}">
           <i class="mdi mdi-bulletin-board pr-3" data-icon="v"></i> 
           <span class="hide-menu"> Produtos <span class="fa arrow"></span> </span>
         </a>
-        <ul class="nav nav-second-level {{ (Request::segment(2) == 'atendimento' ? ' collapse in' : '') }}">
-          <li> <a href="{{route('exibir.painel.atendimento')}}"><span class="hide-menu">Dashboard</span></a> </li>
+        <ul class="nav nav-second-level {{ (Request::segment(2) == 'produtos' ? ' collapse in' : '') }}">
+          <li> <a href="#"><span class="hide-menu">Dashboard</span></a> </li>
           <li> <a href="#"><span class="hide-menu">Seguros</span></a> </li>
         </ul>
       </li>

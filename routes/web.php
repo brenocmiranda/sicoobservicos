@@ -257,6 +257,8 @@ Route::group(['prefix' => 'app'], function(){
 			Route::post('status/{id}', 'SuporteCtrl@StatusChamados')->name('status.chamados');
 			Route::post('addArquivos', 'SuporteCtrl@ArquivosChamados')->name('adicionar.arquivos.chamados');
 			Route::get('removeArquivo/{id}', 'SuporteCtrl@RemoveArquivosChamados')->name('remover.arquivos.chamados');
+			Route::post('addArquivosStatus', 'SuporteCtrl@ArquivosChamadosStatus')->name('adicionar.arquivos.chamados.status');
+			Route::get('removeArquivoStatus/{id}', 'SuporteCtrl@RemoveArquivosChamadosStatus')->name('remover.arquivos.chamados.status');
 		});
 		// Solicitações de materiais
 		Route::group(['prefix' => 'materiais'], function(){
@@ -304,6 +306,8 @@ Route::group(['prefix' => 'app'], function(){
 			Route::get('info/{id}', 'TecnologiaCtrl@InfoChamados')->name('info.chamados.gti');
 			Route::get('remove/{id}', 'TecnologiaCtrl@RemoveChamados')->name('remove.chamados.gti');
 			Route::post('descricao', 'TecnologiaCtrl@DescricaoChamados')->name('descricao.chamados.gti');
+			Route::post('addArquivosStatus', 'TecnologiaCtrl@ArquivosChamadosStatus')->name('adicionar.arquivos.chamados.status.gti');
+			Route::get('removeArquivoStatus/{id}', 'TecnologiaCtrl@RemoveArquivosChamadosStatus')->name('remover.arquivos.chamados.status.gti');
 		});
 		// Configurações
 		Route::group(['prefix' => 'configuracoes'], function(){
