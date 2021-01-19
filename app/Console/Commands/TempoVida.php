@@ -12,7 +12,7 @@ class TempoVida extends Command
      *
      * @var string
      */
-    protected $signature = 'MonitorarTempoVidaStatus:monitorar';
+    protected $signature = 'TempoVida:monitorar';
 
     /**
      * The console command description.
@@ -36,7 +36,7 @@ class TempoVida extends Command
      *
      * @return int
      */
-    public function handle(ImportacoesCtrl $action)
+    public function handle(TecnologiaCtrl $action)
     {
         return $action->MonitorarTempoVidaStatus();
     }
