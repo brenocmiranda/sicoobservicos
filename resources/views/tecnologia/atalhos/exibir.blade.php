@@ -8,7 +8,7 @@ Homepage
 	<div class="col-12 row mx-auto px-5 pt-4">
 		<div class="pt-3 row ml-auto dropdown pb-5 pb-lg-0">
 			@if(Auth::check())
-			<a href="{{route('inicio')}}" title="Início" target="_blank" class="text-white text-truncate my-auto font-weight-normal mx-3 pr-3">
+			<a href="{{route('inicio')}}" title="Início" target="_blank" class="text-white text-truncate my-auto font-weight-normal mx-3 pr-2">
             	<h5 class="text-white">Início</h5>
             </a>
 			<div class="dropdown dropdown-home mx-3 px-3">
