@@ -19,21 +19,31 @@
             <div class="row">
               <div class="col-lg-8 col-10">
                 <div class="form-group">
-                  <label class="col-form-label">Nome</label>
-                  <div class="">
-                    <label class="nome"></label>
-                  </div>
                   <div class="row">
+                    <div class="col-lg-6 col-12">
+                      <label class="col-form-label">Equipamento</label>
+                      <div class="">
+                        <label class="equipamento"></label>
+                      </div>
+                    </div>
                     <div class="col-lg-6 col-12">
                       <label class="col-form-label">Marca</label>
                       <div class="">
                         <label class="marca"></label>
                       </div>
                     </div>
+                  </div>
+                  <div class="row">
                     <div class="col-lg-6 col-12">
                       <label class="col-form-label">Modelo</label>
                       <div class="">
                         <label class="modelo"></label>
+                      </div>
+                    </div>
+                    <div class="col-lg-6 col-12">
+                      <label class="col-form-label">Nº série</label>
+                      <div class="">
+                        <label class="serialNumber"></label>
                       </div>
                     </div>
                   </div>
@@ -45,16 +55,10 @@
                       </div>
                     </div>
                     <div class="col-lg-6 col-12">
-                      <label class="col-form-label">Nº série</label>
+                      <label class="col-form-label">Service TAG</label>
                       <div class="">
-                        <label class="serialNumber"></label>
+                        <label class="serviceTag"></label>
                       </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-6 col-12">
-                    <label class="col-form-label">Service Tag</label>
-                    <div class="">
-                      <label class="serviceTag"></label>
                     </div>
                   </div>
                   <label class="col-form-label">Localização</label>

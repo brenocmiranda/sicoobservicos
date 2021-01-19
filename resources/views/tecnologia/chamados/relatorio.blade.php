@@ -72,9 +72,9 @@ Relatório da solicitação #{{$chamado->id}}
 				<div class="row mx-auto">
 					<div class="col-12">
 						<h5 class="text-uppercase mb-2 text-truncate">
-							<span>{{$chamado->RelationFontes->nome}}</span> 
+							<span>{{$chamado->RelationAmbientes->nome}}</span> 
 							<b>&#183</b> 
-							<span>{{$chamado->RelationTipos->nome}}</span>
+							<span>{{$chamado->RelationFontes->nome}}</span>
 						</h5>
 					</div>
 					<div class="col-12 mb-4">

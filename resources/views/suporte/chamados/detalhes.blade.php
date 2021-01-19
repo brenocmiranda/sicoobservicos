@@ -35,9 +35,9 @@ Detalhes do chamado
         <div class="card-body">
           <div class="col-12">
             <h5 class="text-uppercase mb-2 text-truncate">
-              <span>{{$chamado->RelationFontes->nome}}</span> 
+              <span>{{$chamado->RelationAmbientes->nome}}</span> 
               <b>&#183</b> 
-              <span>{{$chamado->RelationTipos->nome}}</span>
+              <span>{{$chamado->RelationFontes->nome}}</span>
             </h5>
           </div>
 
@@ -103,6 +103,12 @@ Detalhes do chamado
           <div class="col-12 px-0 pt-0 footer" style="border-radius: 0.8rem;">
             <hr class="col-10">
             <div class="row justify-content-center">
+              <div> 
+                <a href="{{route('relatorio.chamados', $chamado->id)}}" target="_blank" class="btn btn-info btn-outline d-flex align-items-center justify-content-center mx-2">
+                  <i class="mdi mdi-printer pr-2"></i> 
+                  <span>Gerar Relatório</span>
+                </a>
+              </div>
               @if($chamado->RelationStatus->first()->finish != 1)
               <div>
                 <a href="javascript:void()" id="{{$chamado->id}}" class="btn-finalizar btn btn-danger btn-outline d-flex align-items-center justify-content-center mx-2" data-toggle="modal" data-target="#modal-finalizar">
@@ -133,7 +139,17 @@ Detalhes do chamado
             </div>
           </div>
         </div>
+
         <div class="card-body" style="overflow-y: auto">
+          @if($chamado->RelationStatus->first()->finish != 1)
+          <div class="col-12 text-center">
+            <a href="javascript:" title="Adicionar nova atualização" data-toggle="modal" data-target="#modal-alterar">
+              <i class="mdi mdi-plus"></i>
+              <span>Nova mensagem</span>
+            </a>
+          </div>
+          @endif
+
           <ul class="p-0" id="statusNews">
             @foreach($historicoStatus as $status)
             <li class="m-3" id="status{{$status->id}}">
@@ -162,6 +178,7 @@ Detalhes do chamado
 @endsection
 
 @section('modal')
+  @include('suporte.chamados.status')
   @include('suporte.chamados.finalizar')
   @include('suporte.chamados.reabertura')
 @endsection
@@ -218,7 +235,6 @@ Detalhes do chamado
         }
       });
     });
-
     $('#modal-reabertura #formReabertura').on('submit', function(e){
       // Finalizar chamado
       e.preventDefault();
@@ -249,6 +265,43 @@ Detalhes do chamado
               $('input').removeClass('border-bottom border-danger');
               $.each(data.responseJSON.errors, function(key, value){
                 $('#modal-reabertura #err').append('<div class="text-danger mx-4"><p>'+value+'</p></div>');
+                $('input[name="'+key+'"]').addClass('border-bottom border-danger');
+              });
+            }
+          }, 2000);
+        }
+      });
+    });
+    $('#modal-alterar #formAlterar').on('submit', function(e){
+      // Alterar as informações
+      e.preventDefault();
+      $.ajax({
+        url: "{{route('status.chamados', $chamado->id)}}",
+        type: 'POST',
+        data: $('#modal-alterar #formAlterar').serialize(),
+        beforeSend: function(){
+          $('.modal-body, .modal-footer').addClass('d-none');
+          $('.carregamento').html('<div class="mx-auto text-center my-5"> <div class="col-12"> <div class="spinner-border my-4" role="status"> <span class="sr-only"> Loading... </span> </div> </div> <label>Salvando informações...</label></div>');
+          $('#modal-alterar #err').html('');
+        },
+        success: function(data){
+          $('.modal-body, .modal-footer').addClass('d-none');
+          $('.carregamento').html('<div class="mx-auto text-center my-5"><div class="col-12"><i class="col-2 mdi mdi-check-all mdi-48px"></i></div><label>Informações alteradas com sucesso!</label></div>');
+          setTimeout(function(){
+            location.reload();
+          }, 1000);
+        }, error: function (data) {
+          setTimeout(function(){
+            $('.modal-body, .modal-footer').removeClass('d-none');
+            $('.carregamento').html('');
+            if(!data.responseJSON){
+              console.log(data.responseText);
+              $('#modal-alterar #err').html(data.responseText);
+            }else{
+              $('#modal-alterar #err').html('');
+              $('input').removeClass('border-bottom border-danger');
+              $.each(data.responseJSON.errors, function(key, value){
+                $('#modal-alterar #err').append('<div class="text-danger mx-4"><p>'+value+'</p></div>');
                 $('input[name="'+key+'"]').addClass('border-bottom border-danger');
               });
             }

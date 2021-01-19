@@ -10,8 +10,10 @@ use Yajra\Datatables\Datatables;
 use App\Notifications\SolicitacaoChamadosCliente;
 use App\Http\Requests\AtivoRqt; 
 use App\Http\Requests\BaseRqt;
+use App\Http\Requests\AmbientesRqt;
+use App\Http\Requests\EquipamentosRqt;
+use App\Http\Requests\MarcasRqt;
 use App\Http\Requests\FontesRqt;
-use App\Http\Requests\TiposRqt;
 use App\Http\Requests\StatusRqt;
 use App\Http\Requests\HomepageRqt;
 use App\Models\Ativos;
@@ -25,8 +27,8 @@ use App\Models\ChamadosStatus;
 use App\Models\Status;
 use App\Models\Base;
 use App\Models\BaseArquivos; 
+use App\Models\Ambientes;
 use App\Models\Fontes;
-use App\Models\Tipos;
 use App\Models\Arquivos; 
 use App\Models\Homepage;
 use App\Models\Imagens;
@@ -60,9 +62,9 @@ class TecnologiaCtrl extends Controller
 				$chamadosEncerrado++;
 			}
 		}
-		$chamadosTipos = Chamados::join('gti_tipos', 'gti_id_tipos', 'gti_tipos.id')->select('gti_id_tipos', 'gti_tipos.nome', \DB::raw('count(gti_id_tipos) as quantidade'))->groupBy('gti_id_tipos')->get();
 		$chamadosFontes = Chamados::join('gti_fontes', 'gti_id_fontes', 'gti_fontes.id')->select('gti_id_fontes', 'gti_fontes.nome', \DB::raw('count(gti_id_fontes) as quantidade'))->groupBy('gti_id_fontes')->get();
-		$chamadosUsuarios = Chamados::join('gti_fontes', 'gti_id_fontes', 'gti_fontes.id')->select('gti_id_fontes', 'gti_fontes.nome', \DB::raw('count(gti_id_fontes) as quantidade'))->groupBy('gti_id_fontes')->get();
+		$chamadosAmbientes = Chamados::join('gti_ambientes', 'gti_id_ambientes', 'gti_ambientes.id')->select('gti_id_ambientes', 'gti_ambientes.nome', \DB::raw('count(gti_id_ambientes) as quantidade'))->groupBy('gti_id_ambientes')->get();
+		$chamadosUsuarios = Chamados::join('gti_ambientes', 'gti_id_ambientes', 'gti_ambientes.id')->select('gti_id_ambientes', 'gti_ambientes.nome', \DB::raw('count(gti_id_ambientes) as quantidade'))->groupBy('gti_id_ambientes')->get();
 		$chamadosDia = Chamados::select(\DB::raw('DATE(created_at) as data'), \DB::raw('count(created_at) as quantidade'))->groupBy(\DB::raw('DATE(created_at)'))->get();
 		$chamadosUsuarios = Chamados::groupBy('usr_id_usuarios')->select('usr_id_usuarios', \DB::raw('count(usr_id_usuarios) as quantidade'))->get();
 		$equipamentosSetor = Ativos::join('usr_setores', 'id_setor', 'usr_setores.id')->select('id_setor', 'usr_setores.nome', \DB::raw('count(id_setor) as quantidade'))->groupBy('id_setor')->get();
@@ -70,7 +72,7 @@ class TecnologiaCtrl extends Controller
 		$equipamentosUsuarios = AtivosUsuarios::groupBy('usr_id_usuarios')->whereNotNull('dataDevolucao')->select('usr_id_usuarios', \DB::raw('count(usr_id_usuarios) as quantidade'))->get();
 		$equipamentosMarca = Ativos::groupBy('marca')->select('marca', \DB::raw('count(marca) as quantidade'))->get();
 
-		return view('tecnologia.dashboard')->with('homepage', $homepage)->with('chamados', $chamados)->with('chamadosEmaberto', $chamadosEmaberto) ->with('chamadosEmandamento', $chamadosEmandamento) ->with('chamadosEncerrado', $chamadosEncerrado) ->with('chamadosTipos', $chamadosTipos) ->with('chamadosFontes', $chamadosFontes) ->with('chamadosDia', $chamadosDia) ->with('chamadosUsuarios', $chamadosUsuarios) ->with('equipamentosSetor', $equipamentosSetor) ->with('equipamentosPA', $equipamentosPA) ->with('equipamentosMarca', $equipamentosMarca) ->with('equipamentosUsuarios', $equipamentosUsuarios); 
+		return view('tecnologia.dashboard')->with('homepage', $homepage)->with('chamados', $chamados)->with('chamadosEmaberto', $chamadosEmaberto) ->with('chamadosEmandamento', $chamadosEmandamento) ->with('chamadosEncerrado', $chamadosEncerrado) ->with('chamadosFontes', $chamadosFontes) ->with('chamadosAmbientes', $chamadosAmbientes) ->with('chamadosDia', $chamadosDia) ->with('chamadosUsuarios', $chamadosUsuarios) ->with('equipamentosSetor', $equipamentosSetor) ->with('equipamentosPA', $equipamentosPA) ->with('equipamentosMarca', $equipamentosMarca) ->with('equipamentosUsuarios', $equipamentosUsuarios); 
 	}
 
 	#-------------------------------------------------------------------
@@ -98,7 +100,7 @@ class TecnologiaCtrl extends Controller
         }
     }
     // Finalizando chamado
-    public function FinalizaChamados(Request $request, $id){
+    public function FinalizarChamados(Request $request, $id){
         if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
             $finalizar = Status::where('finish', 1)->first();
             $status = ChamadosStatus::create([
@@ -124,7 +126,7 @@ class TecnologiaCtrl extends Controller
     // Relatório do chamado
     public function RelatorioChamados($id){
         $dados = Chamados::find($id);
-        $historicoStatus = ChamadosStatus::where('gti_id_chamados', $id)->orderBy('created_at', 'DESC')->get();
+        $historicoStatus = ChamadosStatus::where('gti_id_chamados', $id)->orderBy('created_at', 'ASC')->get();
         Atividades::create([
             'nome' => 'Emissão de relatório do chamado',
             'descricao' => 'Você efetuou a emissão do relatório do chamado, '.$dados->assunto.'.',
@@ -201,8 +203,8 @@ class TecnologiaCtrl extends Controller
 	// Listando todos tópicos
 	public function ExibirAprendizagem(){
 		if(Auth::user()->RelationFuncao->ver_gti == 1 || Auth::user()->RelationFuncao->gerenciar_gti == 1){
-			$topicos = Base::all();
-			return view('tecnologia.configuracoes.aprendizagem.exibir')->with('topicos', $topicos);
+			$topicos = Base::orderBy('created_at', 'DESC')->get();
+			return view('tecnologia.aprendizagem.exibir')->with('topicos', $topicos);
 		}else{
 			return redirect(route('403'));
 		}
@@ -210,9 +212,9 @@ class TecnologiaCtrl extends Controller
 	// Adicionando novos tópicos
 	public function AdicionarAprendizagem(){
 		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
+			$ambientes = Ambientes::where('status', 1)->orderBy('nome', 'ASC')->get();
 			$fontes = Fontes::where('status', 1)->orderBy('nome', 'ASC')->get();
-			$tipos = Tipos::where('status', 1)->orderBy('nome', 'ASC')->get();
-			return view('tecnologia.configuracoes.aprendizagem.adicionar')->with('fontes', $fontes)->with('tipos', $tipos);
+			return view('tecnologia.aprendizagem.adicionar')->with('ambientes', $ambientes)->with('fontes', $fontes);
 		}else{
 			return redirect(route('403'));
 		}
@@ -223,8 +225,8 @@ class TecnologiaCtrl extends Controller
 				'titulo' => $request->titulo,
 				'subtitulo' => $request->subtitulo, 
 				'descricao' => $request->descricao, 
+				'gti_id_ambientes' => $request->gti_id_ambientes,
 				'gti_id_fontes' => $request->gti_id_fontes,
-				'gti_id_tipos' => $request->gti_id_tipos,
 			]);
 			// Cadastramento de vários arquivos 
 	        if ($request->arquivos) {
@@ -251,9 +253,9 @@ class TecnologiaCtrl extends Controller
 	public function EditarAprendizagem($id){
 		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
 			$base = Base::find($id);
-			$fontes = Fontes::where('status', 1)->orderBy('nome', 'ASC')->get();
-			$tipos = Tipos::where('status', 1)->where('gti_id_fontes', $base->gti_id_fontes)->orderBy('nome', 'ASC')->get();
-			return view('tecnologia.configuracoes.aprendizagem.editar')->with('base', $base)->with('fontes', $fontes)->with('tipos', $tipos);
+			$ambientes = Ambientes::where('status', 1)->orderBy('nome', 'ASC')->get();
+			$fontes = Fontes::where('status', 1)->where('gti_id_fontes', $base->gti_id_fontes)->orderBy('nome', 'ASC')->get();
+			return view('tecnologia.aprendizagem.editar')->with('base', $base)->with('ambientes', $ambientes)->with('fontes', $fontes);
 		}else{
 			return redirect(route('403'));
 		}
@@ -264,8 +266,8 @@ class TecnologiaCtrl extends Controller
 				'titulo' => $request->titulo,
 				'subtitulo' => $request->subtitulo, 
 				'descricao' => $request->descricao, 
-				'gti_id_fontes' => $request->gti_id_fontes,
-				'gti_id_tipos' => $request->gti_id_tipos,  
+				'gti_id_ambientes' => $request->gti_id_ambientes,
+				'gti_id_fontes' => $request->gti_id_fontes, 
 			]);
 			// Cadastramento de vários arquivos 
 	        if ($request->arquivos){
@@ -308,12 +310,6 @@ class TecnologiaCtrl extends Controller
 			return redirect(route('403'));
 		}
 	}
-	// Detallhes do tópico
-	public function DetalhesAprendizagem($id){
-		$dados = Base::find($id);
-		$topicos = Base::where('gti_id_fontes', $dados->gti_id_fontes)->where('gti_id_tipos', $dados->gti_id_tipos)->where('id', '<>', $dados->id)->limit(5)->get();
-		return view('suporte.base.detalhes')->with('dados', $dados)->with('topicos', $topicos);
-	}
 	// Importando arquivos de anexo
     public function ArquivosAprendizagem(Request $request){
         // Cadastramento de várias imagens do mesmo produto
@@ -342,6 +338,114 @@ class TecnologiaCtrl extends Controller
 
 
     #-------------------------------------------------------------------
+	# Configurações (Ambientes)
+	#-------------------------------------------------------------------
+    // Listando todos os ambientes
+	public function ExibirAmbientes(){
+		if(Auth::user()->RelationFuncao->ver_gti == 1 || Auth::user()->RelationFuncao->gerenciar_gti == 1){
+			return view('tecnologia.configuracoes.chamados.ambientes.listar');
+		}else{
+			return redirect(route('403'));
+		}
+	}
+	public function DatatablesAmbientes(){
+		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
+			return datatables()->of(Ambientes::all())
+	            ->editColumn('nome1', function(Ambientes $dados){ 
+	                return '<a href="javascript:void(0)" id="detalhes">'.$dados->nome.'</a>';
+	            })
+	            ->editColumn('status1', function(Ambientes $dados){
+	                return '<label class="badge'.($dados->status == 1 ? " badge-success" : " badge-danger").'">'.($dados->status == 1 ? "Ativo" : "Desativado").'</label>';
+	            })
+	            ->editColumn('acoes', function(Ambientes $dados){ 
+	                return ($dados->status == 1 ? '
+						<button class="btn btn-dark btn-xs btn-rounded mx-1" id="editar" title="Editar informações da fonte"><i class="mx-0 mdi mdi-settings"></i></button>
+						<button class="btn btn-dark btn-xs btn-rounded" id="alterar" title="Desativar a fonte"><i class="mx-0 mdi mdi-close"></i></button>' : '
+						<button class="btn btn-dark btn-xs btn-rounded mx-1" id="editar" title="Editar informações da fonte"><i class="mx-0 mdi mdi-settings"></i></button>
+						<button class="btn btn-dark btn-xs btn-rounded" id="alterar" title="Ativar a fonte"><i class="mx-0 mdi mdi-check"></i></button>');
+	            })->rawColumns(['nome1', 'status1', 'acoes'])->make(true);
+        }else{
+        	return datatables()->of(Ambientes::all())
+	            ->editColumn('nome1', function(Ambientes $dados){ 
+	                return '<a href="javascript:void(0)" id="detalhes">'.$dados->nome.'</a>';
+	            })
+	            ->editColumn('status1', function(Ambientes $dados){
+	                return '<label class="badge'.($dados->status == 1 ? " badge-success" : " badge-danger").'">'.($dados->status == 1 ? "Ativo" : "Desativado").'</label>';
+	            })
+	            ->editColumn('acoes', function(Ambientes $dados){ 
+	                return '';
+	            })->rawColumns(['nome1', 'status1', 'acoes'])->make(true);
+        }
+	}
+	// Adicionando novos ambientes
+	public function AdicionarAmbientes(AmbientesRqt $request){
+		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
+			$create = Ambientes::create([
+				'nome' => $request->nome, 
+				'descricao' => $request->descricao, 
+				'status' => ($request->status == "on" ? 1 : 0)
+			]);
+			Atividades::create([
+				'nome' => 'Cadastro de novo ambiente',
+				'descricao' => 'Você cadastrou uma nova configuração de ambiente, '.$create->nome.'.',
+				'icone' => 'mdi-plus',
+				'url' => route('exibir.ambientes.chamados'),
+				'id_usuario' => Auth::id()
+			]);
+			return $create;
+		}else{
+			return redirect(route('403'));
+		}
+	}
+	// Editando informações do ambiente
+	public function EditarAmbientes(AmbientesRqt $request, $id){
+		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
+			Ambientes::find($id)->update([
+				'nome' => $request->nome, 
+				'descricao' => $request->descricao, 
+				'status' => ($request->status == "on" ? 1 : 0)
+			]);
+			$create = Ambientes::find($id);
+			Atividades::create([
+				'nome' => 'Edição de informações',
+				'descricao' => 'Você modificou as informações do ambiente: '.$create->nome.'.',
+				'icone' => 'mdi-auto-fix',
+				'url' => route('exibir.ambientes.chamados'),
+				'id_usuario' => Auth::id()
+			]);
+			return response()->json(['success' => true]);
+		}else{
+			return redirect(route('403'));
+		}
+	}
+	// Alterar o status
+	public function AlterarAmbientes($id){
+		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
+			$ambientes = Ambientes::find($id);
+			if($ambientes->status == 1){
+				Ambientes::find($id)->update(['status' => 0]);
+			}else{
+				Ambientes::find($id)->update(['status' => 1]);
+			}
+			Atividades::create([
+				'nome' => 'Alteração de estado',
+				'descricao' => 'Você alterou o status do ambiente, '.$ambientes->nome.'.',
+				'icone' => 'mdi-rotate-3d',
+				'url' => route('exibir.ambientes.chamados'),
+				'id_usuario' => Auth::id()
+			]);
+			return response()->json(['success' => true]);
+		}else{
+			return redirect(route('403'));
+		}
+	}
+	// Detallhes da ambientes
+	public function DetalhesAmbientes($id){
+		$dados = Ambientes::find($id);
+		return $dados;
+	}
+
+	#-------------------------------------------------------------------
 	# Configurações (Equipamentos)
 	#-------------------------------------------------------------------
     // Listando todos os equipamentos
@@ -356,7 +460,7 @@ class TecnologiaCtrl extends Controller
 		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
 			return datatables()->of(AtivosEquipamentos::all())
 	            ->editColumn('nome1', function(AtivosEquipamentos $dados){ 
-	                return '<a href="javascript:void(0)" id="detalhes">'.$dados->nome.'</a>';
+	                return '<a href="javascript:void(0)" id="detalhes">'.$dados->nome.' &#183 '.$dados->marca.'</a>';
 	            })
 	            ->editColumn('status1', function(AtivosEquipamentos $dados){
 	                return '<label class="badge'.($dados->status == 1 ? " badge-success" : " badge-danger").'">'.($dados->status == 1 ? "Ativo" : "Desativado").'</label>';
@@ -371,7 +475,7 @@ class TecnologiaCtrl extends Controller
         }else{
         	return datatables()->of(AtivosEquipamentos::all())
 	            ->editColumn('nome1', function(AtivosEquipamentos $dados){ 
-	                return '<a href="javascript:void(0)" id="detalhes">'.$dados->nome.'</a>';
+	                return '<a href="javascript:void(0)" id="detalhes">'.$dados->nome.' &#183 '.$dados->marca.'</a>';
 	            })
 	            ->editColumn('status1', function(AtivosEquipamentos $dados){
 	                return '<label class="badge'.($dados->status == 1 ? " badge-success" : " badge-danger").'">'.($dados->status == 1 ? "Ativo" : "Desativado").'</label>';
@@ -382,7 +486,7 @@ class TecnologiaCtrl extends Controller
         }
 	}
 	// Adicionando novo equipamento
-	public function AdicionarEquipamentos(Request $request){
+	public function AdicionarEquipamentos(EquipamentosRqt $request){
 		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
 			$create = AtivosEquipamentos::create([
 				'nome' => $request->nome, 
@@ -402,7 +506,7 @@ class TecnologiaCtrl extends Controller
 		}
 	}
 	// Editando informações dos equipamentos
-	public function EditarEquipamentos(Request $request, $id){
+	public function EditarEquipamentos(EquipamentosRqt $request, $id){
 		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
 			AtivosEquipamentos::find($id)->update([
 				'nome' => $request->nome, 
@@ -449,115 +553,6 @@ class TecnologiaCtrl extends Controller
 		return $dados;
 	}
 
-
-    #-------------------------------------------------------------------
-	# Configurações (Fontes)
-	#-------------------------------------------------------------------
-    // Listando todos os fontes
-	public function ExibirFontes(){
-		if(Auth::user()->RelationFuncao->ver_gti == 1 || Auth::user()->RelationFuncao->gerenciar_gti == 1){
-			return view('tecnologia.configuracoes.chamados.fontes.listar');
-		}else{
-			return redirect(route('403'));
-		}
-	}
-	public function DatatablesFontes(){
-		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
-			return datatables()->of(Fontes::all())
-	            ->editColumn('nome1', function(Fontes $dados){ 
-	                return '<a href="javascript:void(0)" id="detalhes">'.$dados->nome.'</a>';
-	            })
-	            ->editColumn('status1', function(Fontes $dados){
-	                return '<label class="badge'.($dados->status == 1 ? " badge-success" : " badge-danger").'">'.($dados->status == 1 ? "Ativo" : "Desativado").'</label>';
-	            })
-	            ->editColumn('acoes', function(Fontes $dados){ 
-	                return ($dados->status == 1 ? '
-						<button class="btn btn-dark btn-xs btn-rounded mx-1" id="editar" title="Editar informações da fonte"><i class="mx-0 mdi mdi-settings"></i></button>
-						<button class="btn btn-dark btn-xs btn-rounded" id="alterar" title="Desativar a fonte"><i class="mx-0 mdi mdi-close"></i></button>' : '
-						<button class="btn btn-dark btn-xs btn-rounded mx-1" id="editar" title="Editar informações da fonte"><i class="mx-0 mdi mdi-settings"></i></button>
-						<button class="btn btn-dark btn-xs btn-rounded" id="alterar" title="Ativar a fonte"><i class="mx-0 mdi mdi-check"></i></button>');
-	            })->rawColumns(['nome1', 'status1', 'acoes'])->make(true);
-        }else{
-        	return datatables()->of(Fontes::all())
-	            ->editColumn('nome1', function(Fontes $dados){ 
-	                return '<a href="javascript:void(0)" id="detalhes">'.$dados->nome.'</a>';
-	            })
-	            ->editColumn('status1', function(Fontes $dados){
-	                return '<label class="badge'.($dados->status == 1 ? " badge-success" : " badge-danger").'">'.($dados->status == 1 ? "Ativo" : "Desativado").'</label>';
-	            })
-	            ->editColumn('acoes', function(Fontes $dados){ 
-	                return '';
-	            })->rawColumns(['nome1', 'status1', 'acoes'])->make(true);
-        }
-	}
-	// Adicionando nova fontes
-	public function AdicionarFontes(FontesRqt $request){
-		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
-			$create = Fontes::create([
-				'nome' => $request->nome, 
-				'descricao' => $request->descricao, 
-				'status' => ($request->status == "on" ? 1 : 0)
-			]);
-			Atividades::create([
-				'nome' => 'Cadastro de nova fonte de aprendizagem',
-				'descricao' => 'Você cadastrou um nova fonte de aprendizagem, '.$create->nome.'.',
-				'icone' => 'mdi-plus',
-				'url' => route('exibir.fontes.chamados'),
-				'id_usuario' => Auth::id()
-			]);
-			return response()->json(['success' => true]);
-		}else{
-			return redirect(route('403'));
-		}
-	}
-	// Editando informações da fontes
-	public function EditarFontes(FontesRqt $request, $id){
-		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
-			Fontes::find($id)->update([
-				'nome' => $request->nome, 
-				'descricao' => $request->descricao, 
-				'status' => ($request->status == "on" ? 1 : 0)
-			]);
-			$create = Fontes::find($id);
-			Atividades::create([
-				'nome' => 'Edição de informações',
-				'descricao' => 'Você modificou as informações da fonte de aprendizagem '.$create->nome.'.',
-				'icone' => 'mdi-auto-fix',
-				'url' => route('exibir.fontes.chamados'),
-				'id_usuario' => Auth::id()
-			]);
-			return response()->json(['success' => true]);
-		}else{
-			return redirect(route('403'));
-		}
-	}
-	// Alterar o status
-	public function AlterarFontes($id){
-		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
-			$fontes = Fontes::find($id);
-			if($fontes->status == 1){
-				Fontes::find($id)->update(['status' => 0]);
-			}else{
-				Fontes::find($id)->update(['status' => 1]);
-			}
-			Atividades::create([
-				'nome' => 'Alteração de estado',
-				'descricao' => 'Você alterou o status da fonte de aprendizagem '.$fontes->nome.'.',
-				'icone' => 'mdi-rotate-3d',
-				'url' => route('exibir.fontes.chamados'),
-				'id_usuario' => Auth::id()
-			]);
-			return response()->json(['success' => true]);
-		}else{
-			return redirect(route('403'));
-		}
-	}
-	// Detallhes da fontes
-	public function DetalhesFontes($id){
-		$dados = Fontes::find($id);
-		return $dados;
-	}
-
 	#-------------------------------------------------------------------
 	# Configurações (Marcas)
 	#-------------------------------------------------------------------
@@ -599,7 +594,7 @@ class TecnologiaCtrl extends Controller
         }
 	}
 	// Adicionando nova marca
-	public function AdicionarMarcas(Request $request){
+	public function AdicionarMarcas(MarcasRqt $request){
 		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
 			$create = AtivosMarcas::create([
 				'nome' => $request->nome, 
@@ -619,7 +614,7 @@ class TecnologiaCtrl extends Controller
 		}
 	}
 	// Editando informações das marcas
-	public function EditarMarcas(Request $request, $id){
+	public function EditarMarcas(MarcasRqt $request, $id){
 		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
 			AtivosMarcas::find($id)->update([
 				'nome' => $request->nome, 
@@ -667,30 +662,30 @@ class TecnologiaCtrl extends Controller
 	}
 
 	#-------------------------------------------------------------------
-	# Configurações (Tipos)
+	# Configurações (Fontes)
 	#-------------------------------------------------------------------
-	// Listando todos os tipos
-	public function ExibirTipos(){
+	// Listando todos os fontes
+	public function ExibirFontes(){
 		if(Auth::user()->RelationFuncao->ver_gti == 1 || Auth::user()->RelationFuncao->gerenciar_gti == 1){
-			$dados = Fontes::where('status', 1)->get();
-			return view('tecnologia.configuracoes.chamados.tipos.listar')->with('fontes', $dados);
+			$ambientes = Ambientes::where('status', 1)->orderBy('nome', 'ASC')->get();
+			return view('tecnologia.configuracoes.chamados.fontes.listar')->with('ambientes', $ambientes);
 		}else{
 			return redirect(route('403'));
 		}
 	}
-	public function DatatablesTipos(){
+	public function DatatablesFontes(){
 		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
-			return datatables()->of(Tipos::all())
-	            ->editColumn('nome1', function(Tipos $dados){ 
+			return datatables()->of(Fontes::all())
+	            ->editColumn('nome1', function(Fontes $dados){ 
 	                return '<a href="javascript:void(0)" id="detalhes">'.$dados->nome.'</a>';
 	            })
-	            ->editColumn('status1', function(Tipos $dados){
+	            ->editColumn('status1', function(Fontes $dados){
 	                return '<label class="badge'.($dados->status == 1 ? " badge-success" : " badge-danger").'">'.($dados->status == 1 ? "Ativo" : "Desativado").'</label>';
 	            })
-	            ->editColumn('fonte', function(Tipos $dados){
-	                return $dados->RelationTipos->nome;
+	            ->editColumn('fonte', function(Fontes $dados){
+	                return $dados->RelationAmbientes->nome;
 	            })
-	            ->editColumn('acoes', function(Tipos $dados){ 
+	            ->editColumn('acoes', function(Fontes $dados){ 
 	                return ($dados->status == 1 ? '
 						<button class="btn btn-dark btn-xs btn-rounded mx-1" id="editar" title="Editar informações da função"><i class="mx-0 mdi mdi-settings"></i></button>
 						<button class="btn btn-dark btn-xs btn-rounded" id="alterar" title="Desativar a função"><i class="mx-0 mdi mdi-close"></i></button>' : '
@@ -698,35 +693,35 @@ class TecnologiaCtrl extends Controller
 						<button class="btn btn-dark btn-xs btn-rounded" id="alterar" title="Ativar a função"><i class="mx-0 mdi mdi-check"></i></button>');
 	            })->rawColumns(['nome1', 'status1', 'fonte', 'acoes'])->make(true);
 	    }else{
-	    	return datatables()->of(Tipos::all())
-	            ->editColumn('nome1', function(Tipos $dados){ 
+	    	return datatables()->of(Fontes::all())
+	            ->editColumn('nome1', function(Fontes $dados){ 
 	                return '<a href="javascript:void(0)" id="detalhes">'.$dados->nome.'</a>';
 	            })
-	            ->editColumn('status1', function(Tipos $dados){
+	            ->editColumn('status1', function(Fontes $dados){
 	                return '<label class="badge'.($dados->status == 1 ? " badge-success" : " badge-danger").'">'.($dados->status == 1 ? "Ativo" : "Desativado").'</label>';
 	            })
-	            ->editColumn('fonte', function(Tipos $dados){
-	                return $dados->RelationTipos->nome;
+	            ->editColumn('fonte', function(Fontes $dados){
+	                return $dados->RelationAmbientes->nome;
 	            })
-	            ->editColumn('acoes', function(Tipos $dados){ 
+	            ->editColumn('acoes', function(Fontes $dados){ 
 	                return '';
 	            })->rawColumns(['nome1', 'status1', 'fonte', 'acoes'])->make(true);
 	    }
 	}
 	// Adicionando novo tipo
-	public function AdicionarTipos(TiposRqt $request){
+	public function AdicionarFontes(FontesRqt $request){
 		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
-			$create = Tipos::create([
+			$create = Fontes::create([
 				'nome' => $request->nome, 
 				'descricao' => $request->descricao,
-				'gti_id_fontes' => $request->gti_id_fontes,
+				'gti_id_ambientes' => $request->gti_id_ambientes,
 				'status' => ($request->status == "on" ? 1 : 0)
 			]);
 			Atividades::create([
-				'nome' => 'Cadastro de novo tipo de chamado',
-				'descricao' => 'Você cadastrou um novo tipo de chamado, '.$create->nome.'.',
+				'nome' => 'Cadastro de nova fonte',
+				'descricao' => 'Você cadastrou um nova fonte de chamado, '.$create->nome.'.',
 				'icone' => 'mdi-plus',
-				'url' => route('exibir.tipos.chamados'),
+				'url' => route('exibir.fontes.chamados'),
 				'id_usuario' => Auth::id()
 			]);
 			return response()->json(['success' => true]);
@@ -734,21 +729,21 @@ class TecnologiaCtrl extends Controller
 			return redirect(route('403'));
 		}
 	}
-	// Editando informações dos tipos
-	public function EditarTipos(TiposRqt $request, $id){
+	// Editando informações dos fontes
+	public function EditarFontes(FontesRqt $request, $id){
 		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
-			Tipos::find($id)->update([
+			Fontes::find($id)->update([
 				'nome' => $request->nome, 
 				'descricao' => $request->descricao,
-				'gti_id_fontes' => $request->gti_id_fontes,
+				'gti_id_ambientes' => $request->gti_id_ambientes,
 				'status' => ($request->status == "on" ? 1 : 0)
 			]);
-			$create = Tipos::find($id);
+			$create = Fontes::find($id);
 			Atividades::create([
 				'nome' => 'Edição de informações',
-				'descricao' => 'Você modificou as informações do tipo de chamado '.$create->nome.'.',
+				'descricao' => 'Você modificou as informações da fonte de chamado '.$create->nome.'.',
 				'icone' => 'mdi-auto-fix',
-				'url' => route('exibir.tipos.chamados'),
+				'url' => route('exibir.fontes.chamados'),
 				'id_usuario' => Auth::id()
 			]);
 			return response()->json(['success' => true]);
@@ -757,19 +752,19 @@ class TecnologiaCtrl extends Controller
 		}
 	}
 	// Alterar o status
-	public function AlterarTipos($id){
+	public function AlterarFontes($id){
 		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
-			$tipos = Tipos::find($id);
-			if($tipos->status == 1){
-				Tipos::find($id)->update(['status' => 0]);
+			$fontes = Fontes::find($id);
+			if($fontes->status == 1){
+				Fontes::find($id)->update(['status' => 0]);
 			}else{
-				Tipos::find($id)->update(['status' => 1]);
+				Fontes::find($id)->update(['status' => 1]);
 			}
 			Atividades::create([
 				'nome' => 'Alteração de estado',
-				'descricao' => 'Você alterou o status do tipo de chamado '.$tipos->nome.'.',
+				'descricao' => 'Você alterou o status da fonte de chamado '.$fontes->nome.'.',
 				'icone' => 'mdi-rotate-3d',
-				'url' => route('exibir.tipos.chamados'),
+				'url' => route('exibir.fontes.chamados'),
 				'id_usuario' => Auth::id()
 			]);
 			return response()->json(['success' => true]);
@@ -778,8 +773,8 @@ class TecnologiaCtrl extends Controller
 		}
 	}
 	// Detallhes do tipo
-	public function DetalhesTipos($id){
-		$dados = Tipos::find($id);
+	public function DetalhesFontes($id){
+		$dados = Fontes::find($id);
 		return $dados;
 	}
 
@@ -1060,8 +1055,14 @@ class TecnologiaCtrl extends Controller
 	            ->editColumn('usuario', function(Ativos $dados){ 
 	                return $dados->RelationUsuario->last()->RelationAssociado->nome;
 	            })
+	            ->editColumn('marca', function(Ativos $dados){ 
+	                return $dados->RelationMarca->nome;
+	            })
+	            ->editColumn('equipamento', function(Ativos $dados){ 
+	                return $dados->RelationEquipamento->nome;
+	            })
 	            ->editColumn('nome1', function(Ativos $dados){ 
-	                return '<a href="javascript:void(0)" id="detalhes">'.$dados->RelationEquipamento->nome.'<br><small>'.$dados->marca.' <b>&#183</b> '.$dados->modelo.'</small></a>';
+	                return '<a href="javascript:void(0)" id="detalhes">'.$dados->RelationEquipamento->nome.'<br><small>'.$dados->RelationMarca->nome.' <b>&#183</b> '.$dados->modelo.'</small></a>';
 	            })
 	            ->editColumn('acoes', function(Ativos $dados){ 
 	                return '
@@ -1079,8 +1080,14 @@ class TecnologiaCtrl extends Controller
 		            ->editColumn('usuario', function(Ativos $dados){ 
 		                return $dados->RelationUsuario->last()->RelationAssociado->nome;
 		            })
+		            ->editColumn('marca', function(Ativos $dados){ 
+	                return $dados->RelationMarca->nome;
+		            })
+		            ->editColumn('equipamento', function(Ativos $dados){ 
+		                return $dados->RelationEquipamento->nome;
+		            })
 		            ->editColumn('nome1', function(Ativos $dados){ 
-		                return '<a href="javascript:void(0)" id="detalhes">'.$dados->RelationEquipamento->nome.'<br><small>'.$dados->marca.' <b>&#183</b> '.$dados->modelo.'</small></a>';
+		                return '<a href="javascript:void(0)" id="detalhes">'.$dados->RelationEquipamento->nome.'<br><small>'.$dados->RelationMarca->nome.' <b>&#183</b> '.$dados->modelo.'</small></a>';
 		            })
 		            ->editColumn('acoes', function(Ativos $dados){ 
 		                return '';
@@ -1114,11 +1121,11 @@ class TecnologiaCtrl extends Controller
 	public function AdicionarSalvarInventario(AtivoRqt $request){
 		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
 			$create = Ativos::create([
-				'nome' => $request->nome,
+				'id_equipamento' => $request->id_equipamento,
 				'n_patrimonio' => (isset($request->n_patrimonio) ? $request->n_patrimonio : null), 
 				'serialNumber' => $request->serialNumber, 
 				'serviceTag' => (isset($request->serviceTag) ? $request->serviceTag : null),
-				'marca' => $request->marca,
+				'id_marca' => $request->id_marca,
 				'modelo' => $request->modelo,
 				'id_setor' => $request->id_setor,
 				'id_unidade' => $request->id_unidade,
@@ -1165,13 +1172,13 @@ class TecnologiaCtrl extends Controller
 	// Editando informações do equipamento
 	public function EditarInventario($id){
 		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
-			$equipamentos = Ativos::find($id);
+			$ativo = Ativos::find($id);
 			$marcas = AtivosMarcas::where('status', 1)->orderBy('nome', 'ASC')->get();
-			$ativo = AtivosEquipamentos::where('status', 1)->orderBy('nome', 'ASC')->get();
+			$equipamentos = AtivosEquipamentos::where('status', 1)->orderBy('nome', 'ASC')->get();
 			$usuarios = Usuarios::where('status', 1)->orderBy('login', 'ASC')->get();
 			$setores = Setores::where('status', 1)->get();
 			$unidades = Unidades::where('status', 1)->get();
-			return view('tecnologia.equipamentos.editar')->with('usuarios', $usuarios)->with('setores', $setores)->with('ativo', $ativo)->with('unidades', $unidades);
+			return view('tecnologia.equipamentos.editar')->with('usuarios', $usuarios)->with('setores', $setores)->with('ativo', $ativo)->with('unidades', $unidades)->with('equipamentos', $equipamentos)->with('marcas', $marcas);
 		}else{
 			return redirect(route('403'));
 		}
@@ -1179,11 +1186,11 @@ class TecnologiaCtrl extends Controller
 	public function EditarSalvarInventario(AtivoRqt $request, $id){
 		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
 			Ativos::find($id)->update([
-				'nome' => $request->nome,
+				'id_equipamento' => $request->id_equipamento,
 				'n_patrimonio' => (isset($request->n_patrimonio) ? $request->n_patrimonio : null),  
 				'serialNumber' => $request->serialNumber, 
 				'serviceTag' => (isset($request->serviceTag) ? $request->serviceTag : null),
-				'marca' => $request->marca,
+				'id_marca' => $request->id_marca,
 				'modelo' => $request->modelo,
 				'id_setor' => $request->id_setor,
 				'id_unidade' => $request->id_unidade,
@@ -1260,6 +1267,8 @@ class TecnologiaCtrl extends Controller
 		$dados->imagens  = $dados->RelationImagem;
 		$dados->setor  = $dados->RelationSetor->nome;
 		$dados->unidade  = $dados->RelationUnidade->nome;
+		$dados->marca = $dados->RelationMarca->nome;
+		$dados->equipamento = $dados->RelationEquipamento->nome;
 		return response()->json($dados);
 	}
 	// Importando fotos do equipamento

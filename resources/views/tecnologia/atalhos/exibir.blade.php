@@ -11,9 +11,6 @@ Homepage
 			<a href="{{route('inicio')}}" title="Início" target="_blank" class="text-white text-truncate my-auto font-weight-normal mx-3 pr-3">
             	<h5 class="text-white">Início</h5>
             </a>
-           	<a href="{{route('digitalizar')}}" target="_blank" title="Digitalizar" class="text-white text-truncate my-auto font-weight-normal mx-3">
-            	<h5 class="text-white"><i class="mdi mdi-camera-front mdi-24px"></i></h5>
-            </a>
 			<div class="dropdown dropdown-home mx-3 px-3">
 				<a href="javascript::void(0)" title="Menu" class="dropdown-toggle my-auto" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					<h5 class="text-white">
@@ -126,11 +123,6 @@ Homepage
 		        </ul>    
 		    </div>
 		    @else
-		    	<a href="{{route('digitalizar')}}" title="Digitalizar" target="_blank" class="mx-3 pr-3">
-					<h5 class="text-white">
-						<i class="mdi mdi-camera-front mdi-24px"></i>
-					</h5>
-				</a>
 	        	<a href="{{route('login')}}" target="_blank" class="btn btn-success btn-lg px-5 my-auto">
 	        		<span>Entrar</span>
 	        	</a>

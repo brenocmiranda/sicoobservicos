@@ -29,19 +29,19 @@ Abertura de chamado
 						<div class="row mx-auto">
 							<div class="col-lg-6 col-12">
 								<div class="form-group">
-									<label class="col-form-label pb-0">Fontes <span class="text-danger">*</span></label>
-									<select class="form-control form-control-line fontes" name="fontes" required>
+									<label class="col-form-label pb-0">Ambientes <span class="text-danger">*</span></label>
+									<select class="form-control form-control-line ambientes" name="gti_id_ambientes" required>
 										<option>Selecione</option>
-										@foreach($fontes as $fonte)
-										<option value="{{$fonte->id}}">{{$fonte->nome}}</option>
+										@foreach($ambientes as $ambiente)
+										<option value="{{$ambiente->id}}">{{$ambiente->nome}}</option>
 										@endforeach
 									</select>
 								</div>
 							</div>
 							<div class="col-lg-7 col-12">
 								<div class="form-group">
-									<label class="col-form-label pb-0">Tipos <span class="text-danger">*</span></label>
-									<select class="form-control form-control-line tipos" name="tipos" required>
+									<label class="col-form-label pb-0">Fontes <span class="text-danger">*</span></label>
+									<select class="form-control form-control-line fontes" name="gti_id_fontes" required>
 										<option></option>
 									</select>
 								</div>
@@ -110,33 +110,33 @@ Abertura de chamado
 		});
 	}
 	$(document).ready( function (){
-		// Buscando os tipos relacionados aquela fonte
-		$('.fontes').on('change', function(e){
-			var fonte = $('.fontes').val();
+		// Buscando os ambientes relacionados aquela fontes
+		$('.ambientes').on('change', function(e){
+			var ambientes = $('.ambientes').val();
 			$.ajax({
-				url: "tipos/"+fonte,
+				url: "fontes/"+ambientes,
 				type: 'GET',
 				success: function(data){ 
 					if(data[0]){
-						$('.tipos').html('<option value="">Selecione</option>');
-						$('#info-base').fadeIn('slow').html('<label class="text-muted text-center">Após selecionado a sua fonte e o tipo do problema, serão dispostos aqui algumas possíveis soluções cadastrados na nossa base do conhecimento. Fique atento!</label>');
+						$('.fontes').html('<option value="">Selecione</option>');
+						$('#info-base').fadeIn('slow').html('<label class="text-muted text-center">Após selecionado o seu ambiente e a fonte do problema, serão dispostos aqui algumas possíveis soluções cadastrados na nossa base do conhecimento. Fique atento!</label>');
 						$.each(data, function(count, dados){
-							$('.tipos').append('<option value='+dados.id+'>'+dados.nome+'</option>');
+							$('.fontes').append('<option value='+dados.id+'>'+dados.nome+'</option>');
 						});		
 					}else{
-						$('.tipos').html('<option value="">Nenhum encontrado</option>');
-						$('#info-base').fadeIn('slow').html('<label class="text-muted text-center">Após selecionado a sua fonte e o tipo do problema, serão dispostos aqui algumas possíveis soluções cadastrados na nossa base do conhecimento. Fique atento!</label>');
+						$('.fontes').html('<option value="">Nenhum encontrado</option>');
+						$('#info-base').fadeIn('slow').html('<label class="text-muted text-center">Após selecionado o seu ambiente e a fonte do problema, serão dispostos aqui algumas possíveis soluções cadastrados na nossa base do conhecimento. Fique atento!</label>');
 					}		
 				}
 			});
 		});
 
 		// Buscando possíveis soluções na base de conhecimento
-		$('.tipos').on('change', function(e){
+		$('.fontes').on('change', function(e){
+			var ambiente = $('.ambientes').val();
 			var fonte = $('.fontes').val();
-			var tipo = $('.tipos').val();
 			$.ajax({
-				url: "base/"+fonte+'/'+tipo,
+				url: "base/"+ambiente+'/'+fonte,
 				type: 'GET',
 				success: function(data){ 
 					if(data[0]){
@@ -145,7 +145,7 @@ Abertura de chamado
 							$('#info-base').fadeIn(3000).append('<div class="panel panel-default border shadow-sm"><div class="panel-heading py-4"><a href="{{url("app/suporte/base/detalhes")}}/'+dados.id+'">'+dados.titulo+'</a></div><div class="panel-wrapper collapse in"><div class="panel-body py-3"> <p>'+dados.subtitulo+'</p></div></div></div>');
 						});	
 					}else{
-						$('#info-base').fadeIn('slow').html('<label class="text-muted text-center">Após selecionado a sua fonte e o tipo do problema, serão dispostos aqui algumas possíveis soluções cadastrados na nossa base do conhecimento. Fique atento!</label>');
+						$('#info-base').fadeIn('slow').html('<label class="text-muted text-center">Após selecionado o seu ambiente e a fonte do problema, serão dispostos aqui algumas possíveis soluções cadastrados na nossa base do conhecimento. Fique atento!</label>');
 					}
 					
 				}

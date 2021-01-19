@@ -55,9 +55,9 @@ Chamados
 										<div class="text-left col-lg-6 col-8">
 											<a href="{{route('detalhes.chamados', $chamado->id)}}">
 												<h5 class="text-uppercase mb-2 text-truncate">
-													<span>{{$chamado->RelationFontes->nome}}</span> 
+													<span>{{$chamado->RelationAmbientes->nome}}</span> 
 													<b>&#183</b> 
-													<span>{{$chamado->RelationTipos->nome}}</span>
+													<span>{{$chamado->RelationFontes->nome}}</span>
 													<div class="badge mx-2" style="background: {{$chamado->RelationStatus->first()->color}}">{{$chamado->RelationStatus->first()->nome}}</div>
 												</h5>
 											</a>

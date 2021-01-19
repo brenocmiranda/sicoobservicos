@@ -7,7 +7,7 @@
           <button type="button" class="close px-0 py-2" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          <h5 class="modal-title">Editar tipos</h5>
+          <h5 class="modal-title">Editar fonte</h5>
         </div>
         <div class="col-12 mb-0">
           <p>Preencha todas as informações necessárias.</p>
@@ -23,14 +23,14 @@
                 <div class="row">
                   <div class="col-lg-7 col-12">
                     <div class="form-group">
-                      <label class="col-form-label pb-0">Fonte</label>
-                      <select class="form-control form-control-line gti_id_fontes mb-2" name="gti_id_fontes">
+                      <label class="col-form-label pb-0">Ambientes</label>
+                      <select class="form-control form-control-line gti_id_ambientes mb-2" name="gti_id_ambientes">
                         <option disabled>Selecione</option>
-                        @foreach($fontes as $fonte)
-                          <option value="{{$fonte->id}}">{{$fonte->nome}}</option>
+                        @foreach($ambientes as $ambiente)
+                          <option value="{{$ambiente->id}}">{{$ambiente->nome}}</option>
                         @endforeach
                       </select>
-                      <a href="javascript:void()" data-toggle="modal" data-target="#modal-fonte" class="mt-2"><small><i class="mdi mdi-plus"></i> Nova fonte</small></a>
+                      <a href="javascript:void()" data-toggle="modal" data-target="#modal-fonte" class="mt-2"><small><i class="mdi mdi-plus"></i> Novo ambiente</small></a>
                     </div>
                   </div>
                   <div class="col-lg-8 col-12">

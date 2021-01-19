@@ -24,7 +24,7 @@ Ambientes
 				<div class="col-lg-12 position-absolute">
 					@if(Auth::user()->RelationFuncao->gerenciar_gti == 1)
 					<div class="row mx-auto">
-						<button class="btn btn-primary btn-outline ml-auto" id="adicionar" name="adicionar" title="Adicionar nova ambiente" data-toggle="modal" data-target="#modal-adicionar" style="z-index: 10">
+						<button class="btn btn-primary btn-outline ml-auto" id="adicionar" name="adicionar" title="Adicionar novo ambiente" data-toggle="modal" data-target="#modal-adicionar" style="z-index: 10">
 							<i class="m-0 pr-lg-1 mdi mdi-plus"></i> 
 							<span class="hidden-xs">Cadastrar</span> 
 						</button>
@@ -139,7 +139,7 @@ Ambientes
 			$(this).parents('tr').addClass('selected');
 			$(this).parent('tr').addClass('selected');
 			var data = table.row('tr.selected').data();
-			var url = "{{url('app/gti/chamados/ambientes/alterar')}}/"+data.id;
+			var url = "{{url('app/gti/configuracoes/ambientes/alterar')}}/"+data.id;
 			swal({
 				title: "Tem certeza que deseja alterar o estado?",
 				icon: "warning",

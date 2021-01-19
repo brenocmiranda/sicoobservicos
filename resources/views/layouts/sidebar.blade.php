@@ -60,7 +60,7 @@
       </li>
       @endif
 
-
+      @if(Auth::user()->RelationFuncao->ver_cadastro == 1 || Auth::user()->RelationFuncao->gerenciar_cadastro == 1)
       <li> 
         <a href="javascript:" class="waves-effect {{ (Request::segment(2) == 'atendimento' ? 'active' : '') }}">
           <i class="mdi mdi-account-outline pr-3" data-icon="v"></i> 
@@ -70,6 +70,20 @@
           <li> <a href="{{route('exibir.painel.atendimento')}}"><span class="hide-menu">Painel do associado</span></a> </li>
         </ul>
       </li>
+      @endif
+
+
+      @if(Auth::user()->RelationFuncao->ver_cadastro == 1 || Auth::user()->RelationFuncao->gerenciar_cadastro == 1)
+      <li> 
+        <a href="javascript:" class="waves-effect {{ (Request::segment(2) == 'atendimento' ? 'active' : '') }}">
+          <i class="mdi mdi-account-outline pr-3" data-icon="v"></i> 
+          <span class="hide-menu"> Cadastro <span class="fa arrow"></span> </span>
+        </a>
+        <ul class="nav nav-second-level {{ (Request::segment(2) == 'atendimento' ? ' collapse in' : '') }}">
+          <li> <a href="{{route('exibir.painel.atendimento')}}"><span class="hide-menu">Painel do associado</span></a> </li>
+        </ul>
+      </li>
+      @endif
       
 
       @if(Auth::user()->RelationFuncao->ver_credito == 1 || Auth::user()->RelationFuncao->gerenciar_credito == 1)
@@ -109,6 +123,18 @@
       </li>
       @endif
 
+      @if(Auth::user()->RelationFuncao->ver_produtos == 1 || Auth::user()->RelationFuncao->gerenciar_produtos == 1)
+      <li> 
+        <a href="javascript:" class="waves-effect {{ (Request::segment(2) == 'atendimento' ? 'active' : '') }}">
+          <i class="mdi mdi-account-outline pr-3" data-icon="v"></i> 
+          <span class="hide-menu"> Produtos <span class="fa arrow"></span> </span>
+        </a>
+        <ul class="nav nav-second-level {{ (Request::segment(2) == 'atendimento' ? ' collapse in' : '') }}">
+          <li> <a href="{{route('exibir.painel.atendimento')}}"><span class="hide-menu">Painel do associado</span></a> </li>
+        </ul>
+      </li>
+      @endif
+
       <li> 
         <a href="javascript:" class="waves-effect {{ (Request::segment(2) == 'suporte' ? 'active' : '') }}">
           <i class="mdi mdi-hangouts pr-3" data-icon="v"></i> 
@@ -138,9 +164,8 @@
               <span class="hide-menu">Configurações </span><span class="fa arrow"></span>
             </a>
             <ul class="nav nav-third-level {{ (Request::segment(2) == 'gti' && Request::segment(3) == 'configuracoes' ? ' collapse in' : '') }}">
-              
-              <li> <a href="{{route('exibir.equipamentos.inventario')}}"><span class="hide-menu">Equipamentos</span></a> </li>
               <li> <a href="{{route('exibir.ambientes.chamados')}}"><span class="hide-menu">Ambientes</span></a> </li>
+              <li> <a href="{{route('exibir.equipamentos.inventario')}}"><span class="hide-menu">Equipamentos</span></a> </li>
               <li> <a href="{{route('exibir.marcas.inventario')}}"><span class="hide-menu">Marcas</span></a> </li>
               <li> <a href="{{route('exibir.fontes.chamados')}}"><span class="hide-menu">Fontes</span></a> </li>
               <li> <a href="{{route('exibir.status.chamados')}}"><span class="hide-menu">Status</span></a> </li>

@@ -13,8 +13,8 @@ use App\Notifications\SolicitacaoChamadosAdmin;
 use App\Notifications\SolicitacaoChamadosReAdmin;
 use App\Notifications\SolicitacaoChamadosReCliente;
 use App\Models\Base;
+use App\Models\Ambientes;
 use App\Models\Fontes;
-use App\Models\Tipos;
 use App\Models\Status;
 use App\Models\Arquivos;
 use App\Models\Atividades; 
@@ -39,18 +39,23 @@ class SuporteCtrl extends Controller
 	#-------------------------------------------------------------------
 	// Exibir base de conhecimento
 	public function Aprendizagem(){
+		$ambientes = Base::join('gti_ambientes', 'gti_id_ambientes', 'gti_ambientes.id')->where('gti_ambientes.status', 1)->select('gti_ambientes.*')->orderBy('nome', 'ASC')->get();
 		$fontes = Base::join('gti_fontes', 'gti_id_fontes', 'gti_fontes.id')->where('gti_fontes.status', 1)->select('gti_fontes.*')->orderBy('nome', 'ASC')->get();
-		$tipos = Base::join('gti_tipos', 'gti_id_tipos', 'gti_tipos.id')->where('gti_tipos.status', 1)->select('gti_tipos.*')->orderBy('nome', 'ASC')->get();
-		return view('suporte.base.exibir')->with('fontes', $fontes)->with('tipos', $tipos);	
+		return view('suporte.base.exibir')->with('ambientes', $ambientes)->with('fontes', $fontes);	
 	}
 	// Listar todos os itens da base
-	public function AprendizagemListar($fonte, $tipo){
-		$todos = Base::where('gti_id_fontes', $fonte)->where('gti_id_tipos', $tipo)->get();
-		$fonte = Fontes::find($fonte);
-		$tipo = Tipos::find($tipo);
-		return view('suporte.base.listar')->with('todos', $todos)->with('fonte', $fonte)->with('tipo', $tipo);
+	public function AprendizagemListar($ambiente, $fonte){
+		$todos = Base::where('gti_id_ambientes', $ambiente)->where('gti_id_fontes', $fonte)->get();
+		$ambientes = Ambientes::find($ambiente);
+		$fontes = Fontes::find($fonte);
+		return view('suporte.base.listar')->with('todos', $todos)->with('ambientes', $ambientes)->with('fontes', $fontes);
 	}
-
+    // Detallhes do tópico
+    public function DetalhesAprendizagem($id){
+        $dados = Base::find($id);
+        $topicos = Base::where('gti_id_ambientes', $dados->gti_id_ambientes)->where('gti_id_fontes', $dados->gti_id_fontes)->where('id', '<>', $dados->id)->limit(5)->get();
+        return view('suporte.base.detalhes')->with('dados', $dados)->with('topicos', $topicos);
+    }
 
 	#-------------------------------------------------------------------
 	# Chamados
@@ -63,8 +68,8 @@ class SuporteCtrl extends Controller
     }
 	// Abertura de chamados
 	public function AberturaChamados(){
-		$fontes = Fontes::orderBy('nome', 'ASC')->get();
-		return view('suporte.chamados.abertura')->with('fontes', $fontes);
+		$ambientes = Ambientes::orderBy('nome', 'ASC')->get();
+		return view('suporte.chamados.abertura')->with('ambientes', $ambientes);
 	}
     // Salvando o chamado
     public function AberturaEnviarChamados(Request $request){
@@ -72,8 +77,8 @@ class SuporteCtrl extends Controller
         $create = Chamados::create([
             'assunto' => $request->assunto, 
             'descricao' => $request->descricao, 
-            'gti_id_tipos' => $request->tipos, 
-            'gti_id_fontes' => $request->fontes, 
+            'gti_id_ambientes' => $request->gti_id_ambientes, 
+            'gti_id_fontes' => $request->gti_id_fontes,             
             'usr_id_usuarios' => Auth::id(), 
         ]);
 
@@ -155,14 +160,14 @@ class SuporteCtrl extends Controller
         ]);
         return response()->json(['success' => true]);
     }
-    // Listando os tipos
-    public function ListarTiposChamados($idFonte){
-        $tipos = Tipos::where('gti_id_fontes', $idFonte)->get();
-        return $tipos;
+    // Listando os ontes
+    public function ListarFontesChamados($idAmbiente){
+        $fontes = Fontes::where('gti_id_ambientes', $idAmbiente)->get();
+        return $fontes;
     }
     // Listando items da base de conhecimento
-    public function ListarBaseChamados($idTipo, $idFonte){
-        $dados = Base::where('gti_id_fontes', $idFonte)->where('gti_id_tipos', $idTipo)->limit(5)->get();
+    public function ListarBaseChamados($idFonte, $idAmbiente){
+        $dados = Base::where('gti_id_ambientes', $idAmbiente)->where('gti_id_fontes', $idFonte)->limit(5)->get();
         return $dados;
     }
     // Fazendo upload de arquivos
@@ -196,7 +201,7 @@ class SuporteCtrl extends Controller
     // Relatório do chamado
     public function RelatorioChamados($id){
         $dados = Chamados::find($id);
-        $historicoStatus = ChamadosStatus::where('gti_id_chamados', $id)->orderBy('created_at', 'DESC')->get();
+        $historicoStatus = ChamadosStatus::where('gti_id_chamados', $id)->orderBy('created_at', 'ASC')->get();
         Atividades::create([
             'nome' => 'Emissão de relatório do chamado',
             'descricao' => 'Você efetuou a emissão do relatório do chamado, '.$dados->assunto.'.',
@@ -206,7 +211,27 @@ class SuporteCtrl extends Controller
         ]);
         return view('tecnologia.chamados.relatorio')->with('chamado', $dados)->with('historicoStatus', $historicoStatus);
     }
-
+    // Atualizando status
+    public function StatusChamados(Request $request, $id){
+        $chamado = Chamados::find($id);
+        if($chamado->RelationStatus->first()->finish != 1){
+            $status = ChamadosStatus::create([
+                'gti_id_chamados' => $id,
+                'gti_id_status' => $chamado->RelationStatus->first()->id,
+                'descricao' => (isset($request->descricao) ? $request->descricao : "Estado do chamado alterado por ".Auth::user()->RelationAssociado->nome."."),
+                'usr_id_usuarios' => Auth::id()
+            ]);
+            $this->email->notify(new SolicitacaoChamadosReAdmin($chamado)); 
+            Atividades::create([
+                'nome' => 'Nova mensagem cadastrada',
+                'descricao' => 'Você cadastrou uma nova mensagem ao chamado '.$id.'.',
+                'icone' => 'mdi-file-document',
+                'url' => route('detalhes.chamados', $id),
+                'id_usuario' => Auth::id()
+            ]);
+            return response()->json(['success' => true]);
+        }
+    }
 
 	#-------------------------------------------------------------------
 	# Documentos

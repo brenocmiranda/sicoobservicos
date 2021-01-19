@@ -7,10 +7,10 @@
           <button type="button" class="close px-0 py-2" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          <h5 class="modal-title">Detalhes do tipo</h5>
+          <h5 class="modal-title">Detalhes da fonte</h5>
         </div>
         <div class="col-12 mb-0">
-          <p>Abaixo estão listadas todas as informações da função.</p>
+          <p>Abaixo estão listadas todas as informações da fonte.</p>
         </div>
       </div>
       <div class="modal-body">
@@ -19,11 +19,11 @@
               <div class="row">
                 <div class="col-lg-7 col-12">
                   <div class="form-group">
-                    <label class="col-form-label pb-0">Fonte</label>
-                    <select class="form-control form-control-line gti_id_fontes" disabled>
+                    <label class="col-form-label pb-0">Ambientes</label>
+                    <select class="form-control form-control-line gti_id_ambientes" disabled>
                       <option disabled>Selecione</option>
-                      @foreach($fontes as $fonte)
-                        <option value="{{$fonte->id}}">{{$fonte->nome}}</option>
+                      @foreach($ambientes as $ambiente)
+                        <option value="{{$ambiente->id}}">{{$ambiente->nome}}</option>
                       @endforeach
                     </select>
                   </div>

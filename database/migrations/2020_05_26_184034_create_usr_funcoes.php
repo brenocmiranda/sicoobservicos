@@ -26,7 +26,12 @@ class CreateUsrFuncoes extends Migration
             $table->boolean('gerenciar_gti');
             $table->boolean('ver_configuracoes');
             $table->boolean('gerenciar_configuracoes');
-            
+            $table->boolean('ver_cadastro');
+            $table->boolean('gerenciar_cadastro');
+            $table->boolean('ver_produtos');
+            $table->boolean('gerenciar_produtos');
+            $table->boolean('ver_suporte');
+            $table->boolean('gerenciar_suporte');
             $table->timestamps();
         });
 
@@ -42,6 +47,12 @@ class CreateUsrFuncoes extends Migration
                 'gerenciar_gti' => 1,
                 'ver_configuracoes' => 1,
                 'gerenciar_configuracoes' => 1,
+                'ver_cadastro' => 1,
+                'gerenciar_cadastro' => 1,
+                'ver_produtos' => 1,
+                'gerenciar_produtos' => 1,
+                'ver_suporte' => 1,
+                'gerenciar_suporte' => 1,
                 ])
             );
     }

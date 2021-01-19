@@ -37,7 +37,7 @@ Tópicos
 						<h5>Todos os tópicos cadastrados</h5>
 						<hr class="mt-2">
 					</div>
-					<div class="col-12 p-0">
+					<div class="col-12">
 						@if(isset($topicos[0]))
 							<ul class="p-0" id="topicos">
 								@foreach($topicos as $topico)
@@ -46,7 +46,7 @@ Tópicos
 										<div class="col-10">
 											<a href="{{route('detalhes.base', $topico->id)}}">
 												<div>
-													<h6>{{$topico->RelationFontes->nome}} &#183 {{$topico->RelationTipos->nome}}</h6>
+													<h6>{{$topico->RelationAmbientes->nome}} &#183 {{$topico->RelationFontes->nome}}</h6>
 													<h5>{{$topico->titulo}}</h5>
 										            <label>{{$topico->subtitulo}}</label> 
 												</div>

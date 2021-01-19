@@ -36,7 +36,7 @@ Invetário geral
 				<table class="table table-striped text-center color-table muted-table rounded d-block d-lg-table" id="table" style="overflow-y: auto;">
 					<thead>
 						<th> Imagem </th>
-						<th> Nome </th>
+						<th> Equipamento </th>
 						<th> Nº patrimonio </th>
 						<th> Nº série </th>
 						<th> Ações </th>
@@ -84,7 +84,7 @@ Invetário geral
 			$(this).parents('tr').addClass('active');
 			$(this).parent('tr').addClass('active');
 			var data = table.row('tr.active').data();
-			$('.modal .nome').html(data.nome);
+			$('.modal .equipamento').html(data.equipamento);
 			$('.modal .marca').html(data.marca);
 			$('.modal .modelo').html(data.modelo);
 			$('.modal .serviceTag').html(data.serviceTag);

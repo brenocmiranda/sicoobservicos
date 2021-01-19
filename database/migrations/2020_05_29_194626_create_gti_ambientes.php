@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGtiFontes extends Migration
+class CreateGtiAmbientes extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateGtiFontes extends Migration
      */
     public function up()
     {
-        Schema::create('gti_fontes', function (Blueprint $table) {
+        Schema::create('gti_ambientes', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('nome');
@@ -31,6 +31,6 @@ class CreateGtiFontes extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('gti_fontes');
+        Schema::dropIfExists('gti_ambientes');
     }
 }

@@ -1,5 +1,5 @@
 @section('title')
-Tipos
+Fontes
 @endsection
 
 @extends('layouts.index')
@@ -8,13 +8,13 @@ Tipos
 <div class="container-fluid">
 	<div class="row bg-title">
 		<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-			<h4 class="page-title">Tipos</h4> 
+			<h4 class="page-title">Fontes</h4> 
 		</div>
 		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
 			<ol class="breadcrumb">
 				<li><a href="{{route('dashboard.gti')}}">Tecnologia</a></li>
 				<li><a href="{{route('configuracoes')}}">Configurações</a></li>
-				<li class="active">Tipos</li>
+				<li class="active">Fontes</li>
 			</ol>
 		</div>
 	</div>
@@ -24,7 +24,7 @@ Tipos
 				<div class="col-lg-12 position-absolute">
 					@if(Auth::user()->RelationFuncao->gerenciar_gti == 1)
 					<div class="row mx-auto">
-						<button class="btn btn-primary btn-outline ml-auto" id="adicionar" name="adicionar" title="Adicionar novo tipo" data-toggle="modal" data-target="#modal-adicionar" style="z-index: 10">
+						<button class="btn btn-primary btn-outline ml-auto" id="adicionar" name="adicionar" title="Adicionar nova função" data-toggle="modal" data-target="#modal-adicionar" style="z-index: 10">
 							<i class="m-0 pr-lg-1 mdi mdi-plus"></i> 
 							<span class="hidden-xs">Cadastrar</span> 
 						</button>
@@ -36,7 +36,7 @@ Tipos
 				<table class="table table-striped text-center color-table muted-table rounded d-block d-lg-table" id="table" style="overflow-y: auto;">
 					<thead>
 						<th> Nome </th>
-						<th> Fonte </th>
+						<th> Ambiente </th>
 						<th> Status </th>
 						<th> Ações </th>
 					</thead>
@@ -48,10 +48,10 @@ Tipos
 @endsection
 
 @section('modal')
-	@include('tecnologia.configuracoes.chamados.tipos.adicionar')
-	@include('tecnologia.configuracoes.chamados.tipos.editar')
-	@include('tecnologia.configuracoes.chamados.tipos.detalhes')
-	@include('tecnologia.configuracoes.chamados.tipos.fontes')
+	@include('tecnologia.configuracoes.chamados.fontes.adicionar')
+	@include('tecnologia.configuracoes.chamados.fontes.editar')
+	@include('tecnologia.configuracoes.chamados.fontes.detalhes')
+	@include('tecnologia.configuracoes.chamados.fontes.ambientes')
 @endsection
 
 @section('suporte')
@@ -76,7 +76,7 @@ Tipos
 			select: true,
 			searching: true,
 			destroy: true,
-			ajax: "{{ route('listar.tipos.chamados') }}",
+			ajax: "{{ route('listar.fontes.chamados') }}",
 			serverSide: true,
 			"columns": [ 
 			{ "data": "nome1", "name":"nome1"},
@@ -102,7 +102,7 @@ Tipos
 			$(this).parent('tr').addClass('selected');
 			var data = table.row('tr.selected').data();
 			$('.modal .nome').val(data.nome);
-			$('.modal .gti_id_fontes').val(data.gti_id_fontes);
+			$('.modal .gti_id_ambientes').val(data.gti_id_ambientes);
 			$('.modal .descricao').html(data.descricao);
 			if(data.status == 1){
 				$(".modal .status").prop('checked', false).trigger("click");
@@ -119,7 +119,7 @@ Tipos
 			$(this).parent('tr').addClass('selected');
 			var data = table.row('tr.selected').data();
 			$('.modal .nome').val(data.nome);
-			$('.modal .gti_id_fontes').val(data.gti_id_fontes);
+			$('.modal .gti_id_ambientes').val(data.gti_id_ambientes);
 			$('.modal .descricao').html(data.descricao);
 			if(data.status == 1){
 				$('#modal-detalhes .status').removeAttr('disabled');
@@ -143,7 +143,7 @@ Tipos
 			$(this).parents('tr').addClass('selected');
 			$(this).parent('tr').addClass('selected');
 			var data = table.row('tr.selected').data();
-			var url = "{{url('app/gti/chamados/tipos/alterar')}}/"+data.id;
+			var url = "{{url('app/gti/configuracoes/fontes/alterar')}}/"+data.id;
 			swal({
 				title: "Tem certeza que deseja alterar o estado?",
 				icon: "warning",
@@ -174,7 +174,7 @@ Tipos
 			var data = table.row('tr.selected').data();
 			e.preventDefault();
 			$.ajax({
-				url: '{{ route("adicionar.tipos.chamados") }}',
+				url: '{{ route("adicionar.fontes.chamados") }}',
 				type: 'POST',
 				data: $('#modal-adicionar #formAdicionar').serialize(),
 				beforeSend: function(){
@@ -220,7 +220,7 @@ Tipos
 			var data = table.row('tr.selected').data();
 			e.preventDefault();
 			$.ajax({
-				url: 'tipos/editar/'+data.id,
+				url: 'fontes/editar/'+data.id,
 				type: 'POST',
 				data: $('#modal-editar #formEditar').serialize(),
 				beforeSend: function(){
@@ -260,29 +260,29 @@ Tipos
 				}
 			});
 		});
-		$('#modal-fonte #formFonte').on('submit', function(e){
+		$('#modal-ambiente #formAmbiente').on('submit', function(e){
 			e.preventDefault();
 			$.ajax({
-				url: "{{route('adicionar.fontes.chamados')}}",
+				url: "{{route('adicionar.ambientes.chamados')}}",
 				type: 'POST',
-				data: $('#modal-fonte #formFonte').serialize(),
+				data: $('#modal-ambiente #formAmbiente').serialize(),
 				beforeSend: function(){
 					$('.modal-body, .modal-footer').addClass('d-none');
 					$('.carregamento').html('<div class="mx-auto text-center my-5"> <div class="col-12"> <div class="spinner-border my-4" role="status"> <span class="sr-only"> Loading... </span> </div> </div> <label>Salvando informações...</label></div>');
-					$('#modal-fonte #err').html('');
+					$('#modal-ambiente #err').html('');
 				},
 				success: function(data){
 					$('.modal-body, .modal-footer').addClass('d-none');
 					$('.carregamento').html('<div class="mx-auto text-center my-5"><div class="col-12"><i class="col-2 mdi mdi-check-all mdi-48px"></i></div><label>Informações alteradas com sucesso!</label></div>');
 					setTimeout(function(){
-						$('#modal-fonte #formFonte').each (function(){
+						$('#modal-ambiente #formAmbiente').each (function(){
 							this.reset();
 						});
-						$('.modal .gti_id_fontes').append('<option value="'+data.id+'">'+data.nome+'</option>')
+						$('.modal .gti_id_ambientes').append('<option value="'+data.id+'">'+data.nome+'</option>')
 						$('input').removeClass('border-bottom border-danger');
 						$('.carregamento').html('');
 						$('.modal-body, .modal-footer').removeClass('d-none');
-						$('#modal-fonte').modal('hide');
+						$('#modal-ambiente').modal('hide');
 					}, 2000);
 				}, error: function (data) {
 					setTimeout(function(){
@@ -290,12 +290,12 @@ Tipos
 						$('.carregamento').html('');
 						if(!data.responseJSON){
 							console.log(data.responseText);
-							$('#modal-fonte #err').html(data.responseText);
+							$('#modal-ambiente #err').html(data.responseText);
 						}else{
-							$('#modal-fonte #err').html('');
+							$('#modal-ambiente #err').html('');
 							$('input').removeClass('border-bottom border-danger');
 							$.each(data.responseJSON.errors, function(key, value){
-								$('#modal-fonte #err').append('<div class="text-danger mx-4"><p>'+value+'</p></div>');
+								$('#modal-ambiente #err').append('<div class="text-danger mx-4"><p>'+value+'</p></div>');
 								$('input[name="'+key+'"]').addClass('border-bottom border-danger');
 							});
 						}

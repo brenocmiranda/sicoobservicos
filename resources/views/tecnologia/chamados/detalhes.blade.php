@@ -43,9 +43,9 @@ Detalhes do chamado
         <div class="card-body">
           <div class="col-12">
             <h5 class="text-uppercase mb-2 text-truncate">
-              <span>{{$chamado->RelationFontes->nome}}</span> 
+              <span>{{$chamado->RelationAmbientes->nome}}</span> 
               <b>&#183</b> 
-              <span>{{$chamado->RelationTipos->nome}}</span>
+              <span>{{$chamado->RelationFontes->nome}}</span>
             </h5>
           </div>
 
@@ -139,17 +139,21 @@ Detalhes do chamado
         <div class="card-header {{($chamado->RelationStatus->first()->finish != 1 ? 'p-1' : '')}}" style="border-top-right-radius: 0.6em; border-top-left-radius: 0.6em;">
           <div class="m-4 row">
             <div class="d-flex">
-              <h5 class="my-auto text-white font-weight-normal text-capitalize">Últimas atualizações</h5>
+              <h5 class="p-2 my-auto text-white font-weight-normal text-capitalize">Últimas atualizações</h5>
             </div>
-            @if($chamado->RelationStatus->first()->finish != 1 && Auth::user()->RelationFuncao->gerenciar_gti == 1)
-            <button class="btn btn-light btn-xs ml-auto" title="Alterar status" data-toggle="modal" data-target="#modal-alterar">
-              <i class="mdi mdi-cached"></i>
-              <small>Alterar status</small>
-            </button>
-            @endif
           </div>
         </div>
         <div class="card-body" style="overflow-y: auto">
+
+          @if($chamado->RelationStatus->first()->finish != 1)
+          <div class="col-12 text-center">
+            <a href="javascript:" title="Adicionar nova atualização" data-toggle="modal" data-target="#modal-alterar">
+              <i class="mdi mdi-plus"></i>
+              <span>Nova mensagem</span>
+            </a>
+          </div>
+          @endif
+
           <ul class="p-0" id="statusNews">
             @foreach($historicoStatus as $status)
             <li class="m-3" id="status{{$status->id}}">

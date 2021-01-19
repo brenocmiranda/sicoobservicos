@@ -23,8 +23,8 @@
               <div class="row">
                 <div class="col-12">
                   <div class="form-group">
-                    <label class="col-form-label mb-2">Descrição <span class="text-danger">*</span></label>
-                    <textarea class="form-control form-control-line" name="descricao" placeholder="Descreva a solução..." rows="4" required></textarea>
+                    <label class="col-form-label mb-2">Motivo <span class="text-danger">*</span></label>
+                    <textarea class="form-control form-control-line" name="descricao" placeholder="Descreva a solução..." rows="4" required  onkeyup="this.value = this.value.toUpperCase();"></textarea>
                   </div>
                 </div>
               </div>

@@ -241,8 +241,7 @@ Route::group(['prefix' => 'app'], function(){
 		Route::group(['prefix' => 'base'], function(){
 			Route::get('', 'SuporteCtrl@Aprendizagem')->name('exibir.base');
 			Route::get('listar/{fonte}/{tipo}', 'SuporteCtrl@AprendizagemListar')->name('listar.base');
-			// Módulo Tecnologia
-			Route::get('detalhes/{id}', 'TecnologiaCtrl@DetalhesAprendizagem')->name('detalhes.base');
+			Route::get('detalhes/{id}', 'SuporteCtrl@DetalhesAprendizagem')->name('detalhes.base');
 		});
 		// Chamados
 		Route::group(['prefix' => 'chamados'], function(){
@@ -253,8 +252,9 @@ Route::group(['prefix' => 'app'], function(){
 			Route::get('relatorio/{id}', 'SuporteCtrl@RelatorioChamados')->name('relatorio.chamados');
 			Route::post('reabrir/{id}', 'SuporteCtrl@ReaberturaChamados')->name('reabertura.chamados');
 			Route::get('detalhes/{id}', 'SuporteCtrl@DetalhesChamados')->name('detalhes.chamados');
-			Route::any('tipos/{idFonte}', 'SuporteCtrl@ListarTiposChamados')->name('tipos.chamados');
-			Route::any('base/{idTipo}/{idFonte}', 'SuporteCtrl@ListarBaseChamados')->name('base.chamados');
+			Route::any('fontes/{idAmbiente}', 'SuporteCtrl@ListarFontesChamados')->name('fontes.chamados');
+			Route::any('base/{idFonte}/{idAmbiente}', 'SuporteCtrl@ListarBaseChamados')->name('base.chamados');
+			Route::post('status/{id}', 'SuporteCtrl@StatusChamados')->name('status.chamados');
 			Route::post('addArquivos', 'SuporteCtrl@ArquivosChamados')->name('adicionar.arquivos.chamados');
 			Route::get('removeArquivo/{id}', 'SuporteCtrl@RemoveArquivosChamados')->name('remover.arquivos.chamados');
 		});
@@ -286,12 +286,12 @@ Route::group(['prefix' => 'app'], function(){
 			Route::post('salvar', 'TecnologiaCtrl@AdicionarSalvarAprendizagem')->name('salvar.adicionar.base.aprendizagem');
 			Route::get('editar/{id}', 'TecnologiaCtrl@EditarAprendizagem')->name('editar.base.aprendizagem');
 			Route::post('salvarEditar/{id}', 'TecnologiaCtrl@EditarSalvarAprendizagem')->name('salvar.editar.base.aprendizagem');
-			Route::get('detele/{id}', 'TecnologiaCtrl@DeleteAprendizagem')->name('delete.base.aprendizagem');
+			Route::get('delete/{id}', 'TecnologiaCtrl@DeleteAprendizagem')->name('delete.base.aprendizagem');
 			Route::post('addArquivos', 'TecnologiaCtrl@ArquivosAprendizagem')->name('adicionar.arquivos.aprendizagem');
 			Route::get('removeArquivo/{id}', 'TecnologiaCtrl@RemoveArquivosAprendizagem')->name('remover.arquivos.aprendizagem');
 			// Módulo suporte
-			Route::any('tipos/{idFonte}', 'SuporteCtrl@ListarTiposChamados')->name('tipos.chamados');
-			Route::any('base/{idTipo}/{idFonte}', 'SuporteCtrl@ListarBaseChamados')->name('base.chamados');
+			Route::any('fontes/{idAmbiente}', 'SuporteCtrl@ListarFontesChamados')->name('fontes.chamados');
+			Route::any('base/{idFonte}/{idAmbiente}', 'SuporteCtrl@ListarBaseChamados')->name('base.chamados');
 		});
 		// Chamados
 		Route::group(['prefix' => 'chamados'], function(){

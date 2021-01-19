@@ -40,7 +40,7 @@
                   <hr class="mt-1">
                   <div class="row mx-auto">
                     <div class="col-6 col-lg-3">
-                      <label class="border-bottom pb-2 w-100">Crédito</label>
+                      <label class="border-bottom py-2 w-100">Crédito</label>
                       <div class="checkbox checkbox-circle">
                         <input id="checkbox1" type="checkbox" name="ver_credito">
                         <label for="checkbox1"> Visualizar </label>
@@ -51,7 +51,7 @@
                       </div>
                     </div>
                     <div class="col-6 col-lg-3">
-                      <label class="border-bottom pb-2 w-100">Tecnologia</label>
+                      <label class="border-bottom py-2 w-100">Tecnologia</label>
                       <div class="checkbox checkbox-circle">
                         <input id="checkbox5" type="checkbox" name="ver_gti">
                         <label for="checkbox5"> Visualizar </label>
@@ -62,7 +62,7 @@
                       </div>
                     </div>
                     <div class="col-6 col-lg-3">
-                      <label class="border-bottom pb-2 w-100">Configurações</label>
+                      <label class="border-bottom py-2 w-100">Configurações</label>
                       <div class="checkbox checkbox-circle">
                         <input id="checkbox7" type="checkbox" name="ver_configuracoes">
                         <label for="checkbox7"> Visualizar </label>
@@ -73,7 +73,7 @@
                       </div>
                     </div>
                     <div class="col-6 col-lg-3">
-                      <label class="border-bottom pb-2 w-100">Administrativo</label>
+                      <label class="border-bottom py-2 w-100">Administrativo</label>
                       <div class="checkbox checkbox-circle">
                         <input id="checkbox9" type="checkbox" name="ver_administrativo">
                         <label for="checkbox9"> Visualizar </label>
@@ -81,6 +81,39 @@
                       <div class="checkbox checkbox-circle">
                         <input id="checkbox10" type="checkbox" name="gerenciar_administrativo">
                         <label for="checkbox10"> Gerenciar </label>
+                      </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                      <label class="border-bottom py-2 w-100">Cadastro</label>
+                      <div class="checkbox checkbox-circle">
+                        <input id="checkbox11" type="checkbox" name="ver_cadastro">
+                        <label for="checkbox11"> Visualizar </label>
+                      </div>
+                      <div class="checkbox checkbox-circle">
+                        <input id="checkbox12" type="checkbox" name="gerenciar_cadastro">
+                        <label for="checkbox12"> Gerenciar </label>
+                      </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                      <label class="border-bottom py-2 w-100">Produtos</label>
+                      <div class="checkbox checkbox-circle">
+                        <input id="checkbox13" type="checkbox" name="ver_produtos">
+                        <label for="checkbox13"> Visualizar </label>
+                      </div>
+                      <div class="checkbox checkbox-circle">
+                        <input id="checkbox14" type="checkbox" name="gerenciar_produtos">
+                        <label for="checkbox14"> Gerenciar </label>
+                      </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                      <label class="border-bottom py-2 w-100">Suporte</label>
+                      <div class="checkbox checkbox-circle">
+                        <input id="checkbox15" type="checkbox" name="ver_suporte">
+                        <label for="checkbox15"> Visualizar </label>
+                      </div>
+                      <div class="checkbox checkbox-circle">
+                        <input id="checkbox16" type="checkbox" name="gerenciar_suporte">
+                        <label for="checkbox16"> Gerenciar </label>
                       </div>
                     </div>
                   </div>

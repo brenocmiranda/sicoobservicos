@@ -21,8 +21,8 @@ use App\Models\ProdutosCred;
 use App\Models\Atividades;
 use App\Models\Ativos;
 use App\Models\Chamados;
-use App\Models\Solicitacoes;
-use App\Models\SolicitacoesStatus;
+use App\Models\ContratosSolicitacoes;
+use App\Models\ContratosSolicitacoesStatus;
 use App\Models\CogEmailsContrato;
 
 class CreditoCtrl extends Controller
@@ -973,7 +973,7 @@ class CreditoCtrl extends Controller
 	// Listando todos produtos
 	public function ExibirSolicitacoes(){
 		if(Auth::user()->RelationFuncao->ver_credito == 1 || Auth::user()->RelationFuncao->gerenciar_credito == 1){
-			$dados = Solicitacoes::orderBy('created_at', 'DESC')->get();
+			$dados = ContratosSolicitacoes::orderBy('created_at', 'DESC')->get();
 			$contratos = Contratos::all();
 			$produtos = ProdutosCred::where('status', 1)->orderBy('nome', 'ASC')->get(); 
 			$modalidades = Modalidades::where('status', 1)->orderBy('nome', 'ASC')->get();
@@ -984,12 +984,12 @@ class CreditoCtrl extends Controller
 	}
 	// Efetuando a solicitação
 	public function SolicitarSolicitacoes(Request $request){
-		$create = Solicitacoes::create([
+		$create = ContratosSolicitacoes::create([
 			'usr_id_usuario' => Auth::id(),
 			'cre_id_contratos' => $request->contrato,
 			'observacoes' => $request->observacoes
 		]);
-		SolicitacoesStatus::create([
+		ContratosSolicitacoes::create([
 			'status' => 'aberto',
 			'usr_id_usuario_alteracao' => Auth::id(),
 			'cre_id_solicitacoes' => $create->id
@@ -1009,12 +1009,12 @@ class CreditoCtrl extends Controller
 	}
 	// Relatório da solicitação
     public function RelatorioSolicitacoes($id){
-        $dados = Solicitacoes::find($id);
+        $dados = ContratosSolicitacoes::find($id);
         return view('credito.solicitacoes.relatorio')->with('requisicao', $dados);
     }
 	// Remover a solicitação
 	public function RemoverSolicitacoes($id){
-		$dados = Solicitacoes::find($id);
+		$dados = ContratosSolicitacoes::find($id);
 		Atividades::create([
 			'nome' => 'Exclusão de solicitação de contrato',
 			'descricao' => 'Você removeu uma solicitação do contrato de crédito, '.$dados->RelationContratos->num_contrato.'.',
@@ -1022,8 +1022,8 @@ class CreditoCtrl extends Controller
 			'url' => route('exibir.solicitacoes.credito'),
 			'id_usuario' => Auth::id()
 		]);
-		SolicitacoesStatus::where('cre_id_solicitacoes', $id)->delete();
-		Solicitacoes::find($id)->delete();
+		ContratosSolicitacoesStatus::where('cre_id_solicitacoes', $id)->delete();
+		ContratosSolicitacoes::find($id)->delete();
 		return response()->json(['success' => true]);
 	}
 	// Alteração de status
@@ -1036,7 +1036,7 @@ class CreditoCtrl extends Controller
 				'url' => route('exibir.setores.administrativo'),
 				'id_usuario' => Auth::id()
 			]);
-			SolicitacoesStatus::create([
+			ContratosSolicitacoesStatus::create([
 				'status' => $request->status,
 				'usr_id_usuario_alteracao' => Auth::id(),
 				'cre_id_solicitacoes' => $request->id

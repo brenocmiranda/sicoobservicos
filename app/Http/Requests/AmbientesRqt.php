@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class BaseRqt extends FormRequest
+class AmbientesRqt extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,13 +23,17 @@ class BaseRqt extends FormRequest
      */
     public function rules()
     {
-        return [
-            'titulo' => 'required|min:3|string',
-            'subtitulo' => 'required|min:3|string',
-            'descricao' => 'required|min:3',
-            'gti_id_ambientes' => 'required|numeric',
-            'gti_id_fontes' => 'required|numeric',
-        ];
+        if($this->segment(5) == 'adicionar'){
+            return ['nome' => 'required|min:3|unique:gti_ambientes,nome',
+                'descricao' => 'nullable|string',
+                'status' => 'nullable',
+            ];
+        }else{
+            return ['nome' => 'required|min:3|unique:gti_ambientes,nome,'.$this->segment(6).',id',
+                'descricao' => 'nullable|string',
+                'status' => 'nullable',
+            ];
+        }
     }
 
     public function messages()

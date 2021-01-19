@@ -21,8 +21,8 @@ class CreateGtiChamados extends Migration
             $table->string('prioridade')->nullable();
             $table->string('avaliacao')->nullable();
 
-            $table->integer('gti_id_tipos')->unsigned();
-            $table->foreign('gti_id_tipos')->references('id')->on('gti_tipos');
+            $table->integer('gti_id_ambientes')->unsigned();
+            $table->foreign('gti_id_ambientes')->references('id')->on('gti_ambientes');
             $table->integer('gti_id_fontes')->unsigned();
             $table->foreign('gti_id_fontes')->references('id')->on('gti_fontes');
             $table->integer('usr_id_usuarios')->unsigned();

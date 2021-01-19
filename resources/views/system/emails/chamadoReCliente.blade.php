@@ -29,8 +29,8 @@
 												<label>Os responsáveis foram notificados sobre essas nova atualização e entreram em contato para resolução do problema.</label>
 												<br>
 												<ul>
-													<li><b>Fonte:</b> {{$chamado->RelationFontes->nome}}</li>
-													<li><b>Tipo:</b> {{$chamado->RelationTipos->nome}}</li>
+													<li><b>Fonte:</b> {{$chamado->RelationAmbientes->nome}}</li>
+													<li><b>Tipo:</b> {{$chamado->RelationFontes->nome}}</li>
 													<li><b>Assunto:</b> {{$chamado->assunto}}</li>
 													<li><b>Descrição:</b> {{$chamado->descricao}}</li>
 												</ul>

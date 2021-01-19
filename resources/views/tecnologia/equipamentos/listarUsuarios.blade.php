@@ -48,7 +48,7 @@ Invetário por usuário
 								<div class="col-lg-8 col-10 p-0">
 									<label class="d-block">
 										<span>Nome:</span>
-										<span id="nome" class="font-weight-bold"></span>
+										<span id="equipamento" class="font-weight-bold"></span>
 									</label>
 									<label class="d-block">
 										<span>Marca:</span>
@@ -141,8 +141,9 @@ Invetário por usuário
         $('#treeview').on('nodeSelected', function(event, data) {
         	$('#equipamentos').fadeOut();
 			$.get("{{url('app/gti')}}/"+data.href, function(data){
+				console.log(data);
 				$('#imagem').attr('src', "{{url('storage/app')}}/"+data.imagem.endereco);
-				$('#nome').html(data.nome);
+				$('#equipamento').html(data.equipamento);
 				$('#marca').html(data.marca);
 				$('#modelo').html(data.modelo);
 				$('#n_patrimonio').html(data.n_patrimonio);

@@ -217,10 +217,10 @@ Adicionar equipamento
 
 	$(document).ready( function (){
 		// Atualizando detalhes do ativo
-		$('form select[name="id_equipamento"]').on('keyup', function(){
+		$('form select[name="id_equipamento"]').on('change', function(){
 			$('#equipamento').html($('select[name="id_equipamento"] option:selected').text());
 		});
-		$('form select[name="id_marca"]').on('keyup', function(){
+		$('form select[name="id_marca"]').on('change', function(){
 			$('#marca').html($('select[name="id_marca"] option:selected').text());
 		});
 		$('form input[name="modelo"]').on('keyup', function(){

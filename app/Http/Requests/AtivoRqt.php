@@ -25,26 +25,28 @@ class AtivoRqt extends FormRequest
     {   
         if($this->segment(4) == 'adicionar'){
             return [
-                'nome' => 'required|min:3',
+                'id_equipamento' => 'required|numeric',
                 'n_patrimonio' => 'nullable|string', 
                 'serialNumber' => 'required|string', 
-                'marca' => 'required|string',
+                'id_marca' => 'required|numeric',
                 'modelo' => 'required|string',
                 'id_setor' => 'required|numeric',
                 'id_unidade' => 'required|numeric',
                 'descricao' => 'nullable',
+                'serviceTag' => 'nullable',
                 'imagem_principal' => 'required|image', 
             ];
         }else{
             return [
-                'nome' => 'required|min:3',
+                'id_equipamento' => 'required|numeric',
                 'n_patrimonio' => 'nullable|string',
                 'serialNumber' => 'required|string', 
-                'marca' => 'required|string',
+                'id_marca' => 'required|numeric',
                 'modelo' => 'required|string',
                 'id_setor' => 'required|numeric',
                 'id_unidade' => 'required|numeric',
                 'descricao' => 'nullable',
+                'serviceTag' => 'nullable',
                 'imagem_principal' => 'nullable', 
             ];
         }   

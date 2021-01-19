@@ -37,23 +37,23 @@ Editar tópico
             <div class="row mx-auto">
               <div class="col-lg-4 col-12">
                 <div class="form-group">
-                  <label class="col-form-label pb-0">Fonte <span class="text-danger">*</span></label>
-                  <select class="form-control form-control-line gti_id_fontes" name="gti_id_fontes" required>
+                  <label class="col-form-label pb-0">Ambientes <span class="text-danger">*</span></label>
+                  <select class="form-control form-control-line gti_id_ambientes" name="gti_id_ambientes" required>
                     <option value="">Selecione</option>
-                    @foreach($fontes as $fonte)
-                    <option value="{{$fonte->id}}" {{($fonte->id == $base->gti_id_fontes ? 'selected' : '')}}>{{$fonte->nome}}</option>
+                    @foreach($ambientes as $ambiente)
+                    <option value="{{$ambiente->id}}" {{($ambiente->id == $base->gti_id_ambientes ? 'selected' : '')}}>{{$ambiente->nome}}</option>
                     @endforeach
                   </select>
                 </div>
               </div>
               <div class="col-lg-5 col-12">
                 <div class="form-group">
-                  <label class="col-form-label pb-0">Tipo</label>
+                  <label class="col-form-label pb-0">Fontes</label>
                   <div class="">
-                    <select class="form-control form-control-line gti_id_tipos" name="gti_id_tipos" value="{{$base->gti_id_tipos}}" required>
+                    <select class="form-control form-control-line gti_id_fontes" name="gti_id_fontes" value="{{$base->gti_id_fontes}}" required>
                       <option disabled>Selecione</option>
-                      @foreach($tipos as $tipo)
-                    <option value="{{$tipo->id}}">{{$tipo->nome}}</option>
+                      @foreach($fontes as $fonte)
+                    <option value="{{$fonte->id}}">{{$fonte->nome}}</option>
                     @endforeach
                     </select>
                   </div>
@@ -152,22 +152,22 @@ Editar tópico
         focus: false // set focus to editable area after initializing summernote
     });
 
-    $('.gti_id_fontes').on('change', function(e){
-      var fonte = $('.gti_id_fontes').val();
+    $('.gti_id_ambientes').on('change', function(e){
+      var ambientes = $('.gti_id_ambientes').val();
       $.ajax({
-        url: "../chamados/tipos/"+fonte,
+        url: "../chamados/fontes/"+ambientes,
         type: 'GET',
         success: function(data){ 
           if(data[0]){
-            $('.gti_id_tipos').removeAttr('disabled');
-            $('.gti_id_tipos').html('<option></option>');
+            $('.gti_id_fontes').removeAttr('disabled');
+            $('.gti_id_fontes').html('<option></option>');
             $('#info-base').fadeIn('slow').html('<label class="text-muted text-center">Após selecionado a sua fonte e o tipo do problema, serão dispostos aqui algumas possíveis soluções cadastrados na nossa base do conhecimento. Fique atento!</label>');
             $.each(data, function(count, dados){
-              $('.gti_id_tipos').append('<option value='+dados.id+'>'+dados.nome+'</option>');
+              $('.gti_id_fontes').append('<option value='+dados.id+'>'+dados.nome+'</option>');
             });   
           }else{
-            $('.gti_id_tipos').attr('disabled', 'disabled');
-            $('.gti_id_tipos').html('<option>Nenhum encontrado</option>');
+            $('.gti_id_fontes').attr('disabled', 'disabled');
+            $('.gti_id_fontes').html('<option>Nenhum encontrado</option>');
             $('#info-base').fadeIn('slow').html('<label class="text-muted text-center">Após selecionado a sua fonte e o tipo do problema, serão dispostos aqui algumas possíveis soluções cadastrados na nossa base do conhecimento. Fique atento!</label>');
           }   
         }

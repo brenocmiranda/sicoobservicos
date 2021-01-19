@@ -99,55 +99,82 @@ Funções
 			$(this).parent('tr').addClass('selected');
 			var data = table.row('tr.selected').data();
 			$('.modal .nome').val(data.nome);
+			// Crédito
 			if(data.ver_credito){
-				$('.modal #checkbox11').attr('checked', 'checked');
+				$('.modal #checkbox30').attr('checked', 'checked');
 			}else{
-				$('.modal #checkbox11').removeAttr('checked');
+				$('.modal #checkbox30').removeAttr('checked');
 			}
 			if(data.gerenciar_credito){
-				$('.modal #checkbox12').attr('checked', 'checked');
+				$('.modal #checkbox31').attr('checked', 'checked');
 			}else{
-				$('.modal #checkbox12').removeAttr('checked');
+				$('.modal #checkbox31').removeAttr('checked');
 			}
-			if(data.ver_suporte){
-				$('.modal #checkbox13').attr('checked', 'checked');
-			}else{
-				$('.modal #checkbox13').removeAttr('checked');
-			}
-			if(data.gerenciar_suporte){
-				$('.modal #checkbox14').attr('checked', 'checked');
-			}else{
-				$('.modal #checkbox14').removeAttr('checked');
-			}
+			// Técnologia
 			if(data.ver_gti){
-				$('.modal #checkbox15').attr('checked', 'checked');
+				$('.modal #checkbox32').attr('checked', 'checked');
 			}else{
-				$('.modal #checkbox15').removeAttr('checked');
+				$('.modal #checkbox32').removeAttr('checked');
 			}
 			if(data.gerenciar_gti){
-				$('.modal #checkbox16').attr('checked', 'checked');
+				$('.modal #checkbox33').attr('checked', 'checked');
 			}else{
-				$('.modal #checkbox16').removeAttr('checked');
+				$('.modal #checkbox33').removeAttr('checked');
 			}
+			// Configurações
 			if(data.ver_configuracoes){
-				$('.modal #checkbox17').attr('checked', 'checked');
+				$('.modal #checkbox34').attr('checked', 'checked');
 			}else{
-				$('.modal #checkbox17').removeAttr('checked');
+				$('.modal #checkbox34').removeAttr('checked');
 			}
 			if(data.gerenciar_configuracoes){
-				$('.modal #checkbox18').attr('checked', 'checked');
+				$('.modal #checkbox35').attr('checked', 'checked');
 			}else{
-				$('.modal #checkbox18').removeAttr('checked');
+				$('.modal #checkbox35').removeAttr('checked');
 			}
+			// Administrativo
 			if(data.ver_administrativo){
-				$('.modal #checkbox19').attr('checked', 'checked');
+				$('.modal #checkbox36').attr('checked', 'checked');
 			}else{
-				$('.modal #checkbox19').removeAttr('checked');
+				$('.modal #checkbox36').removeAttr('checked');
 			}
 			if(data.gerenciar_administrativo){
-				$('.modal #checkbox20').attr('checked', 'checked');
+				$('.modal #checkbox37').attr('checked', 'checked');
 			}else{
-				$('.modal #checkbox20').removeAttr('checked');
+				$('.modal #checkbox37').removeAttr('checked');
+			}
+			// Cadastro
+			if(data.ver_cadastro){
+				$('.modal #checkbox38').attr('checked', 'checked');
+			}else{
+				$('.modal #checkbox38').removeAttr('checked');
+			}
+			if(data.gerenciar_cadastro){
+				$('.modal #checkbox39').attr('checked', 'checked');
+			}else{
+				$('.modal #checkbox39').removeAttr('checked');
+			}
+			// Produtos
+			if(data.ver_produtos){
+				$('.modal #checkbox40').attr('checked', 'checked');
+			}else{
+				$('.modal #checkbox40').removeAttr('checked');
+			}
+			if(data.gerenciar_produtos){
+				$('.modal #checkbox41').attr('checked', 'checked');
+			}else{
+				$('.modal #checkbox41').removeAttr('checked');
+			}
+			// Suporte
+			if(data.ver_suporte){
+				$('.modal #checkbox42').attr('checked', 'checked');
+			}else{
+				$('.modal #checkbox42').removeAttr('checked');
+			}
+			if(data.gerenciar_suporte){
+				$('.modal #checkbox43').attr('checked', 'checked');
+			}else{
+				$('.modal #checkbox43').removeAttr('checked');
 			}
 			if(data.status == 1){
 				$(".modal .status").prop('checked', false).trigger("click");
@@ -164,55 +191,82 @@ Funções
 			$(this).parent('tr').addClass('selected');
 			var data = table.row('tr.selected').data();
 			$('.modal .nome').val(data.nome);
+			// Crédito
 			if(data.ver_credito){
-				$('.modal #checkbox21').attr('checked', 'checked');
+				$('.modal #checkbox60').attr('checked', 'checked');
 			}else{
-				$('.modal #checkbox21').removeAttr('checked');
+				$('.modal #checkbox60').removeAttr('checked');
 			}
 			if(data.gerenciar_credito){
-				$('.modal #checkbox22').attr('checked', 'checked');
+				$('.modal #checkbox61').attr('checked', 'checked');
 			}else{
-				$('.modal #checkbox22').removeAttr('checked');
+				$('.modal #checkbox61').removeAttr('checked');
 			}
-			if(data.ver_suporte){
-				$('.modal #checkbox23').attr('checked', 'checked');
-			}else{
-				$('.modal #checkbox23').removeAttr('checked');
-			}
-			if(data.gerenciar_suporte){
-				$('.modal #checkbox24').attr('checked', 'checked');
-			}else{
-				$('.modal #checkbox24').removeAttr('checked');
-			}
+			// Técnologia
 			if(data.ver_gti){
-				$('.modal #checkbox25').attr('checked', 'checked');
+				$('.modal #checkbox62').attr('checked', 'checked');
 			}else{
-				$('.modal #checkbox25').removeAttr('checked');
+				$('.modal #checkbox62').removeAttr('checked');
 			}
 			if(data.gerenciar_gti){
-				$('.modal #checkbox26').attr('checked', 'checked');
+				$('.modal #checkbox63').attr('checked', 'checked');
 			}else{
-				$('.modal #checkbox26').removeAttr('checked');
+				$('.modal #checkbox63').removeAttr('checked');
 			}
+			// Configurações
 			if(data.ver_configuracoes){
-				$('.modal #checkbox27').attr('checked', 'checked');
+				$('.modal #checkbox64').attr('checked', 'checked');
 			}else{
-				$('.modal #checkbox27').removeAttr('checked');
+				$('.modal #checkbox64').removeAttr('checked');
 			}
 			if(data.gerenciar_configuracoes){
-				$('.modal #checkbox28').attr('checked', 'checked');
+				$('.modal #checkbox65').attr('checked', 'checked');
 			}else{
-				$('.modal #checkbox28').removeAttr('checked');
+				$('.modal #checkbox65').removeAttr('checked');
 			}
+			// Administrativo
 			if(data.ver_administrativo){
-				$('.modal #checkbox29').attr('checked', 'checked');
+				$('.modal #checkbox66').attr('checked', 'checked');
 			}else{
-				$('.modal #checkbox29').removeAttr('checked');
+				$('.modal #checkbox66').removeAttr('checked');
 			}
 			if(data.gerenciar_administrativo){
-				$('.modal #checkbox30').attr('checked', 'checked');
+				$('.modal #checkbox67').attr('checked', 'checked');
 			}else{
-				$('.modal #checkbox30').removeAttr('checked');
+				$('.modal #checkbox67').removeAttr('checked');
+			}
+			// Cadastro
+			if(data.ver_cadastro){
+				$('.modal #checkbox38').attr('checked', 'checked');
+			}else{
+				$('.modal #checkbox68').removeAttr('checked');
+			}
+			if(data.gerenciar_cadastro){
+				$('.modal #checkbox69').attr('checked', 'checked');
+			}else{
+				$('.modal #checkbox69').removeAttr('checked');
+			}
+			// Produtos
+			if(data.ver_produtos){
+				$('.modal #checkbox70').attr('checked', 'checked');
+			}else{
+				$('.modal #checkbox70').removeAttr('checked');
+			}
+			if(data.gerenciar_produtos){
+				$('.modal #checkbox71').attr('checked', 'checked');
+			}else{
+				$('.modal #checkbox71').removeAttr('checked');
+			}
+			// Suporte
+			if(data.ver_suporte){
+				$('.modal #checkbox72').attr('checked', 'checked');
+			}else{
+				$('.modal #checkbox72').removeAttr('checked');
+			}
+			if(data.gerenciar_suporte){
+				$('.modal #checkbox73').attr('checked', 'checked');
+			}else{
+				$('.modal #checkbox73').removeAttr('checked');
 			}
 			if(data.status){
 				$('#modal-detalhes .status').removeAttr('disabled');

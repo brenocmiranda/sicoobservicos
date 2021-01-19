@@ -41,7 +41,7 @@ Editar equipamento
                   <select class="form-control form-control-line" name="id_equipamento" required>
                     <option value="">Selecione</option>
                     @foreach($equipamentos as $equipamento)
-                    <option value="{{$equipamento->id}}">{{$equipamento->nome}}</option>
+                    <option value="{{$equipamento->id}}" {{($ativo->id_equipamento == $equipamento->id ? 'selected' : '')}}>{{$equipamento->nome}}</option>
                     @endforeach
                   </select>
                 </div>
@@ -52,7 +52,7 @@ Editar equipamento
                   <select class="form-control form-control-line" name="id_marca" required>
                     <option value="">Selecione</option>
                     @foreach($marcas as $marca)
-                    <option value="{{$marca->id}}">{{$marca->nome}}</option>
+                    <option value="{{$marca->id}}" {{($ativo->id_marca == $marca->id ? 'selected' : '')}}>{{$marca->nome}}</option>
                     @endforeach
                   </select>
                 </div>
@@ -77,7 +77,7 @@ Editar equipamento
                 <div class="form-group">
                   <label class="col-form-label pb-0">Service TAG <span class="text-danger">*</span></label>
                   <div class="">
-                    <input class="form-control form-control-line" name="serviceTag" onkeyup="this.value = this.value.toUpperCase();" required/>
+                    <input class="form-control form-control-line" name="serviceTag" onkeyup="this.value = this.value.toUpperCase();" value="{{$ativo->serviceTag}}" required/>
                   </div>
                 </div>
               </div>
@@ -189,11 +189,11 @@ Editar equipamento
               <img src="{{(isset($ativo->RelationImagemPrincipal) ? asset('storage/app/'.$ativo->RelationImagemPrincipal->endereco) : asset('public/img/image.png'))}}" width="120" height="110" class="border p-1 rounded" id="ImagePrincipal">
             </div>
             <div class="d-block">
-              <h5 class="d-block mb-0" id="equipamento">{{$ativo->nome}}</h5>
+              <h5 class="d-block mb-0" id="equipamento">{{$ativo->RelationEquipamento->nome}}</h5>
               <label class="d-block mb-0 mt-2">
                 <span id="modelo">{{$ativo->modelo}}</span>
                 &#183 
-                <span id="marca">{{$ativo->marca}}</span>
+                <span id="marca">{{$ativo->RelationMarca->nome}}</span>
               </label>
               <small class="d-block mt-2" id="n_patrimonio">{{$ativo->n_patrimonio}}</small>
               <hr class="mx-5">

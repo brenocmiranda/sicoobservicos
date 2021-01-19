@@ -1,4 +1,4 @@
-	@section('title')
+@section('title')
 Tópicos
 @endsection
 
@@ -27,11 +27,11 @@ Tópicos
 					</div>
 				</div>
 				<div class="row col-12 mx-4 pt-4">
-					<h4>{{$fonte->nome}} &#183 <h5 class="pl-2 my-auto">{{$tipo->nome}}</h5></h4>
+					<h4>{{$ambientes->nome}} &#183 <h5 class="pl-2 my-auto">{{$fontes->nome}}</h5></h4>
 				</div>
 				<hr class="mx-5 mt-1">
 				@if(!empty($todos[0]))
-					<ul class="row col-12 m-auto p-0 " id="tipos">
+					<ul class="row col-12 m-auto p-0 " id="fontes">
 						@foreach($todos as $todos)
 							<li class="col-12 px-0 px-lg-5">
 								<a href="{{route('detalhes.base', $todos->id)}}">
@@ -78,8 +78,8 @@ Tópicos
 		// Campo de pesquisa
 		$("input[type=search]").keyup(function(){
 			var texto = $(this).val().toUpperCase();
-			$("#tipos li").css("display", "block");
-			$("#tipos li").each(function(){
+			$("#fontes li").css("display", "block");
+			$("#fontes li").each(function(){
 				if($(this).text().indexOf(texto) < 0)
 					$(this).css("display", "none");
 			});

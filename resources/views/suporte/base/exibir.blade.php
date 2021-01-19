@@ -26,16 +26,16 @@ Aprendizagem
 					</div>
 				</div>
 				<div class="row col-12 mx-auto mt-5 p-0">
-					@if(isset($fontes[0]))
+					@if(isset($ambientes[0]))
 						<div class="vtabs customvtab w-100">
-	                        <ul class="nav tabs-vertical"  id="fontes" style="width: 20%;">
-	                        	@foreach($fontes as $fonte)
-									<li class="tab p-0 {{($fonte->id == $fontes->first()->id ? ' active' : '')}}">
-										<a data-toggle="tab" href="#section{{$fonte->id}}"  aria-expanded="true" class="m-0">
+	                        <ul class="nav tabs-vertical"  id="ambientes" style="width: 20%;">
+	                        	@foreach($ambientes as $ambiente)
+									<li class="tab p-0 {{($ambiente->id == $ambiente->first()->id ? ' active' : '')}}">
+										<a data-toggle="tab" href="#section{{$ambiente->id}}"  aria-expanded="true" class="m-0">
 											<div class="border rounded shadow-sm">
 												<div class="col-12 py-3">
 													<div class="text-uppercase text-center">
-														<h5 class="mb-2">{{$fonte->nome}}</h5>
+														<h5 class="mb-2">{{$ambiente->nome}}</h5>
 													</div>
 												</div>
 											</div>
@@ -45,21 +45,21 @@ Aprendizagem
 							</ul>
 	                        <div class="tab-content">
 	                        	<?php $i=0; ?> 
-	                        	@foreach($fontes as $fonte)
-		                            <div id="section{{$fonte->id}}" class="tab-pane{{($fonte->id == $fontes->first()->id ? ' active' : '')}}">
+	                        	@foreach($ambientes as $ambiente)
+		                            <div id="section{{$ambiente->id}}" class="tab-pane{{($ambiente->id == $fontes->first()->id ? ' active' : '')}}">
 		                                <div class="col-12">
 		                                	<div class="mx-4">
-			                                	<h4 class="mb-2">{{$fonte->nome}}</h4> 
-			                                	<label>{{$fonte->descricao}}</label>
+			                                	<h4 class="mb-3">{{$ambiente->nome}}</h4> 
+			                                	<label>{{$ambiente->descricao}}</label>
 		                                	</div>
 		                                </div>
 		                                <hr class="mt-3 mx-5">
 		                                <div class="col-12">
-		                                    <ul style="list-style: disc" id="tipos">
-		                                    	@foreach($tipos as $tipo)
-		                                    		@if($tipo->gti_id_fontes == $fonte->id)
-			                                    		<a href="{{route('listar.base', [$fonte->id, $tipo->id])}}">
-			                                    			<li class="pb-3">{{$tipo->nome}}</li>
+		                                    <ul style="list-style: disc" id="fontes">
+		                                    	@foreach($fontes as $fonte)
+		                                    		@if($fonte->gti_id_ambientes == $ambiente->id)
+			                                    		<a href="{{route('listar.base', [$ambiente->id, $fonte->id])}}">
+			                                    			<li class="pb-3">{{$fonte->nome}}</li>
 			                                    		</a>	        
 			                                    		<?php $i++; ?>                            		
 		                                    		@endif
@@ -94,8 +94,8 @@ Aprendizagem
 		// Campo de pesquisa
 		$("input[type=search]").keyup(function(){
 			var texto = $(this).val().toUpperCase();
-			$("#fontes li").css("display", "block");
-			$("#fontes li").each(function(){
+			$("#ambientes li").css("display", "block");
+			$("#ambientes li").each(function(){
 				if($(this).text().indexOf(texto) < 0)
 					$(this).css("display", "none");
 			});

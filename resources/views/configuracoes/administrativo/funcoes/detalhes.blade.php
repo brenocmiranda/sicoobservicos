@@ -36,47 +36,80 @@
                   <hr class="mt-1">
                   <div class="row mx-auto">
                     <div class="col-6 col-lg-3">
-                      <label class="border-bottom pb-2 w-100">Crédito</label>
+                      <label class="border-bottom py-2 w-100">Crédito</label>
                       <div class="checkbox checkbox-circle">
-                        <input id="checkbox21" type="checkbox" name="ver_credito">
-                        <label for="checkbox21"> Visualizar </label>
+                        <input id="checkbox60" type="checkbox" name="ver_credito">
+                        <label for="checkbox60"> Visualizar </label>
                       </div>
                       <div class="checkbox checkbox-circle">
-                        <input id="checkbox22" type="checkbox" name="gerenciar_credito">
-                        <label for="checkbox22"> Gerenciar </label>
-                      </div>
-                    </div>
-                    <div class="col-6 col-lg-3">
-                      <label class="border-bottom pb-2 w-100">Tecnologia</label>
-                      <div class="checkbox checkbox-circle">
-                        <input id="checkbox25" type="checkbox" name="ver_gti">
-                        <label for="checkbox25"> Visualizar </label>
-                      </div>
-                      <div class="checkbox checkbox-circle">
-                        <input id="checkbox26" type="checkbox" name="gerenciar_gti">
-                        <label for="checkbox26"> Gerenciar </label>
+                        <input id="checkbox61" type="checkbox" name="gerenciar_credito">
+                        <label for="checkbox61"> Gerenciar </label>
                       </div>
                     </div>
                     <div class="col-6 col-lg-3">
-                      <label class="border-bottom pb-2 w-100">Configurações</label>
+                      <label class="border-bottom py-2 w-100">Tecnologia</label>
                       <div class="checkbox checkbox-circle">
-                        <input id="checkbox27" type="checkbox" name="ver_configuracoes">
-                        <label for="checkbox27"> Visualizar </label>
+                        <input id="checkbox62" type="checkbox" name="ver_gti">
+                        <label for="checkbox62"> Visualizar </label>
                       </div>
                       <div class="checkbox checkbox-circle">
-                        <input id="checkbox28" type="checkbox" name="gerenciar_configuracoes">
-                        <label for="checkbox28"> Gerenciar </label>
+                        <input id="checkbox63" type="checkbox" name="gerenciar_gti">
+                        <label for="checkbox63"> Gerenciar </label>
                       </div>
                     </div>
                     <div class="col-6 col-lg-3">
-                      <label class="border-bottom pb-2 w-100">Administrativo</label>
+                      <label class="border-bottom py-2 w-100">Configurações</label>
                       <div class="checkbox checkbox-circle">
-                        <input id="checkbox27" type="checkbox" name="ver_administrativo">
-                        <label for="checkbox27"> Visualizar </label>
+                        <input id="checkbox64" type="checkbox" name="ver_configuracoes">
+                        <label for="checkbox64"> Visualizar </label>
                       </div>
                       <div class="checkbox checkbox-circle">
-                        <input id="checkbox28" type="checkbox" name="gerenciar_administrativo">
-                        <label for="checkbox28"> Gerenciar </label>
+                        <input id="checkbox65" type="checkbox" name="gerenciar_configuracoes">
+                        <label for="checkbox65"> Gerenciar </label>
+                      </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                      <label class="border-bottom py-2 w-100">Administrativo</label>
+                      <div class="checkbox checkbox-circle">
+                        <input id="checkbox66" type="checkbox" name="ver_administrativo">
+                        <label for="checkbox66"> Visualizar </label>
+                      </div>
+                      <div class="checkbox checkbox-circle">
+                        <input id="checkbox67" type="checkbox" name="gerenciar_administrativo">
+                        <label for="checkbox67"> Gerenciar </label>
+                      </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                      <label class="border-bottom py-2 w-100">Cadastro</label>
+                      <div class="checkbox checkbox-circle">
+                        <input id="checkbox68" type="checkbox" name="ver_cadastro">
+                        <label for="checkbox68"> Visualizar </label>
+                      </div>
+                      <div class="checkbox checkbox-circle">
+                        <input id="checkbox69" type="checkbox" name="gerenciar_cadastro">
+                        <label for="checkbox69"> Gerenciar </label>
+                      </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                      <label class="border-bottom py-2 w-100">Produtos</label>
+                      <div class="checkbox checkbox-circle">
+                        <input id="checkbox70" type="checkbox" name="ver_produtos">
+                        <label for="checkbox70"> Visualizar </label>
+                      </div>
+                      <div class="checkbox checkbox-circle">
+                        <input id="checkbox71" type="checkbox" name="gerenciar_produtos">
+                        <label for="checkbox71"> Gerenciar </label>
+                      </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                      <label class="border-bottom py-2 w-100">Suporte</label>
+                      <div class="checkbox checkbox-circle">
+                        <input id="checkbox72" type="checkbox" name="ver_suporte">
+                        <label for="checkbox72"> Visualizar </label>
+                      </div>
+                      <div class="checkbox checkbox-circle">
+                        <input id="checkbox73" type="checkbox" name="gerenciar_suporte">
+                        <label for="checkbox73"> Gerenciar </label>
                       </div>
                     </div>
                   </div>
