@@ -65,7 +65,7 @@
 							dangerMode: true,
 						})
 						.then((willDelete) => {
-						    window.document.location = "{{ route('logout') }}";
+						    location.reload();
 						});
 		        	}
 		        }, error: function(data){

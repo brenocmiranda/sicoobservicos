@@ -320,7 +320,7 @@ class TecnologiaCtrl extends Controller
 		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
 			$base = Base::find($id);
 			$ambientes = Ambientes::where('status', 1)->orderBy('nome', 'ASC')->get();
-			$fontes = Fontes::where('status', 1)->where('gti_id_fontes', $base->gti_id_fontes)->orderBy('nome', 'ASC')->get();
+			$fontes = Fontes::where('status', 1)->where('gti_id_ambientes', $base->gti_id_ambientes)->orderBy('nome', 'ASC')->get();
 			return view('tecnologia.aprendizagem.editar')->with('base', $base)->with('ambientes', $ambientes)->with('fontes', $fontes);
 		}else{
 			return redirect(route('403'));
