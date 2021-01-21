@@ -155,24 +155,24 @@ Configurações
 			<hr class="mt-0 mx-5">
 			<div class="row col-12 justify-content-center mb-5 ml-3">
 				<div class="row col-12 rounded m-3">
-					<a href="{{ route('exibir.fontes.chamados') }}" class="row mx-auto col-12 pr-0">
+					<a href="{{ route('exibir.ambientes.chamados') }}" class="row mx-auto col-12 pr-0">
 						<div class="col-3 col-sm-1 col-lg-1 border rounded row align-items-center shadow-sm justify-content-center my-auto" style="height: 50px">
 							<i class="mdi mdi-package-variant mdi-dark mdi-24px px-4"></i>
 						</div>
 						<div class="col-lg-11 col-sm-11 col-9 text-secondary mx-4 pr-0">
-							<h5 class="mb-1 text-primary"> Fontes </h5>
-							<label> Gerencie as fontes de problemas que estarão disponíveis na abertura de chamados. </label>
+							<h5 class="mb-1 text-primary"> Ambientes </h5>
+							<label> Gerencie os ambientes de problemas que estarão disponíveis na abertura de chamados. </label>
 						</div>
 					</a>
 				</div>
 				<div class="row col-12 rounded m-3">
-					<a href="{{ route('exibir.tipos.chamados') }}" class="row mx-auto col-12 pr-0">
+					<a href="{{ route('exibir.fontes.chamados') }}" class="row mx-auto col-12 pr-0">
 						<div class="col-3 col-sm-1 col-lg-1 border rounded row align-items-center shadow-sm justify-content-center my-auto" style="height: 50px">
 							 <i class="mdi mdi-webhook mdi-dark mdi-24px px-4"></i>
 						</div>
 						<div class="col-lg-11 col-sm-11 col-9 text-secondary mx-4 pr-0">
-							<h5 class="mb-1 text-primary"> Tipos </h5>
-							<label> Gerencie os tipos que estarão disponíveis para controle de fluxo dos chamados. </label>
+							<h5 class="mb-1 text-primary"> Fontes </h5>
+							<label> Gerencie as fontes que estarão disponíveis para controle de fluxo dos chamados. </label>
 						</div>
 					</a>
 				</div>
