@@ -107,6 +107,7 @@ Status
 			$('.modal .nome').val(data.nome);
 			$('.modal .color').val(data.color);
 			$('.modal .tempo').val(data.tempo.substr(0,8));
+			$('.asColorPicker-trigger').attr('style', 'background:'+data.color);
 			if(data.open == 1){
 				$('.modal .open').attr('checked', 'checked');
 			}else{
@@ -134,6 +135,7 @@ Status
 			$('.modal .nome').val(data.nome);
 			$('.modal .color').val(data.color);
 			$('.modal .tempo').val(data.tempo.substr(0,8));
+			$('.asColorPicker-trigger').attr('style', 'background:'+data.color);
 			if(data.open == 1){
 				$('.modal .open').attr('checked', 'checked');
 			}else{
