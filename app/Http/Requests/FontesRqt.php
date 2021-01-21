@@ -23,19 +23,12 @@ class FontesRqt extends FormRequest
      */
     public function rules()
     {
-        if($this->segment(5) == 'adicionar'){
-            return ['nome' => 'required|min:3|unique:gti_fontes,nome',
-                'descricao' => 'nullable|string',
-                'gti_id_ambientes' => 'required|numeric',
-                'status' => 'nullable',
-            ];
-        }else{
-            return ['nome' => 'required|min:3|unique:gti_fontes,nome,'.$this->segment(6).',id',
-                'descricao' => 'nullable|string',
-                'gti_id_ambientes' => 'required|numeric',
-                'status' => 'nullable',
-            ];
-        }
+        return ['nome' => 'required|min:3',
+            'descricao' => 'nullable|string',
+            'gti_id_ambientes' => 'required|numeric',
+            'status' => 'nullable',
+        ];
+        
     }
 
     public function messages()
