@@ -152,25 +152,30 @@ class SuporteCtrl extends Controller
     }
     // Reabertura chamado
     public function ReaberturaChamados(Request $request, $id){
-        $abertura = Status::where('open', 1)->first();
-        $status = ChamadosStatus::create([
-            'gti_id_chamados' => $id,
-            'gti_id_status' => $abertura->id,
-            'descricao' =>  $request->descricao,
-            'usr_id_usuarios' => Auth::id()
-        ]);
+        if(date('d/m/Y H:i:s', strtotime($chamado->RelationStatus->first()->pivot->created_at)) > date('d/m/Y H:i:s', strtotime('-'.explode(':', $chamado->RelationStatus->first()->tempo)[0].' hours -'.explode(':', $chamado->RelationStatus->first()->tempo)[1].' minutes -'.explode(':', $chamado->RelationStatus->first()->tempo)[2].' seconds'))){
+            $abertura = Status::where('open', 1)->first();
+            $status = ChamadosStatus::create([
+                'gti_id_chamados' => $id,
+                'gti_id_status' => $abertura->id,
+                'descricao' =>  $request->descricao,
+                'usr_id_usuarios' => Auth::id()
+            ]);
 
-        $create = Chamados::find($id);
-        Auth::user()->notify(new SolicitacaoChamadosReCliente($create));  
-        $this->email->notify(new SolicitacaoChamadosReAdmin($create));
-        Atividades::create([
-            'nome' => 'Reabertura de chamado',
-            'descricao' => 'Você efetuou a reabertura do chamado, '.$create->assunto.'.',
-            'icone' => 'mdi-headset',
-            'url' => route('detalhes.chamados', $id),
-            'id_usuario' => Auth::id()
-        ]);
-        return response()->json(['success' => true]);
+            $create = Chamados::find($id);
+            Auth::user()->notify(new SolicitacaoChamadosReCliente($create));  
+            $this->email->notify(new SolicitacaoChamadosReAdmin($create));
+            Atividades::create([
+                'nome' => 'Reabertura de chamado',
+                'descricao' => 'Você efetuou a reabertura do chamado, '.$create->assunto.'.',
+                'icone' => 'mdi-headset',
+                'url' => route('detalhes.chamados', $id),
+                'id_usuario' => Auth::id()
+            ]);
+            return response()->json(['success' => true]);
+        }else{
+            return response()->json(['success' => false]);
+        }
+       
     }
     // Listando os ontes
     public function ListarFontesChamados($idAmbiente){

@@ -20,9 +20,9 @@ class SolicitacaoChamadosAdminAtraso extends Notification implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($create)
+    public function __construct($atrasados)
     {
-        $this->chamado = $create;
+        $this->todos = $atrasados;
         $this->configuracoes = CogEmailsChamado::first();
     }
 
@@ -45,10 +45,19 @@ class SolicitacaoChamadosAdminAtraso extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {   
-        return (new MailMessage)
+        if(count($this->todos) == 1){
+            return (new MailMessage)
                 ->from('servicos@sicoobsertaominas.com.br')
-                ->subject('Você possui um chamado em atraso!')
-                ->view('system.emails.chamadoAdminAtraso', ['chamado' => $this->chamado]);
+                ->subject('Você um chamado pendente!')
+                ->view('system.emails.chamadoAdminAtraso', ['todos' => $this->todos]);
+        }else{
+             return (new MailMessage)
+                ->from('servicos@sicoobsertaominas.com.br')
+                ->subject('Você alguns chamados pendentes!')
+                ->view('system.emails.chamadoAdminAtraso', ['todos' => $this->todos]);
+        }
+       
+        
     }
 
     /**

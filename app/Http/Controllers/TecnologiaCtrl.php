@@ -72,7 +72,7 @@ class TecnologiaCtrl extends Controller
 		$equipamentosSetor = Ativos::join('usr_setores', 'id_setor', 'usr_setores.id')->select('id_setor', 'usr_setores.nome', \DB::raw('count(id_setor) as quantidade'))->groupBy('id_setor')->get();
 		$equipamentosPA = Ativos::join('usr_unidades', 'id_unidade', 'usr_unidades.id')->select('id_unidade', 'usr_unidades.nome', \DB::raw('count(id_unidade) as quantidade'))->groupBy('id_unidade')->get();
 		$equipamentosUsuarios = AtivosUsuarios::groupBy('usr_id_usuarios')->whereNotNull('dataDevolucao')->select('usr_id_usuarios', \DB::raw('count(usr_id_usuarios) as quantidade'))->get();
-		$equipamentosMarca = Ativos::groupBy('marca')->select('marca', \DB::raw('count(marca) as quantidade'))->get();
+		$equipamentosMarca = Ativos::join('gti_ativos_has_marcas', 'id_marca', 'gti_ativos_has_marcas.id')->groupBy('id_marca')->select('nome', \DB::raw('count(id_marca) as quantidade'))->get();
 
 		return view('tecnologia.dashboard')->with('homepage', $homepage)->with('chamados', $chamados)->with('chamadosEmaberto', $chamadosEmaberto) ->with('chamadosEmandamento', $chamadosEmandamento) ->with('chamadosEncerrado', $chamadosEncerrado) ->with('chamadosFontes', $chamadosFontes) ->with('chamadosAmbientes', $chamadosAmbientes) ->with('chamadosDia', $chamadosDia) ->with('chamadosUsuarios', $chamadosUsuarios) ->with('equipamentosSetor', $equipamentosSetor) ->with('equipamentosPA', $equipamentosPA) ->with('equipamentosMarca', $equipamentosMarca) ->with('equipamentosUsuarios', $equipamentosUsuarios); 
 	}
@@ -251,13 +251,14 @@ class TecnologiaCtrl extends Controller
     // Monitorando tempo de vida do status
     public function MonitorarTempoVidaStatus(){
     	$chamados = Chamados::all();
-        $configuracoes = CogEmailsChamado::first();
     	foreach($chamados as $dados){
     		$tempo = explode(':', $dados->RelationStatus->first()->tempo);
-    		if (date('d/m/Y H:i:s', strtotime('-'.$tempo[0].' hours -'.$tempo[1].' minutes -'.$tempo[2].' seconds')) > date('d/m/Y H:i:s', strtotime($dados->RelationStatus->first()->pivot->created_at)) && ($dados->RelationStatus->first()->finish != 1)){
-                $configuracoes->notify(new SolicitacaoChamadosAdminAtraso($dados)); 
-    		}
+            if(date('d/m/Y H:i:s', strtotime($dados->RelationStatus->first()->pivot->created_at)) < date('d/m/Y H:i:s', strtotime('-'.explode(':', $dados->RelationStatus->first()->tempo)[0].' hours -'.explode(':', $dados->RelationStatus->first()->tempo)[1].' minutes -'.explode(':', $dados->RelationStatus->first()->tempo)[2].' seconds')) && ($dados->RelationStatus->first()->finish != 1)){
+                $atrasados[] = $dados;  
+            }
     	}
+        $configuracoes = CogEmailsChamado::first();
+        $configuracoes->notify(new SolicitacaoChamadosAdminAtraso($atrasados));
         return response()->json(['success' => true]);
     }
 

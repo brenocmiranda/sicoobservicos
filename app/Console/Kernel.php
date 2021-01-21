@@ -29,7 +29,7 @@ class Kernel extends ConsoleKernel
         ->everyThirtyMinutes();
 
         $schedule->command('TempoVida:monitorar')
-        ->everyMinute();
+        ->twiceDaily(9, 13);
     }
 
     /**

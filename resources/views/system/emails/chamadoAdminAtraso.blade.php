@@ -24,13 +24,24 @@
 										<div><span>
 											<p style="margin-top:0px;margin-bottom:10px">
 											</p>
-
-												<p> Eiiiitaaa! O seu chamado de número {{$chamado->id}} está em atraso, verifique as informações acessando a plataforma e faça o tratamento.</p>
+												<p> Eiiiitaaa! Verificamos que você possui <b>{{count($todos)}}</b> {{(count($todos) == 1 ? 'chamado pendente' : 'chamados pendentes')}}. Analise as informações abaixo e faça o tratamento de cada um deles.
+													@foreach($todos as $dados)
+													<p>
+														<ul>
+															<li><b>Chamado:</b> {{$dados->id}}</li>
+															<li><b>Fonte:</b> {{$dados->RelationAmbientes->nome}}</li>
+															<li><b>Tipo:</b> {{$dados->RelationFontes->nome}}</li>
+															<li><b>Assunto:</b> {{$dados->assunto}}</li>
+															<label><a href="{{route('detalhes.chamados.gti', $dados->id)}}"><b>Mais informações.</b></a></label>
+														</ul>
+													</p>
+													@endforeach
+												</p>
 												<p> Estamos a disposição!</p>
 
 											<p style="text-align:justify">
 												<div>
-													<label><a href="{{route('detalhes.chamados.gti', $chamado->id)}}"><b>Veja o chamado que está em atraso.</b></a></label>
+													<label><a href="{{route('exibir.chamados.gti')}}"><b>Veja todos seus chamados.</b></a></label>
 												</div>
 											</p>
 											<p style="margin-top:10px;margin-bottom:10px"><span style="color:rgb(0,0,0)"><span></span></span></p>

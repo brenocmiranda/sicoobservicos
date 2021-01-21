@@ -99,6 +99,11 @@ Detalhes do chamado
               @endif
             </div>
           </div>
+          @if(date('d/m/Y H:i:s', strtotime($chamado->RelationStatus->first()->pivot->created_at)) < date('d/m/Y H:i:s', strtotime('-'.explode(':', $chamado->RelationStatus->first()->tempo)[0].' hours -'.explode(':', $chamado->RelationStatus->first()->tempo)[1].' minutes -'.explode(':', $chamado->RelationStatus->first()->tempo)[2].' seconds')) && ($chamado->RelationStatus->first()->finish == 1))
+          <div class="col-12 mt-auto">
+            <small class="text-danger">* Esse chamado não pode ser reaberto, pois excedeu a quantidade de tempo estabelescida para reabertura.</small>
+          </div>
+          @endif
 
           <div class="col-12 px-0 pt-0 footer" style="border-radius: 0.8rem;">
             <hr class="col-10">
@@ -116,7 +121,7 @@ Detalhes do chamado
                   <span>Finalizar chamado</span>
                 </a>
               </div>
-              @elseif(date('d/m/Y H:i:s', strtotime('-'.explode(':', $chamado->RelationStatus->first()->tempo)[0].' hours -'.explode(':', $chamado->RelationStatus->first()->tempo)[1].' minutes -'.explode(':', $chamado->RelationStatus->first()->tempo)[2].' seconds')) < date('d/m/Y H:i:s', strtotime($chamado->RelationStatus->first()->pivot->created_at)))
+              @elseif(date('d/m/Y H:i:s', strtotime($chamado->RelationStatus->first()->pivot->created_at)) > date('d/m/Y H:i:s', strtotime('-'.explode(':', $chamado->RelationStatus->first()->tempo)[0].' hours -'.explode(':', $chamado->RelationStatus->first()->tempo)[1].' minutes -'.explode(':', $chamado->RelationStatus->first()->tempo)[2].' seconds')))
               <div>
                 <a href="javascript:void()" id="{{$chamado->id}}" class="btn-reabrir btn btn-success btn-outline d-flex align-items-center justify-content-center mx-2" data-toggle="modal" data-target="#modal-reabertura">
                   <i class="mdi mdi-check pr-2"></i> 

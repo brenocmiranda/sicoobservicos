@@ -53,6 +53,9 @@ Solicitações de Suporte
 														<b>&#183</b> 
 														<span>{{$chamado->RelationFontes->nome}}</span>
 														<div class="badge mx-2" style="background: {{$chamado->RelationStatus->first()->color}}">{{$chamado->RelationStatus->first()->nome}}</div>
+														@if(date('d/m/Y H:i:s', strtotime($chamado->RelationStatus->first()->pivot->created_at)) < date('d/m/Y H:i:s', strtotime('-'.explode(':', $chamado->RelationStatus->first()->tempo)[0].' hours -'.explode(':', $chamado->RelationStatus->first()->tempo)[1].' minutes -'.explode(':', $chamado->RelationStatus->first()->tempo)[2].' seconds')) && ($chamado->RelationStatus->first()->finish != 1) )
+															<small class="text-danger"><b>&#183</b> Em atraso</small>	
+														@endif
 													</h5>
 												</a>
 												<label class="text-capitalize d-block text-primary">

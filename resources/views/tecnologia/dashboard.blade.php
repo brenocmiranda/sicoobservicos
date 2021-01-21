@@ -92,12 +92,12 @@ Tecnologia
 		            </div>
 		            <div class="white-box row mb-0">
 		            	<div class="col-lg-6 col-sm-12 col-xs-12">
-							<h3 class="box-title mb-0 text-center">Chamados por Fonte</h3>
+							<h3 class="box-title mb-0 text-center">Chamados por Ambien</h3>
 							<hr class="mt-2">
 							<div id="morris-donut-chart1" class="morris-donut-chart" style="height: 250px"></div>
 						</div>
                         <div class="col-lg-6 col-sm-12 col-xs-12">
-							<h3 class="box-title mb-0 text-center">Chamados por Tipo</h3>
+							<h3 class="box-title mb-0 text-center">Chamados por Fonte</h3>
 							<hr class="mt-2">
 							<div id="morris-donut-chart2" class="morris-donut-chart" style="height: 250px"></div>
 						</div>
@@ -243,9 +243,9 @@ Tecnologia
 	$(document).ready( function (){
 		// Chamados por fonte
 		$('.sttabs').tabs({active: 0});
-		var chamadosFontes = {!! $chamadosFontes !!};
+		var chamadosAmbientes = {!! $chamadosAmbientes !!};
 	    var morrisData = [];
-	    $.each(chamadosFontes, function(key, val){
+	    $.each(chamadosAmbientes, function(key, val){
 	    	morrisData.push({'label': val.nome, 'value': val.quantidade}); 
 	    });
 		var chart = Morris.Donut({
@@ -254,9 +254,9 @@ Tecnologia
 			resize: true
 		});
 		// Chamados por tipo
-		var chamadosTipos = {!! $chamadosTipos !!};
+		var chamadosFontes = {!! $chamadosFontes !!};
 	    var morrisData = [];
-	    $.each(chamadosTipos, function(key, val){
+	    $.each(chamadosFontes, function(key, val){
 	    	morrisData.push({'label': val.nome, 'value': val.quantidade}); 
 	    });
 		var chart = Morris.Donut({
@@ -329,12 +329,12 @@ Tecnologia
 		var equipamentosMarca = {!! $equipamentosMarca !!};
 	    var morrisData = [];
 	    $.each(equipamentosMarca, function(key, val){
-	    	morrisData.push({'marca': val.marca, 'quantidade': val.quantidade}); 
+	    	morrisData.push({'nome': val.nome, 'quantidade': val.quantidade}); 
 	    });
     	Morris.Bar({
 	        element: 'morris-bar-chart',
 	        data: morrisData,
-	        xkey: 'marca',
+	        xkey: 'nome',
 	        ykeys: ['quantidade'],
 	        labels: ['Quantidade'],
 	        barColors:['#b8edf0', '#b4c1d7', '#fcc9ba'],

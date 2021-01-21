@@ -85,7 +85,7 @@ Chamados
 													<i class="mdi mdi-comment-processing-outline"></i>
 													<small class="hidden-xs">Mais informações</small>
 												</a>	
-												@if($chamado->RelationStatus->first()->finish == 1 && date('d/m/Y H:i:s', strtotime('-'.explode(':', $chamado->RelationStatus->first()->tempo)[0].' hours -'.explode(':', $chamado->RelationStatus->first()->tempo)[1].' minutes -'.explode(':', $chamado->RelationStatus->first()->tempo)[2].' seconds')) < date('d/m/Y H:i:s', strtotime($chamado->RelationStatus->first()->pivot->created_at)))
+												@if(date('d/m/Y H:i:s', strtotime($chamado->RelationStatus->first()->pivot->created_at)) > date('d/m/Y H:i:s', strtotime('-'.explode(':', $chamado->RelationStatus->first()->tempo)[0].' hours -'.explode(':', $chamado->RelationStatus->first()->tempo)[1].' minutes -'.explode(':', $chamado->RelationStatus->first()->tempo)[2].' seconds')))
 												<a href="javascript:void(0)" id="{{$chamado->id}}" class="btn-reabrir btn btn-default btn-outline btn-rounded col-10 mb-2" title="Detalhes do chamado">
 													<i class="mdi mdi-comment-processing-outline"></i>
 													<small class="hidden-xs">Reabrir chamado</small>
@@ -147,11 +147,16 @@ Chamados
 	          $('#modal-reabertura #err').html('');
 	        },
 	        success: function(data){
-	          $('.modal-body, .modal-footer').addClass('d-none');
-	          $('.carregamento').html('<div class="mx-auto text-center my-5"><div class="col-12"><i class="col-2 mdi mdi-check-all mdi-48px"></i></div><label>Informações alteradas com sucesso!</label></div>');
-	          setTimeout(function(){
-	            location.reload();
-	          }, 1000);
+	        	if(data.success == true){
+	        		$('.modal-body, .modal-footer').addClass('d-none');
+			        $('.carregamento').html('<div class="mx-auto text-center my-5"><div class="col-12"><i class="col-2 mdi mdi-check-all mdi-48px"></i></div><label>Informações alteradas com sucesso!</label></div>');
+			        setTimeout(function(){
+			            location.reload();
+			        }, 1000);
+	        	}else{
+	        		$('.modal-body, .modal-footer').addClass('d-none');
+			        $('.carregamento').html('<div class="mx-auto text-center my-5"><div class="col-12"><i class="col-2 mdi mdi-close mdi-48px"></i></div><label>Não foi possível reabrir o chamado, seu tempo de vida finalizou. Tente abrir um novo chamado!</label></div>');
+	        	}
 	        }, error: function (data) {
 	          setTimeout(function(){
 	            $('.modal-body, .modal-footer').removeClass('d-none');
