@@ -106,5 +106,15 @@ class PrivateCtrl extends Controller
 			));
 		return redirect(route('perfil'));
 	}
+	// Controle de inatividade
+	public function CheckUser(){
+		if(request()->segment(1) == 'app' && request()->segment(2) != 'login' && request()->segment(2) != 'password'){
+			if (!(Auth::check()) || (Auth::user()->status != "Ativo")) {
+				return response()->json(['success' => true]);
+			}else{
+				return response()->json(['success' => false]);
+			}
+		}
+	}
 
 }

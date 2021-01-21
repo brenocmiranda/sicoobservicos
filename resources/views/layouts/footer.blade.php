@@ -50,6 +50,31 @@
 	        });
 	    })();
 
+	    // Verificando status do usuário
+	    @if(request()->segment(1) == 'app' && request()->segment(2) != 'login' && request()->segment(2) != 'password')
+		    setInterval( function(){
+		      $.ajax({
+		        url: "{{route('check')}}",
+		        type: 'GET',
+		        success: function(data){
+		        	if(data.success == true){
+				        swal({
+							title: "Seu usuário foi desconectado.",
+							icon: "warning",
+							button: "Ok",
+							dangerMode: true,
+						})
+						.then((willDelete) => {
+						    window.document.location = "{{ route('logout') }}";
+						});
+		        	}
+		        }, error: function(data){
+		        	console.log(data);
+		        }
+		      });
+		    }, 30000);
+	    @endif
+
 		// Função para logout do usuário
 		$('.logout').on('click', function() {
 			swal({

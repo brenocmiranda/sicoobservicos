@@ -34,6 +34,7 @@ Route::group(['prefix' => 'app'], function(){
 		Route::get('logout', 'PrivateCtrl@Sair')->name('logout');
 		Route::get('atividades', 'PrivateCtrl@Atividades')->name('atividades');
 		Route::get('403', 'PrivateCtrl@Permission403')->name('403');
+		Route::get('check', 'PrivateCtrl@CheckUser')->name('check');
 		Route::group(['prefix' => 'new'], function(){
 			// Primeiro acesso a plataforma
 			Route::get('', 'PrivateCtrl@PrimeiroAcesso')->name('primeiro.acesso');
