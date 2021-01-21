@@ -129,8 +129,16 @@ Homepage
 	        @endif
 	    </div>
     </div>
-	<div class="col-9 col-sm-9 col-lg-9 mx-auto px-0 row pb-5">
-		<img src="{{ asset('public/img/logo.png').'?'.rand() }}" class="mx-auto mt-3 col-lg-4 col-sm-9 col-12 h-100">
+	<div class="col-12 col-sm-12 col-lg-12 mx-auto px-0 row pb-5">
+		<img src="{{ asset('public/img/logo.png').'?'.rand() }}" class="mx-auto mt-3 col-lg-3 col-sm-5 col-12 h-100">
+		<div class="row position-absolute text-white justify-content-end col-12 ml-auto mt-5 hidden-xs">
+			@foreach($aniversariantes as $aniversariante)
+				<div class="col-12 ml-auto justify-content-end text-right">
+					<span class="mdi mdi-cake-variant"></span>
+					<small>{{$aniversariante->nome}} &#183 {{date('d/m', strtotime($aniversariante->data_nascimento))}}</small>
+				</div>
+			@endforeach
+		</div>
 	</div>
 	<div class="col-12 col-sm-12 col-lg-12 mx-auto py-5">
 		<div class="col-sm-12 col-lg-8 mx-auto input-group input-search">

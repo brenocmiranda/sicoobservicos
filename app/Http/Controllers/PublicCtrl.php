@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use App\Notifications\Recuperacao;
 use App\Http\Requests\LoginRqt; 
+use App\Models\Associados;
 use App\Models\Atividades; 
 use App\Models\Base; 
 use App\Models\Usuarios;
@@ -21,7 +22,8 @@ class PublicCtrl extends Controller
 	public function Homepage(){
 		$wallpapers = Imagens::where('tipo', 'homepage_principal')->get();
 		$atalhos = Homepage::orderBy('titulo')->get();
-		return view('tecnologia.atalhos.exibir')->with('atalhos', $atalhos)->with('wallpapers', $wallpapers);
+		$aniversariantes = Associados::where('funcionario', 1)->whereDay('data_nascimento', date('d'))->whereMonth('data_nascimento', date('m'))->where('id', '<>', 1)->select('nome', 'data_nascimento')->orderByRaw('day(data_nascimento) asc')->get();
+		return view('tecnologia.atalhos.exibir')->with('atalhos', $atalhos)->with('wallpapers', $wallpapers)->with('aniversariantes', $aniversariantes);
 	}
     // Tela de login
 	public function Login(){
