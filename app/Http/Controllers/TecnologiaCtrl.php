@@ -526,7 +526,7 @@ class TecnologiaCtrl extends Controller
 		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
 			return datatables()->of(AtivosEquipamentos::all())
 	            ->editColumn('nome1', function(AtivosEquipamentos $dados){ 
-	                return '<a href="javascript:void(0)" id="detalhes">'.$dados->nome.' &#183 '.$dados->marca.'</a>';
+	                return '<a href="javascript:void(0)" id="detalhes">'.$dados->nome.'</a>';
 	            })
 	            ->editColumn('status1', function(AtivosEquipamentos $dados){
 	                return '<label class="badge'.($dados->status == 1 ? " badge-success" : " badge-danger").'">'.($dados->status == 1 ? "Ativo" : "Desativado").'</label>';
@@ -541,7 +541,7 @@ class TecnologiaCtrl extends Controller
         }else{
         	return datatables()->of(AtivosEquipamentos::all())
 	            ->editColumn('nome1', function(AtivosEquipamentos $dados){ 
-	                return '<a href="javascript:void(0)" id="detalhes">'.$dados->nome.' &#183 '.$dados->marca.'</a>';
+	                return '<a href="javascript:void(0)" id="detalhes">'.$dados->nome'</a>';
 	            })
 	            ->editColumn('status1', function(AtivosEquipamentos $dados){
 	                return '<label class="badge'.($dados->status == 1 ? " badge-success" : " badge-danger").'">'.($dados->status == 1 ? "Ativo" : "Desativado").'</label>';
