@@ -107,7 +107,7 @@ Status
 			$('.modal .nome').val(data.nome);
 			$('.modal .color').val(data.color);
 			$('.modal .tempo').val(data.tempo.substr(0,8));
-			$('.asColorPicker-trigger').attr('style', 'background:'+data.color);
+			$('.asColorPicker-trigger span').attr('style', 'background:'+data.color);
 			if(data.open == 1){
 				$('.modal .open').attr('checked', 'checked');
 			}else{
@@ -135,16 +135,20 @@ Status
 			$('.modal .nome').val(data.nome);
 			$('.modal .color').val(data.color);
 			$('.modal .tempo').val(data.tempo.substr(0,8));
-			$('.asColorPicker-trigger').attr('style', 'background:'+data.color);
+			$('.asColorPicker-trigger span').attr('style', 'background:'+data.color);
 			if(data.open == 1){
 				$('.modal .open').attr('checked', 'checked');
+				$('.modal .open').attr('disabled', 'disabled');
 			}else{
 				$('.modal .open').removeAttr('checked');
+				$('.modal .open').attr('disabled', 'disabled');
 			}
 			if(data.finish == 1){
 				$('.modal .finish').attr('checked', 'checked');
+				$('.modal .finish').attr('disabled', 'disabled');
 			}else{
 				$('.modal .finish').removeAttr('checked');
+				$('.modal .finish').attr('disabled', 'disabled');
 			}
 			if(data.status == 1){
 				$('#modal-detalhes .status').removeAttr('disabled');

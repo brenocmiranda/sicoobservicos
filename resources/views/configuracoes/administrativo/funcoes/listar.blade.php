@@ -189,74 +189,100 @@ Funções
 			// Crédito
 			if(data.ver_credito){
 				$('.modal #checkbox60').attr('checked', 'checked');
+				$('.modal #checkbox60').attr('disabled', 'disabled');
 			}else{
 				$('.modal #checkbox60').removeAttr('checked');
+				$('.modal #checkbox60').attr('disabled', 'disabled');
 			}
 			if(data.gerenciar_credito){
 				$('.modal #checkbox61').attr('checked', 'checked');
+				$('.modal #checkbox61').attr('disabled', 'disabled');
 			}else{
 				$('.modal #checkbox61').removeAttr('checked');
+				$('.modal #checkbox61').attr('disabled', 'disabled');
 			}
 			// Técnologia
 			if(data.ver_gti){
 				$('.modal #checkbox62').attr('checked', 'checked');
+				$('.modal #checkbox62').attr('disabled', 'disabled');
 			}else{
 				$('.modal #checkbox62').removeAttr('checked');
+				$('.modal #checkbox62').attr('disabled', 'disabled');
 			}
 			if(data.gerenciar_gti){
 				$('.modal #checkbox63').attr('checked', 'checked');
+				$('.modal #checkbox63').attr('disabled', 'disabled');
 			}else{
 				$('.modal #checkbox63').removeAttr('checked');
+				$('.modal #checkbox63').attr('disabled', 'disabled');
 			}
 			// Configurações
 			if(data.ver_configuracoes){
 				$('.modal #checkbox64').attr('checked', 'checked');
+				$('.modal #checkbox64').attr('disabled', 'disabled');
 			}else{
 				$('.modal #checkbox64').removeAttr('checked');
+				$('.modal #checkbox64').attr('disabled', 'disabled');
 			}
 			if(data.gerenciar_configuracoes){
 				$('.modal #checkbox65').attr('checked', 'checked');
+				$('.modal #checkbox65').attr('disabled', 'disabled');
 			}else{
 				$('.modal #checkbox65').removeAttr('checked');
+				$('.modal #checkbox65').attr('disabled', 'disabled');
 			}
 			// Administrativo
 			if(data.ver_administrativo){
 				$('.modal #checkbox66').attr('checked', 'checked');
+				$('.modal #checkbox66').attr('disabled', 'disabled');
 			}else{
 				$('.modal #checkbox66').removeAttr('checked');
+				$('.modal #checkbox66').attr('disabled', 'disabled');
 			}
 			if(data.gerenciar_administrativo){
 				$('.modal #checkbox67').attr('checked', 'checked');
+				$('.modal #checkbox67').attr('disabled', 'disabled');
 			}else{
 				$('.modal #checkbox67').removeAttr('checked');
+				$('.modal #checkbox67').attr('disabled', 'disabled');
 			}
 			// Cadastro
 			if(data.ver_cadastro){
-				$('.modal #checkbox38').attr('checked', 'checked');
+				$('.modal #checkbox68').attr('checked', 'checked');
+				$('.modal #checkbox68').attr('disabled', 'disabled');
 			}else{
 				$('.modal #checkbox68').removeAttr('checked');
+				$('.modal #checkbox68').attr('disabled', 'disabled');
 			}
 			if(data.gerenciar_cadastro){
 				$('.modal #checkbox69').attr('checked', 'checked');
+				$('.modal #checkbox69').attr('disabled', 'disabled');
 			}else{
 				$('.modal #checkbox69').removeAttr('checked');
+				$('.modal #checkbox69').attr('disabled', 'disabled');
 			}
 			// Produtos
 			if(data.ver_produtos){
 				$('.modal #checkbox70').attr('checked', 'checked');
+				$('.modal #checkbox70').attr('disabled', 'disabled');
 			}else{
 				$('.modal #checkbox70').removeAttr('checked');
+				$('.modal #checkbox70').attr('disabled', 'disabled');
 			}
 			if(data.gerenciar_produtos){
 				$('.modal #checkbox71').attr('checked', 'checked');
+				$('.modal #checkbox71').attr('disabled', 'disabled');
 			}else{
 				$('.modal #checkbox71').removeAttr('checked');
+				$('.modal #checkbox71').attr('disabled', 'disabled');
 			}
 			// Suporte
 			if(data.ver_suporte){
 				$('.modal #checkbox72').attr('checked', 'checked');
+				$('.modal #checkbox72').attr('disabled', 'disabled');
 			}else{
 				$('.modal #checkbox72').removeAttr('checked');
+				$('.modal #checkbox72').attr('disabled', 'disabled');
 			}
 			if(data.status){
 				$('#modal-detalhes .status').removeAttr('disabled');
