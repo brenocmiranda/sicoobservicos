@@ -106,7 +106,7 @@ Status
 			var data = table.row('tr.selected').data();
 			$('.modal .nome').val(data.nome);
 			$('.modal .color').val(data.color);
-			$('.modal .tempo').val(data.tempo.substr(0,7));
+			$('.modal .tempo').val(data.tempo.substr(0,8));
 			if(data.open == 1){
 				$('.modal .open').attr('checked', 'checked');
 			}else{
@@ -133,7 +133,7 @@ Status
 			var data = table.row('tr.selected').data();
 			$('.modal .nome').val(data.nome);
 			$('.modal .color').val(data.color);
-			$('.modal .tempo').val(data.tempo.substr(0,5));
+			$('.modal .tempo').val(data.tempo.substr(0,8));
 			if(data.open == 1){
 				$('.modal .open').attr('checked', 'checked');
 			}else{
