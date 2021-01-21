@@ -68,7 +68,7 @@
         </a>
         <ul class="nav nav-second-level {{ (Request::segment(2) == 'atendimento' ? ' collapse in' : '') }}">
           <li> <a href="{{route('exibir.painel.atendimento')}}"><span class="hide-menu">Painel do associado</span></a> </li>
-          <li> <a href="#"><span class="hide-menu">Cadastro</span></a> </li>
+          <li> <a href="#"><span class="hide-menu">Novo associado</span></a> </li>
         </ul>
       </li>
       @endif
@@ -133,6 +133,14 @@
         <ul class="nav nav-second-level {{ (Request::segment(2) == 'produtos' ? ' collapse in' : '') }}">
           <li> <a href="#"><span class="hide-menu">Dashboard</span></a> </li>
           <li> <a href="#"><span class="hide-menu">Seguros</span></a> </li>
+          <li> 
+            <a href="javascript:void(0)" class="waves-effect {{ (Request::segment(2) == 'produtos' && Request::segment(3) == 'configuracoes' ? ' active' : '') }}">
+              <span class="hide-menu">Configurações </span><span class="fa arrow"></span>
+            </a>
+            <ul class="nav nav-third-level {{ (Request::segment(2) == 'produtos' && Request::segment(3) == 'configuracoes' ? ' collapse in' : '') }}">
+              <li> <a href="#"><span class="hide-menu">Campanhas</span></a> </li>
+            </ul>
+          </li>
         </ul>
       </li>
       @endif
