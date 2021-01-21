@@ -24,12 +24,12 @@ class MarcasRqt extends FormRequest
     public function rules()
     {   
         if($this->segment(5) == 'adicionar'){
-            return ['nome' => 'required|min:3|unique:gti_ativos_has_equipamentos,nome',
+            return ['nome' => 'required|unique:gti_ativos_has_equipamentos,nome',
                 'descricao' => 'nullable|string',
                 'status' => 'nullable',
             ];
         }else{
-            return ['nome' => 'required|min:3|unique:gti_ativos_has_equipamentos,nome,'.$this->segment(6).',id',
+            return ['nome' => 'required|unique:gti_ativos_has_equipamentos,nome,'.$this->segment(6).',id',
                 'descricao' => 'nullable|string',
                 'status' => 'nullable',
             ];
