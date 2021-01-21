@@ -111,10 +111,6 @@
                         <input id="checkbox42" type="checkbox" name="ver_suporte">
                         <label for="checkbox42"> Visualizar </label>
                       </div>
-                      <div class="checkbox checkbox-circle">
-                        <input id="checkbox43" type="checkbox" name="gerenciar_suporte">
-                        <label for="checkbox43"> Gerenciar </label>
-                      </div>
                     </div>
                   </div>
                 </div>

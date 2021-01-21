@@ -92,7 +92,7 @@ Tecnologia
 		            </div>
 		            <div class="white-box row mb-0">
 		            	<div class="col-lg-6 col-sm-12 col-xs-12">
-							<h3 class="box-title mb-0 text-center">Chamados por Ambien</h3>
+							<h3 class="box-title mb-0 text-center">Chamados por Ambiente</h3>
 							<hr class="mt-2">
 							<div id="morris-donut-chart1" class="morris-donut-chart" style="height: 250px"></div>
 						</div>

@@ -171,11 +171,6 @@ Funções
 			}else{
 				$('.modal #checkbox42').removeAttr('checked');
 			}
-			if(data.gerenciar_suporte){
-				$('.modal #checkbox43').attr('checked', 'checked');
-			}else{
-				$('.modal #checkbox43').removeAttr('checked');
-			}
 			if(data.status == 1){
 				$(".modal .status").prop('checked', false).trigger("click");
 			}else{
@@ -262,11 +257,6 @@ Funções
 				$('.modal #checkbox72').attr('checked', 'checked');
 			}else{
 				$('.modal #checkbox72').removeAttr('checked');
-			}
-			if(data.gerenciar_suporte){
-				$('.modal #checkbox73').attr('checked', 'checked');
-			}else{
-				$('.modal #checkbox73').removeAttr('checked');
 			}
 			if(data.status){
 				$('#modal-detalhes .status').removeAttr('disabled');

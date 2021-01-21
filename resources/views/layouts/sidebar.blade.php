@@ -137,6 +137,7 @@
       </li>
       @endif
 
+      @if(Auth::user()->RelationFuncao->ver_suporte == 1)
       <li> 
         <a href="javascript:" class="waves-effect {{ (Request::segment(2) == 'suporte' ? 'active' : '') }}">
           <i class="mdi mdi-hangouts pr-3" data-icon="v"></i> 
@@ -149,6 +150,7 @@
           <li> <a href="{{route('exibir.solicitacoes.materiais')}}"><span class="hide-menu">Materiais</span></a> </li>
         </ul>
       </li>
+      @endif
 
       @if(Auth::user()->RelationFuncao->ver_gti == 1 || Auth::user()->RelationFuncao->gerenciar_gti == 1)
       <li> 

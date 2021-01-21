@@ -97,8 +97,7 @@ class ConfiguracoesCtrl extends Controller
 				'gerenciar_cadastro' => ($request->gerenciar_cadastro == "on" ? 1 : 0),
 				'ver_produtos' => ($request->ver_produtos == "on" ? 1 : 0),
 				'gerenciar_produtos' => ($request->gerenciar_produtos == "on" ? 1 : 0),
-				'ver_suporte' => ($request->ver_suporte == "on" ? 1 : 0),
-				'gerenciar_suporte' => ($request->gerenciar_suporte == "on" ? 1 : 0),
+				'ver_suporte' => ($request->ver_suporte == "on" ? 1 : 0)
 			]);
 			Atividades::create([
 				'nome' => 'Cadastro de nova função administrativa',
@@ -130,8 +129,7 @@ class ConfiguracoesCtrl extends Controller
 				'gerenciar_cadastro' => ($request->gerenciar_cadastro == "on" ? 1 : 0),
 				'ver_produtos' => ($request->ver_produtos == "on" ? 1 : 0),
 				'gerenciar_produtos' => ($request->gerenciar_produtos == "on" ? 1 : 0),
-				'ver_suporte' => ($request->ver_suporte == "on" ? 1 : 0),
-				'gerenciar_suporte' => ($request->gerenciar_suporte == "on" ? 1 : 0),
+				'ver_suporte' => ($request->ver_suporte == "on" ? 1 : 0)
 			]);
 			$create = Funcoes::find($id);
 			Atividades::create([

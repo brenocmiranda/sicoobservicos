@@ -31,7 +31,6 @@ class CreateUsrFuncoes extends Migration
             $table->boolean('ver_produtos');
             $table->boolean('gerenciar_produtos');
             $table->boolean('ver_suporte');
-            $table->boolean('gerenciar_suporte');
             $table->timestamps();
         });
 
@@ -51,8 +50,7 @@ class CreateUsrFuncoes extends Migration
                 'gerenciar_cadastro' => 1,
                 'ver_produtos' => 1,
                 'gerenciar_produtos' => 1,
-                'ver_suporte' => 1,
-                'gerenciar_suporte' => 1,
+                'ver_suporte' => 1
                 ])
             );
     }
