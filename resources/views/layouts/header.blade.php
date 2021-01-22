@@ -14,6 +14,7 @@
 
   <!-- Title &#8226 -->
   <title>@yield('title') &#183 {{ env('APP_NAME') }} </title>
+
   
   <link href="{{ asset('public/css/bootstrap.css') }}" rel="stylesheet">
   <link href="{{ asset('public/vendor/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -39,6 +40,7 @@
   <link href="{{ asset('public/vendor/owl.carousel/owl.carousel.min.css')  }}" rel="stylesheet" type="text/css">
   <link href="{{ asset('public/vendor/owl.carousel/owl.theme.default.css')  }}" rel="stylesheet" type="text/css">
   <link href="{{ asset('public/vendor/summernote/dist/summernote.css')  }}" rel="stylesheet">
+  <link href="{{ asset('public/css/smart_wizard_all.css')  }}" rel="stylesheet">
   <!--<link href="{{ asset('public/css/jquery-ui.css')  }}" rel="stylesheet">-->
   
   @yield('header-support')

@@ -55,12 +55,13 @@
 }
 .wizard-buttons {
   margin-top: 10px;
+  text-align: center;
 }
 .wizard-buttons > a {
   margin-right: 5px;
-  padding: 5px 10px;
+  padding: 10px 30px;
   border: 1px solid #aaa;
-  border-radius: 20px;
+  /*border-radius: 20px;*/
 }
 .wizard-buttons > a.disabled {
   color: #aaa;

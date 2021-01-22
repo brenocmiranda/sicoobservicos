@@ -97,6 +97,8 @@ class ConfiguracoesCtrl extends Controller
 				'gerenciar_cadastro' => ($request->gerenciar_cadastro == "on" ? 1 : 0),
 				'ver_produtos' => ($request->ver_produtos == "on" ? 1 : 0),
 				'gerenciar_produtos' => ($request->gerenciar_produtos == "on" ? 1 : 0),
+				'ver_atendimento' => ($request->ver_atendimento == "on" ? 1 : 0),
+				'gerenciar_atendimento' => ($request->gerenciar_atendimento == "on" ? 1 : 0),
 				'ver_suporte' => ($request->ver_suporte == "on" ? 1 : 0)
 			]);
 			Atividades::create([
@@ -129,6 +131,8 @@ class ConfiguracoesCtrl extends Controller
 				'gerenciar_cadastro' => ($request->gerenciar_cadastro == "on" ? 1 : 0),
 				'ver_produtos' => ($request->ver_produtos == "on" ? 1 : 0),
 				'gerenciar_produtos' => ($request->gerenciar_produtos == "on" ? 1 : 0),
+				'ver_atendimento' => ($request->ver_atendimento == "on" ? 1 : 0),
+				'gerenciar_atendimento' => ($request->gerenciar_atendimento == "on" ? 1 : 0),
 				'ver_suporte' => ($request->ver_suporte == "on" ? 1 : 0)
 			]);
 			$create = Funcoes::find($id);

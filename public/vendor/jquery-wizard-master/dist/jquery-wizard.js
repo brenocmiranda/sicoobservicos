@@ -140,9 +140,9 @@
         enableWhenVisited: false,
 
         buttonLabels: {
-            next: 'Next',
-            back: 'Back',
-            finish: 'Finish'
+            next: 'Próximo',
+            back: 'Anterior',
+            finish: 'Enviar'
         },
 
         loading: {

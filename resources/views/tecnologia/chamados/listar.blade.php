@@ -44,17 +44,17 @@ Solicitações de Suporte
                             <ul class="row col-12 m-auto px-0">
 								@foreach($chamados->sortBy('created_at') as $chamado)
 									@if($chamado->RelationStatus->first()->id == $status->id)
-									<li class="col-12 border rounded shadow-sm mb-3">
+									<li class="col-12 border rounded shadow-sm mb-3" style="border-left: 5px solid {{$chamado->RelationStatus->first()->color}} !important">
 										<div class="p-3 h-100 row">
 											<div class="text-left col-lg-6 col-8">
 												<a href="{{route('detalhes.chamados.gti', $chamado->id)}}">
-													<h5 class="text-uppercase mb-2 text-truncate">
+													<h5 class="text-uppercase my-1 text-truncate">
 														<span>{{$chamado->RelationAmbientes->nome}}</span> 
 														<b>&#183</b> 
 														<span>{{$chamado->RelationFontes->nome}}</span>
 														<div class="badge mx-2" style="background: {{$chamado->RelationStatus->first()->color}}">{{$chamado->RelationStatus->first()->nome}}</div>
 														@if(date('d/m/Y H:i:s', strtotime($chamado->RelationStatus->first()->pivot->created_at)) < date('d/m/Y H:i:s', strtotime('-'.explode(':', $chamado->RelationStatus->first()->tempo)[0].' hours -'.explode(':', $chamado->RelationStatus->first()->tempo)[1].' minutes -'.explode(':', $chamado->RelationStatus->first()->tempo)[2].' seconds')) && ($chamado->RelationStatus->first()->finish != 1) )
-															<small class="text-danger"><b>&#183</b> Em atraso</small>	
+															<small class="text-danger"><b>Em atraso </b></small>	
 														@endif
 													</h5>
 												</a>
@@ -79,7 +79,7 @@ Solicitações de Suporte
 												</label>	
 												@endif					
 											</div>
-											<div class="text-right row col-lg-3 col-4 ml-auto">
+											<div class="text-right row col-lg-3 col-4 ml-auto my-auto">
 												<div class="ml-auto">
 													<a href="{{route('detalhes.chamados.gti', $chamado->id)}}" class="btn btn-default btn-outline btn-rounded col-10 mb-2" title="Detalhes do chamado">
 														<i class="mdi mdi-comment-processing-outline"></i>

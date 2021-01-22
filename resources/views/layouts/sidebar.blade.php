@@ -60,7 +60,7 @@
       </li>
       @endif
 
-      @if(Auth::user()->RelationFuncao->ver_cadastro == 1 || Auth::user()->RelationFuncao->gerenciar_cadastro == 1)
+      @if(Auth::user()->RelationFuncao->ver_atendimento == 1 || Auth::user()->RelationFuncao->gerenciar_atendimento == 1)
       <li> 
         <a href="javascript:" class="waves-effect {{ (Request::segment(2) == 'atendimento' ? 'active' : '') }}">
           <i class="mdi mdi-account-outline pr-3" data-icon="v"></i> 
@@ -68,7 +68,7 @@
         </a>
         <ul class="nav nav-second-level {{ (Request::segment(2) == 'atendimento' ? ' collapse in' : '') }}">
           <li> <a href="{{route('exibir.painel.atendimento')}}"><span class="hide-menu">Painel do associado</span></a> </li>
-          <li> <a href="#"><span class="hide-menu">Novo associado</span></a> </li>
+          <li> <a href="{{route('exibir.cadastro.atendimento')}}"><span class="hide-menu">Associados</span></a> </li>
         </ul>
       </li>
       @endif
@@ -80,8 +80,8 @@
           <span class="hide-menu"> Cadastro <span class="fa arrow"></span> </span>
         </a>
         <ul class="nav nav-second-level {{ (Request::segment(2) == 'cadastro' ? ' collapse in' : '') }}">
-          <li> <a href="#"><span class="hide-menu">Dashboard</span></a> </li>
-          <li> <a href="#"><span class="hide-menu">Solicitações</span></a> </li>
+          <li> <a href="{{route('dashboard.cadastro')}}"><span class="hide-menu">Dashboard</span></a> </li>
+          <li> <a href="{{route('exibir.solicitacoes.cadastro')}}"><span class="hide-menu">Solicitações</span></a> </li>
         </ul>
       </li>
       @endif
