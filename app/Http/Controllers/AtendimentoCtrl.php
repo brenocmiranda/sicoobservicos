@@ -122,4 +122,18 @@ class AtendimentoCtrl extends Controller
 	  	$pdf = PDF::loadView('atendimento.painel.relatorio', compact('associado', 'conglomerado', 'atividades', 'imprimir'))->setPaper('a4', 'portrait');
 	    return $pdf->stream();
 	}
+
+
+	#-------------------------------------------------------------------
+	# Novo associado
+	#-------------------------------------------------------------------
+	// Listando todas solicitações
+ 	public function ExibirAssociado(){
+    	return view('atendimento.cadastro.listar');
+	}
+
+	// Adicionar novo associado
+ 	public function NovoAssociado(){
+    	return view('atendimento.cadastro.adicionar');
+	}
 }

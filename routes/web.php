@@ -128,10 +128,30 @@ Route::group(['prefix' => 'app'], function(){
 				Route::post('editando', 'AtendimentoCtrl@EditandoPainel')->name('editando.atividade.associado.atendimento');
 			});
 		});
+		// Cadastro
+		Route::group(['prefix' => 'cadastro'], function(){
+			Route::get('', 'AtendimentoCtrl@ExibirAssociado')->name('exibir.cadastro.atendimento');
+			Route::post('solicitar', 'AtendimentoCtrl@NovoAssociado')->name('solicitar.cadastro.atendimento');
+		});
 	});
 
 	#---------------------------------------------------------------------
-	# Módulo de Crédito
+	# Módulo Cadastro *
+	#---------------------------------------------------------------------
+	Route::group(['prefix' => 'cadastro'], function(){
+		// Dashboard
+		Route::group(['prefix' => ''], function(){
+			Route::get('dashboard', 'CadastroCtrl@Dashboard')->name('dashboard.cadastro');
+		});
+		// Solicitações
+		Route::group(['prefix' => 'solicitacoes'], function(){
+			Route::get('', 'CadastroCtrl@ExibirSolicitacoes')->name('exibir.solicitacoes.cadastro');
+			Route::get('solicitar', 'CadastroCtrl@DetalhesSolicitacoes')->name('detalhes.solicitacoes.cadastro');
+		});
+	});
+
+	#---------------------------------------------------------------------
+	# Módulo de Crédito *
 	#---------------------------------------------------------------------
 	Route::group(['prefix' => 'credito'], function(){
 		// Dashboard

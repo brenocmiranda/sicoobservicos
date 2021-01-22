@@ -106,10 +106,21 @@
                       </div>
                     </div>
                     <div class="col-6 col-lg-3">
+                      <label class="border-bottom py-2 w-100">Atendimento</label>
+                      <div class="checkbox checkbox-circle">
+                        <input id="checkbox42" type="checkbox" name="ver_atendimento">
+                        <label for="checkbox42"> Visualizar </label>
+                      </div>
+                      <div class="checkbox checkbox-circle">
+                        <input id="checkbox43" type="checkbox" name="gerenciar_atendimento">
+                        <label for="checkbox43"> Gerenciar </label>
+                      </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
                       <label class="border-bottom py-2 w-100">Suporte</label>
                       <div class="checkbox checkbox-circle">
-                        <input id="checkbox42" type="checkbox" name="ver_suporte">
-                        <label for="checkbox42"> Visualizar </label>
+                        <input id="checkbox44" type="checkbox" name="ver_suporte">
+                        <label for="checkbox44"> Visualizar </label>
                       </div>
                     </div>
                   </div>

@@ -50,7 +50,7 @@ Chamados
 							<ul class="row col-12 m-auto px-0">
 								@foreach($chamados as $chamado)
 								@if($chamado->RelationStatus->first()->id == $status->id)
-								<li class="col-12 border rounded shadow-sm mb-3">
+								<li class="col-12 border rounded shadow-sm mb-3" style="border-left: 5px solid {{$chamado->RelationStatus->first()->color}} !important">
 									<div class="p-3 h-100 row">
 										<div class="text-left col-lg-6 col-8">
 											<a href="{{route('detalhes.chamados', $chamado->id)}}">
@@ -79,7 +79,7 @@ Chamados
 											</label>	
 											@endif				
 										</div>
-										<div class="text-right row col-lg-3 col-4 ml-auto">
+										<div class="text-right row col-lg-3 col-4 ml-auto my-auto">
 											<div class="ml-auto">
 												<a href="{{route('detalhes.chamados', $chamado->id)}}" class="btn btn-default btn-outline btn-rounded col-10 mb-2" title="Detalhes do chamado">
 													<i class="mdi mdi-comment-processing-outline"></i>

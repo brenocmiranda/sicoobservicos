@@ -40,7 +40,7 @@ Relatórios
             </div>
          
             <div id="aniversariantes" style="display:none ;">
-                <form class="form-sample" target="_blank" action="{{route('relatorio.aniversariantes.administrativo')}}" method="POST" enctype="multipart/form-data" autocomplete="off">
+                <form class="form-sample col-12 p-0" target="_blank" action="{{route('relatorio.aniversariantes.administrativo')}}" method="POST" enctype="multipart/form-data" autocomplete="off">
                 @csrf
                     <div class="row col-12">
                         <div class="col-12 row">

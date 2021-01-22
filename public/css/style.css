@@ -6156,7 +6156,7 @@ ul.list-icons li i {
 	height: 40px;
 	display: inline-block;
 	vertical-align: middle;
-	padding-top: 9px;
+	padding-top: 11px;
 	margin-right: 8px;
 	text-align: center
 }
@@ -6168,9 +6168,9 @@ ul.list-icons li i {
 }
 
 .wizard-steps>li.current,
-.wizard-steps>li.done {
+.wizard-steps>li.done  {
 	background: #41b3f9;
-	color: #fff
+	color: #fff !important;
 }
 
 .wizard-steps>li.current span,
@@ -6179,8 +6179,8 @@ ul.list-icons li i {
 	color: #fff
 }
 
-.wizard-steps>li.current h4,
-.wizard-steps>li.done h4 {
+.wizard-steps>li.current h5,
+.wizard-steps>li.done h5 {
 	color: #fff
 }
 
@@ -20308,4 +20308,20 @@ input[name=upload_img]{
 }
 .ui-widget-header a {
 	color: #222222;
+}
+
+.callout-warning{
+	border-left: 5px solid #ffbb44 !important;
+}
+
+.callout-success{
+	border-left: 5px solid #7ace4c !important;
+}
+
+.callout-info{
+	border-left: 5px solid #41b3f9 !important;
+}
+
+.callout-danger{
+	border-left: 5px solid #f33155 !important;
 }

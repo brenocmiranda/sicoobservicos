@@ -1,21 +1,21 @@
 /*form styles*/
 #msform {
-max-width: 600px;
+/*max-width: 600px;*/
 margin: 20px auto;
 text-align: center;
 position: relative;
 }
 #msform fieldset {
-background: white;
+/*background: white;*/
 border: 0 none;
 border-radius: 3px;
-box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.1);
+/*box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.1);*/
 padding: 20px 30px;
 box-sizing: border-box;
 width: 90%;
 margin: 0 5%;
 /*stacking fieldsets above each other*/
-position: absolute;
+/*position: absolute;*/
 }
 /*Hide all except first fieldset*/
 #msform fieldset:not(:first-of-type) {
