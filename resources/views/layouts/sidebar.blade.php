@@ -177,9 +177,9 @@
             </a>
             <ul class="nav nav-third-level {{ (Request::segment(2) == 'gti' && Request::segment(3) == 'configuracoes' ? ' collapse in' : '') }}">
               <li> <a href="{{route('exibir.ambientes.chamados')}}"><span class="hide-menu">Ambientes</span></a> </li>
+              <li> <a href="{{route('exibir.fontes.chamados')}}"><span class="hide-menu">Fontes</span></a> </li>
               <li> <a href="{{route('exibir.equipamentos.inventario')}}"><span class="hide-menu">Equipamentos</span></a> </li>
               <li> <a href="{{route('exibir.marcas.inventario')}}"><span class="hide-menu">Marcas</span></a> </li>
-              <li> <a href="{{route('exibir.fontes.chamados')}}"><span class="hide-menu">Fontes</span></a> </li>
               <li> <a href="{{route('exibir.status.chamados')}}"><span class="hide-menu">Status</span></a> </li>
             </ul>
           </li>

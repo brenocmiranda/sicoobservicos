@@ -29,8 +29,8 @@
 													<p>
 														<ul>
 															<li><b>Chamado:</b> {{$dados->id}}</li>
-															<li><b>Ambiente:</b> {{$dados->RelationChamado->RelationAmbientes->nome}}</li>
-															<li><b>Fonte:</b> {{$dados->RelationChamado->RelationFontes->nome}}</li>
+															<li><b>Ambiente:</b> {{$dados->RelationAmbientes->nome}}</li>
+															<li><b>Fonte:</b> {{$dados->RelationFontes->nome}}</li>
 															<li><b>Assunto:</b> {{$dados->assunto}}</li>
 															<label><a href="{{route('detalhes.chamados.gti', $dados->id)}}"><b>Mais informações.</b></a></label>
 														</ul>
