@@ -44,11 +44,23 @@ class SolicitacaoChamadosAdmin extends Notification implements ShouldQueue
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable)
-    {
-        return (new MailMessage)
+    {   
+       if($this->chamado->RelationStatus->first()->open == 1) {
+            return (new MailMessage)
                     ->from('servicos@sicoobsertaominas.com.br')
                     ->subject('Novo chamado aberto #'.$this->chamado->id)
                     ->view('system.emails.chamadoAdmin', ['chamado' => $this->chamado, 'configuracoes' => $this->configuracoes]);
+        }elseif($this->chamado->RelationStatus->first()->finish == 1) {
+            return (new MailMessage)
+                    ->from('servicos@sicoobsertaominas.com.br')
+                    ->subject('Chamado finalizado :)')
+                    ->view('system.emails.chamadoAdmin', ['chamado' => $this->chamado, 'configuracoes' => $this->configuracoes]);
+        }else{
+            return (new MailMessage)
+                    ->from('servicos@sicoobsertaominas.com.br')
+                    ->subject('Temos novidades no seu chamado =)')
+                    ->view('system.emails.chamadoAdmin', ['chamado' => $this->chamado]);
+        }
     }
 
     /**

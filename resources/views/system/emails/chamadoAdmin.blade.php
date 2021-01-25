@@ -24,23 +24,47 @@
 										<div><span>
 											<p style="margin-top:0px;margin-bottom:10px">
 											</p>
-											<p>
-												<b>Opaaa, recebemos um novo chamado!</b>
-											</p>
-											<label>Neste momento, tente identificar o problema através das evidências anexadas ao chamado. Confira abaixo as informações do chamado:</label>
-											<br>
-											<p style="text-align:justify">
-												<ul>
-													<li><b>Usuário:</b> {{$chamado->RelationUsuario->RelationAssociado->nome}}</li>
-													<li><b>Ambiente:</b> {{$chamado->RelationAmbientes->nome}}</li>
-													<li><b>Fonte:</b> {{$chamado->RelationFontes->nome}}</li>
-													<li><b>Assunto:</b> {{$chamado->assunto}}</li>
-													<li><b>Descrição:</b> {{$chamado->descricao}}</li>
-												</ul>
-												<div>
-													<label><a href="{{route('detalhes.chamados.gti', $chamado->id)}}"><b>Saiba mais sobre esse chamado.</b></a></label>
-												</div>
-											</p>
+											@if($chamado->RelationStatus->first()->open == 1)
+												<p>
+													<b>Opaaa, recebemos um novo chamado!</b>
+												</p>
+												<label>Neste momento, tente identificar o problema através das evidências anexadas ao chamado. Confira abaixo as informações do chamado:</label>
+												<br>
+												<p style="text-align:justify">
+													<ul>
+														<li><b>Usuário:</b> {{$chamado->RelationUsuario->RelationAssociado->nome}}</li>
+														<li><b>Ambiente:</b> {{$chamado->RelationAmbientes->nome}}</li>
+														<li><b>Fonte:</b> {{$chamado->RelationFontes->nome}}</li>
+														<li><b>Assunto:</b> {{$chamado->assunto}}</li>
+														<li><b>Descrição:</b> {{$chamado->descricao}}</li>
+													</ul>
+													<div>
+														<label><a href="{{route('detalhes.chamados.gti', $chamado->id)}}"><b>Saiba mais sobre esse chamado.</b></a></label>
+													</div>
+												</p>
+											@elseif($chamado->RelationStatus->first()->finish == 1)
+												<p>
+													<b>Seu chamado #{{$chamado->id}} resolvido com sucesso!</b>
+												</p>
+												<label>Verificamos você solucionou um dos seus chamados. Para mais informações acesse o link abaixo:</label>
+												<br>
+												<p style="text-align:justify">
+													<div>
+														<label><a href="{{route('detalhes.chamados.gti', $chamado->id)}}"><b>Saiba mais sobre esse chamado.</b></a></label>
+													</div>
+												</p>
+											@else
+												<p>
+													<b>Obaaa, temos novidades para você!</b>
+												</p>
+												<label>Seu chamado teve uma atualização no estado, sendo classificado como: <b>{{$chamado->RelationStatus->first()->nome}}.</b> Veja mais detalhes da sua nova atualização:</label>
+												<br>
+												<p style="text-align:justify">
+													<b>{{$chamado->RelationStatus->first()->pivot->descricao}}</b>
+												</p>
+											@endif
+
+											
 											<p style="margin-top:10px;margin-bottom:10px"><span style="color:rgb(0,0,0)"><span></span></span></p>
 											<p></p><p></p></span></div>
 										</td>

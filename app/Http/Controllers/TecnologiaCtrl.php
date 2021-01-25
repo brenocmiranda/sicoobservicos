@@ -171,6 +171,7 @@ class TecnologiaCtrl extends Controller
 	        }
 
 	        $chamado->RelationUsuario->notify(new SolicitacaoChamadosCliente($chamado));  
+            
             Atividades::create([
                 'nome' => 'Alteração de estado do chamado',
                 'descricao' => 'Você modificou o status do chamado, '.$chamado->assunto.'.',
