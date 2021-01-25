@@ -64,24 +64,46 @@ Novo associado
 		$('#formPJ #documento1').mask('00.000.000/0000-00', {reverse: true});
 		$('.numeroTelefone').mask('(00) 0000-0000');
 
+		$("#smartwizardPF").on("showStep", function(e, anchorObject, stepIndex, stepDirection) {
+			if(stepIndex == 3){
+				$('.toolbar .sw-btn-next').fadeOut();
+				$('.toolbar .sw-btn-enviar').fadeIn();
+			}else{
+				$('.toolbar .sw-btn-next').fadeIn();
+				$('.toolbar .sw-btn-enviar').fadeOut();
+			}
+		});
+
+		$("#smartwizardPJ").on("showStep", function(e, anchorObject, stepIndex, stepDirection) {
+			if(stepIndex == 4){
+				$('.toolbar .sw-btn-next').fadeOut();
+				$('.toolbar .sw-btn-enviar').fadeIn();
+			}else{
+				$('.toolbar .sw-btn-next').fadeIn();
+				$('.toolbar .sw-btn-enviar').fadeOut();
+			}
+		});
+
 		// Inicilizando formulário de pessoa física
 		$('#PF').on('click', function(){
 			// Smart Wizard
-	 	 	$('#smartwizardPF').smartWizard({
-	 	 		selected: 0,
-	 	 		theme: 'dots',
-	 	 		enableURLhash: false,
-	 	 		transition: {
-	              	animation: 'slide-horizontal',
-	          	},
-	          	toolbarSettings: {
-	              	toolbarPosition: 'bottom',
-	              	toolbarButtonPosition: 'center',
-	              	toolbarExtraButtons: ['Enviar']
-	          	}
-	      	});
-	      	$('#PJ').removeClass('btn-info').addClass('btn-outline btn-default');
-	      	$(this).removeClass('btn-outline btn-default').addClass('btn-info');
+			$('#smartwizardPF').smartWizard({
+				selected: 0,
+				theme: 'dots',
+				enableURLhash: false,
+				transition: {
+					animation: 'slide-horizontal',
+				},
+				anchorSettings : {  
+					removeDoneStepOnNavigateBack : true , // Enquanto navegar para trás, a etapa realizada após a etapa ativa será apagada  
+					enableAnchorOnDoneStep : false // Habilita / desabilita a navegação das etapas concluídas  
+				},
+				keyboardSettings: {
+					keyNavigation: false
+				},
+			});
+			$('#PJ').removeClass('btn-info').addClass('btn-outline btn-default');
+			$(this).removeClass('btn-outline btn-default').addClass('btn-info');
 			$('#dadosPJ').fadeOut();
 			$('#dadosPF').fadeIn();
 		});
@@ -89,20 +111,20 @@ Novo associado
 		// Inicilizando formulário de pessoa jurídica
 		$('#PJ').on('click', function(){
 			// Smart Wizard
-	 	 	$('#smartwizardPJ').smartWizard({
-	 	 		selected: 0,
-	 	 		theme: 'dots',
-	 	 		enableURLhash: false,
-	 	 		transition: {
-	              	animation: 'slide-horizontal', 
-	          	},
-	          	toolbarSettings: {
-	              	toolbarPosition: 'bottom',
-	              	toolbarButtonPosition: 'center',
-	          	}
-	      	});
-	      	$('#PF').removeClass('btn-info').addClass('btn-outline btn-default');
-	      	$(this).removeClass('btn-outline btn-default').addClass('btn-info');
+			$('#smartwizardPJ').smartWizard({
+				selected: 0,
+				theme: 'dots',
+				enableURLhash: false,
+				transition: {
+					animation: 'slide-horizontal', 
+				},
+				toolbarSettings: {
+					toolbarPosition: 'bottom',
+					toolbarButtonPosition: 'center',
+				}
+			});
+			$('#PF').removeClass('btn-info').addClass('btn-outline btn-default');
+			$(this).removeClass('btn-outline btn-default').addClass('btn-info');
 			$('#dadosPF').fadeOut();
 			$('#dadosPJ').fadeIn();
 		});
@@ -111,13 +133,13 @@ Novo associado
 			$('.dadosTelefone').append('<div class="col-12 px-0"> <div class="col-lg-4 col-12"> <div class="form-group"> <label class="col-form-label pb-0">Tipo <span class="text-danger">*</span></label> <select class="form-control form-control-line" name="tipoTelefone" required> <option>Celular</option> <option>Residencial</option> <option>Comercial</option> <option>Recado</option> <option>Fax</option> </select> </div> </div> <div class="col-lg-5 col-11"> <div class="form-group"> <label class="col-form-label pb-0">Número <span class="text-danger">*</span></label> <input class="form-control form-control-line numeroTelefone" name="numeroTelefone" placeholder="(38) 99168-0335" required/> </div> </div> <div class="row col-lg-1 col-1 h-100"> <a href="javascript:" title="Remover arquivos" onclick="remover(this)" class="m-auto"><i class="mdi mdi-delete text-danger mdi-24px"></i></a> </div> </div>'); 
 		});
 
-		//Executa a requisição quando o campo username perder o foco
-	    $('#documento').blur(function()
-	    {
-	        var cpf = $('#documento').val().replace(/[^0-9]/g, '').toString();
-	        if( cpf.length == 11 )
-	        {
-	            var v = [];
+		// Verifica se o CPF é válido e se não já foi cadastrado
+		$('.cpf').blur( function()
+		{
+			var cpf = $('.cpf').val().replace(/[^0-9]/g, '').toString();
+			if( cpf.length == 11 )
+			{
+				var v = [];
 	            //Calcula o primeiro dígito de verificação.
 	            v[0] = 1 * cpf[0] + 2 * cpf[1] + 3 * cpf[2];
 	            v[0] += 4 * cpf[3] + 5 * cpf[4] + 6 * cpf[5];
@@ -133,19 +155,45 @@ Novo associado
 	            //Retorna Verdadeiro se os dígitos de verificação são os esperados.
 	            if ( (v[0] != cpf[9]) || (v[1] != cpf[10]) )
 	            {
-	                $('.verificarDocumento').html('<span class="text-danger">CPF inválido.</span>');
-	                $('#documento').focus();
+	            	$('.verificarDocumentoPF').html('<span class="text-danger"><i class="mdi mdi-close mdi-24px"></i></span>');
+	            	$('.cpf').focus();
 	            }else{
-	            	$('.verificarDocumento').html('<span class="text-success">CPF válido.</span>');
+	            	$('.verificarDocumentoPF').html('<span class="text-success"><i class="mdi mdi-check mdi-24px"></i></span>');
 	            }
 	        }
 	        else
 	        {
-	            $('.verificarDocumento').html('<span class="text-success">CPF inválido.</span>');
-	            $('#documento').focus();
+	        	$('.verificarDocumentoPF').html('<span class="text-success">CPF inválido.</span>');
+	        	$('.cpf').focus();
 	        }
 	    });
 
- 	 });
- 	</script>
- 	@endsection
+	    //Executa a requisição quando o campo username perder o foco
+	    $('.cnpj').blur( function(e){
+	    	cnpj = $('.cnpj').val().replace(/[^0-9]/g, '').toString();
+	    	$.ajax({
+	    		url: 'https://www.receitaws.com.br/v1/cnpj/'+cnpj,
+	    		dataType: 'jsonp',
+        		type: 'GET',
+	    		beforeSend: function(){
+	    			$('.verificarDocumentoPJ').html('<div class="spinner-border text-primary" role="status" style="height: 25px; width: 25px;"></div>');
+	    		},
+	    		success: function(data){
+	    			console.log(data);
+	    			if(data.status == "ERROR"){
+	    				$('.verificarDocumentoPJ').html('<span class="text-danger">'+data.message+'</span>');
+	    			}else{
+	    				$('#razaoSocial').val(data.nome);
+	    				$('.razaoSocial').html(data.nome);
+	    				$('.endereco')
+	    				$('.verificarDocumentoPJ').html('<span class="text-success"><i class="mdi mdi-check mdi-24px"></i></span>');
+	    			}	    			
+	    		}, error: function (data) {
+	    			$('.verificarDocumentoPJ').html('<span class="text-danger"><i class="mdi mdi-close mdi-24px"></i></span>');
+	    		}
+	    	});
+	    });
+
+	});
+</script>
+@endsection

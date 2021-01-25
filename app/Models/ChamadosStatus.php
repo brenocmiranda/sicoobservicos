@@ -17,6 +17,10 @@ class ChamadosStatus extends Model
         return $this->belongsTo(Status::class, 'gti_id_status', 'id');
     }
 
+    public function RelationChamado(){
+        return $this->belongsTo(Chamados::class, 'gti_id_chamados', 'id');
+    }
+
     public function RelationUsuarios(){
         return $this->hasOne(Usuarios::class, 'id', 'usr_id_usuarios');
     }

@@ -131,7 +131,8 @@ Route::group(['prefix' => 'app'], function(){
 		// Cadastro
 		Route::group(['prefix' => 'cadastro'], function(){
 			Route::get('', 'AtendimentoCtrl@ExibirAssociado')->name('exibir.cadastro.atendimento');
-			Route::post('solicitar', 'AtendimentoCtrl@NovoAssociado')->name('solicitar.cadastro.atendimento');
+			Route::get('solicitar', 'AtendimentoCtrl@NovoAssociado')->name('solicitar.cadastro.atendimento');
+			Route::post('cadastrar', 'AtendimentoCtrl@CadastroAssociado')->name('cadastrar.cadastro.atendimento');
 		});
 	});
 

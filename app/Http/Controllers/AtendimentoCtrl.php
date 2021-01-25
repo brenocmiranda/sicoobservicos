@@ -136,4 +136,8 @@ class AtendimentoCtrl extends Controller
  	public function NovoAssociado(){
     	return view('atendimento.cadastro.adicionar');
 	}
+
+	public function CadastroAssociado(Request $request){
+		return $request;
+	}
 }
