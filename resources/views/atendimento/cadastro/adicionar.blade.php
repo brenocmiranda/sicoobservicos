@@ -41,7 +41,6 @@ Novo associado
 						</div>
 					</div>
 				</div>
-
 				<div class="row col-12 mx-auto">
 					@include('atendimento.cadastro.fisica')
 					@include('atendimento.cadastro.juridica')
@@ -59,11 +58,20 @@ Novo associado
 	}
 
 	$(document).ready(function() {
+
+
+
+
+
+
+
+
 		// Mascaras 
 		$('#formPF #cpf').mask('000.000.000-00', {reverse: true});
 		$('#formPJ #cnpj').mask('00.000.000/0000-00', {reverse: true});
 		$('.numeroTelefone').mask('(00) 0000-0000');
 
+		// Button de enviar formulário PF
 		$("#smartwizardPF").on("showStep", function(e, anchorObject, stepIndex, stepDirection) {
 			if(stepIndex == 3){
 				$('.toolbar .sw-btn-next').fadeOut();
@@ -74,6 +82,7 @@ Novo associado
 			}
 		});
 
+		// Button de enviar formulário PJ
 		$("#smartwizardPJ").on("showStep", function(e, anchorObject, stepIndex, stepDirection) {
 			if(stepIndex == 4){
 				$('.toolbar .sw-btn-next').fadeOut();
@@ -143,13 +152,13 @@ Novo associado
 			$('#dadosPJ').fadeIn();
 		});
 
+		// Adicionando os telefones
 		$('.novoTelefone').on('click', function(){
 			$('.dadosTelefone').append('<div class="col-12 px-0"> <div class="col-lg-4 col-12"> <div class="form-group"> <label class="col-form-label pb-0">Tipo <span class="text-danger">*</span></label> <select class="form-control form-control-line" name="tipoTelefone" required> <option>Celular</option> <option>Residencial</option> <option>Comercial</option> <option>Recado</option> <option>Fax</option> </select> </div> </div> <div class="col-lg-5 col-11"> <div class="form-group"> <label class="col-form-label pb-0">Número <span class="text-danger">*</span></label> <input class="form-control form-control-line numeroTelefone" name="numeroTelefone" placeholder="(38) 99168-0335" required/> </div> </div> <div class="row col-lg-1 col-1 h-100"> <a href="javascript:" title="Remover arquivos" onclick="remover(this)" class="m-auto"><i class="mdi mdi-delete text-danger mdi-24px"></i></a> </div> </div>'); 
 		});
 
-		// Verifica se o CPF é válido e se não já foi cadastrado
-		$('.cpf').blur( function()
-		{
+		// Verifica se o CPF é válido e verifica se existe no banco
+		$('.cpf').blur( function(e){
 			var cpf = $('.cpf').val().replace(/[^0-9]/g, '').toString();
 			if( cpf.length == 11 )
 			{
@@ -193,11 +202,10 @@ Novo associado
 	        else
 	        {
 	        	$('.verificarDocumentoPF').html('<span class="text-danger"><i class="mdi mdi-close mdi-24px"></i></span>');
-	        	$('.cpf').focus();
 	        }
 	    });
 
-	    //Executa a requisição quando o campo username perder o foco
+	    // Executa a requisição na Receita e verifica se existe no banco
 	    $('.cnpj').blur( function(e){
 	    	cnpj = $('.cnpj').val().replace(/[^0-9]/g, '').toString();
 	    	$.ajax({

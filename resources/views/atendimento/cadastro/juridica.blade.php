@@ -1,41 +1,40 @@
 <div class="col-11 mx-auto slideInRight animated webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend" id="dadosPJ" style="display: none">
-	<div id="smartwizardPJ" class="sw sw-justified sw-theme-arrows border-top-0">
-
-		<ul class="nav border-0" style="font-size: 1.4rem;">
-			<li class="nav-item">
-				<a class="nav-link inactive active" href="#step-1">
-					<strong>Etapa 1</strong> <br> 
-					<span>Dados pessoais</span>
-				</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link inactive done" href="#step-2">
-					<strong>Etapa 2</strong> <br>
-					<span>Contatos</span>
-				</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link inactive" href="#step-3">
-					<strong>Etapa 3</strong> <br>
-					<span>Documentos</span>
-				</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link inactive" href="#step-4">
-					<strong>Etapa 4</strong> <br>
-					<span>Sócios</span>
-				</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link inactive" href="#step-5">
-					<strong>Etapa 5</strong> <br>
-					<span>Assinaturas</span>
-				</a>
-			</li>
-		</ul>
-		<form class="form-sample" id="formPJ" enctype="multipart/form-data" autocomplete="off">
-			@csrf
-			<input type="hidden" name="sigla" value="PF">
+	<form class="form-sample" id="formPJ" enctype="multipart/form-data" autocomplete="off">
+		@csrf
+		<input type="hidden" name="sigla" value="PJ">
+		<div id="smartwizardPJ" class="sw sw-justified sw-theme-arrows border-top-0">
+			<ul class="nav border-0" style="font-size: 1.4rem;">
+				<li class="nav-item">
+					<a class="nav-link inactive active" href="#step-1">
+						<strong>Etapa 1</strong> <br> 
+						<span>Dados pessoais</span>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link inactive done" href="#step-2">
+						<strong>Etapa 2</strong> <br>
+						<span>Contatos</span>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link inactive" href="#step-3">
+						<strong>Etapa 3</strong> <br>
+						<span>Documentos</span>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link inactive" href="#step-4">
+						<strong>Etapa 4</strong> <br>
+						<span>Sócios</span>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link inactive" href="#step-5">
+						<strong>Etapa 5</strong> <br>
+						<span>Assinaturas</span>
+					</a>
+				</li>
+			</ul>
 			<div class="tab-content col-12 mx-auto h-100">
 				<div id="step-1" class="tab-pane w-100" role="tabpanel" aria-labelledby="step-1">
 					<div class="row col-12 mx-auto">
@@ -330,26 +329,26 @@
 					</div>
 				</div>
 			</div>
-		</form>
-		<div class="toolbar toolbar-bottom mt-4" role="toolbar" style="text-align: center;">
-			<div class="col-12 mb-3">
-				<div class="checkbox checkbox-success mb-0 text-center">
-					<input id="checkbox-1" type="checkbox" checked required>
-					<label for="checkbox-1"> Declaro todas as informações fornecidas nesse cadastro conferem com as originais. </label>
+			<div class="toolbar toolbar-bottom mt-4" role="toolbar" style="text-align: center;">
+				<div class="col-12 mb-3">
+					<div class="checkbox checkbox-success mb-0 text-center">
+						<input id="checkbox-1" type="checkbox" checked required>
+						<label for="checkbox-1"> Declaro todas as informações fornecidas nesse cadastro conferem com as originais. </label>
+					</div>
 				</div>
+				<button class="btn sw-btn-prev disabled" type="button">
+					<i class="mdi mdi-arrow-left"></i> 
+					<span>Anterior</span>
+				</button>
+				<button class="btn sw-btn-next" type="button">
+					<span>Próximo</span>
+					<i class="mdi mdi-arrow-right"></i> 
+				</button>
+				<button type="submit" class="btn sw-btn-enviar" style="display: none;"> 
+					<span>Enviar</span> 
+					<i class="mdi mdi-check pl-2"></i> 
+				</button>
 			</div>
-			<button class="btn sw-btn-prev disabled" type="button">
-				<i class="mdi mdi-arrow-left"></i> 
-				<span>Anterior</span>
-			</button>
-			<button class="btn sw-btn-next" type="button">
-				<span>Próximo</span>
-				<i class="mdi mdi-arrow-right"></i> 
-			</button>
-			<button type="submit" class="btn sw-btn-enviar" style="display: none;"> 
-				<span>Enviar</span> 
-				<i class="mdi mdi-check pl-2"></i> 
-			</button>
 		</div>
-	</div>
+	</form>
 </div>

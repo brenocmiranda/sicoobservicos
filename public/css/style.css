@@ -20325,3 +20325,8 @@ input[name=upload_img]{
 .callout-danger{
 	border-left: 5px solid #f33155 !important;
 }
+
+.error{
+	color: red;
+	padding-top: 5px; 
+}

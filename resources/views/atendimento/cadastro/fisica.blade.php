@@ -1,5 +1,5 @@
 <div class="col-11 mx-auto slideInLeft animated webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend" id="dadosPF" style="display: none">
-	<form class="form-sample" id="formPF" enctype="multipart/form-data" autocomplete="off">
+	<form class="form-sample" id="formPF" method="POST" enctype="multipart/form-data" action="{{route('cadastrar.cadastro.atendimento')}}" autocomplete="off">
 	@csrf
 		<input type="hidden" name="sigla" value="PF">
 		<div id="smartwizardPF" class="sw sw-justified sw-theme-arrows border-top-0">
@@ -42,13 +42,13 @@
 						<div class="col-lg-9 col-12">
 							<div class="form-group">
 								<label class="col-form-label pb-0">Nome <span class="text-danger">*</span></label>
-								<input class="form-control form-control-line" name="nome" onkeyup="this.value = this.value.toUpperCase();" placeholder="PEDRO HENRIQUE DOS SANTOS OLIVEIRA" onchange="this.value = this.value.toUpperCase();" required/>
+								<input class="form-control form-control-line" name="nome" id="nome" onkeyup="this.value = this.value.toUpperCase();" placeholder="PEDRO HENRIQUE DOS SANTOS OLIVEIRA" onchange="this.value = this.value.toUpperCase();" required/>
 							</div>
 						</div>
 						<div class="col-lg-6 col-12">
 							<div class="form-group">
 								<label class="col-form-label pb-0">Sexo <span class="text-danger">*</span></label>
-								<select class="form-control form-control-line" name="sexo" required>
+								<select class="form-control form-control-line" name="sexo" id="sexo" required>
 									<option>Selecione</option>
 									<option value="Masculino">Masculino</option>
 									<option value="Feiminino">Feiminino</option>
@@ -59,13 +59,13 @@
 						<div class="col-lg-6 col-12">
 							<div class="form-group">
 								<label class="col-form-label pb-0">Naturalidade <span class="text-danger">*</span></label>
-								<input class="form-control form-control-line" name="naturalidade" onkeyup="this.value = this.value.toUpperCase();" onchange="this.value = this.value.toUpperCase();" required/>
+								<input class="form-control form-control-line" name="naturalidade" id="naturalidade" onkeyup="this.value = this.value.toUpperCase();" onchange="this.value = this.value.toUpperCase();" required/>
 							</div>
 						</div>
 						<div class="col-lg-6 col-12">
 							<div class="form-group">
 								<label class="col-form-label pb-0">Estado Cívil <span class="text-danger">*</span></label>
-								<select class="form-control form-control-line" name="estadoCivil" required>
+								<select class="form-control form-control-line" name="estadoCivil" id="estadoCivil" required>
 									<option>Selecione</option>
 									<option value="Solteiro">Solteiro</option>
 									<option value="Casado">Casado</option>
@@ -78,7 +78,7 @@
 						<div class="col-lg-6 col-12">
 							<div class="form-group">
 								<label class="col-form-label pb-0">Escolaridade <span class="text-danger">*</span></label>
-								<select class="form-control form-control-line" name="escolaridade" required>
+								<select class="form-control form-control-line" name="escolaridade" id="escolaridade" required>
 									<option>Selecione</option>
 									<option value="Fundamental - Incompleto">Fundamental - Incompleto</option>
 									<option value="Fundamental - Completo">Fundamental - Completo</option>
@@ -99,13 +99,13 @@
 							<div class="col-lg-6 col-12">
 								<div class="form-group">
 									<label class="col-form-label pb-0">Profissão <span class="text-danger">*</span></label>
-									<input class="form-control form-control-line" name="profissao" onkeyup="this.value = this.value.toUpperCase();" onchange="this.value = this.value.toUpperCase();" required/>
+									<input class="form-control form-control-line" name="profissao" id="profissao" onkeyup="this.value = this.value.toUpperCase();" onchange="this.value = this.value.toUpperCase();" required/>
 								</div>
 							</div>
 							<div class="col-lg-4 col-12">
 								<div class="form-group">
 									<label class="col-form-label pb-0">Data de contratação <span class="text-danger">*</span></label>
-									<input type="date" class="form-control form-control-line" name="data_contratacao" required>
+									<input type="date" class="form-control form-control-line" name="data_contratacao" id="data_contratacao" required>
 								</div>
 							</div>
 						</div>
