@@ -60,8 +60,8 @@ Novo associado
 
 	$(document).ready(function() {
 		// Mascaras 
-		$('#formPF #documento').mask('000.000.000-00', {reverse: true});
-		$('#formPJ #documento1').mask('00.000.000/0000-00', {reverse: true});
+		$('#formPF #cpf').mask('000.000.000-00', {reverse: true});
+		$('#formPJ #cnpj').mask('00.000.000/0000-00', {reverse: true});
 		$('.numeroTelefone').mask('(00) 0000-0000');
 
 		$("#smartwizardPF").on("showStep", function(e, anchorObject, stepIndex, stepDirection) {
@@ -102,6 +102,17 @@ Novo associado
 					keyNavigation: false
 				},
 			});
+			$('#formPJ')[0].reset();
+			$('.verificarDocumentoPJ').html('');
+			$('#razaoSocial').val('');
+			$('#fantasia').val('');
+			$('.razaoSocial').html('-');
+			$('.endereco').html('-');
+			$('.atividade_principal').html('-');
+			$('.porte').html('-');
+			$('.situacao').html('-');
+			$('.data_situacao').html('-');
+			$('#smartwizardPJ').smartWizard("reset");
 			$('#PJ').removeClass('btn-info').addClass('btn-outline btn-default');
 			$(this).removeClass('btn-outline btn-default').addClass('btn-info');
 			$('#dadosPJ').fadeOut();
@@ -123,6 +134,9 @@ Novo associado
 					toolbarButtonPosition: 'center',
 				}
 			});
+			$('#formPF')[0].reset();
+			$('.verificarDocumentoPF').html('');
+			$('#smartwizardPF').smartWizard("reset");
 			$('#PF').removeClass('btn-info').addClass('btn-outline btn-default');
 			$(this).removeClass('btn-outline btn-default').addClass('btn-info');
 			$('#dadosPF').fadeOut();
@@ -158,12 +172,27 @@ Novo associado
 	            	$('.verificarDocumentoPF').html('<span class="text-danger"><i class="mdi mdi-close mdi-24px"></i></span>');
 	            	$('.cpf').focus();
 	            }else{
-	            	$('.verificarDocumentoPF').html('<span class="text-success"><i class="mdi mdi-check mdi-24px"></i></span>');
+	            	$.ajax({
+			    		url: 'existe/'+cpf,
+		        		type: 'GET',
+			    		beforeSend: function(){
+			    			$('.verificarDocumentoPF').html('<div class="spinner-border text-primary" role="status" style="height: 25px; width: 25px;"></div>');
+			    		},
+			    		success: function(data){
+			    			if(data.status == true){
+			    				$('.verificarDocumentoPF').html('<span class="text-danger">Associado já cadastrado!</span>');
+			    			}else{
+			    				$('.verificarDocumentoPF').html('<span class="text-success"><i class="mdi mdi-check mdi-24px"></i></span>');
+			    			}	    			
+			    		}, error: function (data) {
+			    			$('.verificarDocumentoPJ').html('<span class="text-danger"><i class="mdi mdi-close mdi-24px"></i></span>');
+			    		}
+			    	});
 	            }
 	        }
 	        else
 	        {
-	        	$('.verificarDocumentoPF').html('<span class="text-success">CPF inválido.</span>');
+	        	$('.verificarDocumentoPF').html('<span class="text-danger"><i class="mdi mdi-close mdi-24px"></i></span>');
 	        	$('.cpf').focus();
 	        }
 	    });
@@ -179,21 +208,57 @@ Novo associado
 	    			$('.verificarDocumentoPJ').html('<div class="spinner-border text-primary" role="status" style="height: 25px; width: 25px;"></div>');
 	    		},
 	    		success: function(data){
-	    			console.log(data);
 	    			if(data.status == "ERROR"){
-	    				$('.verificarDocumentoPJ').html('<span class="text-danger">'+data.message+'</span>');
+	    				$('#razaoSocial').val('');
+	    				$('#fantasia').val('');
+	    				$('.razaoSocial').html('-');
+	    				$('.endereco').html('-');
+	    				$('.atividade_principal').html('-');
+	    				$('.porte').html('-');
+	    				$('.situacao').html('-');
+	    				$('.data_situacao').html('-');
+	 					$('.verificarDocumentoPJ').html('<span class="text-danger">'+data.message+'</span>');
 	    			}else{
-	    				$('#razaoSocial').val(data.nome);
-	    				$('.razaoSocial').html(data.nome);
-	    				$('.endereco')
-	    				$('.verificarDocumentoPJ').html('<span class="text-success"><i class="mdi mdi-check mdi-24px"></i></span>');
+	    				$.ajax({
+				    		url: 'existe/'+cnpj,
+			        		type: 'GET',
+				    		beforeSend: function(){
+				    			$('.verificarDocumentoPJ').html('<div class="spinner-border text-primary" role="status" style="height: 25px; width: 25px;"></div>');
+				    		},
+				    		success: function(data1){
+				    			if(data1.status == true){
+				    				$('.verificarDocumentoPJ').html('<span class="text-danger">Associado já cadastrado!</span>');
+				    			}else{
+				    				$('#razaoSocial').val(data.nome);
+				    				$('.razaoSocial').html(data.nome);
+				    				if(data.fantasia){
+				    					$('#fantasia').val(data.fantasia);
+				    				}
+				    				$('.endereco').html((data.logradouro ? data.logradouro+', '+data.numero+', '+data.bairro+' - '+data.municipio+'/'+data.uf : 'Não informado'));
+				    				$('.atividade_principal').html('('+data.atividade_principal[0].code+') '+data.atividade_principal[0].text);
+				    				$('.porte').html(data.porte);
+				    				$('.situacao').html(data.situacao + (data.motivo_situacao ? ' - '+data.motivo_situacao : ''));
+				    				$('.data_situacao').html(data.data_situacao);
+				    				$('.verificarDocumentoPJ').html('<span class="text-success"><i class="mdi mdi-check mdi-24px"></i></span>');
+				    			}	    			
+				    		}, error: function (data) {
+				    			$('.verificarDocumentoPJ').html('<span class="text-danger"><i class="mdi mdi-close mdi-24px"></i></span>');
+				    		}
+				    	});   				
 	    			}	    			
 	    		}, error: function (data) {
+	    			$('#razaoSocial').val('');
+    				$('#fantasia').val('');
+    				$('.razaoSocial').html('-');
+    				$('.endereco').html('-');
+    				$('.atividade_principal').html('-');
+    				$('.porte').html('-');
+    				$('.situacao').html('-');
+    				$('.data_situacao').html('-');
 	    			$('.verificarDocumentoPJ').html('<span class="text-danger"><i class="mdi mdi-close mdi-24px"></i></span>');
 	    		}
 	    	});
 	    });
-
 	});
 </script>
 @endsection

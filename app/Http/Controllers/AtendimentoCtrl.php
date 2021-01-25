@@ -140,4 +140,13 @@ class AtendimentoCtrl extends Controller
 	public function CadastroAssociado(Request $request){
 		return $request;
 	}
+
+	public function ExisteCadastro($documento){
+		$dados = Associados::where('documento', $documento)->first();
+		if(isset($dados)){
+			return response()->json(['status' => true]);
+		}else{
+			return response()->json(['status' => false]);
+		}
+	}
 }

@@ -42,25 +42,53 @@
 						<div class="col-lg-4 col-12">
 							<div class="form-group">
 								<label class="col-form-label pb-0 tipoDocumento">CNPJ <span class="text-danger">*</span></label>
-								<input class="form-control form-control-line cnpj" name="documento" id="documento1" placeholder="00.000.000/0000-00" required/>
+								<input class="form-control form-control-line cnpj" name="documento" id="cnpj" placeholder="00.000.000/0000-00" required/>
 							</div>
 						</div>
 						<div class="col-lg-3 my-auto verificarDocumentoPJ px-0 font-weight-bold"></div>
 						<div class="col-lg-9 col-12">
 							<div class="form-group">
 								<label class="col-form-label pb-0">Nome Fantasia <span class="text-danger">*</span></label>
-								<input class="form-control form-control-line" name="nomeFantasia" onkeyup="this.value = this.value.toUpperCase();" placeholder="Sicoob Sertão Minas" onchange="this.value = this.value.toUpperCase();" required/>
+								<input class="form-control form-control-line" name="fantasia" id="fantasia" onkeyup="this.value = this.value.toUpperCase();" placeholder="Sicoob Sertão Minas" onchange="this.value = this.value.toUpperCase();" required/>
 							</div>
 						</div>
-						
 						<div class="col-lg-9 col-12">
 							<div class="form-group">
-								<label class="col-form-label">Razão Social <span class="text-danger">*</span></label>
+								<label class="col-form-label">Razão Social </label>
 								<input type="hidden" name="nome" id="razaoSocial" required/>
-								<label class="razaoSocial"></label>
+								<label class="razaoSocial d-block">-</label>
 							</div>
 						</div>
-						
+						<div class="col-lg-10 col-12">
+							<div class="form-group">
+								<label class="col-form-label">Atividade Principal </label>
+								<label class="atividade_principal d-block">-</label>
+							</div>
+						</div>
+						<div class="col-lg-4 col-12">
+							<div class="form-group">
+								<label class="col-form-label">Situação</label>
+								<label class="situacao d-block">-</label>
+							</div>
+						</div>
+						<div class="col-lg-8 col-12">
+							<div class="form-group">
+								<label class="col-form-label">Porte</label>
+								<label class="porte d-block">-</label>
+							</div>
+						</div>
+						<div class="col-lg-4 col-12">
+							<div class="form-group">
+								<label class="col-form-label">Data da situação</label>
+								<label class="data_situacao d-block">-</label>
+							</div>
+						</div>	
+						<div class="col-lg-9 col-12">
+							<div class="form-group">
+								<label class="col-form-label">Endereço </label>
+								<label class="endereco d-block">-</label>
+							</div>
+						</div>		
 						<div class="col-12">
 							<div class="form-group">
 								<label class="col-form-label">Observações</label>

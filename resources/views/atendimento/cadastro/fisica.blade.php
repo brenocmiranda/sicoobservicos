@@ -35,7 +35,7 @@
 						<div class="col-lg-4 col-12">
 							<div class="form-group">
 								<label class="col-form-label pb-0 tipoDocumento">CPF <span class="text-danger">*</span></label>
-								<input class="form-control form-control-line cpf" name="documento" id="documento" placeholder="000.000.000-00" required/>
+								<input class="form-control form-control-line cpf" name="documento" id="cpf" placeholder="000.000.000-00" required/>
 							</div>
 						</div>
 						<div class="col-lg-3 my-auto verificarDocumentoPF px-0 font-weight-bold"></div>
