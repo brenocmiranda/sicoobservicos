@@ -249,7 +249,7 @@ class SuporteCtrl extends Controller
                 }
             }
 
-            $this->email->notify(new SolicitacaoChamadosReAdmin($chamado)); 
+            $this->email->notify(new SolicitacaoChamadosAdmin($chamado)); 
             Atividades::create([
                 'nome' => 'Nova mensagem cadastrada',
                 'descricao' => 'Você cadastrou uma nova mensagem ao chamado '.$id.'.',
