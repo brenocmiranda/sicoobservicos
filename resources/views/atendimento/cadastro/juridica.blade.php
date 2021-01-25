@@ -42,21 +42,25 @@
 						<div class="col-lg-4 col-12">
 							<div class="form-group">
 								<label class="col-form-label pb-0 tipoDocumento">CNPJ <span class="text-danger">*</span></label>
-								<input class="form-control form-control-line" name="documento" id="documento1" placeholder="00.000.000/0000-00" required/>
+								<input class="form-control form-control-line cnpj" name="documento" id="documento1" placeholder="00.000.000/0000-00" required/>
 							</div>
 						</div>
-						<div class="col-lg-9 col-12">
-							<div class="form-group">
-								<label class="col-form-label pb-0">Razão Social <span class="text-danger">*</span></label>
-								<input class="form-control form-control-line" name="nome" onkeyup="this.value = this.value.toUpperCase();" placeholder="Cooperativa de Crédito de Livre Admissão do Sertão de Minas Gerais Ltda" onchange="this.value = this.value.toUpperCase();" required/>
-							</div>
-						</div>
+						<div class="col-lg-3 my-auto verificarDocumentoPJ px-0 font-weight-bold"></div>
 						<div class="col-lg-9 col-12">
 							<div class="form-group">
 								<label class="col-form-label pb-0">Nome Fantasia <span class="text-danger">*</span></label>
 								<input class="form-control form-control-line" name="nomeFantasia" onkeyup="this.value = this.value.toUpperCase();" placeholder="Sicoob Sertão Minas" onchange="this.value = this.value.toUpperCase();" required/>
 							</div>
 						</div>
+						
+						<div class="col-lg-9 col-12">
+							<div class="form-group">
+								<label class="col-form-label">Razão Social <span class="text-danger">*</span></label>
+								<input type="hidden" name="nome" id="razaoSocial" required/>
+								<label class="razaoSocial"></label>
+							</div>
+						</div>
+						
 						<div class="col-12">
 							<div class="form-group">
 								<label class="col-form-label">Observações</label>
@@ -313,6 +317,10 @@
 			<button class="btn sw-btn-next" type="button">
 				<span>Próximo</span>
 				<i class="mdi mdi-arrow-right"></i> 
+			</button>
+			<button type="submit" class="btn sw-btn-enviar" style="display: none;"> 
+				<span>Enviar</span> 
+				<i class="mdi mdi-check pl-2"></i> 
 			</button>
 		</div>
 	</div>

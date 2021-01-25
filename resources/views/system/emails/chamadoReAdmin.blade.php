@@ -32,8 +32,8 @@
 											<p style="text-align:justify">
 												<ul>
 													<li><b>Usuário:</b> {{$chamado->RelationUsuario->RelationAssociado->nome}}</li>
-													<li><b>Fonte:</b> {{$chamado->RelationAmbientes->nome}}</li>
-													<li><b>Tipo:</b> {{$chamado->RelationFontes->nome}}</li>
+													<li><b>Ambiente:</b> {{$chamado->RelationAmbientes->RelationChamado->nome}}</li>
+													<li><b>Fonte:</b> {{$chamado->RelationFontes->RelationChamado->nome}}</li>
 													<li><b>Assunto:</b> {{$chamado->assunto}}</li>
 													<li><b>Descrição:</b> {{$chamado->descricao}}</li>
 												</ul>
