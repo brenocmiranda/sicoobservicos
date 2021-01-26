@@ -22,9 +22,9 @@ Novo associado
 	<div class="card">
 		<div class="card-body">
 			<div class="row">
-				<div class="col-12 text-center mb-5">
-					<p class="text-muted mb-4 ont-13"> Selecione qual o tipo de associado:</p>
-					<div class="btn-group btn-group-justified select-mode mx-auto col-6">
+				<div class="row col-12 mx-auto px-0 text-center mb-5">
+					<p class="col-12 text-muted mb-4 ont-13"> Selecione qual o tipo de associado:</p>
+					<div class="btn-group btn-group-justified select-mode col-12 col-sm-6 col-lg-6 mx-auto">
 						<div class="btn-group">
 							<button class="btn btn-default btn-outline" id="PF" type="button">
 								<i class="icon-user"></i>
@@ -53,14 +53,124 @@ Novo associado
 
 @section('suporte')
 <script type="text/javascript">
-	function remover(input){
+	function removerTelefone(input){
 		$(input).parent('div').parent('div').remove();
 	}
 
+	function remover(input){
+		$(input).parent('div').remove();
+	}
+
+	function arquivo(input){
+		if(input.value){
+			$(input).prev().html('<i class="mdi mdi-sync"></i>');
+			$(input).prev().addClass('bg-success');
+		}else{
+			$(input).prev().html('<i class="mdi mdi-file"></i>');
+			$(input).prev().removeClass('bg-success');
+			$(input).prev().prev().val('');
+		}
+		
+	}
 	$(document).ready(function() {
+		
+
+		// Verificação das etapas do PF
+		$("#smartwizardPF").on("leaveStep", function(e, anchorObject, currentStepIndex, nextStepIndex, stepDirection) {
+			if(currentStepIndex == 0){
+				var count = 0;
+				$('#formPF #step-1 input[required], #formPF #step-1 select[required]').each(function(index, element) {
+				 	if(!(element.value)){
+			 			count++;
+				 		$(element).addClass('border-danger');
+				 		$('.error').html('Os campos devem ser preenchidos obrigatóriamente');
+				 		e.preventDefault();
+				 		return false;
+				 	}else if($('.verificarDocumentoPF span').hasClass('text-danger')){
+				 			count++;
+					 		$(element).addClass('border-danger');
+					 		$('.error').html('');
+					 		e.preventDefault();
+					 		return false;
+					}else{
+				 		$(element).removeClass('border-danger');
+				 	}
+				});
+			    if(count == 0){
+			    	$('.error').html('');
+			    	return true;
+			    }
+			}
+
+			if(currentStepIndex > 0){
+				var count = 0;
+				$('#formPF #step-'+(currentStepIndex+1)+' input[required], #formPF #step-'+(currentStepIndex+1)+' select[required]').each(function(index, element) {
+					console.log(element);
+				 	if(!(element.value)){
+			 			count++;
+				 		$(element).addClass('border-danger');
+				 		$('.error').html('Os campos devem ser preenchidos obrigatóriamente');
+				 		e.preventDefault();
+				 		return false;
+				 	}else{
+				 		$(element).removeClass('border-danger');
+				 	}
+				});
+			    if(count == 0){
+			    	$('.error').html('');
+			    	return true;
+			    }
+			}
+		});
 
 
+		// Verificação das etapas do PF
+		$("#smartwizardPJ").on("leaveStep", function(e, anchorObject, currentStepIndex, nextStepIndex, stepDirection) {
+			if(currentStepIndex == 0){
+				var count = 0;
+				$('#formPF #step-1 input[required], #formPF #step-1 select[required]').each(function(index, element) {
+				 	if(!(element.value)){
+			 			count++;
+				 		$(element).addClass('border-danger');
+				 		$('.error').html('Os campos devem ser preenchidos obrigatóriamente');
+				 		e.preventDefault();
+				 		return false;
+				 	}else if($('.verificarDocumentoPF span').hasClass('text-danger')){
+				 			count++;
+					 		$(element).addClass('border-danger');
+					 		$('.error').html('');
+					 		e.preventDefault();
+					 		return false;
+					}else{
+				 		$(element).removeClass('border-danger');
+				 	}
+				});
+			    if(count == 0){
+			    	$('.error').html('');
+			    	return true;
+			    }
+			}
 
+			if(currentStepIndex > 0){
+				var count = 0;
+				$('#formPF #step-'+(currentStepIndex+1)+' input[required], #formPF #step-'+(currentStepIndex+1)+' select[required]').each(function(index, element) {
+					console.log(element);
+				 	if(!(element.value)){
+			 			count++;
+				 		$(element).addClass('border-danger');
+				 		$('.error').html('Os campos devem ser preenchidos obrigatóriamente');
+				 		e.preventDefault();
+				 		return false;
+				 	}else{
+				 		$(element).removeClass('border-danger');
+				 	}
+				});
+			    if(count == 0){
+			    	$('.error').html('');
+			    	return true;
+			    }
+			}
+		});
 
 
 
@@ -104,8 +214,8 @@ Novo associado
 					animation: 'slide-horizontal',
 				},
 				anchorSettings : {  
-					removeDoneStepOnNavigateBack : true , // Enquanto navegar para trás, a etapa realizada após a etapa ativa será apagada  
-					enableAnchorOnDoneStep : false // Habilita / desabilita a navegação das etapas concluídas  
+					removeDoneStepOnNavigateBack : true,
+					enableAnchorOnDoneStep : false 
 				},
 				keyboardSettings: {
 					keyNavigation: false
@@ -136,12 +246,15 @@ Novo associado
 				theme: 'dots',
 				enableURLhash: false,
 				transition: {
-					animation: 'slide-horizontal', 
+					animation: 'slide-horizontal',
 				},
-				toolbarSettings: {
-					toolbarPosition: 'bottom',
-					toolbarButtonPosition: 'center',
-				}
+				anchorSettings : {  
+					removeDoneStepOnNavigateBack : true, 
+					enableAnchorOnDoneStep : false 
+				},
+				keyboardSettings: {
+					keyNavigation: false
+				},
 			});
 			$('#formPF')[0].reset();
 			$('.verificarDocumentoPF').html('');
@@ -150,11 +263,6 @@ Novo associado
 			$(this).removeClass('btn-outline btn-default').addClass('btn-info');
 			$('#dadosPF').fadeOut();
 			$('#dadosPJ').fadeIn();
-		});
-
-		// Adicionando os telefones
-		$('.novoTelefone').on('click', function(){
-			$('.dadosTelefone').append('<div class="col-12 px-0"> <div class="col-lg-4 col-12"> <div class="form-group"> <label class="col-form-label pb-0">Tipo <span class="text-danger">*</span></label> <select class="form-control form-control-line" name="tipoTelefone" required> <option>Celular</option> <option>Residencial</option> <option>Comercial</option> <option>Recado</option> <option>Fax</option> </select> </div> </div> <div class="col-lg-5 col-11"> <div class="form-group"> <label class="col-form-label pb-0">Número <span class="text-danger">*</span></label> <input class="form-control form-control-line numeroTelefone" name="numeroTelefone" placeholder="(38) 99168-0335" required/> </div> </div> <div class="row col-lg-1 col-1 h-100"> <a href="javascript:" title="Remover arquivos" onclick="remover(this)" class="m-auto"><i class="mdi mdi-delete text-danger mdi-24px"></i></a> </div> </div>'); 
 		});
 
 		// Verifica se o CPF é válido e verifica se existe no banco
@@ -190,11 +298,13 @@ Novo associado
 			    		success: function(data){
 			    			if(data.status == true){
 			    				$('.verificarDocumentoPF').html('<span class="text-danger">Associado já cadastrado!</span>');
+			    				$('.cpf').addClass('border-danger');
 			    			}else{
 			    				$('.verificarDocumentoPF').html('<span class="text-success"><i class="mdi mdi-check mdi-24px"></i></span>');
 			    			}	    			
 			    		}, error: function (data) {
 			    			$('.verificarDocumentoPJ').html('<span class="text-danger"><i class="mdi mdi-close mdi-24px"></i></span>');
+			    			$('.cpf').addClass('border-danger');
 			    		}
 			    	});
 	            }
@@ -267,6 +377,21 @@ Novo associado
 	    		}
 	    	});
 	    });
+
+	    
+	    // Adicionando os telefones
+		$('.novoTelefone').on('click', function(){
+			$('.dadosTelefone').append('<div class="col-12 px-0"> <div class="col-lg-4 col-12 px-0 px-lg-4"> <div class="form-group"> <label class="col-form-label pb-0">Tipo <span class="text-danger">*</span></label> <select class="form-control form-control-line" name="tipoTelefone[]" onchange="$(this).removeClass("border-danger");"  required> <option value="">Selecione</option> <option value="celular">Celular</option> <option value="residencial">Residencial</option> <option value="comercial">Comercial</option> <option value="recado">Recado</option> <option value="fax">Fax</option> </select> </div> </div> <div class="col-lg-5 col-11 px-0 px-lg-4"> <div class="form-group"> <label class="col-form-label pb-0">Número <span class="text-danger">*</span></label> <input class="form-control form-control-line numeroTelefone" onkeyup="$(this).removeClass("border-danger");" name="numeroTelefone[]" placeholder="(38) 99168-0335" required/> </div> </div> <div class="row col-lg-1 col-1 h-100"> <a href="javascript:" title="Remover arquivos" onclick="removerTelefone(this)" class="m-auto"><i class="mdi mdi-delete text-danger mdi-24px"></i></a> </div> </div>'); 
+		});
+
+		var t = 15;
+		// Adicionando novos arquivos
+		$('.btnAdicionar').on('click', function(){
+			t++;
+			$('.btnAdicionar div').append('<div class="row col-12 justify-content-center mx-auto mb-2"> <input type="text" class="form-control col-8 px-3 h-100" name="nomeArquivos[]" onkeyup="this.value = this.value.toUpperCase();" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" required> <label for="fupload'+t+'" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px"><i class="mdi mdi-file"></i></label> <input type="file" name="arquivos[]" id="fupload'+t+'" class="mb-3 text-white col-lg-11 col-10 d-none" accept=".jpg, .jpeg, .png, .svg" onchange="arquivo(this)" required> <a href="javascript:" title="Remover arquivos" class="btn btn-danger col-2" onclick="removerTelefone(this)" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-close"></i></a> </div>'); 
+			
+			
+		});
 	});
 </script>
 @endsection

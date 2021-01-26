@@ -1,94 +1,96 @@
-<div class="col-11 mx-auto slideInRight animated webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend" id="dadosPJ" style="display: none">
+<div class="col-12 col-lg-11 mx-auto slideInRight animated webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend" id="dadosPJ" style="display: none">
 	<form class="form-sample" id="formPJ" enctype="multipart/form-data" autocomplete="off">
 		@csrf
 		<input type="hidden" name="sigla" value="PJ">
 		<div id="smartwizardPJ" class="sw sw-justified sw-theme-arrows border-top-0">
-			<ul class="nav border-0" style="font-size: 1.4rem;">
-				<li class="nav-item">
+			<ul class="nav border-0 hidden-xs" style="font-size: 1.4rem;">
+				<li class="nav-item col">
 					<a class="nav-link inactive active" href="#step-1">
 						<strong>Etapa 1</strong> <br> 
 						<span>Dados pessoais</span>
 					</a>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link inactive done" href="#step-2">
+				<li class="nav-item col">
+					<a class="nav-link inactive" href="#step-2">
 						<strong>Etapa 2</strong> <br>
 						<span>Contatos</span>
 					</a>
 				</li>
-				<li class="nav-item">
+				<li class="nav-item col">
 					<a class="nav-link inactive" href="#step-3">
 						<strong>Etapa 3</strong> <br>
 						<span>Documentos</span>
 					</a>
 				</li>
-				<li class="nav-item">
+				<li class="nav-item col">
 					<a class="nav-link inactive" href="#step-4">
 						<strong>Etapa 4</strong> <br>
 						<span>Sócios</span>
 					</a>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link inactive" href="#step-5">
+				<li class="nav-item col">
+					<a class="nav-link inactive done" href="#step-5">
 						<strong>Etapa 5</strong> <br>
 						<span>Assinaturas</span>
 					</a>
 				</li>
 			</ul>
-			<div class="tab-content col-12 mx-auto h-100">
+			<div class="tab-content col-12 m-auto h-100 px-0">
 				<div id="step-1" class="tab-pane w-100" role="tabpanel" aria-labelledby="step-1">
-					<div class="row col-12 mx-auto">
-						<div class="col-lg-4 col-12">
-							<div class="form-group">
-								<label class="col-form-label pb-0 tipoDocumento">CNPJ <span class="text-danger">*</span></label>
-								<input class="form-control form-control-line cnpj" name="documento" id="cnpj" placeholder="00.000.000/0000-00" required/>
+					<div class="row col-12 mx-auto px-0">
+						<div class="row mx-auto col-12 px-0">
+							<div class="col-lg-4 col-9 px-0 px-lg-4">
+								<div class="form-group">
+									<label class="col-form-label pb-0 tipoDocumento">CNPJ <span class="text-danger">*</span></label>
+									<input class="form-control form-control-line cnpj" name="documento" id="cnpj" placeholder="00.000.000/0000-00" required/>
+								</div>
 							</div>
+							<div class="col-lg-3 col-3 my-auto verificarDocumentoPJ px-0 font-weight-bold"></div>
 						</div>
-						<div class="col-lg-3 my-auto verificarDocumentoPJ px-0 font-weight-bold"></div>
-						<div class="col-lg-9 col-12">
+						<div class="col-lg-9 col-12 px-0 px-lg-4">
 							<div class="form-group">
 								<label class="col-form-label pb-0">Nome Fantasia <span class="text-danger">*</span></label>
 								<input class="form-control form-control-line" name="fantasia" id="fantasia" onkeyup="this.value = this.value.toUpperCase();" placeholder="Sicoob Sertão Minas" onchange="this.value = this.value.toUpperCase();" required/>
 							</div>
 						</div>
-						<div class="col-lg-9 col-12">
+						<div class="col-lg-9 col-12 px-0 px-lg-4">
 							<div class="form-group">
 								<label class="col-form-label">Razão Social </label>
 								<input type="hidden" name="nome" id="razaoSocial" required/>
 								<label class="razaoSocial d-block">-</label>
 							</div>
 						</div>
-						<div class="col-lg-10 col-12">
+						<div class="col-lg-10 col-12 px-0 px-lg-4">
 							<div class="form-group">
 								<label class="col-form-label">Atividade Principal </label>
 								<label class="atividade_principal d-block">-</label>
 							</div>
 						</div>
-						<div class="col-lg-4 col-12">
+						<div class="col-lg-4 col-12 px-0 px-lg-4">
 							<div class="form-group">
 								<label class="col-form-label">Situação</label>
 								<label class="situacao d-block">-</label>
 							</div>
 						</div>
-						<div class="col-lg-8 col-12">
+						<div class="col-lg-8 col-12 px-0 px-lg-4">
 							<div class="form-group">
 								<label class="col-form-label">Porte</label>
 								<label class="porte d-block">-</label>
 							</div>
 						</div>
-						<div class="col-lg-4 col-12">
+						<div class="col-lg-4 col-12 px-0 px-lg-4">
 							<div class="form-group">
 								<label class="col-form-label">Data da situação</label>
 								<label class="data_situacao d-block">-</label>
 							</div>
 						</div>	
-						<div class="col-lg-9 col-12">
+						<div class="col-lg-9 col-12 px-0 px-lg-4">
 							<div class="form-group">
 								<label class="col-form-label">Endereço </label>
 								<label class="endereco d-block">-</label>
 							</div>
 						</div>		
-						<div class="col-12">
+						<div class="col-12 col-lg-12 px-0 px-lg-4">
 							<div class="form-group">
 								<label class="col-form-label">Observações</label>
 								<textarea class="form-control form-control-line" name="observacoes" placeholder="Digite suas observações" onkeyup="this.value = this.value.toUpperCase();" rows="5" ></textarea>
@@ -97,9 +99,9 @@
 					</div>
 				</div>
 				<div id="step-2" class="tab-pane w-100" role="tabpanel" aria-labelledby="step-2">
-					<div class="row col-12 mx-auto">
+					<div class="row col-12 mx-auto px-0">
 						<div class="col-12 px-0">
-							<div class="col-lg-4 col-12">
+							<div class="col-lg-4 col-12 px-0 px-lg-4">
 								<div class="form-group">
 									<label class="col-form-label pb-0">Tipo <span class="text-danger">*</span></label>
 									<select class="form-control form-control-line" name="tipoTelefone[]" required>
@@ -112,7 +114,7 @@
 									</select>
 								</div>
 							</div>
-							<div class="col-lg-5 col-11">
+							<div class="col-lg-5 col-11 px-0 px-lg-4">
 								<div class="form-group">
 									<label class="col-form-label pb-0">Número <span class="text-danger">*</span></label>
 									<input class="form-control form-control-line numeroTelefone" name="numeroTelefone[]" placeholder="(38) 99168-0335" required/>
@@ -137,172 +139,116 @@
 					</div>
 				</div>
 				<div id="step-3" class="tab-pane w-100" role="tabpanel" aria-labelledby="step-3">
-					<div class="row col-12 mx-auto">
-						<div class="col-12">
-							<div class="form-group">
+					<div class="row col-12 mx-auto px-0">
+						<div class="col-12 mb-4 px-0 px-lg-4">
+							<div class="form-group mb-0">
 								<label class="col-form-label">Contrato Social, Requerimento de Empresário, MEI ou Estatuto <span class="text-danger">*</span></label>
-								<div class="col-12 px-0">
-									<div class="fileinput input-group fileinput-new" data-provides="fileinput">
-										<div class="form-control" data-trigger="fileinput"> 
-											<i class="glyphicon glyphicon-file fileinput-exists"></i> 
-											<span class="fileinput-filename"></span>
-										</div> 
-										<span class="input-group-addon btn btn-default btn-file"> 
-											<span class="fileinput-new">Selecione o arquivo</span> 
-											<span class="fileinput-exists">Alterar</span>
-											<input type="hidden" value="" name="...">
-											<input type="file" name="documentoIdentificacao" required> 
-										</span> 
-										<a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remover</a> 
+								<div class="row totalArquivos">
+									<div class="row col-12 justify-content-center mx-auto mb-2">
+										<input type="text" class="form-control col-10 px-3 h-100" name="nomeArquivos[]" onkeyup="this.value = this.value.toUpperCase();" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" required>
+										<label for="fupload7" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px; border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-file"></i></label>
+										<input type="file" name="arquivos[]" id="fupload7" class="position-absolute offset-6 col-1 px-0 mt-3" style="opacity: 0" accept="image/*" onchange="arquivo(this)" required>
 									</div>
 								</div>
 							</div>
+							<a href="javascript:" class="btnAdicionar"> <i class="ti-plus pr-2"></i> Adicionar mais arquivos</a>
+							<div></div>
 						</div>
-						<div class="col-12">
-							<div class="form-group">
+						<div class="col-12 mb-4 px-0 px-lg-4">
+							<div class="form-group mb-0">
 								<label class="col-form-label">Faturamento dos Últimos 12 meses <span class="text-danger">*</span></label>
-								<div class="col-12 px-0">
-									<div class="fileinput input-group fileinput-new" data-provides="fileinput">
-										<div class="form-control" data-trigger="fileinput"> 
-											<i class="glyphicon glyphicon-file fileinput-exists"></i> 
-											<span class="fileinput-filename"></span>
-										</div> 
-										<span class="input-group-addon btn btn-default btn-file"> 
-											<span class="fileinput-new">Selecione o arquivo</span> 
-											<span class="fileinput-exists">Alterar</span>
-											<input type="hidden" value="" name="...">
-											<input type="file" name="documentoRenda" required> 
-										</span> 
-										<a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remover</a> 
+								<div class="row totalArquivos">
+									<div class="row col-12 justify-content-center mx-auto mb-2">
+										<input type="text" class="form-control col-10 px-3 h-100" name="nomeArquivos[]" onkeyup="this.value = this.value.toUpperCase();" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" required>
+										<label for="fupload8" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px; border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-file"></i></label>
+										<input type="file" name="arquivos[]" id="fupload8" class="position-absolute offset-6 col-1 px-0 mt-3" style="opacity: 0" accept="image/*" onchange="arquivo(this)" required>
 									</div>
 								</div>
 							</div>
+							<a href="javascript:" class="btnAdicionar"> <i class="ti-plus pr-2"></i> Adicionar mais arquivos</a>
 						</div>
-						<div class="col-12">
-							<div class="form-group">
+						<div class="col-12 mb-4 px-0 px-lg-4">
+							<div class="form-group mb-0">
 								<label class="col-form-label">Comprovante de Endereço Comercial <b>(atual)</b> <span class="text-danger">*</span></label>
-								<div class="col-12 px-0">
-									<div class="fileinput input-group fileinput-new" data-provides="fileinput">
-										<div class="form-control" data-trigger="fileinput"> 
-											<i class="glyphicon glyphicon-file fileinput-exists"></i> 
-											<span class="fileinput-filename"></span>
-										</div> 
-										<span class="input-group-addon btn btn-default btn-file"> 
-											<span class="fileinput-new">Selecione o arquivo</span> 
-											<span class="fileinput-exists">Alterar</span>
-											<input type="hidden" value="" name="...">
-											<input type="file" name="documentoResidencia" required> 
-										</span> 
-										<a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remover</a> 
+								<div class="row totalArquivos">
+									<div class="row col-12 justify-content-center mx-auto mb-2">
+										<input type="text" class="form-control col-10 px-3 h-100" name="nomeArquivos[]" onkeyup="this.value = this.value.toUpperCase();" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" required>
+										<label for="fupload9" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px; border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-file"></i></label>
+										<input type="file" name="arquivos[]" id="fupload9" class="position-absolute offset-6 col-1 px-0 mt-3" style="opacity: 0" accept="image/*" onchange="arquivo(this)" required>
 									</div>
 								</div>
 							</div>
+							<a href="javascript:" class="btnAdicionar"> <i class="ti-plus pr-2"></i> Adicionar mais arquivos</a>
 						</div>
-						<div class="col-12">
-							<div class="form-group">
+						<div class="col-12 mb-4 px-0 px-lg-4">
+							<div class="form-group mb-0">
 								<label class="col-form-label">Incrição Estadual</label>
-								<div class="col-12 px-0">
-									<div class="fileinput input-group fileinput-new" data-provides="fileinput">
-										<div class="form-control" data-trigger="fileinput"> 
-											<i class="glyphicon glyphicon-file fileinput-exists"></i> 
-											<span class="fileinput-filename"></span>
-										</div> 
-										<span class="input-group-addon btn btn-default btn-file"> 
-											<span class="fileinput-new">Selecione o arquivo</span> 
-											<span class="fileinput-exists">Alterar</span>
-											<input type="hidden" value="" name="...">
-											<input type="file" name="documentoInscricao"> 
-										</span> 
-										<a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remover</a> 
+								<div class="row totalArquivos">
+									<div class="row col-12 justify-content-center mx-auto mb-2">
+										<input type="text" class="form-control col-10 px-3 h-100" name="nomeArquivos[]" onkeyup="this.value = this.value.toUpperCase();" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo">
+										<label for="fupload10" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px; border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-file"></i></label>
+										<input type="file" name="arquivos[]" id="fupload10" class="position-absolute offset-6 col-1 px-0 mt-3" style="opacity: 0" accept="image/*" onchange="arquivo(this)">
 									</div>
 								</div>
 							</div>
+							<a href="javascript:" class="btnAdicionar"> <i class="ti-plus pr-2"></i> Adicionar mais arquivos</a>
 						</div>
-						
-						<div class="col-12">
-							<div class="form-group">
+						<div class="col-12 mb-4 px-0 px-lg-4">
+							<div class="form-group mb-0">
 								<label class="col-form-label">Extrato do Simples Nacional</label>
-								<div class="col-12 px-0">
-									<div class="fileinput input-group fileinput-new" data-provides="fileinput">
-										<div class="form-control" data-trigger="fileinput"> 
-											<i class="glyphicon glyphicon-file fileinput-exists"></i> 
-											<span class="fileinput-filename"></span>
-										</div> 
-										<span class="input-group-addon btn btn-default btn-file"> 
-											<span class="fileinput-new">Selecione o arquivo</span> 
-											<span class="fileinput-exists">Alterar</span>
-											<input type="hidden" value="" name="...">
-											<input type="file" name="documentoSimples"> 
-										</span> 
-										<a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remover</a> 
+								<div class="row totalArquivos">
+									<div class="row col-12 justify-content-center mx-auto mb-2">
+										<input type="text" class="form-control col-10 px-3 h-100" name="nomeArquivos[]" onkeyup="this.value = this.value.toUpperCase();" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo">
+										<label for="fupload11" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px; border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-file"></i></label>
+										<input type="file" name="arquivos[]" id="fupload11" class="position-absolute offset-6 col-1 px-0 mt-3" style="opacity: 0" accept="image/*" onchange="arquivo(this)">
 									</div>
 								</div>
 							</div>
+							<a href="javascript:" class="btnAdicionar"> <i class="ti-plus pr-2"></i> Adicionar mais arquivos</a>
 						</div>
-						<div class="col-12">
-							<div class="form-group">
+						<div class="col-12 mb-4 px-0 px-lg-4">
+							<div class="form-group mb-0">
 								<label class="col-form-label">Última Alteração Contratural ou Estatutárias</label>
-								<div class="col-12 px-0">
-									<div class="fileinput input-group fileinput-new" data-provides="fileinput">
-										<div class="form-control" data-trigger="fileinput"> 
-											<i class="glyphicon glyphicon-file fileinput-exists"></i> 
-											<span class="fileinput-filename"></span>
-										</div> 
-										<span class="input-group-addon btn btn-default btn-file"> 
-											<span class="fileinput-new">Selecione o arquivo</span> 
-											<span class="fileinput-exists">Alterar</span>
-											<input type="hidden" value="" name="...">
-											<input type="file" name="documentoAlteracaoContrato"> 
-										</span> 
-										<a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remover</a> 
+								<div class="row totalArquivos">
+									<div class="row col-12 justify-content-center mx-auto mb-2">
+										<input type="text" class="form-control col-10 px-3 h-100" name="nomeArquivos[]" onkeyup="this.value = this.value.toUpperCase();" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo">
+										<label for="fupload12" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px; border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-file"></i></label>
+										<input type="file" name="arquivos[]" id="fupload12" class="position-absolute offset-6 col-1 px-0 mt-3" style="opacity: 0" accept="image/*" onchange="arquivo(this)">
 									</div>
 								</div>
 							</div>
+							<a href="javascript:" class="btnAdicionar"> <i class="ti-plus pr-2"></i> Adicionar mais arquivos</a>
 						</div>
-						<div class="col-12">
-							<div class="form-group">
+						<div class="col-12 mb-4 px-0 px-lg-4">
+							<div class="form-group mb-0">
 								<label class="col-form-label">Ata de Eleição da Diretoria <b>(S/A ou Cooperativa)</b></label>
-								<div class="col-12 px-0">
-									<div class="fileinput input-group fileinput-new" data-provides="fileinput">
-										<div class="form-control" data-trigger="fileinput"> 
-											<i class="glyphicon glyphicon-file fileinput-exists"></i> 
-											<span class="fileinput-filename"></span>
-										</div> 
-										<span class="input-group-addon btn btn-default btn-file"> 
-											<span class="fileinput-new">Selecione o arquivo</span> 
-											<span class="fileinput-exists">Alterar</span>
-											<input type="hidden" value="" name="...">
-											<input type="file" name="documentoAta"> 
-										</span> 
-										<a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remover</a> 
+								<div class="row totalArquivos">
+									<div class="row col-12 justify-content-center mx-auto mb-2">
+										<input type="text" class="form-control col-10 px-3 h-100" name="nomeArquivos[]" onkeyup="this.value = this.value.toUpperCase();" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo">
+										<label for="fupload13" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px; border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-file"></i></label>
+										<input type="file" name="arquivos[]" id="fupload13" class="position-absolute offset-6 col-1 px-0 mt-3" style="opacity: 0" accept="image/*" onchange="arquivo(this)">
 									</div>
 								</div>
 							</div>
+							<a href="javascript:" class="btnAdicionar"> <i class="ti-plus pr-2"></i> Adicionar mais arquivos</a>
 						</div>
-						<div class="col-12">
-							<div class="form-group">
+						<div class="col-12 mb-4 px-0 px-lg-4">
+							<div class="form-group mb-0">
 								<label class="col-form-label">Instrumento de Mandato/Carta de revigoramento</label>
-								<div class="col-12 px-0">
-									<div class="fileinput input-group fileinput-new" data-provides="fileinput">
-										<div class="form-control" data-trigger="fileinput"> 
-											<i class="glyphicon glyphicon-file fileinput-exists"></i> 
-											<span class="fileinput-filename"></span>
-										</div> 
-										<span class="input-group-addon btn btn-default btn-file"> 
-											<span class="fileinput-new">Selecione o arquivo</span> 
-											<span class="fileinput-exists">Alterar</span>
-											<input type="hidden" value="" name="...">
-											<input type="file" name="documentoInstumento"> 
-										</span> 
-										<a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remover</a> 
+								<div class="row totalArquivos">
+									<div class="row col-12 justify-content-center mx-auto mb-2">
+										<input type="text" class="form-control col-10 px-3 h-100" name="nomeArquivos[]" onkeyup="this.value = this.value.toUpperCase();" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo">
+										<label for="fupload14" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px; border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-file"></i></label>
+										<input type="file" name="arquivos[]" id="fupload14" class="position-absolute offset-6 col-1 px-0 mt-3" style="opacity: 0" accept="image/*" onchange="arquivo(this)">
 									</div>
 								</div>
 							</div>
+							<a href="javascript:" class="btnAdicionar"> <i class="ti-plus pr-2"></i> Adicionar mais arquivos</a>
 						</div>
 					</div>
 				</div>
 				<div id="step-4" class="tab-pane w-100" role="tabpanel" aria-labelledby="step-4">
-					<div class="col-lg-10 col-12 px-0">
+					<div class="col-lg-10 col-12 px-0 px-lg-4">
 						<div class="form-group">
 							<label class="col-form-label pb-0">Sócio 1 <span class="text-danger">*</span></label>
 							<select class="form-control form-control-line" name="tipoTelefone[]" required>
@@ -315,7 +261,7 @@
 							</select>
 						</div>
 					</div>
-					<div class="col-lg-10 col-12 px-0">
+					<div class="col-lg-10 col-12 px-0 px-lg-4">
 						<a href="javascript:">
 							<i class="mdi mdi-plus"></i>
 							<span>Cadastrar novo associado</span>
@@ -323,7 +269,7 @@
 					</div>
 				</div>
 				<div id="step-5" class="tab-pane w-100" role="tabpanel" aria-labelledby="step-5">
-					<div class="row col-12 mx-auto">
+					<div class="row col-12 mx-auto px-0">
 
 
 					</div>
