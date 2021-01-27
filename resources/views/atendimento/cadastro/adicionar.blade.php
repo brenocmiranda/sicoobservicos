@@ -65,143 +65,21 @@ Novo associado
 		if(input.value){
 			$(input).prev().html('<i class="mdi mdi-sync"></i>');
 			$(input).prev().addClass('bg-success');
+			$(input).prev().removeClass('border-danger');
+			$(input).prev().addClass('border-0');
 		}else{
 			$(input).prev().html('<i class="mdi mdi-file"></i>');
 			$(input).prev().removeClass('bg-success');
-			$(input).prev().prev().val('');
+			$(input).prev().removeClass('border-danger');
+			$(input).prev().addClass('border-0');
 		}
 		
 	}
 	$(document).ready(function() {
-		
-
-		// Verificação das etapas do PF
-		$("#smartwizardPF").on("leaveStep", function(e, anchorObject, currentStepIndex, nextStepIndex, stepDirection) {
-			if(currentStepIndex == 0){
-				var count = 0;
-				$('#formPF #step-1 input[required], #formPF #step-1 select[required]').each(function(index, element) {
-				 	if(!(element.value)){
-			 			count++;
-				 		$(element).addClass('border-danger');
-				 		$('.error').html('Os campos devem ser preenchidos obrigatóriamente');
-				 		e.preventDefault();
-				 		return false;
-				 	}else if($('.verificarDocumentoPF span').hasClass('text-danger')){
-				 			count++;
-					 		$(element).addClass('border-danger');
-					 		$('.error').html('');
-					 		e.preventDefault();
-					 		return false;
-					}else{
-				 		$(element).removeClass('border-danger');
-				 	}
-				});
-			    if(count == 0){
-			    	$('.error').html('');
-			    	return true;
-			    }
-			}
-
-			if(currentStepIndex > 0){
-				var count = 0;
-				$('#formPF #step-'+(currentStepIndex+1)+' input[required], #formPF #step-'+(currentStepIndex+1)+' select[required]').each(function(index, element) {
-					console.log(element);
-				 	if(!(element.value)){
-			 			count++;
-				 		$(element).addClass('border-danger');
-				 		$('.error').html('Os campos devem ser preenchidos obrigatóriamente');
-				 		e.preventDefault();
-				 		return false;
-				 	}else{
-				 		$(element).removeClass('border-danger');
-				 	}
-				});
-			    if(count == 0){
-			    	$('.error').html('');
-			    	return true;
-			    }
-			}
-		});
-
-
-		// Verificação das etapas do PF
-		$("#smartwizardPJ").on("leaveStep", function(e, anchorObject, currentStepIndex, nextStepIndex, stepDirection) {
-			if(currentStepIndex == 0){
-				var count = 0;
-				$('#formPF #step-1 input[required], #formPF #step-1 select[required]').each(function(index, element) {
-				 	if(!(element.value)){
-			 			count++;
-				 		$(element).addClass('border-danger');
-				 		$('.error').html('Os campos devem ser preenchidos obrigatóriamente');
-				 		e.preventDefault();
-				 		return false;
-				 	}else if($('.verificarDocumentoPF span').hasClass('text-danger')){
-				 			count++;
-					 		$(element).addClass('border-danger');
-					 		$('.error').html('');
-					 		e.preventDefault();
-					 		return false;
-					}else{
-				 		$(element).removeClass('border-danger');
-				 	}
-				});
-			    if(count == 0){
-			    	$('.error').html('');
-			    	return true;
-			    }
-			}
-
-			if(currentStepIndex > 0){
-				var count = 0;
-				$('#formPF #step-'+(currentStepIndex+1)+' input[required], #formPF #step-'+(currentStepIndex+1)+' select[required]').each(function(index, element) {
-					console.log(element);
-				 	if(!(element.value)){
-			 			count++;
-				 		$(element).addClass('border-danger');
-				 		$('.error').html('Os campos devem ser preenchidos obrigatóriamente');
-				 		e.preventDefault();
-				 		return false;
-				 	}else{
-				 		$(element).removeClass('border-danger');
-				 	}
-				});
-			    if(count == 0){
-			    	$('.error').html('');
-			    	return true;
-			    }
-			}
-		});
-
-
-
-
-
 		// Mascaras 
 		$('#formPF #cpf').mask('000.000.000-00', {reverse: true});
 		$('#formPJ #cnpj').mask('00.000.000/0000-00', {reverse: true});
 		$('.numeroTelefone').mask('(00) 0000-0000');
-
-		// Button de enviar formulário PF
-		$("#smartwizardPF").on("showStep", function(e, anchorObject, stepIndex, stepDirection) {
-			if(stepIndex == 3){
-				$('.toolbar .sw-btn-next').fadeOut();
-				$('.toolbar .sw-btn-enviar').fadeIn();
-			}else{
-				$('.toolbar .sw-btn-next').fadeIn();
-				$('.toolbar .sw-btn-enviar').fadeOut();
-			}
-		});
-
-		// Button de enviar formulário PJ
-		$("#smartwizardPJ").on("showStep", function(e, anchorObject, stepIndex, stepDirection) {
-			if(stepIndex == 4){
-				$('.toolbar .sw-btn-next').fadeOut();
-				$('.toolbar .sw-btn-enviar').fadeIn();
-			}else{
-				$('.toolbar .sw-btn-next').fadeIn();
-				$('.toolbar .sw-btn-enviar').fadeOut();
-			}
-		});
 
 		// Inicilizando formulário de pessoa física
 		$('#PF').on('click', function(){
@@ -222,6 +100,7 @@ Novo associado
 				},
 			});
 			$('#formPJ')[0].reset();
+			$('.error').html('');
 			$('.verificarDocumentoPJ').html('');
 			$('#razaoSocial').val('');
 			$('#fantasia').val('');
@@ -257,12 +136,153 @@ Novo associado
 				},
 			});
 			$('#formPF')[0].reset();
+			$('.error').html('');
 			$('.verificarDocumentoPF').html('');
 			$('#smartwizardPF').smartWizard("reset");
 			$('#PF').removeClass('btn-info').addClass('btn-outline btn-default');
 			$(this).removeClass('btn-outline btn-default').addClass('btn-info');
 			$('#dadosPF').fadeOut();
 			$('#dadosPJ').fadeIn();
+		});
+
+		// Verificação das etapas do PF
+		$("#smartwizardPF").on("leaveStep", function(e, anchorObject, currentStepIndex, nextStepIndex, stepDirection) {
+			if(currentStepIndex == 0){
+				var count = 0;
+				$('#formPF #step-1 input[required], #formPF #step-1 select[required]').each(function(index, element) {
+				 	if(!(element.value)){
+			 			count++;
+				 		$(element).addClass('border-danger').focus();
+				 		$('html, body').animate({scrollTop: 0}, 1200);
+				 		$('.error').html('Os campos devem ser preenchidos obrigatóriamente');
+				 		e.preventDefault();
+				 		return false;
+				 	}else if($('.verificarDocumentoPF span').hasClass('text-danger')){
+				 			count++;
+					 		$(element).addClass('border-danger');
+					 		$('.error').html('');
+					 		e.preventDefault();
+					 		return false;
+					}else{
+				 		$(element).removeClass('border-danger');
+				 	}
+				});
+			    if(count == 0){
+			    	$('.error').html('');
+			    	return true;
+			    }
+			}
+			if(currentStepIndex == 1 && currentStepIndex < nextStepIndex){
+				var count = 0;
+				$('#formPF #step-'+(currentStepIndex+1)+' input[required], #formPF #step-'+(currentStepIndex+1)+' select[required]').each(function(index, element) {
+				 	if(!(element.value)){
+			 			count++;
+				 		$(element).addClass('border-danger').focus();
+				 		$('html, body').animate({scrollTop: 0}, 1200);
+				 		$('.error').html('Os campos devem ser preenchidos obrigatóriamente');
+				 		e.preventDefault();
+				 		return false;
+				 	}else{
+				 		$(element).removeClass('border-danger');
+				 	}
+				});
+			    if(count == 0){
+			    	$('.error').html('');
+			    	return true;
+			    }
+			}
+			if(currentStepIndex == 2 && currentStepIndex < nextStepIndex){
+				var count = 0;
+				$('#formPF #step-'+(currentStepIndex+1)+' input[required], #formPF #step-'+(currentStepIndex+1)+' select[required]').each(function(index, element) {
+					if(!(element.value)){
+			 			count++;
+			 			$(element).addClass('border-danger').focus();
+				 		$(element).prev('label').addClass('border-danger').focus();
+				 		$('html, body').animate({scrollTop: 0}, 1200);
+				 		$(element).prev('label').removeClass('border-0');
+				 		$('.error').html('Os campos devem ser preenchidos obrigatóriamente');
+				 		e.preventDefault();
+				 		return false;
+				 	}else{
+				 		$(element).removeClass('border-danger');
+				 	}
+		
+				});
+			    if(count == 0){
+			    	$('.error').html('');
+			    	return true;
+			    }
+			}
+		});
+		// Verificação das etapas do PJ
+		$("#smartwizardPJ").on("leaveStep", function(e, anchorObject, currentStepIndex, nextStepIndex, stepDirection) {
+			if(currentStepIndex == 0){
+				var count = 0;
+				$('#formPJ #step-1 input[required], #formPJ #step-1 select[required]').each(function(index, element) {
+				 	if(!(element.value)){
+			 			count++;
+				 		$(element).addClass('border-danger').focus();
+				 		$('html, body').animate({scrollTop: 0}, 1200);
+				 		$('.error').html('Os campos devem ser preenchidos obrigatóriamente');
+				 		e.preventDefault();
+				 		return false;
+				 	}else if($('.verificarDocumentoPJ span').hasClass('text-danger')){
+				 			count++;
+					 		$(element).addClass('border-danger');
+					 		$('.error').html('');
+					 		e.preventDefault();
+					 		return false;
+					}else{
+				 		$(element).removeClass('border-danger');
+				 	}
+				});
+			    if(count == 0){
+			    	$('.error').html('');
+			    	return true;
+			    }
+			}
+			if(currentStepIndex == 1 && currentStepIndex < nextStepIndex){
+				var count = 0;
+				$('#formPJ #step-'+(currentStepIndex+1)+' input[required], #formPJ #step-'+(currentStepIndex+1)+' select[required]').each(function(index, element) {
+					if(!(element.value)){
+			 			count++;
+				 		$(element).addClass('border-danger').focus();
+				 		$('html, body').animate({scrollTop: 0}, 1200);
+				 		$('.error').html('Os campos devem ser preenchidos obrigatóriamente');
+				 		e.preventDefault();
+				 		return false;
+				 	}else{
+				 		$(element).removeClass('border-danger');
+				 	}
+		
+				});
+			    if(count == 0){
+			    	$('.error').html('');
+			    	return true;
+			    }
+			}
+			if(currentStepIndex == 2 && currentStepIndex < nextStepIndex){
+				var count = 0;
+				$('#formPJ #step-'+(currentStepIndex+1)+' input[required], #formPJ #step-'+(currentStepIndex+1)+' select[required]').each(function(index, element) {
+					if(!(element.value)){
+			 			count++;
+			 			$(element).addClass('border-danger').focus();
+				 		$(element).prev('label').addClass('border-danger').focus();
+				 		$('html, body').animate({scrollTop: 0}, 1200);
+				 		$(element).prev('label').removeClass('border-0');
+				 		$('.error').html('Os campos devem ser preenchidos obrigatóriamente');
+				 		e.preventDefault();
+				 		return false;
+				 	}else{
+				 		$(element).removeClass('border-danger');
+				 	}
+		
+				});
+			    if(count == 0){
+			    	$('.error').html('');
+			    	return true;
+			    }
+			}
 		});
 
 		// Verifica se o CPF é válido e verifica se existe no banco
@@ -378,20 +398,75 @@ Novo associado
 	    	});
 	    });
 
-	    
+		// Button de enviar formulário PF
+		$("#smartwizardPF").on("showStep", function(e, anchorObject, stepIndex, stepDirection) {
+			if(stepIndex == 3){
+				$('.toolbar .sw-btn-next').fadeOut();
+				$('.toolbar .sw-btn-enviar').fadeIn();
+			}else{
+				$('.toolbar .sw-btn-next').fadeIn();
+				$('.toolbar .sw-btn-enviar').fadeOut();
+			}
+		});
+
+		// Button de enviar formulário PJ
+		$("#smartwizardPJ").on("showStep", function(e, anchorObject, stepIndex, stepDirection) {
+			if(stepIndex == 4){
+				$('.toolbar .sw-btn-next').fadeOut();
+				$('.toolbar .sw-btn-enviar').fadeIn();
+			}else{
+				$('.toolbar .sw-btn-next').fadeIn();
+				$('.toolbar .sw-btn-enviar').fadeOut();
+			}
+		});
+
 	    // Adicionando os telefones
 		$('.novoTelefone').on('click', function(){
 			$('.dadosTelefone').append('<div class="col-12 px-0"> <div class="col-lg-4 col-12 px-0 px-lg-4"> <div class="form-group"> <label class="col-form-label pb-0">Tipo <span class="text-danger">*</span></label> <select class="form-control form-control-line" name="tipoTelefone[]" onchange="$(this).removeClass("border-danger");"  required> <option value="">Selecione</option> <option value="celular">Celular</option> <option value="residencial">Residencial</option> <option value="comercial">Comercial</option> <option value="recado">Recado</option> <option value="fax">Fax</option> </select> </div> </div> <div class="col-lg-5 col-11 px-0 px-lg-4"> <div class="form-group"> <label class="col-form-label pb-0">Número <span class="text-danger">*</span></label> <input class="form-control form-control-line numeroTelefone" onkeyup="$(this).removeClass("border-danger");" name="numeroTelefone[]" placeholder="(38) 99168-0335" required/> </div> </div> <div class="row col-lg-1 col-1 h-100"> <a href="javascript:" title="Remover arquivos" onclick="removerTelefone(this)" class="m-auto"><i class="mdi mdi-delete text-danger mdi-24px"></i></a> </div> </div>'); 
 		});
 
 		var t = 15;
-		// Adicionando novos arquivos
-		$('.btnAdicionar').on('click', function(){
-			t++;
-			$('.btnAdicionar div').append('<div class="row col-12 justify-content-center mx-auto mb-2"> <input type="text" class="form-control col-8 px-3 h-100" name="nomeArquivos[]" onkeyup="this.value = this.value.toUpperCase();" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" required> <label for="fupload'+t+'" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px"><i class="mdi mdi-file"></i></label> <input type="file" name="arquivos[]" id="fupload'+t+'" class="mb-3 text-white col-lg-11 col-10 d-none" accept=".jpg, .jpeg, .png, .svg" onchange="arquivo(this)" required> <a href="javascript:" title="Remover arquivos" class="btn btn-danger col-2" onclick="removerTelefone(this)" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-close"></i></a> </div>'); 
-			
-			
-		});
+
+		// --------------- PF -------------------------------
+			$('#btnIdentificacao').on('click', function(){
+				// Adicionando novos arquivos de Certidão de Nascimento, RG, CNH ou CTPS
+				t++;
+				$('.dadosIdentificacao').append('<div class="row col-12 justify-content-center mx-auto mb-2"> <input type="text" class="form-control col-8 px-3 h-100" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" disabled> <label for="fupload'+t+'" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px"><i class="mdi mdi-file"></i></label> <input type="file" name="documentoIdentificacao[]" id="fupload'+t+'" class="mb-3 text-white col-lg-11 col-10 d-none" accept=".jpg, .jpeg, .png, .svg" onchange="arquivo(this)" required> <a href="javascript:" title="Remover arquivos" class="btn btn-danger col-2" onclick="remover(this)" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-close"></i></a> </div>'); 
+			});
+			$('#btnImposto').on('click', function(){
+				// Adicionando novos arquivos de Recibo e Declaração de Imposto de Renda
+				t++;
+				$('.dadosImposto').append('<div class="row col-12 justify-content-center mx-auto mb-2"> <input type="text" class="form-control col-8 px-3 h-100" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" disabled> <label for="fupload'+t+'" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px"><i class="mdi mdi-file"></i></label> <input type="file" name="documentoImposto[]" id="fupload'+t+'" class="mb-3 text-white col-lg-11 col-10 d-none" accept=".jpg, .jpeg, .png, .svg" onchange="arquivo(this)" required> <a href="javascript:" title="Remover arquivos" class="btn btn-danger col-2" onclick="remover(this)" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-close"></i></a> </div>'); 
+			});
+		// --------------- PF -------------------------------
+
+		// --------------- PJ -------------------------------
+			$('#btnContrato').on('click', function(){
+				// Adicionando novos arquivos de Contrato Social, Requerimento de Empresário, MEI ou Estatuto
+				t++;
+				$('.dadosContrato').append('<div class="row col-12 justify-content-center mx-auto mb-2"> <input type="text" class="form-control col-8 px-3 h-100" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" disabled> <label for="fupload'+t+'" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px"><i class="mdi mdi-file"></i></label> <input type="file" name="documentoContrato[]" id="fupload'+t+'" class="mb-3 text-white col-lg-11 col-10 d-none" accept=".jpg, .jpeg, .png, .svg" onchange="arquivo(this)" required> <a href="javascript:" title="Remover arquivos" class="btn btn-danger col-2" onclick="remover(this)" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-close"></i></a> </div>'); 
+			});
+			$('#btnFaturamento').on('click', function(){
+				// Adicionando novos arquivos de Faturamento dos Últimos 12 meses
+				t++;
+				$('.dadosFaturamento').append('<div class="row col-12 justify-content-center mx-auto mb-2"> <input type="text" class="form-control col-8 px-3 h-100" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" disabled> <label for="fupload'+t+'" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px"><i class="mdi mdi-file"></i></label> <input type="file" name="documentoFaturamento[]" id="fupload'+t+'" class="mb-3 text-white col-lg-11 col-10 d-none" accept=".jpg, .jpeg, .png, .svg" onchange="arquivo(this)" required> <a href="javascript:" title="Remover arquivos" class="btn btn-danger col-2" onclick="remover(this)" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-close"></i></a> </div>'); 
+			});
+			$('#btnInscricao').on('click', function(){
+				// Adicionando novos arquivos de Incrição Estadual
+				t++;
+				$('.dadosInscricao').append('<div class="row col-12 justify-content-center mx-auto mb-2"> <input type="text" class="form-control col-8 px-3 h-100" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" disabled> <label for="fupload'+t+'" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px"><i class="mdi mdi-file"></i></label> <input type="file" name="documentoInscricao[]" id="fupload'+t+'" class="mb-3 text-white col-lg-11 col-10 d-none" accept=".jpg, .jpeg, .png, .svg" onchange="arquivo(this)" required> <a href="javascript:" title="Remover arquivos" class="btn btn-danger col-2" onclick="remover(this)" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-close"></i></a> </div>'); 
+			});
+			$('#btnAta').on('click', function(){
+				// Adicionando novos arquivos de Ata de Eleição da Diretoria 
+				t++;
+				$('.dadosAta').append('<div class="row col-12 justify-content-center mx-auto mb-2"> <input type="text" class="form-control col-8 px-3 h-100" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" disabled> <label for="fupload'+t+'" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px"><i class="mdi mdi-file"></i></label> <input type="file" name="documentoAta[]" id="fupload'+t+'" class="mb-3 text-white col-lg-11 col-10 d-none" accept=".jpg, .jpeg, .png, .svg" onchange="arquivo(this)" required> <a href="javascript:" title="Remover arquivos" class="btn btn-danger col-2" onclick="remover(this)" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-close"></i></a> </div>'); 
+			});
+			$('#btnMandato').on('click', function(){
+				// Adicionando novos arquivos de Instrumento de Mandato/Carta de revigoramento
+				t++;
+				$('.dadosMandato').append('<div class="row col-12 justify-content-center mx-auto mb-2"> <input type="text" class="form-control col-8 px-3 h-100" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" disabled> <label for="fupload'+t+'" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px"><i class="mdi mdi-file"></i></label> <input type="file" name="documentoAta[]" id="fupload'+t+'" class="mb-3 text-white col-lg-11 col-10 d-none" accept=".jpg, .jpeg, .png, .svg" onchange="arquivo(this)" required> <a href="javascript:" title="Remover arquivos" class="btn btn-danger col-2" onclick="remover(this)" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-close"></i></a> </div>'); 
+			});
+		// --------------- PJ -------------------------------
 	});
 </script>
 @endsection
