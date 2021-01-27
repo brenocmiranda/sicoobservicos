@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Modalidades extends Model
+class ContratosProdutos extends Model
 {
 	use HasFactory;
 
-    protected $table = 'cre_modalidades';
+    protected $table = 'cre_produtos';
     protected $primaryKey = 'id';
-    protected $fillable = ['id', 'nome', 'codigo', 'sigla', 'status', 'created_at', 'updated_at'];
+    protected $fillable = ['id', 'codigo', 'nome', 'status', 'created_at', 'updated_at'];
 }

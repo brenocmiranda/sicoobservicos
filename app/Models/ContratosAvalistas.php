@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class Avalistas extends Model
+class ContratosAvalistas extends Model
 {
     protected $table = 'cre_avalistas';
     protected $primaryKey = 'id';
