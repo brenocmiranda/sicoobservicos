@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCadSolicitacoesHasStatus extends Migration
+class CreateCadSolicitacoesHasSocios extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,13 @@ class CreateCadSolicitacoesHasStatus extends Migration
      */
     public function up()
     {
-        Schema::create('cad_solicitacoes_has_status', function (Blueprint $table) {
+        Schema::create('cad_solicitacoes_has_socios', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->enum('status', ['devolvido', 'aberto', 'andamento', 'finalizado', 'cancelado']);
-            $table->text('descricao')->nullable();
-
-            $table->integer('usr_id_usuarios')->unsigned();
-            $table->foreign('usr_id_usuarios')->references('id')->on('usr_usuarios');
-            $table->integer('cad_id_solicitacoes')->unsigned();
+            $table->integer('cad_id_solicitacoes')->unsigned()->nullable();
             $table->foreign('cad_id_solicitacoes')->references('id')->on('cad_solicitacoes');
+            $table->integer('cli_id_associado')->unsigned()->nullable();
+            $table->foreign('cli_id_associado')->references('id')->on('cli_associados');
             $table->timestamps();
         });
     }
@@ -34,6 +31,6 @@ class CreateCadSolicitacoesHasStatus extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cad_solicitacoes_has_status');
+        Schema::dropIfExists('cad_solicitacoes_has_socios');
     }
 }

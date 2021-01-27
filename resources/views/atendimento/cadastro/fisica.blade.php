@@ -1,4 +1,4 @@
-<div class="col-12 col-lg-11 mx-auto slideInLeft animated webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend" id="dadosPF" style="display: none">
+<div class="col-12 col-lg-11 mx-auto slideInLeft animated webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend mt-5" id="dadosPF" style="display: none">
 	<form class="form-sample" id="formPF" method="POST" enctype="multipart/form-data" action="{{route('cadastrar.cadastro.atendimento')}}" autocomplete="off">
 	@csrf
 		<input type="hidden" name="sigla" value="PF">
@@ -153,12 +153,11 @@
 						<div class="col-lg-12 col-12 px-0 px-lg-4">
 							<div class="form-group">
 								<label class="col-form-label pb-0">E-mail <small>(Preencha está informação para atividades futuras)</small></label>
-								<input class="form-control form-control-line" name="email" placeholder="servicos@sicoobsertaominas.com.br"/>
+								<input type="email" class="form-control form-control-line" name="email" placeholder="servicos@sicoobsertaominas.com.br"/>
 							</div>
 						</div>
 					</div>
 				</div>
-
 				<div id="step-3" class="tab-pane w-100" role="tabpanel" aria-labelledby="step-3">
 					<div class="row col-12 mx-auto px-0">
 						<div class="col-12 mb-4 px-0 px-lg-4">
@@ -239,17 +238,31 @@
 				</div>
 				<div id="step-4" class="tab-pane w-100" role="tabpanel" aria-labelledby="step-4">
 					<div class="row col-12 mx-auto px-0">
-						
+						<div class="col-12 px-0 px-lg-4">
+							<div class="form-group mb-0">
+								<label class="col-form-label">Cartão de assinatura <span class="text-danger">*</span></label>
+								<div class="row">
+									<div class="row col-12 justify-content-center mx-auto mb-2">
+										<input type="text" class="form-control col-10 px-3 h-100" name="nomeImposto" onkeyup="this.value = this.value.toUpperCase();" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" value="CARTAO DE ASSINATURA">
+										<label for="fupload15" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-file"></i></label>
+										<input type="file" name="cartaoAssinatura" id="fupload15" class="position-absolute offset-10 col-1 px-0 mt-3" style="opacity: 0" accept="image/*" onchange="cartao(this); ">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-12 px-0 mt-5 pt-5 justify-content-center image" style="display: none;">
+							<img id="PreviewImage" src="" class="col-12 col-lg-4 px-0">
+						</div>
+						<div class="col-12 mt-3">
+							<div class="checkbox checkbox-success mb-0 text-center">
+								<input id="checkbox-1" type="checkbox" checked disabled>
+								<label for="checkbox-1"  style="opacity: 1 !important;"> Declaro todas as informações fornecidas nesse cadastro conferem com as originais. </label>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-			<div class="toolbar toolbar-bottom text-center mt-4" role="toolbar">
-				<div class="col-12 mb-3">
-					<div class="checkbox checkbox-success mb-0 text-center">
-						<input id="checkbox-1" type="checkbox" checked disabled>
-						<label for="checkbox-1"  style="opacity: 1 !important;"> Declaro todas as informações fornecidas nesse cadastro conferem com as originais. </label>
-					</div>
-				</div>
+			<div class="toolbar toolbar-bottom text-center" role="toolbar">
 				<button class="btn sw-btn-prev disabled" type="button">
 					<i class="mdi mdi-arrow-left"></i> 
 					<span>Anterior</span>
@@ -259,8 +272,8 @@
 					<i class="mdi mdi-arrow-right"></i> 
 				</button>
 				<button type="submit" class="btn sw-btn-enviar" style="display: none;"> 
-					<span>Enviar</span> 
-					<i class="mdi mdi-check pl-2"></i> 
+					<span>Finalizar</span> 
+					<i class="mdi mdi-cube-send pl-2"></i> 
 				</button>
 			</div>
 		</div>

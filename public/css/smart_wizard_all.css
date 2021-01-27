@@ -167,8 +167,8 @@
 
 .sw-theme-default .toolbar > .btn {
     color: #fff;
-    background-color: #17a2b8;
-    border: 1px solid #17a2b8;
+    background-color: #777;
+    border: 1px solid #777;
     padding: .375rem .75rem;
     border-radius: .25rem;
     font-weight: 400;
@@ -436,8 +436,17 @@
 
 .sw-theme-dots .toolbar > .btn {
     color: #ffffff;
-    background-color: #7eb61e;
-    border: 1px solid #80b721;
+    background-color: #41b3f9;
+    border: 1px solid #41b3f9;
+    padding: 10px 20px;
+    border-radius: .25rem;
+    font-weight: 400;
+}
+
+.sw-theme-dots .toolbar > .sw-btn-enviar{
+    color: #ffffff;
+    background-color: #5cb85c;
+    border: 1px solid #5cb85c;
     padding: 10px 20px;
     border-radius: .25rem;
     font-weight: 400;

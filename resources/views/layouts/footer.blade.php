@@ -40,7 +40,8 @@
 <script src="{{ asset('public/vendor/bootstrap-treeview-master/src/js/bootstrap-treeview.js') }}"></script>
 <script src="{{ asset('public/vendor/blockUI/jquery.blockUI.js') }}"></script>
 <script src="{{ asset('public/js/jquery.smartWizard.js') }}"></script>
-<script src="{{ asset('public/js/jquery.validate.js') }}"></script>
+<script src="{{ asset('public/js/fabric.js') }}"></script>
+<script src="{{ asset('public/js/darkroom.js') }}"></script>
 
 <script type="text/javascript">
 	$(document).ready(function() {

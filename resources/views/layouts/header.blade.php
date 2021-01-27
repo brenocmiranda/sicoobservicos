@@ -42,6 +42,7 @@
   <link href="{{ asset('public/vendor/summernote/dist/summernote.css')  }}" rel="stylesheet">
   <link href="{{ asset('public/css/smart_wizard_all.css')  }}" rel="stylesheet">
   <!--<link href="{{ asset('public/css/jquery-ui.css')  }}" rel="stylesheet">-->
+  <link href="{{ asset('public/css/darkroom.css') }}" rel="stylesheet">
   
   @yield('header-support')
 </head>
