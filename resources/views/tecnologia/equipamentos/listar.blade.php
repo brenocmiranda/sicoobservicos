@@ -20,8 +20,8 @@ Invetário geral
 	</div>
 	<div class="card">
 		<div class="card-body">
-			<div class="h-100 row col">
-				<div class="col-lg-12 position-absolute">
+			<div class="h-100 row col mx-auto px-0">
+				<div class="col-lg-12 position-absolute px-0 px-lg-4">
 					@if(Auth::user()->RelationFuncao->gerenciar_gti == 1)
 					<div class="row mx-auto">
 						<a href="{{route('adicionar.equipamentos')}}" class="btn btn-primary btn-outline ml-auto" id="adicionar" name="adicionar" title="Adicionar novo equipamento" style="z-index: 10">
@@ -32,7 +32,7 @@ Invetário geral
 					@endif
 				</div>
 			</div>
-			<div class="col-12 mb-3">
+			<div class="col-12 px-0 px-lg-4 mb-3">
 				<table class="table table-striped text-center color-table muted-table rounded d-block d-lg-table" id="table" style="overflow-y: auto;">
 					<thead>
 						<th> Imagem </th>
@@ -92,7 +92,12 @@ Invetário geral
 			$('.modal .serialNumber').html(data.serialNumber);
 			$('.modal .id_setor').html(data.setor);
 			$('.modal .usuario').html(data.usuario);
-			$('.modal .descricao').html(data.descricao);
+			if(data.descricao){
+				$('.modal .descricao').html(data.descricao);
+			}else{
+				$('.modal .descricao').html('Não informado');
+			}
+			
 			$.get('./detalhes/'+data.id, function(data){
 				$('.modal #ImagemPrincipalUrl').attr('href', "{{url('storage/app')}}/"+data.imagem.endereco);
 				$('.modal #ImagemPrincipal').attr('src', "{{url('storage/app')}}/"+data.imagem.endereco);

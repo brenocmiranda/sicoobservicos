@@ -20,11 +20,11 @@ Invetário por usuário
 	</div>
 	<div class="card">
 		<div class="card-body">
-			<div class="col-12 row mb-4 mx-auto">
+			<div class="col-12 row mb-4 mx-auto px-0 px-lg-4">
 				@include('layouts.search')
-				<div class="col-lg-12 position-absolute">
+				<div class="col-lg-12 position-absolute px-0 px-lg-4">
 					@if(Auth::user()->RelationFuncao->gerenciar_gti == 1)
-					<div class="col-12 row mx-auto">
+					<div class="col-12 row mx-auto px-0 px-lg-4">
 						<a href="{{route('adicionar.equipamentos')}}" class="btn btn-primary btn-outline ml-auto" id="adicionar" name="adicionar" title="Adicionar novo equipamento" style="z-index: 10">
 							<i class="m-0 pr-lg-1 mdi mdi-plus"></i> 
 							<span class="hidden-xs">Cadastrar</span> 
@@ -35,17 +35,17 @@ Invetário por usuário
 			</div>
 			<div class="row mx-auto mt-5">
 				@if(!empty($usuarios[0]))
-					<div id="treeview" class="col-lg-7 col-8"></div>
+					<div id="treeview" class="col-lg-7 col-12 order-1 order-lg-2 px-0 px-lg-4"></div>
 
-					<div class="col-lg-5 col-4 border" id="equipamentos" style="display: none">
-						<div class="p-3" >
+					<div class="col-lg-5 col-12 order-1 order-lg-2 border" id="equipamentos" style="display: none">
+						<div class="p-3">
 							<h5>Descrições do equipamento</h5>
 							<hr class="mt-2">
 							<div class="row">
-								<div class="col-lg-4 col-2 row m-auto justify-content-center">
+								<div class="col-lg-4 col-12 row m-lg-auto mx-auto mb-5 justify-content-center">
 									<img src="{{ asset('public/img/image.png').'?'.rand() }}" id="imagem" height="80" width="80">
 								</div>
-								<div class="col-lg-8 col-10 p-0">
+								<div class="col-lg-8 col-12 tex">
 									<label class="d-block">
 										<span>Nome:</span>
 										<span id="equipamento" class="font-weight-bold"></span>
@@ -149,7 +149,11 @@ Invetário por usuário
 				$('#n_patrimonio').html(data.n_patrimonio);
 				$('#serialNumber').html(data.serialNumber);
 				$('#localizacao').html(data.setor+" - "+data.unidade);
-				$('#descricao').html(data.descricao);
+				if(data.descricao){
+					$('#descricao').html(data.descricao);
+				}else{
+					$('#descricao').html('Não informado');
+				}
 				$('#equipamentos').fadeIn();
 				$('#editar').attr('href', 'editar/'+data.id);
 			});

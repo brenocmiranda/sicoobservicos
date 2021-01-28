@@ -31,7 +31,7 @@ Editar equipamento
   <form class="form-sample" action="{{route('salvar.editar.equipamentos', $ativo->id)}}" method="POST" enctype="multipart/form-data" autocomplete="off">
     @csrf
     <div class="row">
-      <div class="col-lg-8 col-12 mb-4 mb-lg-0">
+      <div class="col-lg-8 col-12 mb-4 mb-lg-0 order-2 order-lg-1">
         <div class="card">
           <div class="card-body">
             <div class="row mx-auto">
@@ -179,7 +179,7 @@ Editar equipamento
           </div>
         </div>
       </div>
-      <div class="col-4">
+      <div class="col-lg-4 col-12 mb-4 mb-lg-0 order-1 order-lg-2">
         <div class="card text-center">
           <div class="card-header" style="border-top-right-radius: 0.6em; border-top-left-radius: 0.6em;">
             <h5 class="text-white font-weight-normal">Detalhes do equipamento</h5>
