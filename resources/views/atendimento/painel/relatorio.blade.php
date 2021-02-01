@@ -735,7 +735,7 @@
     </h2>
     <hr>
     @if(isset($associado->RelationCartaoCredito[0]))  
-      @foreach($associado->RelationCartaoCredito->sortByDesc('situacao') as $cartao)
+      @foreach($associado->RelationCartaoCredito->sortBy('situacao') as $cartao)
       <div style="margin-top: 10px; margin-left: 10px; margin-right: 10px">
         <h4><b>{{$cartao->num_contrato}}</b> <small>({{$cartao->situacao}})</small></h4>
         <hr>

@@ -14,10 +14,10 @@ class ContratosArquivos extends Model
     protected $fillable = ['id', 'cre_id_modalidades', 'cre_id_finalidades', 'cre_id_produtos', 'cre_id_armarios', 'created_at', 'updated_at'];
 
     public function RelationModalidades(){
-        return $this->belongsTo(Modalidades::class, 'cre_id_modalidades', 'id');
+        return $this->belongsTo(ContratosModalidades::class, 'cre_id_modalidades', 'id');
     }
 
     public function RelationProdutos(){
-        return $this->belongsTo(ProdutosCred::class, 'cre_id_produtos', 'id');
+        return $this->belongsTo(ContratosProdutos::class, 'cre_id_produtos', 'id');
     }
 }
