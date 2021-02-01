@@ -713,7 +713,7 @@ Painel do associado
           <div class="row bg-light justify-content-center mt-n4 mb-5 p-3 rounded">
             <label class="m-auto font-weight-bold">Data base: {{date('d/m/Y', strtotime($cre_contratos->data_movimento))}}</label>
           </div>
-          @foreach($associado->RelationCarteiraCredito->sortByDesc('data_operacao') as $carteira)
+          @foreach($associado->RelationCarteiraCredito->sortBy('situacao') as $carteira)
           <div class="col-12"> 
             <div class="mb-5">
               <h5 class="font-weight-normal"><b>{{$carteira->num_contrato}}</b> <small class="{{($carteira->situacao == 'ENTRADA NORMAL' ? 'badge badge-success' : ($carteira->situacao == 'QUITADO' ? 'badge badge-danger' : 'badge badge-info'))}}">{{$carteira->situacao}}</small></h5>
