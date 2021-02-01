@@ -758,7 +758,7 @@ class ConfiguracoesCtrl extends Controller
         }
 	}
     // Importando nova imagens
-	public function SalvarAjustes(Request $request){
+	public function SalvarPlataforma(Request $request){
         if(Auth::user()->RelationFuncao->gerenciar_configuracoes == 1){
         	if($request->hasFile('login_principal') && $request->file('login_principal')->isValid()) {
                 $name = uniqid(date('HisYmd'));
