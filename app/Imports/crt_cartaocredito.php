@@ -5,8 +5,8 @@ namespace App\Imports;
 use App\Models\CartaoCredito;
 use App\Models\Associados;
 use App\Models\ContratosArquivos;
-use App\Models\ProdutosCred;
-use App\Models\Modalidades;
+use App\Models\ContratosProdutos;
+use App\Models\ContratosModalidades;
 use App\Models\Logs;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\Importable;
@@ -29,8 +29,8 @@ class crt_cartaocredito implements ToCollection, WithChunkReading, WithHeadingRo
             $dados = CartaoCredito::where('num_contrato', $row['numero_conta_cartao'])->first();
             if(isset($dados)){
                 ContratosArquivos::find($dados->cre_id_arquivo)->update([
-                    'cre_id_modalidades' => Modalidades::where('codigo', 99999)->select('id')->first()->id,
-                    'cre_id_produtos' => ProdutosCred::where('codigo', 99)->select('id')->first()->id,
+                    'cre_id_modalidades' => ContratosModalidades::where('codigo', 99999)->select('id')->first()->id,
+                    'cre_id_produtos' => ContratosProdutos::where('codigo', 99)->select('id')->first()->id,
                 ]);
                 CartaoCredito::where('num_contrato', $row['numero_conta_cartao'])->update([
                     'situacao' => $row['situacao_conta_cartao'],
@@ -51,8 +51,8 @@ class crt_cartaocredito implements ToCollection, WithChunkReading, WithHeadingRo
                 ]);
             }else{
                 $arquivo = ContratosArquivos::create([
-                    'cre_id_modalidades' => Modalidades::where('codigo', 99999)->select('id')->first()->id,
-                    'cre_id_produtos' => ProdutosCred::where('codigo', 99)->select('id')->first()->id,
+                    'cre_id_modalidades' => ContratosModalidades::where('codigo', 99999)->select('id')->first()->id,
+                    'cre_id_produtos' => ContratosProdutos::where('codigo', 99)->select('id')->first()->id,
                 ]);
                 CartaoCredito::create([
                     'num_contrato' => (int) $row['numero_conta_cartao'],

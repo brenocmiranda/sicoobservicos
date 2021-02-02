@@ -3,8 +3,8 @@
 namespace App\Imports;
 
 use App\Models\Contratos;
+use App\Models\ContratosAvalistas;
 use App\Models\Associados;
-use App\Models\Avalistas;
 use App\Models\Logs;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\Importable;
@@ -22,21 +22,21 @@ class cre_avalistas implements ToCollection, WithChunkReading, WithHeadingRow, S
 
     public function collection(Collection $rows)
     {   
-        $dataBaseAtual = Avalistas::orderBy('data_movimento', 'ASC')->first();
+        $dataBaseAtual = ContratosAvalistas::orderBy('data_movimento', 'ASC')->first();
         $dataBaseNova = gmdate('Y-m-d', (($rows[1]['data_movimento'] - 25569) * 86400));
         // Verifica se a data do novo arquivo é maior que a salva no banco
         if(strtotime($dataBaseNova) > strtotime($dataBaseAtual->data_movimento)){
-            Avalistas::truncate();
+            ContratosAvalistas::truncate();
             foreach ($rows as $row) 
             {  
-                Avalistas::create([
+                ContratosAvalistas::create([
                     'cli_id_associado' => Associados::where('documento', $row['cpf_garantidor_credito'])->select('id')->first()->id,
                     'cre_id_arquivo' => Contratos::where('num_contrato', $row['numero_contrato_credito'])->select('cre_id_arquivo')->first()->cre_id_arquivo,
                     'data_movimento' => gmdate('Y-m-d', (($row['data_movimento'] - 25569) * 86400)),
                 ]);  
             }
         }else{
-            Avalistas::find(1)->update(['updated_at' => date('Y-m-d H:i:s')]);
+            ContratosAvalistas::find(1)->update(['updated_at' => date('Y-m-d H:i:s')]);
             return response()->json(true);
         }
     }

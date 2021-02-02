@@ -5,8 +5,8 @@ namespace App\Imports;
 use App\Models\Contratos;
 use App\Models\Associados;
 use App\Models\ContratosArquivos;
-use App\Models\ProdutosCred;
-use App\Models\Modalidades;
+use App\Models\ContratosProdutos;
+use App\Models\ContratosModalidades;
 use App\Models\Logs;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\Importable;
@@ -26,14 +26,14 @@ class cre_contratos_historico implements ToCollection, WithChunkReading, WithHea
     {  
         foreach ($rows as $row) 
         {  
-       		$dados1 = Modalidades::where('codigo', $row['codigo_modalidade_produto'])->first();
+       		$dados1 = ContratosModalidades::where('codigo', $row['codigo_modalidade_produto'])->first();
             if(isset($dados1)){
-                Modalidades::where('codigo', $row['codigo_modalidade_produto'])->update([
+                ContratosModalidades::where('codigo', $row['codigo_modalidade_produto'])->update([
                     'nome' => $row['modalidade_produto'],
                     'sigla' => $row['sigla_modalidade_produto'],
                 ]);
             }else{
-                Modalidades::create([
+                ContratosModalidades::create([
                     'nome' => $row['modalidade_produto'],
                     'codigo' => $row['codigo_modalidade_produto'],
                     'sigla' => $row['sigla_modalidade_produto'],
@@ -46,8 +46,8 @@ class cre_contratos_historico implements ToCollection, WithChunkReading, WithHea
        		if(isset($dados)){
 	        	if(strtotime($datamovimento) > strtotime($dados->data_movimento)){
 					ContratosArquivos::find($dados->cre_id_arquivo)->update([
-                    	'cre_id_modalidades' => Modalidades::where('codigo', $row['codigo_modalidade_produto'])->select('id')->first()->id,
-                    	'cre_id_produtos' => ProdutosCred::where('codigo', $row['codigo_produto'])->select('id')->first()->id,
+                    	'cre_id_modalidades' => ContratosModalidades::where('codigo', $row['codigo_modalidade_produto'])->select('id')->first()->id,
+                    	'cre_id_produtos' => ContratosProdutos::where('codigo', $row['codigo_produto'])->select('id')->first()->id,
                 	]);
 	                Contratos::where('num_contrato', $row['numero_contrato_credito'])->update([
 	                    'situacao' => $row['situacao_contrato'],
@@ -71,8 +71,8 @@ class cre_contratos_historico implements ToCollection, WithChunkReading, WithHea
 	            }
 	        }else{
                 $arquivo = ContratosArquivos::create([
-                    'cre_id_modalidades' => Modalidades::where('codigo', $row['codigo_modalidade_produto'])->select('id')->first()->id,
-                    'cre_id_produtos' => ProdutosCred::where('codigo', $row['codigo_produto'])->select('id')->first()->id,
+                    'cre_id_modalidades' => ContratosModalidades::where('codigo', $row['codigo_modalidade_produto'])->select('id')->first()->id,
+                    'cre_id_produtos' => ContratosProdutos::where('codigo', $row['codigo_produto'])->select('id')->first()->id,
                 ]);
                 Contratos::create([
                     'num_contrato' => (int) $row['numero_contrato_credito'],
