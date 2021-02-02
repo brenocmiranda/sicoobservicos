@@ -168,6 +168,9 @@ Homepage
 			@endforeach
 		</ul>
 	</div>
+	<div class="col-12 text-right position-absolute px-5 mx-4 py-4"style="bottom: 0; right: 0;">
+		<h5 class="text-weight-normal" style="color: #9e9e9e !important;" title="{{explode(' ', exec('getmac'))[0]}}">IP: {{$_SERVER['REMOTE_ADDR']}}</h5>
+	</div>
 </div>
 
 @include('layouts.footer')
