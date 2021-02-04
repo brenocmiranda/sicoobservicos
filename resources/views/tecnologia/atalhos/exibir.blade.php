@@ -8,8 +8,11 @@ Homepage
 	<div class="col-12 row mx-auto px-5 pt-4">
 		<div class="pt-3 row ml-auto dropdown pb-5 pb-lg-0">
 			@if(Auth::check())
-			<a href="{{route('inicio')}}" title="Início" target="_blank" class="text-white text-truncate my-auto font-weight-normal mx-3 pr-2">
+			<a href="{{route('inicio')}}" title="Início" target="_blank" class="text-white text-truncate my-auto font-weight-normal mx-3 pr-3">
             	<h5 class="text-white">Início</h5>
+            </a>
+            <a href="{{route('telefones')}}" title="Telefones" target="_blank" class="text-white text-truncate my-auto font-weight-normal mx-3">
+            	<i class="mdi mdi-phone mdi-24px"></i>
             </a>
 			<div class="dropdown dropdown-home mx-3 px-3">
 				<a href="javascript::void(0)" title="Menu" class="dropdown-toggle my-auto" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -123,6 +126,9 @@ Homepage
 		        </ul>    
 		    </div>
 		    @else
+			    <a href="{{route('telefones')}}" title="Telefones" target="_blank" class="text-white text-truncate my-auto font-weight-normal mx-3 pr-2">
+	            	<i class="mdi mdi-phone mdi-24px px-3"></i>
+	            </a>
 	        	<a href="{{route('login')}}" target="_blank" class="btn btn-success btn-lg px-5 my-auto">
 	        		<span>Entrar</span>
 	        	</a>
@@ -169,7 +175,7 @@ Homepage
 		</ul>
 	</div>
 	<div class="col-12 text-right position-absolute px-5 mx-4 py-4"style="bottom: 0; right: 0;">
-		<h5 class="text-weight-normal" style="color: #9e9e9e !important;" title="{{explode(' ', exec('getmac'))[0]}}">IP: {{$_SERVER['REMOTE_ADDR']}}</h5>
+		<h5 class="text-weight-normal" style="font-family: system-ui;color: #9e9e9e !important;" title="{{explode(' ', exec('getmac'))[0]}}">Seu IP - {{$_SERVER['REMOTE_ADDR']}}</h5>
 	</div>
 </div>
 

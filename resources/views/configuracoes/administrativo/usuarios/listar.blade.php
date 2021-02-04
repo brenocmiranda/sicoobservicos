@@ -65,6 +65,8 @@ Usuários
 			A: {pattern: /[a-z0-9_.]/},
 		}});
 		$('.telefone').mask('(00) 00000-0000');
+		$('.telefone_corporativo').mask('(00) 00000-0000');
+		$('.telefone_ramal').mask('0000');
 
 		// Limpando as informações de adicionar
 		$('#adicionar').on('click', function(){
@@ -116,6 +118,16 @@ Usuários
 			$('.modal .telefone').val(data.telefone.replace('+55', ''));
 			$('.modal .telefone').unmask();
 			$('.modal .telefone').mask('(00) 00000-0000');
+			if(data.telefone_corporativo){
+				$('.modal .telefone_corporativo').val(data.telefone_corporativo.replace('+55', ''));
+				$('.modal .telefone_corporativo').unmask();
+				$('.modal .telefone_corporativo').mask('(00) 00000-0000');
+			}
+			if(data.telefone_ramal){
+				$('.modal .telefone_ramal').val(data.telefone_ramal.replace('+55', ''));
+				$('.modal .telefone_ramal').unmask();
+				$('.modal .telefone_ramal').mask('0000');
+			}
 			$('.modal .usr_id_setor').val(data.usr_id_setor);
 			$('.modal .usr_id_funcao').val(data.usr_id_funcao);
 			$('.modal .cli_id_associado').val(data.cli_id_associado);
@@ -184,6 +196,16 @@ Usuários
 			$('.modal .telefone').val(data.telefone.replace('+55', ''));
 			$('.modal .telefone').unmask();
 			$('.modal .telefone').mask('(00) 00000-0000');
+			if(data.telefone_corporativo){
+				$('.modal .telefone_corporativo').val(data.telefone_corporativo.replace('+55', ''));
+				$('.modal .telefone_corporativo').unmask();
+				$('.modal .telefone_corporativo').mask('(00) 00000-0000');
+			}
+			if(data.telefone_ramal){
+				$('.modal .telefone_ramal').val(data.telefone_ramal.replace('+55', ''));
+				$('.modal .telefone_ramal').unmask();
+				$('.modal .telefone_ramal').mask('0000');
+			}
 			$('.modal .usr_id_setor').val(data.usr_id_setor);
 			$('.modal .usr_id_funcao').val(data.usr_id_funcao);
 			$('.modal .cli_id_associado').val(data.cli_id_associado);

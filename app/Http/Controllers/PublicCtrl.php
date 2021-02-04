@@ -289,4 +289,12 @@ class PublicCtrl extends Controller
 		));
 		return redirect()->route('digitalizar');
 	}
+
+	// Telefones internos
+	public function ExibirTelefones(){
+		$usuariosRamal = Usuarios::where('id', '<>', 1)->where('status', 'Ativo')->whereNotNull('telefone_ramal')->get();
+		$usuariosCorporativo = Usuarios::where('id', '<>', 1)->where('status', 'Ativo')->whereNotNull('telefone_corporativo')->get();
+		$homepage = Imagens::where('tipo', 'homepage_principal')->get();
+		return view('telefones.exibir')->with('usuariosRamal', $usuariosRamal)->with('usuariosCorporativo', $usuariosCorporativo)->with('homepage', $homepage);
+	}
 }

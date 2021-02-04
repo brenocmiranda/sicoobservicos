@@ -23,7 +23,7 @@
           <div class="col-12 grid-margin mb-0">
             <div class="card-body py-0">
               <div class="row">
-                <div class="col-lg-8 col-12">
+                <div class="col-lg-7 col-12">
                   <div class="form-group">
                     <label class="col-form-label pb-0">Associado <span class="text-danger">*</span></label>
                     <select class="form-control form-control-line cli_id_associado" name="cli_id_associado" disabled>
@@ -34,7 +34,7 @@
                     </select>
                   </div>
                 </div>
-                <div class="col-6">
+                <div class="col-lg-5 col-12">
                   <div class="form-group">
                     <label class="col-form-label pb-0">Login <span class="text-danger">*</span> <small>(Apenas letras minúsculas)</small></label>
                     <div class="">
@@ -42,7 +42,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-lg-8 col-12">
+                <div class="col-lg-9 col-12">
                   <div class="form-group">
                     <label class="col-form-label pb-0">E-mail <span class="text-danger">*</span></label>
                     <input type="email" name="email" class="email form-control form-control-line" placeholder="administrativo@sicoobsertaominas.com.br" required>
@@ -50,8 +50,20 @@
                 </div>
                 <div class="col-lg-4 col-12">
                   <div class="form-group">
-                    <label class="col-form-label pb-0">Telefone <span class="text-danger">*</span></label>
+                    <label class="col-form-label pb-0">Telefone Pessoal <span class="text-danger">*</span></label>
                     <input type="text" name="telefone" class="telefone form-control form-control-line" placeholder="(38) 91234-5678" required>
+                  </div>
+                </div>
+                <div class="col-lg-4 col-12">
+                  <div class="form-group">
+                    <label class="col-form-label pb-0">Telefone Corporativo</label>
+                    <input type="text" name="telefone_corporativo" class="telefone_corporativo form-control form-control-line" placeholder="(38) 91234-5678">
+                  </div>
+                </div>
+                <div class="col-lg-4 col-12">
+                  <div class="form-group">
+                    <label class="col-form-label pb-0">Ramal</label>
+                    <input type="text" name="telefone_ramal" class="telefone_ramal form-control form-control-line" placeholder="6250">
                   </div>
                 </div>
                 <div class="col-6">

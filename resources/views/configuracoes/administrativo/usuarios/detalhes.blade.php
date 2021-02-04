@@ -19,7 +19,7 @@
         <div class="col-12 grid-margin mb-0">
           <div class="card-body py-0">
             <div class="row">
-              <div class="col-lg-8 col-12">
+              <div class="col-lg-7 col-12">
                 <div class="form-group">
                   <label class="col-form-label pb-0">Associado</label>
                   <select class="form-control form-control-line cli_id_associado" disabled>
@@ -30,13 +30,13 @@
                   </select>
                 </div>
               </div>
-              <div class="col-lg-6 col-12">
+              <div class="col-lg-5 col-12">
                 <div class="form-group">
                   <label class="col-form-label pb-0">Login</label>
                   <input type="text" class="login form-control form-control-line" name="login" disabled/>
                 </div>
               </div>
-              <div class="col-lg-8 col-12">
+              <div class="col-lg-9 col-12">
                 <div class="form-group">
                   <label class="col-form-label pb-0">E-mail</label>
                   <input type="email" name="email" class="email form-control form-control-line" disabled>
@@ -46,6 +46,18 @@
                 <div class="form-group">
                   <label class="col-form-label pb-0">Telefone</label>
                   <input type="text" name="telefone" class="telefone form-control form-control-line" disabled>
+                </div>
+              </div>
+              <div class="col-lg-4 col-12">
+                <div class="form-group">
+                  <label class="col-form-label pb-0">Telefone Corporativo</label>
+                  <input type="text" name="telefone_corporativo" class="telefone_corporativo form-control form-control-line" placeholder="(38) 91234-5678" disabled>
+                </div>
+              </div>
+              <div class="col-lg-4 col-12">
+                <div class="form-group">
+                  <label class="col-form-label pb-0">Ramal</label>
+                  <input type="text" name="telefone_ramal" class="telefone_ramal form-control form-control-line" placeholder="6250" disabled>
                 </div>
               </div>
               <div class="col-6">
