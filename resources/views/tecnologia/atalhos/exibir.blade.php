@@ -129,14 +129,15 @@ Homepage
 			    <a href="{{route('telefones')}}" title="Telefones" target="_blank" class="text-white text-truncate my-auto font-weight-normal mx-3 pr-2">
 	            	<i class="mdi mdi-phone mdi-24px px-3"></i>
 	            </a>
-	        	<a href="{{route('login')}}" target="_blank" class="btn btn-success btn-lg px-5 my-auto">
-	        		<span>Entrar</span>
+			    <a href="{{route('login')}}" target="_blank" class="btn btn-success btn-lg px-lg-5 my-auto">
+		    		<i class="mdi mdi-account pr-1 visible-xs"></i>  
+	        		<span class="hidden-xs">Entrar</span>
 	        	</a>
 	        @endif
 	    </div>
     </div>
 	<div class="col-12 col-sm-12 col-lg-12 mx-auto px-0 row pb-5">
-		<img src="{{ asset('public/img/logo.png').'?'.rand() }}" class="mx-auto mt-3 col-lg-3 col-sm-5 col-12 h-100">
+		<img src="{{ asset('public/img/logo.png').'?'.rand() }}" class="mx-auto mt-3 col-lg-3 col-sm-5 col-10 h-100">
 		<div class="row position-absolute text-white justify-content-end col-12 ml-auto mt-5 hidden-xs">
 			@foreach($aniversariantes as $aniversariante)
 				<div class="col-12 ml-auto justify-content-end text-right">
@@ -151,7 +152,7 @@ Homepage
 			<span class="input-group-addon bg-white" style="border-top-left-radius: 20px; border-bottom-left-radius: 20px;">
         	 	<i class="mdi mdi-magnify mdi-24px mdi-dark"></i>
         	 </span>
-        	 <input type="email" class="form-control border-0"
+        	 <input type="text" class="form-control border-0"
         	  style="border-top-right-radius: 20px; border-bottom-right-radius: 20px;padding: 21px;" placeholder="Encontre aqui o procura :)" id="txtBusca">
       	</div>
 	</div>	

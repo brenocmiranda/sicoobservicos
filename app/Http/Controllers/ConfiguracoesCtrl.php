@@ -382,7 +382,18 @@ class ConfiguracoesCtrl extends Controller
 		if(Auth::user()->RelationFuncao->gerenciar_configuracoes == 1){
 			$create = Unidades::create([
 				'nome' => $request->nome,
+				'cnpj' => $request->cnpj,
 				'referencia' => $request->referencia,
+				'telefone' => (isset($request->telefone) ? $request->telefone : null),
+				'telefone1' => (isset($request->telefone1) ? $request->telefone1 : null),
+				'rua' => (isset($request->rua) ? $request->rua : null),
+				'bairro' => (isset($request->bairro) ? $request->bairro : null),
+				'numero' => (isset($request->numero) ? $request->numero : null),
+				'complemento' => (isset($request->complemento) ? $request->complemento : null),
+				'cidade' => (isset($request->cidade) ? $request->cidade : null),
+				'estado' => (isset($request->estado) ? $request->estado : null),
+				'pais' => (isset($request->pais) ? $request->pais : null),
+				'cep' => (isset($request->cep) ? $request->cep : null),
 				'usr_id_instituicao' => $request->usr_id_instituicao, 
 				'status' => ($request->status == "on" ? 1 : 0)
 			]);
@@ -400,14 +411,25 @@ class ConfiguracoesCtrl extends Controller
 	}
 	// Editando informações 
 	public function EditarUnidades(UnidadesRqt $request, $id){
+		$create = Unidades::find($id);
 		if(Auth::user()->RelationFuncao->gerenciar_configuracoes == 1){
 			Unidades::find($id)->update([
 				'nome' => $request->nome,
+				'cnpj' => $request->cnpj,
 				'referencia' => $request->referencia,
+				'telefone' => (isset($request->telefone) ? $request->telefone : $create->telefone),
+				'telefone1' => (isset($request->telefone1) ? $request->telefone1 : $create->telefone1),
+				'rua' => (isset($request->rua) ? $request->rua : $create->rua),
+				'bairro' => (isset($request->bairro) ? $request->bairro : $create->bairro),
+				'numero' => (isset($request->numero) ? $request->numero : $create->numero),
+				'complemento' => (isset($request->complemento) ? $request->complemento : $create->complemento),
+				'cidade' => (isset($request->cidade) ? $request->cidade : $create->cidade),
+				'estado' => (isset($request->estado) ? $request->estado : $create->estado),
+				'pais' => (isset($request->pais) ? $request->pais : $create->pais),
+				'cep' => (isset($request->cep) ? $request->cep : $create->cep),
 				'usr_id_instituicao' => $request->usr_id_instituicao, 
 				'status' => ($request->status == "on" ? 1 : 0)
 			]);
-			$create = Unidades::find($id);
 			Atividades::create([
 				'nome' => 'Edição de informações',
 				'descricao' => 'Você modificou as informações da unidade administrativa '.$create->nome.'.',
@@ -584,12 +606,13 @@ class ConfiguracoesCtrl extends Controller
 	// Editando informações do usuário
 	public function EditarUsuarios(UsuariosRqt $request, $id){
 		if(Auth::user()->RelationFuncao->gerenciar_configuracoes == 1){
+			$create = Usuarios::find($id);
 			Usuarios::find($id)->update([
 				'login' => $request->login, 
 				'email' => $request->email, 
 				'telefone' => str_replace("(", "+55", str_replace(") ", "", str_replace("-", "", $request->telefone))),
-				'telefone_corporativo' => (isset($request->telefone_corporativo) ? str_replace("(", "+55", str_replace(") ", "", str_replace("-", "", $request->telefone_corporativo))) : null),
-				'telefone_ramal' =>  (isset($request->telefone_ramal) ? $request->telefone_ramal : null),
+				'telefone_corporativo' => (isset($request->telefone_corporativo) ? str_replace("(", "+55", str_replace(") ", "", str_replace("-", "", $request->telefone_corporativo))) : $create->telefone_corporativo),
+				'telefone_ramal' =>  (isset($request->telefone_ramal) ? $request->telefone_ramal : $create->telefone_ramal),
 				'status' => $request->status, 
 				'remember_token' => $request->_token, 
 				'usr_id_setor' => $request->usr_id_setor, 
@@ -597,7 +620,6 @@ class ConfiguracoesCtrl extends Controller
 				'usr_id_instituicao' => $request->usr_id_instituicao, 
 				'usr_id_unidade' => $request->usr_id_unidade
 			]);
-			$create = Usuarios::find($id);
 			Atividades::create([
 					'nome' => 'Edição de informações',
 					'descricao' => 'Você modificou as informações do usuário '.$create->login.'.',

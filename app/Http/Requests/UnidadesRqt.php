@@ -25,12 +25,14 @@ class UnidadesRqt extends FormRequest
     {   
         if($this->segment(5) == "adicionar"){
             return ['nome' => 'required|min:3',
+                'cnpj' => 'required',
                 'referencia' => 'required',
                 'status' => 'nullable',
                 'usr_id_instituicao' => 'numeric',
             ];
         }else{
             return ['nome' => 'required|min:3',
+                'cnpj' => 'required',
                 'referencia' => 'required|unique:usr_unidades,referencia,'.$this->segment(6).',id',
                 'status' => 'nullable',
                 'usr_id_instituicao' => 'numeric',

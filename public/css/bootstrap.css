@@ -9608,6 +9608,9 @@ button.bg-dark:focus {
   .mx-lg-auto {
     margin-left: auto !important;
   }
+  .h-lg-100{
+    height: 100% !important;
+  }
 }
 
 @media (min-width: 1200px) {

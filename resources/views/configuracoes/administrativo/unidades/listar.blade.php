@@ -45,6 +45,9 @@ Unidades
 									<a href="javascript:void(0)" data="{{route('detalhes.unidades.administrativo', $unidade->id)}}" class="btn-detalhes nome mt-0">{{$unidade->nome}}</a>
 								</span>
 								<i class="fa fa-circle text-{{($unidade->status == 1 ? 'success' : 'danger')}} pb-1 status" style="font-size: 9px;vertical-align: middle;"></i>
+								<div class="col-12 pt-2">
+									<small class="font-weight-bold">{{$unidade->cnpj}}</small>
+								</div>
 							</h5>
 							<div class="mb-2 mt-4">
 								<a href="javascript:void(0)" data="{{route('detalhes.unidades.administrativo', $unidade->id)}}" class="btn btn-success btn-outline btn-xs ml-auto btn-editar" title="Editar informações">
@@ -82,6 +85,12 @@ Unidades
 @section('suporte')
 <script type="text/javascript">
 	$(document).ready( function (){
+		// Mascaras
+		$('.cnpj').mask('00.000.000/0000-00', {reverse: true});
+		$('.telefone').mask('(00) 0000-0000');
+		$('.telefone1').mask('(00) 0000-0000');
+		$('.cep').mask('00000-000');
+
 		// Campo de pesquisa
 		$("input[type=search]").keyup(function(){
 	        var texto = $(this).val().toUpperCase();
@@ -102,6 +111,42 @@ Unidades
 			}
 		});
 
+		// Buscando inforamções pelo CEP
+		$(".cep").on('blur', function() {
+	    	$(".country").html("");
+	        var cep = $(this).val().replace(/\D/g, '');
+	        if (cep != "") {
+	            var validacep = /^[0-9]{8}$/;
+	            if(validacep.test(cep)) {
+	                $.getJSON("https://viacep.com.br/ws/"+cep+"/json", function(dados) {
+	                	if (!("erro" in dados)) {
+	                		console.log(dados);
+	                        $(".country").html(dados.localidade.toUpperCase()+' - '+dados.uf.toUpperCase());
+	                        if(dados.localidade){
+	                            $('.cidade').val(dados.localidade.toUpperCase());
+	                        }
+	                        if(dados.uf){
+	                            $(".estado").val(dados.uf.toUpperCase());
+	                        }
+	                        if(dados.bairro){
+	                            $(".bairro").val(dados.bairro.toUpperCase());
+	                        }
+	                        if(dados.logradouro){
+	                            $(".rua").val(dados.logradouro.toUpperCase());
+	                        }
+	                        $(".rua").focus();
+	                    }else {
+	                        $(".country").html('<b class="text-danger"> CEP não localizado.</b');
+	                    }
+	                });
+	            } else {
+	                $(".cidade").val("");
+	                $(".estado").val("");
+	                $(".country").html("");
+	            }
+	        }
+	    });
+
 		// -------------------------------------------------
 		// Retornando informações 
 		// -------------------------------------------------
@@ -115,7 +160,17 @@ Unidades
 			$.get($(this).attr('data'), function(data){
 				$('.modal .identificador').val(data.id);
 				$('.modal .nome').val(data.nome);
+				$('.modal .cnpj').val(data.cnpj);
 				$('.modal .referencia').val(data.referencia);
+				$('.modal .telefone').val(data.telefone);
+				$('.modal .rua').val(data.rua);
+				$('.modal .numero').val(data.numero);
+				$('.modal .bairro').val(data.bairro);
+				$('.modal .complemento').val(data.complemento);
+				$('.modal .country').html(data.cidade+' - '+data.estado);
+				$('.modal .cidade').val(data.cidade);
+				$('.modal .estado').val(data.estado);
+				$('.modal .cep').val(data.cep);
 				$('.modal .usr_id_instituicao').val(data.usr_id_instituicao);
 				if(data.status == 1){
 					$(".modal .status").prop('checked', false).trigger("click");
@@ -162,7 +217,15 @@ Unidades
 			// Modal de detalhes
 			$.get($(this).attr('data'), function(data){
 				$('.modal .nome').val(data.nome);
+				$('.modal .cnpj').val(data.cnpj);
 				$('.modal .referencia').val(data.referencia);
+				$('.modal .telefone').val(data.telefone);
+				$('.modal .rua').val(data.rua);
+				$('.modal .numero').val(data.numero);
+				$('.modal .bairro').val(data.bairro);
+				$('.modal .complemento').val(data.complemento);
+				$('.modal .country').html(data.cidade+' - '+data.estado);
+				$('.modal .cep').val(data.cep);
 				$('.modal .usr_id_instituicao').val(data.usr_id_instituicao);
 				if(data.status == 1){
 					$('#modal-detalhes .status').removeAttr('disabled');

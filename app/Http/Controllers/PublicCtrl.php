@@ -11,6 +11,7 @@ use App\Http\Requests\LoginRqt;
 use App\Models\Associados;
 use App\Models\Atividades; 
 use App\Models\Base; 
+use App\Models\Unidades; 
 use App\Models\Usuarios;
 use App\Models\Homepage;
 use App\Models\Imagens;
@@ -292,9 +293,10 @@ class PublicCtrl extends Controller
 
 	// Telefones internos
 	public function ExibirTelefones(){
+		$unidades = Unidades::where('status', 1)->whereNotNull('cep')->get();
 		$usuariosRamal = Usuarios::where('id', '<>', 1)->where('status', 'Ativo')->whereNotNull('telefone_ramal')->get();
 		$usuariosCorporativo = Usuarios::where('id', '<>', 1)->where('status', 'Ativo')->whereNotNull('telefone_corporativo')->get();
 		$homepage = Imagens::where('tipo', 'homepage_principal')->get();
-		return view('telefones.exibir')->with('usuariosRamal', $usuariosRamal)->with('usuariosCorporativo', $usuariosCorporativo)->with('homepage', $homepage);
+		return view('telefones.exibir')->with('unidades', $unidades)->with('usuariosRamal', $usuariosRamal)->with('usuariosCorporativo', $usuariosCorporativo)->with('homepage', $homepage);
 	}
 }

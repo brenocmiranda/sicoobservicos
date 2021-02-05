@@ -7,9 +7,9 @@ Telefones
 @include('layouts.preloader')
 <div class="col-12 h-100 position-absolute imagem" style="background: url({{ (isset($homepage[0]) ? asset('storage/app/').'/'.$homepage->last()->endereco : asset('public/img/home.png').'?'.rand())}})"></div>
 	<div class="container-fluid h-100 row justify-content-center mx-auto">
-		<div class="col-12 row mx-auto px-5 pt-5">
-			<div class="col-5 col-sm-4 col-lg-5 px-0 row">
-				<img src="{{ asset('public/img/logo.png').'?'.rand() }}" class="col-lg-4 col-sm-6 col-12 px-0 h-100">
+		<div class="col-12 row mx-auto px-lg-5 pt-5">
+			<div class="col-lg-5 col-sm-4 col-6 px-0 row">
+				<img src="{{ asset('public/img/logo.png').'?'.rand() }}" class="col-lg-4 col-sm-6 col-xl-4 col-12 px-0 h-75 h-lg-100">
 			</div>
 			<div class="row ml-auto dropdown pb-5 pb-lg-0">
 				@if(Auth::check())
@@ -69,8 +69,9 @@ Telefones
 		            		<i class="mdi mdi-home-outline mdi-24px pr-1"></i>  
 		            	</h5>
 		            </a>
-			    	<a href="{{route('login')}}" target="_blank" class="btn btn-success btn-lg px-5 my-auto">
-		        		<span>Entrar</span>
+			    	<a href="{{route('login')}}" target="_blank" class="btn btn-success btn-lg px-lg-5 my-auto">
+			    		<i class="mdi mdi-account pr-1 visible-xs"></i>  
+		        		<span class="hidden-xs">Entrar</span>
 		        	</a>
 			    @endif
 			</div>
@@ -78,16 +79,21 @@ Telefones
 		
 		<div class="row col-12 col-sm-11 col-lg-11 mx-auto py-5 justify-content-center text-left">
 			<div class="col-lg-4 col-12 px-0 px-lg-4">
-				<div class="m-2 p-4 shadow" style="background-color: white; border-radius: 10px">
+				<div class="mx-2 mb-4 p-4 shadow" style="background-color: white; border-radius: 10px">
 					<div class="text-center">
 						<h5>Agências</h5>
 					</div>
 					<hr class="mt-1 mx-3">
-					<div>
-					@if(isset($usuariosRamal[0]))
-						@foreach($usuariosRamal as $ramal)
+					<div class="px-3">
+					@if(isset($unidades[0]))
+						@foreach($unidades as $unidade)
 						<p class="text-truncate">
-							
+							<b>{{$unidade->nome}}</b>
+							<small>{{$unidade->referencia}}</small>
+							<br>
+							<label>
+								{{$unidade->rua}}, {{$unidade->numero}}, {{$unidade->bairro}} - {{$unidade->cidade}}/{{$unidade->estado}}
+							</label>
 						</p>
 						@endforeach
 					@else
@@ -99,16 +105,17 @@ Telefones
 				</div>
 			</div>
 			<div class="col-lg-4 col-12 px-0 px-lg-4">
-				<div class="m-2 p-4 shadow" style="background-color: white; border-radius: 10px">
+				<div class="mx-2 mb-4 p-4 shadow" style="background-color: white; border-radius: 10px">
 					<div class="text-center">
 						<h5>Corporativos</h5>
 					</div>
 					<hr class="mt-1 mx-3">
-					<div>
+					<div class="px-3">
 						@if(isset($usuariosCorporativo[0]))
 							@foreach($usuariosCorporativo->sortBy('login') as $corporativo)
 							<p class="text-truncate">
-								<b>({{substr(str_replace('+55', '', $corporativo->telefone_corporativo), 0, 2).') '.substr(str_replace('+55', '', $corporativo->telefone_corporativo), 2, 5).'-'.substr(str_replace('+55', '', $corporativo->telefone_corporativo), -4)}}</b> - {{$corporativo->RelationAssociado->nome}}
+								<b>({{substr(str_replace('+55', '', $corporativo->telefone_corporativo), 0, 2).') '.substr(str_replace('+55', '', $corporativo->telefone_corporativo), 2, 5).'-'.substr(str_replace('+55', '', $corporativo->telefone_corporativo), -4)}}</b>
+								<span>- {{$corporativo->RelationAssociado->nome}}</span>
 							</p>
 							@endforeach
 						@else
@@ -120,16 +127,17 @@ Telefones
 				</div>
 			</div>
 			<div class="col-lg-4 col-12 px-0 px-lg-4">
-				<div class="m-2 p-4 shadow" style="background-color: white; border-radius: 10px">
+				<div class="mx-2 mb-4 p-4 shadow" style="background-color: white; border-radius: 10px">
 					<div class="text-center">
 						<h5>Ramais</h5>
 					</div>
 					<hr class="mt-1 mx-3">
-					<div>
+					<div class="px-3">
 						@if(isset($usuariosRamal[0]))
 							@foreach($usuariosRamal->sortBy('login') as $ramal)
 							<p class="text-truncate">
-								<b>{{$ramal->telefone_ramal}}</b> - {{$ramal->RelationAssociado->nome}}
+								<b>{{$ramal->telefone_ramal}}</b> 
+								<span>- {{$ramal->RelationAssociado->nome}}</span>
 							</p>
 							@endforeach
 						@else
