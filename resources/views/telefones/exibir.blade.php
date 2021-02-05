@@ -78,8 +78,8 @@ Telefones
 	    </div>
 		
 		<div class="row col-12 col-sm-11 col-lg-11 mx-auto py-5 justify-content-center text-left">
-			<div class="col-lg-4 col-12 px-0 px-lg-4">
-				<div class="mx-2 mb-4 p-4 shadow" style="background-color: white; border-radius: 10px">
+			<div class="col-lg-4 col-12 px-0 px-lg-4 mb-4">
+				<div class="mx-2 mb-4 p-4 shadow h-100" style="background-color: white; border-radius: 10px">
 					<div class="text-center">
 						<h5>Agências</h5>
 					</div>
@@ -87,13 +87,19 @@ Telefones
 					<div class="px-3">
 					@if(isset($unidades[0]))
 						@foreach($unidades as $unidade)
-						<p class="text-truncate">
-							<b>{{$unidade->nome}}</b>
-							<small>{{$unidade->referencia}}</small>
-							<br>
-							<label>
-								{{$unidade->rua}}, {{$unidade->numero}}, {{$unidade->bairro}} - {{$unidade->cidade}}/{{$unidade->estado}}
-							</label>
+						<p>
+							<div>
+								<b>{{$unidade->nome}}</b>
+							</div>
+							<div>
+								<small>{{$unidade->cnpj}}</small>
+							</div>
+							<small class="d-block">
+								{{$unidade->rua.', '.$unidade->numero.', '.$unidade->bairro.(isset($unidade->complemento) ? ', '.$unidade->complemento : '')}} - {{$unidade->cidade.'/'.$unidade->estado}}
+							</small>
+							<small class="d-block">
+								<b>{{$unidade->telefone.(isset($unidade->telefone1) ? ' ou '.$unidade->telefone1 : '')}}</b>
+							</small>
 						</p>
 						@endforeach
 					@else
@@ -104,8 +110,8 @@ Telefones
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-4 col-12 px-0 px-lg-4">
-				<div class="mx-2 mb-4 p-4 shadow" style="background-color: white; border-radius: 10px">
+			<div class="col-lg-4 col-12 px-0 px-lg-4 mb-4">
+				<div class="mx-2 mb-4 p-4 shadow h-100" style="background-color: white; border-radius: 10px;">
 					<div class="text-center">
 						<h5>Corporativos</h5>
 					</div>
@@ -115,7 +121,7 @@ Telefones
 							@foreach($usuariosCorporativo->sortBy('login') as $corporativo)
 							<p class="text-truncate">
 								<b>({{substr(str_replace('+55', '', $corporativo->telefone_corporativo), 0, 2).') '.substr(str_replace('+55', '', $corporativo->telefone_corporativo), 2, 5).'-'.substr(str_replace('+55', '', $corporativo->telefone_corporativo), -4)}}</b>
-								<span>- {{$corporativo->RelationAssociado->nome}}</span>
+								<span>- {{explode(' ', $corporativo->RelationAssociado->nome)[0]}}</span>
 							</p>
 							@endforeach
 						@else
@@ -126,8 +132,8 @@ Telefones
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-4 col-12 px-0 px-lg-4">
-				<div class="mx-2 mb-4 p-4 shadow" style="background-color: white; border-radius: 10px">
+			<div class="col-lg-4 col-12 px-0 px-lg-4 mb-4">
+				<div class="mx-2 mb-4 p-4 shadow h-100" style="background-color: white; border-radius: 10px">
 					<div class="text-center">
 						<h5>Ramais</h5>
 					</div>
