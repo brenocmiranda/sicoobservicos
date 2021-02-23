@@ -292,6 +292,7 @@ class TecnologiaCtrl extends Controller
 				'titulo' => $request->titulo,
 				'subtitulo' => $request->subtitulo, 
 				'descricao' => $request->descricao, 
+                'tipo' => $request->tipo, 
 				'gti_id_ambientes' => $request->gti_id_ambientes,
 				'gti_id_fontes' => $request->gti_id_fontes,
 			]);
@@ -333,6 +334,7 @@ class TecnologiaCtrl extends Controller
 				'titulo' => $request->titulo,
 				'subtitulo' => $request->subtitulo, 
 				'descricao' => $request->descricao, 
+                'tipo' => $request->tipo, 
 				'gti_id_ambientes' => $request->gti_id_ambientes,
 				'gti_id_fontes' => $request->gti_id_fontes, 
 			]);

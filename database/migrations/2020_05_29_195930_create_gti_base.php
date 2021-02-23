@@ -19,6 +19,7 @@ class CreateGtiBase extends Migration
             $table->string('titulo');
             $table->string('subtitulo');
             $table->longText('descricao');
+            $table->string('tipo')->default('externo');
 
             $table->integer('gti_id_ambientes')->unsigned();
             $table->foreign('gti_id_ambientes')->references('id')->on('gti_ambientes');

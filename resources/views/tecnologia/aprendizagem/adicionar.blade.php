@@ -46,12 +46,24 @@ Adicionar tópico
 									</select>
 								</div>
 							</div>
-							<div class="col-lg-5 col-12">
+							<div class="col-lg-6 col-12">
 								<div class="form-group">
 									<label class="col-form-label pb-0">Fontes</label>
 									<div class="">
 										<select class="form-control form-control-line gti_id_fontes" name="gti_id_fontes" required disabled>
 											<option disabled>Selecione</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-4 col-12">
+								<div class="form-group">
+									<label class="col-form-label pb-0">Tipo</label>
+									<div class="">
+										<select class="form-control form-control-line tipo" name="tipo" required>
+											<option disabled>Selecione</option>
+											<option value="externo">Externo</option>
+											<option value="interno">Interno</option>
 										</select>
 									</div>
 								</div>

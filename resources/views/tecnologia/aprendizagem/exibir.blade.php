@@ -47,8 +47,10 @@ Tópicos
 											<a href="{{route('detalhes.base', $topico->id)}}">
 												<div>
 													<h6>{{$topico->RelationAmbientes->nome}} &#183 {{$topico->RelationFontes->nome}}</h6>
-													<h5>{{$topico->titulo}}</h5>
+													<h5>{{$topico->titulo}} <small class="text-capitalize">({{$topico->tipo}})</small></h5>
 										            <label>{{$topico->subtitulo}}</label> 
+										            <br>
+										            
 												</div>
 											</a>
 										</div>

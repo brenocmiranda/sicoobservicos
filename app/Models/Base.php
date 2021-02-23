@@ -11,7 +11,7 @@ class Base extends Model
 
    	protected $table = 'gti_base';
     protected $primaryKey = 'id';
-    protected $fillable = ['id', 'titulo', 'subtitulo', 'descricao', 'gti_id_ambientes', 'gti_id_fontes', 'created_at', 'updated_at'];
+    protected $fillable = ['id', 'titulo', 'subtitulo', 'descricao', 'tipo', 'gti_id_ambientes', 'gti_id_fontes', 'created_at', 'updated_at'];
 
     public function RelationAmbientes(){
         return $this->belongsTo(Ambientes::class, 'gti_id_ambientes', 'id');

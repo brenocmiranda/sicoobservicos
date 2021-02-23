@@ -46,7 +46,7 @@ Editar tópico
                   </select>
                 </div>
               </div>
-              <div class="col-lg-5 col-12">
+              <div class="col-lg-6 col-12">
                 <div class="form-group">
                   <label class="col-form-label pb-0">Fontes</label>
                   <div class="">
@@ -55,6 +55,18 @@ Editar tópico
                       @foreach($fontes as $fonte)
                     <option value="{{$fonte->id}}">{{$fonte->nome}}</option>
                     @endforeach
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4 col-12">
+                <div class="form-group">
+                  <label class="col-form-label pb-0">Tipo</label>
+                  <div class="">
+                    <select class="form-control form-control-line tipo" name="tipo" required>
+                      <option disabled>Selecione</option>
+                      <option value="externo" {{($base->tipo == "externo" ? 'selected' : '')}}>Externo</option>
+                      <option value="interno" {{($base->tipo == "interno" ? 'selected' : '')}}>Interno</option>
                     </select>
                   </div>
                 </div>

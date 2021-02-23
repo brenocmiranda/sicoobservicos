@@ -40,13 +40,22 @@ class SuporteCtrl extends Controller
 	#-------------------------------------------------------------------
 	// Exibir base de conhecimento
 	public function Aprendizagem(){
-		$ambientes = Base::join('gti_ambientes', 'gti_id_ambientes', 'gti_ambientes.id')->where('gti_ambientes.status', 1)->select('gti_ambientes.*')->orderBy('nome', 'ASC')->get();
-		$fontes = Base::join('gti_fontes', 'gti_id_fontes', 'gti_fontes.id')->where('gti_fontes.status', 1)->select('gti_fontes.*')->orderBy('nome', 'ASC')->get();
+        if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
+		    $ambientes = Base::join('gti_ambientes', 'gti_id_ambientes', 'gti_ambientes.id')->where('gti_ambientes.status', 1)->select('gti_ambientes.*')->orderBy('nome', 'ASC')->get();
+		    $fontes = Base::join('gti_fontes', 'gti_id_fontes', 'gti_fontes.id')->where('gti_fontes.status', 1)->select('gti_fontes.*')->orderBy('nome', 'ASC')->get();
+        }else{
+            $ambientes = Base::join('gti_ambientes', 'gti_id_ambientes', 'gti_ambientes.id')->where('gti_ambientes.status', 1)->where('tipo', 'externo')->select('gti_ambientes.*')->orderBy('nome', 'ASC')->get();
+            $fontes = Base::join('gti_fontes', 'gti_id_fontes', 'gti_fontes.id')->where('gti_fontes.status', 1)->where('tipo', 'externo')->select('gti_fontes.*')->orderBy('nome', 'ASC')->get();
+        }
 		return view('suporte.base.exibir')->with('ambientes', $ambientes)->with('fontes', $fontes);	
 	}
 	// Listar todos os itens da base
 	public function AprendizagemListar($ambiente, $fonte){
-		$todos = Base::where('gti_id_ambientes', $ambiente)->where('gti_id_fontes', $fonte)->get();
+        if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
+		    $todos = Base::where('gti_id_ambientes', $ambiente)->where('gti_id_fontes', $fonte)->get();
+        }else{
+            $todos = Base::where('gti_id_ambientes', $ambiente)->where('gti_id_fontes', $fonte)->where('tipo', 'externo')->get(); 
+        }
 		$ambientes = Ambientes::find($ambiente);
 		$fontes = Fontes::find($fonte);
 		return view('suporte.base.listar')->with('todos', $todos)->with('ambientes', $ambientes)->with('fontes', $fontes);
@@ -54,7 +63,11 @@ class SuporteCtrl extends Controller
     // Detallhes do tópico
     public function DetalhesAprendizagem($id){
         $dados = Base::find($id);
-        $topicos = Base::where('gti_id_ambientes', $dados->gti_id_ambientes)->where('gti_id_fontes', $dados->gti_id_fontes)->where('id', '<>', $dados->id)->limit(5)->get();
+        if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
+            $topicos = Base::where('gti_id_ambientes', $dados->gti_id_ambientes)->where('gti_id_fontes', $dados->gti_id_fontes)->where('id', '<>', $dados->id)->limit(5)->get();
+        }else{
+            $topicos = Base::where('gti_id_ambientes', $dados->gti_id_ambientes)->where('gti_id_fontes', $dados->gti_id_fontes)->where('id', '<>', $dados->id)->where('tipo', 'externo')->limit(5)->get();
+        }
         return view('suporte.base.detalhes')->with('dados', $dados)->with('topicos', $topicos);
     }
 
@@ -184,7 +197,11 @@ class SuporteCtrl extends Controller
     }
     // Listando items da base de conhecimento
     public function ListarBaseChamados($idFonte, $idAmbiente){
-        $dados = Base::where('gti_id_ambientes', $idAmbiente)->where('gti_id_fontes', $idFonte)->limit(5)->get();
+        if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
+            $dados = Base::where('gti_id_ambientes', $idAmbiente)->where('gti_id_fontes', $idFonte)->limit(5)->get();
+        }else{
+            $dados = Base::where('gti_id_ambientes', $idAmbiente)->where('gti_id_fontes', $idFonte)->where('tipo', 'externo')->limit(5)->get();  
+        }
         return $dados;
     }
     // Fazendo upload de arquivos
