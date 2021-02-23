@@ -11,7 +11,7 @@ class Unidades extends Model
 
     protected $table = 'usr_unidades';
     protected $primaryKey = 'id';
-    protected $fillable = ['id', 'nome', 'referencia', 'status', 'usr_id_instituicao', 'created_at', 'updated_at'];
+    protected $fillable = ['id', 'cnpj', 'nome', 'referencia', 'status', 'telefone', 'telefone1', 'rua', 'bairro', 'numero', 'complemento', 'cidade', 'estado', 'pais', 'cep', 'usr_id_instituicao', 'created_at', 'updated_at'];
 
     public function RelationInstituicao(){
         return $this->belongsTo(Instituicoes::class, 'usr_id_instituicao', 'id');

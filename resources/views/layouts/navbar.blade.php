@@ -20,7 +20,12 @@
                     <i class="mdi mdi-home-outline"></i>
                 </a>
             </li>
-            
+            <li>
+                <a href="{{route('telefones')}}"  target="_blank" title="Telefones">
+                    <i class="mdi mdi-phone"></i>
+                </a>
+            </li>
+
         </ul>
         <!-- /Homepage -->
 

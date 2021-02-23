@@ -17,9 +17,20 @@ class CreateUsrUnidades extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('nome');
+            $table->string('cnpj');
             $table->string('referencia');
             $table->boolean('status'); // 1 - Ativado | 0 - Desativado
-           
+            $table->string('telefone')->nullable();
+            $table->string('telefone1')->nullable();
+            $table->text('rua')->nullable();
+            $table->string('bairro')->nullable();
+            $table->string('numero')->nullable();
+            $table->text('complemento')->nullable();
+            $table->string('cidade')->nullable();
+            $table->string('estado')->nullable();
+            $table->string('pais')->default('Brasil');
+            $table->string('cep')->nullable();
+
             $table->integer('usr_id_instituicao')->unsigned();
             $table->foreign('usr_id_instituicao')->references('id')->on('usr_instituicoes');
 

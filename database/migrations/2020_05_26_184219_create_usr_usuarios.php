@@ -22,6 +22,8 @@ class CreateUsrUsuarios extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->integer('attempts')->default(0);
             $table->string('telefone');
+            $table->string('telefone_corporativo')->nullable();
+            $table->string('telefone_ramal')->nullable();
             $table->rememberToken();
             $table->enum('status', ['Ativo', 'Desativado', 'Bloqueado']);
             $table->integer('usr_id_setor')->unsigned();

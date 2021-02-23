@@ -382,7 +382,17 @@ class ConfiguracoesCtrl extends Controller
 		if(Auth::user()->RelationFuncao->gerenciar_configuracoes == 1){
 			$create = Unidades::create([
 				'nome' => $request->nome,
+				'cnpj' => $request->cnpj,
 				'referencia' => $request->referencia,
+				'telefone' => $request->telefone,
+				'telefone1' => $request->telefone1,
+				'rua' => $request->rua,
+				'bairro' => $request->bairro,
+				'numero' => $request->numero,
+				'complemento' => $request->complemento,
+				'cidade' => $request->cidade,
+				'estado' => $request->estado,
+				'cep' => $request->cep,
 				'usr_id_instituicao' => $request->usr_id_instituicao, 
 				'status' => ($request->status == "on" ? 1 : 0)
 			]);
@@ -400,14 +410,24 @@ class ConfiguracoesCtrl extends Controller
 	}
 	// Editando informações 
 	public function EditarUnidades(UnidadesRqt $request, $id){
+		$create = Unidades::find($id);
 		if(Auth::user()->RelationFuncao->gerenciar_configuracoes == 1){
 			Unidades::find($id)->update([
 				'nome' => $request->nome,
+				'cnpj' => $request->cnpj,
 				'referencia' => $request->referencia,
+				'telefone' => $request->telefone,
+				'telefone1' => $request->telefone1,
+				'rua' => $request->rua,
+				'bairro' => $request->bairro,
+				'numero' => $request->numero,
+				'complemento' => $request->complemento,
+				'cidade' => $request->cidade,
+				'estado' => $request->estado,
+				'cep' => $request->cep,
 				'usr_id_instituicao' => $request->usr_id_instituicao, 
 				'status' => ($request->status == "on" ? 1 : 0)
 			]);
-			$create = Unidades::find($id);
 			Atividades::create([
 				'nome' => 'Edição de informações',
 				'descricao' => 'Você modificou as informações da unidade administrativa '.$create->nome.'.',
@@ -524,6 +544,8 @@ class ConfiguracoesCtrl extends Controller
 				'password' => Hash::make('Sicoob4133'), 
 				'email' => $request->email,
 				'telefone' => str_replace("(", "+55", str_replace(") ", "", str_replace("-", "", $request->telefone))),
+				'telefone_corporativo' => (isset($request->telefone_corporativo) ? str_replace("(", "+55", str_replace(") ", "", str_replace("-", "", $request->telefone_corporativo))) : null),
+				'telefone_ramal' =>  $request->telefone_ramal,
 				'status' => $request->status, 
 				'remember_token' => $request->_token, 
 				'usr_id_setor' => $request->usr_id_setor, 
@@ -582,10 +604,13 @@ class ConfiguracoesCtrl extends Controller
 	// Editando informações do usuário
 	public function EditarUsuarios(UsuariosRqt $request, $id){
 		if(Auth::user()->RelationFuncao->gerenciar_configuracoes == 1){
+			$create = Usuarios::find($id);
 			Usuarios::find($id)->update([
 				'login' => $request->login, 
 				'email' => $request->email, 
 				'telefone' => str_replace("(", "+55", str_replace(") ", "", str_replace("-", "", $request->telefone))),
+				'telefone_corporativo' => (isset($request->telefone_corporativo) ? str_replace("(", "+55", str_replace(") ", "", str_replace("-", "", $request->telefone_corporativo))) : $request->telefone_corporativo),
+				'telefone_ramal' =>  $request->telefone_ramal,
 				'status' => $request->status, 
 				'remember_token' => $request->_token, 
 				'usr_id_setor' => $request->usr_id_setor, 
@@ -593,7 +618,6 @@ class ConfiguracoesCtrl extends Controller
 				'usr_id_instituicao' => $request->usr_id_instituicao, 
 				'usr_id_unidade' => $request->usr_id_unidade
 			]);
-			$create = Usuarios::find($id);
 			Atividades::create([
 					'nome' => 'Edição de informações',
 					'descricao' => 'Você modificou as informações do usuário '.$create->login.'.',
