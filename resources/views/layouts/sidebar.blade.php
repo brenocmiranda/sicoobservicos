@@ -68,8 +68,8 @@
         </a>
         <ul class="nav nav-second-level {{ (Request::segment(2) == 'atendimento' ? ' collapse in' : '') }}">
           <li> <a href="{{route('exibir.painel.atendimento')}}"><span class="hide-menu">Painel do associado</span></a> </li>
-          <li> <a href="{{route('exibir.cadastro.atendimento')}}"><span class="hide-menu">Novos associados</span></a> </li>
           <li> <a href="#"><span class="hide-menu">Alteração cadastral</span></a> </li>
+          <li> <a href="{{route('exibir.cadastro.atendimento')}}"><span class="hide-menu">Novos associados</span></a> </li>
           <li> <a href="#"><span class="hide-menu">Renovação cadastral</span></a> </li>
         </ul>
       </li>
