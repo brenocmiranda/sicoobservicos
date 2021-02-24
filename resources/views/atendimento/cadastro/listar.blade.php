@@ -23,69 +23,138 @@ Solicitações de Cadastro
 			<div class="col-12 row mb-4 mx-auto">
 				@include('layouts.search')
 				<div class="col-2 col-lg-5 col-sm-5 p-0 row mx-auto">
-					<a href="{{route('solicitar.cadastro.atendimento')}}" class="btn btn-primary btn-outline ml-auto" id="adicionar" name="adicionar" title="Solicitar cadastro">
+					<a href="{{route('adicionar.cadastro.atendimento')}}" class="btn btn-primary btn-outline ml-auto" id="adicionar" name="adicionar" title="Solicitar cadastro">
 						<i class="m-0 pr-lg-1 mdi mdi-plus"></i> 
 						<span class="hidden-xs">Novo associado</span>
 					</a>
 				</div>
 			</div>
-
-			<section class="py-4">
-				<div class="sttabs tabs-style-linetriangle row justify-content-center mx-auto">
+            <section class="py-4">
+                <div class="sttabs tabs-style-linetriangle row justify-content-center mx-auto">
                     <nav class="col-lg-8 col-12 mx-auto">
                         <ul>
                             <li class="tab-current">
                                 <a href="#section-1">
-                                    <span class="font-weight-bold d-block">Devolvido</span>
+                                    <span class="font-weight-bold d-block">Devolvido <small id="devolvido" class="font-weight-bold"></small></span>
                                 </a>
                             </li>
-                        	<li>
-                        		<a href="#section-2">
-                        			<span class="font-weight-bold d-block">Em aberto</span>
-                        		</a>
-                        	</li>
-                        	<li>
-                        		<a href="#section-3">
-                        			<span class="font-weight-bold d-block">Em andamento</span>
-                        		</a>
-                        	</li>
-                        	<li>
-                        		<a href="#section-4">
-                        			<span class="font-weight-bold d-block">Finalizado</span>
-                        		</a>
-                        	</li>
-                        	<li>
-                        		<a href="#section-5">
-                        			<span class="font-weight-bold d-block">Cancelado</span>
-                        		</a>
-                        	</li>
+                            <li>
+                                <a href="#section-2">
+                                    <span class="font-weight-bold d-block">Em aberto <small id="aberto" class="font-weight-bold"></small></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#section-3">
+                                    <span class="font-weight-bold d-block">Em andamento <small id="andamento" class="font-weight-bold"></small></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#section-4">
+                                    <span class="font-weight-bold d-block">Finalizado <small id="finalizado" class="font-weight-bold"></small></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#section-5">
+                                    <span class="font-weight-bold d-block">Cancelado <small id="cancelado" class="font-weight-bold"></small></span>
+                                </a>
+                            </li>
                         </ul>
                     </nav>
                     <div class="content-wrap col-12 px-0">
                         <section id="section-1" class="content-current">
                             <ul class="row col-12 m-auto px-0">
-                                <li class="col-12 border rounded shadow-sm mb-3 callout-warning">
+                                @if(isset($solicitacoes[0]))
+                                <?php $a = 0;?>
+                                    @foreach($solicitacoes as $solicitacao)
+                                        @if($solicitacao->RelationStatusRecente->status == 'devolvido')
+                                        <li class="col-12 border rounded shadow-sm mb-3 callout-warning">
+                                            <div class="p-3 h-100 row">
+                                                <div class="text-left col-lg-6 col-8">
+                                                    <a href="#">
+                                                        <h5 class="text-uppercase my-1 text-truncate">
+                                                            <span>{{$solicitacao->nome}}</span> 
+                                                            <i>&#183</i>
+                                                            <span>#0{{$solicitacao->id}}</span> 
+                                                            <div class="badge badge-warning mx-2 text-uppercase">{{$solicitacao->status}}</div>
+                                                        </h5>
+                                                    </a>
+                                                    <label class="text-truncate d-block font-weight-bold text-muted mb-3">
+                                                        <span>{{($solicitacao->sigla == "PF" ? 'Pessoa física' : 'Pessoa jurídica')}}</span>
+                                                    </label>
+                                                    <label class="text-capitalize d-block text-primary mb-0">
+                                                        <small class="text-dark"><b>Documento</b>: {{$solicitacao->documento}}</small>
+                                                    </label>
+                                                    <label class="text-capitalize d-block text-primary mb-0">
+                                                        <small class="text-dark"><b>Escolaridade</b>: {{$solicitacao->escolaridade}}</small>
+                                                    </label>
+                                                    <label class="text-truncate d-block mb-0">
+                                                        <small class="text-dark"><b>Data de solicitação</b>: {{date('d/m/Y H:i:s', strtotime($solicitacao->created_at))}}</small>
+                                                    </label>                  
+                                                </div>
+                                                <div class="text-right row col-lg-3 col-4 ml-auto my-auto">
+                                                    <div class="ml-auto">
+                                                        <a href="#" class="btn btn-default btn-outline btn-rounded btn-xs col-10 mb-2" title="">
+                                                            <i class="mdi mdi-comment-processing-outline"></i>
+                                                            <small class="hidden-xs"> Mais informações</small>
+                                                        </a>
+                                                        <a href="#" class="btn btn-default btn-outline btn-rounded btn-xs col-10 mb-2" title="">
+                                                            <i class="mdi mdi-cached"></i>
+                                                            <small class="hidden-xs"> Atualizar status</small>
+                                                        </a>
+                                                        <a href="#" class="btn btn-default btn-outline btn-rounded btn-xs col-10 mb-2" title="">
+                                                            <i class="mdi mdi-cloud-print-outline"></i>
+                                                            <small class="hidden-xs"> Gerar relatório</small>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <?php $a++; ?>
+                                        @endif
+                                    @endforeach
+                                    @if($a == 0)
+                                    <li class="text-center mx-auto">
+                                        <p class="col-12">
+                                            <h5 class="text-center font-weight-normal"><i class="mdi mdi-alert-outline mdi-24px pr-4"></i> Você não possui nenhuma solicitação nesse estado.</h5>
+                                        </p>
+                                    </li>
+                                    @endif
+                                @else
+                                <li class="text-center mx-auto">
+                                    <p class="col-12">
+                                        <h5 class="text-center font-weight-normal"><i class="mdi mdi-alert-outline mdi-24px pr-4"></i> Você não possui nenhuma solicitação nesse estado.</h5>
+                                    </p>
+                                </li>
+                                @endif
+                            </ul>
+                        </section>
+                        <section id="section-2">
+                            @if(isset($solicitacoes[0]))
+                            <?php $b = 0;?>
+                                @foreach($solicitacoes as $solicitacao)
+                                @if($solicitacao->RelationStatusRecente->status == 'aberto')
+                                <li class="col-12 border rounded shadow-sm mb-3 callout-success">
                                     <div class="p-3 h-100 row">
                                         <div class="text-left col-lg-6 col-8">
                                             <a href="#">
                                                 <h5 class="text-uppercase my-1 text-truncate">
-                                                    <span>BRENO DE CARVALHO MIRANDA</span> 
+                                                    <span>{{$solicitacao->nome}}</span> 
                                                     <i>&#183</i>
-                                                    <span>#0152</span> 
-                                                    <div class="badge badge-warning mx-2">Devolvido</div>
+                                                    <span>#0{{$solicitacao->id}}</span> 
+                                                    <div class="badge badge-warning mx-2 text-uppercase">{{$solicitacao->status}}</div>
                                                 </h5>
                                             </a>
                                             <label class="text-truncate d-block font-weight-bold text-muted mb-3">
-                                                <span>Pessoa Física</span>
+                                                <span>{{($solicitacao->sigla == "PF" ? 'Pessoa física' : 'Pessoa jurídica')}}</span>
                                             </label>
                                             <label class="text-capitalize d-block text-primary mb-0">
-                                                <small class="text-dark"><b>Documento</b>: 121.489.666-93</small>
+                                                <small class="text-dark"><b>Documento</b>: {{$solicitacao->documento}}</small>
                                             </label>
                                             <label class="text-capitalize d-block text-primary mb-0">
-                                                <small class="text-dark"><b>Escolaridade</b>: Ensino Superior Incompleto</small>
+                                                <small class="text-dark"><b>Escolaridade</b>: {{$solicitacao->escolaridade}}</small>
                                             </label>
                                             <label class="text-truncate d-block mb-0">
-                                                <small class="text-dark"><b>Data de solicitação</b>: 22/01/2021 16:30:02</small>
+                                                <small class="text-dark"><b>Data de solicitação</b>: {{date('d/m/Y H:i:s', strtotime($solicitacao->created_at))}}</small>
                                             </label>                  
                                         </div>
                                         <div class="text-right row col-lg-3 col-4 ml-auto my-auto">
@@ -106,32 +175,235 @@ Solicitações de Cadastro
                                         </div>
                                     </div>
                                 </li>
-                            </ul>
-                        </section>
-                        <section id="section-2">
-							<p class="col-12">
-                                <h5 class="text-center font-weight-normal"><i class="mdi mdi-alert-outline mdi-24px pr-4"></i> Você não possui nenhuma solicitação nesse estado.</h5>
-                            </p>
+                                <?php $b++; ?>
+                                @endif
+                                @endforeach
+                                @if($b == 0)
+                                <li class="text-center mx-auto">
+                                    <p class="col-12">
+                                        <h5 class="text-center font-weight-normal"><i class="mdi mdi-alert-outline mdi-24px pr-4"></i> Você não possui nenhuma solicitação nesse estado.</h5>
+                                    </p>
+                                </li>
+                                @endif
+                            @else
+                            <li class="text-center mx-auto">
+                                <p class="col-12">
+                                    <h5 class="text-center font-weight-normal"><i class="mdi mdi-alert-outline mdi-24px pr-4"></i> Você não possui nenhuma solicitação nesse estado.</h5>
+                                </p>
+                            </li>
+                            @endif
                         </section>
                         <section id="section-3">
-							<p class="col-12">
-                                <h5 class="text-center font-weight-normal"><i class="mdi mdi-alert-outline mdi-24px pr-4"></i> Você não possui nenhuma solicitação nesse estado.</h5>
-                            </p>
+                            @if(isset($solicitacoes[0]))
+                                <?php $c = 0;?>
+                                @foreach($solicitacoes as $solicitacao)
+                                @if($solicitacao->RelationStatusRecente->status == 'andamento')
+                                <li class="col-12 border rounded shadow-sm mb-3 callout-info">
+                                    <div class="p-3 h-100 row">
+                                        <div class="text-left col-lg-6 col-8">
+                                            <a href="#">
+                                                <h5 class="text-uppercase my-1 text-truncate">
+                                                    <span>{{$solicitacao->nome}}</span> 
+                                                    <i>&#183</i>
+                                                    <span>#0{{$solicitacao->id}}</span> 
+                                                    <div class="badge badge-warning mx-2 text-uppercase">{{$solicitacao->status}}</div>
+                                                </h5>
+                                            </a>
+                                            <label class="text-truncate d-block font-weight-bold text-muted mb-3">
+                                                <span>{{($solicitacao->sigla == "PF" ? 'Pessoa física' : 'Pessoa jurídica')}}</span>
+                                            </label>
+                                            <label class="text-capitalize d-block text-primary mb-0">
+                                                <small class="text-dark"><b>Documento</b>: {{$solicitacao->documento}}</small>
+                                            </label>
+                                            <label class="text-capitalize d-block text-primary mb-0">
+                                                <small class="text-dark"><b>Escolaridade</b>: {{$solicitacao->escolaridade}}</small>
+                                            </label>
+                                            <label class="text-truncate d-block mb-0">
+                                                <small class="text-dark"><b>Data de solicitação</b>: {{date('d/m/Y H:i:s', strtotime($solicitacao->created_at))}}</small>
+                                            </label>                  
+                                        </div>
+                                        <div class="text-right row col-lg-3 col-4 ml-auto my-auto">
+                                            <div class="ml-auto">
+                                                <a href="#" class="btn btn-default btn-outline btn-rounded btn-xs col-10 mb-2" title="">
+                                                    <i class="mdi mdi-comment-processing-outline"></i>
+                                                    <small class="hidden-xs"> Mais informações</small>
+                                                </a>
+                                                <a href="#" class="btn btn-default btn-outline btn-rounded btn-xs col-10 mb-2" title="">
+                                                    <i class="mdi mdi-cached"></i>
+                                                    <small class="hidden-xs"> Atualizar status</small>
+                                                </a>
+                                                <a href="#" class="btn btn-default btn-outline btn-rounded btn-xs col-10 mb-2" title="">
+                                                    <i class="mdi mdi-cloud-print-outline"></i>
+                                                    <small class="hidden-xs"> Gerar relatório</small>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <?php $c++; ?>
+                                @endif
+                                @endforeach
+                                @if($c == 0)
+                                <li class="text-center mx-auto">
+                                    <p class="col-12">
+                                        <h5 class="text-center font-weight-normal"><i class="mdi mdi-alert-outline mdi-24px pr-4"></i> Você não possui nenhuma solicitação nesse estado.</h5>
+                                    </p>
+                                </li>
+                                @endif
+                            @else
+                            <li class="text-center mx-auto">
+                                <p class="col-12">
+                                    <h5 class="text-center font-weight-normal"><i class="mdi mdi-alert-outline mdi-24px pr-4"></i> Você não possui nenhuma solicitação nesse estado.</h5>
+                                </p>
+                            </li>
+                            @endif
                         </section>
                         <section id="section-4">
-							<p class="col-12">
-                                <h5 class="text-center font-weight-normal"><i class="mdi mdi-alert-outline mdi-24px pr-4"></i> Você não possui nenhuma solicitação nesse estado.</h5>
-                            </p>			
+                            @if(isset($solicitacoes[0]))
+                            <?php $d = 0;?>
+                                @foreach($solicitacoes as $solicitacao)
+                                @if($solicitacao->RelationStatusRecente->status == 'finalizado')
+                                <li class="col-12 border rounded shadow-sm mb-3 callout-dark">
+                                    <div class="p-3 h-100 row">
+                                        <div class="text-left col-lg-6 col-8">
+                                            <a href="#">
+                                                <h5 class="text-uppercase my-1 text-truncate">
+                                                    <span>{{$solicitacao->nome}}</span> 
+                                                    <i>&#183</i>
+                                                    <span>#0{{$solicitacao->id}}</span> 
+                                                    <div class="badge badge-warning mx-2 text-uppercase">{{$solicitacao->status}}</div>
+                                                </h5>
+                                            </a>
+                                            <label class="text-truncate d-block font-weight-bold text-muted mb-3">
+                                                <span>{{($solicitacao->sigla == "PF" ? 'Pessoa física' : 'Pessoa jurídica')}}</span>
+                                            </label>
+                                            <label class="text-capitalize d-block text-primary mb-0">
+                                                <small class="text-dark"><b>Documento</b>: {{$solicitacao->documento}}</small>
+                                            </label>
+                                            <label class="text-capitalize d-block text-primary mb-0">
+                                                <small class="text-dark"><b>Escolaridade</b>: {{$solicitacao->escolaridade}}</small>
+                                            </label>
+                                            <label class="text-truncate d-block mb-0">
+                                                <small class="text-dark"><b>Data de solicitação</b>: {{date('d/m/Y H:i:s', strtotime($solicitacao->created_at))}}</small>
+                                            </label>                  
+                                        </div>
+                                        <div class="text-right row col-lg-3 col-4 ml-auto my-auto">
+                                            <div class="ml-auto">
+                                                <a href="#" class="btn btn-default btn-outline btn-rounded btn-xs col-10 mb-2" title="">
+                                                    <i class="mdi mdi-comment-processing-outline"></i>
+                                                    <small class="hidden-xs"> Mais informações</small>
+                                                </a>
+                                                <a href="#" class="btn btn-default btn-outline btn-rounded btn-xs col-10 mb-2" title="">
+                                                    <i class="mdi mdi-cached"></i>
+                                                    <small class="hidden-xs"> Atualizar status</small>
+                                                </a>
+                                                <a href="#" class="btn btn-default btn-outline btn-rounded btn-xs col-10 mb-2" title="">
+                                                    <i class="mdi mdi-cloud-print-outline"></i>
+                                                    <small class="hidden-xs"> Gerar relatório</small>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <?php $d++; ?>
+                                @endif
+                                @endforeach
+                                @if($d == 0)
+                                <li class="text-center mx-auto">
+                                    <p class="col-12">
+                                        <h5 class="text-center font-weight-normal"><i class="mdi mdi-alert-outline mdi-24px pr-4"></i> Você não possui nenhuma solicitação nesse estado.</h5>
+                                    </p>
+                                </li>
+                                @endif
+                            @else
+                            <li class="text-center mx-auto">
+                                <p class="col-12">
+                                    <h5 class="text-center font-weight-normal"><i class="mdi mdi-alert-outline mdi-24px pr-4"></i> Você não possui nenhuma solicitação nesse estado.</h5>
+                                </p>
+                            </li>
+                            @endif      
                         </section>
                         <section id="section-5">
-                            <p class="col-12">
-                                <h5 class="text-center font-weight-normal"><i class="mdi mdi-alert-outline mdi-24px pr-4"></i> Você não possui nenhuma solicitação nesse estado.</h5>
-                            </p>    
+                            @if(isset($solicitacoes[0]))
+                            <?php $e = 0;?>
+                                @foreach($solicitacoes as $solicitacao)
+                                @if($solicitacao->RelationStatusRecente->status == 'cancelado')
+                                <li class="col-12 border rounded shadow-sm mb-3 callout-danger">
+                                    <div class="p-3 h-100 row">
+                                        <div class="text-left col-lg-6 col-8">
+                                            <a href="#">
+                                                <h5 class="text-uppercase my-1 text-truncate">
+                                                    <span>{{$solicitacao->nome}}</span> 
+                                                    <i>&#183</i>
+                                                    <span>#0{{$solicitacao->id}}</span> 
+                                                    <div class="badge badge-warning mx-2 text-uppercase">{{$solicitacao->status}}</div>
+                                                </h5>
+                                            </a>
+                                            <label class="text-truncate d-block font-weight-bold text-muted mb-3">
+                                                <span>{{($solicitacao->sigla == "PF" ? 'Pessoa física' : 'Pessoa jurídica')}}</span>
+                                            </label>
+                                            <label class="text-capitalize d-block text-primary mb-0">
+                                                <small class="text-dark"><b>Documento</b>: {{$solicitacao->documento}}</small>
+                                            </label>
+                                            <label class="text-capitalize d-block text-primary mb-0">
+                                                <small class="text-dark"><b>Escolaridade</b>: {{$solicitacao->escolaridade}}</small>
+                                            </label>
+                                            <label class="text-truncate d-block mb-0">
+                                                <small class="text-dark"><b>Data de solicitação</b>: {{date('d/m/Y H:i:s', strtotime($solicitacao->created_at))}}</small>
+                                            </label>                  
+                                        </div>
+                                        <div class="text-right row col-lg-3 col-4 ml-auto my-auto">
+                                            <div class="ml-auto">
+                                                <a href="#" class="btn btn-default btn-outline btn-rounded btn-xs col-10 mb-2" title="">
+                                                    <i class="mdi mdi-comment-processing-outline"></i>
+                                                    <small class="hidden-xs"> Mais informações</small>
+                                                </a>
+                                                <a href="#" class="btn btn-default btn-outline btn-rounded btn-xs col-10 mb-2" title="">
+                                                    <i class="mdi mdi-cached"></i>
+                                                    <small class="hidden-xs"> Atualizar status</small>
+                                                </a>
+                                                <a href="#" class="btn btn-default btn-outline btn-rounded btn-xs col-10 mb-2" title="">
+                                                    <i class="mdi mdi-cloud-print-outline"></i>
+                                                    <small class="hidden-xs"> Gerar relatório</small>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <?php $e++; ?>
+                                @endif
+                                @endforeach
+                                @if($e == 0)
+                                <li class="text-center mx-auto">
+                                    <p class="col-12">
+                                        <h5 class="text-center font-weight-normal"><i class="mdi mdi-alert-outline mdi-24px pr-4"></i> Você não possui nenhuma solicitação nesse estado.</h5>
+                                    </p>
+                                </li>
+                                @endif
+                            @else
+                            <li class="text-center mx-auto">
+                                <p class="col-12">
+                                    <h5 class="text-center font-weight-normal"><i class="mdi mdi-alert-outline mdi-24px pr-4"></i> Você não possui nenhuma solicitação nesse estado.</h5>
+                                </p>
+                            </li>
+                            @endif  
                         </section>
                     </div>
                 </div>
             </section>
-		</div>
-	</div>
+        </div>
+    </div>
 </div>
+@endsection
+
+@section('suporte')
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#devolvido').html("({{(isset($a) ? $a : '0')}})");
+        $('#aberto').html("({{(isset($b) ? $b : '0')}})");
+        $('#andamento').html("({{(isset($c) ? $c : '0')}})");
+        $('#finalizado').html("({{(isset($d) ? $d : '0')}})");
+        $('#cancelado').html("({{(isset($e) ? $e : '0')}})");
+    });
+</script>
 @endsection

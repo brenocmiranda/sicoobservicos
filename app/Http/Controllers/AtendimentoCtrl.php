@@ -20,6 +20,12 @@ use App\Models\ContratosGarantias;
 use App\Models\CartaoCredito;
 use App\Models\Poupancas;
 use App\Models\Aplicacoes;
+use App\Models\Cadastro;
+use App\Models\CadastroArquivos;
+use App\Models\CadastroSocios;
+use App\Models\CadastroStatus;
+use App\Models\CadastroTelefones;
+use App\Models\Arquivos;
 use PDF;
 
 class AtendimentoCtrl extends Controller
@@ -129,7 +135,8 @@ class AtendimentoCtrl extends Controller
 	#-------------------------------------------------------------------
 	// Listando todas solicitações
  	public function ExibirAssociado(){
-    	return view('atendimento.cadastro.listar');
+ 		$solicitacoes = Cadastro::where('usr_id_usuarios', Auth::id())->get();
+    	return view('atendimento.cadastro.listar')->with('solicitacoes', $solicitacoes);
 	}
 
 	// Adicionar novo associado
@@ -137,7 +144,185 @@ class AtendimentoCtrl extends Controller
     	return view('atendimento.cadastro.adicionar');
 	}
 
-	public function CadastroAssociado(Request $request){
+	public function CadastroAssociadoPF(Request $request){
+		
+
+		// Criando solicitação
+        $create = Cadastro::create([
+            'sigla' => $request->sigla, 
+            'documento' => $request->documento, 
+            'nome' => $request->nome, 
+            'fantasia' => $request->fantasia,
+            'sexo' => $request->sexo,     
+            'naturalidade' => $request->naturalidade,     
+            'estadoCivil' => $request->estadoCivil,     
+            'escolaridade' => $request->escolaridade,     
+            'profissao' => $request->profissao,
+            'email' => $request->email,
+            'observacoes' => $request->observacoes,
+            'usr_id_usuarios' => Auth::id(), 
+        ]);
+
+        // Criando status
+        $status = CadastroStatus::create([
+            'status' => 'aberto', 
+            'descricao' => 'Abertura de solicitação para cadastro de novo associado.',
+            'usr_id_usuarios' => Auth::id(),
+            'cad_id_novos' => $create->id 
+        ]);
+
+        // Criando os telefones
+		if($request->tipoTelefone){
+			foreach ($request->tipoTelefone as $key => $value) {
+				$telefones = CadastroTelefones::create([
+		            'tipoTelefone' => $value, 
+		            'numero' => $request->numeroTelefone[$key], 
+		            'cad_id_novos' => $create->id
+		        ]);
+			}
+		}
+
+		// Upload do documento de identificação
+		if($request->documentoIdentificacao[0]){
+			foreach($request->file('documentoIdentificacao') as $key => $value) {
+				if($value->isValid()){
+					$string = iconv( "UTF-8" , "ASCII//TRANSLIT//IGNORE" , str_replace($value->extension(), '', $request->nomeIdentificacao.'0'.$create->id.'0'.$key));
+	                $name = preg_replace( array( '/[ ]/' , '/[^A-Za-z0-9\-]/' ) , array( '' , '' ) , $string);
+	               	$extension =  $value->extension();
+	               	$nameFile = "{$name}.{$extension}";
+	                $upload =  $value->storeAs('cadastro', $nameFile);
+	                $arquivo = Arquivos::create(['endereco' => $upload, 'tipo' => 'cadastro']);
+	                // Salvando referencia
+	                $identificacao = CadastroArquivos::create([
+			            'nome' => $request->nomeIdentificacao, 
+			            'id_arquivo' => $arquivo->id, 
+			            'cad_id_novos' => $create->id
+			        ]);
+	            }
+            }
+           
+		}
+		
+		// Upload do documento de CPF
+		if($request->hasFile('documentoCPF')){
+		 	if ($request->documentoCPF->isValid()) {
+				$string = iconv( "UTF-8" , "ASCII//TRANSLIT//IGNORE" , str_replace($request->documentoCPF->extension(), '', $request->nomeCPF.'0'. $create->id));
+                $name = preg_replace( array( '/[ ]/' , '/[^A-Za-z0-9\-]/' ) , array( '' , '' ) , $string);
+               	$extension =  $request->documentoCPF->extension();
+               	$nameFile = "{$name}.{$extension}";
+                $upload =  $request->documentoCPF->storeAs('cadastro', $nameFile);
+                $arquivo = Arquivos::create(['endereco' => $upload, 'tipo' => 'cadastro']);
+         	}
+            $identificacao = CadastroArquivos::create([
+	            'nome' => $request->nomeCPF, 
+	            'id_arquivo' => $arquivo->id, 
+	            'cad_id_novos' => $create->id
+	        ]);
+		}
+
+		// Upload do documento de renda
+		if($request->hasFile('documentoRenda') ){
+		 	if ($request->documentoRenda->isValid()) {
+				$string = iconv( "UTF-8" , "ASCII//TRANSLIT//IGNORE" , str_replace($request->documentoRenda->extension(), '', $request->nomeRenda.'0'. $create->id));
+                $name = preg_replace( array( '/[ ]/' , '/[^A-Za-z0-9\-]/' ) , array( '' , '' ) , $string);
+               	$extension =  $request->documentoRenda->extension();
+               	$nameFile = "{$name}.{$extension}";
+                $upload =  $request->documentoRenda->storeAs('cadastro', $nameFile);
+                $arquivo = Arquivos::create(['endereco' => $upload, 'tipo' => 'cadastro']);
+         	}
+            $identificacao = CadastroArquivos::create([
+	            'nome' => $request->nomeRenda, 
+	            'id_arquivo' => $arquivo->id, 
+	            'cad_id_novos' => $create->id
+	        ]);
+		}
+
+		// Upload do documento de residência
+		if($request->hasFile('documentoResidencia')){
+		 	if ($request->documentoResidencia->isValid()) {
+				$string = iconv( "UTF-8" , "ASCII//TRANSLIT//IGNORE" , str_replace($request->documentoResidencia->extension(), '', $request->nomeResidencia.'0'. $create->id));
+                $name = preg_replace( array( '/[ ]/' , '/[^A-Za-z0-9\-]/' ) , array( '' , '' ) , $string);
+               	$extension =  $request->documentoResidencia->extension();
+               	$nameFile = "{$name}.{$extension}";
+                $upload =  $request->documentoResidencia->storeAs('cadastro', $nameFile);
+                $arquivo = Arquivos::create(['endereco' => $upload, 'tipo' => 'cadastro']);
+         	}
+            $identificacao = CadastroArquivos::create([
+	            'nome' => $request->nomeResidencia, 
+	            'id_arquivo' => $arquivo->id, 
+	            'cad_id_novos' => $create->id
+	        ]);
+		}
+
+		// Upload do documento de casamento
+		if($request->hasFile('documentoCasamento')){
+		 	if ($request->documentoCasamento->isValid()) {
+				$string = iconv( "UTF-8" , "ASCII//TRANSLIT//IGNORE" , str_replace($request->documentoCasamento->extension(), '', $request->nomeCasamento.'0'. $create->id));
+                $name = preg_replace( array( '/[ ]/' , '/[^A-Za-z0-9\-]/' ) , array( '' , '' ) , $string);
+               	$extension =  $request->documentoCasamento->extension();
+               	$nameFile = "{$name}.{$extension}";
+                $upload =  $request->documentoCasamento->storeAs('cadastro', $nameFile);
+                $arquivo = Arquivos::create(['endereco' => $upload, 'tipo' => 'cadastro']);
+         	}
+            $identificacao = CadastroArquivos::create([
+	            'nome' => $request->nomeCasamento, 
+	            'id_arquivo' => $arquivo->id, 
+	            'cad_id_novos' => $create->id
+	        ]);
+		}
+
+		// Upload do documento de importo de renda
+		if($request->documentoImposto[0]){
+			foreach ($request->file('documentoImposto') as $key => $value) {
+				if($value->isValid()){
+					$string = iconv( "UTF-8" , "ASCII//TRANSLIT//IGNORE" , str_replace($value->extension(), '', $request->nomeImposto.'0'. $create->id.'0'.$key));
+	                $name = preg_replace( array( '/[ ]/' , '/[^A-Za-z0-9\-]/' ) , array( '' , '' ) , $string);
+	               	$extension =  $value->extension();
+	               	$nameFile = "{$name}.{$extension}";
+	                $upload =  $value->storeAs('cadastro', $nameFile);
+	                $arquivo = Arquivos::create(['endereco' => $upload, 'tipo' => 'cadastro']);
+	            }
+	            $identificacao = CadastroArquivos::create([
+		            'nome' => $request->nomeImposto, 
+		            'id_arquivo' => $arquivo->id, 
+		            'cad_id_novos' => $create->id
+		        ]);
+            }    
+		}
+
+		// Upload do cartão de assinatura
+		if($request->hasFile('cartaoAssinatura')){
+		 	if ($request->cartaoAssinatura->isValid()) {
+				$string = iconv( "UTF-8" , "ASCII//TRANSLIT//IGNORE" , str_replace($request->cartaoAssinatura->extension(), '', $request->nomeCartao.'0'. $create->id));
+                $name = preg_replace( array( '/[ ]/' , '/[^A-Za-z0-9\-]/' ) , array( '' , '' ) , $string);
+               	$extension =  $request->cartaoAssinatura->extension();
+               	$nameFile = "{$name}.{$extension}";
+                $upload =  $request->cartaoAssinatura->storeAs('cadastro', $nameFile);
+                $arquivo = Arquivos::create(['endereco' => $upload, 'tipo' => 'cadastro']);
+                // Salvando referencia
+                $identificacao = CadastroArquivos::create([
+		            'nome' =>  $request->nomeCartao, 
+		            'id_arquivo' => $arquivo->id, 
+		            'cad_id_novos' => $create->id
+		        ]);
+         	}
+           
+		}
+
+		//* Verificação de se arquivo existe, depois um upload do arquivo com nome, depois transformar em PDF e salvar na pasta com o nome do associado
+
+		Atividades::create([
+            'nome' => 'Solicitação de cadastro',
+            'descricao' => 'Você efetuou a solicitação de um novo associado: '.$create->nome.'.',
+            'icone' => 'mdi-plus',
+            'url' => route('detalhes.cadastro.atendimento', $create->id),
+            'id_usuario' => Auth::id()
+        ]);
+
+        return redirect(route('exibir.cadastro.atendimento'));
+	}
+
+	public function CadastroAssociadoPJ(Request $request){
 		return $request;
 	}
 

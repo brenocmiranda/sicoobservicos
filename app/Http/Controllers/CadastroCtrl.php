@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
+use App\Models\Cadastro;
+use App\Models\CadastroArquivos;
+use App\Models\CadastroSocios;
+use App\Models\CadastroStatus;
+use App\Models\CadastroTelefones;
 
 class CadastroCtrl extends Controller
 {
@@ -12,13 +17,17 @@ class CadastroCtrl extends Controller
 		$this->middleware('auth');
 	}
 
-    // Listando todas solicitações
- 	public function ExibirSolicitacoes(){
-    	return view('cadastro.solicitacoes.listar');
-	}
+	#-------------------------------------------------------------------
+	# Novos associados
+	#-------------------------------------------------------------------
 
-	// Adicionar novo associado
- 	public function DetalhesSolicitacoes(){
-    	return view('atendimento.cadastro.adicionar');
+    // Listando novos associados
+ 	public function ExibirNovos(){
+ 		$solicitacoes = Cadastro::all();
+    	return view('cadastro.novos.listar')->with('solicitacoes', $solicitacoes);
+	}
+	// Adicionar novos associado
+ 	public function DetalhesNovos(){
+    	return view('atendimento.novos.adicionar');
 	}
 }

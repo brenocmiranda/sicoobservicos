@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCadSolicitacoesHasSocios extends Migration
+class CreateCadNovosHasSocios extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateCadSolicitacoesHasSocios extends Migration
      */
     public function up()
     {
-        Schema::create('cad_solicitacoes_has_socios', function (Blueprint $table) {
+        Schema::create('cad_novos_has_socios', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->integer('cad_id_solicitacoes')->unsigned()->nullable();
-            $table->foreign('cad_id_solicitacoes')->references('id')->on('cad_solicitacoes');
+            $table->integer('cad_id_novos')->unsigned()->nullable();
+            $table->foreign('cad_id_novos')->references('id')->on('cad_novos');
             $table->integer('cli_id_associado')->unsigned()->nullable();
             $table->foreign('cli_id_associado')->references('id')->on('cli_associados');
             $table->timestamps();
@@ -31,6 +31,6 @@ class CreateCadSolicitacoesHasSocios extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cad_solicitacoes_has_socios');
+        Schema::dropIfExists('cad_novos_has_socios');
     }
 }

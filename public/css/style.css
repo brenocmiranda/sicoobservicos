@@ -41,6 +41,10 @@ html {
 	background: #fff
 }
 
+li{
+	list-style-type: none;
+}
+
 h1,
 h2,
 h3,
@@ -20324,6 +20328,10 @@ input[name=upload_img]{
 
 .callout-danger{
 	border-left: 5px solid #f33155 !important;
+}
+
+.callout-dark{
+	border-left: 5px solid #2f323e !important;
 }
 
 .error{

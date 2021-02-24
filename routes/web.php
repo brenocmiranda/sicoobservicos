@@ -131,10 +131,14 @@ Route::group(['prefix' => 'app'], function(){
 		});
 		// Cadastro
 		Route::group(['prefix' => 'cadastro'], function(){
-			Route::get('', 'AtendimentoCtrl@ExibirAssociado')->name('exibir.cadastro.atendimento');
-			Route::get('solicitar', 'AtendimentoCtrl@NovoAssociado')->name('solicitar.cadastro.atendimento');
-			Route::post('cadastrar', 'AtendimentoCtrl@CadastroAssociado')->name('cadastrar.cadastro.atendimento');
-			Route::get('existe/{documento}', 'AtendimentoCtrl@ExisteCadastro')->name('existe.cadastro.atendimento');
+			Route::group(['prefix' => 'novos'], function(){
+				Route::get('', 'AtendimentoCtrl@ExibirAssociado')->name('exibir.cadastro.atendimento');
+				Route::get('adicionar', 'AtendimentoCtrl@NovoAssociado')->name('adicionar.cadastro.atendimento');
+				Route::post('salvarPF', 'AtendimentoCtrl@CadastroAssociadoPF')->name('salvarPF.cadastro.atendimento');
+				Route::post('salvarPJ', 'AtendimentoCtrl@CadastroAssociadoPJ')->name('salvarPJ.cadastro.atendimento');
+				Route::get('destalhes/{id}', 'AtendimentoCtrl@ExisteCadastro')->name('detalhes.cadastro.atendimento');
+				Route::get('existe/{documento}', 'AtendimentoCtrl@ExisteCadastro')->name('existe.cadastro.atendimento');
+			});
 		});
 	});
 
@@ -147,9 +151,9 @@ Route::group(['prefix' => 'app'], function(){
 			Route::get('dashboard', 'CadastroCtrl@Dashboard')->name('dashboard.cadastro');
 		});
 		// Solicitações
-		Route::group(['prefix' => 'solicitacoes'], function(){
-			Route::get('', 'CadastroCtrl@ExibirSolicitacoes')->name('exibir.solicitacoes.cadastro');
-			Route::get('solicitar', 'CadastroCtrl@DetalhesSolicitacoes')->name('detalhes.solicitacoes.cadastro');
+		Route::group(['prefix' => 'novos'], function(){
+			Route::get('', 'CadastroCtrl@ExibirNovos')->name('exibir.solicitacoes.cadastro');
+			Route::get('solicitar', 'CadastroCtrl@DetalhesNovos')->name('detalhes.solicitacoes.cadastro');
 		});
 	});
 

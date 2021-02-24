@@ -1,5 +1,5 @@
 <div class="col-12 col-lg-11 mx-auto slideInLeft animated webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend mt-5" id="dadosPF" style="display: none">
-	<form class="form-sample" id="formPF" method="POST" enctype="multipart/form-data" action="{{route('cadastrar.cadastro.atendimento')}}" autocomplete="off">
+	<form class="form-sample" id="formPF" method="POST" enctype="multipart/form-data" action="{{route('salvarPF.cadastro.atendimento')}}" autocomplete="off">
 	@csrf
 		<input type="hidden" name="sigla" value="PF">
 		<div id="smartwizardPF" class="sw sw-justified sw-theme-arrows border-top-0">
@@ -165,7 +165,7 @@
 								<label class="col-form-label">Certidão de Nascimento, RG, CNH ou CTPS <span class="text-danger">*</span></label>
 								<div class="row dadosIdentificacao">
 									<div class="row col-12 justify-content-center mx-auto mb-2">
-										<input type="text" class="form-control col-10 px-3 h-100" name="nomeIdentificacao" onkeyup="this.value = this.value.toUpperCase();"  style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" value="RG" required>
+										<input type="text" class="form-control col-10 px-3 h-100" name="nomeIdentificacao" onkeyup="this.value = this.value.toUpperCase();"  style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" value="DOCUMENTO DE IDENTIFICACAO" required>
 										<label for="fupload1" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-file"></i></label>
 										<input type="file" name="documentoIdentificacao[]" id="fupload1" class="position-absolute offset-10 col-1 px-0 mt-3" style="opacity: 0" accept="image/*" onchange="arquivo(this)" required>
 									</div>
@@ -243,7 +243,7 @@
 								<label class="col-form-label">Cartão de assinatura <span class="text-danger">*</span></label>
 								<div class="row">
 									<div class="row col-12 justify-content-center mx-auto mb-2">
-										<input type="text" class="form-control col-10 px-3 h-100" name="nomeImposto" onkeyup="this.value = this.value.toUpperCase();" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" value="CARTAO DE ASSINATURA">
+										<input type="text" class="form-control col-10 px-3 h-100" name="nomeCartao" onkeyup="this.value = this.value.toUpperCase();" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" value="CARTAO DE ASSINATURA">
 										<label for="fupload15" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-file"></i></label>
 										<input type="file" name="cartaoAssinatura" id="fupload15" class="position-absolute offset-10 col-1 px-0 mt-3" style="opacity: 0" accept="image/*" onchange="cartao(this); ">
 									</div>

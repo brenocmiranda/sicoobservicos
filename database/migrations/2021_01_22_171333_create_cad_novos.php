@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCadSolicitacoes extends Migration
+class CreateCadNovos extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateCadSolicitacoes extends Migration
      */
     public function up()
     {
-        Schema::create('cad_solicitacoes', function (Blueprint $table) {
+        Schema::create('cad_novos', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->enum('sigla', ['PF', 'PJ']);
@@ -41,6 +41,6 @@ class CreateCadSolicitacoes extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cad_solicitacoes');
+        Schema::dropIfExists('cad_novos');
     }
 }

@@ -1,5 +1,5 @@
 <div class="col-12 col-lg-11 mx-auto slideInRight animated webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend mt-5" id="dadosPJ" style="display: none">
-	<form class="form-sample" id="formPJ" method="POST" enctype="multipart/form-data" action="{{route('cadastrar.cadastro.atendimento')}}" autocomplete="off">
+	<form class="form-sample" id="formPJ" method="POST" enctype="multipart/form-data" action="{{route('salvarPJ.cadastro.atendimento')}}" autocomplete="off">
 		@csrf
 		<input type="hidden" name="sigla" value="PJ">
 		<div id="smartwizardPJ" class="sw sw-justified sw-theme-arrows border-top-0">

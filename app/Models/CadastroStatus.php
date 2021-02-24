@@ -9,11 +9,11 @@ class CadastroStatus extends Model
 {
     use HasFactory;
 
-    protected $table = 'cad_solicitacoes_has_status';
+    protected $table = 'cad_novos_has_status';
     protected $primaryKey = 'id';
-    protected $fillable = ['id', 'status', 'descricao', 'usr_id_usuarios', 'cad_id_solicitacoes', 'created_at', 'updated_at'];
+    protected $fillable = ['id', 'status', 'descricao', 'usr_id_usuarios', 'cad_id_novos', 'created_at', 'updated_at'];
     
-    public function RelationSolicitacao(){
-        return $this->hasMany(Cadastro::class, 'cad_id_solicitacoes');
+    public function RelationCadastro(){
+        return $this->belongsTo(Cadastro::class, 'cad_id_novos');
     }
 }
