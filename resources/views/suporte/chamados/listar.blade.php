@@ -48,60 +48,117 @@ Chamados
 						@foreach($statusAtivos as $status)
 						<section id="section-{{$status->id}}" class="px-0 px-lg-5">
 							<ul class="row col-12 m-auto px-0">
-								@foreach($chamados as $chamado)
-								@if($chamado->RelationStatus->first()->id == $status->id)
-								<li class="col-12 border rounded shadow-sm mb-3" style="border-left: 5px solid {{$chamado->RelationStatus->first()->color}} !important">
-									<div class="p-3 h-100 row">
-										<div class="text-left col-lg-6 col-8">
-											<a href="{{route('detalhes.chamados', $chamado->id)}}">
-												<h5 class="text-uppercase mb-2 text-truncate">
-													<span>{{$chamado->RelationAmbientes->nome}}</span> 
-													<b>&#183</b> 
-													<span>{{$chamado->RelationFontes->nome}}</span>
-													<div class="badge mx-2" style="background: {{$chamado->RelationStatus->first()->color}}">{{$chamado->RelationStatus->first()->nome}}</div>
-												</h5>
-											</a>
-											<label class="text-truncate d-block mb-0">
-													<small class="text-dark"><b>Nº do chamado</b>: {{$chamado->id}}</small>
+								@if($status->nome == 'Encerrado')
+									@foreach($chamados->sortByDesc('updated_at') as $chamado)
+									@if($chamado->RelationStatus->first()->id == $status->id)
+									<li class="col-12 border rounded shadow-sm mb-3" style="border-left: 5px solid {{$chamado->RelationStatus->first()->color}} !important">
+										<div class="p-3 h-100 row">
+											<div class="text-left col-lg-6 col-8">
+												<a href="{{route('detalhes.chamados', $chamado->id)}}">
+													<h5 class="text-uppercase mb-2 text-truncate">
+														<span>{{$chamado->RelationAmbientes->nome}}</span> 
+														<b>&#183</b> 
+														<span>{{$chamado->RelationFontes->nome}}</span>
+														<div class="badge mx-2" style="background: {{$chamado->RelationStatus->first()->color}}">{{$chamado->RelationStatus->first()->nome}}</div>
+													</h5>
+												</a>
+												<label class="text-truncate d-block mb-0">
+														<small class="text-dark"><b>Nº do chamado</b>: {{$chamado->id}}</small>
+													</label>
+												<label class="text-truncate d-block mb-0">
+													<small class="text-dark"><b>Assunto</b>: {{$chamado->assunto}}</small>
 												</label>
-											<label class="text-truncate d-block mb-0">
-												<small class="text-dark"><b>Assunto</b>: {{$chamado->assunto}}</small>
-											</label>
-											<label class="text-truncate d-block mb-0">
-												<small class="text-dark"><b>Descrição:</b> {{(isset($chamado->descricao) ? $chamado->descricao : '-')}}</small>
-											</label>	
-											<label class="text-truncate d-block mb-0">
-												<small class="text-dark"><b>Data de abertura:</b> {{$chamado->created_at->format('d/m/Y H:i')}}</small>
-											</label>
-											@if($chamado->RelationStatus->first()->finish == 1)
-											<label class="text-truncate d-block">
-												<small class="text-dark"><b>Data de fechamento:</b> {{$chamado->RelationStatus->first()->pivot->created_at->format('d/m/Y H:i')}}</small>
-											</label>	
-											@endif				
-										</div>
-										<div class="text-right row col-lg-3 col-4 ml-auto my-auto">
-											<div class="ml-auto">
-												<a href="{{route('detalhes.chamados', $chamado->id)}}" class="btn btn-default btn-outline btn-rounded col-10 mb-2" title="Detalhes do chamado">
-													<i class="mdi mdi-comment-processing-outline"></i>
-													<small class="hidden-xs">Mais informações</small>
-												</a>	
-												@if(date('d/m/Y H:i:s', strtotime($chamado->RelationStatus->first()->pivot->created_at)) > date('d/m/Y H:i:s', strtotime('-'.explode(':', $chamado->RelationStatus->first()->tempo)[0].' hours -'.explode(':', $chamado->RelationStatus->first()->tempo)[1].' minutes -'.explode(':', $chamado->RelationStatus->first()->tempo)[2].' seconds')))
-												<a href="javascript:void(0)" id="{{$chamado->id}}" class="btn-reabrir btn btn-default btn-outline btn-rounded col-10 mb-2" title="Detalhes do chamado">
-													<i class="mdi mdi-comment-processing-outline"></i>
-													<small class="hidden-xs">Reabrir chamado</small>
-												</a>
-												@endif
-												<a href="{{route('relatorio.chamados', $chamado->id)}}" target="_blank" class="btn btn-default btn-outline btn-rounded col-10 mb-2" title="Relatório do chamado">
-													<i class="mdi mdi-cloud-print-outline"></i>
-													<small class="hidden-xs">Gerar relatório</small>
-												</a>
+												<label class="text-truncate d-block mb-0">
+													<small class="text-dark"><b>Descrição:</b> {{(isset($chamado->descricao) ? $chamado->descricao : '-')}}</small>
+												</label>	
+												<label class="text-truncate d-block mb-0">
+													<small class="text-dark"><b>Data de abertura:</b> {{$chamado->created_at->format('d/m/Y H:i')}}</small>
+												</label>
+												@if($chamado->RelationStatus->first()->finish == 1)
+												<label class="text-truncate d-block">
+													<small class="text-dark"><b>Data de fechamento:</b> {{$chamado->RelationStatus->first()->pivot->created_at->format('d/m/Y H:i')}}</small>
+												</label>	
+												@endif				
+											</div>
+											<div class="text-right row col-lg-3 col-4 ml-auto my-auto">
+												<div class="ml-auto">
+													<a href="{{route('detalhes.chamados', $chamado->id)}}" class="btn btn-default btn-outline btn-rounded col-10 mb-2" title="Detalhes do chamado">
+														<i class="mdi mdi-comment-processing-outline"></i>
+														<small class="hidden-xs">Mais informações</small>
+													</a>	
+													@if(date('d/m/Y H:i:s', strtotime($chamado->RelationStatus->first()->pivot->created_at)) > date('d/m/Y H:i:s', strtotime('-'.explode(':', $chamado->RelationStatus->first()->tempo)[0].' hours -'.explode(':', $chamado->RelationStatus->first()->tempo)[1].' minutes -'.explode(':', $chamado->RelationStatus->first()->tempo)[2].' seconds')))
+													<a href="javascript:void(0)" id="{{$chamado->id}}" class="btn-reabrir btn btn-default btn-outline btn-rounded col-10 mb-2" title="Detalhes do chamado">
+														<i class="mdi mdi-comment-processing-outline"></i>
+														<small class="hidden-xs">Reabrir chamado</small>
+													</a>
+													@endif
+													<a href="{{route('relatorio.chamados', $chamado->id)}}" target="_blank" class="btn btn-default btn-outline btn-rounded col-10 mb-2" title="Relatório do chamado">
+														<i class="mdi mdi-cloud-print-outline"></i>
+														<small class="hidden-xs">Gerar relatório</small>
+													</a>
+												</div>
 											</div>
 										</div>
-									</div>
-								</li>
-								<?php $i++; ?>
+									</li>
+									<?php $i++; ?>
+									@endif
+									@endforeach
+								@else
+									@foreach($chamados->sortBy('created_at') as $chamado)
+									@if($chamado->RelationStatus->first()->id == $status->id)
+									<li class="col-12 border rounded shadow-sm mb-3" style="border-left: 5px solid {{$chamado->RelationStatus->first()->color}} !important">
+										<div class="p-3 h-100 row">
+											<div class="text-left col-lg-6 col-8">
+												<a href="{{route('detalhes.chamados', $chamado->id)}}">
+													<h5 class="text-uppercase mb-2 text-truncate">
+														<span>{{$chamado->RelationAmbientes->nome}}</span> 
+														<b>&#183</b> 
+														<span>{{$chamado->RelationFontes->nome}}</span>
+														<div class="badge mx-2" style="background: {{$chamado->RelationStatus->first()->color}}">{{$chamado->RelationStatus->first()->nome}}</div>
+													</h5>
+												</a>
+												<label class="text-truncate d-block mb-0">
+														<small class="text-dark"><b>Nº do chamado</b>: {{$chamado->id}}</small>
+													</label>
+												<label class="text-truncate d-block mb-0">
+													<small class="text-dark"><b>Assunto</b>: {{$chamado->assunto}}</small>
+												</label>
+												<label class="text-truncate d-block mb-0">
+													<small class="text-dark"><b>Descrição:</b> {{(isset($chamado->descricao) ? $chamado->descricao : '-')}}</small>
+												</label>	
+												<label class="text-truncate d-block mb-0">
+													<small class="text-dark"><b>Data de abertura:</b> {{$chamado->created_at->format('d/m/Y H:i')}}</small>
+												</label>
+												@if($chamado->RelationStatus->first()->finish == 1)
+												<label class="text-truncate d-block">
+													<small class="text-dark"><b>Data de fechamento:</b> {{$chamado->RelationStatus->first()->pivot->created_at->format('d/m/Y H:i')}}</small>
+												</label>	
+												@endif				
+											</div>
+											<div class="text-right row col-lg-3 col-4 ml-auto my-auto">
+												<div class="ml-auto">
+													<a href="{{route('detalhes.chamados', $chamado->id)}}" class="btn btn-default btn-outline btn-rounded col-10 mb-2" title="Detalhes do chamado">
+														<i class="mdi mdi-comment-processing-outline"></i>
+														<small class="hidden-xs">Mais informações</small>
+													</a>	
+													@if(date('d/m/Y H:i:s', strtotime($chamado->RelationStatus->first()->pivot->created_at)) > date('d/m/Y H:i:s', strtotime('-'.explode(':', $chamado->RelationStatus->first()->tempo)[0].' hours -'.explode(':', $chamado->RelationStatus->first()->tempo)[1].' minutes -'.explode(':', $chamado->RelationStatus->first()->tempo)[2].' seconds')))
+													<a href="javascript:void(0)" id="{{$chamado->id}}" class="btn-reabrir btn btn-default btn-outline btn-rounded col-10 mb-2" title="Detalhes do chamado">
+														<i class="mdi mdi-comment-processing-outline"></i>
+														<small class="hidden-xs">Reabrir chamado</small>
+													</a>
+													@endif
+													<a href="{{route('relatorio.chamados', $chamado->id)}}" target="_blank" class="btn btn-default btn-outline btn-rounded col-10 mb-2" title="Relatório do chamado">
+														<i class="mdi mdi-cloud-print-outline"></i>
+														<small class="hidden-xs">Gerar relatório</small>
+													</a>
+												</div>
+											</div>
+										</div>
+									</li>
+									<?php $i++; ?>
+									@endif
+									@endforeach
 								@endif
-								@endforeach
 							</ul>
 							@if($i == 0)
 							<p class="col-12">

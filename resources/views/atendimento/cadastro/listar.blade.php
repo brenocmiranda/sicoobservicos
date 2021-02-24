@@ -70,7 +70,7 @@ Solicitações de Cadastro
                                 <li class="col-12 border rounded shadow-sm mb-3 callout-success">
                                     <div class="p-3 h-100 row">
                                         <div class="text-left col-lg-6 col-8">
-                                            <a href="#">
+                                            <a href="{{route('detalhes.cadastro.atendimento', $solicitacao->id)}}">
                                                 <h5 class="text-uppercase my-1 text-truncate">
                                                     <span>{{$solicitacao->nome}}</span> 
                                                     <i>&#183</i>
