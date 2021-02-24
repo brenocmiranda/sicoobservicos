@@ -20,11 +20,15 @@ class CreateCadNovos extends Migration
             $table->string('documento')->unique();
             $table->string('nome');
             $table->string('fantasia')->nullable();
-            $table->string('sexo');
-            $table->string('naturalidade');
-            $table->string('estadoCivil');
-            $table->string('escolaridade');
-            $table->string('profissao');
+            $table->date('data_abertura')->nullable();
+            $table->string('atividade_economica')->nullable();
+            $table->string('porte_cliente')->nullable();
+            $table->string('situacao')->nullable();
+            $table->string('sexo')->nullable();
+            $table->string('naturalidade')->nullable();
+            $table->string('estadoCivil')->nullable();
+            $table->string('escolaridade')->nullable();
+            $table->string('profissao')->nullable();
             $table->string('email')->nullable();
             $table->text('observacoes')->nullable();
 

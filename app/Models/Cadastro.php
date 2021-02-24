@@ -11,7 +11,7 @@ class Cadastro extends Model
 
     protected $table = 'cad_novos';
     protected $primaryKey = 'id';
-    protected $fillable = ['id', 'sigla', 'documento', 'nome', 'fantasia', 'sexo', 'naturalidade', 'estadoCivil', 'escolaridade', 'profissao', 'email', 'observacoes', 'usr_id_usuarios', 'created_at', 'updated_at'];
+    protected $fillable = ['id', 'sigla', 'documento', 'nome', 'fantasia', 'data_abertura', 'atividade_economica', 'porte_cliente', 'situacao', 'sexo', 'naturalidade', 'estadoCivil', 'escolaridade', 'profissao', 'email', 'observacoes', 'usr_id_usuarios', 'created_at', 'updated_at'];
 
     public function RelationStatus(){
         return $this->hasMany(CadastroStatus::class, 'cad_id_novos');

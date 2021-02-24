@@ -121,7 +121,7 @@ Route::group(['prefix' => 'app'], function(){
 			Route::get('', 'AtendimentoCtrl@ExibirPainel')->name('exibir.painel.atendimento');
 			Route::any('pesquisar', 'AtendimentoCtrl@PesquisarPainel')->name('pesquisar.associado.atendimento');
 			Route::any('exibir', 'AtendimentoCtrl@MostrarPainel')->name('exibir.associado.atendimento');
-			Route::any('relatorio/{id}', 'AtendimentoCtrl@Relatorio')->name('relatorio.associado.atendimento');
+			Route::any('relatorio/{id}', 'AtendimentoCtrl@RelatorioPainel')->name('relatorio.associado.atendimento');
 			// Atividades
 			Route::group(['prefix' => 'atividades'], function(){
 				Route::post('', 'AtendimentoCtrl@AtividadesPainel')->name('atividade.associado.atendimento');
@@ -137,7 +137,7 @@ Route::group(['prefix' => 'app'], function(){
 				Route::post('salvarPF', 'AtendimentoCtrl@CadastroAssociadoPF')->name('salvarPF.cadastro.atendimento');
 				Route::post('salvarPJ', 'AtendimentoCtrl@CadastroAssociadoPJ')->name('salvarPJ.cadastro.atendimento');
 				Route::get('destalhes/{id}', 'AtendimentoCtrl@ExisteCadastro')->name('detalhes.cadastro.atendimento');
-				Route::get('existe/{documento}', 'AtendimentoCtrl@ExisteCadastro')->name('existe.cadastro.atendimento');
+				Route::get('existe/{documento}', 'AtendimentoCtrl@DetalhesCadastro')->name('existe.cadastro.atendimento');
 			});
 		});
 	});

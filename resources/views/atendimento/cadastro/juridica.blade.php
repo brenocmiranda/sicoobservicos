@@ -61,22 +61,38 @@
 								<label class="razaoSocial d-block">-</label>
 							</div>
 						</div>
-						<div class="col-lg-10 col-12 px-0 px-lg-4">
+						<div class="col-lg-7 col-12 px-0 px-lg-4">
 							<div class="form-group">
 								<label class="col-form-label">Atividade Principal </label>
+								<input type="hidden" name="atividade_economica" id="atividade_economica" required/>
 								<label class="atividade_principal d-block">-</label>
+							</div>
+						</div>
+						<div class="col-lg-5 col-12 px-0 px-lg-4">
+							<div class="form-group">
+								<label class="col-form-label">Tipo </label>
+								<label class="tipo d-block">-</label>
 							</div>
 						</div>
 						<div class="col-lg-4 col-12 px-0 px-lg-4">
 							<div class="form-group">
 								<label class="col-form-label">Situação <small>(Data: <span class="data_situacao">-</span>)</small></label>
+								<input type="hidden" name="situacao" id="situacao" required/>
 								<label class="situacao d-block">-</label>
 							</div>
 						</div>
-						<div class="col-lg-8 col-12 px-0 px-lg-4">
+						<div class="col-lg-3 col-12 px-0 px-lg-4">
 							<div class="form-group">
 								<label class="col-form-label">Porte</label>
+								<input type="hidden" name="porte_cliente" id="porte_cliente" required/>
 								<label class="porte d-block">-</label>
+							</div>
+						</div>
+						<div class="col-lg-4 col-12 px-0 px-lg-4">
+							<div class="form-group">
+								<label class="col-form-label">Data abertura</label>
+								<input type="hidden" name="data_abertura" id="data_abertura" required/>
+								<label class="data_abertura d-block">-</label>
 							</div>
 						</div>
 						<div class="col-lg-9 col-12 px-0 px-lg-4">
@@ -165,14 +181,16 @@
 						<div class="col-12 mb-4 px-0 px-lg-4">
 							<div class="form-group mb-0">
 								<label class="col-form-label">Comprovante de Endereço Comercial <b>(atual)</b> <span class="text-danger">*</span></label>
-								<div class="row">
+								<div class="row dadosEndereco">
 									<div class="row col-12 justify-content-center mx-auto mb-2">
 										<input type="text" class="form-control col-10 px-3 h-100" name="nomeEnderecoComercial" onkeyup="this.value = this.value.toUpperCase();" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" value="ENDEREÇO" required>
 										<label for="fupload9" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-file"></i></label>
-										<input type="file" name="documentoEnderecoComercial" id="fupload9" class="position-absolute offset-6 col-1 px-0 mt-3" style="opacity: 0" accept="image/*" onchange="arquivo(this)" required>
+										<input type="file" name="documentoEnderecoComercial[]" id="fupload9" class="position-absolute offset-6 col-1 px-0 mt-3" style="opacity: 0" accept="image/*" onchange="arquivo(this)" required>
 									</div>
 								</div>
 							</div>
+							<a href="javascript:" id="btnEndereco"> <i class="ti-plus pr-2"></i> Adicionar mais arquivos</a>
+							<div></div>
 						</div>
 						<div class="col-12 mb-4 px-0 px-lg-4">
 							<div class="form-group mb-0">
@@ -190,7 +208,7 @@
 						<div class="col-12 mb-4 px-0 px-lg-4">
 							<div class="form-group mb-0">
 								<label class="col-form-label">Extrato do Simples Nacional</label>
-								<div class="row">
+								<div class="row dadosSimples">
 									<div class="row col-12 justify-content-center mx-auto mb-2">
 										<input type="text" class="form-control col-10 px-3 h-100" name="nomeSimples" onkeyup="this.value = this.value.toUpperCase();" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" value="SIMPLES NACIONAL" placeholder="Nome do arquivo">
 										<label for="fupload11" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-file"></i></label>
@@ -198,6 +216,8 @@
 									</div>
 								</div>
 							</div>
+							<a href="javascript:" id="btnSimples"> <i class="ti-plus pr-2"></i> Adicionar mais arquivos</a>
+							<div></div>
 						</div>
 						<div class="col-12 mb-4 px-0 px-lg-4">
 							<div class="form-group mb-0">
@@ -244,7 +264,7 @@
 					<div class="col-lg-10 col-12 px-0 px-lg-4">
 						<div class="form-group">
 							<label class="col-form-label pb-0">Sócio 1 <span class="text-danger">*</span></label>
-							<select class="form-control form-control-line" name="tipoTelefone[]" required>
+							<select class="form-control form-control-line" name="socios[]" required>
 								<option>Selecione</option>
 								<option value="celular">Celular</option>
 								<option value="residencial">Residencial</option>

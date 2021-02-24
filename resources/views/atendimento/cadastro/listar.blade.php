@@ -35,14 +35,15 @@ Solicitações de Cadastro
                         <ul>
                             <li class="tab-current">
                                 <a href="#section-1">
-                                    <span class="font-weight-bold d-block">Devolvido <small id="devolvido" class="font-weight-bold"></small></span>
+                                    <span class="font-weight-bold d-block">Em aberto <small id="aberto" class="font-weight-bold"></small></span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#section-2">
-                                    <span class="font-weight-bold d-block">Em aberto <small id="aberto" class="font-weight-bold"></small></span>
+                                    <span class="font-weight-bold d-block">Devolvido <small id="devolvido" class="font-weight-bold"></small></span>
                                 </a>
                             </li>
+                            
                             <li>
                                 <a href="#section-3">
                                     <span class="font-weight-bold d-block">Em andamento <small id="andamento" class="font-weight-bold"></small></span>
@@ -62,6 +63,80 @@ Solicitações de Cadastro
                     </nav>
                     <div class="content-wrap col-12 px-0">
                         <section id="section-1" class="content-current">
+                            @if(isset($solicitacoes[0]))
+                            <?php $b = 0;?>
+                                @foreach($solicitacoes as $solicitacao)
+                                @if($solicitacao->RelationStatusRecente->status == 'aberto')
+                                <li class="col-12 border rounded shadow-sm mb-3 callout-success">
+                                    <div class="p-3 h-100 row">
+                                        <div class="text-left col-lg-6 col-8">
+                                            <a href="#">
+                                                <h5 class="text-uppercase my-1 text-truncate">
+                                                    <span>{{$solicitacao->nome}}</span> 
+                                                    <i>&#183</i>
+                                                    <span>#0{{$solicitacao->id}}</span> 
+                                                    <div class="badge badge-success mx-2 text-uppercase">{{$solicitacao->RelationStatusRecente->status}}</div>
+                                                </h5>
+                                            </a>
+                                            <label class="text-truncate d-block font-weight-bold text-muted mb-3">
+                                                <span>{{($solicitacao->sigla == "PF" ? 'Pessoa física' : 'Pessoa jurídica')}}</span>
+                                            </label>
+                                            <label class="text-capitalize d-block text-primary mb-0">
+                                                <small class="text-dark"><b>Documento</b>: {{$solicitacao->documento}}</small>
+                                            </label>
+                                            @if($solicitacao->sigla == "PF")
+                                                <label class="text-capitalize d-block text-primary mb-0">
+                                                    <small class="text-dark"><b>Escolaridade</b>: {{$solicitacao->escolaridade}}</small>
+                                                </label>
+                                            @else
+                                                 <label class="text-capitalize d-block text-primary mb-0">
+                                                    <small class="text-dark"><b>Atividade econômica</b>: {{$solicitacao->atividade_economica}}</small>
+                                                </label>
+                                                 <label class="text-capitalize d-block text-primary mb-0">
+                                                    <small class="text-dark"><b>Porte</b>: {{$solicitacao->porte_cliente}}</small>
+                                                </label>
+                                            @endif
+                                            <label class="text-truncate d-block mb-0">
+                                                <small class="text-dark"><b>Data de solicitação</b>: {{date('d/m/Y H:i:s', strtotime($solicitacao->created_at))}}</small>
+                                            </label>                  
+                                        </div>
+                                        <div class="text-right row col-lg-3 col-4 ml-auto my-auto">
+                                            <div class="ml-auto">
+                                                <a href="#" class="btn btn-default btn-outline btn-rounded btn-xs col-10 mb-2" title="">
+                                                    <i class="mdi mdi-comment-processing-outline"></i>
+                                                    <small class="hidden-xs"> Mais informações</small>
+                                                </a>
+                                                <a href="#" class="btn btn-default btn-outline btn-rounded btn-xs col-10 mb-2" title="">
+                                                    <i class="mdi mdi-cached"></i>
+                                                    <small class="hidden-xs"> Atualizar status</small>
+                                                </a>
+                                                <a href="#" class="btn btn-default btn-outline btn-rounded btn-xs col-10 mb-2" title="">
+                                                    <i class="mdi mdi-cloud-print-outline"></i>
+                                                    <small class="hidden-xs"> Gerar relatório</small>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <?php $b++; ?>
+                                @endif
+                                @endforeach
+                                @if($b == 0)
+                                <li class="text-center mx-auto">
+                                    <p class="col-12">
+                                        <h5 class="text-center font-weight-normal"><i class="mdi mdi-alert-outline mdi-24px pr-4"></i> Você não possui nenhuma solicitação nesse estado.</h5>
+                                    </p>
+                                </li>
+                                @endif
+                            @else
+                            <li class="text-center mx-auto">
+                                <p class="col-12">
+                                    <h5 class="text-center font-weight-normal"><i class="mdi mdi-alert-outline mdi-24px pr-4"></i> Você não possui nenhuma solicitação nesse estado.</h5>
+                                </p>
+                            </li>
+                            @endif
+                        </section>
+                        <section id="section-2" >
                             <ul class="row col-12 m-auto px-0">
                                 @if(isset($solicitacoes[0]))
                                 <?php $a = 0;?>
@@ -75,7 +150,7 @@ Solicitações de Cadastro
                                                             <span>{{$solicitacao->nome}}</span> 
                                                             <i>&#183</i>
                                                             <span>#0{{$solicitacao->id}}</span> 
-                                                            <div class="badge badge-warning mx-2 text-uppercase">{{$solicitacao->status}}</div>
+                                                            <div class="badge badge-warning mx-2 text-uppercase">{{$solicitacao->RelationStatusRecente->status}}</div>
                                                         </h5>
                                                     </a>
                                                     <label class="text-truncate d-block font-weight-bold text-muted mb-3">
@@ -128,71 +203,6 @@ Solicitações de Cadastro
                                 @endif
                             </ul>
                         </section>
-                        <section id="section-2">
-                            @if(isset($solicitacoes[0]))
-                            <?php $b = 0;?>
-                                @foreach($solicitacoes as $solicitacao)
-                                @if($solicitacao->RelationStatusRecente->status == 'aberto')
-                                <li class="col-12 border rounded shadow-sm mb-3 callout-success">
-                                    <div class="p-3 h-100 row">
-                                        <div class="text-left col-lg-6 col-8">
-                                            <a href="#">
-                                                <h5 class="text-uppercase my-1 text-truncate">
-                                                    <span>{{$solicitacao->nome}}</span> 
-                                                    <i>&#183</i>
-                                                    <span>#0{{$solicitacao->id}}</span> 
-                                                    <div class="badge badge-warning mx-2 text-uppercase">{{$solicitacao->status}}</div>
-                                                </h5>
-                                            </a>
-                                            <label class="text-truncate d-block font-weight-bold text-muted mb-3">
-                                                <span>{{($solicitacao->sigla == "PF" ? 'Pessoa física' : 'Pessoa jurídica')}}</span>
-                                            </label>
-                                            <label class="text-capitalize d-block text-primary mb-0">
-                                                <small class="text-dark"><b>Documento</b>: {{$solicitacao->documento}}</small>
-                                            </label>
-                                            <label class="text-capitalize d-block text-primary mb-0">
-                                                <small class="text-dark"><b>Escolaridade</b>: {{$solicitacao->escolaridade}}</small>
-                                            </label>
-                                            <label class="text-truncate d-block mb-0">
-                                                <small class="text-dark"><b>Data de solicitação</b>: {{date('d/m/Y H:i:s', strtotime($solicitacao->created_at))}}</small>
-                                            </label>                  
-                                        </div>
-                                        <div class="text-right row col-lg-3 col-4 ml-auto my-auto">
-                                            <div class="ml-auto">
-                                                <a href="#" class="btn btn-default btn-outline btn-rounded btn-xs col-10 mb-2" title="">
-                                                    <i class="mdi mdi-comment-processing-outline"></i>
-                                                    <small class="hidden-xs"> Mais informações</small>
-                                                </a>
-                                                <a href="#" class="btn btn-default btn-outline btn-rounded btn-xs col-10 mb-2" title="">
-                                                    <i class="mdi mdi-cached"></i>
-                                                    <small class="hidden-xs"> Atualizar status</small>
-                                                </a>
-                                                <a href="#" class="btn btn-default btn-outline btn-rounded btn-xs col-10 mb-2" title="">
-                                                    <i class="mdi mdi-cloud-print-outline"></i>
-                                                    <small class="hidden-xs"> Gerar relatório</small>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <?php $b++; ?>
-                                @endif
-                                @endforeach
-                                @if($b == 0)
-                                <li class="text-center mx-auto">
-                                    <p class="col-12">
-                                        <h5 class="text-center font-weight-normal"><i class="mdi mdi-alert-outline mdi-24px pr-4"></i> Você não possui nenhuma solicitação nesse estado.</h5>
-                                    </p>
-                                </li>
-                                @endif
-                            @else
-                            <li class="text-center mx-auto">
-                                <p class="col-12">
-                                    <h5 class="text-center font-weight-normal"><i class="mdi mdi-alert-outline mdi-24px pr-4"></i> Você não possui nenhuma solicitação nesse estado.</h5>
-                                </p>
-                            </li>
-                            @endif
-                        </section>
                         <section id="section-3">
                             @if(isset($solicitacoes[0]))
                                 <?php $c = 0;?>
@@ -206,7 +216,7 @@ Solicitações de Cadastro
                                                     <span>{{$solicitacao->nome}}</span> 
                                                     <i>&#183</i>
                                                     <span>#0{{$solicitacao->id}}</span> 
-                                                    <div class="badge badge-warning mx-2 text-uppercase">{{$solicitacao->status}}</div>
+                                                    <div class="badge badge-info mx-2 text-uppercase">{{$solicitacao->RelationStatusRecente->status}}</div>
                                                 </h5>
                                             </a>
                                             <label class="text-truncate d-block font-weight-bold text-muted mb-3">
@@ -271,7 +281,7 @@ Solicitações de Cadastro
                                                     <span>{{$solicitacao->nome}}</span> 
                                                     <i>&#183</i>
                                                     <span>#0{{$solicitacao->id}}</span> 
-                                                    <div class="badge badge-warning mx-2 text-uppercase">{{$solicitacao->status}}</div>
+                                                    <div class="badge bg-dark mx-2 text-uppercase">{{$solicitacao->RelationStatusRecente->status}}</div>
                                                 </h5>
                                             </a>
                                             <label class="text-truncate d-block font-weight-bold text-muted mb-3">
@@ -336,7 +346,7 @@ Solicitações de Cadastro
                                                     <span>{{$solicitacao->nome}}</span> 
                                                     <i>&#183</i>
                                                     <span>#0{{$solicitacao->id}}</span> 
-                                                    <div class="badge badge-warning mx-2 text-uppercase">{{$solicitacao->status}}</div>
+                                                    <div class="badge badge-danger mx-2 text-uppercase">{{$solicitacao->RelationStatusRecente->status}}</div>
                                                 </h5>
                                             </a>
                                             <label class="text-truncate d-block font-weight-bold text-muted mb-3">
