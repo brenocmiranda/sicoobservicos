@@ -13,6 +13,10 @@ class Cadastro extends Model
     protected $primaryKey = 'id';
     protected $fillable = ['id', 'sigla', 'documento', 'nome', 'fantasia', 'data_abertura', 'atividade_economica', 'porte_cliente', 'situacao', 'sexo', 'naturalidade', 'estadoCivil', 'escolaridade', 'profissao', 'email', 'observacoes', 'usr_id_usuarios', 'created_at', 'updated_at'];
 
+    public function RelationUsuario(){
+        return $this->belongsTo(Usuarios::class, 'usr_id_usuarios');
+    }
+
     public function RelationStatus(){
         return $this->hasMany(CadastroStatus::class, 'cad_id_novos');
     }

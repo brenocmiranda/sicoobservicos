@@ -263,23 +263,25 @@
 				<div id="step-4" class="tab-pane w-100" role="tabpanel" aria-labelledby="step-4">
 					<div class="col-lg-10 col-12 px-0 px-lg-4">
 						<div class="form-group">
-							<label class="col-form-label pb-0">Sócio 1 <span class="text-danger">*</span></label>
-							<select class="form-control form-control-line" name="socios[]" required>
-								<option>Selecione</option>
-								<option value="celular">Celular</option>
-								<option value="residencial">Residencial</option>
-								<option value="comercial">Comercial</option>
-								<option value="recado">Recado</option>
-								<option value="fax">Fax</option>
-							</select>
+							<div class="row dadosSocios">
+								<div class="col-12 mb-2">
+									<label class="col-form-label pb-0">Sócio 1 <span class="text-danger">*</span></label>
+									<input class="form-control form-control-line pesquisar" onkeyup="this.value = this.value.toUpperCase(); $(this).removeClass('border-danger');" placeholder="Entre com nome ou documento do associado..." onchange="this.value = this.value.toUpperCase();" aria-controls="table" name="socios[]" required/>
+								</div>
+							</div>
 						</div>
 					</div>
+					<div class="col-lg-10 col-12 px-0 px-lg-4">
+						<a href="javascript:" id="btnSocios"> <i class="ti-plus pr-2"></i> Selecionar mais sócios</a>
+					</div>
+					<!--
 					<div class="col-lg-10 col-12 px-0 px-lg-4">
 						<a href="javascript:">
 							<i class="mdi mdi-plus"></i>
 							<span>Cadastrar novo associado</span>
 						</a>
 					</div>
+					-->
 				</div>
 				<div id="step-5" class="tab-pane w-100" role="tabpanel" aria-labelledby="step-5">
 					<div class="row col-12 mx-auto px-0">
@@ -288,7 +290,7 @@
 								<label class="col-form-label">Cartão de assinatura <span class="text-danger">*</span></label>
 								<div class="row">
 									<div class="row col-12 justify-content-center mx-auto mb-2">
-										<input type="text" class="form-control col-10 px-3 h-100" name="nomeImposto" onkeyup="this.value = this.value.toUpperCase();" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" value="CARTAO DE ASSINATURA">
+										<input type="text" class="form-control col-10 px-3 h-100" name="nomeCartao" onkeyup="this.value = this.value.toUpperCase();" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" value="CARTAO DE ASSINATURA">
 										<label for="fupload15" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-file"></i></label>
 										<input type="file" name="cartaoAssinatura" id="fupload15" class="position-absolute offset-10 col-1 px-0 mt-3" style="opacity: 0" accept="image/*" onchange="cartao(this); ">
 									</div>

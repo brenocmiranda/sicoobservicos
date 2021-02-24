@@ -69,12 +69,12 @@ Solicitações de Cadastro
                                 @if($solicitacao->RelationStatusRecente->status == 'aberto')
                                 <li class="col-12 border rounded shadow-sm mb-3 callout-success">
                                     <div class="p-3 h-100 row">
-                                        <div class="text-left col-lg-6 col-8">
+                                        <div class="text-left col-lg-9 col-8">
                                             <a href="{{route('detalhes.cadastro.atendimento', $solicitacao->id)}}">
                                                 <h5 class="text-uppercase my-1 text-truncate">
-                                                    <span>{{$solicitacao->nome}}</span> 
-                                                    <i>&#183</i>
                                                     <span>#0{{$solicitacao->id}}</span> 
+                                                    <i>&#183</i>
+                                                    <span class="pl-1">{{$solicitacao->nome}}</span> 
                                                     <div class="badge badge-success mx-2 text-uppercase">{{$solicitacao->RelationStatusRecente->status}}</div>
                                                 </h5>
                                             </a>
@@ -92,13 +92,13 @@ Solicitações de Cadastro
                                                  <label class="text-capitalize d-block text-primary mb-0">
                                                     <small class="text-dark"><b>Atividade econômica</b>: {{$solicitacao->atividade_economica}}</small>
                                                 </label>
-                                                 <label class="text-capitalize d-block text-primary mb-0">
-                                                    <small class="text-dark"><b>Porte</b>: {{$solicitacao->porte_cliente}}</small>
-                                                </label>
                                             @endif
                                             <label class="text-truncate d-block mb-0">
                                                 <small class="text-dark"><b>Data de solicitação</b>: {{date('d/m/Y H:i:s', strtotime($solicitacao->created_at))}}</small>
-                                            </label>                  
+                                            </label>
+                                            <label class="text-truncate d-block mb-0">
+                                                <small class="text-dark"><b>Solicitante</b>: {{$solicitacao->RelationUsuario->RelationAssociado->nome}}</small>
+                                            </label>                   
                                         </div>
                                         <div class="text-right row col-lg-3 col-4 ml-auto my-auto">
                                             <div class="ml-auto">
@@ -144,12 +144,12 @@ Solicitações de Cadastro
                                         @if($solicitacao->RelationStatusRecente->status == 'devolvido')
                                         <li class="col-12 border rounded shadow-sm mb-3 callout-warning">
                                             <div class="p-3 h-100 row">
-                                                <div class="text-left col-lg-6 col-8">
+                                                <div class="text-left col-lg-9 col-8">
                                                     <a href="#">
                                                         <h5 class="text-uppercase my-1 text-truncate">
-                                                            <span>{{$solicitacao->nome}}</span> 
-                                                            <i>&#183</i>
                                                             <span>#0{{$solicitacao->id}}</span> 
+                                                            <i>&#183</i>
+                                                            <span class="pl-1">{{$solicitacao->nome}}</span> 
                                                             <div class="badge badge-warning mx-2 text-uppercase">{{$solicitacao->RelationStatusRecente->status}}</div>
                                                         </h5>
                                                     </a>
@@ -159,12 +159,21 @@ Solicitações de Cadastro
                                                     <label class="text-capitalize d-block text-primary mb-0">
                                                         <small class="text-dark"><b>Documento</b>: {{$solicitacao->documento}}</small>
                                                     </label>
-                                                    <label class="text-capitalize d-block text-primary mb-0">
-                                                        <small class="text-dark"><b>Escolaridade</b>: {{$solicitacao->escolaridade}}</small>
-                                                    </label>
+                                                     @if($solicitacao->sigla == "PF")
+                                                        <label class="text-capitalize d-block text-primary mb-0">
+                                                            <small class="text-dark"><b>Escolaridade</b>: {{$solicitacao->escolaridade}}</small>
+                                                        </label>
+                                                    @else
+                                                         <label class="text-capitalize d-block text-primary mb-0">
+                                                            <small class="text-dark"><b>Atividade econômica</b>: {{$solicitacao->atividade_economica}}</small>
+                                                        </label>
+                                                    @endif
                                                     <label class="text-truncate d-block mb-0">
                                                         <small class="text-dark"><b>Data de solicitação</b>: {{date('d/m/Y H:i:s', strtotime($solicitacao->created_at))}}</small>
-                                                    </label>                  
+                                                    </label>
+                                                    <label class="text-truncate d-block mb-0">
+                                                        <small class="text-dark"><b>Solicitante</b>: {{$solicitacao->RelationUsuario->RelationAssociado->nome}}</small>
+                                                    </label>                   
                                                 </div>
                                                 <div class="text-right row col-lg-3 col-4 ml-auto my-auto">
                                                     <div class="ml-auto">
@@ -210,12 +219,12 @@ Solicitações de Cadastro
                                 @if($solicitacao->RelationStatusRecente->status == 'andamento')
                                 <li class="col-12 border rounded shadow-sm mb-3 callout-info">
                                     <div class="p-3 h-100 row">
-                                        <div class="text-left col-lg-6 col-8">
+                                        <div class="text-left col-lg-9 col-8">
                                             <a href="#">
                                                 <h5 class="text-uppercase my-1 text-truncate">
-                                                    <span>{{$solicitacao->nome}}</span> 
-                                                    <i>&#183</i>
                                                     <span>#0{{$solicitacao->id}}</span> 
+                                                    <i>&#183</i>
+                                                    <span class="pl-1">{{$solicitacao->nome}}</span>  
                                                     <div class="badge badge-info mx-2 text-uppercase">{{$solicitacao->RelationStatusRecente->status}}</div>
                                                 </h5>
                                             </a>
@@ -225,12 +234,21 @@ Solicitações de Cadastro
                                             <label class="text-capitalize d-block text-primary mb-0">
                                                 <small class="text-dark"><b>Documento</b>: {{$solicitacao->documento}}</small>
                                             </label>
-                                            <label class="text-capitalize d-block text-primary mb-0">
-                                                <small class="text-dark"><b>Escolaridade</b>: {{$solicitacao->escolaridade}}</small>
-                                            </label>
+                                            @if($solicitacao->sigla == "PF")
+                                                <label class="text-capitalize d-block text-primary mb-0">
+                                                    <small class="text-dark"><b>Escolaridade</b>: {{$solicitacao->escolaridade}}</small>
+                                                </label>
+                                            @else
+                                                 <label class="text-capitalize d-block text-primary mb-0">
+                                                    <small class="text-dark"><b>Atividade econômica</b>: {{$solicitacao->atividade_economica}}</small>
+                                                </label>
+                                            @endif
                                             <label class="text-truncate d-block mb-0">
                                                 <small class="text-dark"><b>Data de solicitação</b>: {{date('d/m/Y H:i:s', strtotime($solicitacao->created_at))}}</small>
-                                            </label>                  
+                                            </label>
+                                            <label class="text-truncate d-block mb-0">
+                                                <small class="text-dark"><b>Solicitante</b>: {{$solicitacao->RelationUsuario->RelationAssociado->nome}}</small>
+                                            </label>                   
                                         </div>
                                         <div class="text-right row col-lg-3 col-4 ml-auto my-auto">
                                             <div class="ml-auto">
@@ -275,12 +293,12 @@ Solicitações de Cadastro
                                 @if($solicitacao->RelationStatusRecente->status == 'finalizado')
                                 <li class="col-12 border rounded shadow-sm mb-3 callout-dark">
                                     <div class="p-3 h-100 row">
-                                        <div class="text-left col-lg-6 col-8">
+                                        <div class="text-left col-lg-9 col-8">
                                             <a href="#">
                                                 <h5 class="text-uppercase my-1 text-truncate">
-                                                    <span>{{$solicitacao->nome}}</span> 
-                                                    <i>&#183</i>
                                                     <span>#0{{$solicitacao->id}}</span> 
+                                                    <i>&#183</i>
+                                                    <span class="pl-1">{{$solicitacao->nome}}</span> 
                                                     <div class="badge bg-dark mx-2 text-uppercase">{{$solicitacao->RelationStatusRecente->status}}</div>
                                                 </h5>
                                             </a>
@@ -290,12 +308,21 @@ Solicitações de Cadastro
                                             <label class="text-capitalize d-block text-primary mb-0">
                                                 <small class="text-dark"><b>Documento</b>: {{$solicitacao->documento}}</small>
                                             </label>
-                                            <label class="text-capitalize d-block text-primary mb-0">
-                                                <small class="text-dark"><b>Escolaridade</b>: {{$solicitacao->escolaridade}}</small>
-                                            </label>
+                                            @if($solicitacao->sigla == "PF")
+                                                <label class="text-capitalize d-block text-primary mb-0">
+                                                    <small class="text-dark"><b>Escolaridade</b>: {{$solicitacao->escolaridade}}</small>
+                                                </label>
+                                            @else
+                                                 <label class="text-capitalize d-block text-primary mb-0">
+                                                    <small class="text-dark"><b>Atividade econômica</b>: {{$solicitacao->atividade_economica}}</small>
+                                                </label>
+                                            @endif
                                             <label class="text-truncate d-block mb-0">
                                                 <small class="text-dark"><b>Data de solicitação</b>: {{date('d/m/Y H:i:s', strtotime($solicitacao->created_at))}}</small>
-                                            </label>                  
+                                            </label>              
+                                            <label class="text-truncate d-block mb-0">
+                                                <small class="text-dark"><b>Solicitante</b>: {{$solicitacao->RelationUsuario->RelationAssociado->nome}}</small>
+                                            </label>     
                                         </div>
                                         <div class="text-right row col-lg-3 col-4 ml-auto my-auto">
                                             <div class="ml-auto">
@@ -340,12 +367,12 @@ Solicitações de Cadastro
                                 @if($solicitacao->RelationStatusRecente->status == 'cancelado')
                                 <li class="col-12 border rounded shadow-sm mb-3 callout-danger">
                                     <div class="p-3 h-100 row">
-                                        <div class="text-left col-lg-6 col-8">
+                                        <div class="text-left col-lg-9 col-8">
                                             <a href="#">
                                                 <h5 class="text-uppercase my-1 text-truncate">
-                                                    <span>{{$solicitacao->nome}}</span> 
-                                                    <i>&#183</i>
                                                     <span>#0{{$solicitacao->id}}</span> 
+                                                    <i>&#183</i>
+                                                    <span class="pl-1">{{$solicitacao->nome}}</span> 
                                                     <div class="badge badge-danger mx-2 text-uppercase">{{$solicitacao->RelationStatusRecente->status}}</div>
                                                 </h5>
                                             </a>
@@ -355,12 +382,21 @@ Solicitações de Cadastro
                                             <label class="text-capitalize d-block text-primary mb-0">
                                                 <small class="text-dark"><b>Documento</b>: {{$solicitacao->documento}}</small>
                                             </label>
-                                            <label class="text-capitalize d-block text-primary mb-0">
-                                                <small class="text-dark"><b>Escolaridade</b>: {{$solicitacao->escolaridade}}</small>
-                                            </label>
+                                            @if($solicitacao->sigla == "PF")
+                                                <label class="text-capitalize d-block text-primary mb-0">
+                                                    <small class="text-dark"><b>Escolaridade</b>: {{$solicitacao->escolaridade}}</small>
+                                                </label>
+                                            @else
+                                                 <label class="text-capitalize d-block text-primary mb-0">
+                                                    <small class="text-dark"><b>Atividade econômica</b>: {{$solicitacao->atividade_economica}}</small>
+                                                </label>
+                                            @endif
                                             <label class="text-truncate d-block mb-0">
                                                 <small class="text-dark"><b>Data de solicitação</b>: {{date('d/m/Y H:i:s', strtotime($solicitacao->created_at))}}</small>
-                                            </label>                  
+                                            </label>      
+                                            <label class="text-truncate d-block mb-0">
+                                                <small class="text-dark"><b>Solicitante</b>: {{$solicitacao->RelationUsuario->RelationAssociado->nome}}</small>
+                                            </label>              
                                         </div>
                                         <div class="text-right row col-lg-3 col-4 ml-auto my-auto">
                                             <div class="ml-auto">

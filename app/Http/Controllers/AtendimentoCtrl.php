@@ -346,7 +346,6 @@ class AtendimentoCtrl extends Controller
             'observacoes' => $request->observacoes,
             'usr_id_usuarios' => Auth::id(), 
         ]);
-
         // Criando status
         $status = CadastroStatus::create([
             'status' => 'aberto', 
@@ -354,7 +353,6 @@ class AtendimentoCtrl extends Controller
             'usr_id_usuarios' => Auth::id(),
             'cad_id_novos' => $create->id 
         ]);
-
         // Criando os telefones
 		if($request->tipoTelefone){
 			foreach ($request->tipoTelefone as $key => $value) {
@@ -365,7 +363,17 @@ class AtendimentoCtrl extends Controller
 		        ]);
 			}
 		}
-
+		// Vinculando os socios a empresa
+		if($request->socios){
+			foreach ($request->socios as $key => $value) {
+				$documento = explode(': ', $value);
+	  			$associado = Associados::where('documento', $documento[1])->first();
+				$socios = CadastroSocios::create([
+		            'cad_id_novos' => $create->id, 
+		            'cli_id_associado' => $associado->id
+		        ]);
+			}
+		}
 		// Upload do documento de contrato social
 		if($request->documentoContrato[0]){
 			foreach($request->file('documentoContrato') as $key => $value) {
