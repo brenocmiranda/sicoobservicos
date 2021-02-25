@@ -110,7 +110,7 @@
         </label>
         @endforeach
         @else
-          <label class="text-muted text-center">Nenhum tópico relacionado a esse iten. Fique atento, logo estaremos disponibilizando novidades!</label>
+          <label class="text-muted text-center">Nenhum tópico relacionado a esse item. Fique atento, logo estaremos disponibilizando novidades!</label>
         @endif
       </div>
     </div>  
