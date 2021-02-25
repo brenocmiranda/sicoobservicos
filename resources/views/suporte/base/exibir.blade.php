@@ -50,7 +50,7 @@ Aprendizagem
 		                                <div class="col-12">
 		                                	<div class="mx-4">
 			                                	<h4 class="mb-3">{{$ambiente->nome}}</h4> 
-			                                	<label>{{$ambiente->descricao}}</label>
+			                                	{{(isset($ambiente->descricao) ? <label>$ambiente->descricao</label> : '')}}
 		                                	</div>
 		                                </div>
 		                                <hr class="mt-3 mx-5">

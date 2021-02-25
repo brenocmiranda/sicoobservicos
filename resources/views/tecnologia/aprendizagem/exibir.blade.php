@@ -41,7 +41,7 @@ Tópicos
 						@if(isset($topicos[0]))
 							<ul class="p-0" id="topicos">
 								@foreach($topicos as $topico)
-								<li class="row">
+								<li class="row mx-auto">
 									<div class="row mx-auto col-12 border shadow-sm rounded my-2 p-3">
 										<div class="col-10">
 											<a href="{{route('detalhes.base', $topico->id)}}">
