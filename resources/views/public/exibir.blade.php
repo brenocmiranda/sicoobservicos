@@ -78,7 +78,7 @@ Dashboard PowerBi
 	    </div>
 		
 		<div class="row col-12 col-sm-11 col-lg-11 mx-auto py-5 justify-content-center text-left">
-			<iframe width="1140" height="541.25" src="https://app.powerbi.com/reportEmbed?reportId=11c41110-19ad-4bdc-8014-eb08f0d2f888&autoAuth=true&ctid=17664542-f665-4052-ba73-1e359bec3de0&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLWJyYXppbC1zb3V0aC1iLXByaW1hcnktcmVkaXJlY3QuYW5hbHlzaXMud2luZG93cy5uZXQvIn0%3D" frameborder="0" allowFullScreen="true"></iframe>
+			<iframe width="1140" height="600" src="https://app.powerbi.com/view?r=eyJrIjoiMzk3ODBlOWQtNTg4NS00ZTUzLTlkMWQtMTFjN2NhMGU5OGQ1IiwidCI6ImM5NjA1NDZhLTQ0YjktNGYxNS04MjYyLWRkYjI1YWExMGY0NiJ9" frameborder="0" allowFullScreen="true"></iframe>
 		</div>	
 	</div>
 </div>

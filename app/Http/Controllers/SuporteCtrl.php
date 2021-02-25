@@ -41,10 +41,10 @@ class SuporteCtrl extends Controller
 	// Exibir base de conhecimento
 	public function Aprendizagem(){
         if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
-		    $ambientes = Base::join('gti_ambientes', 'gti_id_ambientes', 'gti_ambientes.id')->where('gti_ambientes.status', 1)->select('gti_ambientes.*')->orderBy('nome', 'ASC')->get();
+		    $ambientes = Base::join('gti_ambientes', 'gti_id_ambientes', 'gti_ambientes.id')->where('gti_ambientes.status', 1)->select('gti_ambientes.*')->orderBy('nome', 'ASC')->groupBy('gti_base.gti_id_ambientes')->get();
 		    $fontes = Base::join('gti_fontes', 'gti_id_fontes', 'gti_fontes.id')->where('gti_fontes.status', 1)->select('gti_fontes.*')->orderBy('nome', 'ASC')->get();
         }else{
-            $ambientes = Base::join('gti_ambientes', 'gti_id_ambientes', 'gti_ambientes.id')->where('gti_ambientes.status', 1)->where('tipo', 'externo')->select('gti_ambientes.*')->orderBy('nome', 'ASC')->get();
+            $ambientes = Base::join('gti_ambientes', 'gti_id_ambientes', 'gti_ambientes.id')->where('gti_ambientes.status', 1)->where('tipo', 'externo')->select('gti_ambientes.*')->orderBy('nome', 'ASC')->groupBy('gti_base.gti_id_ambientes')->get();
             $fontes = Base::join('gti_fontes', 'gti_id_fontes', 'gti_fontes.id')->where('gti_fontes.status', 1)->where('tipo', 'externo')->select('gti_fontes.*')->orderBy('nome', 'ASC')->get();
         }
 		return view('suporte.base.exibir')->with('ambientes', $ambientes)->with('fontes', $fontes);	
@@ -69,6 +69,12 @@ class SuporteCtrl extends Controller
             $topicos = Base::where('gti_id_ambientes', $dados->gti_id_ambientes)->where('gti_id_fontes', $dados->gti_id_fontes)->where('id', '<>', $dados->id)->where('tipo', 'externo')->limit(5)->get();
         }
         return view('suporte.base.detalhes')->with('dados', $dados)->with('topicos', $topicos);
+    }
+
+    // Detallhes do tópico
+    public function RelatorioAprendizagem($id){
+        $dados = Base::find($id);
+        return view('suporte.base.relatorio')->with('dados', $dados);
     }
 
 	#-------------------------------------------------------------------

@@ -271,6 +271,7 @@ Route::group(['prefix' => 'app'], function(){
 			Route::get('', 'SuporteCtrl@Aprendizagem')->name('exibir.base');
 			Route::get('listar/{fonte}/{tipo}', 'SuporteCtrl@AprendizagemListar')->name('listar.base');
 			Route::get('detalhes/{id}', 'SuporteCtrl@DetalhesAprendizagem')->name('detalhes.base');
+			Route::get('relatorio/{id}', 'SuporteCtrl@RelatorioAprendizagem')->name('relatorio.base');
 		});
 		// Chamados
 		Route::group(['prefix' => 'chamados'], function(){
