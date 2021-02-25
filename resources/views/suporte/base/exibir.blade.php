@@ -50,7 +50,7 @@ Aprendizagem
 		                                <div class="col-12">
 		                                	<div class="mx-4">
 			                                	<h4 class="mb-3">{{$ambiente->nome}}</h4> 
-			                                	{{(isset($ambiente->descricao) ? '<label>'.$ambiente->descricao.'</label>' : '')}}
+			                                	<label>{{(isset($ambiente->descricao) ? $ambiente->descricao : 'SEM DESCRIÇÃO CADASTRADA')}}</label>
 		                                	</div>
 		                                </div>
 		                                <hr class="mt-3 mx-5">
