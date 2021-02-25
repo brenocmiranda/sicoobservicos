@@ -55,12 +55,14 @@ Aprendizagem
 		                                </div>
 		                                <hr class="mt-3 mx-5">
 		                                <div class="col-12">
-		                                    <ul style="list-style: disc" id="fontes">
+		                                    <ul id="fontes">
 		                                    	@foreach($fontes as $fonte)
 		                                    		@if($fonte->gti_id_ambientes == $ambiente->id)
-			                                    		<a href="{{route('listar.base', [$ambiente->id, $fonte->id])}}">
-			                                    			<li class="pb-3">{{$fonte->nome}}</li>
-			                                    		</a>	        
+			                                    		<li style="list-style: disc">
+				                                    		<a href="{{route('listar.base', [$ambiente->id, $fonte->id])}}">
+				                                    			<li class="pb-3">{{$fonte->nome}}</li>
+				                                    		</a>	    
+			                                    		</li>    
 			                                    		<?php $i++; ?>                            		
 		                                    		@endif
 		                                    	@endforeach
