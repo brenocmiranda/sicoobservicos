@@ -619,12 +619,12 @@ class ConfiguracoesCtrl extends Controller
 				'usr_id_unidade' => $request->usr_id_unidade
 			]);
 			Atividades::create([
-					'nome' => 'Edição de informações',
-					'descricao' => 'Você modificou as informações do usuário '.$create->login.'.',
-					'icone' => 'mdi-account-edit',
-					'url' => route('exibir.usuarios.administrativo'),
-					'id_usuario' => Auth::id()
-				]);
+				'nome' => 'Edição de informações',
+				'descricao' => 'Você modificou as informações do usuário '.$create->login.'.',
+				'icone' => 'mdi-account-edit',
+				'url' => route('exibir.usuarios.administrativo'),
+				'id_usuario' => Auth::id()
+			]);
 			return response()->json(['success' => true]);
 		}else{
 			return redirect(route('403'));
@@ -748,7 +748,6 @@ class ConfiguracoesCtrl extends Controller
 				'assunto_fechamento_chamado' => $request->assunto_fechamento_chamado,
 				'fechamento_chamado' => $request->fechamento_chamado,
 			]);
-
 			Atividades::create([
 				'nome' => 'Alteração as mensagens de e-mail',
 				'descricao' => 'Você alterou as informações de mensagens de e-mail',
@@ -756,7 +755,6 @@ class ConfiguracoesCtrl extends Controller
 				'url' => route('exibir.mensagens.emails'),
 				'id_usuario' => Auth::id()
 			]);
-
 			\Session::flash('alteracao', array(
 					'class' => 'success',
 					'mensagem' => 'Seus dados foram alterados com sucesso.'

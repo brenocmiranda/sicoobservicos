@@ -28,7 +28,7 @@ Aprendizagem
 				<div class="row col-12 mx-auto mt-5 p-0">
 					@if(isset($ambientes[0]))
 						<div class="vtabs customvtab w-100">
-	                        <ul class="nav tabs-vertical"  id="ambientes" style="width: 20%;">
+	                        <ul class="nav tabs-vertical"  id="ambientes" style="width: 30%;">
 	                        	@foreach($ambientes as $ambiente)
 									<li class="tab p-0 {{($ambiente->id == $ambiente->first()->id ? ' active' : '')}}">
 										<a data-toggle="tab" href="#section{{$ambiente->id}}"  aria-expanded="true" class="m-0">

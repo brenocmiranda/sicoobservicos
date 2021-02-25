@@ -42,6 +42,7 @@ use PDF;
 
 class TecnologiaCtrl extends Controller
 {
+
 	public function __construct(){
 		$this->middleware('auth');
 	}
@@ -381,12 +382,11 @@ class TecnologiaCtrl extends Controller
 	}
 	// Importando arquivos de anexo
     public function ArquivosAprendizagem(Request $request){
-        // Cadastramento de várias imagens do mesmo produto
+        // Cadastramento de várias imagens do mesmo tópico
         if ($request->hasFile('arquivos')) {
-            foreach($request->file('arquivos') as $imagem){
+            foreach($request->file('arquivos') as $key => $imagem){
                 if($imagem->isValid()){
-                    $string = iconv( "UTF-8" , "ASCII//TRANSLIT//IGNORE" , str_replace($imagem->extension(), '', $imagem->getClientOriginalName()));
-					$name = preg_replace( array( '/[ ]/' , '/[^A-Za-z0-9\-]/' ) , array( '' , '' ) , $string);
+                    $name = 'Arquivo_'.rand(1, 999);
                     $extension =  $imagem->extension();
                     $nameFile = "{$name}.{$extension}";
                     $upload =  $imagem->storeAs('base', $nameFile);
