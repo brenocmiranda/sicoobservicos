@@ -24,16 +24,33 @@ Página inicial
 	        		<label class="font-weight-bold pb-3 d-block">Novos tópicos disponíveis &#183 <a href="{{route('exibir.base')}}"><small>Saiba mais!</small></a></label>
 	        		@if(isset($base[0]))
 	        			<ul class="col-12 ml-3">
-			        		@foreach($base as $b)
-			        			<li class="pb-2" style="list-style: disc;" >
-			        				<a href="{{route('detalhes.base', $b->id)}}">
-			        					<span class="text-truncate d-block">
-			        						<small>{{(date('Y-m-d H:i:s', strtotime('+15 days')) <= $b->created_at ? date('d/m/Y', strtotime($b->created_at)) : date('d/m/Y', strtotime($b->updated_at)))}} &#183</small>
-			        						<span>{{$b->titulo}}</span>
-			        					</span> 
-			        				</a>
-			        			</li>
-			        		@endforeach
+	        				@if(Auth::user()->RelationFuncao->gerenciar_gti == 1)
+				        		@foreach($base as $b)
+				        			<li class="pb-2" style="list-style: disc;" >
+				        				<a href="{{route('detalhes.base', $b->id)}}">
+				        					<span class="text-truncate d-block">
+				        						<small>{{(date('Y-m-d H:i:s', strtotime('+15 days')) <= $b->created_at ? date('d/m/Y', strtotime($b->created_at)) : date('d/m/Y', strtotime($b->updated_at)))}} &#183</small>
+				        						<span>{{$b->titulo}}</span>
+				        					</span> 
+				        				</a>
+				        			</li>
+				        		@endforeach
+				        	@else
+				        		@if(count($base->where('tipo', 'externo')) > 0)
+					        		@foreach($base->where('tipo', 'externo') as $b)
+					        			<li class="pb-2" style="list-style: disc;" >
+					        				<a href="{{route('detalhes.base', $b->id)}}">
+					        					<span class="text-truncate d-block">
+					        						<small>{{(date('Y-m-d H:i:s', strtotime('+15 days')) <= $b->created_at ? date('d/m/Y', strtotime($b->created_at)) : date('d/m/Y', strtotime($b->updated_at)))}} &#183</small>
+					        						<span>{{$b->titulo}}</span>
+					        					</span> 
+					        				</a>
+					        			</li>
+					        		@endforeach
+					        	@else
+									<label>Opss! Nenhum novo tópico cadastrado.</label>
+					        	@endif
+				        	@endif
 			        	</ul>
 		        	@else
 		        		<label>Opss! Nenhum novo tópico cadastrado.</label>
