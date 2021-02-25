@@ -58,11 +58,9 @@ Aprendizagem
 		                                    <ul id="fontes">
 		                                    	@foreach($fontes as $fonte)
 		                                    		@if($fonte->gti_id_ambientes == $ambiente->id)
-			                                    		<li style="list-style: disc">
-				                                    		<a href="{{route('listar.base', [$ambiente->id, $fonte->id])}}">
-				                                    			<li class="pb-3">{{$fonte->nome}}</li>
-				                                    		</a>	    
-			                                    		</li>    
+			                                    		<a href="{{route('listar.base', [$ambiente->id, $fonte->id])}}">
+			                                    			<li style="list-style: disc" class="pb-3">{{$fonte->nome}}</li>
+			                                    		</a>	        
 			                                    		<?php $i++; ?>                            		
 		                                    		@endif
 		                                    	@endforeach
