@@ -31,7 +31,7 @@ Tópicos
 				</div>
 				<hr class="mx-5 mt-1">
 				@if(!empty($todos[0]))
-					<ul class="row col-12 m-auto p-0 " id="fontes">
+					<ul class="row col-12 m-auto p-0 " id="fontes" style="list-style: circle;">
 						@foreach($todos as $todos)
 							<li class="col-12 px-0 px-lg-5">
 								<a href="{{route('detalhes.base', $todos->id)}}">
