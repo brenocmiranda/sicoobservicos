@@ -299,4 +299,10 @@ class PublicCtrl extends Controller
 		$homepage = Imagens::where('tipo', 'homepage_principal')->get();
 		return view('telefones.exibir')->with('unidades', $unidades)->with('usuariosRamal', $usuariosRamal)->with('usuariosCorporativo', $usuariosCorporativo)->with('homepage', $homepage);
 	}
+
+	// Publicações de dashboard
+	public function ExibirPublicacoes(){
+		$homepage = Imagens::where('tipo', 'homepage_principal')->get();
+		return view('public.exibir')->with('homepage', $homepage);
+	}
 }

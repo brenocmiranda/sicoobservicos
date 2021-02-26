@@ -287,7 +287,7 @@ Adicionar bens
 					contentType: false,
 					success: function(data){ 
 						for (i = 0; i < data.length; i++) {
-							$('div.preview').append('<div class="border mx-2 mb-4 rounded col-2 p-0 row text-center" id="PreviewImage'+data[i].id+'" style="height: 10em;"> <input type="hidden" name="imagens[]" value="'+data[i].id+'"><a href="javascript:void(0)" onclick="removeImagem('+data[i].id+')" class="btn btn-light rounded-circle m-n2 mb-auto border btn-xs position-absolute" style="height: 26px; width: 26px">x</a><img src="{{asset("storage/app/")}}/'+data[i].endereco+'" class="w-100 h-100 p-2"></div>');
+							$('div.preview').append('<div class="border mx-2 mb-4 rounded col-2 p-0 row text-center" id="PreviewImage'+data[i].id+'" style="height: 10em;"> <input type="hidden" name="imagens[]" value="'+data[i].id+'"><a href="javascript:void(0)" onclick="removeImagem('+data[i].id+')" class="btn btn-light rounded-circle m-n2 mb-auto border btn-xs position-absolute" style="z-index:10"><i class="mdi mdi-close"></i></a><img src="{{asset("storage/app/")}}/'+data[i].endereco+'" class="w-100 h-100 p-2"></div>');
 						} 
 						$('#addImagens').val('');   
 					}

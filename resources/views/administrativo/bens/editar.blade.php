@@ -93,7 +93,7 @@ Editar bens
                         <div class="border mx-2 mb-4 rounded col-2 d-flex p-0" id="PreviewImage{{$imagens->id}}"> 
                           <input type="hidden" name="imagens[]" value="{{$imagens->id}}"> 
                           <img class="p-3 w-100" src="{{asset('storage/app/').'/'.$imagens->endereco}}" style="height: 10em;">
-                          <a href="javascript:void(0)" onclick="removeImagem('{{$imagens->id}}')" class="btn btn-light rounded-circle m-n2 mb-auto border btn-xs position-absolute" style="height: 26px; width: 26px">x</a> 
+                          <a href="javascript:void(0)" onclick="removeImagem('{{$imagens->id}}')" class="btn btn-light rounded-circle m-n2 mb-auto border btn-xs position-absolute" style="z-index: 10"><i class="mdi mdi-close"></i></a> 
                         </div>
                       @endforeach
                     </div> 

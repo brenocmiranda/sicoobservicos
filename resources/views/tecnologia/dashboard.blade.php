@@ -181,7 +181,7 @@ Tecnologia
 							<h3 class="box-title text-left mb-0">Total de equipamentos</h3>
 							<hr class="mt-2">
 							<div class="col-lg-12 col-sm-12 col-xs-12 text-center row m-auto align-items-center justify-content-center h-75 pb-5">
-								<h1 style="font-size: 55px;">{{count($chamados)}} 
+								<h1 style="font-size: 55px;">{{count($equipamentosMarca)}} 
 									<small>cadastrados</small>
 								</h1>
 							</div>
@@ -211,7 +211,7 @@ Tecnologia
 							<h3 class="box-title mb-0">Equipamentos por usuário</h3>
 							<hr class="mt-2">
 							<div class="table-responsive">
-								<table class="table color-table muted-table" id="table3">
+								<table class="table color-table muted-table text-center" id="table3">
 									<thead>
 										<tr>
 											<th>Nome</th>
@@ -270,7 +270,7 @@ Tecnologia
 	    $.each(chamadosDia, function(key, val){
 	    	morrisData.push({'data': val.data, 'quantidade': val.quantidade}); 
 	    });
-		Morris.Area({
+		Morris.Bar({
           	element: 'morris-line-chart',
          	 data: morrisData,
           	xkey: 'data',

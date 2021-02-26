@@ -21,7 +21,7 @@ class PrivateCtrl extends Controller
 	// Tela de inicial
 	public function Inicio(){
 		if (Auth::check() && Auth::user()->status == "Ativo") {
-			$base = Base::orderBy('created_at', 'DESC')->where('created_at', '>=', date('Y-m-d H:i:s', strtotime('-15 days')))->orWhere('updated_at', '>=', date('Y-m-d H:i:s', strtotime('-15 days')))->take(5)->get();			
+			$base = Base::orderBy('created_at', 'DESC')->where('tipo', 'externo')->where('created_at', '>=', date('Y-m-d H:i:s', strtotime('-15 days')))->orWhere('updated_at', '>=', date('Y-m-d H:i:s', strtotime('-15 days')))->take(5)->get();
 			return view('system.home')->with('base', $base);
 		}else{
 			return redirect(route('login'));

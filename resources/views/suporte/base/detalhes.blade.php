@@ -40,8 +40,13 @@
                 <span>Voltar</span>
               </a>
             </div>
-            @if(Auth::user()->RelationFuncao->gerenciar_gti)
+           
             <div class="ml-auto">
+              <a href="{{route('relatorio.base', $dados->id)}}" target="_blank" class="btn btn-default btn-outline btn-xs px-3 mx-1">
+                <i class="mdi mdi-printer"></i>
+                <small class="hidden-xs">Imprimir</small>
+              </a>
+              @if(Auth::user()->RelationFuncao->gerenciar_gti)
               <a href="{{route('editar.base.aprendizagem', $dados->id)}}" class="btn btn-default btn-outline btn-xs px-3 mx-1">
                 <i class="mdi mdi-pencil"></i>
                 <small class="hidden-xs">Editar</small>
@@ -50,8 +55,9 @@
                 <i class="mdi mdi-close"></i>
                 <small class="hidden-xs">Remover</small>
               </a>
+              @endif
             </div>
-            @endif
+            
           </div>
           <div class="col-12 text-justify">
             <div>
@@ -59,7 +65,7 @@
               <h5>{{$dados->RelationAmbientes->nome}} &#183 {{$dados->RelationFontes->nome}}</h5>
               <label>{{$dados->subtitulo}}</label> 
               @foreach($dados->RelationArquivos as $arquivos)
-                <div class="row mx-auto"> 
+              <div class="row mx-auto"> 
                 <a href="{{asset('storage/app/'.$arquivos->endereco)}}" target="_blank" class="row col-12">
                   <div class="px-2">
                     @if( explode(".", $arquivos->endereco)[1] == "docx" || explode(".", $arquivos->endereco)[1] == "doc")
@@ -110,7 +116,7 @@
         </label>
         @endforeach
         @else
-          <label class="text-muted text-center">Nenhum tópico relacionado a esse iten. Fique atento, logo estaremos disponibilizando novidades!</label>
+          <label class="text-muted text-center">Nenhum tópico relacionado a esse item. Fique atento, logo estaremos disponibilizando novidades!</label>
         @endif
       </div>
     </div>  

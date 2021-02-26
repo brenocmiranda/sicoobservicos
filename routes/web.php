@@ -5,9 +5,10 @@
 #---------------------------------------------------------------------
 Route::group(['prefix' => '/'], function(){
 	Route::get('', 'PublicCtrl@Homepage')->name('homepage');
-	Route::get('digitalizar', 'PublicCtrl@ExibirImportacao')->name('digitalizar');
+	//Route::get('digitalizar', 'PublicCtrl@ExibirImportacao')->name('digitalizar');
 	Route::get('telefones', 'PublicCtrl@ExibirTelefones')->name('telefones');
 	Route::post('enviar', 'PublicCtrl@Importar')->name('digitalizar.enviar');
+	Route::get('publicacoes', 'PublicCtrl@ExibirPublicacoes')->name('publicacoes');
 });
 
 
@@ -270,6 +271,7 @@ Route::group(['prefix' => 'app'], function(){
 			Route::get('', 'SuporteCtrl@Aprendizagem')->name('exibir.base');
 			Route::get('listar/{fonte}/{tipo}', 'SuporteCtrl@AprendizagemListar')->name('listar.base');
 			Route::get('detalhes/{id}', 'SuporteCtrl@DetalhesAprendizagem')->name('detalhes.base');
+			Route::get('relatorio/{id}', 'SuporteCtrl@RelatorioAprendizagem')->name('relatorio.base');
 		});
 		// Chamados
 		Route::group(['prefix' => 'chamados'], function(){

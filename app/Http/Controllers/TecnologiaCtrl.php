@@ -42,6 +42,7 @@ use PDF;
 
 class TecnologiaCtrl extends Controller
 {
+
 	public function __construct(){
 		$this->middleware('auth');
 	}
@@ -67,7 +68,7 @@ class TecnologiaCtrl extends Controller
 		$chamadosFontes = Chamados::join('gti_fontes', 'gti_id_fontes', 'gti_fontes.id')->select('gti_id_fontes', 'gti_fontes.nome', \DB::raw('count(gti_id_fontes) as quantidade'))->groupBy('gti_id_fontes')->get();
 		$chamadosAmbientes = Chamados::join('gti_ambientes', 'gti_id_ambientes', 'gti_ambientes.id')->select('gti_id_ambientes', 'gti_ambientes.nome', \DB::raw('count(gti_id_ambientes) as quantidade'))->groupBy('gti_id_ambientes')->get();
 		$chamadosUsuarios = Chamados::join('gti_ambientes', 'gti_id_ambientes', 'gti_ambientes.id')->select('gti_id_ambientes', 'gti_ambientes.nome', \DB::raw('count(gti_id_ambientes) as quantidade'))->groupBy('gti_id_ambientes')->get();
-		$chamadosDia = Chamados::select(\DB::raw('DATE(created_at) as data'), \DB::raw('count(created_at) as quantidade'))->groupBy(\DB::raw('DATE(created_at)'))->get();
+		$chamadosDia = Chamados::select(\DB::raw('DATE(created_at) as data'), \DB::raw('count(created_at) as quantidade'))->orderBy(\DB::raw('DATE(created_at)'), 'DESC')->groupBy(\DB::raw('DATE(created_at)'))->limit(7)->get();
 		$chamadosUsuarios = Chamados::groupBy('usr_id_usuarios')->select('usr_id_usuarios', \DB::raw('count(usr_id_usuarios) as quantidade'))->get();
 		$equipamentosSetor = Ativos::join('usr_setores', 'id_setor', 'usr_setores.id')->select('id_setor', 'usr_setores.nome', \DB::raw('count(id_setor) as quantidade'))->groupBy('id_setor')->get();
 		$equipamentosPA = Ativos::join('usr_unidades', 'id_unidade', 'usr_unidades.id')->select('id_unidade', 'usr_unidades.nome', \DB::raw('count(id_unidade) as quantidade'))->groupBy('id_unidade')->get();
@@ -381,12 +382,11 @@ class TecnologiaCtrl extends Controller
 	}
 	// Importando arquivos de anexo
     public function ArquivosAprendizagem(Request $request){
-        // Cadastramento de várias imagens do mesmo produto
+        // Cadastramento de várias imagens do mesmo tópico
         if ($request->hasFile('arquivos')) {
-            foreach($request->file('arquivos') as $imagem){
+            foreach($request->file('arquivos') as $key => $imagem){
                 if($imagem->isValid()){
-                    $string = iconv( "UTF-8" , "ASCII//TRANSLIT//IGNORE" , str_replace($imagem->extension(), '', $imagem->getClientOriginalName()));
-					$name = preg_replace( array( '/[ ]/' , '/[^A-Za-z0-9\-]/' ) , array( '' , '' ) , $string);
+                    $name = 'Arquivo_'.rand(1, 999);
                     $extension =  $imagem->extension();
                     $nameFile = "{$name}.{$extension}";
                     $upload =  $imagem->storeAs('base', $nameFile);
