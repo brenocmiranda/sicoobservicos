@@ -7,7 +7,7 @@
 				<li class="nav-item col">
 					<a class="nav-link inactive active" href="#step-1">
 						<strong>Etapa 1</strong> <br> 
-						<span>Dados pessoais</span>
+						<span>Dados empresariais</span>
 					</a>
 				</li>
 				<li class="nav-item col">
@@ -221,7 +221,7 @@
 						</div>
 						<div class="col-12 mb-4 px-0 px-lg-4">
 							<div class="form-group mb-0">
-								<label class="col-form-label">Última Alteração Contratural ou Estatutárias</label>
+								<label class="col-form-label">Última Alteração Contratual ou Estatutárias</label>
 								<div class="row dadosAlteracao">
 									<div class="row col-12 justify-content-center mx-auto mb-2">
 										<input type="text" class="form-control col-10 px-3 h-100" name="nomeAlteracao" onkeyup="this.value = this.value.toUpperCase();" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" value="ALTERAÇÃO CONTRATUAL" placeholder="Nome do arquivo">
