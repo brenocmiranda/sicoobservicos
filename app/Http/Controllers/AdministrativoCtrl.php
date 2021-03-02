@@ -381,7 +381,7 @@ class AdministrativoCtrl extends Controller
 	// Listando materiais para configuração
 	public function ExibirMateriais(){
 		if(Auth::user()->RelationFuncao->ver_administrativo == 1 || Auth::user()->RelationFuncao->gerenciar_administrativo == 1){
-			$categorias = MateriaisCategorias::where('status', 1)->get();
+			$categorias = MateriaisCategorias::where('status', 1)->orderBy('nome', 'ASC')->get();
 			return view('administrativo.controle.todos.listar')->with('categorias', $categorias);
 		}else{
 			return redirect(route('403'));

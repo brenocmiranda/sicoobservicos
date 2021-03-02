@@ -69,7 +69,7 @@ Categorias
 		// Criando a datatables
 		$('#table').DataTable({
 			deferRender: true,
-			order: [2, 'asc'],
+			order: [0, 'asc'],
 			paginate: true,
 			select: true,
 			searching: true,
