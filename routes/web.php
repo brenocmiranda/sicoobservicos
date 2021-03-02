@@ -267,25 +267,26 @@ Route::group(['prefix' => 'app'], function(){
 	Route::group(['prefix' => 'negocios'], function(){
 		// Dashboard
 		Route::group(['prefix' => ''], function(){
-			Route::get('dashboard', 'CadastroCtrl@Dashboard')->name('dashboard.cadastro');
+			Route::get('dashboard', 'NegociosCtrl@Dashboard')->name('dashboard.negocios');
 		});
 		// Análise
 		Route::group(['prefix' => 'analise'], function(){
-			Route::get('', 'CadastroCtrl@ExibirNovos')->name('exibir.solicitacoes.cadastro');
-			Route::post('analisar', 'CadastroCtrl@DetalhesNovos')->name('detalhes.solicitacoes.cadastro');
+			Route::get('', 'NegociosCtrl@ExibirAnalise')->name('exibir.analise.negocios');
+			Route::get('listar', 'NegociosCtrl@DatatablesAnalise')->name('listar.analise.negocios');
+			Route::get('executar', 'NegociosCtrl@ExecutarAnalise')->name('executar.analise.negocios');
+			Route::post('finalizar', 'NegociosCtrl@EfetuarAnalise')->name('finalizar.analise.negocios');
 		});
 		// Carteira
 		Route::group(['prefix' => 'carteira'], function(){
-			Route::get('', 'CadastroCtrl@ExibirNovos')->name('exibir.solicitacoes.cadastro');
-			Route::post('contato', 'CadastroCtrl@DetalhesNovos')->name('detalhes.solicitacoes.cadastro');
+			Route::get('', 'NegociosCtrl@ExibirCarteira')->name('exibir.carteira.negocios');
 		});
 		// Acompanhamento
 		Route::group(['prefix' => 'acompanhamento'], function(){
-			Route::get('', 'CadastroCtrl@ExibirNovos')->name('exibir.solicitacoes.cadastro');
+			Route::get('', 'NegociosCtrl@ExibirAcompanhamento')->name('exibir.acompanhamento.negocios');
 		});
 		// Relatórios
 		Route::group(['prefix' => 'relatorios'], function(){
-			Route::get('', 'CadastroCtrl@ExibirNovos')->name('exibir.solicitacoes.cadastro');
+			Route::get('', 'NegociosCtrl@ExibirRelatorios')->name('exibir.relatorios.negocios');
 		});
 	});
 
