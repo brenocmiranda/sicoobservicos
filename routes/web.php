@@ -8,7 +8,6 @@ Route::group(['prefix' => '/'], function(){
 	//Route::get('digitalizar', 'PublicCtrl@ExibirImportacao')->name('digitalizar');
 	Route::get('telefones', 'PublicCtrl@ExibirTelefones')->name('telefones');
 	Route::post('enviar', 'PublicCtrl@Importar')->name('digitalizar.enviar');
-	Route::get('publicacoes', 'PublicCtrl@ExibirPublicacoes')->name('publicacoes');
 });
 
 
@@ -259,6 +258,34 @@ Route::group(['prefix' => 'app'], function(){
 				Route::get('alterar/{id}', 'CreditoCtrl@AlterarProdutos')->name('alterar.produtos.credito');
 				Route::any('detalhes/{id}', 'CreditoCtrl@DetalhesProdutos')->name('detalhes.produtos.credito');
 			});
+		});
+	});
+	
+	#---------------------------------------------------------------------
+	# Módulo Negócios *
+	#---------------------------------------------------------------------
+	Route::group(['prefix' => 'negocios'], function(){
+		// Dashboard
+		Route::group(['prefix' => ''], function(){
+			Route::get('dashboard', 'CadastroCtrl@Dashboard')->name('dashboard.cadastro');
+		});
+		// Análise
+		Route::group(['prefix' => 'analise'], function(){
+			Route::get('', 'CadastroCtrl@ExibirNovos')->name('exibir.solicitacoes.cadastro');
+			Route::post('analisar', 'CadastroCtrl@DetalhesNovos')->name('detalhes.solicitacoes.cadastro');
+		});
+		// Carteira
+		Route::group(['prefix' => 'carteira'], function(){
+			Route::get('', 'CadastroCtrl@ExibirNovos')->name('exibir.solicitacoes.cadastro');
+			Route::post('contato', 'CadastroCtrl@DetalhesNovos')->name('detalhes.solicitacoes.cadastro');
+		});
+		// Acompanhamento
+		Route::group(['prefix' => 'acompanhamento'], function(){
+			Route::get('', 'CadastroCtrl@ExibirNovos')->name('exibir.solicitacoes.cadastro');
+		});
+		// Relatórios
+		Route::group(['prefix' => 'relatorios'], function(){
+			Route::get('', 'CadastroCtrl@ExibirNovos')->name('exibir.solicitacoes.cadastro');
 		});
 	});
 

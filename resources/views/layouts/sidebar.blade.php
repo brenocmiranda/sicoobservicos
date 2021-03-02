@@ -126,6 +126,20 @@
       </li>
       @endif
 
+      <li> 
+        <a href="javascript:" class="waves-effect {{ (Request::segment(2) == 'produtos' ? 'active' : '') }}">
+          <i class="mdi mdi-bike pr-3" data-icon="v"></i> 
+          <span class="hide-menu"> Negócios <span class="fa arrow"></span> </span>
+        </a>
+        <ul class="nav nav-second-level {{ (Request::segment(2) == 'produtos' ? ' collapse in' : '') }}">
+          <li> <a href="#"><span class="hide-menu">Dashboard</span></a> </li>
+          <li> <a href="#"><span class="hide-menu">Análise</span></a> </li>
+          <li> <a href="#"><span class="hide-menu">Carteira</span></a> </li>
+          <li> <a href="#"><span class="hide-menu">Acompanhamento</span></a> </li>
+          <li> <a href="#"><span class="hide-menu">Relatórios</span></a> </li>
+        </ul>
+      </li>
+     
       @if(Auth::user()->RelationFuncao->ver_produtos == 1 || Auth::user()->RelationFuncao->gerenciar_produtos == 1)
       <li> 
         <a href="javascript:" class="waves-effect {{ (Request::segment(2) == 'produtos' ? 'active' : '') }}">
