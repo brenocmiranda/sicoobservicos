@@ -20340,5 +20340,5 @@ input[name=upload_img]{
 }
 
 .descricao img{
-	width: 100% !important;
+	max-width: 100% !important;
 }
