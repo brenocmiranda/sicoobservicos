@@ -86,7 +86,7 @@
                 </div>
                 @endforeach
               <hr>
-              <p class="w-100"><?php echo $dados->descricao; ?></p>
+              <div class="w-100 descricao"><?php echo $dados->descricao;?></div>
               <hr>
               <small><b>Data de criação:</b> {{$dados->created_at->format('d/m/Y H:i:s')}}</small>
               <br> 

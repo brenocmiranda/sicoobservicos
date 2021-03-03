@@ -20338,3 +20338,7 @@ input[name=upload_img]{
 	color: red;
 	padding-top: 5px; 
 }
+
+.descricao img{
+	width: 100% !important;
+}
