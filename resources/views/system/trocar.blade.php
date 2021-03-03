@@ -22,7 +22,8 @@ Redefinição de password
                <div>
                 <img src="{{(isset($usuario->RelationImagem) ? asset('storage/app/'.$usuario->RelationImagem->endereco).'?'.rand() : asset('public/img/user.png').'?'.rand())}}" alt="Imagem usuário" class="rounded-circle" height="80" width="80">
               </div>
-              <h6 class="my-4">{{$usuario->RelationAssociado->nome }}</h6>
+              <h6 class="mt-4 mb-2">{{$usuario->RelationAssociado->nome }}</h6>
+              <h6 class="badge border border-dark text-dark mb-4">{{$usuario->RelationFuncao->nome }}</h6>
               <label>Digite abaixo sua nova senha para redefinição:</label>
             </div>              
             <div class="col-12 my-3">
