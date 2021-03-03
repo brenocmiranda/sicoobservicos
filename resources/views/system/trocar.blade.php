@@ -20,9 +20,9 @@ Redefinição de password
             @csrf
             <div class="text-center mx-3">
                <div>
-                <img src="{{(isset($usuario->RelationImagem) ? asset('storage/app/'.$usuario->RelationImagem->endereco).'?'.rand() : asset('public/img/user.png').'?'.rand())}}" alt="Imagem usuário" class="rounded-circle" height="80">
+                <img src="{{(isset($usuario->RelationImagem) ? asset('storage/app/'.$usuario->RelationImagem->endereco).'?'.rand() : asset('public/img/user.png').'?'.rand())}}" alt="Imagem usuário" class="rounded-circle" height="80" width="80">
               </div>
-              <h6 class="mt-2 mb-4">{{$usuario->RelationAssociado->nome }}</h6>
+              <h6 class="my-4">{{$usuario->RelationAssociado->nome }}</h6>
               <label>Digite abaixo sua nova senha para redefinição:</label>
             </div>              
             <div class="col-12 my-3">
