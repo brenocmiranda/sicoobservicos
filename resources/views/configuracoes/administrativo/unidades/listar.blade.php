@@ -46,7 +46,7 @@ Unidades
 								</span>
 								<i class="fa fa-circle text-{{($unidade->status == 1 ? 'success' : 'danger')}} pb-1 status" style="font-size: 9px;vertical-align: middle;"></i>
 								<div class="col-12 pt-2">
-									<small class="font-weight-bold">{{(isset($unidade->cnpj) ? $unidade->cnpj : '-')}}</small>
+									<small class="font-weight-bold">{{(!empty($unidade->cnpj) ? $unidade->cnpj : '-')}}</small>
 								</div>
 							</h5>
 							<div class="mb-2 mt-4">
