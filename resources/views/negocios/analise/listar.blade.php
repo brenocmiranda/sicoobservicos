@@ -8,12 +8,12 @@ Análise
 <div class="container-fluid">
 	<div class="row bg-title">
 		<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-			<h4 class="page-title">Análise</h4> 
+			<h4 class="page-title">Análise de associado</h4> 
 		</div>
 		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
 			<ol class="breadcrumb">
 				<li><a href="javascript:void(0)">Negócios</a></li>
-				<li class="active">Análise</li>
+				<li class="active">Análise de associado</li>
 			</ol>
 		</div>
 	</div>
@@ -32,9 +32,8 @@ Análise
 				</div>
 			</div>
 			<div class="col-12 mb-3">
-				<table class="table table-striped text-left color-table muted-table rounded d-block d-lg-table" id="table" style="overflow-y: auto;">
+				<table class="table table-striped text-center color-table muted-table rounded d-block d-lg-table" id="table" style="overflow-y: auto;">
 					<thead>
-						<th> # </th>
 						<th> Nome </th>
 						<th> Documento </th>
 						<th> Renda </th>
@@ -62,7 +61,6 @@ Análise
 			ajax: "{{ route('listar.analise.negocios') }}",
 			serverSide: true,
 			"columns": [ 
-			{ "data": "id", "name":"id"},
 			{ "data": "nome", "name":"nome"},
 			{ "data": "documento", "name":"documento"},
 			{ "data": "renda1", "name":"renda1"},
