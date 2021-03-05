@@ -1,5 +1,5 @@
 @section('title')
-Análise
+Análise de associado
 @endsection
 
 @extends('layouts.index')
@@ -19,20 +19,8 @@ Análise
 	</div>
 	<div class="card">
 		<div class="card-body">
-			<div class="h-100 row col">
-				<div class="col-lg-12 position-absolute">
-					@if(Auth::user()->RelationFuncao->gerenciar_configuracoes == 1)
-					<div class="row mx-auto">
-						<button class="btn btn-primary btn-outline ml-auto" id="adicionar" name="adicionar" title="Adicionar nova função" data-toggle="modal" data-target="#modal-adicionar" style="z-index: 10">
-							<i class="m-0 pr-lg-1 mdi mdi-plus"></i> 
-							<span class="hidden-xs">Cadastrar</span> 
-						</button>
-					</div>
-					@endif
-				</div>
-			</div>
 			<div class="col-12 mb-3">
-				<table class="table table-striped text-center color-table muted-table rounded d-block d-lg-table" id="table" style="overflow-y: auto;">
+				<table class="table table-striped text-center color-table muted-table rounded d-block d-lg-table" id="table" style="overflow-y: auto; display: none !important;">
 					<thead>
 						<th> Nome </th>
 						<th> Documento </th>
@@ -42,6 +30,12 @@ Análise
 					</thead>
 				</table>
 			</div>
+			<div class="my-3 col-12 text-center processing-in">
+				<div class="spinner-border text-primary mb-3" role="status">
+				  <span class="sr-only">Loading...</span>
+				</div>
+				<h6>Carregando as informações...</h6>
+			</div>
 		</div>
 	</div>
 </div>
@@ -50,7 +44,7 @@ Análise
 @section('suporte')
 <script type="text/javascript">
 	$(document).ready( function (){
-		// Criando a datatables
+		/* Criando a datatables
 		$('#table').DataTable({
 			deferRender: true,
 			order: [0, 'asc'],
@@ -67,6 +61,33 @@ Análise
 			{ "data": "nome_gerente", "name":"nome_gerente"},
 			{ "data": "acoes","name":"acoes"},
 			],
+		});*/
+
+		// Criando a datatables
+		$.ajax({
+			url: '{{ route("listar.analise.negocios") }}',
+			type: 'GET',
+			success: function(table){
+				// Carregamento de dados
+				$('.processing-in').addClass('d-none');
+				$('.processing-off').fadeIn();
+				$('#table').fadeIn();
+				$('#table').DataTable({
+					order: [ 0, "asc" ],
+					paging: true,
+					select: true,
+					searching: true,
+					deferRender: true,
+					data: table,
+					"columns": [ 
+					{ "data": "nome", "name":"nome"},
+					{ "data": "documento", "name":"documento"},
+					{ "data": "renda1", "name":"renda1"},
+					{ "data": "nome_gerente", "name":"nome_gerente"},
+					{ "data": "acoes","name":"acoes"},
+					]
+				});	
+			}
 		});
 	});
 </script>

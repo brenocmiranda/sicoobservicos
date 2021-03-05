@@ -88,7 +88,6 @@
       </li>
       @endif
       
-
       @if(Auth::user()->RelationFuncao->ver_credito == 1 || Auth::user()->RelationFuncao->gerenciar_credito == 1)
       <li> 
         <a href="javascript:" class="waves-effect {{ (Request::segment(2) == 'credito' ? 'active' : '') }}">
