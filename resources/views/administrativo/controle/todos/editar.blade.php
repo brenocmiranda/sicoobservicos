@@ -48,7 +48,7 @@
                 <div class="col-lg-4 col-12">
                   <div class="form-group">
                     <label class="col-form-label pb-0">Quantidade <span class="text-danger">*</span></label>
-                    <input type="number" class="quantidade form-control form-control-line" name="quantidade" min="0" disabled/>
+                    <input type="number" class="quantidade form-control form-control-line" name="quantidade" min="0" required/>
                   </div>
                 </div>
                 <div class="col-lg-4 col-12">

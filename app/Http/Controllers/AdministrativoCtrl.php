@@ -453,6 +453,7 @@ class AdministrativoCtrl extends Controller
 			Materiais::find($id)->update([
 				'nome' => $request->nome, 
 				'descricao' => $request->descricao, 
+				'quantidade' => $request->quantidade, 
 				'quantidade_min' => $request->quantidade_min, 
 				'id_categoria' => $request->id_categoria, 
 				'status' => ($request->status == "on" ? 1 : 0)
