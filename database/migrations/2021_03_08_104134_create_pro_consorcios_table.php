@@ -23,11 +23,11 @@ class CreateProConsorciosTable extends Migration
             $table->string('versao');
             $table->string('situacao');
             $table->double('taxa_administracao');
-            $table->number('prazo');
-            $table->number('parcelas_pagas')->nullable();
+            $table->integer('prazo');
+            $table->integer('parcelas_pagas');
             $table->text('segmento');
             $table->string('tipo_contemplacao');
-            $table->number('prazo_pagamento');
+            $table->integer('prazo_pagamento');
             $table->string('forma_pagamento');
             $table->string('bem_referencia');
             $table->date('data_adesao');
