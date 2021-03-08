@@ -55,13 +55,13 @@ class dep_aplicacoes implements ToCollection, WithChunkReading, WithHeadingRow, 
     {
         return [
             AfterImport::class => function(AfterImport $event) {
-                Logs::create(['mensagem' => 'Inicilizando importação de pop_poupanca.xlsx...']);
-                Logs::create(['mensagem' => 'Processando o arquivo pop_poupanca.xlsx...']);
+                Logs::create(['mensagem' => 'Inicilizando importação de dep_aplicacoes.xlsx...']);
+                Logs::create(['mensagem' => 'Processando o arquivo dep_aplicacoes.xlsx...']);
                 Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de dep_aplicacoes.xlsx efetuada com sucesso!</span>']);
             },
             ImportFailed::class => function(ImportFailed $event) {
-                Logs::create(['mensagem' => 'Inicilizando importação de pop_poupanca.xlsx...']);
-                Logs::create(['mensagem' => 'Processando o arquivo pop_poupanca.xlsx...']);
+                Logs::create(['mensagem' => 'Inicilizando importação de dep_aplicacoes.xlsx...']);
+                Logs::create(['mensagem' => 'Processando o arquivo dep_aplicacoes.xlsx...']);
                 Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo dep_aplicacoes.xlsx!</span>']);
             },
         ];

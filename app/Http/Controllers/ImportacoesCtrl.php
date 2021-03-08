@@ -21,6 +21,9 @@ use App\Imports\cre_contratos;
 use App\Imports\cre_contratos_historico;
 use App\Imports\cre_avalistas;
 use App\Imports\cre_garantias;
+use App\Imports\pro_seguros;
+use App\Imports\pro_consorcios;
+use App\Imports\pro_previdencias;
 use Maatwebsite\Excel\HeadingRowImport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Associados;
@@ -39,6 +42,9 @@ use App\Models\ContratosGarantias;
 use App\Models\CartaoCredito;
 use App\Models\Poupancas;
 use App\Models\Aplicacoes;
+use App\Models\ProSeguros;
+use App\Models\ProConsorcios;
+use App\Models\ProPrevidencias;
 use App\Models\Logs;
 
 class ImportacoesCtrl extends Controller
@@ -68,8 +74,11 @@ class ImportacoesCtrl extends Controller
 		$crt_cartaocredito = CartaoCredito::select('updated_at', 'data_movimento')->orderBy('data_movimento', 'DESC')->first();
 		$pop_poupanca = Poupancas::select('updated_at', 'data_movimento')->orderBy('data_movimento', 'DESC')->first();
 		$dep_aplicacoes = Aplicacoes::select('updated_at', 'data_movimento')->orderBy('data_movimento', 'DESC')->first();
+		$pro_seguros = ProSeguros::select('updated_at', 'data_movimento')->orderBy('data_movimento', 'DESC')->first();
+		$pro_consorcios = ProConsorcios::select('updated_at', 'data_movimento')->orderBy('data_movimento', 'DESC')->first();
+		$pro_previdencias = ProPrevidencias::select('updated_at', 'data_movimento')->orderBy('data_movimento', 'DESC')->first();
 
-		return view('configuracoes.importacoes.data')->with('cli_associados', $cli_associados)->with('cli_consolidado', $cli_consolidado)->with('cli_emails', $cli_emails)->with('cli_enderecos', $cli_enderecos)->with('cli_telefones', $cli_telefones)->with('cca_contacapital', $cca_contacapital)->with('cco_contacorrente', $cco_contacorrente)->with('crt_cartaocredito', $crt_cartaocredito)->with('cli_conglomerados', $cli_conglomerados)->with('cre_contratos', $cre_contratos)->with('pop_poupanca', $pop_poupanca)->with('dep_aplicacoes', $dep_aplicacoes)->with('cli_iap', $cli_iap)->with('cli_bacen', $cli_bacen)->with('cre_avalistas', $cre_avalistas)->with('cre_garantias', $cre_garantias);
+		return view('configuracoes.importacoes.data')->with('cli_associados', $cli_associados)->with('cli_consolidado', $cli_consolidado)->with('cli_emails', $cli_emails)->with('cli_enderecos', $cli_enderecos)->with('cli_telefones', $cli_telefones)->with('cca_contacapital', $cca_contacapital)->with('cco_contacorrente', $cco_contacorrente)->with('crt_cartaocredito', $crt_cartaocredito)->with('cli_conglomerados', $cli_conglomerados)->with('cre_contratos', $cre_contratos)->with('pop_poupanca', $pop_poupanca)->with('dep_aplicacoes', $dep_aplicacoes)->with('cli_iap', $cli_iap)->with('cli_bacen', $cli_bacen)->with('cre_avalistas', $cre_avalistas)->with('cre_garantias', $cre_garantias)->with('pro_seguros', $pro_seguros)->with('pro_consorcios', $pro_consorcios)->with('pro_previdencias', $pro_previdencias);
 	}
 
 
@@ -94,10 +103,15 @@ class ImportacoesCtrl extends Controller
 		$crt_cartaocredito = CartaoCredito::select('updated_at')->orderBy('updated_at', 'DESC')->first();
 		$pop_poupanca = Poupancas::select('updated_at')->orderBy('updated_at', 'DESC')->first();
 		$dep_aplicacoes = Aplicacoes::select('updated_at')->orderBy('updated_at', 'DESC')->first();
-		return view('configuracoes.importacoes.manual')->with('cli_associados', $cli_associados)->with('cli_consolidado', $cli_consolidado)->with('cli_emails', $cli_emails)->with('cli_enderecos', $cli_enderecos)->with('cli_telefones', $cli_telefones)->with('cca_contacapital', $cca_contacapital)->with('cco_contacorrente', $cco_contacorrente)->with('crt_cartaocredito', $crt_cartaocredito)->with('cli_conglomerados', $cli_conglomerados)->with('cre_contratos', $cre_contratos)->with('pop_poupanca', $pop_poupanca)->with('dep_aplicacoes', $dep_aplicacoes)->with('cli_iap', $cli_iap)->with('cli_bacen', $cli_bacen)->with('cre_avalistas', $cre_avalistas)->with('cre_garantias', $cre_garantias);
+		$pro_seguros = ProSeguros::select('updated_at')->orderBy('updated_at', 'DESC')->first();
+		$pro_consorcios = ProConsorcios::select('updated_at')->orderBy('updated_at', 'DESC')->first();
+		$pro_previdencias = ProPrevidencias::select('updated_at')->orderBy('updated_at', 'DESC')->first();
+
+		return view('configuracoes.importacoes.manual')->with('cli_associados', $cli_associados)->with('cli_consolidado', $cli_consolidado)->with('cli_emails', $cli_emails)->with('cli_enderecos', $cli_enderecos)->with('cli_telefones', $cli_telefones)->with('cca_contacapital', $cca_contacapital)->with('cco_contacorrente', $cco_contacorrente)->with('crt_cartaocredito', $crt_cartaocredito)->with('cli_conglomerados', $cli_conglomerados)->with('cre_contratos', $cre_contratos)->with('pop_poupanca', $pop_poupanca)->with('dep_aplicacoes', $dep_aplicacoes)->with('cli_iap', $cli_iap)->with('cli_bacen', $cli_bacen)->with('cre_avalistas', $cre_avalistas)->with('cre_garantias', $cre_garantias)->with('pro_seguros', $pro_seguros)->with('pro_consorcios', $pro_consorcios)->with('pro_previdencias', $pro_previdencias);
 	}
-	// Importação manual  (return (new HeadingRowImport)->toArray($request->cre_avalistas);)
+	// Importação manual (return (new HeadingRowImport)->toArray($request->myData))
 	public function ImportarManual(Request $request){
+
 		if ($request->hasFile('myData') && $request->file('myData')->isValid()){
 			// Criando pasta de importação ou verificando se existe
 			if(!(getcwd().'/storage/app/importacoes')){
@@ -316,6 +330,42 @@ class ImportacoesCtrl extends Controller
 					return response()->json(['status' => true]);
 				} catch (\Exception $ex){
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cre_contratos_historico.xlsx!</span>']);
+					return response()->json(['status' => false, 'error' => $ex]);
+				}
+			}
+			// pro_seguros
+			if($request->relatorio == 'pro_seguros'){
+				try{
+					$nameFile = 'pro_seguros-'.date('dmYHis').'.'.request()->file('myData')->getClientOriginalExtension();
+					$upload = $request->myData->storeAs('importacoes', $nameFile);
+					Excel::queueImport(new pro_seguros, getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('low');
+					return response()->json(['status' => true]);
+				} catch (\Exception $ex){
+					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo pro_seguros.xlsx!</span>']);
+					return response()->json(['status' => false, 'error' => $ex]);
+				}
+			}
+			// pro_consorcios
+			if($request->relatorio == 'pro_consorcios'){
+				try{
+					$nameFile = 'pro_consorcios-'.date('dmYHis').'.'.request()->file('myData')->getClientOriginalExtension();
+					$upload = $request->myData->storeAs('importacoes', $nameFile);
+					Excel::queueImport(new pro_consorcios, getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('low');
+					return response()->json(['status' => true]);
+				} catch (\Exception $ex){
+					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo pro_consorcios.xlsx!</span>']);
+					return response()->json(['status' => false, 'error' => $ex]);
+				}
+			}
+			// pro_previdencias
+			if($request->relatorio == 'pro_previdencias'){
+				try{
+					$nameFile = 'pro_previdencias-'.date('dmYHis').'.'.request()->file('myData')->getClientOriginalExtension();
+					$upload = $request->myData->storeAs('importacoes', $nameFile);
+					Excel::queueImport(new pro_previdencias, getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('low');
+					return response()->json(['status' => true]);
+				} catch (\Exception $ex){
+					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo pro_previdencias.xlsx!</span>']);
 					return response()->json(['status' => false, 'error' => $ex]);
 				}
 			}
@@ -540,6 +590,42 @@ class ImportacoesCtrl extends Controller
 				} catch (\Exception $ex){
 					copy(getcwd().'/storage/app/importacoes/'.$nameFile, getcwd().'/cre_garantias.xlsx');
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cre_garantias.xlsx!</span>']);
+				}
+			}
+			// pro_seguros
+			if(file_exists(getcwd().'/outlook/pro_seguros.xlsx')){
+				try{
+					$nameFile = 'pro_seguros'.date('dmY-His').'.xlsx';
+					copy(getcwd().'/outlook/pro_seguros.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
+					unlink(getcwd().'/outlook/pro_seguros.xlsx');
+					(new pro_seguros)->queue(getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('low')->delay(now()->addMinutes(7));
+				} catch (\Exception $ex){
+					copy(getcwd().'/storage/app/importacoes/'.$nameFile, getcwd().'/pro_seguros.xlsx');
+					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo pro_seguros.xlsx!</span>']);
+				}
+			}
+			// pro_consorcios
+			if(file_exists(getcwd().'/outlook/pro_consorcios.xlsx')){
+				try{
+					$nameFile = 'pro_consorcios'.date('dmY-His').'.xlsx';
+					copy(getcwd().'/outlook/pro_consorcios.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
+					unlink(getcwd().'/outlook/pro_consorcios.xlsx');
+					(new pro_consorcios)->queue(getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('low')->delay(now()->addMinutes(7));
+				} catch (\Exception $ex){
+					copy(getcwd().'/storage/app/importacoes/'.$nameFile, getcwd().'/pro_consorcios.xlsx');
+					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo pro_consorcios.xlsx!</span>']);
+				}
+			}
+			// pro_previdencias
+			if(file_exists(getcwd().'/outlook/pro_previdencias.xlsx')){
+				try{
+					$nameFile = 'pro_previdencias'.date('dmY-His').'.xlsx';
+					copy(getcwd().'/outlook/pro_previdencias.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
+					unlink(getcwd().'/outlook/pro_previdencias.xlsx');
+					(new pro_previdencias)->queue(getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('low')->delay(now()->addMinutes(7));
+				} catch (\Exception $ex){
+					copy(getcwd().'/storage/app/importacoes/'.$nameFile, getcwd().'/pro_previdencias.xlsx');
+					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo pro_previdencias.xlsx!</span>']);
 				}
 			}
 			return response()->json(['status' => true]);

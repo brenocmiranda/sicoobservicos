@@ -54,12 +54,12 @@ class pop_poupanca implements ToCollection, WithChunkReading, WithHeadingRow, Sh
             AfterImport::class => function(AfterImport $event) {
                 Logs::create(['mensagem' => 'Inicilizando importação de dep_aplicacoes.xlsx...']);
                 Logs::create(['mensagem' => 'Processando o arquivo dep_aplicacoes.xlsx...']);
-                Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de pop_poupanca.xlsx efetuada com sucesso!</span>']);
+                Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de dep_aplicacoes.xlsx efetuada com sucesso!</span>']);
             },
             ImportFailed::class => function(ImportFailed $event) {
                 Logs::create(['mensagem' => 'Inicilizando importação de dep_aplicacoes.xlsx...']);
                 Logs::create(['mensagem' => 'Processando o arquivo dep_aplicacoes.xlsx...']);
-                Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo pop_poupanca.xlsx!</span>']);
+                Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo dep_aplicacoes.xlsx!</span>']);
             },
         ];
     }
