@@ -59,7 +59,7 @@ class pro_seguros implements ToCollection, WithChunkReading, WithHeadingRow, Sho
                     'data_encerramento' => gmdate('Y-m-d', (($row['data_fim_vigencia_apolice'] - 25569) * 86400)), 
                     'cpf_atendente' => $row['numero_cpf_atendente'], 
                     'data_movimento' => gmdate('Y-m-d', (($row['data_movimento'] - 25569) * 86400)),
-                    'cli_id_associado' => Associados::where('id_sisbr', $row['numero_cliente_sisbr'])->select('id')->first()->id,
+                    'cli_id_associado' => ($row['numero_cliente_sisbr'] > 0 ? Associados::where('id_sisbr', $row['numero_cliente_sisbr'])->select('id')->first()->id : null),
                 ]);
             }
         }
