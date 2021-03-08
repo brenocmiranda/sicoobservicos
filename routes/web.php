@@ -121,6 +121,7 @@ Route::group(['prefix' => 'app'], function(){
 			Route::get('', 'AtendimentoCtrl@ExibirPainel')->name('exibir.painel.atendimento');
 			Route::any('pesquisar', 'AtendimentoCtrl@PesquisarPainel')->name('pesquisar.associado.atendimento');
 			Route::any('exibir', 'AtendimentoCtrl@MostrarPainel')->name('exibir.associado.atendimento');
+			Route::any('exibir/{id}', 'AtendimentoCtrl@MostrarPainelID')->name('exibirID.associado.atendimento');
 			Route::any('relatorio/{id}', 'AtendimentoCtrl@RelatorioPainel')->name('relatorio.associado.atendimento');
 			// Atividades
 			Route::group(['prefix' => 'atividades'], function(){

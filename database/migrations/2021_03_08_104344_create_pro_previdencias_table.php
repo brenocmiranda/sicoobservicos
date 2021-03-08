@@ -35,7 +35,7 @@ class CreateProPrevidenciasTable extends Migration
             $table->double('valor_proposta');
             $table->date('data_movimento');
             
-            $table->integer('cli_id_associado')->unsigned();
+            $table->integer('cli_id_associado')->unsigned()->nullable();
             $table->foreign('cli_id_associado')->references('id')->on('cli_associados');
             $table->timestamps();
         });

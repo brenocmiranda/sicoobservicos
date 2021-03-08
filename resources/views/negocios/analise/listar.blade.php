@@ -1,5 +1,5 @@
 @section('title')
-Análise dos associados
+Associados
 @endsection
 
 @extends('layouts.index')
@@ -8,12 +8,12 @@ Análise dos associados
 <div class="container-fluid">
 	<div class="row bg-title">
 		<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-			<h4 class="page-title">Análise dos associados</h4> 
+			<h4 class="page-title">Associados</h4> 
 		</div>
 		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
 			<ol class="breadcrumb">
 				<li><a href="javascript:void(0)">Negócios</a></li>
-				<li class="active">Análise de associado</li>
+				<li class="active">Associados</li>
 			</ol>
 		</div>
 	</div>

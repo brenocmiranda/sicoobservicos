@@ -32,6 +32,8 @@ class CreateUsrFuncoes extends Migration
             $table->boolean('gerenciar_produtos');
             $table->boolean('ver_atendimento');
             $table->boolean('gerenciar_atendimento');
+            $table->boolean('ver_negocios');
+            $table->boolean('gerenciar_negocios');
             $table->boolean('ver_suporte');
             $table->timestamps();
         });
@@ -54,6 +56,8 @@ class CreateUsrFuncoes extends Migration
                 'gerenciar_produtos' => 1,
                 'ver_atendimento' => 1,
                 'gerenciar_atendimento' => 1,
+                'ver_negocios' => 1,
+                'gerenciar_negocios' => 1,
                 'ver_suporte' => 1
                 ])
             );

@@ -162,12 +162,20 @@ Painel do associado
                 <label>{{$associado->nome_gerente}}</label>
               </div>
               <div class="col-lg-3 col-12">
+                <h6>PA</h6>
+                <label>{{$associado->PA}}</label>
+              </div> 
+              <div class="col-lg-3 col-12">
                 <h6>CNAE</h6>
                 <label>{{$associado->cod_cnae}}</label>
               </div>
               <div class="col-lg-3 col-12">
-                <h6>PA</h6>
-                <label>{{$associado->PA}}</label>
+                <h6>Naturalidade</h6>
+                <label>{{$associado->naturalidade}}</label>
+              </div> 
+              <div class="col-lg-3 col-12">
+                <h6>Perfil tarifário</h6>
+                <label>{{$associado->perfil_tarifario}}</label>
               </div> 
           </div>
         </div>
@@ -246,33 +254,33 @@ Painel do associado
             <div class="row">
               <div class="col-lg-3 col-12">
                 <h6>Lagadouro</h6>
-                <label>{{$associado->RelationEnderecos->rua}}</label>
+                <label>{{@$associado->RelationEnderecos->rua}}</label>
               </div>
               <div class="col-lg-3 col-12">
                 <h6>Bairro</h6>
-                <label>{{$associado->RelationEnderecos->bairro}}</label>
+                <label>{{@$associado->RelationEnderecos->bairro}}</label>
               </div>
               <div class="col-lg-3 col-12">
                 <h6>Número</h6>
-                <label>{{$associado->RelationEnderecos->numero}}</label>
+                <label>{{@$associado->RelationEnderecos->numero}}</label>
               </div>
               <div class="col-lg-3 col-12">
                 <h6>Complemento</h6>
-                <label>{{$associado->RelationEnderecos->complemento}}</label>
+                <label>{{@$associado->RelationEnderecos->complemento}}</label>
               </div>
             </div>
             <div class="row">
               <div class="col-lg-3 col-12">
                 <h6>Cidade</h6>
-                <label>{{$associado->RelationEnderecos->cidade}}</label>
+                <label>{{@$associado->RelationEnderecos->cidade}}</label>
               </div>
               <div class="col-lg-3 col-12">
                 <h6>Estado</h6>
-                <label>{{$associado->RelationEnderecos->estado}}</label>
+                <label>{{@$associado->RelationEnderecos->estado}}</label>
               </div>
               <div class="col-lg-3 col-12">
                 <h6>País</h6>
-                <label>{{$associado->RelationEnderecos->pais}}</label>
+                <label>{{@$associado->RelationEnderecos->pais}}</label>
               </div>
             </div>
           </div>

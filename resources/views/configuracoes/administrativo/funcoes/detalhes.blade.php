@@ -113,10 +113,21 @@
                       </div>
                     </div>
                     <div class="col-6 col-lg-3">
+                      <label class="border-bottom py-2 w-100">Negócios</label>
+                      <div class="checkbox checkbox-circle">
+                        <input id="checkbox74" type="checkbox" name="ver_negocios">
+                        <label for="checkbox74"> Visualizar </label>
+                      </div>
+                      <div class="checkbox checkbox-circle">
+                        <input id="checkbox75" type="checkbox" name="gerenciar_negocios">
+                        <label for="checkbox75"> Gerenciar </label>
+                      </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
                       <label class="border-bottom py-2 w-100">Suporte</label>
                       <div class="checkbox checkbox-circle">
-                        <input id="checkbox74" type="checkbox" name="ver_suporte">
-                        <label for="checkbox74"> Visualizar </label>
+                        <input id="checkbox76" type="checkbox" name="ver_suporte">
+                        <label for="checkbox76"> Visualizar </label>
                       </div>
                     </div>
                   </div>

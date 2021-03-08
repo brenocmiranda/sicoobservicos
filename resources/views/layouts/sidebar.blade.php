@@ -125,7 +125,7 @@
       </li>
       @endif
 
-      @if(Auth::user()->RelationFuncao->ver_produtos == 1 || Auth::user()->RelationFuncao->gerenciar_produtos == 1)
+      @if(Auth::user()->RelationFuncao->ver_negocios == 1 || Auth::user()->RelationFuncao->gerenciar_negocios == 1)
       <li> 
         <a href="javascript:" class="waves-effect {{ (Request::segment(2) == 'produtos' ? 'active' : '') }}">
           <i class="mdi mdi-bike pr-3" data-icon="v"></i> 

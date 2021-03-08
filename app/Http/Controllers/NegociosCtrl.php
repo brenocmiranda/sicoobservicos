@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use App\Models\Associados;
+use App\Models\NegociosCarteira;
+use App\Models\Contratos;
 use App\Models\Usuarios;
 
 class NegociosCtrl extends Controller
@@ -50,7 +52,22 @@ class NegociosCtrl extends Controller
 	public function ExecutarAnalise($id){
 		$dados = Associados::find($id);
 		$usuarios = Usuarios::where('status', 'Ativo')->orderBy('login', 'ASC')->get();
-		return view('negocios.analise.detalhes')->with('dados', $dados)->with('usuarios', $usuarios);
+
+		// Retornando os emprestimos e financiamentos ativos
+		$emprestimos = Contratos::where('cli_id_associado', $id)->where('situacao', 'ENTRADA NORMAL')->get();
+		$financiamento = 0;
+		$emprestimoGeral = 0; 
+		foreach($emprestimos as $emprestimo){
+			if($emprestimo->RelationArquivos->RelationProdutos->codigo == 7){	
+				if($emprestimo->RelationArquivos->RelationModalidades->codigo == 1018 || $emprestimo->RelationArquivos->RelationModalidades->codigo == 1024){
+					 	$financiamento =+ $emprestimo->valor_contrato;
+				}else{
+						$emprestimoGeral =+ $emprestimo->valor_contrato;
+				}
+			}
+		}	
+
+		return view('negocios.analise.detalhes')->with('dados', $dados)->with('usuarios', $usuarios)->with('financiamento', $financiamento)->with('emprestimoGeral', $emprestimoGeral);
 	}
 
 	

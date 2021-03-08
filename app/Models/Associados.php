@@ -11,7 +11,7 @@ class Associados extends Model
 
    	protected $table = 'cli_associados';
     protected $primaryKey = 'id';
-    protected $fillable = ['id', 'id_sisbr', 'nome', 'nome_fantasia', 'documento', 'tipo_renda', 'renda', 'cod_cnae', 'data_nascimento', 'atividade_economica', 'sexo', 'sigla', 'funcionario', 'data_relacionamento', 'data_renovacao', 'PA', 'nome_gerente', 'descricao_identidade', 'numero_identidade', 'politicamente_exposta', 'profissao', 'created_at', 'updated_at'];
+    protected $fillable = ['id', 'id_sisbr', 'nome', 'nome_fantasia', 'documento', 'tipo_renda', 'renda', 'cod_cnae', 'data_nascimento', 'atividade_economica', 'sexo', 'sigla', 'funcionario', 'data_relacionamento', 'data_renovacao', 'PA', 'nome_gerente', 'descricao_identidade', 'numero_identidade', 'politicamente_exposta', 'profissao', 'naturalidade', 'perfil_tarifario', 'created_at', 'updated_at'];
 
     public function RelationUnidade(){
         return $this->belongsTo(Unidades::class, 'id', 'cli_id_associado');
@@ -71,5 +71,17 @@ class Associados extends Model
 
     public function RelationBacen(){
         return $this->hasMany(AssociadosBacen::class, 'cli_id_associado');
+    }
+
+    public function RelationSeguros(){
+        return $this->hasMany(ProSeguros::class, 'cli_id_associado');
+    }
+
+    public function RelationConsorcios(){
+        return $this->hasMany(ProConsorcios::class, 'cli_id_associado');
+    }
+
+    public function RelationPrevidencias(){
+        return $this->hasMany(ProPrevidencias::class, 'cli_id_associado');
     }
 }

@@ -176,11 +176,22 @@ Funções
 			}else{
 				$('.modal #checkbox43').removeAttr('checked');
 			}
-			// Suporte
-			if(data.ver_suporte){
+			// Negócios
+			if(data.ver_negocios){
 				$('.modal #checkbox44').attr('checked', 'checked');
 			}else{
 				$('.modal #checkbox44').removeAttr('checked');
+			}
+			if(data.gerenciar_negocios){
+				$('.modal #checkbox45').attr('checked', 'checked');
+			}else{
+				$('.modal #checkbox45').removeAttr('checked');
+			}
+			// Suporte
+			if(data.ver_suporte){
+				$('.modal #checkbox46').attr('checked', 'checked');
+			}else{
+				$('.modal #checkbox46').removeAttr('checked');
 			}
 			if(data.status == 1){
 				$(".modal .status").prop('checked', false).trigger("click");
@@ -302,13 +313,28 @@ Funções
 				$('.modal #checkbox73').removeAttr('checked');
 				$('.modal #checkbox73').attr('disabled', 'disabled');
 			}
-			// Suporte
-			if(data.ver_suporte){
+			// Negócios
+			if(data.ver_negocios){
 				$('.modal #checkbox74').attr('checked', 'checked');
 				$('.modal #checkbox74').attr('disabled', 'disabled');
 			}else{
 				$('.modal #checkbox74').removeAttr('checked');
 				$('.modal #checkbox74').attr('disabled', 'disabled');
+			}
+			if(data.gerenciar_negocios){
+				$('.modal #checkbox75').attr('checked', 'checked');
+				$('.modal #checkbox75').attr('disabled', 'disabled');
+			}else{
+				$('.modal #checkbox75').removeAttr('checked');
+				$('.modal #checkbox75').attr('disabled', 'disabled');
+			}
+			// Suporte
+			if(data.ver_suporte){
+				$('.modal #checkbox76').attr('checked', 'checked');
+				$('.modal #checkbox76').attr('disabled', 'disabled');
+			}else{
+				$('.modal #checkbox76').removeAttr('checked');
+				$('.modal #checkbox76').attr('disabled', 'disabled');
 			}
 			if(data.status){
 				$('#modal-detalhes .status').removeAttr('disabled');

@@ -43,7 +43,9 @@ class cli_associados implements ToCollection, WithChunkReading, WithHeadingRow, 
                     'descricao_identidade' => $row['descricao_documento_identidade'],
                     'numero_identidade' => $row['numero_documento_identidade'],
                     'politicamente_exposta' => $row['indicador_pessoa_politicamente_exposta'],
-                    'profissao' => $row['profissao']
+                    'profissao' => $row['profissao'],
+                    'naturalidade' => $row['naturalidade'],
+                    'perfil_tarifario' => $row['descricao_do_perfil_tarifario_do_cliente'],
                 ]);
             }else{
                 Associados::create([
@@ -66,7 +68,9 @@ class cli_associados implements ToCollection, WithChunkReading, WithHeadingRow, 
                     'descricao_identidade' => $row['descricao_documento_identidade'],
                     'numero_identidade' => $row['numero_documento_identidade'],
                     'politicamente_exposta' => $row['indicador_pessoa_politicamente_exposta'],
-                    'profissao' => $row['profissao']
+                    'profissao' => $row['profissao'],
+                    'naturalidade' => $row['naturalidade'],
+                    'perfil_tarifario' => $row['descricao_do_perfil_tarifario_do_cliente'],
                 ]);
             }
         }

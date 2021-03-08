@@ -36,6 +36,8 @@ class CreateCliAssociados extends Migration
             $table->string('numero_identidade');
             $table->string('politicamente_exposta');
             $table->text('profissao');
+            $table->string('naturalidade');
+            $table->string('perfil_tarifario');
 
             $table->timestamps();
         });

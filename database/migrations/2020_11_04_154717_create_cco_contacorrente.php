@@ -21,7 +21,6 @@ class CreateCcoContacorrente extends Migration
             $table->string('modalidade_conta');
             $table->string('tipo_conta')->nullable();
             $table->string('categoria_conta')->nullable();
-            $table->string('pacote_tarifario')->nullable();
             $table->double('taxa_limite');
             $table->integer('utilizacao_limite')->nullable();
             $table->double('valor_contratado');
