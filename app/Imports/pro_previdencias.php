@@ -63,7 +63,7 @@ class pro_previdencias implements ToCollection, WithChunkReading, WithHeadingRow
                     'peculio_invalidez' => number_format($row['valor_peculio_invalidez'], 2, '.', ''),  
                     'valor_proposta' => number_format($row['valor_proposta'], 2, '.', ''), 
                     'data_movimento' => gmdate('Y-m-d', (($row['data_movimento'] - 25569) * 86400)),    
-                    'cli_id_associado' => Associados::where('id_sisbr', $row['numero_cliente_sisbr'])->select('id')->first()->id,
+                    'cli_id_associado' => ($row['numero_cliente_sisbr'] > 0 ? Associados::where('id_sisbr', $row['numero_cliente_sisbr'])->select('id')->first()->id : null),
                 ]);
             }
         }

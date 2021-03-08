@@ -161,7 +161,27 @@ Database
                             <td>{{date('d/m/Y H:i:s', strtotime(@$pop_poupanca->updated_at))}}</td>
                             <td>{!! ( strtotime(date('Y-m-d', strtotime(@$pop_poupanca->updated_at))) == strtotime(date('Y-m-d')) ? '<i class="mdi mdi-check text-success px-2"></i>'.'Atualizado' : '<i class="mdi mdi-close text-danger px-2"></i>'.'Desatualizado')!!}</td>
                         </tr>
-                        
+                        <tr>
+                            <td>pro_seguros</td>
+                            <td>Diário</td>
+                            <td>{{date('d/m/Y', strtotime(@$pro_seguros->data_movimento))}}</td>
+                            <td>{{date('d/m/Y H:i:s', strtotime(@$pro_seguros->updated_at))}}</td>
+                            <td>{!! ( strtotime(date('Y-m-d', strtotime(@$pro_seguros->updated_at))) == strtotime(date('Y-m-d')) ? '<i class="mdi mdi-check text-success px-2"></i>'.'Atualizado' : '<i class="mdi mdi-close text-danger px-2"></i>'.'Desatualizado')!!}</td>
+                        </tr>
+                         <tr>
+                            <td>pro_consorcios</td>
+                            <td>Diário</td>
+                            <td>{{date('d/m/Y', strtotime(@$pro_consorcios->data_movimento))}}</td>
+                            <td>{{date('d/m/Y H:i:s', strtotime(@$pro_consorcios->updated_at))}}</td>
+                            <td>{!! ( strtotime(date('Y-m-d', strtotime(@$pro_consorcios->updated_at))) == strtotime(date('Y-m-d')) ? '<i class="mdi mdi-check text-success px-2"></i>'.'Atualizado' : '<i class="mdi mdi-close text-danger px-2"></i>'.'Desatualizado')!!}</td>
+                        </tr>
+                        <tr>
+                            <td>pro_previdencias</td>
+                            <td>Diário</td>
+                            <td>{{date('d/m/Y', strtotime(@$pro_previdencias->data_movimento))}}</td>
+                            <td>{{date('d/m/Y H:i:s', strtotime(@$pro_previdencias->updated_at))}}</td>
+                            <td>{!! ( strtotime(date('Y-m-d', strtotime(@$pro_previdencias->updated_at))) == strtotime(date('Y-m-d')) ? '<i class="mdi mdi-check text-success px-2"></i>'.'Atualizado' : '<i class="mdi mdi-close text-danger px-2"></i>'.'Desatualizado')!!}</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
