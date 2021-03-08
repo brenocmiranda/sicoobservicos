@@ -18,7 +18,7 @@ Análise do associado
 		</div>
 	</div>
 	<div class="col-12 mb-4">
-		<a href="{{route('exibir.analise.negocios')}}#">
+		<a href="{{route('exibir.analise.negocios')}}">
 			<i class="mdi mdi-arrow-left pr-2"></i> 
 			<span>Voltar</span>
 		</a>
@@ -32,6 +32,10 @@ Análise do associado
 				<div class="col-12 col-lg-3">
 					<h6>Nome:</h6>
 					<label>{{$dados->nome}}</label>
+				</div>
+				<div class="col-12 col-lg-3">
+					<h6>Situação:</h6>
+					<label>{{$dados->RelationCapital->situacao_capital}}</label>
 				</div>
 				<div class="col-12 col-lg-3">
 					<h6>Documento:</h6>
@@ -69,20 +73,30 @@ Análise do associado
 				<div class="col-lg-3 col-12">
 	                <h6>Participa de conglomerado?</h6>
 	                <label>{{(isset($dados->RelationConglomerados) ? 'Sim' : 'Não')}}</label>
-	              </div>
+              	</div>
+             	<div class="col-12 col-lg-3">
+					<h6>PA:</h6>
+					<label>{{$dados->PA}}</label>
+				</div>
 				<div class="col-12 col-lg-3">
 					<h6>Conta capital:</h6>
 					<label>R$ {{(isset($dados->RelationCapital) ? number_format($dados->RelationCapital->valor_integralizado, 2, ',', '.') : '-')}}</label>
 				</div>
 				<div class="col-12 col-lg-3">
-					<h6>PA:</h6>
-					<label>{{$dados->PA}}</label>
+					<h6>Valor a integralizar:</h6>
+					<label>-</label>
 				</div>
 			</div>
+		</div>
+	</div>
+	<div class="card mb-4">
+		<div class="card-header" style="border-top-right-radius: 0.6em; border-top-left-radius: 0.6em;">
+			<h5 class="text-white">Portfólio de produtos</h5>
+		</div>
+		<div class="card-body">
 			<div class="row mx-auto">
 				<div class="col-12">
 					<table class="table table-bordered text-center">
-						<h6>Portfólio de produtos</h6>
 						<thead>
 							<th>#</th>
 							<th>C. Especial</th>
@@ -95,7 +109,7 @@ Análise do associado
 							<th>Previdência</th>
 						</thead>
 						<tbody>
-							<tr class="info">
+							<tr>
 								<td>
 									<label>Atual</label>
 								</td>
@@ -124,33 +138,33 @@ Análise do associado
 									R$ 0,00
 								</td>
 							</tr>
-							<tr class="success">
+							<tr class="">
 								<td>
 									<label>Sugerido</label>
 								</td>
 								<td>
-									R$ 0,00
+									<input type="text" name="" class="money text-center form-control form-control-line px-0" placeholder="0,00">
 								</td>
 								<td>
-									R$ 0,00
+									<input type="text" name="" class="money text-center form-control form-control-line px-0" placeholder="0,00">
 								</td>
 								<td>
-									R$ 0,00
+									<input type="text" name="" class="money text-center form-control form-control-line px-0" placeholder="0,00">
 								</td>
 								<td>
-									R$ 0,00
+									<input type="text" name="" class="money text-center form-control form-control-line px-0" placeholder="0,00">
 								</td>
 								<td>
-									R$ 0,00
+									<input type="text" name="" class="money text-center form-control form-control-line px-0" placeholder="0,00">
 								</td>
 								<td>
-									R$ 0,00
+									<input type="text" name="" class="money text-center form-control form-control-line px-0" placeholder="0,00">
 								</td>
 								<td>
-									R$ 0,00
+									<input type="text" name="" class="money text-center form-control form-control-line px-0" placeholder="0,00">
 								</td>
 								<td>
-									R$ 0,00
+									<input type="text" name="" class="money text-center form-control form-control-line px-0" placeholder="0,00">
 								</td>
 							</tr>
 						</tbody>
@@ -167,9 +181,13 @@ Análise do associado
 			<div class="row mx-auto">
 				<div class="col-6">
 					<div class="col-12 row mx-auto px-0">
-						<h5 class="col-12 text-center">Banco Central</h5>
+						<h5 class="col-6 text-center">Banco Central</h5>
 					</div>
 					<hr class="mt-1 mx-auto col-8">
+					<div class="col-12 row mx-auto px-0">
+						<h5 class="col-4">Data-Base:</h5>
+						<input type="month" name="" class="form-control form-control-line col-4" placeholder="0,00">
+					</div>
 					<div class="col-12 row mx-auto px-0">
 						<h5 class="col-4">Consignados:</h5>
 						<h5 class="pr-2">R$</h5>
@@ -209,6 +227,10 @@ Análise do associado
 						<h5 class="col-12 text-center">Serasa</h5>
 					</div>
 					<hr class="mt-1 mx-auto col-8">
+					<div class="col-12 row mx-auto px-0">
+						<h5 class="col-4">Data-Base:</h5>
+						<input type="date" name="" class="form-control form-control-line col-4" placeholder="0,00">
+					</div>
 					<div class="form-group col-12 row mx-auto px-0">
 						<h5 class="col-4">Possui restrição?</h5>
 						<select class="form-control form-control-line col-5" nome="">
@@ -223,7 +245,7 @@ Análise do associado
 					</div>
 					<div class="form-group col-12 row mx-auto">
 						<h5 class="col-12 px-0">Telefone:</h5>
-						<input type="text" name="" class="form-control form-control-line col-6" placeholder="(38) 3741-6250">
+						<input type="text" name="" class="numeroTelefone form-control form-control-line col-6" placeholder="(38) 3741-6250">
 					</div>
 				</div>
 			</div>
@@ -236,7 +258,7 @@ Análise do associado
 		<div class="card-body">
 			<div class="row mx-auto">
 				<div class="form-group col-12 row mx-auto">
-					<h5>Parecer do analisata:</h5>
+					<h5>Parecer do analista:</h5>
 					<textarea class="form-control form-control-line" nome="" placeholder="Descreva seu parecer das informações analisadas..."></textarea>
 				</div>
 				<div class="form-group col-12 row mx-auto">
@@ -268,7 +290,8 @@ Análise do associado
 @section('suporte')
 <script type="text/javascript">
 	$(document).ready( function (){
-
+		$('.money').mask('000.000.000.000.000,00', {reverse: true});
+		$('.numeroTelefone').mask('(00) 00000-0000');
 	});
 </script>
 @endsection

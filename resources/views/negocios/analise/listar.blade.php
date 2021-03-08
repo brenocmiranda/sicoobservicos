@@ -1,5 +1,5 @@
 @section('title')
-Análise de associado
+Análise dos associados
 @endsection
 
 @extends('layouts.index')
@@ -8,7 +8,7 @@ Análise de associado
 <div class="container-fluid">
 	<div class="row bg-title">
 		<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-			<h4 class="page-title">Análise de associado</h4> 
+			<h4 class="page-title">Análise dos associados</h4> 
 		</div>
 		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
 			<ol class="breadcrumb">
@@ -74,6 +74,7 @@ Análise de associado
 				$('#table').fadeIn();
 				$('#table').DataTable({
 					order: [ 0, "asc" ],
+					pageLength: 100,
 					paging: true,
 					select: true,
 					searching: true,
@@ -81,7 +82,7 @@ Análise de associado
 					data: table,
 					"columns": [ 
 					{ "data": "nome", "name":"nome"},
-					{ "data": "documento", "name":"documento"},
+					{ "data": "documento1", "name":"documento1"},
 					{ "data": "renda1", "name":"renda1"},
 					{ "data": "nome_gerente", "name":"nome_gerente"},
 					{ "data": "acoes","name":"acoes"},
