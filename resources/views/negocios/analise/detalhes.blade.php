@@ -41,7 +41,7 @@ Análise do associado
 					<label>{{$dados->perfil_tarifario}}</label>
 				</div>
 				<div class="col-12 col-lg-3">
-					<h6>Renda/Faturamento <small class="text-dark">(Mensal bruto)</small></h6>
+					<h6>Renda <small class="text-dark">(Mensal bruto)</small></h6>
 					<label>R$ {{number_format(($dados->renda), 2, ',', '.')}}</label>
 				</div>
 				<div class="col-12 col-lg-3">

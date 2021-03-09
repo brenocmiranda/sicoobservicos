@@ -63,8 +63,7 @@
 													<b>{{$chamado->RelationStatus->first()->pivot->descricao}}</b>
 												</p>
 											@endif
-
-											
+											<br>
 											<p style="margin-top:10px;margin-bottom:10px"><span style="color:rgb(0,0,0)"><span></span></span></p>
 											<p></p><p></p></span></div>
 										</td>

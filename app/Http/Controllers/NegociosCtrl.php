@@ -31,7 +31,7 @@ class NegociosCtrl extends Controller
 		return view('negocios.analise.listar');
 	}
 	public function DatatablesAnalise(){
-		$dados = Associados::join('cca_contacapital', 'cli_id_associado', 'cli_associados.id')->where('sigla', 'PF')->select('cli_associados.id', 'nome', 'documento', 'renda', 'nome_gerente', 'PA')->orderBy('nome', 'ASC')->get();
+		$dados = Associados::rightjoin('cca_contacapital', 'cli_associados.id', 'cli_id_associado')->where('sigla', 'PF')->where('situacao_capital', '!=', 'DEMITIDO')->where('situacao_capital', '!=', 'EXCLUÍDO')->select('cli_associados.id', 'nome', 'documento', 'renda', 'nome_gerente', 'PA')->orderBy('nome', 'ASC')->get();
 		foreach ($dados as $key => $value) {
 			$dados[$key]->documento1 = (strlen($dados[$key]->documento) == 11 ? substr($dados[$key]->documento, 0, 3).'.'.substr($dados[$key]->documento, 3, 3).'.'.substr($dados[$key]->documento, 6, 3).'-'.substr($dados[$key]->documento, 9, 2) : substr($dados[$key]->documento, 0, 2).'.'.substr($dados[$key]->documento, 3, 3).'.'.substr($dados[$key]->documento, 6, 3).'/'.substr($dados[$key]->documento, 8, 4).'-'.substr($dados[$key]->documento, 12, 2));
 			$dados[$key]->renda1 = 'R$ '.number_format($dados[$key]->renda, 2, ",", ".");
