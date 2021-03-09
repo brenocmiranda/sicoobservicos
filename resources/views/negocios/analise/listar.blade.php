@@ -22,6 +22,7 @@ Associados
 			<div class="col-12 mb-3">
 				<table class="table table-striped text-center color-table muted-table rounded d-block d-lg-table" id="table" style="overflow-y: auto; display: none !important;">
 					<thead>
+						<th> PA </th>
 						<th> Nome </th>
 						<th> Documento </th>
 						<th> Renda </th>
@@ -82,6 +83,7 @@ Associados
 					data: table,
 					"columns": [ 
 					{ "data": "nome", "name":"nome"},
+					{ "data": "PA", "name":"PA"},
 					{ "data": "documento1", "name":"documento1"},
 					{ "data": "renda1", "name":"renda1"},
 					{ "data": "nome_gerente", "name":"nome_gerente"},
