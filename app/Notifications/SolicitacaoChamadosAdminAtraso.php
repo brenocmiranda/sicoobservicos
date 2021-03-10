@@ -12,7 +12,7 @@ class SolicitacaoChamadosAdminAtraso extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    private $chamado;
+    private $todos;
     private $configuracoes;
 
     /**
@@ -48,12 +48,12 @@ class SolicitacaoChamadosAdminAtraso extends Notification implements ShouldQueue
         if(count($this->todos) == 1){
             return (new MailMessage)
                 ->from('servicos@sicoobsertaominas.com.br')
-                ->subject('Você um chamado pendente!')
+                ->subject('Você possui um chamado pendente!')
                 ->view('system.emails.chamadoAdminAtraso', ['todos' => $this->todos]);
         }else{
              return (new MailMessage)
                 ->from('servicos@sicoobsertaominas.com.br')
-                ->subject('Você alguns chamados pendentes!')
+                ->subject('Você possui alguns chamados pendentes!')
                 ->view('system.emails.chamadoAdminAtraso', ['todos' => $this->todos]);
         }
        

@@ -259,8 +259,10 @@ class TecnologiaCtrl extends Controller
                 $atrasados[] = $dados;  
             }
     	}
-        $configuracoes = CogEmailsChamado::first();
-        $configuracoes->notify(new SolicitacaoChamadosAdminAtraso($atrasados));
+        if(isset($dados)){
+            $configuracoes = CogEmailsChamado::first();
+            $configuracoes->notify(new SolicitacaoChamadosAdminAtraso($atrasados)); 
+        }
         return response()->json(['success' => true]);
     }
 
