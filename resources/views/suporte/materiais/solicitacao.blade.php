@@ -19,7 +19,7 @@
 			@csrf
 				<div class="modal-body">
 					<div class="row mx-auto">
-						<div class="col-lg-6 col-12">
+						<div class="col-lg-5 col-12 px-0">
 							<div class="card-body py-0">
 								<div class="row">
 									<div class="col-lg-10 col-12">

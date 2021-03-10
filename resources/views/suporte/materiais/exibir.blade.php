@@ -115,8 +115,6 @@ Materiais
 	}
 
 	$(document).ready( function (){
-		
-
 		// Campo de pesquisa
 		$("input[type=search]").keyup(function(){
 			var texto = $(this).val().toUpperCase();
@@ -126,7 +124,11 @@ Materiais
 					$(this).css("display", "none");
 			});
 		});
-
+		// Botrão para nova solicitação
+		$('#adicionar').on('click', function(){
+	
+			$('#modal-solicitacao #materiais').html('');
+		});
 		// Retornando materiais
 		$('.categorias').on('change', function(e){
 			var categoria = $('.categorias').val();
