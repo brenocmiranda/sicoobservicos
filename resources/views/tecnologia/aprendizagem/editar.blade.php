@@ -81,9 +81,9 @@ Editar tópico
               </div>
               <div class="col-lg-11 col-12">
                 <div class="form-group">
-                  <label class="col-form-label pb-0">Sub-título <span class="text-danger">*</span></label>
+                  <label class="col-form-label pb-0">Sub-título</label>
                   <div class="">
-                    <input class="form-control form-control-line" name="subtitulo" value="{{$base->subtitulo}}" onkeyup="this.value = this.value.toUpperCase();" required/>
+                    <input class="form-control form-control-line" name="subtitulo" value="{{$base->subtitulo}}" onkeyup="this.value = this.value.toUpperCase();"/>
                   </div>
                 </div>
               </div>

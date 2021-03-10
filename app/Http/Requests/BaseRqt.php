@@ -25,7 +25,7 @@ class BaseRqt extends FormRequest
     {
         return [
             'titulo' => 'required|min:3|string',
-            'subtitulo' => 'required|min:3|string',
+            'subtitulo' => 'nullable|string',
             'descricao' => 'required|min:3',
             'gti_id_ambientes' => 'required|numeric',
             'gti_id_fontes' => 'required|numeric',

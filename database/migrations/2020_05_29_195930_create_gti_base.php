@@ -17,7 +17,7 @@ class CreateGtiBase extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('titulo');
-            $table->string('subtitulo');
+            $table->string('subtitulo')->nullable();
             $table->longText('descricao');
             $table->string('tipo')->default('externo');
 

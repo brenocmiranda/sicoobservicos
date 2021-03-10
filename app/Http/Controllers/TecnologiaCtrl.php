@@ -291,7 +291,7 @@ class TecnologiaCtrl extends Controller
 		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
 			$create = Base::create([
 				'titulo' => $request->titulo,
-				'subtitulo' => $request->subtitulo, 
+				'subtitulo' => (isset($request->subtitulo) ? $request->subtitulo : null), 
 				'descricao' => $request->descricao, 
                 'tipo' => $request->tipo, 
 				'gti_id_ambientes' => $request->gti_id_ambientes,
@@ -333,7 +333,7 @@ class TecnologiaCtrl extends Controller
 		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
 			Base::find($id)->update([
 				'titulo' => $request->titulo,
-				'subtitulo' => $request->subtitulo, 
+				'subtitulo' => (isset($request->subtitulo) ? $request->subtitulo : null),
 				'descricao' => $request->descricao, 
                 'tipo' => $request->tipo, 
 				'gti_id_ambientes' => $request->gti_id_ambientes,
