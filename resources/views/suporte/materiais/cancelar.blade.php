@@ -38,9 +38,9 @@
             <i class="mdi mdi-arrow-left pr-2"></i> 
             <span>Voltar</span>
           </button>
-          <button type="submit" class="btn btn-danger btn-outline col-3 mx-1 d-flex align-items-center justify-content-center">
-            <i class="mdi mdi-close pr-2"></i> 
-            <span>Cancelar</span>
+          <button type="submit" class="btn btn-success btn-outline col-3 mx-1 d-flex align-items-center justify-content-center">
+            <i class="mdi mdi-check pr-2"></i> 
+            <span>Enviar</span>
           </button>
         </div>
       </div>
