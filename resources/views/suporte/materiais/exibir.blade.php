@@ -126,7 +126,7 @@ Materiais
 		});
 		// Botrão para nova solicitação
 		$('#adicionar').on('click', function(){
-	
+			$('#modal-solicitacao form')[0].reset('');
 			$('#modal-solicitacao #materiais').html('');
 		});
 		// Retornando materiais
