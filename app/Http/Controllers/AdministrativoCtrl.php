@@ -474,15 +474,15 @@ class AdministrativoCtrl extends Controller
 	// Alterar o status
 	public function AlterarMateriais($id){
 		if(Auth::user()->RelationFuncao->gerenciar_administrativo == 1){
-			$fontes = Materiais::find($id);
-			if($fontes->status == 1){
+			$materiais = Materiais::find($id);
+			if($materiais->status == 1){
 				Materiais::find($id)->update(['status' => 0]);
 			}else{
 				Materiais::find($id)->update(['status' => 1]);
 			}
 			Atividades::create([
 				'nome' => 'Alteração de estado',
-				'descricao' => 'Você alterou o status do material '.$modalidades->nome.'.',
+				'descricao' => 'Você alterou o status do material '.$materiais->nome.'.',
 				'icone' => 'mdi-rotate-3d',
 				'url' => route('exibir.todos.materiais'),
 				'id_usuario' => Auth::id()

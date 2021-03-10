@@ -68,7 +68,7 @@
 						</div>
 						<div class="col-lg-5 col-12">
 							<div class="row col-12 mx-auto p-lg-0 px-5">
-								<h6 class="col-form-label mt-0 pb-3">Seus materiais:</h6>
+								<h6 class="col-form-label mt-0 pb-3">Carrinho de materiais:</h6>
 								<div id="materiais" class="col-12">
 									<div class="pb-2 null">
 										<span>Nenhum item selecionado.</span>

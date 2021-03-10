@@ -160,7 +160,7 @@ Materiais
 			$(this).parents('tr').addClass('selected');
 			$(this).parent('tr').addClass('selected');
 			var data = table.row('tr.selected').data();
-			var url = "{{url('app/gestao/materiais/todos/alterar')}}/"+data.id;
+			var url = "{{url('app/administrativo/controle/todos/alterar')}}/"+data.id;
 			swal({
 				title: "Tem certeza que deseja alterar o estado?",
 				icon: "warning",
