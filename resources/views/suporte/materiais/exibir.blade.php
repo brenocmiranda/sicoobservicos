@@ -39,7 +39,7 @@ Materiais
 						@if(isset($requisicoes[0]))
 						<ul class="p-0" id="requisicoes">
 							@foreach($requisicoes as $requisicao)
-							<li class="row">
+							<li class="row col-12 mx-auto px-0">
 								<div class="row mx-auto col-12 border shadow-sm rounded my-2 p-3">
 									<div class="col-1 m-auto row justify-content-center">
 										<i class="mdi {{($requisicao->status == 1 ? 'mdi-comment-check-outline text-success' : ($requisicao->status == 0 ? 'mdi-comment-question-outline text-warning' : 'mdi-comment-remove-outline text-danger'))}} mdi-48px"></i>
