@@ -15,7 +15,13 @@
           <div class="card-body py-3">
             <div class="text-center">
               <img src="{{asset('public/img/logo.png')}}" width="200" class="mb-5">
-              <label style="font-size: 16px;line-height: 25px;">A plataforma Sicoob Serviços vem sendo desenvolvida com a finalidade de agilizar e automatizar os processos internos das cooperativas. O desenvolvimento do projeto teve início em julho de 2020, através da equipe de <b>Tecnologia do Sicoob Sertão Minas.</b></label>
+              <p>
+                <label style="font-size: 16px;line-height: 25px;">A plataforma Sicoob Serviços vem sendo desenvolvida com a finalidade de agilizar e automatizar os processos internos das cooperativas. O desenvolvimento do projeto teve início em julho de 2020, através da equipe de <b>Tecnologia do Sicoob Sertão Minas.</b></label>
+              </p>
+              <br>
+              <p>
+                <label>{{date('Y')}} © v1.0 (Beta)</label>
+              </p>
             </div>
           </div>
         </div>

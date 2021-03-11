@@ -64,7 +64,7 @@ Login
       </div>
       <footer class="col-12 footer text-center"> 
         <div>
-          <label>{{date('Y')}} © GTI Sicoob Sertão Minas <b>&#183</b> v.2.0</label>
+          <label>{{date('Y')}} © GTI Sicoob Sertão Minas <b>&#183</b> v1.0 (Beta)</label>
           <br>
           <a href="{{route('homepage')}}" target="_blank">Homepage</a> 
           <b>&#183</b>
