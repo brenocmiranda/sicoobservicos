@@ -19,23 +19,7 @@
 				<tr>
 					<td style="padding: 20px 40px;">
 						<font face="Helvetica,Arial,sans-serif" color="#222222" style="font-size:15px; line-height:25px;">
-							<p>
-								<b>Opsss, o seu estoque do item abaixo está acabando!</b>
-							</p>
-							<p>
-								Neste momento solicite a reposição do item para que futuramente não venha causar transtornos. Material em estoque mínimo:
-							</p>
-							<p>
-								<ul>
-									<li><b>Produto:</b> {{$material->RelationMaterial->nome}}</li>
-									<li><b>Quantidade restantes:</b> {{$material->RelationMaterial->quantidade}} unidades</li>
-								</ul>
-							</p>
-							<p>
-								<a href="{{route('exibir.solicitacoes.administrativo')}}" target="_blank">
-									<b>Aprove as solicitações de materiais</b>
-								</a>
-							</p>
+							{!!$conteudo!!}
 						</font>
 					</td>
 				</tr>

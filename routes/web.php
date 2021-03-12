@@ -113,7 +113,7 @@ Route::group(['prefix' => 'app'], function(){
 	});
 
 	#---------------------------------------------------------------------
-	# Módulo Atendimento
+	# Módulo Atendimento *
 	#---------------------------------------------------------------------
 	Route::group(['prefix' => 'atendimento'], function(){
 		// Painel comercial
@@ -505,6 +505,12 @@ Route::group(['prefix' => 'app'], function(){
 				Route::get('', 'ConfiguracoesCtrl@ExibirAjustesEmails')->name('exibir.ajustes.emails');
 				Route::post('salvar', 'ConfiguracoesCtrl@SalvarAjustesEmails')->name('salvar.ajustes.emails');
 			});
+			// Disparar
+			Route::group(['prefix' => 'disparar'], function(){
+				Route::get('', 'ConfiguracoesCtrl@ExibirDisparoEmails')->name('exibir.disparo.emails');
+				Route::post('enviar', 'ConfiguracoesCtrl@EnviarDisparoEmails')->name('enviar.disparo.emails');
+				Route::any('credenciais', 'ConfiguracoesCtrl@DisparoCredenciais')->name('disparar.credenciais.emails');
+			});
 			// Menssagens
 			Route::group(['prefix' => 'mensagens'], function(){
 				Route::get('', 'ConfiguracoesCtrl@ExibirMensagensEmails')->name('exibir.mensagens.emails');
@@ -514,7 +520,7 @@ Route::group(['prefix' => 'app'], function(){
 		// Ajustes
 		Route::group(['prefix' => 'plataforma'], function(){
 			Route::get('', 'ConfiguracoesCtrl@ExibirPlataforma')->name('exibir.plataforma');
-			Route::post('salvar', 'ConfiguracoesCtrl@SalvarPlataforma')->name('salvar.plataforma');
+			Route::post('salvar', 'ConfiguracoesCtrl@DisparoCredenciais')->name('salvar.plataforma');
 		});
 		// Importações
 		Route::group(['prefix' => 'importacoes'], function(){

@@ -218,7 +218,8 @@
             </a>
             <ul class="nav nav-third-level {{ (Request::segment(2) == 'configuracoes' && Request::segment(3) == 'emails' ? ' collapse in' : '') }}">
               <li> <a href="{{route('exibir.ajustes.emails')}}"><span class="hide-menu">Ajustes</span></a> </li>
-              <li> <a href="{{route('exibir.mensagens.emails')}}"><span class="hide-menu">Conteúdos</span></a> </li>
+              <li> <a href="{{route('exibir.disparo.emails')}}"><span class="hide-menu">Enviar</span></a>
+              <li> <a href="{{route('exibir.mensagens.emails')}}"><span class="hide-menu">Mensagens</span></a> </li>
             </ul>
           </li>
           <li> 

@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use App\Notifications\Cadastro;
+use App\Notifications\EnviarEmail;
 use App\Notifications\ResetPassword;
 use App\Http\Requests\FuncoesRqt;
 use App\Http\Requests\UnidadesRqt;
@@ -768,7 +769,39 @@ class ConfiguracoesCtrl extends Controller
 			return redirect(route('403'));
 		}
 	}
+	// Disparar e-mails
+	public function ExibirDisparoEmails(){
+		$dados = Usuarios::where('status', 'Ativo')->orderBy('login', 'ASC')->get();
+		return view('configuracoes.emails.disparar.exibir')->with('usuarios', $dados);
+	}
+	// Enviar e-mail
+	public function EnviarDisparoEmails(Request $request){
+		if(isset($request->enviarTodos)){
+			$dados = Usuarios::all();
+			$content = (object) $request->all();
+			foreach ($dados as $value) {
+				$value->notify(new EnviarEmail($content));
+			}
+		}else{
+			$dados = Usuarios::find($request->from);
+			$content = (object) $request->all();
+			$dados->notify(new EnviarEmail($content));
+		}
 
+		\Session::flash('envio', array(
+			'class' => 'success',
+			'mensagem' => 'E-mail enviado para o(s) destinatário(s).'
+		));
+		return redirect(route('exibir.disparo.emails'));
+	}
+	// Disparo de todas as credênciais dos usuaríos
+	public function DisparoCredenciais(){
+		$dados = Usuarios::all();
+		foreach ($dados as $value) {
+			$value->notify(new Cadastro($value));
+		}
+		return redirect(route('exibir.mensagens.emails'));
+	}
 
 	#-------------------------------------------------------------------
 	# Ajustes
