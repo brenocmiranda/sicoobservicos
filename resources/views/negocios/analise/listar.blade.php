@@ -22,9 +22,9 @@ Associados
 			<div class="col-12 mb-3">
 				<table class="table table-striped text-center color-table muted-table rounded d-block d-lg-table" id="table" style="overflow-y: auto; display: none !important;">
 					<thead>
+						<th> Possui? </th>
 						<th> Nome </th>
 						<th> Documento </th>
-						<th> Renda </th>
 						<th> Gerente </th>
 						<th> PA </th>
 						<th> Ações </th>
@@ -45,25 +45,6 @@ Associados
 @section('suporte')
 <script type="text/javascript">
 	$(document).ready( function (){
-		/* Criando a datatables
-		$('#table').DataTable({
-			deferRender: true,
-			order: [0, 'asc'],
-			paginate: true,
-			select: true,
-			searching: true,
-			destroy: true,
-			ajax: "{{ route('listar.analise.negocios') }}",
-			serverSide: true,
-			"columns": [ 
-			{ "data": "nome", "name":"nome"},
-			{ "data": "documento", "name":"documento"},
-			{ "data": "renda1", "name":"renda1"},
-			{ "data": "nome_gerente", "name":"nome_gerente"},
-			{ "data": "acoes","name":"acoes"},
-			],
-		});*/
-
 		// Criando a datatables
 		$.ajax({
 			url: '{{ route("listar.analise.negocios") }}',
@@ -74,7 +55,7 @@ Associados
 				$('.processing-off').fadeIn();
 				$('#table').fadeIn();
 				$('#table').DataTable({
-					order: [ 0, "asc" ],
+					order: [ 1, "asc" ],
 					pageLength: 100,
 					paging: true,
 					select: true,
@@ -82,9 +63,9 @@ Associados
 					deferRender: true,
 					data: table,
 					"columns": [ 
+					{ "data": "analise", "name":"analise"},
 					{ "data": "nome", "name":"nome"},
 					{ "data": "documento1", "name":"documento1"},
-					{ "data": "renda1", "name":"renda1"},
 					{ "data": "nome_gerente", "name":"nome_gerente"},
 					{ "data": "PA", "name":"PA"},
 					{ "data": "acoes","name":"acoes"},

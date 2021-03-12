@@ -84,4 +84,8 @@ class Associados extends Model
     public function RelationPrevidencias(){
         return $this->hasMany(ProPrevidencias::class, 'cli_id_associado');
     }
+
+    public function RelationCarteiraNegocios(){
+        return $this->belongsTo(NegociosCarteira::class, 'id', 'cli_id_associado');
+    }
 }

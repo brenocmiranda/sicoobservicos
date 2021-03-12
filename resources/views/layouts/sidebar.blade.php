@@ -68,9 +68,7 @@
         </a>
         <ul class="nav nav-second-level {{ (Request::segment(2) == 'atendimento' ? ' collapse in' : '') }}">
           <li> <a href="{{route('exibir.painel.atendimento')}}"><span class="hide-menu">Painel do associado</span></a> </li>
-          <li> <a href="#"><span class="hide-menu">Alteração cadastral</span></a> </li>
           <li> <a href="{{route('exibir.cadastro.atendimento')}}"><span class="hide-menu">Novos associados</span></a> </li>
-          <li> <a href="#"><span class="hide-menu">Renovação cadastral</span></a> </li>
         </ul>
       </li>
       @endif
@@ -134,30 +132,9 @@
         <ul class="nav nav-second-level {{ (Request::segment(2) == 'produtos' ? ' collapse in' : '') }}">
           <li> <a href="{{route('dashboard.negocios')}}"><span class="hide-menu">Dashboard</span></a> </li>
           <li> <a href="{{route('exibir.analise.negocios')}}"><span class="hide-menu">Análise</span></a> </li>
-          <li> <a href="{{route('exibir.carteira.negocios')}}"><span class="hide-menu">Carteira</span></a> </li>
+          <li> <a href="{{route('exibir.carteira.negocios')}}"><span class="hide-menu">Carteiras</span></a> </li>
           <li> <a href="{{route('exibir.acompanhamento.negocios')}}"><span class="hide-menu">Acompanhamento</span></a> </li>
           <li> <a href="{{route('exibir.relatorios.negocios')}}"><span class="hide-menu">Relatórios</span></a> </li>
-        </ul>
-      </li>
-      @endif
-     
-      @if(Auth::user()->RelationFuncao->ver_produtos == 1 || Auth::user()->RelationFuncao->gerenciar_produtos == 1)
-      <li> 
-        <a href="javascript:" class="waves-effect {{ (Request::segment(2) == 'produtos' ? 'active' : '') }}">
-          <i class="mdi mdi-bulletin-board pr-3" data-icon="v"></i> 
-          <span class="hide-menu"> Produtos <span class="fa arrow"></span> </span>
-        </a>
-        <ul class="nav nav-second-level {{ (Request::segment(2) == 'produtos' ? ' collapse in' : '') }}">
-          <li> <a href="#"><span class="hide-menu">Dashboard</span></a> </li>
-          <li> <a href="#"><span class="hide-menu">Seguros</span></a> </li>
-          <li> 
-            <a href="javascript:void(0)" class="waves-effect {{ (Request::segment(2) == 'produtos' && Request::segment(3) == 'configuracoes' ? ' active' : '') }}">
-              <span class="hide-menu">Configurações </span><span class="fa arrow"></span>
-            </a>
-            <ul class="nav nav-third-level {{ (Request::segment(2) == 'produtos' && Request::segment(3) == 'configuracoes' ? ' collapse in' : '') }}">
-              <li> <a href="#"><span class="hide-menu">Campanhas</span></a> </li>
-            </ul>
-          </li>
         </ul>
       </li>
       @endif
