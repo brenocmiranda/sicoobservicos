@@ -61,9 +61,10 @@
           </div>
           <div class="col-12 text-justify">
             <div>
-              <h4>{{$dados->titulo}}</h4>
+              <h4>{{$dados->titulo}} <small class="text-capitalize">{{$dados->tipo}}</small></h4>
               <h5>{{$dados->RelationAmbientes->nome}} &#183 {{$dados->RelationFontes->nome}}</h5>
               <label>{{$dados->subtitulo}}</label> 
+
               @foreach($dados->RelationArquivos as $arquivos)
               <div class="row mx-auto"> 
                 <a href="{{asset('storage/app/'.$arquivos->endereco)}}" target="_blank" class="row col-12">
