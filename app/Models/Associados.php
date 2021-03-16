@@ -86,6 +86,6 @@ class Associados extends Model
     }
 
     public function RelationCarteiraNegocios(){
-        return $this->belongsTo(NegociosCarteira::class, 'id', 'cli_id_associado');
+        return $this->belongsTo(NegociosCarteira::class, 'cli_id_associado');
     }
 }

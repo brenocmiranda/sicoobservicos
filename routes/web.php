@@ -280,6 +280,9 @@ Route::group(['prefix' => 'app'], function(){
 		// Carteira
 		Route::group(['prefix' => 'carteira'], function(){
 			Route::get('', 'NegociosCtrl@ExibirCarteira')->name('exibir.carteira.negocios');
+			Route::get('listar', 'NegociosCtrl@DatatablesCarteira')->name('listar.carteira.negocios');
+			Route::get('executar/{id}', 'NegociosCtrl@ExecutarCarteira')->name('executar.carteira.negocios');
+			Route::post('finalizar/{id}', 'NegociosCtrl@SalvarCarteira')->name('finalizar.carteira.negocios');;
 		});
 		// Acompanhamento
 		Route::group(['prefix' => 'acompanhamento'], function(){
