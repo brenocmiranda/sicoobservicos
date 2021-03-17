@@ -190,7 +190,7 @@ class PublicCtrl extends Controller
 
 					// Criando nome do arquivo do PDF
 					if($request->nomeArquivos[$key]){
-						if(is_dir("//10.11.26.1/digitalizações ss$/".$request->usuario.'/'.$request->nomePasta.'/'.$request->nomeArquivos[$key].'.pdf')){
+						if(is_dir("//10.11.26.1/digitalizarss$/".$request->usuario.'/'.$request->nomePasta.'/'.$request->nomeArquivos[$key].'.pdf')){
 							$namePdf = $request->nomeArquivos[$key].'.pdf';
 						}else{
 							$namePdf = $request->nomeArquivos[$key].date('His').'.pdf';
@@ -205,20 +205,20 @@ class PublicCtrl extends Controller
 					$html = preg_replace("/>s+</", "><", $html);
 
 					// Gerando PDF
-					if(is_dir("//10.11.26.1/digitalizações ss$/".$request->usuario)){
-						if(is_dir("//10.11.26.1/digitalizações ss$/".$request->usuario.'/'.$request->nomePasta)){
-							$pdf = PDF::loadHTML($html)->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitalizações ss$/".$request->usuario.'/'.$request->nomePasta.'/'.$namePdf);
+					if(is_dir("//10.11.26.1/digitalizarss$/".$request->usuario)){
+						if(is_dir("//10.11.26.1/digitalizarss$/".$request->usuario.'/'.$request->nomePasta)){
+							$pdf = PDF::loadHTML($html)->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitalizarss$/".$request->usuario.'/'.$request->nomePasta.'/'.$namePdf);
 						}else{
-							mkdir("//10.11.26.1/digitalizações ss$/".$request->usuario.'/'.$request->nomePasta, 0755);
-							$pdf = PDF::loadHTML($html)->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitalizações ss$/".$request->usuario.'/'.$request->nomePasta.'/'.$namePdf);
+							mkdir("//10.11.26.1/digitalizarss$/".$request->usuario.'/'.$request->nomePasta, 0755);
+							$pdf = PDF::loadHTML($html)->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitalizarss$/".$request->usuario.'/'.$request->nomePasta.'/'.$namePdf);
 						}
 				    }else{
-				    	mkdir("//10.11.26.1/digitalizações ss$/".$request->usuario, 0755);
-				    	if(is_dir("//10.11.26.1/digitalizações ss$/".$request->usuario.'/'.$request->nomePasta)){
-							$pdf = PDF::loadHTML($html)->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitalizações ss$/".$request->usuario.'/'.$request->nomePasta.'/'.$namePdf);
+				    	mkdir("//10.11.26.1/digitalizarss$/".$request->usuario, 0755);
+				    	if(is_dir("//10.11.26.1/digitalizarss$/".$request->usuario.'/'.$request->nomePasta)){
+							$pdf = PDF::loadHTML($html)->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitalizarss$/".$request->usuario.'/'.$request->nomePasta.'/'.$namePdf);
 						}else{
-							mkdir("//10.11.26.1/digitalizações ss$/".$request->usuario.'/'.$request->nomePasta, 0755);
-							$pdf = PDF::loadHTML($html)->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitalizações ss$/".$request->usuario.'/'.$request->nomePasta.'/'.$namePdf);
+							mkdir("//10.11.26.1/digitalizarss$/".$request->usuario.'/'.$request->nomePasta, 0755);
+							$pdf = PDF::loadHTML($html)->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitalizarss$/".$request->usuario.'/'.$request->nomePasta.'/'.$namePdf);
 						}
 				    }
 	            }
@@ -266,20 +266,20 @@ class PublicCtrl extends Controller
 					$html[] = preg_replace("/>s+</", "><", '<div style="page-break-after: always;"><img src="'.asset('storage/app/digitalizar/'.$nameFile).'" style="max-width: 100%; max-height: 27cm;"><div style="font-size: 1.5px !important; text-align:right; color:white; width:100%; background-color: #292828; padding-right: 1px; padding-top: 0.5px; padding-bottom: 0.5px;">Confere com o original <br>'.$usuario->RelationAssociado->nome.'</div></div>');
 				}
 				// Gerando PDF 
-				if(is_dir("//10.11.26.1/digitalizações ss$/".$request->usuario)){
-					if(is_dir("//10.11.26.1/digitalizações ss$/".$request->usuario.'/'.$request->nomePasta)){
-						$pdf = PDF::loadView('digitalizar.todos', compact('html'))->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitalizações ss$/".$request->usuario.'/'.$request->nomePasta.'/'.$namePdf);
+				if(is_dir("//10.11.26.1/digitalizarss$/".$request->usuario)){
+					if(is_dir("//10.11.26.1/digitalizarss$/".$request->usuario.'/'.$request->nomePasta)){
+						$pdf = PDF::loadView('digitalizar.todos', compact('html'))->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitalizarss$/".$request->usuario.'/'.$request->nomePasta.'/'.$namePdf);
 					}else{
-						mkdir("//10.11.26.1/digitalizações ss$/".$request->usuario.'/'.$request->nomePasta, 0755);
-						$pdf = PDF::loadView('digitalizar.todos', compact('html'))->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitalizações ss$/".$request->usuario.'/'.$request->nomePasta.'/'.$namePdf);
+						mkdir("//10.11.26.1/digitalizarss$/".$request->usuario.'/'.$request->nomePasta, 0755);
+						$pdf = PDF::loadView('digitalizar.todos', compact('html'))->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitalizarss$/".$request->usuario.'/'.$request->nomePasta.'/'.$namePdf);
 					}
 			    }else{
-			        mkdir("//10.11.26.1/digitalizações ss$/".$request->usuario, 0755);
-			       	if(is_dir("//10.11.26.1/digitalizações ss$/".$request->usuario.'/'.$request->nomePasta)){
-						$pdf = PDF::loadView('digitalizar.todos', compact('html'))->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitalizações ss$/".$request->usuario.'/'.$request->nomePasta.'/'.$namePdf);
+			        mkdir("//10.11.26.1/digitalizarss$/".$request->usuario, 0755);
+			       	if(is_dir("//10.11.26.1/digitalizarss$/".$request->usuario.'/'.$request->nomePasta)){
+						$pdf = PDF::loadView('digitalizar.todos', compact('html'))->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitalizarss$/".$request->usuario.'/'.$request->nomePasta.'/'.$namePdf);
 					}else{
-						mkdir("//10.11.26.1/digitalizações ss$/".$request->usuario.'/'.$request->nomePasta, 0755);
-						$pdf = PDF::loadView('digitalizar.todos', compact('html'))->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitalizações ss$/".$request->usuario.'/'.$request->nomePasta.'/'.$namePdf);
+						mkdir("//10.11.26.1/digitalizarss$/".$request->usuario.'/'.$request->nomePasta, 0755);
+						$pdf = PDF::loadView('digitalizar.todos', compact('html'))->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitalizarss$/".$request->usuario.'/'.$request->nomePasta.'/'.$namePdf);
 					}
 			    }
            	 }

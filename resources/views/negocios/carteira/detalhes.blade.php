@@ -159,35 +159,6 @@ Tratamento do associado
 										R$ {{number_format($carteira->previdencia_sugerido, 2, ',', '.')}}
 									</td>
 								</tr>
-								<tr>
-									<td>
-										<label>Contratado</label>
-									</td>
-									<td>
-										<input type="text" name="especial_contratado" class="money text-center form-control form-control-line px-0" placeholder="0,00">
-									</td>
-									<td>
-										<input type="text" name="cartao_contratado" class="money text-center form-control form-control-line px-0" placeholder="0,00">
-									</td>
-									<td>
-										<input type="text" name="emp_contratado" class="money text-center form-control form-control-line px-0" placeholder="0,00">
-									</td>
-									<td>
-										<input type="text" name="fin_contratado" class="money text-center form-control form-control-line px-0" placeholder="0,00">
-									</td>
-									<td>
-										<input type="text" name="svida_contratado" class="money text-center form-control form-control-line px-0" placeholder="0,00">
-									</td>
-									<td>
-										<input type="text" name="sgeral_contratado" class="money text-center form-control form-control-line px-0" placeholder="0,00">
-									</td>
-									<td>
-										<input type="text" name="consorcio_contratado" class="money text-center form-control form-control-line px-0" placeholder="0,00">
-									</td>
-									<td>
-										<input type="text" name="previdencia_contratado" class="money text-center form-control form-control-line px-0" placeholder="0,00">
-									</td>
-								</tr>
 							</tbody>
 						</table>
 					</div>

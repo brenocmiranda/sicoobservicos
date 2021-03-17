@@ -14,6 +14,9 @@ Homepage
             <a href="{{route('telefones')}}" title="Telefones" target="_blank" class="text-white text-truncate my-auto font-weight-normal mx-3">
             	<i class="mdi mdi-phone mdi-24px"></i>
             </a>
+            <a href="{{route('digitalizar')}}" title="Digitalização" target="_blank" class="text-white text-truncate my-auto font-weight-normal mx-3">
+            	<i class="mdi mdi-camera-party-mode mdi-24px pr-lg-1 px-3"></i>
+            </a>
 			<div class="dropdown dropdown-home mx-3 px-3">
 				<a href="javascript::void(0)" title="Menu" class="dropdown-toggle my-auto" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					<h5 class="text-white">
@@ -86,7 +89,7 @@ Homepage
 	            </ul>
             </div>
             <div class="dropdown mx-3">
-				<a href="javascript::void(0)" title="{{ (Auth::check() ? Auth::user()->nome : 'Faça seu login' )}}" class="dropdown-toggle my-auto" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+				<a href="javascript::void(0)" title="{{ (Auth::check() ? Auth::user()->nome : 'Faça seu login' )}}" class="dropdown-toggle my-auto" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					<img src="{{ (Auth::check() ? asset('storage/app/'.Auth::user()->RelationImagem->endereco).'?'.rand() : asset('public/img/user.png').'?'.rand() )}}" alt="{{ (Auth::check() ? Auth::user()->nome : 'Faça seu login' )}}" width="46" height="46" class="img-circle">
 			    </a>
 			    <ul class="dropdown-menu dropdown-user dropdown-menu-right animated flipInY" style="width: 300px;border-radius: 5px;">
@@ -128,6 +131,9 @@ Homepage
 		    @else
 			    <a href="{{route('telefones')}}" title="Telefones" target="_blank" class="text-white text-truncate my-auto font-weight-normal mx-3 pr-2">
 	            	<i class="mdi mdi-phone mdi-24px px-3"></i>
+	            </a>
+	            <a href="{{route('digitalizar')}}" title="Digitalização" target="_blank" class="text-white text-truncate my-auto font-weight-normal mx-3">
+	            	<i class="mdi mdi-camera-party-mode mdi-24px pr-5"></i>
 	            </a>
 			    <a href="{{route('login')}}" target="_blank" class="btn btn-success btn-lg px-lg-5 my-auto">
 		    		<i class="mdi mdi-account pr-1 visible-xs"></i>  
