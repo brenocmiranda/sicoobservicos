@@ -283,11 +283,13 @@ Route::group(['prefix' => 'app'], function(){
 			Route::get('', 'NegociosCtrl@ExibirCarteira')->name('exibir.carteira.negocios');
 			Route::get('listar', 'NegociosCtrl@DatatablesCarteira')->name('listar.carteira.negocios');
 			Route::get('executar/{id}', 'NegociosCtrl@ExecutarCarteira')->name('executar.carteira.negocios');
-			Route::post('finalizar/{id}', 'NegociosCtrl@SalvarCarteira')->name('finalizar.carteira.negocios');;
+			Route::post('finalizar/{id}', 'NegociosCtrl@SalvarCarteira')->name('finalizar.carteira.negocios');
+			Route::get('devolver/{id}', 'NegociosCtrl@DevolverCarteira')->name('devolver.carteira.negocios');
 		});
 		// Acompanhamento
 		Route::group(['prefix' => 'acompanhamento'], function(){
 			Route::get('', 'NegociosCtrl@ExibirAcompanhamento')->name('exibir.acompanhamento.negocios');
+			Route::get('listar', 'NegociosCtrl@DatatablesAcompanhamento')->name('listar.acompanhamento.negocios');
 		});
 		// Relatórios
 		Route::group(['prefix' => 'relatorios'], function(){

@@ -1,5 +1,5 @@
 @section('title')
-Análise do associado
+Executar análise
 @endsection
 
 @extends('layouts.index')
@@ -13,17 +13,17 @@ Análise do associado
 		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
 			<ol class="breadcrumb">
 				<li><a href="javascript:void(0)">Negócios</a></li>
-				<li><a href="{{route('exibir.analise.negocios')}}">Associados</a></li>
-				<li class="active">Análise de associado</li>
+				<li><a href="{{route('exibir.analise.negocios')}}">Análise econômica</a></li>
+				<li class="active">Executar análise</li>
 			</ol>
 		</div>
 	</div>
 	@if(isset($carteira))
-	<div class="alert alert-success">
+	<div class="alert alert-warning">
 		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 			<span aria-hidden="true">&times;</span>
 		</button>
-		<label>Este associado já foi analisado, altere as informações ou encaminhe-o para o tratamento.</label>
+		<label class="m-0">Este associado já foi analisado, altere as informações e encaminhe-o para o tratamento.</label>
 	</div>
 	@endif
 	<form class="form-sample" method="POST" id="formFinalizar" action="{{route('finalizar.analise.negocios', $associado->id)}}" enctype="multipart/form-data" autocomplete="off">
@@ -240,6 +240,14 @@ Análise do associado
 							<h5 class="col-lg-4 col-12 px-0 px-lg-4">Data-Base:</h5>
 							<input type="date" name="se_data" class="form-control form-control-line col-lg-4 col-12" placeholder="10/01/2020" value="{{@$carteira->se_data}}">
 						</div>
+						<div class="form-group col-12 row mx-auto px-0 px-lg-4">
+							<h5 class="col-12 px-0">Endereço</h5>
+							<input type="text" name="se_endereco" class="form-control form-control-line col-12" placeholder="RUA ANTONIO NASCIMENTO, 179, CENTRO - PIRAPORA/MG" onkeyup="this.value = this.value.toUpperCase();" value="{{@$carteira->se_endereco}}">
+						</div>
+						<div class="form-group col-12 row mx-auto px-0 px-lg-4">
+							<h5 class="col-12 px-0">Telefone</h5>
+							<input type="text" name="se_telefone" class="numeroTelefone form-control form-control-line col-lg-6 col-11" placeholder="(38) 3741-6250" value="{{@$carteira->se_telefone}}">
+						</div>
 						<div class="form-group col-12 row mx-auto px-0">
 							<h5 class="col-lg-4 col-12 px-0 px-lg-4">Possui restrição?</h5>
 							<select class="form-control form-control-line col-lg-5 col-12 se_restricao" name="se_restricao">
@@ -247,39 +255,40 @@ Análise do associado
 								<option value="Não" {{(@$carteira->se_restricao == 'Não' ? 'selected' : (@$carteira->se_restricao != 'Sim' ? 'selected' : ''))}}>Não</option>
 							</select>
 						</div>
-						<div class="mb-3 restricao" style="display: none;">
+						<div class="mb-3 restricao" {{(@$carteira->se_restricao == 'Sim' ? 'style="display: none;"' : '')}}>
 							<div id="restricoes">
-								<!--<div class="row col-12 mx-auto px-0">
-									<div class="form-group col-4 row mx-auto">
-										<h6 class="m-0">Data</h6>
-										<input type="date" name="se_restricao_data[]" class="form-control form-control-line" style="font-size: 12px">
-									</div>
-									<div class="form-group col-4 row mx-auto">
-										<h6 class="m-0">Tipo</h6>
-										<input type="text" name="se_restricao_tipo[]" class="form-control form-control-line" style="font-size: 12px">
-									</div>
-									<div class="form-group col-3 row mx-auto">
-										<h6 class="m-0">Valor</h6>
-										<input type="text" name="se_restricao_valor[]" class="money form-control form-control-line" style="font-size: 12px">
-									</div>
-									<div class="col-1 px-0 m-auto">
-										<a href="javascript:" onclick="remover(this);">
-											<i class="mdi mdi-close text-danger mdi-24px"></i>
-										</a>
-									</div>
-								</div>-->
+								@if(isset($carteira) && $carteira->se_restricao == 'Sim')
+									<?php 
+										$dados1 = explode(';', $carteira->se_restricao_data);
+										$dados2 = explode(';', $carteira->se_restricao_tipo);
+										$dados3 = explode(';', $carteira->se_restricao_valor); 
+									?>
+									@foreach($dados1 as $key => $value)
+										<div class="row col-12 mx-auto px-0">
+											<div class="form-group col-4 row mx-auto">
+												<h6 class="m-0">Data</h6>
+												<input type="date" name="se_restricao_data[]" class="form-control form-control-line" value="{{$dados1[$key]}}" style="font-size: 12px">
+											</div>
+											<div class="form-group col-4 row mx-auto">
+												<h6 class="m-0">Tipo</h6>
+												<input type="text" name="se_restricao_tipo[]" class="form-control form-control-line" value="{{$dados2[$key]}}"  onkeyup="this.value = this.value.toUpperCase();" style="font-size: 12px">
+											</div>
+											<div class="form-group col-3 row mx-auto">
+												<h6 class="m-0">Valor</h6>
+												<input type="text" name="se_restricao_valor[]" class="money form-control form-control-line" value="{{$dados3[$key]}}" style="font-size: 12px">
+											</div>
+											<div class="col-1 px-0 m-auto">
+												<a href="javascript:" onclick="remover(this);">
+													<i class="mdi mdi-close text-danger mdi-24px"></i>
+												</a>
+											</div>
+										</div>
+									@endforeach
+								@endif
 							</div>
 							<div class="col-12">
 								<a href="javascript:" class="novaRestricao"><i class="mdi mdi-plus pr-2"></i>Nova restrição</a>
 							</div>
-						</div>
-						<div class="form-group col-12 row mx-auto px-0 px-lg-4">
-							<h5 class="col-12 px-0">Endereço</h5>
-							<input type="text" name="se_endereco" class="form-control form-control-line col-12" placeholder="RUA ANTONIO NASCIMENTO, 179, CENTRO - PIRAPORA/MG" value="{{@$carteira->se_endereco}}">
-						</div>
-						<div class="form-group col-12 row mx-auto px-0 px-lg-4">
-							<h5 class="col-12 px-0">Telefone</h5>
-							<input type="text" name="se_telefone" class="numeroTelefone form-control form-control-line col-lg-6 col-11" placeholder="(38) 3741-6250" value="{{@$carteira->se_telefone}}">
 						</div>
 					</div>
 				</div>

@@ -24,7 +24,7 @@
                 <div class="col-10">
                   <div class="form-group">
                     <label class="col-form-label pb-0">Nome <span class="text-danger">*</span></label>
-                    <input class="form-control form-control-line" name="nome" placeholder="Administrador" required/>
+                    <input class="form-control form-control-line" name="nome" placeholder="Administrador" onkeyup="this.value = this.value.toUpperCase();" required/>
                   </div>
                 </div>
                 <div class="col-12 col-lg-3">

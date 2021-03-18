@@ -13,13 +13,14 @@ Tratamento do associado
 		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
 			<ol class="breadcrumb">
 				<li><a href="javascript:void(0)">Negócios</a></li>
-				<li><a href="{{route('exibir.analise.negocios')}}">Associados</a></li>
-				<li class="active">Tratamento do associado</li>
+				<li><a href="{{route('exibir.carteira.negocios')}}">Carteira</a></li>
+				<li class="active">Tratamento</li>
 			</ol>
 		</div>
 	</div>
-	<form class="form-sample" method="POST" id="formFinalizar" action="{{route('finalizar.analise.negocios', $associado->id)}}" enctype="multipart/form-data" autocomplete="off">
+	<form class="form-sample" method="POST" id="formFinalizar" action="{{route('finalizar.carteira.negocios', $associado->id)}}" enctype="multipart/form-data" autocomplete="off">
         @csrf
+        <input type="hidden" name="id_carteira" value="{{@$carteira->id}}">
 		<div class="card mb-4">
 			<div class="card-header" style="border-top-right-radius: 0.6em; border-top-left-radius: 0.6em;">
 				<h5 class="text-white">Associado <a href="{{route('exibirID.associado.atendimento', $associado->id)}}" target="_blank"><small  class="text-info">(Visualizar painel comercial)</small></a></h5>
@@ -89,8 +90,8 @@ Tratamento do associado
 			<div class="card-body">
 				<div class="row mx-auto">
 					<div class="col-12">
-						<table class="table table-bordered text-center table-responsive">
-							<thead>
+						<table class="table table-bordered text-center d-block d-lg-table col-12 px-0" style="overflow-y: auto;">
+							<thead class="w-100">
 								<th>#</th>
 								<th>C. Especial</th>
 								<th>C. de Crédito</th>
@@ -131,7 +132,8 @@ Tratamento do associado
 										R$ {{number_format($carteira->previdencia_atual, 2, ',', '.')}}
 									</td>
 								</tr>
-								<td>
+								<tr>
+									<td>
 										<label>Sugerido</label>
 									</td>
 									<td>
@@ -167,49 +169,49 @@ Tratamento do associado
 		</div>
 		<div class="card mb-4">
 			<div class="card-header" style="border-top-right-radius: 0.6em; border-top-left-radius: 0.6em;">
-				<h5 class="text-white">Análise econômica</h5>
+				<h5 class="text-white">Análises externas</h5>
 			</div>
 			<div class="card-body">
 				<div class="row mx-auto">
 					<div class="col-lg-6 col-12">
 						<div class="col-12 row mx-auto px-0">
-							<h5 class="col-6 text-center">Banco Central</h5>
+							<h5 class="col-12 text-center">Banco Central</h5>
 						</div>
 						<hr class="mt-1 mx-auto col-8">
 						<div class="col-12 row mx-auto px-0">
-							<h5 class="col-4">Data-Base:</h5>
-							<input type="month" name="bc_data" class="form-control form-control-line col-4" placeholder="10/01/2020" value="{{$carteira->bc_data}}" disabled>
+							<h5 class="col-lg-4 col-12 px-0 px-lg-4">Data-Base:</h5>
+							<input type="month" name="bc_data" class="form-control form-control-line col-lg-4 col-11" placeholder="10/01/2020" value="{{@$carteira->bc_data}}" disabled>
 						</div>
 						<div class="col-12 row mx-auto px-0">
-							<h5 class="col-4">Consignados:</h5>
+							<h5 class="col-lg-4 col-12 px-0 px-lg-4">Consignados:</h5>
 							<h5 class="pr-2">R$</h5>
-							<input type="text" name="bc_consignados" class="form-control form-control-line col-4" placeholder="0,00" value="{{number_format($carteira->bc_consignados, 2, ',', '.')}}" disabled>
+							<input type="text" name="bc_consignados" class="form-control form-control-line col-lg-4 col-11" placeholder="0,00" value="{{number_format(@$carteira->bc_consignados, 2, ',', '.')}}" disabled>
 						</div>
 						<div class="col-12 row mx-auto px-0">
-							<h5 class="col-4">Créditos Pessoais:</h5>
+							<h5 class="col-lg-4 col-12 px-0 px-lg-4">Créditos Pessoais:</h5>
 							<h5 class="pr-2">R$</h5>
-							<input type="text" name="bc_creditopessoal" class="form-control form-control-line col-4" placeholder="0,00" value="{{number_format($carteira->bc_creditopessoal, 2, ',', '.')}}" disabled>
+							<input type="text" name="bc_creditopessoal" class="form-control form-control-line col-lg-4 col-11" placeholder="0,00" value="{{number_format(@$carteira->bc_creditopessoal, 2, ',', '.')}}" disabled>
 						</div>
 						<div class="col-12 row mx-auto px-0">
-							<h5 class="col-4">Cheque Especial:</h5>
+							<h5 class="col-lg-4 col-12 px-0 px-lg-4">Cheque Especial:</h5>
 							<h5 class="pr-2">R$</h5>
-							<input type="text" name="bc_chequeespecial" class="form-control form-control-line col-4" placeholder="0,00" value="{{number_format($carteira->bc_chequeespecial, 2, ',', '.')}}" disabled>
+							<input type="text" name="bc_chequeespecial" class="form-control form-control-line col-lg-4 col-11" placeholder="0,00" value="{{number_format(@$carteira->bc_chequeespecial, 2, ',', '.')}}" disabled>
 						</div>
 						<div class="col-12 row mx-auto px-0">
-							<h5 class="col-4">Cartão de crédito:</h5>
+							<h5 class="col-lg-4 col-12 px-0 px-lg-4">Cartão de crédito:</h5>
 							<h5 class="pr-2">R$</h5>
-							<input type="text" name="bc_cartao" class="form-control form-control-line col-4" placeholder="0,00" value="{{number_format($carteira->bc_cartao, 2, ',', '.')}}" disabled>
+							<input type="text" name="bc_cartao" class="form-control form-control-line col-lg-4 col-11" placeholder="0,00" value="{{number_format(@$carteira->bc_cartao, 2, ',', '.')}}" disabled>
 						</div>
 						<div class="col-12 row mx-auto px-0">
-							<h5 class="col-4">Financiamentos:</h5>
+							<h5 class="col-lg-4 col-12 px-0 px-lg-4">Financiamentos:</h5>
 							<h5 class="pr-2">R$</h5>
-							<input type="text" name="bc_financiamento" class="form-control form-control-line col-4" placeholder="0,00" value="{{number_format($carteira->bc_financiamento, 2, ',', '.')}}" disabled>
+							<input type="text" name="bc_financiamento" class="form-control form-control-line col-lg-4 col-11" placeholder="0,00" value="{{number_format(@$carteira->bc_financiamento, 2, ',', '.')}}" disabled>
 						</div>
-						<div class="col-12 row mx-auto px-0 mt-2">
-							<h5 class="col-4">Possui divida vencida?</h5>
-							<select class="form-control form-control-line col-5" name="bc_dividavencida" disabled>
+						<div class="col-12 row mx-auto px-0 mt-2 mb-5 mb-lg-0">
+							<h5 class="col-lg-4 col-12 px-0 px-lg-4">Possui divida vencida?</h5>
+							<select class="form-control form-control-line col-lg-5 col-11" name="bc_dividavencida" disabled>
 								<option value="Sim" {{(@$carteira->bc_dividavencida == 'Sim' ? 'selected' : '')}}>Sim</option>
-								<option value="Não" {{(@$carteira->bc_dividavencida == 'Não' ? 'selected' : '')}}>Não</option>
+								<option value="Não" {{(@$carteira->bc_dividavencida == 'Não' ? 'selected' : (@$carteira->bc_dividavencida != 'Sim' ? 'selected' : ''))}}>Não</option>
 							</select>
 						</div>
 					</div>
@@ -218,39 +220,53 @@ Tratamento do associado
 							<h5 class="col-12 text-center">Serasa</h5>
 						</div>
 						<hr class="mt-1 mx-auto col-8">
-						<div class="col-12 row mx-auto px-0">
-							<h5 class="col-4">Data-Base:</h5>
-							<input type="date" name="se_data" class="form-control form-control-line col-4" placeholder="10/01/2020" value="{{$carteira->se_data}}" disabled>
+						<div class="form-group col-12 row mx-auto px-0">
+							<h5 class="col-lg-4 col-12 px-0 px-lg-4">Data-Base:</h5>
+							<input type="date" name="se_data" class="form-control form-control-line col-lg-4 col-12" placeholder="10/01/2020" value="{{@$carteira->se_data}}" disabled> 
+						</div>
+						<div class="form-group col-12 row mx-auto px-0 px-lg-4">
+							<h5 class="col-12 px-0">Endereço</h5>
+							<input type="text" name="se_endereco" class="form-control form-control-line col-12" placeholder="RUA ANTONIO NASCIMENTO, 179, CENTRO - PIRAPORA/MG" value="{{@$carteira->se_endereco}}" disabled>
+						</div>
+						<div class="form-group col-12 row mx-auto px-0 px-lg-4">
+							<h5 class="col-12 px-0">Telefone</h5>
+							<input type="text" name="se_telefone" class="numeroTelefone form-control form-control-line col-lg-6 col-11" placeholder="(38) 3741-6250" value="{{@$carteira->se_telefone}}" disabled>
 						</div>
 						<div class="form-group col-12 row mx-auto px-0">
-							<h5 class="col-4">Possui restrição?</h5>
-							<select class="form-control form-control-line col-5" name="se_restricao" disabled>
+							<h5 class="col-lg-4 col-12 px-0 px-lg-4">Possui restrição?</h5>
+							<select class="form-control form-control-line col-lg-5 col-12 se_restricao" name="se_restricao" disabled>
 								<option value="Sim" {{(@$carteira->se_restricao == 'Sim' ? 'selected' : '')}}>Sim</option>
-								<option value="Não" {{(@$carteira->se_restricao == 'Não' ? 'selected' : '')}}>Não</option>
+								<option value="Não" {{(@$carteira->se_restricao == 'Não' ? 'selected' : (@$carteira->se_restricao != 'Sim' ? 'selected' : ''))}}>Não</option>
 							</select>
 						</div>
-						<div class="row col-12 mx-auto px-0 d-none">
-							<div class="form-group col-4 row mx-auto">
-								<h5>Data:</h5>
-								<input type="date" name="" class="form-control form-control-line">
-							</div>
-							<div class="form-group col-4 row mx-auto">
-								<h5>Tipo:</h5>
-								<input type="text" name="" class="form-control form-control-line">
-							</div>
-							<div class="form-group col-4 row mx-auto">
-								<h5>Valor:</h5>
-								<input type="text" name="" class="money form-control form-control-line">
+						<div class="mb-3 restricao" {{(@$carteira->se_restricao == 'Sim' ? 'style="display: none;"' : '')}}>
+							<div id="restricoes">
+								@if(isset($carteira) && $carteira->se_restricao == 'Sim')
+									<?php 
+										$dados1 = explode(';', $carteira->se_restricao_data);
+										$dados2 = explode(';', $carteira->se_restricao_tipo);
+										$dados3 = explode(';', $carteira->se_restricao_valor); 
+									?>
+									@foreach($dados1 as $key => $value)
+										<div class="row col-12 mx-auto px-0">
+											<div class="form-group col-4 row mx-auto">
+												<h6 class="m-0">Data</h6>
+												<input type="date" name="se_restricao_data[]" class="form-control form-control-line" value="{{$dados1[$key]}}" style="font-size: 12px" disabled>
+											</div>
+											<div class="form-group col-4 row mx-auto">
+												<h6 class="m-0">Tipo</h6>
+												<input type="text" name="se_restricao_tipo[]" class="form-control form-control-line" value="{{$dados2[$key]}}" style="font-size: 12px" disabled>
+											</div>
+											<div class="form-group col-4 row mx-auto">
+												<h6 class="m-0">Valor</h6>
+												<input type="text" name="se_restricao_valor[]" class="money form-control form-control-line" value="{{$dados3[$key]}}" style="font-size: 12px" disabled>
+											</div>
+										</div>
+									@endforeach
+								@endif
 							</div>
 						</div>
-						<div class="form-group col-12 row mx-auto" disabled>
-							<h5>Endereço:</h5>
-							<input type="text" name="se_endereco" class="form-control form-control-line" placeholder="RUA ANTONIO NASCIMENTO, 179, CENTRO - PIRAPORA/MG" value="{{$carteira->se_endereco}}" disabled>
-						</div>
-						<div class="form-group col-12 row mx-auto" disabled>
-							<h5 class="col-12 px-0">Telefone:</h5>
-							<input type="text" name="se_telefone" class="numeroTelefone form-control form-control-line col-6" placeholder="(38) 3741-6250" value="{{$carteira->se_telefone}}" disabled>
-						</div>
+						
 					</div>
 				</div>
 			</div>
@@ -262,19 +278,19 @@ Tratamento do associado
 			<div class="card-body">
 				<div class="row mx-auto">
 					<div class="form-group col-12 row mx-auto">
-						<h5 class="col-12 px-0">Parecer do análise</h5>
-						<p>{{$carteira->RelationStatus->observacoes}}</p>
+						<h5 class="col-12 px-0">Parecer do analista <small>({{$carteira->RelationStatus->RelationUsuario->RelationAssociado->nome}})</small></h5>
+						<p class="col-12 px-0">{{$carteira->RelationStatus->observacoes}}</p>
 					</div>
 					<div class="form-group col-12 row mx-auto">
 						<h5>Parecer do atendimento <span class="text-danger">*</span></h5>
-						<textarea class="form-control form-control-line" name="observacoes" placeholder="Descreva seu parecer das informações analisadas..."></textarea>
+						<textarea class="form-control form-control-line" name="observacoes" placeholder="Descreva seu parecer das informações analisadas..." required></textarea>
 					</div>
 				</div>
 			</div>
 		</div>
 		<hr class="col-10">
 		<div class="row col-12 justify-content-center mx-auto">
-			<a href="{{route('exibir.analise.negocios')}}" class="btn btn-danger col-3 col-lg-3 d-flex align-items-center justify-content-center mx-2">
+			<a href="{{route('exibir.carteira.negocios')}}" class="btn btn-danger col-3 col-lg-3 d-flex align-items-center justify-content-center mx-2">
 				<i class="mdi mdi-arrow-left pr-2"></i> 
 				<span>Voltar</span>
 			</a>

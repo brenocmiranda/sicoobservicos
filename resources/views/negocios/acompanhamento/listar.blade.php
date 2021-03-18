@@ -1,5 +1,5 @@
 @section('title')
-Carteira de atendimento
+Acompanhamento
 @endsection
 
 @extends('layouts.index')
@@ -8,12 +8,12 @@ Carteira de atendimento
 <div class="container-fluid">
 	<div class="row bg-title">
 		<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-			<h4 class="page-title">Carteira de atendimento</h4> 
+			<h4 class="page-title">Acompanhamento</h4> 
 		</div>
 		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
 			<ol class="breadcrumb">
 				<li><a href="javascript:void(0)">Negócios</a></li>
-				<li class="active">Carteira</li>
+				<li class="active">Acompanhamento</li>
 			</ol>
 		</div>
 	</div>
@@ -32,8 +32,8 @@ Carteira de atendimento
 					<thead>
 						<th> Documento </th>
 						<th> Nome </th>
-						<th> Gerente </th>
-						<th> PA </th>
+						<th> Tratamento </th>
+						<th> Data </th>
 						<th> Status </th>
 						<th> Ações </th>
 					</thead>
@@ -49,7 +49,7 @@ Carteira de atendimento
 	$(document).ready( function (){
 		// Criando a datatables
 		$.ajax({
-			url: '{{ route("listar.carteira.negocios") }}',
+			url: '{{ route("listar.acompanhamento.negocios") }}',
 			type: 'GET',
 			success: function(table){
 				// Carregamento de dados
@@ -64,8 +64,8 @@ Carteira de atendimento
 					"columns": [ 
 					{ "data": "documento1", "name":"documento1"},
 					{ "data": "nome", "name":"nome"},
-					{ "data": "nome_gerente", "name":"nome_gerente"},
-					{ "data": "PA", "name":"PA"},
+					{ "data": "colaborador", "name":"colaborador"},
+					{ "data": "data", "name":"data"},
 					{ "data": "status1", "name":"status1"},
 					{ "data": "acoes","name":"acoes"},
 					]

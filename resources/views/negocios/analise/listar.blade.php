@@ -1,5 +1,5 @@
 @section('title')
-Análise de associados
+Análise econômica
 @endsection
 
 @extends('layouts.index')
@@ -8,12 +8,12 @@ Análise de associados
 <div class="container-fluid">
 	<div class="row bg-title">
 		<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-			<h4 class="page-title">Análise de associados</h4> 
+			<h4 class="page-title">Análise econômica</h4> 
 		</div>
 		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
 			<ol class="breadcrumb">
 				<li><a href="javascript:void(0)">Negócios</a></li>
-				<li class="active">Análise de associados</li>
+				<li class="active">Análise econômica</li>
 			</ol>
 		</div>
 	</div>
@@ -46,59 +46,6 @@ Análise de associados
 <script type="text/javascript">
 	$(document).ready( function (){
 
-		/* Criando a datatables
-		$('#table').DataTable({
-			deferRender: true,
-			order: [ 1, "asc" ],
-			paginate: true,
-			pageLength: 100,
-			select: true,
-			searching: true,
-			destroy: true,
-			ajax: "{{ route('listar.analise.negocios') }}",
-			serverSide: true,
-			"columns": [ 
-			{ "data": "documento1", "name":"documento1"},
-			{ "data": "nome", "name":"nome"},
-			{ "data": "gerente", "name":"gerente"},
-			{ "data": "PA", "name":"PA"},
-			{ "data": "analise", "name":"analise"},
-			{ "data": "acoes","name":"acoes"},
-			]
-		});	
-		// Encaminhar do associado para análise
-		$('#table tbody').on('click', 'a#encaminhar', function() {
-			var table = $('#table').DataTable();
-			table.$('tr.selected').removeClass('selected');
-			$(this).parents('tr').addClass('selected');
-			$(this).parent('tr').addClass('selected');
-			var data = table.row('tr.selected').data();
-			var url = "{{url('app/negocios/analises/encaminhar')}}/"+data.id;
-			swal({
-				title: "Tem certeza que enviar para tratamento?",
-				icon: "warning",
-				buttons: ["Cancelar", "Alterar"],
-			})
-			.then((willDelete) => {
-				if (willDelete) {
-					$.get(url, function(data){
-						if(data.success == true){
-							swal("Informações enviar com sucesso!", {
-								icon: "success",
-							});
-							location.reload();
-						}else{
-							swal("Não foi possível alterar essas informações, tente novamente!", {
-								icon: "error",
-							});
-						}
-					});
-				} else {
-					swal.close();
-				}
-			});
-		});*/
-
 		// Criando a datatables
 		$.ajax({
 			url: '{{ route("listar.analise.negocios") }}',
@@ -128,7 +75,7 @@ Análise de associados
 				});	
 
 				// Encaminhar do associado para análise
-				$('#table tbody').on('click', 'a#encaminhar', function() {
+				$('#table tbody').on('click', 'a#encaminhar', function(e) {
 					var table = $('#table').DataTable();
 					table.$('tr.selected').removeClass('selected');
 					$(this).parents('tr').addClass('selected');
@@ -138,7 +85,7 @@ Análise de associados
 					swal({
 						title: "Tem certeza que encaminhar para tratamento?",
 						icon: "warning",
-						buttons: ["Cancelar", "Enviar"],
+						buttons: ["Cancelar", "Encaminhar"],
 					})
 					.then((willDelete) => {
 						if (willDelete) {

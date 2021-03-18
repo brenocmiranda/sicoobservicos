@@ -20,7 +20,7 @@
                 <div class="col-10">
                   <div class="form-group">
                     <label class="col-form-label pb-0">Nome</label>
-                    <input class="nome form-control form-control-line" disabled/>
+                    <input class="nome form-control form-control-line"  disabled/>
                   </div>
                 </div>
                 <div class="col-12 col-lg-3">

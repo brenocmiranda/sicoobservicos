@@ -16,4 +16,8 @@ class NegociosCarteira extends Model
     public function RelationStatus(){
         return $this->belongsTo(NegociosCarteiraStatus::class, 'id', 'neg_id_carteira')->orderBy('created_at', 'DESC');
     }
+
+    public function RelationAssociado(){
+        return $this->belongsTo(Associados::class, 'cli_id_associado');
+    }
 }
