@@ -53,9 +53,9 @@ class CreateNegCarteiraTable extends Migration
 
             $table->string('se_data');
             $table->string('se_restricao');
-            $table->date('se_restricao_data')->nullable();
-            $table->string('se_restricao_tipo')->nullable();
-            $table->double('se_restricao_valor')->nullable();
+            $table->text('se_restricao_data')->nullable();
+            $table->text('se_restricao_tipo')->nullable();
+            $table->text('se_restricao_valor')->nullable();
             $table->string('se_endereco')->nullable();
             $table->string('se_telefone')->nullable();
 

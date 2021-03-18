@@ -45,45 +45,35 @@ Análise de associados
 @section('suporte')
 <script type="text/javascript">
 	$(document).ready( function (){
-		// Criando a datatables
-		$.ajax({
-			url: '{{ route("listar.analise.negocios") }}',
-			type: 'GET',
-			success: function(table){
-				// Carregamento de dados
-				$('.processing-in').addClass('d-none');
-				$('.processing-off').fadeIn();
-				$('#table').fadeIn();
-				$('#table').DataTable({
-					order: [ 1, "asc" ],
-					pageLength: 100,
-					paging: true,
-					select: true,
-					searching: true,
-					deferRender: true,
-					data: table,
-					"columns": [ 
-					{ "data": "documento1", "name":"documento1"},
-					{ "data": "nome", "name":"nome"},
-					{ "data": "gerente", "name":"gerente"},
-					{ "data": "PA", "name":"PA"},
-					{ "data": "analise", "name":"analise"},
-					{ "data": "acoes","name":"acoes"},
-					]
-				});	
-			}
-		});
 
+		/* Criando a datatables
+		$('#table').DataTable({
+			deferRender: true,
+			order: [ 1, "asc" ],
+			paginate: true,
+			pageLength: 100,
+			select: true,
+			searching: true,
+			destroy: true,
+			ajax: "{{ route('listar.analise.negocios') }}",
+			serverSide: true,
+			"columns": [ 
+			{ "data": "documento1", "name":"documento1"},
+			{ "data": "nome", "name":"nome"},
+			{ "data": "gerente", "name":"gerente"},
+			{ "data": "PA", "name":"PA"},
+			{ "data": "analise", "name":"analise"},
+			{ "data": "acoes","name":"acoes"},
+			]
+		});	
 		// Encaminhar do associado para análise
-		$('#table tbody').on('click', 'button#encaminhar', function() {
-			// Alterando o estado
-			console.log('teste');
+		$('#table tbody').on('click', 'a#encaminhar', function() {
 			var table = $('#table').DataTable();
 			table.$('tr.selected').removeClass('selected');
 			$(this).parents('tr').addClass('selected');
 			$(this).parent('tr').addClass('selected');
 			var data = table.row('tr.selected').data();
-			//var url = "{{url('app/configuracoes/administrativo/funcoes/alterar')}}/"+data.id;
+			var url = "{{url('app/negocios/analises/encaminhar')}}/"+data.id;
 			swal({
 				title: "Tem certeza que enviar para tratamento?",
 				icon: "warning",
@@ -96,7 +86,7 @@ Análise de associados
 							swal("Informações enviar com sucesso!", {
 								icon: "success",
 							});
-							table.ajax.reload();
+							location.reload();
 						}else{
 							swal("Não foi possível alterar essas informações, tente novamente!", {
 								icon: "error",
@@ -107,6 +97,69 @@ Análise de associados
 					swal.close();
 				}
 			});
+		});*/
+
+		// Criando a datatables
+		$.ajax({
+			url: '{{ route("listar.analise.negocios") }}',
+			type: 'GET',
+			success: function(table){
+				// Carregamento de dados
+				$('.processing-in').addClass('d-none');
+				$('.processing-off').fadeIn();
+				$('#table').fadeIn();
+				$('#table').DataTable({
+					deferRender: true,
+					order: [ 1, "asc" ],
+					paginate: true,
+					pageLength: 100,
+					select: true,
+					searching: true,
+					destroy: true,
+					data: table,
+					"columns": [ 
+					{ "data": "documento", "name":"documento"},
+					{ "data": "nome", "name":"nome"},
+					{ "data": "gerente", "name":"gerente"},
+					{ "data": "PA", "name":"PA"},
+					{ "data": "analise", "name":"analise"},
+					{ "data": "acoes","name":"acoes"},
+					]
+				});	
+
+				// Encaminhar do associado para análise
+				$('#table tbody').on('click', 'a#encaminhar', function() {
+					var table = $('#table').DataTable();
+					table.$('tr.selected').removeClass('selected');
+					$(this).parents('tr').addClass('selected');
+					$(this).parent('tr').addClass('selected');
+					var data = table.row('tr.selected').data();
+					var url = "{{url('app/negocios/analise/encaminhar')}}/"+data.cli_id_associado;
+					swal({
+						title: "Tem certeza que encaminhar para tratamento?",
+						icon: "warning",
+						buttons: ["Cancelar", "Enviar"],
+					})
+					.then((willDelete) => {
+						if (willDelete) {
+							$.get(url, function(data){
+								if(data.success == true){
+									swal("Informações enviar com sucesso!", {
+										icon: "success",
+									});
+									table.row('tr.selected').remove().draw();
+								}else{
+									swal("Não foi possível alterar essas informações, tente novamente!", {
+										icon: "error",
+									});
+								}
+							});
+						} else {
+							swal.close();
+						}
+					});
+				});
+			}
 		});
 	});
 </script>

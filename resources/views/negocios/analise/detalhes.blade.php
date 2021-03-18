@@ -185,49 +185,49 @@ Análise do associado
 		</div>
 		<div class="card mb-4">
 			<div class="card-header" style="border-top-right-radius: 0.6em; border-top-left-radius: 0.6em;">
-				<h5 class="text-white">Análise econômica</h5>
+				<h5 class="text-white">Análises externas</h5>
 			</div>
 			<div class="card-body">
 				<div class="row mx-auto">
 					<div class="col-lg-6 col-12">
 						<div class="col-12 row mx-auto px-0">
-							<h5 class="col-6 text-center">Banco Central</h5>
+							<h5 class="col-12 text-center">Banco Central</h5>
 						</div>
 						<hr class="mt-1 mx-auto col-8">
 						<div class="col-12 row mx-auto px-0">
-							<h5 class="col-4">Data-Base:</h5>
-							<input type="month" name="bc_data" class="form-control form-control-line col-4" placeholder="10/01/2020" value="{{@$carteira->bc_data}}">
+							<h5 class="col-lg-4 col-12 px-0 px-lg-4">Data-Base:</h5>
+							<input type="month" name="bc_data" class="form-control form-control-line col-lg-4 col-11" placeholder="10/01/2020" value="{{@$carteira->bc_data}}">
 						</div>
 						<div class="col-12 row mx-auto px-0">
-							<h5 class="col-4">Consignados:</h5>
+							<h5 class="col-lg-4 col-12 px-0 px-lg-4">Consignados:</h5>
 							<h5 class="pr-2">R$</h5>
-							<input type="text" name="bc_consignados" class="form-control form-control-line col-4" placeholder="0,00" value="{{number_format(@$carteira->bc_consignados, 2, ',', '.')}}">
+							<input type="text" name="bc_consignados" class="form-control form-control-line col-lg-4 col-11" placeholder="0,00" value="{{number_format(@$carteira->bc_consignados, 2, ',', '.')}}">
 						</div>
 						<div class="col-12 row mx-auto px-0">
-							<h5 class="col-4">Créditos Pessoais:</h5>
+							<h5 class="col-lg-4 col-12 px-0 px-lg-4">Créditos Pessoais:</h5>
 							<h5 class="pr-2">R$</h5>
-							<input type="text" name="bc_creditopessoal" class="form-control form-control-line col-4" placeholder="0,00" value="{{number_format(@$carteira->bc_creditopessoal, 2, ',', '.')}}">
+							<input type="text" name="bc_creditopessoal" class="form-control form-control-line col-lg-4 col-11" placeholder="0,00" value="{{number_format(@$carteira->bc_creditopessoal, 2, ',', '.')}}">
 						</div>
 						<div class="col-12 row mx-auto px-0">
-							<h5 class="col-4">Cheque Especial:</h5>
+							<h5 class="col-lg-4 col-12 px-0 px-lg-4">Cheque Especial:</h5>
 							<h5 class="pr-2">R$</h5>
-							<input type="text" name="bc_chequeespecial" class="form-control form-control-line col-4" placeholder="0,00" value="{{number_format(@$carteira->bc_chequeespecial, 2, ',', '.')}}">
+							<input type="text" name="bc_chequeespecial" class="form-control form-control-line col-lg-4 col-11" placeholder="0,00" value="{{number_format(@$carteira->bc_chequeespecial, 2, ',', '.')}}">
 						</div>
 						<div class="col-12 row mx-auto px-0">
-							<h5 class="col-4">Cartão de crédito:</h5>
+							<h5 class="col-lg-4 col-12 px-0 px-lg-4">Cartão de crédito:</h5>
 							<h5 class="pr-2">R$</h5>
-							<input type="text" name="bc_cartao" class="form-control form-control-line col-4" placeholder="0,00" value="{{number_format(@$carteira->bc_cartao, 2, ',', '.')}}">
+							<input type="text" name="bc_cartao" class="form-control form-control-line col-lg-4 col-11" placeholder="0,00" value="{{number_format(@$carteira->bc_cartao, 2, ',', '.')}}">
 						</div>
 						<div class="col-12 row mx-auto px-0">
-							<h5 class="col-4">Financiamentos:</h5>
+							<h5 class="col-lg-4 col-12 px-0 px-lg-4">Financiamentos:</h5>
 							<h5 class="pr-2">R$</h5>
-							<input type="text" name="bc_financiamento" class="form-control form-control-line col-4" placeholder="0,00" value="{{number_format(@$carteira->bc_financiamento, 2, ',', '.')}}">
+							<input type="text" name="bc_financiamento" class="form-control form-control-line col-lg-4 col-11" placeholder="0,00" value="{{number_format(@$carteira->bc_financiamento, 2, ',', '.')}}">
 						</div>
-						<div class="col-12 row mx-auto px-0 mt-2">
-							<h5 class="col-4">Possui divida vencida?</h5>
-							<select class="form-control form-control-line col-5" name="bc_dividavencida">
+						<div class="col-12 row mx-auto px-0 mt-2 mb-5 mb-lg-0">
+							<h5 class="col-lg-4 col-12 px-0 px-lg-4">Possui divida vencida?</h5>
+							<select class="form-control form-control-line col-lg-5 col-11" name="bc_dividavencida">
 								<option value="Sim" {{(@$carteira->bc_dividavencida == 'Sim' ? 'selected' : '')}}>Sim</option>
-								<option value="Não" {{(@$carteira->bc_dividavencida == 'Não' ? 'selected' : '')}}>Não</option>
+								<option value="Não" {{(@$carteira->bc_dividavencida == 'Não' ? 'selected' : (@$carteira->bc_dividavencida != 'Sim' ? 'selected' : ''))}}>Não</option>
 							</select>
 						</div>
 					</div>
@@ -236,38 +236,50 @@ Análise do associado
 							<h5 class="col-12 text-center">Serasa</h5>
 						</div>
 						<hr class="mt-1 mx-auto col-8">
-						<div class="col-12 row mx-auto px-0">
-							<h5 class="col-4">Data-Base:</h5>
-							<input type="date" name="se_data" class="form-control form-control-line col-4" placeholder="10/01/2020" value="{{@$carteira->se_data}}">
+						<div class="form-group col-12 row mx-auto px-0">
+							<h5 class="col-lg-4 col-12 px-0 px-lg-4">Data-Base:</h5>
+							<input type="date" name="se_data" class="form-control form-control-line col-lg-4 col-12" placeholder="10/01/2020" value="{{@$carteira->se_data}}">
 						</div>
 						<div class="form-group col-12 row mx-auto px-0">
-							<h5 class="col-4">Possui restrição?</h5>
-							<select class="form-control form-control-line col-5" name="se_restricao">
+							<h5 class="col-lg-4 col-12 px-0 px-lg-4">Possui restrição?</h5>
+							<select class="form-control form-control-line col-lg-5 col-12 se_restricao" name="se_restricao">
 								<option value="Sim" {{(@$carteira->se_restricao == 'Sim' ? 'selected' : '')}}>Sim</option>
-								<option value="Não" {{(@$carteira->se_restricao == 'Não' ? 'selected' : '')}}>Não</option>
+								<option value="Não" {{(@$carteira->se_restricao == 'Não' ? 'selected' : (@$carteira->se_restricao != 'Sim' ? 'selected' : ''))}}>Não</option>
 							</select>
 						</div>
-						<div class="row col-12 mx-auto px-0 d-none">
-							<div class="form-group col-4 row mx-auto">
-								<h5>Data:</h5>
-								<input type="date" name="" class="form-control form-control-line">
+						<div class="mb-3 restricao" style="display: none;">
+							<div id="restricoes">
+								<!--<div class="row col-12 mx-auto px-0">
+									<div class="form-group col-4 row mx-auto">
+										<h6 class="m-0">Data</h6>
+										<input type="date" name="se_restricao_data[]" class="form-control form-control-line" style="font-size: 12px">
+									</div>
+									<div class="form-group col-4 row mx-auto">
+										<h6 class="m-0">Tipo</h6>
+										<input type="text" name="se_restricao_tipo[]" class="form-control form-control-line" style="font-size: 12px">
+									</div>
+									<div class="form-group col-3 row mx-auto">
+										<h6 class="m-0">Valor</h6>
+										<input type="text" name="se_restricao_valor[]" class="money form-control form-control-line" style="font-size: 12px">
+									</div>
+									<div class="col-1 px-0 m-auto">
+										<a href="javascript:" onclick="remover(this);">
+											<i class="mdi mdi-close text-danger mdi-24px"></i>
+										</a>
+									</div>
+								</div>-->
 							</div>
-							<div class="form-group col-4 row mx-auto">
-								<h5>Tipo:</h5>
-								<input type="text" name="" class="form-control form-control-line">
-							</div>
-							<div class="form-group col-4 row mx-auto">
-								<h5>Valor:</h5>
-								<input type="text" name="" class="money form-control form-control-line">
+							<div class="col-12">
+								<a href="javascript:" class="novaRestricao"><i class="mdi mdi-plus pr-2"></i>Nova restrição</a>
 							</div>
 						</div>
-						<div class="form-group col-12 row mx-auto">
-							<h5>Endereço:</h5>
-							<input type="text" name="se_endereco" class="form-control form-control-line" placeholder="RUA ANTONIO NASCIMENTO, 179, CENTRO - PIRAPORA/MG" value="{{@$carteira->se_endereco}}">
+						<div class="form-group col-12 row mx-auto px-0 px-lg-4">
+							<h5 class="col-12 px-0">Endereço</h5>
+							<input type="text" name="se_endereco" class="form-control form-control-line col-12" placeholder="RUA ANTONIO NASCIMENTO, 179, CENTRO - PIRAPORA/MG" value="{{@$carteira->se_endereco}}">
 						</div>
-						<div class="form-group col-12 row mx-auto">
-							<h5 class="col-12 px-0">Telefone:</h5>
-							<input type="text" name="se_telefone" class="numeroTelefone form-control form-control-line col-6" placeholder="(38) 3741-6250" value="{{@$carteira->se_telefone}}">
+						<div class="form-group col-12 row mx-auto px-0 px-lg-4">
+							<h5 class="col-12 px-0">Telefone</h5>
+							<input type="text" name="se_telefone" class="numeroTelefone form-control form-control-line col-lg-6 col-11" placeholder="(38) 3741-6250" value="{{@$carteira->se_telefone}}">
 						</div>
 					</div>
 				</div>
@@ -285,7 +297,7 @@ Análise do associado
 					</div>
 					<div class="form-group col-12 row mx-auto">
 						<h5 class="col-12 px-0">Encaminhar para tramento <span class="text-danger">*</span></h5>
-						<select class="form-control form-control-line col-7" name="usr_id_usuarios" required>
+						<select class="form-control form-control-line col-lg-7 col-12" name="usr_id_usuarios" required>
 							<option value="">Selecione</option>
 							@foreach($usuarios as $usuario)
 								<option value="{{$usuario->id}}" {{(@$carteira->RelationStatus->usr_id_usuarios == $usuario->id ? 'selected' : '')}}>{{$usuario->RelationAssociado->nome}}</option>
@@ -316,9 +328,27 @@ Análise do associado
 
 @section('suporte')
 <script type="text/javascript">
+	function remover(div){
+		$(div).parent('div').parent('div').remove();
+	}
+
 	$(document).ready( function (){
 		$('.money').mask('000.000.000.000.000,00', {reverse: true});
 		$('.numeroTelefone').mask('(00) 00000-0000');
+
+		// Exibindo restrições serasa
+		$('.se_restricao').on('change', function(){
+			$('#restricoes').html('');
+			if (this.value == 'Sim'){
+				$('.restricao').fadeIn();
+			}else{
+				$('.restricao').fadeOut();
+			}
+		});
+		// Inserindo novas restrições
+		$('.novaRestricao').on('click', function(){
+			$('#restricoes').append('<div class="row col-12 mx-auto px-0"> <div class="form-group col-4 row mx-auto"> <h6 class="m-0">Data</h6> <input type="date" name="se_restricao_data[]" class="form-control form-control-line" style="font-size: 12px" required> </div> <div class="form-group col-4 row mx-auto"> <h6 class="m-0">Tipo</h6> <input type="text" name="se_restricao_tipo[]" class="form-control form-control-line" style="font-size: 12px" required> </div> <div class="form-group col-3 row mx-auto"> <h6 class="m-0">Valor</h6> <input type="text" name="se_restricao_valor[]" class="money form-control form-control-line" style="font-size: 12px" required> </div> <div class="col-1 px-0 m-auto"> <a href="javascript:" onclick="remover(this);"> <i class="mdi mdi-close text-danger mdi-24px"></i> </a> </div> </div>'); 
+		});
 	});
 </script>
 @endsection

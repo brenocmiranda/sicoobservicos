@@ -143,7 +143,7 @@ class SuporteCtrl extends Controller
             'url' => route('detalhes.chamados', $create->id),
             'id_usuario' => Auth::id()
         ]);
-        return redirect()->route('detalhes.chamados', $create->id);
+        return redirect(route('detalhes.chamados', $create->id));
     }
     // Detalhes do chamado
     public function DetalhesChamados($id){

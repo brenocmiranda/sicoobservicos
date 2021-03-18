@@ -33,17 +33,38 @@ class NegociosCtrl extends Controller
 		return view('negocios.analise.listar');
 	}
 	public function DatatablesAnalise(){
-		$dados = ContaCapital::leftJoin('cli_associados', 'cli_id_associado', 'cli_associados.id')
-		->where('situacao_capital', '!=', 'DEMITIDO')
-		->where('situacao_capital', '!=', 'EXCLUÍDO')
-		->where('sigla', 'PF')
-		->select('cli_id_associado', 'nome', 'documento', 'renda', 'nome_gerente', 'PA')
-		->get();
+		
+		/*
+		return datatables()->of(ContaCapital::leftJoin('cli_associados', 'cli_id_associado', 'cli_associados.id')->leftJoin('neg_carteira', 'neg_carteira.cli_id_associado', 'cli_associados.id')->where('situacao_capital', '!=', 'DEMITIDO')->where('situacao_capital', '!=', 'EXCLUÍDO')->where('sigla', 'PF')->select('cca_contacapital.cli_id_associado', 'neg_carteira.id', 'nome', 'documento', 'renda', 'nome_gerente', 'PA')->get())
+            ->editColumn('documento1', function(ContaCapital $dados){ 
+                return (strlen($dados->documento) == 11 ? substr($dados->documento, 0, 3).'.'.substr($dados->documento, 3, 3).'.'.substr($dados->documento, 6, 3).'-'.substr($dados->documento, 9, 2) : substr($dados->documento, 0, 2).'.'.substr($dados->documento, 3, 3).'.'.substr($dados->documento, 6, 3).'/'.substr($dados->documento, 8, 4).'-'.substr($dados->documento, 12, 2));
+            })
+            ->editColumn('gerente', function(ContaCapital $dados){
+                return explode(' ', $dados->nome_gerente)[0];
+            })
+             ->editColumn('analise', function(ContaCapital $dados){
+				return (isset($dados->id) ? '<div class="badge badge-success">Em aberto</div>' : '<div class="badge badge-danger">Não possui</div>');
+            })
+            ->editColumn('acoes', function(ContaCapital $dados){ 
+                return (isset($dados->id) ? 
+					'<a href="'.route('executar.analise.negocios', $dados->cli_id_associado).'" class="btn btn-dark btn-xs btn-rounded mx-1" id="analisar" title="Analisar o associado"><i class="mx-0 mdi mdi-clipboard-outline"></i></a>
+					 <a href="javascript:" class="btn btn-dark btn-xs btn-rounded ml-1" id="encaminhar" title="Encaminhar o associado para análise"><i class="mx-0 mdi mdi-subdirectory-arrow-right"></i></a>' : 
+					'<a href="'.route('executar.analise.negocios', $dados->cli_id_associado).'" class="btn btn-dark btn-xs btn-rounded mx-1" id="analisar" title="Analisar o associado"><i class="mx-0 mdi mdi-clipboard-outline"></i></a>');
+            })->rawColumns(['documento1', 'gerente', 'analise', 'acoes'])->make(true);
+		*/
+
+        $dados = ContaCapital::leftJoin('cli_associados', 'cli_id_associado', 'cli_associados.id')
+        ->where('situacao_capital', '!=', 'DEMITIDO')
+        ->where('situacao_capital', '!=', 'EXCLUÍDO')
+        ->where('sigla', 'PF')
+        ->select('cli_id_associado', 'nome', 'documento', 'renda', 'nome_gerente', 'PA')
+        ->get();
+        
 
 		foreach ($dados as $key => $value) {
 			$carteira = NegociosCarteira::where('cli_id_associado', $value->cli_id_associado)->first();
 			if(!isset($carteira) || $carteira->RelationStatus->status == 'aberto'){
-				$dados[$key]->documento1 = (strlen($dados[$key]->documento) == 11 ? substr($dados[$key]->documento, 0, 3).'.'.substr($dados[$key]->documento, 3, 3).'.'.substr($dados[$key]->documento, 6, 3).'-'.substr($dados[$key]->documento, 9, 2) : substr($dados[$key]->documento, 0, 2).'.'.substr($dados[$key]->documento, 3, 3).'.'.substr($dados[$key]->documento, 6, 3).'/'.substr($dados[$key]->documento, 8, 4).'-'.substr($dados[$key]->documento, 12, 2));
+				$dados[$key]->documento = (strlen($dados[$key]->documento) == 11 ? substr($dados[$key]->documento, 0, 3).'.'.substr($dados[$key]->documento, 3, 3).'.'.substr($dados[$key]->documento, 6, 3).'-'.substr($dados[$key]->documento, 9, 2) : substr($dados[$key]->documento, 0, 2).'.'.substr($dados[$key]->documento, 3, 3).'.'.substr($dados[$key]->documento, 6, 3).'/'.substr($dados[$key]->documento, 8, 4).'-'.substr($dados[$key]->documento, 12, 2));
 				$dados[$key]->gerente = explode(' ', $dados[$key]->nome_gerente)[0];
 				$dados[$key]->acoes = (isset($carteira) ? 
 					'<a href="'.route('executar.analise.negocios', $dados[$key]->cli_id_associado).'" class="btn btn-dark btn-xs btn-rounded mx-1" id="analisar" title="Analisar o associado"><i class="mx-0 mdi mdi-clipboard-outline"></i></a>
@@ -105,6 +126,9 @@ class NegociosCtrl extends Controller
 				'bc_dividavencida' => $request->bc_dividavencida,
 				'se_data' => $request->se_data,
 				'se_restricao' => $request->se_restricao,
+				'se_restricao_data' => implode(';', $request->se_restricao_data),
+				'se_restricao_tipo' => implode(';', $request->se_restricao_tipo),
+				'se_restricao_valor' => implode(';', $request->se_restricao_valor),
 				'se_endereco' => $request->se_endereco,
 				'se_telefone' => $request->se_telefone,
 			]);
@@ -153,6 +177,9 @@ class NegociosCtrl extends Controller
 				'bc_dividavencida' => $request->bc_dividavencida,
 				'se_data' => $request->se_data,
 				'se_restricao' => $request->se_restricao,
+				'se_restricao_data' => implode(';', $request->se_restricao_data),
+				'se_restricao_tipo' => implode(';', $request->se_restricao_tipo),
+				'se_restricao_valor' => implode(';', $request->se_restricao_valor),
 				'se_endereco' => $request->se_endereco,
 				'se_telefone' => $request->se_telefone,
 				'cli_id_associado' => $id,
@@ -184,7 +211,22 @@ class NegociosCtrl extends Controller
 		}
 		return redirect(route('exibir.analise.negocios'));
 	}
-	
+	// Salvando análise
+	public function EncaminharAnalise($id){
+		$dados = NegociosCarteira::find($id);
+			// Encaminhando registro
+		if($dados->RelationStatus->status == "aberto"){
+			$status = NegociosCarteiraStatus::create([
+				'status' => 'andamento', 
+				'observacoes' => $dados->RelationStatus->observacoes,
+				'usr_id_usuarios' => $dados->RelationStatus->usr_id_usuarios,
+				'neg_id_carteira' => $id
+			]);
+			return response()->json(['success' => true]);
+		}else{
+			return response()->json(['success' => false]);
+		}
+	}
 
 	#-------------------------------------------------------------------
 	# Carteira dos colaboradores 

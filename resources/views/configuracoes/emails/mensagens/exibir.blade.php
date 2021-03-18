@@ -37,7 +37,7 @@ Mensagens e-mails
 			<div class="card-body">
 				<div class="col-12 grid-margin mb-0">
 					<div class="row">
-						<div class="col-10">
+						<div class="col-lg-10 col-12">
 							<div class="form-group">
 								<label class="col-form-label pb-0">Assunto de abertura</label>
 								<input class="form-control form-control-line" name="assunto_abertura_chamado" placeholder="ti@sicoobsertaominas.com.br" value="{{$chamado->assunto_abertura_chamado}}" required/>
@@ -74,7 +74,7 @@ Mensagens e-mails
 			<div class="card-body">
 				<div class="col-12 grid-margin mb-0">
 					<div class="row">
-						<div class="col-10">
+						<div class="col-lg-10 col-12">
 							<div class="form-group">
 								<label class="col-form-label pb-0">Assunto de abertura</label>
 								<input class="form-control form-control-line" name="assunto_abertura_material" placeholder="ti@sicoobsertaominas.com.br" value="{{$material->assunto_abertura_material}}" required/>
@@ -111,7 +111,7 @@ Mensagens e-mails
 			<div class="card-body">
 				<div class="col-12 grid-margin mb-0">
 					<div class="row">
-						<div class="col-10">
+						<div class="col-lg-10 col-12">
 							<div class="form-group">
 								<label class="col-form-label pb-0">Assunto de abertura</label>
 								<input class="form-control form-control-line" name="assunto_abertura_contrato" placeholder="ti@sicoobsertaominas.com.br" value="{{$contrato->assunto_abertura_contrato}}" required/>

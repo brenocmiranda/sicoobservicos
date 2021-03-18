@@ -143,7 +143,7 @@ class PublicCtrl extends Controller
 	public function ExibirImportacao(){
 		$usuarios = Usuarios::where('id', '<>', 1)->where('status', 'Ativo')->orderBy('login', 'ASC')->get();
 		$homepage = Imagens::where('tipo', 'homepage_principal')->get();
-		return view('digitalizar.exibir')->with('usuarios', $usuarios)->with('homepage', $homepage);
+		return view('public.digitalizar.exibir')->with('usuarios', $usuarios)->with('homepage', $homepage);
 	}
 	public function Importar(Request $request){
 		if ($request->arquivos) {
@@ -268,18 +268,18 @@ class PublicCtrl extends Controller
 				// Gerando PDF 
 				if(is_dir("//10.11.26.1/digitalizarss$/".$request->usuario)){
 					if(is_dir("//10.11.26.1/digitalizarss$/".$request->usuario.'/'.$request->nomePasta)){
-						$pdf = PDF::loadView('digitalizar.todos', compact('html'))->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitalizarss$/".$request->usuario.'/'.$request->nomePasta.'/'.$namePdf);
+						$pdf = PDF::loadView('public.digitalizar.todos', compact('html'))->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitalizarss$/".$request->usuario.'/'.$request->nomePasta.'/'.$namePdf);
 					}else{
 						mkdir("//10.11.26.1/digitalizarss$/".$request->usuario.'/'.$request->nomePasta, 0755);
-						$pdf = PDF::loadView('digitalizar.todos', compact('html'))->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitalizarss$/".$request->usuario.'/'.$request->nomePasta.'/'.$namePdf);
+						$pdf = PDF::loadView('public.digitalizar.todos', compact('html'))->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitalizarss$/".$request->usuario.'/'.$request->nomePasta.'/'.$namePdf);
 					}
 			    }else{
 			        mkdir("//10.11.26.1/digitalizarss$/".$request->usuario, 0755);
 			       	if(is_dir("//10.11.26.1/digitalizarss$/".$request->usuario.'/'.$request->nomePasta)){
-						$pdf = PDF::loadView('digitalizar.todos', compact('html'))->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitalizarss$/".$request->usuario.'/'.$request->nomePasta.'/'.$namePdf);
+						$pdf = PDF::loadView('public.digitalizar.todos', compact('html'))->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitalizarss$/".$request->usuario.'/'.$request->nomePasta.'/'.$namePdf);
 					}else{
 						mkdir("//10.11.26.1/digitalizarss$/".$request->usuario.'/'.$request->nomePasta, 0755);
-						$pdf = PDF::loadView('digitalizar.todos', compact('html'))->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitalizarss$/".$request->usuario.'/'.$request->nomePasta.'/'.$namePdf);
+						$pdf = PDF::loadView('public.digitalizar.todos', compact('html'))->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitalizarss$/".$request->usuario.'/'.$request->nomePasta.'/'.$namePdf);
 					}
 			    }
            	 }
@@ -297,6 +297,6 @@ class PublicCtrl extends Controller
 		$usuariosRamal = Usuarios::where('id', '<>', 1)->where('status', 'Ativo')->whereNotNull('telefone_ramal')->get();
 		$usuariosCorporativo = Usuarios::where('id', '<>', 1)->where('status', 'Ativo')->whereNotNull('telefone_corporativo')->get();
 		$homepage = Imagens::where('tipo', 'homepage_principal')->get();
-		return view('telefones.exibir')->with('unidades', $unidades)->with('usuariosRamal', $usuariosRamal)->with('usuariosCorporativo', $usuariosCorporativo)->with('homepage', $homepage);
+		return view('public.telefones.exibir')->with('unidades', $unidades)->with('usuariosRamal', $usuariosRamal)->with('usuariosCorporativo', $usuariosCorporativo)->with('homepage', $homepage);
 	}
 }

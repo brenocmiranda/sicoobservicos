@@ -235,6 +235,17 @@ Configurações
 					</a>
 				</div>
 				<div class="row col-12 rounded m-3">
+					<a href="{{ route('exibir.disparo.emails') }}" class="row mx-auto col-12 pr-0">
+						<div class="col-3 col-sm-1 col-lg-1 border rounded row align-items-center shadow-sm justify-content-center my-auto" style="height: 50px">
+							<i class="mdi mdi-send mdi-dark mdi-24px px-4"></i>
+						</div>
+						<div class="col-lg-11 col-sm-11 col-9 text-secondary mx-4 pr-0">
+							<h5 class="mb-1 text-primary"> Enviar </h5>
+							<label> Dispare e-mails por dentro da plataforma para seus usuários. </label>
+						</div>
+					</a>
+				</div>
+				<div class="row col-12 rounded m-3">
 					<a href="{{ route('exibir.mensagens.emails') }}" class="row mx-auto col-12 pr-0">
 						<div class="col-3 col-sm-1 col-lg-1 border rounded row align-items-center shadow-sm justify-content-center my-auto" style="height: 50px">
 							 <i class="mdi mdi-email-outline mdi-dark mdi-24px px-4"></i>

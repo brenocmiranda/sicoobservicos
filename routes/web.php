@@ -276,6 +276,7 @@ Route::group(['prefix' => 'app'], function(){
 			Route::get('listar', 'NegociosCtrl@DatatablesAnalise')->name('listar.analise.negocios');
 			Route::get('executar/{id}', 'NegociosCtrl@ExecutarAnalise')->name('executar.analise.negocios');
 			Route::post('finalizar/{id}', 'NegociosCtrl@SalvarAnalise')->name('finalizar.analise.negocios');
+			Route::get('encaminhar/{id}', 'NegociosCtrl@EncaminharAnalise')->name('encaminhar.analise.negocios');
 		});
 		// Carteira
 		Route::group(['prefix' => 'carteira'], function(){
@@ -523,7 +524,7 @@ Route::group(['prefix' => 'app'], function(){
 		// Ajustes
 		Route::group(['prefix' => 'plataforma'], function(){
 			Route::get('', 'ConfiguracoesCtrl@ExibirPlataforma')->name('exibir.plataforma');
-			Route::post('salvar', 'ConfiguracoesCtrl@DisparoCredenciais')->name('salvar.plataforma');
+			Route::post('salvar', 'ConfiguracoesCtrl@SalvarPlataforma')->name('salvar.plataforma');
 		});
 		// Importações
 		Route::group(['prefix' => 'importacoes'], function(){
