@@ -24,6 +24,7 @@ class CreateCcaContacapital extends Migration
             $table->date('data_matricula');
             $table->date('saida_matricula');
             $table->double('valor_integralizado');
+            $table->double('valor_a_integralizar');
             $table->date('data_movimento');
             $table->integer('cli_id_associado')->unsigned();
             $table->foreign('cli_id_associado')->references('id')->on('cli_associados');

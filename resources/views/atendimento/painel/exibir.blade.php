@@ -581,6 +581,10 @@ Painel do associado
                 <label>{{(isset($associado->RelationCapital) ? $associado->RelationCapital->direito_rateio : '-')}}</label>
               </div>
               <div class="col-lg-3 col-12">
+                <h6>Valor a integralizar</h6>
+                <label>R$ {{(isset($associado->RelationCapital) ? number_format($associado->RelationCapital->valor_a_integralizar, 2, ',', '.') : '-')}}</label>
+              </div>
+              <div class="col-lg-3 col-12">
                 <h6>Valor integralizado</h6>
                 <label>R$ {{(isset($associado->RelationCapital) ? number_format($associado->RelationCapital->valor_integralizado, 2, ',', '.') : '-')}}</label>
               </div>

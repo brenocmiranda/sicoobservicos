@@ -73,12 +73,28 @@ Executar análise
 					</div>
 					<div class="col-lg-3 col-12">
 		                <h6>Participa de conglomerado?</h6>
-		                <label>{!!(isset($associado->RelationConglomerados) ? 'Sim '.'<i class="mdi mdi-information-outline text-danger"></i>' : 'Não')!!}</label>
+		                <span class="mytooltip tooltip-effect-2">
+		               		<label>{!!(isset($associado->RelationConglomerados) ? 'Sim '.'<i class="mdi mdi-information-outline text-danger tooltip-item"></i>' : 'Não')!!}</label>
+	                    	<span class="tooltip-content clearfix">
+	                      		<span class="tooltip-text p-4">
+	                      			@if(isset($conglomerado))
+						                @foreach($conglomerado as $participante)
+						                	<label class="d-block">&#183 {{$participante->RelationAssociado->nome}}</label>
+						                @endforeach
+					                @else
+					               		<label>-</label>
+					                @endif
+	                      		</span> 
+	                      	</span>
+                        </span>
 	              	</div>
-	             	
 					<div class="col-12 col-lg-3">
 						<h6>Conta capital:</h6>
 						<label>R$ {{(isset($associado->RelationCapital) ? number_format($associado->RelationCapital->valor_integralizado, 2, ',', '.') : '-')}}</label>
+					</div>
+					<div class="col-12 col-lg-3">
+						<h6>Valor a integralizar:</h6>
+						<label>R$ {{(isset($associado->RelationCapital) ? number_format($associado->RelationCapital->valor_a_integralizar, 2, ',', '.') : '-')}}</label>
 					</div>
 					<div class="col-12 col-lg-3">
 						<h6>PA:</h6>

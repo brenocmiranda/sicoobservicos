@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use App\Models\Associados;
+use App\Models\AssociadosConglomerados;
 use App\Models\ContaCapital;
 use App\Models\NegociosCarteira;
 use App\Models\NegociosCarteiraStatus;
@@ -85,7 +86,12 @@ class NegociosCtrl extends Controller
 					}
 				}
 			}	
-			return view('negocios.analise.detalhes')->with('associado', $associado)->with('carteira', $carteira)->with('usuarios', $usuarios)->with('financiamento', $financiamento)->with('emprestimoGeral', $emprestimoGeral);
+			if($associado->RelationConglomerados){
+  				$conglomerado = AssociadosConglomerados::where('codigo', $associado->RelationConglomerados->codigo)->get();
+	  		}else{
+	  			$conglomerado = null;
+	  		}
+			return view('negocios.analise.detalhes')->with('associado', $associado)->with('carteira', $carteira)->with('usuarios', $usuarios)->with('financiamento', $financiamento)->with('emprestimoGeral', $emprestimoGeral)->with('conglomerado', $conglomerado);
 		}else{
 			return redirect(route('403'));
 		}
@@ -260,8 +266,13 @@ class NegociosCtrl extends Controller
 	public function ExecutarCarteira($id){
 		$associado = Associados::find($id);
 		$carteira =	NegociosCarteira::where('cli_id_associado', $id)->first();
+		if($associado->RelationConglomerados){
+				$conglomerado = AssociadosConglomerados::where('codigo', $associado->RelationConglomerados->codigo)->get();
+  		}else{
+  			$conglomerado = null;
+  		}
 		if($carteira->RelationStatus->status == "andamento"){
-			return view('negocios.carteira.detalhes')->with('associado', $associado)->with('carteira', $carteira);
+			return view('negocios.carteira.detalhes')->with('associado', $associado)->with('carteira', $carteira)->with('conglomerado', $conglomerado);
 		}else{
 			return redirect(route('exibir.carteira.negocios'));
 		}

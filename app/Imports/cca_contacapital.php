@@ -32,6 +32,7 @@ class cca_contacapital implements ToCollection, WithChunkReading, WithHeadingRow
                     'data_matricula' => gmdate('Y-m-d', (($row['data_matricula'] - 25569) * 86400)),
                     'saida_matricula' => gmdate('Y-m-d', (($row['data_saida_matricula'] - 25569) * 86400)),
                     'valor_integralizado' => number_format($row['valor_saldo_final_integralizado_diario'], 2, '.', ''),
+                    'valor_a_integralizar' => number_format($row['valor_saldo_final_a_realizar_diario'], 2, '.', ''),
                     'data_movimento' => gmdate('Y-m-d', (($row['data_movimento'] - 25569) * 86400)),
                 ]); 
             }else{
@@ -43,6 +44,7 @@ class cca_contacapital implements ToCollection, WithChunkReading, WithHeadingRow
                     'data_matricula' => gmdate('Y-m-d', (($row['data_matricula'] - 25569) * 86400)),
                     'saida_matricula' => gmdate('Y-m-d', (($row['data_saida_matricula'] - 25569) * 86400)),
                     'valor_integralizado' => number_format($row['valor_saldo_final_integralizado_diario'], 2, '.', ''),
+                    'valor_a_integralizar' => number_format($row['valor_saldo_final_a_realizar_diario'], 2, '.', ''),
                     'data_movimento' => gmdate('Y-m-d', (($row['data_movimento'] - 25569) * 86400)),
                     'cli_id_associado' => Associados::where('id_sisbr', $row['numero_cliente_sisbr'])->select('id')->first()->id,
                 ]); 
