@@ -124,7 +124,7 @@ Solicitações de materiais
 							</ul>
 						@else
 							<div class="row p-0">
-								<label class="alert alert-secondary col-12 rounded"><i class="mdi mdi-alert-outline mdi-24px pr-4"></i>Você não possui nenhuma pendência.</label>
+								<label class="alert alert-secondary col-12 rounded"><i class="mdi mdi-alert-outline mdi-24px pr-4"></i>Você não possui nenhuma informação.</label>
 							</div>
 						@endif
 					</div>

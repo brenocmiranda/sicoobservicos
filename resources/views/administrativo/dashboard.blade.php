@@ -145,8 +145,8 @@ Dashboard
                                     <li class="col-middle">
                                         <h4>Solicitações em aberto</h4>
                                         <div class="progress">
-                                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{(isset($materiaisHistorico[0]) ? (100*count($materiaisHistorico->where('tipo', 's')->where('status', 0)))/count($materiaisHistorico->where('tipo', 's')) : 0)}}" aria-valuemin="0" aria-valuemax="100" style="width: {{(isset($materiaisHistorico[0]) ? (100*count($materiaisHistorico->where('tipo', 's')->where('status', 0)))/count($materiaisHistorico->where('tipo', 's')) : 0)}}%">
-                                                <span class="sr-only">{{(isset($materiaisHistorico[0]) ? (100*count($materiaisHistorico->where('tipo', 's')->where('status', 0)))/count($materiaisHistorico->where('tipo', 's')) : 0)}}% Pendente (pendente)</span>
+                                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{(isset($materiaisHistorico->where('tipo', 's')[0]) ? (100*count($materiaisHistorico->where('tipo', 's')->where('status', 0)))/count($materiaisHistorico->where('tipo', 's')) : 0)}}" aria-valuemin="0" aria-valuemax="100" style="width: {{(isset($materiaisHistorico->where('tipo', 's')[0]) ? (100*count($materiaisHistorico->where('tipo', 's')->where('status', 0)))/count($materiaisHistorico->where('tipo', 's')) : 0)}}%">
+                                                <span class="sr-only">{{(isset($materiaisHistorico->where('tipo', 's')[0]) ? (100*count($materiaisHistorico->where('tipo', 's')->where('status', 0)))/count($materiaisHistorico->where('tipo', 's')) : 0)}}% Pendente (pendente)</span>
                                             </div>
                                         </div>
                                     </li>
@@ -163,8 +163,8 @@ Dashboard
                                     <li class="col-middle">
                                         <h4>Solicitações aprovadas</h4>
                                         <div class="progress">
-                                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{(isset($materiaisHistorico[0]) ? (100*count($materiaisHistorico->where('tipo', 's')->where('status', 1)))/count($materiaisHistorico->where('tipo', 's')) : 0)}}" aria-valuemin="0" aria-valuemax="100" style="width: {{(isset($materiaisHistorico[0]) ? (100*count($materiaisHistorico->where('tipo', 's')->where('status', 1)))/count($materiaisHistorico->where('tipo', 's')) : 0)}}%">
-                                                <span class="sr-only">{{(isset($materiaisHistorico[0]) ? (100*count($materiaisHistorico->where('tipo', 's')->where('status', 1)))/count($materiaisHistorico->where('tipo', 's')) : 0)}}% Aprovado (aprovado)</span>
+                                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{(isset($materiaisHistorico->where('tipo', 's')[0]) ? (100*count($materiaisHistorico->where('tipo', 's')->where('status', 1)))/count($materiaisHistorico->where('tipo', 's')) : 0)}}" aria-valuemin="0" aria-valuemax="100" style="width: {{(isset($materiaisHistorico->where('tipo', 's')[0]) ? (100*count($materiaisHistorico->where('tipo', 's')->where('status', 1)))/count($materiaisHistorico->where('tipo', 's')) : 0)}}%">
+                                                <span class="sr-only">{{(isset($materiaisHistorico->where('tipo', 's')[0]) ? (100*count($materiaisHistorico->where('tipo', 's')->where('status', 1)))/count($materiaisHistorico->where('tipo', 's')) : 0)}}% Aprovado (aprovado)</span>
                                             </div>
                                         </div>
                                     </li>
@@ -181,8 +181,8 @@ Dashboard
                                     <li class="col-middle">
                                         <h4>Solicitações recusadas</h4>
                                         <div class="progress">
-                                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="{{(isset($materiaisHistorico[0]) ? (100*count($materiaisHistorico->where('tipo', 's')->where('status', 2)))/count($materiaisHistorico->where('tipo', 's')) : 0)}}" aria-valuemin="0" aria-valuemax="100" style="width: {{(isset($materiaisHistorico[0]) ? (100*count($materiaisHistorico->where('tipo', 's')->where('status', 2)))/count($materiaisHistorico->where('tipo', 's')) : 0)}}%">
-                                                <span class="sr-only">{{(isset($materiaisHistorico[0]) ? (100*count($materiaisHistorico->where('tipo', 's')->where('status', 2)))/count($materiaisHistorico->where('tipo', 's')) : 0)}}% Total (total)</span>
+                                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="{{(isset($materiaisHistorico->where('tipo', 's')[0]) ? (100*count($materiaisHistorico->where('tipo', 's')->where('status', 2)))/count($materiaisHistorico->where('tipo', 's')) : 0)}}" aria-valuemin="0" aria-valuemax="100" style="width: {{(isset($materiaisHistorico->where('tipo', 's')[0]) ? (100*count($materiaisHistorico->where('tipo', 's')->where('status', 2)))/count($materiaisHistorico->where('tipo', 's')) : 0)}}%">
+                                                <span class="sr-only">{{(isset($materiaisHistorico->where('tipo', 's')[0]) ? (100*count($materiaisHistorico->where('tipo', 's')->where('status', 2)))/count($materiaisHistorico->where('tipo', 's')) : 0)}}% Total (total)</span>
                                             </div>
                                         </div>
                                     </li>

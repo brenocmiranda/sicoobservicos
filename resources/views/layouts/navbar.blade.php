@@ -21,6 +21,11 @@
                 </a>
             </li>
             <li>
+                <a href="{{route('digitalizar')}}"  target="_blank" title="Digitalizar documentos">
+                    <i class="mdi mdi-camera-party-mode"></i>
+                </a>
+            </li>
+            <li>
                 <a href="{{route('telefones')}}"  target="_blank" title="Telefones">
                     <i class="mdi mdi-phone"></i>
                 </a>
