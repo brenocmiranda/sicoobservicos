@@ -315,8 +315,8 @@ class NegociosCtrl extends Controller
 			$dados[$key]->nome = $dados[$key]->RelationAssociado->nome;
 			$dados[$key]->colaborador = $dados[$key]->RelationStatus->RelationUsuario->RelationAssociado->nome;
 			$dados[$key]->data = date('d/m/Y', strtotime($dados[$key]->RelationStatus->created_at));
-			$dados[$key]->acoes = '<a href="#" class="btn btn-dark btn-xs btn-rounded mx-1" id="detalhes" title="Detalhes do associado"><i class="mx-0 mdi mdi-headset"></i></a>
-			<a href="javascript:" class="btn btn-dark btn-xs btn-rounded ml-1" id="devolver" title="Devolver associado para análise"><i class="mx-0 mdi mdi-subdirectory-arrow-left"></i></a>';
+			$dados[$key]->acoes = '<a href="#" class="btn btn-dark btn-xs btn-rounded mx-1" id="detalhes" title="Detalhes do associado"><i class="mx-0 mdi mdi-account-outline"></i></a>
+			<a href="javascript:" class="btn btn-dark btn-xs btn-rounded ml-1" id="alterar" title="Alterar estado do registro"><i class="mx-0 mdi mdi-autorenew"></i></a>';
 			$dados[$key]->status1 = ($dados[$key]->RelationStatus->status == 'aberto' ? '<div class="badge badge-success">Em aberto</div>' : ($dados[$key]->RelationStatus->status == 'andamento' ? '<div class="badge badge-info">Em andamento</div>' : '<div class="badge badge-danger">Finalizado</div>'));
 		}
 		return response()->json($dados);

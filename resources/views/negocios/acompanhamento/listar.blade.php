@@ -32,7 +32,7 @@ Acompanhamento
 					<thead>
 						<th> Documento </th>
 						<th> Nome </th>
-						<th> Tratamento </th>
+						<th> Atendente </th>
 						<th> Data </th>
 						<th> Status </th>
 						<th> Ações </th>
