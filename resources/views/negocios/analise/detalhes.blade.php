@@ -258,20 +258,20 @@ Executar análise
 						</div>
 						<div class="form-group col-12 row mx-auto px-0 px-lg-4">
 							<h5 class="col-12 px-0">Endereço</h5>
-							<input type="text" name="se_endereco" class="form-control form-control-line col-12" placeholder="RUA ANTONIO NASCIMENTO, 179, CENTRO - PIRAPORA/MG" onkeyup="this.value = this.value.toUpperCase();" value="{{@$carteira->se_endereco}}">
+							<input type="text" name="se_endereco" class="form-control form-control-line col-12" placeholder="RUA ANTONIO NASCIMENTO, 179, CENTRO - PIRAPORA/MG" onkeyup="this.value = this.value.toUpperCase();" value="{{(isset($carteira->se_endereco) ? $carteira->se_endereco : (isset($associado->RelationEnderecos) ? $associado->RelationEnderecos->rua.', '.$associado->RelationEnderecos->numero.', '.$associado->RelationEnderecos->bairro.' - '.$associado->RelationEnderecos->cidade.'/'.$associado->RelationEnderecos->estado : ''))}}">
 						</div>
 						<div class="form-group col-12 row mx-auto px-0 px-lg-4">
 							<h5 class="col-12 px-0">Telefone</h5>
 							<input type="text" name="se_telefone" class="numeroTelefone form-control form-control-line col-lg-6 col-11" placeholder="(38) 3741-6250" value="{{@$carteira->se_telefone}}">
 						</div>
 						<div class="form-group col-12 row mx-auto px-0">
-							<h5 class="col-lg-4 col-12 px-0 px-lg-4">Possui restrição? <span class="text-danger">*</span></h5>
+							<h5 class="col-lg-5 col-12 px-0 px-lg-4">Possui restrição? <span class="text-danger">*</span></h5>
 							<select class="form-control form-control-line col-lg-5 col-12 se_restricao" name="se_restricao" required>
 								<option value="Sim" {{(@$carteira->se_restricao == 'Sim' ? 'selected' : '')}}>Sim</option>
 								<option value="Não" {{(@$carteira->se_restricao == 'Não' ? 'selected' : (@$carteira->se_restricao != 'Sim' ? 'selected' : ''))}}>Não</option>
 							</select>
 						</div>
-						<div class="mb-3 restricao" {{(@$carteira->se_restricao == 'Sim' ? 'style="display: none;"' : '')}}>
+						<div class="mb-3 restricao" style="{{(isset($carteira->se_restricao) ? ($carteira->se_restricao == 'Não' ? 'display: none;' : '') : 'display: none;')}}">
 							<div id="restricoes">
 								@if(isset($carteira) && $carteira->se_restricao == 'Sim')
 									<?php 

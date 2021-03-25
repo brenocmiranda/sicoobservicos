@@ -80,9 +80,9 @@ class NegociosCtrl extends Controller
 			foreach($emprestimos as $emprestimo){
 				if($emprestimo->RelationArquivos->RelationProdutos->codigo == 7){	
 					if($emprestimo->RelationArquivos->RelationModalidades->codigo == 1018 || $emprestimo->RelationArquivos->RelationModalidades->codigo == 1024){
-						 	$financiamento =+ $emprestimo->saldo_devedor;
+						 	$financiamento =+ $emprestimo->valor_devido;
 					}else{
-							$emprestimoGeral =+ $emprestimo->saldo_devedor;
+							$emprestimoGeral =+ $emprestimo->valor_devido;
 					}
 				}
 			}	
@@ -277,7 +277,7 @@ class NegociosCtrl extends Controller
 			return redirect(route('exibir.carteira.negocios'));
 		}
 	}
-		// Salvando análise
+	// Salvando tratamento efetuado
 	public function SalvarCarteira(Request $request){
 		$dados = NegociosCarteira::find($request->id_carteira);
 		if($dados->RelationStatus->status == "andamento"){
@@ -326,11 +326,22 @@ class NegociosCtrl extends Controller
 			$dados[$key]->nome = $dados[$key]->RelationAssociado->nome;
 			$dados[$key]->colaborador = $dados[$key]->RelationStatus->RelationUsuario->RelationAssociado->nome;
 			$dados[$key]->data = date('d/m/Y', strtotime($dados[$key]->RelationStatus->created_at));
-			$dados[$key]->acoes = '<a href="#" class="btn btn-dark btn-xs btn-rounded mx-1" id="detalhes" title="Detalhes do associado"><i class="mx-0 mdi mdi-account-outline"></i></a>
+			$dados[$key]->acoes = '<a href="'.route('executar.acompanhamento.negocios', $dados[$key]->RelationAssociado->id).'" class="btn btn-dark btn-xs btn-rounded mx-1" id="detalhes" title="Detalhes da análise"><i class="mx-0 mdi mdi-account-outline"></i></a>
 			<a href="javascript:" class="btn btn-dark btn-xs btn-rounded ml-1" id="alterar" title="Alterar estado do registro"><i class="mx-0 mdi mdi-autorenew"></i></a>';
 			$dados[$key]->status1 = ($dados[$key]->RelationStatus->status == 'aberto' ? '<div class="badge badge-success">Em aberto</div>' : ($dados[$key]->RelationStatus->status == 'andamento' ? '<div class="badge badge-info">Em andamento</div>' : '<div class="badge badge-danger">Finalizado</div>'));
 		}
 		return response()->json($dados);
+	}
+	// Exibindo painel de acompanhamento 
+	public function ExecutarAcompanhamento($id){
+		$associado = Associados::find($id);
+		$carteira =	NegociosCarteira::where('cli_id_associado', $id)->first();
+		if($associado->RelationConglomerados){
+				$conglomerado = AssociadosConglomerados::where('codigo', $associado->RelationConglomerados->codigo)->get();
+  		}else{
+  			$conglomerado = null;
+  		}
+		return view('negocios.acompanhamento.detalhes')->with('associado', $associado)->with('carteira', $carteira)->with('conglomerado', $conglomerado);
 	}
 
 	#-------------------------------------------------------------------

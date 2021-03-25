@@ -290,6 +290,7 @@ Route::group(['prefix' => 'app'], function(){
 		Route::group(['prefix' => 'acompanhamento'], function(){
 			Route::get('', 'NegociosCtrl@ExibirAcompanhamento')->name('exibir.acompanhamento.negocios');
 			Route::get('listar', 'NegociosCtrl@DatatablesAcompanhamento')->name('listar.acompanhamento.negocios');
+			Route::get('executar/{id}', 'NegociosCtrl@ExecutarAcompanhamento')->name('executar.acompanhamento.negocios');
 		});
 		// Relatórios
 		Route::group(['prefix' => 'relatorios'], function(){
