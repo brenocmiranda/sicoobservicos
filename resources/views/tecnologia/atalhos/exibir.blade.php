@@ -132,8 +132,8 @@ Homepage
 			    <a href="{{route('telefones')}}" title="Telefones" target="_blank" class="text-white text-truncate my-auto font-weight-normal mx-3 pr-2">
 	            	<i class="mdi mdi-phone mdi-24px px-3"></i>
 	            </a>
-	            <a href="{{route('digitalizar')}}" title="Digitalização" target="_blank" class="text-white text-truncate my-auto font-weight-normal mx-3">
-	            	<i class="mdi mdi-camera-party-mode mdi-24px pr-5"></i>
+	            <a href="{{route('digitalizar')}}" title="Digitalização" target="_blank" class="text-white text-truncate my-auto font-weight-normal mx-3 pr-2">
+	            	<i class="mdi mdi-camera-party-mode mdi-24px pr-4"></i>
 	            </a>
 			    <a href="{{route('login')}}" target="_blank" class="btn btn-success btn-lg px-lg-5 my-auto">
 		    		<i class="mdi mdi-account pr-1 visible-xs"></i>  
@@ -181,8 +181,8 @@ Homepage
 			@endforeach
 		</ul>
 	</div>
-	<div class="col-12 text-right position-absolute px-5 mx-4 py-4"style="bottom: 0; right: 0;">
-		<h5 class="text-weight-normal" style="font-family: system-ui;color: #9e9e9e !important;" title="{{explode(' ', exec('getmac'))[0]}}">Seu IP - {{$_SERVER['REMOTE_ADDR']}}</h5>
+	<div class="col-12 text-lg-right text-center position-absolute px-5 mx-lg-4 mx-auto py-4"style="bottom: 0; right: 0;">
+		<h5 class="text-weight-normal" style="font-family: system-ui;color: #9e9e9e !important;" title="{{explode(' ', exec('getmac'))[0]}}">Client IP - {{$_SERVER['REMOTE_ADDR']}}</h5>
 	</div>
 </div>
 

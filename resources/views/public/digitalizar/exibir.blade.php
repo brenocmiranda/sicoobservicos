@@ -127,7 +127,7 @@ Digitalizar
 	                    <label for="checkbox-2"> Inserir outros arquivos? </label>
 	                </div>
 				</div>
-				<div class="row" id="outrosArquivos" style="display: none;">
+				<div class="row col-12 mx-auto" id="outrosArquivos" style="display: none;">
 					<hr class="col-5 border-muted">
 					<div class="row col-12 px-0 mx-auto">
 						<div class="col-6">
@@ -194,7 +194,7 @@ Digitalizar
 	function outros(input){
 		if(input.value){
 			if( !($(input).prev().prev().val()) ){
-				$(input).prev().prev().val(input.value.replace("C:\\fakepath\\", "").split('.')[0].toUpperCase());
+				$(input).prev().prev().val('Arquivo');
 			}
 			$(input).prev().html('<i class="mdi mdi-sync"></i>');
 			$(input).prev().addClass('bg-success');
