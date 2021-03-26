@@ -146,7 +146,286 @@ class PublicCtrl extends Controller
 		return view('public.digitalizar.exibir')->with('usuarios', $usuarios)->with('homepage', $homepage);
 	}
 	public function Importar(Request $request){
-		if ($request->arquivos) {
+		// Documento de identificação
+		if(isset($request->identificacao)){
+			foreach($request->identificacao as $key => $arq){
+				// Copia arquivo para servidor com a nomeclatura
+            	$nameFile = 'Digitalizar_'.date('Y_m_d_H_i_s_').$key.'.'.$arq->getClientOriginalExtension();
+				$upload = $arq->storeAs('digitalizar', $nameFile);
+				// Compactando a imagem
+				$info = getimagesize(storage_path().'/app/digitalizar/'.$nameFile);
+				if ($info['mime'] == 'image/jpeg') {
+			        $image = imagecreatefromjpeg(storage_path().'/app/digitalizar/'.$nameFile);
+				}elseif ($info['mime'] == 'image/gif') {
+			        $image = imagecreatefromgif(storage_path().'/app/digitalizar/'.$nameFile);
+				}elseif ($info['mime'] == 'image/png') {
+			        $image = imagecreatefrompng(storage_path().'/app/digitalizar/'.$nameFile);
+				}
+
+				// Alterando a orientação da imagem
+				$exif = @exif_read_data($arq);
+                if(!empty($exif['Orientation'])) {
+	                switch($exif['Orientation']) {
+	                case 8:
+	                    $newimage = imagerotate($image,90,0);
+	                    break;
+	                case 3:
+	                    $newimage = imagerotate($image,180,0);
+	                    break;
+	                case 6:
+	                    $newimage = imagerotate($image,-90,0);
+	                    break;
+	                case 1:
+	                   	$newimage = $image;
+	                    break;
+	                }
+                }else{
+                	$newimage = $image;
+                }	
+				// Gerando nova imagem
+				imagejpeg($newimage, storage_path().'/app/digitalizar/'.$nameFile, 30);
+
+				// HTML para criação do PDF
+				$usuario = Usuarios::where('login', $request->usuario)->first();
+				$html[] = preg_replace("/>s+</", "><", '<div style="page-break-after: always;"><img src="'.asset('storage/app/digitalizar/'.$nameFile).'" style="max-width: 100%; max-height: 27cm;"><div style="font-size: 1px !important; text-align:right; color:white; width:100%; background-color: #292828; padding-right: 1px; padding-top: 0.5px; padding-bottom: 0.5px;">Confere com o original <br>'.$usuario->RelationAssociado->nome.'</div></div>');
+			}
+			// Gerando PDF
+			if(is_dir("//10.11.26.1/Digitalizarss$/".date('d-m-Y'))){
+				if(is_dir("//10.11.26.1/Digitalizarss$/".date('d-m-Y').'/'.$request->nomePasta)){
+					$pdf = PDF::loadView('public.digitalizar.todos', compact('html'))->setPaper('a4', 'portrait')->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/Digitalizarss$/".date('d-m-Y').'/'.$request->nomePasta.'/'.'DOC.pdf');
+				}else{
+					mkdir("//10.11.26.1/Digitalizarss$/".date('d-m-Y').'/'.$request->nomePasta, 0755);
+					$pdf = PDF::loadView('public.digitalizar.todos', compact('html'))->setPaper('a4', 'portrait')->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/Digitalizarss$/".date('d-m-Y').'/'.$request->nomePasta.'/'.'DOC.pdf');
+				}
+			}else{
+				mkdir("//10.11.26.1/Digitalizarss$/".date('d-m-Y'), 0755);
+				mkdir("//10.11.26.1/Digitalizarss$/".date('d-m-Y').'/'.$request->nomePasta, 0755);
+				$pdf = PDF::loadView('public.digitalizar.todos', compact('html'))->setPaper('a4', 'portrait')->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/Digitalizarss$/".date('d-m-Y').'/'.$request->nomePasta.'/'.'DOC.pdf');
+			}
+		}
+
+		// Documento CPF
+		if(isset($request->cpf)){
+			// Copia arquivo para servidor com a nomeclatura
+        	$nameFile = 'Digitalizar_'.date('Y_m_d_H_i_s_').$request->cpf->getClientOriginalExtension();
+			$upload = $request->cpf->storeAs('digitalizar', $nameFile);
+			// Compactando a imagem
+			$info = getimagesize(storage_path().'/app/digitalizar/'.$nameFile);
+			if ($info['mime'] == 'image/jpeg') {
+		        $image = imagecreatefromjpeg(storage_path().'/app/digitalizar/'.$nameFile);
+			}elseif ($info['mime'] == 'image/gif') {
+		        $image = imagecreatefromgif(storage_path().'/app/digitalizar/'.$nameFile);
+			}elseif ($info['mime'] == 'image/png') {
+		        $image = imagecreatefrompng(storage_path().'/app/digitalizar/'.$nameFile);
+			}
+
+			// Alterando a orientação da imagem
+			$exif = @exif_read_data($request->cpf);
+            if(!empty($exif['Orientation'])) {
+                switch($exif['Orientation']) {
+                case 8:
+                    $newimage = imagerotate($image,90,0);
+                    break;
+                case 3:
+                    $newimage = imagerotate($image,180,0);
+                    break;
+                case 6:
+                    $newimage = imagerotate($image,-90,0);
+                    break;
+                case 1:
+                   	$newimage = $image;
+                    break;
+                }
+            }else{
+            	$newimage = $image;
+            }	
+
+			// Gerando nova imagem
+			imagejpeg($newimage, storage_path().'/app/digitalizar/'.$nameFile, 30);
+			
+			// HTML para criação do PDF
+			$usuario = Usuarios::where('login', $request->usuario)->first();
+			$html = '<div><img src="'.asset('storage/app/digitalizar/'.$nameFile).'" style="max-width: 100%; max-height: 27cm;"><div style="font-size: 1px !important; text-align:right; color:white; width:100%; background-color: #292828; padding-right: 1px; padding-top: 0.5px; padding-bottom: 0.5px;">Confere com o original <br> '.$usuario->RelationAssociado->nome.'</div></div>';
+			$html = preg_replace("/>s+</", "><", $html);
+
+			// Gerando PDF
+			if(is_dir("//10.11.26.1/Digitalizarss$/".date('d-m-Y'))){
+				if(is_dir("//10.11.26.1/Digitalizarss$/".date('d-m-Y').'/'.$request->nomePasta)){
+					$pdf = PDF::loadHTML($html)->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/Digitalizarss$/".date('d-m-Y').'/'.$request->nomePasta.'/CPF.pdf');
+					
+				}else{
+					mkdir("//10.11.26.1/Digitalizarss$/".date('d-m-Y').'/'.$request->nomePasta, 0755);
+					$pdf = PDF::loadHTML($html)->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/Digitalizarss$/".date('d-m-Y').'/'.$request->nomePasta.'/CPF.pdf');
+				}
+			}else{
+				mkdir("//10.11.26.1/Digitalizarss$/".date('d-m-Y'), 0755);
+				mkdir("//10.11.26.1/Digitalizarss$/".date('d-m-Y').'/'.$request->nomePasta, 0755);
+				$pdf = PDF::loadHTML($html)->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/Digitalizarss$/".date('d-m-Y').'/'.$request->nomePasta.'/CPF.pdf');
+			}
+		}
+
+		// Comprovante de renda
+		if(isset($request->renda)){
+			// Copia arquivo para servidor com a nomeclatura
+        	$nameFile = 'Digitalizar_'.date('Y_m_d_H_i_s_').$request->renda->getClientOriginalExtension();
+			$upload = $request->renda->storeAs('digitalizar', $nameFile);
+			// Compactando a imagem
+			$info = getimagesize(storage_path().'/app/digitalizar/'.$nameFile);
+			if ($info['mime'] == 'image/jpeg') {
+		        $image = imagecreatefromjpeg(storage_path().'/app/digitalizar/'.$nameFile);
+			}elseif ($info['mime'] == 'image/gif') {
+		        $image = imagecreatefromgif(storage_path().'/app/digitalizar/'.$nameFile);
+			}elseif ($info['mime'] == 'image/png') {
+		        $image = imagecreatefrompng(storage_path().'/app/digitalizar/'.$nameFile);
+			}
+
+			// Alterando a orientação da imagem
+			$exif = @exif_read_data($request->renda);
+            if(!empty($exif['Orientation'])) {
+                switch($exif['Orientation']) {
+                case 8:
+                    $newimage = imagerotate($image,90,0);
+                    break;
+                case 3:
+                    $newimage = imagerotate($image,180,0);
+                    break;
+                case 6:
+                    $newimage = imagerotate($image,-90,0);
+                    break;
+                case 1:
+                   	$newimage = $image;
+                    break;
+                }
+            }else{
+            	$newimage = $image;
+            }	
+
+			// Gerando nova imagem
+			imagejpeg($newimage, storage_path().'/app/digitalizar/'.$nameFile, 30);
+			
+			// HTML para criação do PDF
+			$usuario = Usuarios::where('login', $request->usuario)->first();
+			$html = '<div><img src="'.asset('storage/app/digitalizar/'.$nameFile).'" style="max-width: 100%; max-height: 27cm;"><div style="font-size: 1px !important; text-align:right; color:white; width:100%; background-color: #292828; padding-right: 1px; padding-top: 0.5px; padding-bottom: 0.5px;">Confere com o original <br> '.$usuario->RelationAssociado->nome.'</div></div>';
+			$html = preg_replace("/>s+</", "><", $html);
+
+			// Gerando PDF
+			if(is_dir("//10.11.26.1/Digitalizarss$/".date('d-m-Y'))){
+				if(is_dir("//10.11.26.1/Digitalizarss$/".date('d-m-Y').'/'.$request->nomePasta)){
+					$pdf = PDF::loadHTML($html)->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/Digitalizarss$/".date('d-m-Y').'/'.$request->nomePasta.'/RENDA.pdf');
+					
+				}else{
+					mkdir("//10.11.26.1/Digitalizarss$/".date('d-m-Y').'/'.$request->nomePasta, 0755);
+					$pdf = PDF::loadHTML($html)->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/Digitalizarss$/".date('d-m-Y').'/'.$request->nomePasta.'/RENDA.pdf');
+				}
+			}else{
+				mkdir("//10.11.26.1/Digitalizarss$/".date('d-m-Y'), 0755);
+				mkdir("//10.11.26.1/Digitalizarss$/".date('d-m-Y').'/'.$request->nomePasta, 0755);
+				$pdf = PDF::loadHTML($html)->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/Digitalizarss$/".date('d-m-Y').'/'.$request->nomePasta.'/RENDA.pdf');
+			}
+		}
+
+		// Comprovante de residência
+		if(isset($request->residencia)){
+			// Copia arquivo para servidor com a nomeclatura
+        	$nameFile = 'Digitalizar_'.date('Y_m_d_H_i_s_').$request->residencia->getClientOriginalExtension();
+			$upload = $request->residencia->storeAs('digitalizar', $nameFile);
+			// Compactando a imagem
+			$info = getimagesize(storage_path().'/app/digitalizar/'.$nameFile);
+			if ($info['mime'] == 'image/jpeg') {
+		        $image = imagecreatefromjpeg(storage_path().'/app/digitalizar/'.$nameFile);
+			}elseif ($info['mime'] == 'image/gif') {
+		        $image = imagecreatefromgif(storage_path().'/app/digitalizar/'.$nameFile);
+			}elseif ($info['mime'] == 'image/png') {
+		        $image = imagecreatefrompng(storage_path().'/app/digitalizar/'.$nameFile);
+			}
+
+			// Alterando a orientação da imagem
+			$exif = @exif_read_data($request->residencia);
+            if(!empty($exif['Orientation'])) {
+                switch($exif['Orientation']) {
+                case 8:
+                    $newimage = imagerotate($image,90,0);
+                    break;
+                case 3:
+                    $newimage = imagerotate($image,180,0);
+                    break;
+                case 6:
+                    $newimage = imagerotate($image,-90,0);
+                    break;
+                case 1:
+                   	$newimage = $image;
+                    break;
+                }
+            }else{
+            	$newimage = $image;
+            }	
+
+			// Gerando nova imagem
+			imagejpeg($newimage, storage_path().'/app/digitalizar/'.$nameFile, 30);
+			
+			// HTML para criação do PDF
+			$usuario = Usuarios::where('login', $request->usuario)->first();
+			$html = '<div><img src="'.asset('storage/app/digitalizar/'.$nameFile).'" style="max-width: 100%; max-height: 27cm;"><div style="font-size: 1px !important; text-align:right; color:white; width:100%; background-color: #292828; padding-right: 1px; padding-top: 0.5px; padding-bottom: 0.5px;">Confere com o original <br> '.$usuario->RelationAssociado->nome.'</div></div>';
+			$html = preg_replace("/>s+</", "><", $html);
+
+			// Gerando PDF
+			if(is_dir("//10.11.26.1/Digitalizarss$/".date('d-m-Y'))){
+				if(is_dir("//10.11.26.1/Digitalizarss$/".date('d-m-Y').'/'.$request->nomePasta)){
+					$pdf = PDF::loadHTML($html)->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/Digitalizarss$/".date('d-m-Y').'/'.$request->nomePasta.'/ENDEREÇO.pdf');
+					
+				}else{
+					mkdir("//10.11.26.1/Digitalizarss$/".date('d-m-Y').'/'.$request->nomePasta, 0755);
+					$pdf = PDF::loadHTML($html)->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/Digitalizarss$/".date('d-m-Y').'/'.$request->nomePasta.'/ENDEREÇO.pdf');
+				}
+			}else{
+				mkdir("//10.11.26.1/Digitalizarss$/".date('d-m-Y'), 0755);
+				mkdir("//10.11.26.1/Digitalizarss$/".date('d-m-Y').'/'.$request->nomePasta, 0755);
+				$pdf = PDF::loadHTML($html)->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/Digitalizarss$/".date('d-m-Y').'/'.$request->nomePasta.'/ENDEREÇO.pdf');
+			}
+		}
+
+		// Cartão de assinatura
+		if(isset($request->assinatura)){
+			// Copia arquivo para servidor com a nomeclatura
+        	$nameFile = 'Digitalizar_'.date('Y_m_d_H_i_s_').$request->assinatura->getClientOriginalExtension();
+			$upload = $request->assinatura->storeAs('digitalizar', $nameFile);
+			// Compactando a imagem
+			$info = getimagesize(storage_path().'/app/digitalizar/'.$nameFile);
+			if ($info['mime'] == 'image/jpeg') {
+		        $image = imagecreatefromjpeg(storage_path().'/app/digitalizar/'.$nameFile);
+			}elseif ($info['mime'] == 'image/gif') {
+		        $image = imagecreatefromgif(storage_path().'/app/digitalizar/'.$nameFile);
+			}elseif ($info['mime'] == 'image/png') {
+		        $image = imagecreatefrompng(storage_path().'/app/digitalizar/'.$nameFile);
+			}
+
+			// Alterando a orientação da imagem
+			$exif = @exif_read_data($request->assinatura);
+            if(!empty($exif['Orientation'])) {
+                switch($exif['Orientation']) {
+                case 8:
+                    $newimage = imagerotate($image,90,0);
+                    break;
+                case 3:
+                    $newimage = imagerotate($image,180,0);
+                    break;
+                case 6:
+                    $newimage = imagerotate($image,-90,0);
+                    break;
+                case 1:
+                   	$newimage = $image;
+                    break;
+                }
+            }else{
+            	$newimage = $image;
+            }	
+
+			// Gerando nova imagem
+			imagejpeg($newimage, "//10.11.26.1/Digitalizarss$/".date('d-m-Y').'/'.$request->nomePasta.'/CARTAO DE ASSINATURA.jpg', 80);
+		}
+
+		// Outros arquivos
+		if (isset($request->arquivos)) {
 			if($request->pagina == 1){
 		        foreach($request->arquivos as $key => $arq){
 		        	// Copia arquivo para servidor com a nomeclatura
@@ -164,7 +443,6 @@ class PublicCtrl extends Controller
 					}
 					
 					// Alterando a orientação da imagem
-
 					$exif = @exif_read_data($arq);
 	                if(!empty($exif['Orientation'])) {
 		                switch($exif['Orientation']) {
@@ -184,7 +462,6 @@ class PublicCtrl extends Controller
 	                }else{
 	                	$newimage = $image;
 	                }	
-					
 					// Gerando nova imagem
 					imagejpeg($newimage, storage_path().'/app/digitalizar/'.$nameFile, 30);
 
@@ -205,20 +482,20 @@ class PublicCtrl extends Controller
 					$html = preg_replace("/>s+</", "><", $html);
 
 					// Gerando PDF
-					if(is_dir("//10.11.26.1/digitalizarss$/".$request->usuario)){
-						if(is_dir("//10.11.26.1/digitalizarss$/".$request->usuario.'/'.$request->nomePasta)){
-							$pdf = PDF::loadHTML($html)->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitalizarss$/".$request->usuario.'/'.$request->nomePasta.'/'.$namePdf);
+					if(is_dir("//10.11.26.1/Digitalizarss$/".date('d-m-Y'))){
+						if(is_dir("//10.11.26.1/Digitalizarss$/".date('d-m-Y').'/'.$request->nomePasta)){
+							$pdf = PDF::loadHTML($html)->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/Digitalizarss$/".date('d-m-Y').'/'.$request->nomePasta.'/'.$namePdf);
 						}else{
-							mkdir("//10.11.26.1/digitalizarss$/".$request->usuario.'/'.$request->nomePasta, 0755);
-							$pdf = PDF::loadHTML($html)->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitalizarss$/".$request->usuario.'/'.$request->nomePasta.'/'.$namePdf);
+							mkdir("//10.11.26.1/digitalizarss$/".date('d-m-Y').'/'.$request->nomePasta, 0755);
+							$pdf = PDF::loadHTML($html)->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/Digitalizarss$/".date('d-m-Y').'/'.$request->nomePasta.'/'.$namePdf);
 						}
 				    }else{
-				    	mkdir("//10.11.26.1/digitalizarss$/".$request->usuario, 0755);
-				    	if(is_dir("//10.11.26.1/digitalizarss$/".$request->usuario.'/'.$request->nomePasta)){
-							$pdf = PDF::loadHTML($html)->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitalizarss$/".$request->usuario.'/'.$request->nomePasta.'/'.$namePdf);
+				    	mkdir("//10.11.26.1/digitalizarss$/".date('d-m-Y'), 0755);
+				    	if(is_dir("//10.11.26.1/Digitalizarss$/".date('d-m-Y').'/'.$request->nomePasta)){
+							$pdf = PDF::loadHTML($html)->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/Digitalizarss$/".date('d-m-Y').'/'.$request->nomePasta.'/'.$namePdf);
 						}else{
-							mkdir("//10.11.26.1/digitalizarss$/".$request->usuario.'/'.$request->nomePasta, 0755);
-							$pdf = PDF::loadHTML($html)->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitalizarss$/".$request->usuario.'/'.$request->nomePasta.'/'.$namePdf);
+							mkdir("//10.11.26.1/digitalizarss$/".date('d-m-Y').'/'.$request->nomePasta, 0755);
+							$pdf = PDF::loadHTML($html)->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/Digitalizarss$/".date('d-m-Y').'/'.$request->nomePasta.'/'.$namePdf);
 						}
 				    }
 	            }
@@ -266,28 +543,36 @@ class PublicCtrl extends Controller
 					$html[] = preg_replace("/>s+</", "><", '<div style="page-break-after: always;"><img src="'.asset('storage/app/digitalizar/'.$nameFile).'" style="max-width: 100%; max-height: 27cm;"><div style="font-size: 1.5px !important; text-align:right; color:white; width:100%; background-color: #292828; padding-right: 1px; padding-top: 0.5px; padding-bottom: 0.5px;">Confere com o original <br>'.$usuario->RelationAssociado->nome.'</div></div>');
 				}
 				// Gerando PDF 
-				if(is_dir("//10.11.26.1/digitalizarss$/".$request->usuario)){
-					if(is_dir("//10.11.26.1/digitalizarss$/".$request->usuario.'/'.$request->nomePasta)){
-						$pdf = PDF::loadView('public.digitalizar.todos', compact('html'))->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitalizarss$/".$request->usuario.'/'.$request->nomePasta.'/'.$namePdf);
+				if(is_dir("//10.11.26.1/Digitalizarss$/".date('d-m-Y'))){
+					if(is_dir("//10.11.26.1/Digitalizarss$/".date('d-m-Y').'/'.$request->nomePasta)){
+						$pdf = PDF::loadView('public.digitalizar.todos', compact('html'))->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitalizarss$/".date('d-m-Y').'/'.$request->nomePasta.'/'.$namePdf);
 					}else{
-						mkdir("//10.11.26.1/digitalizarss$/".$request->usuario.'/'.$request->nomePasta, 0755);
-						$pdf = PDF::loadView('public.digitalizar.todos', compact('html'))->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitalizarss$/".$request->usuario.'/'.$request->nomePasta.'/'.$namePdf);
+						mkdir("//10.11.26.1/digitalizarss$/".date('d-m-Y').'/'.$request->nomePasta, 0755);
+						$pdf = PDF::loadView('public.digitalizar.todos', compact('html'))->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitalizarss$/".date('d-m-Y').'/'.$request->nomePasta.'/'.$namePdf);
 					}
 			    }else{
-			        mkdir("//10.11.26.1/digitalizarss$/".$request->usuario, 0755);
-			       	if(is_dir("//10.11.26.1/digitalizarss$/".$request->usuario.'/'.$request->nomePasta)){
-						$pdf = PDF::loadView('public.digitalizar.todos', compact('html'))->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitalizarss$/".$request->usuario.'/'.$request->nomePasta.'/'.$namePdf);
+			        mkdir("//10.11.26.1/digitalizarss$/".date('d-m-Y'), 0755);
+			       	if(is_dir("//10.11.26.1/Digitalizarss$/".date('d-m-Y').'/'.$request->nomePasta)){
+						$pdf = PDF::loadView('public.digitalizar.todos', compact('html'))->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitalizarss$/".date('d-m-Y').'/'.$request->nomePasta.'/'.$namePdf);
 					}else{
-						mkdir("//10.11.26.1/digitalizarss$/".$request->usuario.'/'.$request->nomePasta, 0755);
-						$pdf = PDF::loadView('public.digitalizar.todos', compact('html'))->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitalizarss$/".$request->usuario.'/'.$request->nomePasta.'/'.$namePdf);
+						mkdir("//10.11.26.1/digitalizarss$/".date('d-m-Y').'/'.$request->nomePasta, 0755);
+						$pdf = PDF::loadView('public.digitalizar.todos', compact('html'))->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitalizarss$/".date('d-m-Y').'/'.$request->nomePasta.'/'.$namePdf);
 					}
 			    }
            	 }
         }
-		\Session::flash('confirm', array(
-			'class' => 'success',
-			'mensagem' => 'Seu arquivos foram enviados com sucesso.'
-		));
+
+        if(isset($request->identificacao) || isset($request->cpf) || isset($request->renda) || isset($request->residencia) || isset($request->assinatura) || isset($request->arquivos)) {
+			\Session::flash('confirm', array(
+				'class' => 'success',
+				'mensagem' => 'Seu arquivos foram enviados com sucesso.'
+			));
+		}else{
+			\Session::flash('confirm', array(
+				'class' => 'danger',
+				'mensagem' => 'Não existe arquivos para ser importados.'
+			));
+		}
 		return redirect()->route('digitalizar');
 	}
 

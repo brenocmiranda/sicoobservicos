@@ -44,24 +44,6 @@ Digitalizar
 						</select>
 					</div>
 				</div>
-				<div class="col-6">
-					<div class="form-group">
-						<label class="col-form-label text-white">Tipo <span class="text-danger">*</span></label>
-						<select class="form-control form-control-line px-3" name="pagina" id="pagina" style="border-radius: 10px" required>
-							<option value="1"> Único</option> 
-							<option value="2"> Juntar todos </option> 
-						</select>
-					</div>
-				</div>
-				<div class="col-6">
-					<div class="form-group">
-						<label class="col-form-label text-white">Orientação <span class="text-danger">*</span></label>
-						<select class="form-control form-control-line px-3" name="orientacao" style="border-radius: 10px" required>
-							<option value="portrait"> Retrato</option> 
-							<option value="landscape"> Paisagem</option> 
-						</select>
-					</div>
-				</div>
 				<div class="col-12">
 					<div class="form-group">
 						<label class="col-form-label text-white">Nome da pasta <span class="text-danger">*</span></label>
@@ -70,28 +52,121 @@ Digitalizar
 				</div>
 				<div class="col-12">
 					<div class="form-group">
-						<label class="col-form-label text-white">Selecione os arquivos <span class="text-danger">*</span></label>
-						<div class="row totalArquivos">
+						<label class="col-form-label text-white">Documento de identificação</label>
+						<div class="row">
 							<div class="row col-12 justify-content-center mx-auto mb-2">
-								<input type="text" class="form-control col-8 px-3 h-100" name="nomeArquivos[]" onkeyup="this.value = this.value.toUpperCase();" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" required>
-								<label for="fupload1" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px"><i class="mdi mdi-file"></i></label>
-								<input type="file" name="arquivos[]" id="fupload1" class="position-absolute offset-6 col-1 px-0 mt-3" style="opacity: 0" accept="image/*" onchange="arquivo(this)" required>
-								<a href="javascript:" title="Remover arquivos" class="btn btn-danger col-2" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;" disabled><i class="mdi mdi-close"></i></a>
+								<label for="identificacao1" class="btn btn-default col-10 px-0 border-0 pt-3" title="Selecione o arquivo" style="border-radius: 0px; border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;"><span class="my-auto">Frente</span></label>
+								<input type="file" name="identificacao[]" id="identificacao1" class="position-absolute col-8 ml-n5 px-0 mt-3" style="opacity: 0" accept="image/*" onchange="arquivo(this)">
+								<a href="javascript:" title="Remover arquivos" class="btn btn-danger col-2" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;" onclick="remover(this)"><i class="mdi mdi-close"></i></a>
+							</div>
+							<div class="row col-12 justify-content-center mx-auto mb-2 identificao2" style="display: none;">
+								<label for="identificacao2" class="btn btn-default col-10 px-0 border-0 pt-3" title="Selecione o arquivo" style="border-radius: 0px; border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;">Verso</label>
+								<input type="file" name="identificacao[]" id="identificacao2" class="position-absolute offset-6 col-1 px-0 mt-3" style="opacity: 0" accept="image/*" onchange="arquivo(this)">
+								<a href="javascript:" title="Remover arquivos" class="btn btn-danger col-2" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;" onclick="remover(this)"><i class="mdi mdi-close"></i></a>
+							</div>
+							<div class="col-12">
+								<div class="checkbox checkbox-success text-white">
+			                        <input id="checkbox-1" type="checkbox">
+			                        <label for="checkbox-1"> Incluir o verso? </label>
+			                    </div>
 							</div>
 						</div>
 					</div>
-					<a href="javascript:" id="btnAdicionar" class="text-white"> <i class="ti-plus pr-2"></i> Adicionar mais arquivos</a>
 				</div>
-				
-			</div>
-			<div class="row col-12 col-lg-12 mt-5 text-center mx-auto justify-content-center">
-				<div class="col-12 p-0">
+				<div class="col-12">
+					<div class="form-group">
+						<label class="col-form-label text-white">CPF</label>
+						<div class="row">
+							<div class="row col-12 justify-content-center mx-auto mb-2">
+								<label for="cpf" class="btn btn-default col-10 px-0 border-0 pt-3" title="Selecione o arquivo" style="border-radius: 0px; border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;">CPF</label>
+								<input type="file" name="cpf" id="cpf" class="position-absolute col-8 ml-n5 px-0 mt-3" style="opacity: 0" accept="image/*" onchange="arquivo(this)">
+								<a href="javascript:" title="Remover arquivos" class="btn btn-danger col-2" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;" onclick="remover(this)"><i class="mdi mdi-close"></i></a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-12">
+					<div class="form-group">
+						<label class="col-form-label text-white">Comprovante de renda</label>
+						<div class="row">
+							<div class="row col-12 justify-content-center mx-auto mb-2">
+								<label for="renda" class="btn btn-default col-10 px-0 border-0 pt-3" title="Selecione o arquivo" style="border-radius: 0px; border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;">Renda</label>
+								<input type="file" name="renda" id="renda" class="position-absolute col-8 ml-n5 px-0 mt-3" style="opacity: 0" accept="image/*" onchange="arquivo(this)">
+								<a href="javascript:" title="Remover arquivos" class="btn btn-danger col-2" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;" onclick="remover(this)"><i class="mdi mdi-close"></i></a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-12">
+					<div class="form-group">
+						<label class="col-form-label text-white">Comprovante de residencia</label>
+						<div class="row">
+							<div class="row col-12 justify-content-center mx-auto mb-2">
+								<label for="residencia" class="btn btn-default col-10 px-0 border-0 pt-3" title="Selecione o arquivo" style="border-radius: 0px; border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;">Residência</label>
+								<input type="file" name="residencia" id="residencia" class="position-absolute col-8 ml-n5 px-0 mt-3" style="opacity: 0" accept="image/*" onchange="arquivo(this)">
+								<a href="javascript:" title="Remover arquivos" class="btn btn-danger col-2" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;" onclick="remover(this)"><i class="mdi mdi-close"></i></a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-12">
+					<div class="form-group">
+						<label class="col-form-label text-white">Cartão de assinatura</label>
+						<div class="row">
+							<div class="row col-12 justify-content-center mx-auto mb-2">
+								<label for="assinatura" class="btn btn-default col-10 px-0 border-0 pt-3" title="Selecione o arquivo" style="border-radius: 0px; border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;"> Assinatura </label>
+								<input type="file" name="assinatura" id="assinatura" class="position-absolute col-8 ml-n5 px-0 mt-3" style="opacity: 0" accept="image/*" onchange="arquivo(this)">
+								<a href="javascript:" title="Remover arquivos" class="btn btn-danger col-2" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;" onclick="remover(this)"><i class="mdi mdi-close"></i></a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-12">
 					<div class="checkbox checkbox-success text-white">
-                        <input id="checkbox-1" type="checkbox" checked required>
-                        <label for="checkbox-1"> Declaro que os documentos conferem com originais. </label>
-                    </div>
+	                    <input id="checkbox-2" type="checkbox">
+	                    <label for="checkbox-2"> Inserir outros arquivos? </label>
+	                </div>
 				</div>
-				<button type="submit" class="btn btn-success mx-4 col-8 col-lg-2 d-flex align-items-center justify-content-center">
+				<div class="row" id="outrosArquivos" style="display: none;">
+					<hr class="col-5 border-muted">
+					<div class="row col-12 px-0 mx-auto">
+						<div class="col-6">
+							<div class="form-group">
+								<label class="col-form-label text-white">Tipo</label>
+								<select class="form-control form-control-line px-3" name="pagina" id="pagina" style="border-radius: 10px">
+									<option value="1" checked> Único</option> 
+									<option value="2"> Juntar todos </option> 
+								</select>
+							</div>
+						</div>
+						<div class="col-6">
+							<div class="form-group">
+								<label class="col-form-label text-white">Orientação</label>
+								<select class="form-control form-control-line px-3" name="orientacao" style="border-radius: 10px">
+									<option value="portrait"> Retrato</option> 
+									<option value="landscape"> Paisagem</option> 
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-12">
+						<div class="form-group">
+							<label class="col-form-label text-white">Outros</label>
+							<div class="row totalArquivos">
+								<div class="row col-12 justify-content-center mx-auto mb-2">
+									<input type="text" class="form-control col-8 px-3 h-100" name="nomeArquivos[]" onkeyup="this.value = this.value.toUpperCase();" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo">
+									<label for="fupload1" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px"><i class="mdi mdi-file"></i></label>
+									<input type="file" name="arquivos[]" id="fupload1" class="position-absolute offset-6 col-1 px-0 mt-3" style="opacity: 0" accept="image/*" onchange="outros(this)">
+									<a href="javascript:" title="Remover arquivos" class="btn btn-danger col-2" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;" onclick="remover(this)"><i class="mdi mdi-close"></i></a>
+								</div>
+							</div>
+						</div>
+						<a href="javascript:" id="btnAdicionar" class="text-white"> <i class="ti-plus pr-2"></i> Adicionar mais arquivos</a>
+					</div>
+				</div>	
+			</div>	
+			<div class="row col-12 col-lg-12 mt-5 text-center mx-auto justify-content-center">
+				<button type="submit" id="btn-submit" class="btn btn-success mx-4 col-8 col-lg-2 d-flex align-items-center justify-content-center">
 		          	<i class="mdi mdi-send pr-2"></i> 
 		          	<span>Enviar</span>
 		        </button>
@@ -102,11 +177,21 @@ Digitalizar
 
 @section('suporte')
 <script type="text/javascript">
+	// Para arquivos definidos
+	function arquivo(input){
+		if(input.value){
+			$(input).prev('label').addClass('bg-success');
+		}else{
+			$(input).prev('label').removeClass('bg-success');
+		}	
+	}
 	function remover(input){
-		$(input).parent('div').remove();
+		$(input).val('');
+		$(input).prev().prev().removeClass('bg-success');
 	}
 
-	function arquivo(input){
+	// Para outros arquivos
+	function outros(input){
 		if(input.value){
 			if( !($(input).prev().prev().val()) ){
 				$(input).prev().prev().val(input.value.replace("C:\\fakepath\\", "").split('.')[0].toUpperCase());
@@ -118,22 +203,47 @@ Digitalizar
 			$(input).prev().removeClass('bg-success');
 			$(input).prev().prev().val('');
 		}
-		
+	}
+	function deletar(input){
+		$(input).parent('div').remove();
 	}
 
 	$(document).ready( function (){
+
+		// Inserindo verso do documento de identificação
+		$('#checkbox-1').on('click', function(){
+			if($(this).prop('checked')){
+				$('.identificao2').fadeIn();
+			}else{
+				$('.identificao2').fadeOut();
+			}
+		});
+
+		// Inserindo outros arquivos
+		$('#checkbox-2').on('click', function(){
+			if($(this).prop('checked')){
+				$('#outrosArquivos').fadeIn();
+			}else{
+				$('#outrosArquivos').fadeOut();
+			}
+		});
+
+		// Abrindo carregamento ao enviar
+		$('#btn-submit').on('click', function(){
+			$('.preloader').fadeIn();
+		});
+
 		var t = 1;
 		$('#btnAdicionar').on('click', function(){
 			if($('#pagina').val() == 1){
 				t++;
-				$('.totalArquivos').append('<div class="row col-12 justify-content-center mx-auto mb-2"> <input type="text" class="form-control col-8 px-3 h-100" name="nomeArquivos[]" onkeyup="this.value = this.value.toUpperCase();" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" required> <label for="fupload'+t+'" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px"><i class="mdi mdi-file"></i></label> <input type="file" name="arquivos[]" id="fupload'+t+'" class="mb-3 text-white col-lg-11 col-10 d-none" accept=".jpg, .jpeg, .png, .svg" onchange="arquivo(this)" required> <a href="javascript:" title="Remover arquivos" class="btn btn-danger col-2" onclick="remover(this)" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-close"></i></a> </div>'); 
+				$('.totalArquivos').append('<div class="row col-12 justify-content-center mx-auto mb-2"> <input type="text" class="form-control col-8 px-3 h-100" name="nomeArquivos[]" onkeyup="this.value = this.value.toUpperCase();" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" required> <label for="fupload'+t+'" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px"><i class="mdi mdi-file"></i></label> <input type="file" name="arquivos[]" id="fupload'+t+'" class="mb-3 text-white col-lg-11 col-10 d-none" accept=".jpg, .jpeg, .png, .svg" onchange="outros(this)" required> <a href="javascript:" title="Remover arquivos" class="btn btn-danger col-2" onclick="deletar(this)" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-close"></i></a> </div>'); 
 			}else{
 				t++;
-				$('.totalArquivos').append('<div class="row col-12 justify-content-center mx-auto mb-2"> <input type="text" class="form-control col-8 px-3 h-100" name="nomeArquivos[]" onkeyup="this.value = this.value.toUpperCase();" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" disabled> <label for="fupload'+t+'" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px"><i class="mdi mdi-file"></i></label> <input type="file" name="arquivos[]" id="fupload'+t+'" class="mb-3 text-white col-lg-11 col-10 d-none" accept=".jpg, .jpeg, .png, .svg"  onchange="arquivo(this)" required> <a href="javascript:" title="Remover arquivos" class="btn btn-danger col-2" onclick="remover(this)" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-close"></i></a> </div>'); 
+				$('.totalArquivos').append('<div class="row col-12 justify-content-center mx-auto mb-2"> <input type="text" class="form-control col-8 px-3 h-100" name="nomeArquivos[]" onkeyup="this.value = this.value.toUpperCase();" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" disabled> <label for="fupload'+t+'" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px"><i class="mdi mdi-file"></i></label> <input type="file" name="arquivos[]" id="fupload'+t+'" class="mb-3 text-white col-lg-11 col-10 d-none" accept=".jpg, .jpeg, .png, .svg"  onchange="outros(this)" required> <a href="javascript:" title="Remover arquivos" class="btn btn-danger col-2" onclick="deletar(this)" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-close"></i></a> </div>'); 
 			}
 			
 		});
-
 		$('#pagina').on('change', function(){
 			if(this.value == 2){
 				$('.totalArquivos input[type=text]').attr('disabled', 'disabled');
@@ -143,9 +253,7 @@ Digitalizar
 			}
 		});
 
-		$('form').on('submit', function(){
-			$('.preloader').fadeIn();
-		});
+		
 	});
 </script>
 @endsection
