@@ -48,19 +48,19 @@ class SolicitacaoContratoCliente extends Notification implements ShouldQueue
     {
         if($this->contrato->RelationStatus->last()->status == 'aberto') {
             return (new MailMessage)
-                    ->from('servicos@sicoobsertaominas.com.br')
+                    ->from('sertaominass@gmail.com')
                     ->subject($this->configuracoes->assunto_abertura_contrato)
                     ->view('system.emails.contratoCliente', ['contrato' => $this->contrato, 'configuracoes' => $this->configuracoes]);
 
         }elseif($this->contrato->RelationStatus->last()->status == 'entregue') {
             return (new MailMessage)
-                    ->from('servicos@sicoobsertaominas.com.br')
+                    ->from('sertaominass@gmail.com')
                     ->subject($this->configuracoes->assunto_fechamento_contrato)
                     ->view('system.emails.contratoCliente', ['contrato' => $this->contrato, 'configuracoes' => $this->configuracoes]);
 
         }elseif($this->contrato->RelationStatus->last()->status == 'devolvido') {
             return (new MailMessage)
-                    ->from('servicos@sicoobsertaominas.com.br')
+                    ->from('sertaominass@gmail.com')
                     ->subject('Contrato devolvido com sucesso :)')
                     ->view('system.emails.contratoCliente', ['contrato' => $this->contrato, 'configuracoes' => $this->configuracoes]);
         }

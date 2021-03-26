@@ -42,7 +42,7 @@ class Recuperacao extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->from('servicos@sicoobsertaominas.com.br')
+                    ->from('sertaominass@gmail.com', 'Sicoob Serviços')
                     ->subject('Você esqueceu sua senha?')
                     ->view('system.emails.recuperacao', ['usuario' => $this->usuario]);
     }

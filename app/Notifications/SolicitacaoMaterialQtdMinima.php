@@ -46,9 +46,9 @@ class SolicitacaoMaterialQtdMinima extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->from('servicos@sicoobsertaominas.com.br')
-                    ->subject('Reabasteça seu estoque...')
-                    ->view('system.emails.materialQtdMinima', ['material' => $this->material, 'configuracoes' => $this->configuracoes]);
+                ->from('sertaominass@gmail.com', 'Sicoob Serviços')
+                ->subject('Reabasteça seu estoque...')
+                ->view('system.emails.materialQtdMinima', ['material' => $this->material, 'configuracoes' => $this->configuracoes]);
     }
 
     /**

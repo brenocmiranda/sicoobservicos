@@ -43,9 +43,9 @@ class Cadastro extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->from('servicos@sicoobsertaominas.com.br')
-                    ->subject('Obaaa!! Agora é com você..')
-                    ->view('system.emails.cadastro', ['usuario' => $this->usuario]);
+                ->from('sertaominass@gmail.com', 'Sicoob Serviços')
+                ->subject('Obaaa!! Agora é com você..')
+                ->view('system.emails.cadastro', ['usuario' => $this->usuario]);
     }
 
     /**

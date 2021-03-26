@@ -47,9 +47,9 @@ class SolicitacaoContratoAdmin extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                ->from('servicos@sicoobsertaominas.com.br')
-                ->subject('Nova solicitação de contrato =)')
-                ->view('system.emails.contratoAdmin', ['contrato' => $this->contrato, 'configuracoes' => $this->configuracoes]);        
+            ->from('sertaominass@gmail.com', 'Sicoob Serviços')
+            ->subject('Nova solicitação de contrato =)')
+            ->view('system.emails.contratoAdmin', ['contrato' => $this->contrato, 'configuracoes' => $this->configuracoes]);        
     }
 
     /**

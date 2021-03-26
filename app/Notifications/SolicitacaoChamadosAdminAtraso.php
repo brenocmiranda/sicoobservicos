@@ -47,12 +47,12 @@ class SolicitacaoChamadosAdminAtraso extends Notification implements ShouldQueue
     {   
         if(count($this->todos) == 1){
             return (new MailMessage)
-                ->from('servicos@sicoobsertaominas.com.br')
+                ->from('sertaominass@gmail.com', 'Sicoob Serviços')
                 ->subject('Você possui um chamado pendente!')
                 ->view('system.emails.chamadoAdminAtraso', ['todos' => $this->todos]);
         }elseif(count($this->todos) > 1){
              return (new MailMessage)
-                ->from('servicos@sicoobsertaominas.com.br')
+                ->from('sertaominass@gmail.com', 'Sicoob Serviços')
                 ->subject('Você possui alguns chamados pendentes!')
                 ->view('system.emails.chamadoAdminAtraso', ['todos' => $this->todos]);
         }       

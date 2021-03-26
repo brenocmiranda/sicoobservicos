@@ -43,9 +43,9 @@ class ResetPassword extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->from('servicos@sicoobsertaominas.com.br')
-                    ->subject('Sua senha foi resetada com sucesso :)')
-                    ->view('system.emails.reset', ['usuario' => $this->usuario]);
+                ->from('sertaominass@gmail.com', 'Sicoob Serviços')
+                ->subject('Sua senha foi resetada com sucesso :)')
+                ->view('system.emails.reset', ['usuario' => $this->usuario]);
     }
 
     /**

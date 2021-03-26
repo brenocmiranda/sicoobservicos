@@ -46,9 +46,9 @@ class SolicitacaoChamadosReCliente extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->from('servicos@sicoobsertaominas.com.br')
-                    ->subject('Reabertura de chamado')
-                    ->view('system.emails.chamadoReCliente', ['chamado' => $this->chamado, 'configuracoes' => $this->configuracoes]);
+                ->from('sertaominass@gmail.com', 'Sicoob Serviços')
+                ->subject('Reabertura de chamado')
+                ->view('system.emails.chamadoReCliente', ['chamado' => $this->chamado, 'configuracoes' => $this->configuracoes]);
     }
 
     /**

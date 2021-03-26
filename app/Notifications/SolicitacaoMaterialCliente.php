@@ -48,19 +48,19 @@ class SolicitacaoMaterialCliente extends Notification implements ShouldQueue
         if($this->material->status == 0) {
             // Abertura de solicitação
             return (new MailMessage)
-                    ->from('servicos@sicoobsertaominas.com.br')
+                    ->from('sertaominass@gmail.com', 'Sicoob Serviços')
                     ->subject($this->configuracoes->assunto_abertura_material)
                     ->view('system.emails.materialCliente', ['material' => $this->material, 'configuracoes' => $this->configuracoes]);
         }elseif($this->material->status == 1){
             // Aprovação da solicitação
             return (new MailMessage)
-                    ->from('servicos@sicoobsertaominas.com.br')
+                    ->from('sertaominass@gmail.com', 'Sicoob Serviços')
                     ->subject($this->configuracoes->assunto_fechamento_material)
                     ->view('system.emails.materialCliente', ['material' => $this->material, 'configuracoes' => $this->configuracoes]);
         }else{
             // Desaprovação da solicitação
             return (new MailMessage)
-                    ->from('servicos@sicoobsertaominas.com.br')
+                    ->from('sertaominass@gmail.com', 'Sicoob Serviços')
                     ->subject('Cancelamento da sua solicitação =(')
                     ->view('system.emails.materialCliente', ['material' => $this->material, 'configuracoes' => $this->configuracoes]);
         }

@@ -43,7 +43,7 @@ class EnviarEmail extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                ->from('servicos@sicoobsertaominas.com.br')
+                ->from('sertaominass@gmail.com', 'Sicoob Serviços')
                 ->subject($this->conteudo->assunto)
                 ->view('system.emails.novoEmail', ['conteudo' => $this->conteudo->mensagem]);
     }
