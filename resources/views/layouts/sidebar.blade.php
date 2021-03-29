@@ -238,6 +238,7 @@
               <li> <a href="{{route('exibir.logs.importacoes')}}"><span class="hide-menu">Logs</span></a> </li>
             </ul>
           </li>
+          <li> <a href="{{route('exibir.atividades')}}"><span class="hide-menu">Atividades</span></a> </li>
           <li> <a href="{{route('exibir.plataforma')}}"><span class="hide-menu">Plataforma</span></a> </li>
         </ul>
       </li>

@@ -12,4 +12,8 @@ class Atividades extends Model
     protected $table = 'sys_activities';
     protected $primaryKey = 'id';
     protected $fillable = [ 'id', 'nome', 'descricao', 'icone', 'url', 'status', 'id_usuario', 'created_at', 'updated_at'];
+
+    public function RelationUsuarios(){
+        return $this->belongsTo(Usuarios::class, 'id_usuario');
+    }
 }

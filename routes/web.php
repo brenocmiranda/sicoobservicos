@@ -524,11 +524,6 @@ Route::group(['prefix' => 'app'], function(){
 				Route::post('salvar', 'ConfiguracoesCtrl@SalvarMensagensEmails')->name('salvar.mensagens.emails');
 			});
 		});
-		// Ajustes
-		Route::group(['prefix' => 'plataforma'], function(){
-			Route::get('', 'ConfiguracoesCtrl@ExibirPlataforma')->name('exibir.plataforma');
-			Route::post('salvar', 'ConfiguracoesCtrl@SalvarPlataforma')->name('salvar.plataforma');
-		});
 		// Importações
 		Route::group(['prefix' => 'importacoes'], function(){
 			// Importar
@@ -545,6 +540,15 @@ Route::group(['prefix' => 'app'], function(){
 			Route::group(['prefix' => 'logs'], function(){
 				Route::get('', 'ImportacoesCtrl@ExibirLogs')->name('exibir.logs.importacoes');
 			});
+		});
+		// Atividades
+		Route::group(['prefix' => 'atividades'], function(){
+			Route::get('', 'ConfiguracoesCtrl@ExibirAtividades')->name('exibir.atividades');
+		});
+		// Plataforma
+		Route::group(['prefix' => 'plataforma'], function(){
+			Route::get('', 'ConfiguracoesCtrl@ExibirPlataforma')->name('exibir.plataforma');
+			Route::post('salvar', 'ConfiguracoesCtrl@SalvarPlataforma')->name('salvar.plataforma');
 		});
 	});
 });

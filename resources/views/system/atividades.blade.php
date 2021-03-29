@@ -29,7 +29,7 @@ Minhas atividades
                         @if(!empty($dados->first() ))
                             @foreach($dados as $atividade)
                                 <div class="sl-item">
-                                    <div class="sl-left bg-info"> <i class="mdi {{$atividade->icone}}"></i></div>
+                                    <div class="sl-left bg-success"> <i class="mdi {{$atividade->icone}}"></i></div>
                                     <div class="sl-right">
                                         <div>
                                             <b><a href="{{$atividade->url}}">{{$atividade->nome}}</a></b>
