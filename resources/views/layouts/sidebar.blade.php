@@ -218,6 +218,7 @@
               <li> <a href="{{route('exibir.usuarios.administrativo')}}"><span class="hide-menu">Usuários</span></a> </li>
             </ul>
           </li>
+          <li> <a href="{{route('exibir.atividades')}}"><span class="hide-menu">Ativi. dos usuários</span></a> </li>
           <li> 
             <a href="javascript:void(0)" class="waves-effect {{ (Request::segment(2) == 'configuracoes' && Request::segment(3) == 'emails' ? ' active' : '') }}">
               <span class="hide-menu">E-mails </span><span class="fa arrow"></span>
@@ -238,7 +239,7 @@
               <li> <a href="{{route('exibir.logs.importacoes')}}"><span class="hide-menu">Logs</span></a> </li>
             </ul>
           </li>
-          <li> <a href="{{route('exibir.atividades')}}"><span class="hide-menu">Atividades</span></a> </li>
+          
           <li> <a href="{{route('exibir.plataforma')}}"><span class="hide-menu">Plataforma</span></a> </li>
         </ul>
       </li>

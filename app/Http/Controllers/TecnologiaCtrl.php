@@ -75,7 +75,7 @@ class TecnologiaCtrl extends Controller
 		$equipamentosUsuarios = AtivosUsuarios::groupBy('usr_id_usuarios')->whereNotNull('dataDevolucao')->select('usr_id_usuarios', \DB::raw('count(usr_id_usuarios) as quantidade'))->get();
 		$equipamentosMarca = Ativos::join('gti_ativos_has_marcas', 'id_marca', 'gti_ativos_has_marcas.id')->groupBy('id_marca')->select('nome', \DB::raw('count(id_marca) as quantidade'))->get();
 
-		return view('tecnologia.dashboard')->with('homepage', $homepage)->with('chamados', $chamados)->with('chamadosEmaberto', $chamadosEmaberto) ->with('chamadosEmandamento', $chamadosEmandamento) ->with('chamadosEncerrado', $chamadosEncerrado) ->with('chamadosFontes', $chamadosFontes) ->with('chamadosAmbientes', $chamadosAmbientes) ->with('chamadosDia', $chamadosDia) ->with('chamadosUsuarios', $chamadosUsuarios) ->with('equipamentosSetor', $equipamentosSetor) ->with('equipamentosPA', $equipamentosPA) ->with('equipamentosMarca', $equipamentosMarca) ->with('equipamentosUsuarios', $equipamentosUsuarios); 
+		return view('tecnologia.dashboard')->with('homepage', $homepage)->with('chamados', $chamados)->with('chamadosEmaberto', $chamadosEmaberto)->with('chamadosEmandamento', $chamadosEmandamento)->with('chamadosEncerrado', $chamadosEncerrado)->with('chamadosFontes', $chamadosFontes)->with('chamadosAmbientes', $chamadosAmbientes)->with('chamadosDia', $chamadosDia)->with('chamadosUsuarios', $chamadosUsuarios)->with('equipamentosSetor', $equipamentosSetor)->with('equipamentosPA', $equipamentosPA)->with('equipamentosMarca', $equipamentosMarca)->with('equipamentosUsuarios', $equipamentosUsuarios); 
 	}
 
 	#-------------------------------------------------------------------
@@ -85,8 +85,20 @@ class TecnologiaCtrl extends Controller
     public function ExibirChamados(){
         if(Auth::user()->RelationFuncao->ver_gti == 1 || Auth::user()->RelationFuncao->gerenciar_gti == 1){
             $chamados = Chamados::orderBy('created_at', 'ASC')->get();
+            $chamadosEmaberto = 0;
+            $chamadosEmandamento = 0;
+            $chamadosEncerrado = 0;
+            foreach ($chamados as $value) {
+                if($value->RelationStatus->first()->pivot->gti_id_status == 1){
+                    $chamadosEmaberto++;
+                }elseif ($value->RelationStatus->first()->pivot->gti_id_status == 2) {
+                    $chamadosEmandamento++;
+                }elseif ($value->RelationStatus->first()->pivot->gti_id_status == 3) {
+                    $chamadosEncerrado++;
+                }
+            }
             $status = Status::where('status', 1)->get();
-            return view('tecnologia.chamados.listar')->with('chamados', $chamados)->with('statusAtivos', $status);
+            return view('tecnologia.chamados.listar')->with('chamados', $chamados)->with('chamadosEmaberto', $chamadosEmaberto)->with('chamadosEmandamento', $chamadosEmandamento)->with('chamadosEncerrado', $chamadosEncerrado)->with('statusAtivos', $status);
         }else{
             return redirect(route('403'));
         }
