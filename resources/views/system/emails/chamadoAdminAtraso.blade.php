@@ -29,10 +29,10 @@
 									<li><b>Ambiente:</b> {{$dados->RelationAmbientes->nome}}</li>
 									<li><b>Fonte:</b> {{$dados->RelationFontes->nome}}</li>
 									<li><b>Assunto:</b> {{$dados->assunto}}</li>
-									<label>
-										<a href="{{route('detalhes.chamados.gti', $dados->id)}}" target="_blank"><b>Mais informações.</b></a>
-									</label>
 								</ul>
+								<p>
+									<a href="{{route('detalhes.chamados.gti', $dados->id)}}" target="_blank"><b>Mais informações.</b></a>
+								</p>
 							</p>
 							@endforeach				
 							<p> Estamos a disposição!</p>

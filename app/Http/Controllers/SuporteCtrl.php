@@ -184,6 +184,7 @@ class SuporteCtrl extends Controller
     }
     // Reabertura chamado
     public function ReaberturaChamados(Request $request, $id){
+        $chamado = Chamados::find($id);
         if(date('d/m/Y H:i:s', strtotime($chamado->RelationStatus->first()->pivot->created_at)) > date('d/m/Y H:i:s', strtotime('-'.explode(':', $chamado->RelationStatus->first()->tempo)[0].' hours -'.explode(':', $chamado->RelationStatus->first()->tempo)[1].' minutes -'.explode(':', $chamado->RelationStatus->first()->tempo)[2].' seconds'))){
             $abertura = Status::where('open', 1)->first();
             $status = ChamadosStatus::create([
