@@ -1,7 +1,7 @@
 <html>
 <body>
 	<div>
-		<table width="600" cellpadding="0" border="0" cellspacing="0" align="center" bgcolor="#FFFFFF" style="border-radius:5px; border:1px solid #dddddd; text-align: left">
+		<table width="650" cellpadding="0" border="0" cellspacing="0" align="center" bgcolor="#FFFFFF" style="border-radius:5px; border:1px solid #dddddd; text-align: left">
 			<tbody>
 				<tr bgcolor="#f4f4f4">
 					<td>
