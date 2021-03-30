@@ -809,7 +809,7 @@ class ConfiguracoesCtrl extends Controller
 	// Listando página
 	public function ExibirAtividades(){
         if(Auth::user()->RelationFuncao->gerenciar_configuracoes == 1 || Auth::user()->RelationFuncao->ver_configuracoes == 1){
-    		$atividades = Atividades::orderBy('id', 'DESC')->paginate(10);
+    		$atividades = Atividades::where('id_usuario', '!=', Auth::id())->orderBy('id', 'DESC')->paginate(10);
     		return view('configuracoes.atividades.exibir')->with('atividades', $atividades);
         }else{
             return redirect(route('403'));
