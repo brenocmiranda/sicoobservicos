@@ -159,7 +159,8 @@ class SuporteCtrl extends Controller
         $status = ChamadosStatus::create([
             'gti_id_chamados' => $id,
             'gti_id_status' => $finalizar->id,
-            'descricao' => (isset($request->descricao) ? $request->descricao : "Chamado finalizado por ".Auth::user()->RelationAssociado->nome.".")
+            'descricao' => (isset($request->descricao) ? $request->descricao : "Chamado finalizado por ".Auth::user()->RelationAssociado->nome."."),
+            'usr_id_usuarios' => Auth::id()
         ]);
         
         // Cadastramento de vários arquivos 
@@ -196,6 +197,8 @@ class SuporteCtrl extends Controller
             ]);
 
             $create = Chamados::find($id);
+            // Alteração feita para atualizar a ordem de tratamento
+            $atualizacao = Chamados::find($id)->update('assunto', $create->assunto);
             Auth::user()->notify(new SolicitacaoChamadosReCliente($create));  
             $this->email->notify(new SolicitacaoChamadosReAdmin($create));
             Atividades::create([
