@@ -41,16 +41,26 @@ Solicitações de materiais
 										<div class="col-8">
 											<div>
 												<h5 class="my-1">{{$pendencia->RelationMaterial->nome}} <small>{{$pendencia->RelationMaterial->RelationCategoria->nome}}</small></h5>
-												<small>{{$pendencia->quantidade}} unidades</small>
+												<small>{{$pendencia->quantidade}} {{$pendencia->quantidade_tipo}}</small>
 											</div>
 											<div>
-												<h6 class="mt-4 mb-2 font-weight-normal">
+												<h6 class="mt-4 mb-1 font-weight-normal">
 													<b>Usuário:</b> <span class="text-secondary">{{$pendencia->RelationUsuario->RelationAssociado->nome}}</span>
 												</h6>
 											</div>
+											@if(isset($pendencia->observacoes))
+											<div>
+												<small><b>Observações:</b> {{$pendencia->observacoes}} </small>
+											</div>
+											@endif
 											<div>
 												<small><b>Data da solicitação:</b> {{$pendencia->created_at->format('d/m/Y H:i')}}</small>
 											</div>
+											@if(!empty($pendencia->motivo) && $pendencia->status == 2)
+											<div>
+												<small><b>Motivo:</b> {{$pendencia->motivo}}</small>
+											</div>
+											@endif
 										</div>
 										@if(Auth::user()->RelationFuncao->gerenciar_administrativo == 1)
 										<div class="col-3 m-auto row justify-content-end">
@@ -98,16 +108,29 @@ Solicitações de materiais
 										<div class="col-9">
 											<div>
 												<h5 class="my-1">{{$item->RelationMaterial->nome}} <small>{{$item->RelationMaterial->RelationCategoria->nome}}</small></h5>
-												<small>{{$item->quantidade}} unidades</small>
+												<small>{{$item->quantidade}} {{$item->quantidade_tipo}}</small>
 											</div>
 											<div>
-												<h6 class="mt-4 mb-2 font-weight-normal">
+												<h6 class="mt-4 mb-1 font-weight-normal">
 													<b>Usuário:</b> <span class="text-secondary">{{$item->RelationUsuario->RelationAssociado->nome}}</span>
 												</h6>
 											</div>
+											@if(isset($item->observacoes))
 											<div>
-												<small><b>Data da solicitação:</b> {{$item->created_at->format('d/m/Y H:i')}}</small>
+												<small><b>Observações:</b> {{$item->observacoes}} </small>
 											</div>
+											@endif
+											<div>
+												<small><b>Data da solicitação:</b> {{$item->created_at->format('d/m/Y H:i')}} - {{$item->created_at->subMinutes(2)->diffForHumans()}}</small>
+											</div>
+											<div>
+												<small><b>Data da finalização:</b> {{$item->updated_at->format('d/m/Y H:i')}}  - {{$item->updated_at->subMinutes(2)->diffForHumans()}}</small>
+											</div>
+											@if(!empty($item->motivo) && $item->status == 2)
+											<div>
+												<small><b>Motivo:</b> {{$item->motivo}}</small>
+											</div>
+											@endif
 										</div>
 										<div class="col-2 m-auto row justify-content-center">
 											<div class="col-12 badge badge-{{($item->status == 1 ? 'success' : ($item->status == 0 ? 'warning' : 'danger'))}} px-3">

@@ -646,19 +646,20 @@ class AdministrativoCtrl extends Controller
 	// Aprovando solicitação de material
 	public function SolicitacaoMateriaisAdminAprovar($id){
 		if(Auth::user()->RelationFuncao->gerenciar_administrativo == 1){
-			$historico = MateriaisHistorico::find($id);
-			if($historico->RelationMaterial->quantidade >= $historico->quantidade){
+			$historicoInicio = MateriaisHistorico::find($id);
+			if($historicoInicio->RelationMaterial->quantidade >= $historicoInicio->quantidade){
 				MateriaisHistorico::find($id)->update(['status' => 1]);
-				Materiais::find($historico->id_material)->decrement('quantidade', $historico->quantidade);
-				$material = Materiais::find($historico->id_material);
+				$historicoAtual[] = MateriaisHistorico::find($id);
+				Materiais::find($historicoAtual[0]->id_material)->decrement('quantidade', $historicoAtual[0]->quantidade);
+				$material = Materiais::find($historicoAtual[0]->id_material);
 				if($material->quantidade <= $material->quantidade_min){
-					$this->email->notify(new SolicitacaoMaterialQtdMinima($historico));
+					$this->email->notify(new SolicitacaoMaterialQtdMinima($historicoAtual));
 				}
-				$historico->RelationUsuario->notify(new SolicitacaoMaterialCliente($historico));	
+				$historicoAtual[0]->RelationUsuario->notify(new SolicitacaoMaterialCliente($historicoAtual));	
 				
 				Atividades::create([
 					'nome' => 'Aprovação de solicitação de material',
-					'descricao' => 'Você acabou de aprovar a solicitação do material, '.$historico->RelationMaterial->nome.'.',
+					'descricao' => 'Você acabou de aprovar a solicitação do material, '.$historicoAtual[0]->RelationMaterial->nome.'.',
 					'icone' => ' mdi-cube-send',
 					'url' => route('exibir.solicitacoes.administrativo'),
 					'id_usuario' => Auth::id()
@@ -674,13 +675,13 @@ class AdministrativoCtrl extends Controller
 	// Desaprovando solicitação de material
 	public function SolicitacaoMateriaisAdminDesaprovar(Request $request){
 		if(Auth::user()->RelationFuncao->gerenciar_administrativo == 1){
-				MateriaisHistorico::find($request->id)->update(['status' => 2, 'observacao' => $request->observacao]);
-				$historico = MateriaisHistorico::find($request->id);
-				$historico->RelationUsuario->notify(new SolicitacaoMaterialCliente($historico));
+				MateriaisHistorico::find($request->id)->update(['status' => 2, 'motivo' => $request->motivo]);
+				$historico[] = MateriaisHistorico::find($request->id);
+				$historico[0]->RelationUsuario->notify(new SolicitacaoMaterialCliente($historico));
 				$this->email->notify(new SolicitacaoMaterialAdmin($historico));
 				Atividades::create([
 					'nome' => 'Desaprovação de solicitação de material',
-					'descricao' => 'Você acabou de cancelar a solicitação do material, '.$historico->RelationMaterial->nome.'.',
+					'descricao' => 'Você acabou de cancelar a solicitação do material, '.$historico[0]->RelationMaterial->nome.'.',
 					'icone' => ' mdi-delete-forever',
 					'url' => route('exibir.solicitacoes.administrativo'),
 					'id_usuario' => Auth::id()

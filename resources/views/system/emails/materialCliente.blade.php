@@ -19,27 +19,29 @@
 				<tr>
 					<td style="padding: 20px 40px;">
 						<font face="Helvetica,Arial,sans-serif" color="#222222" style="font-size:15px; line-height:25px;">
-							@if($material->status == 0)
+							@if($material[0]->status == 0)
 								{!! $configuracoes->abertura_solicitacao_material !!}
 
-							@elseif($material->status == 1)
+							@elseif($material[0]->status == 1)
 								{!! $configuracoes->fechamento_solicitacao_material !!}
-								<br>
-								<ul>
-									<li><b>Produto:</b> {{$material->RelationMaterial->nome}}</li>
-									<li><b>Quantidade:</b> {{$material->quantidade}} unidades</li>
-								</ul>
+								
+								@foreach($material as $atual)
+									<ul>
+										<li><b>Produto:</b> {{$atual->RelationMaterial->nome}}</li>
+										<li><b>Quantidade:</b> {{$atual->quantidade}} unidades</li>
+									</ul>
+								@endforeach
 							@else
 								<p>
-									<b>Eitaaa, a sua solicitação de material de nº {{$material->id}} acaba de ser cancelada!</b>
+									<b>Eitaaa, a sua solicitação de material de nº {{$material[0]->id}} acaba de ser cancelada!</b>
 								</p>
 								<p>
 									Veja mais informações sobre essa solicitação:
 								</p>
 								<p>
 									<ul>
-										<li><b>Mótivo:</b> {{$material->observacao}}</li>
-										<li><b>Produto:</b> {{$material->RelationMaterial->nome}} ({{$material->quantidade}} unidades)</li>										
+										<li><b>Mótivo:</b> {{$material[0]->motivo}}</li>
+										<li><b>Produto:</b> {{$material[0]->RelationMaterial->nome}} ({{$material[0]->quantidade}} {{$material[0]->quantidade_tipo}})</li>										
 									</ul>
 								</p>
 							@endif

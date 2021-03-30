@@ -19,31 +19,31 @@
 				<tr>
 					<td style="padding: 20px 40px;">
 						<font face="Helvetica,Arial,sans-serif" color="#222222" style="font-size:15px; line-height:25px;">
-							@if($material->status == 0)
+							@if($material[0]->status == 0)
 								<p>
 									<b>Obaaa, recebemos uma nova solicitação de material!</b>
 								</p>
 								<p>
-									Neste momento separe os itens para entrega e encaminhe para o usuário que solicitou. Veja abaixo, os dados da solicitação:
+									Neste momento separe os itens para entrega e encaminhe para o usuário: <b>{{$material[0]->RelationUsuario->RelationAssociado->nome}}</b>. Veja abaixo os dados da solicitação:
 								</p>
-								<p>
+								@foreach($material as $atual)
 									<ul>
-										<li><b>Produto:</b> {{$material->RelationMaterial->nome}}</li>
-										<li><b>Quantidade:</b> {{$material->quantidade}} unidades</li>
-										<li><b>Usuário:</b> {{$material->RelationUsuario->RelationAssociado->nome}}</li>
+										<li><b>Produto:</b> {{$atual->RelationMaterial->nome}}</li>
+										<li><b>Quantidade:</b> {{$atual->quantidade}} {{$atual->quantidade_tipo}}</li>
 									</ul>
-								</p>
+								@endforeach
 							@else
 								<p>
-									<b>Eitaaa, a solicitação de material de nº {{$material->id}} acaba de ser cancelada!</b>
+									<b>Eitaaa, a solicitação de material de nº {{$material[0]->id}} acaba de ser cancelada!</b>
 								</p>
 								<p>
 									Veja mais informações sobre essa solicitação:
 								</p>
 								<p>
 									<ul>
-										<li><b>Mótivo:</b> {{$material->observacao}}</li>
-										<li><b>Produto:</b> {{$material->RelationMaterial->nome}} ({{$material->quantidade}} unidades)</li>										
+										<li><b>Mótivo:</b> {{$material[0]->motivo}}</li>
+										<li><b>Produto:</b> {{$material[0]->RelationMaterial->nome}} ({{$material[0]->quantidade}} {{$material[0]->quantidade_tipo}})</li>									
+										<li><b>Usuário:</b> {{$material[0]->RelationUsuario->RelationAssociado->nome}}</li>
 									</ul>
 								</p>
 							@endif

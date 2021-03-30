@@ -53,14 +53,24 @@ Materiais
 											<h6 class="mt-2 font-weight-normal text-muted">Solicitação de Nº {{$requisicao->id}}</h6>
 										</div>
 										<div>
-											<small><b>Quantidade:</b> {{$requisicao->quantidade}} unidades</small>
+											<small><b>Quantidade:</b> {{$requisicao->quantidade}} {{$requisicao->quantidade_tipo}} </small>
 										</div>
+										@if(isset($requisicao->observacoes))
 										<div>
-											<small><b>Data da solicitação:</b> {{$requisicao->created_at->format('d/m/Y H:i')}}</small>
+											<small><b>Observações:</b> {{$requisicao->observacoes}} </small>
 										</div>
-										@if(!empty($requisicao->observacao) && $requisicao->status == 2)
+										@endif
 										<div>
-											<small><b>Motivo:</b> {{$requisicao->observacao}}</small>
+											<small><b>Data da solicitação:</b> {{$requisicao->created_at->format('d/m/Y H:i')}} - {{$requisicao->created_at->subMinutes(2)->diffForHumans()}}</small>
+										</div>
+										@if($requisicao->status == 2)
+										<div>
+											<small><b>Data da finalização:</b> {{$requisicao->updated_at->format('d/m/Y H:i')}} - {{$requisicao->updated_at->subMinutes(2)->diffForHumans()}}</small>
+										</div>
+										@endif
+										@if(!empty($requisicao->motivo) && $requisicao->status == 2)
+										<div>
+											<small><b>Motivo:</b> {{$requisicao->motivo}}</small>
 										</div>
 										@endif
 									</div>
@@ -110,7 +120,7 @@ Materiais
 		$(index).closest('div').remove();
 		if(!($('#modal-solicitacao #materiais').find('div')[0])){
 			$('#modal-solicitacao button[type=submit]').attr('disabled', 'disabled');
-			$('#modal-solicitacao #materiais').html('<div class="pb-2 null"> <span>Nenhum item selecionado.</span> </div>'); 
+			$('#modal-solicitacao #materiais').html('<div class="pb-2 null text-muted"><span>Nenhum item selecionado.</span></div>'); 
 		}
 	}
 
@@ -124,10 +134,10 @@ Materiais
 					$(this).css("display", "none");
 			});
 		});
-		// Botrão para nova solicitação
+		// Botão para nova solicitação
 		$('#adicionar').on('click', function(){
 			$('#modal-solicitacao form')[0].reset('');
-			$('#modal-solicitacao #materiais').html('');
+			$('#modal-solicitacao #materiais').html('<div class="pb-2 null text-muted"><span>Nenhum item selecionado.</span></div>');
 		});
 		// Retornando materiais
 		$('.categorias').on('change', function(e){
@@ -157,17 +167,17 @@ Materiais
 			var nome = $('.materiais').find(":selected").text();
 			var material = $('.materiais').val();
 			var quantidade = $('.quantidade').val();
+			var quantidade_tipo = $('.quantidade_tipo').val();
+			var observacoes = $('.observacoes').val();
 			if(material){
 				if(quantidade && quantidade > 0){
 					$('#modal-solicitacao #err').html('');
 					$('#modal-solicitacao #materiais .null').remove();
-					$('#modal-solicitacao #materiais').append('<div class="pb-2"> <span class="font-weight-bold">&#183</span> <span>'+nome+'</span> <input type="hidden" name="id_material[]" value="'+material+'"> <small>('+quantidade+' unidades)</small> <input type="hidden" name="quantidade[]" value="'+quantidade+'"> <a href="javascript:void(0)" title="Remover material" onclick="removeItem(this);"> <i class="mdi mdi-delete-empty text-danger"></i> </a> </div>');
+					$('#modal-solicitacao #materiais').append('<div class="pb-2"> <span>'+nome+'</span> <input type="hidden" name="id_material[]" value="'+material+'"> - <small>'+quantidade+' '+quantidade_tipo+'</small> <input type="hidden" name="quantidade[]" value="'+quantidade+'"> <input type="hidden" name="quantidade_tipo[]" value="'+quantidade_tipo+'"> <input type="hidden" name="observacoes[]" value="'+observacoes+'"> <a href="javascript:void(0)" title="Remover material" onclick="removeItem(this);"> <i class="mdi mdi-delete-empty text-danger"></i> </a> </div>');
 					$('#modal-solicitacao button[type=submit]').removeAttr('disabled');
-					$('.categorias').val('');
+					$('#modal-solicitacao form')[0].reset('');
 					$('.materiais').html('');
 					$('.materiais').attr('disabled', 'disabled');
-					$('.quantidade').val('');
-
 				}else{
 					$('#modal-solicitacao #err').html('<div class="text-danger mx-4"><p>Descreva a quantidade necessária.</p></div>');
 				} 
@@ -186,35 +196,46 @@ Materiais
 		// Efetuando solicitação
 		$('#modal-solicitacao #formSolicitacao').on('submit', function(e){
 			e.preventDefault();
-			$.ajax({
-				url: '{{ route("efetuar.solicitacoes.materiais") }}',
-				type: 'POST',
-				data: $('#modal-solicitacao #formSolicitacao').serialize(),
-				beforeSend: function(){
-					$('.modal-body, .modal-footer').addClass('d-none');
-					$('.carregamento').html('<div class="mx-auto text-center my-5"> <div class="col-12"> <div class="spinner-border my-4" role="status"> <span class="sr-only"> Loading... </span> </div> </div> <label>Salvando informações...</label></div>');
-					$('#modal-solicitacao #err').html('');
-				},
-				success: function(data){
-					$('.modal-body, .modal-footer').addClass('d-none');
-					$('.carregamento').html('<div class="mx-auto text-center my-5"><div class="col-12"><i class="col-2 mdi mdi-check-all mdi-48px"></i></div><label>Informações alteradas com sucesso!</label></div>');
-					location.reload();
-				}, error: function (data) {
-					setTimeout(function(){
-						$('.modal-body, .modal-footer').removeClass('d-none');
-						$('.carregamento').html('');
-						if(!data.responseJSON){
-							console.log(data.responseText);
-							$('#modal-solicitacao #err').html(data.responseText);
-						}else{
+			swal({
+				title: "Tem certeza que enviar solicitação?",
+				icon: "warning",
+				buttons: ["Cancelar", "Confirmar"],
+			})
+			.then((willDelete) => {
+				if (willDelete) {
+					$.ajax({
+						url: '{{ route("efetuar.solicitacoes.materiais") }}',
+						type: 'POST',
+						data: $('#modal-solicitacao #formSolicitacao').serialize(),
+						beforeSend: function(){
+							$('.modal-body, .modal-footer').addClass('d-none');
+							$('.carregamento').html('<div class="mx-auto text-center my-5"> <div class="col-12"> <div class="spinner-border my-4" role="status"> <span class="sr-only"> Loading... </span> </div> </div> <label>Salvando informações...</label></div>');
 							$('#modal-solicitacao #err').html('');
-							$('input').removeClass('border-bottom border-danger');
-							$.each(data.responseJSON.errors, function(key, value){
-								$('#modal-solicitacao #err').append('<div class="text-danger mx-4"><p>'+value+'</p></div>');
-								$('input[name="'+key+'"]').addClass('border-bottom border-danger');
-							});
+						},
+						success: function(data){
+							$('.modal-body, .modal-footer').addClass('d-none');
+							$('.carregamento').html('<div class="mx-auto text-center my-5"><div class="col-12"><i class="col-2 mdi mdi-check-all mdi-48px"></i></div><label>Informações alteradas com sucesso!</label></div>');
+							location.reload();
+						}, error: function (data) {
+							setTimeout(function(){
+								$('.modal-body, .modal-footer').removeClass('d-none');
+								$('.carregamento').html('');
+								if(!data.responseJSON){
+									console.log(data.responseText);
+									$('#modal-solicitacao #err').html(data.responseText);
+								}else{
+									$('#modal-solicitacao #err').html('');
+									$('input').removeClass('border-bottom border-danger');
+									$.each(data.responseJSON.errors, function(key, value){
+										$('#modal-solicitacao #err').append('<div class="text-danger mx-4"><p>'+value+'</p></div>');
+										$('input[name="'+key+'"]').addClass('border-bottom border-danger');
+									});
+								}
+							}, 2000);
 						}
-					}, 2000);
+					});
+				} else {
+					swal.close();
 				}
 			});
 		});

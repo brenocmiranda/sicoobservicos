@@ -25,7 +25,7 @@
               <div class="col-12">
                 <div class="form-group">
                   <label class="col-form-label pb-0">Qual o motivo?</label>
-                  <textarea class="observacao form-control form-control-line" name="observacao" onkeyup="this.value = this.value.toUpperCase();" rows="4" placeholder="Descreve o motivo do cancelamento da solicitação..." required></textarea>
+                  <textarea class="motivo form-control form-control-line" name="motivo" onkeyup="this.value = this.value.toUpperCase();" rows="4" placeholder="Descreve o motivo do cancelamento da solicitação..." required></textarea>
                 </div>
               </div>
             </div>
@@ -34,11 +34,11 @@
       </div>
       <div class="modal-footer">
         <div class="row col-12 justify-content-center">
-          <button class="btn btn-primary btn-outline col-3 mx-1 d-flex align-items-center justify-content-center" data-dismiss="modal" aria-label="Close">
+          <button class="btn btn-danger btn-outline col-3 mx-1 d-flex align-items-center justify-content-center" data-dismiss="modal" aria-label="Close">
             <i class="mdi mdi-arrow-left pr-2"></i> 
             <span>Cancelar</span>
           </button>
-          <button type="submit" class="btn btn-danger btn-outline col-3 mx-1 d-flex align-items-center justify-content-center">
+          <button type="submit" class="btn btn-success btn-outline col-3 mx-1 d-flex align-items-center justify-content-center">
             <i class="mdi mdi-close pr-2"></i> 
             <span>Desaprovar</span>
           </button>

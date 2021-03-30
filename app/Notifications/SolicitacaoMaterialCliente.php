@@ -45,13 +45,13 @@ class SolicitacaoMaterialCliente extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {   
-        if($this->material->status == 0) {
+        if($this->material[0]->status == 0) {
             // Abertura de solicitação
             return (new MailMessage)
                     ->from('sertaominass@gmail.com', 'Sicoob Serviços')
                     ->subject($this->configuracoes->assunto_abertura_material)
                     ->view('system.emails.materialCliente', ['material' => $this->material, 'configuracoes' => $this->configuracoes]);
-        }elseif($this->material->status == 1){
+        }elseif($this->material[0]->status == 1){
             // Aprovação da solicitação
             return (new MailMessage)
                     ->from('sertaominass@gmail.com', 'Sicoob Serviços')

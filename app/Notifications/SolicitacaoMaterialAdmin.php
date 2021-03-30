@@ -47,7 +47,7 @@ class SolicitacaoMaterialAdmin extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
          // Abertura de solicitação
-        if($this->material->status == 0){
+        if($this->material[0]->status == 0){
             return (new MailMessage)
                     ->from('sertaominass@gmail.com', 'Sicoob Serviços')
                     ->subject('Nova solicitação de material =)')

@@ -211,8 +211,7 @@ class SuporteCtrl extends Controller
             return response()->json(['success' => true]);
         }else{
             return response()->json(['success' => false]);
-        }
-       
+        } 
     }
     // Listando os ontes
     public function ListarFontesChamados($idAmbiente){
@@ -301,7 +300,6 @@ class SuporteCtrl extends Controller
             return response()->json(['success' => true]);
         }
     }
-
     // Fazendo upload de arquivos
     public function ArquivosChamadosStatus(Request $request){
         // Cadastramento de várias imagens do mesmo produto
@@ -355,11 +353,12 @@ class SuporteCtrl extends Controller
     		$create = MateriaisHistorico::create([
     			'tipo' => 's',
     			'quantidade' => $request->quantidade[$key],
+                'quantidade_tipo' => $request->quantidade_tipo[$key],
+                'observacoes' => $request->observacoes[$key],
     			'id_material' =>$request->id_material[$key], 
     			'id_usuario' => Auth::id(), 
     			'status' => 0,
     		]);
-    		$this->email->notify(new SolicitacaoMaterialAdmin($create));
     		Atividades::create([
     			'nome' => 'Solicitação de materiais',
     			'descricao' => 'Você acabou de solicitar o material '.$create->RelationMaterial->nome.'.',
@@ -367,19 +366,21 @@ class SuporteCtrl extends Controller
     			'url' => route('exibir.solicitacoes.materiais'),
     			'id_usuario' => Auth::id()
     		]);
+            $materiais[] = $create;
         }
-        Auth::user()->notify(new SolicitacaoMaterialCliente($create));
+        $this->email->notify(new SolicitacaoMaterialAdmin($materiais));
+        Auth::user()->notify(new SolicitacaoMaterialCliente($materiais));
 		return response()->json(['success' => true]);
 	}
     // Cancelar solicitação 
     public function MateriaisSolicitacaoCancelar(Request $request){
-        MateriaisHistorico::find($request->id)->update(['status' => 2, 'observacao' => $request->observacao]);
-        $historico = MateriaisHistorico::find($request->id);
-        $historico->RelationUsuario->notify(new SolicitacaoMaterialCliente($historico));
+        MateriaisHistorico::find($request->id)->update(['status' => 2, 'motivo' => $request->motivo]);
+        $historico[] = MateriaisHistorico::find($request->id);
+        $historico[0]->RelationUsuario->notify(new SolicitacaoMaterialCliente($historico));
         $this->email->notify(new SolicitacaoMaterialAdmin($historico));
         Atividades::create([
             'nome' => 'Cancelamento de solicitação de material',
-            'descricao' => 'Você cancelou a sua solicitação do material, '.$historico->RelationMaterial->nome.'.',
+            'descricao' => 'Você cancelou a sua solicitação do material, '.$historico[0]->RelationMaterial->nome.'.',
             'icone' => ' mdi-delete-forever',
             'url' => route('exibir.solicitacoes.materiais'),
             'id_usuario' => Auth::id()
@@ -387,9 +388,6 @@ class SuporteCtrl extends Controller
 
         return response()->json(['success' => true]);
     }
-
-
-    
 	// Listando materiais para solicitação
 	public function MateriaisListar($id){
 		$dados = Materiais::where('id_categoria', $id)->get();
