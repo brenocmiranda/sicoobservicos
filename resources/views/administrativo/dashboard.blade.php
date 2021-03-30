@@ -238,10 +238,10 @@ Dashboard
 									<tbody>
 										@foreach($materiaisHistorico->where('tipo', 's')->sortByDesc('created_at') as $key => $historico)
 										<tr class="text-center">
-											<td class="txt-oflo">{{$historico->RelationMaterial->nome}}</td>
-											<td>{{$historico->RelationUsuario->RelationAssociado->nome}}</td>
-											<td class="txt-oflo">{{$historico->created_at->format('d/m/Y H:i')}}</td>
-											<td><span class="text-success">{{$historico->quantidade}}</span></td>
+											<td><small>{{$historico->RelationMaterial->nome}}</small></td>
+											<td><small>{{$historico->RelationUsuario->RelationAssociado->nome}}</small></td>
+											<td><small>{{$historico->created_at->format('d/m/Y H:i')}}</small></td>
+											<td><small>{{$historico->quantidade}} {{$historico->quantidade_tipo}}</small></td>
 											<td><span class="label {{($historico->status == 0 ? 'label-warning' : 'label-success')}} label-rouded">{{($historico->status == 0 ? "Pendente" : "Aprovada")}}</span> </td>
 										</tr>
 										@endforeach
@@ -266,9 +266,9 @@ Dashboard
 									<tbody>
 										@foreach($materiaisHistorico->where('tipo', 'e')->sortByDesc('created_at') as $key => $historico)
 										<tr class="text-center">
-											<td class="txt-oflo">{{$historico->RelationMaterial->nome}}</td>
-											<td>{{$historico->RelationUsuario->RelationAssociado->nome}}</td>
-											<td class="txt-oflo">{{$historico->created_at->format('d/m/Y H:i')}}</td>
+											<td><small>{{$historico->RelationMaterial->nome}}</small></td>
+											<td><small>{{$historico->RelationUsuario->RelationAssociado->nome}}</small></td>
+											<td><small>{{$historico->created_at->format('d/m/Y H:i')}}</small></td>
 											<td><span class="text-success">{{$historico->quantidade}}</span></td>
 										</tr>
 										@endforeach
