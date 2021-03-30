@@ -21,117 +21,13 @@ Dashboard
 		<div class="sttabs tabs-style-iconbox" style="border-radius: 0.6em; border: transparent;">
 			<nav>
 				<ul style="background: transparent; border: transparent;">
-					<li class="tab-current"><a href="#section-iconbox-1" class="sticon ti-car"><span>Bens da cooperativa</span></a></li>
+					<li class="tab-current"><a href="#section-iconbox-1" class="sticon ti-ruler-pencil"><span>Materiais</span></a></li>
 					<li><a href="#section-iconbox-2" class="sticon ti-files"><span>Documentos</span></a></li>
-					<li><a href="#section-iconbox-3" class="sticon ti-ruler-pencil"><span>Materiais</span></a></li>
+					<li><a href="#section-iconbox-3" class="sticon ti-car"><span>Bens da cooperativa</span></a> </li>
 				</ul>
 			</nav>
 			<div class="content-wrap">
-				<section id="section-iconbox-1"  class="content-current">
-					<div class="row col-12 white-box">
-						<div class="col-lg-6 col-sm-12 col-xs-12">
-							<h3 class="box-title text-center mb-0">Total de bens</h3>
-							<hr class="mt-2">
-							<div class="col-lg-12 col-sm-12 col-xs-12 text-center row m-auto align-items-center justify-content-center h-75 pb-5">
-								<h1 style="font-size: 55px;">{{count($bens)}} 
-									<small>cadastrados</small>
-								</h1>
-							</div>
-						</div>
-						<div class="col-lg-6 col-sm-12 col-xs-12">
-							<h3 class="box-title mb-0 text-center">Quantidade por tipo</h3>
-							<hr class="mt-2">
-							<div id="morris-donut-chart" class="morris-donut-chart" style="height: 300px"></div>
-
-						</div>
-						<div class="col-lg-12 col-sm-12 col-xs-12 mt-4">
-							<h3 class="box-title mb-0">Adicionados recentes</h3>
-							<hr class="mt-2">
-							<div class="table-responsive">
-								<table class="table color-table muted-table" id="table1">
-									<thead>
-										<tr>
-											<th>Nome</th>
-											<th>Tipo</th>
-											<th>Localização</th>
-											<th>Valor</th>
-											<th>Data de inclusão</th>
-										</tr>
-									</thead>
-									<tbody>
-										@foreach($bens->sortByDesc('created_at') as $dados)
-										<tr class="text-center">
-											<td class="txt-oflo">{{$dados->nome}}</td>
-											<td>{{($dados->tipo == 'veiculos' ? "Veículos" : ($dados->tipo == 'imovel' ? "Imóvel" : "Outros"))}}</td>
-											<td class="txt-oflo">{{$dados->cidade}}</td>
-											<td class="txt-oflo">R$ {{number_format($dados->valor, 2, ',', '.')}}</td>
-											<td class="txt-oflo">{{date('d/m/Y H:i', strtotime($dados->created_at))}}</td>
-										</tr>
-										@endforeach
-									</tbody>
-								</table>
-							</div>
-						</div>
-						<div class="col-lg-12 col-sm-12 col-xs-12 mt-5">
-							<h3 class="box-title mb-0">Bens por cidade</h3>
-							<hr class="mt-2">
-							<ul class="country-state">
-								@foreach($bensCidade as $dados)
-								<li>
-									<h2>{{count($bens->whereNotNull('cidade')->where('cidade', $dados->cidade))}}</h2> <small>{{$dados->cidade}}</small>
-									<div class="progress">
-										<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{(100*count($bens->whereNotNull('cidade')->where('cidade', $dados->cidade)))/count($bens)}}%" aria-valuemin="0" aria-valuemax="100" style="width:{{(100*count($bens->whereNotNull('cidade')->where('cidade', $dados->cidade)))/count($bens)}}%"> <span class="sr-only">{{(100*count($bens->whereNotNull('cidade')->where('cidade', $dados->cidade)))/count($bens)}}% Complete</span></div>
-									</div>
-								</li>
-								@endforeach
-							</ul>
-						</div>         
-					</div>
-				</section>
-				<section id="section-iconbox-2">
-					<div class="row col-12 white-box">
-						<div class="col-lg-6 col-sm-12 col-xs-12">
-							<h3 class="box-title mb-0 text-center">Total de documentos</h3>
-							<hr class="mt-2">
-							<div class="col-lg-12 col-sm-12 col-xs-12 text-center row m-auto align-items-center justify-content-center h-75 pb-5">
-								<h1 style="font-size: 55px;">{{count($documentos)}} 
-									<small>cadastrados</small>
-								</h1>
-							</div>
-							
-						</div>
-						<div class="col-lg-6 col-sm-12 col-xs-12">
-							<h3 class="box-title mb-0 text-center">Quantidade por status</h3>
-							<hr class="mt-2">
-							<div id="morris-donut-chart1" class="morris-donut-chart" style="height: 300px"></div>
-						</div>
-						<div class="col-lg-12 col-sm-12 col-xs-12 mt-4">
-							<h3 class="box-title mb-0">Adicionados recentes</h3>
-							<hr class="mt-2">
-							<div class="table-responsive">
-								<table class="table color-table muted-table" id="table2">
-									<thead>
-										<tr>
-											<th>Nome</th>
-											<th>Status</th>
-											<th>Data de inclusão</th>
-										</tr>
-									</thead>
-									<tbody>
-										@foreach($documentos->sortByDesc('created_at') as $key => $dados)
-										<tr class="text-center">
-											<td class="txt-oflo">{{$dados->nome}}</td>
-											<td>{{($dados->status == 1 ? "Ativo" : "Desativado")}}</td>
-											<td class="txt-oflo">{{$dados->created_at->format('d/m/Y H:i')}}</td>
-										</tr>
-										@endforeach
-									</tbody>
-								</table>
-							</div>
-						</div>      
-					</div>
-				</section>
-				<section id="section-iconbox-3">
+				<section id="section-iconbox-1" class="content-current">
 					<div class="row col-12 white-box mx-auto">
 						<div class="w-100 mb-5 pb-5">
                             <div class="col-lg-4 col-sm-6 row-in-br">
@@ -152,6 +48,24 @@ Dashboard
                                     </li>
                                 </ul>
                             </div>
+                            <div class="col-lg-4 col-sm-6">
+                                <ul class="col-in">
+                                    <li>
+                                        <span class="circle circle-md bg-danger"><i class="ti-package"></i></span>
+                                    </li>
+                                    <li class="col-last">
+                                        <h3 class="counter text-right m-t-15">{{count($materiaisHistorico->where('tipo', 's')->where('status', 2))}}</h3>
+                                    </li>
+                                    <li class="col-middle">
+                                        <h4>Solicitações canceladas</h4>
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="{{(isset($materiaisHistorico->where('tipo', 's')[0]) ? (100*count($materiaisHistorico->where('tipo', 's')->where('status', 2)))/count($materiaisHistorico->where('tipo', 's')) : 0)}}" aria-valuemin="0" aria-valuemax="100" style="width: {{(isset($materiaisHistorico->where('tipo', 's')[0]) ? (100*count($materiaisHistorico->where('tipo', 's')->where('status', 2)))/count($materiaisHistorico->where('tipo', 's')) : 0)}}%">
+                                                <span class="sr-only">{{(isset($materiaisHistorico->where('tipo', 's')[0]) ? (100*count($materiaisHistorico->where('tipo', 's')->where('status', 2)))/count($materiaisHistorico->where('tipo', 's')) : 0)}}% Total (total)</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
                             <div class="col-lg-4 col-sm-6 row-in-br b-r-none">
                                 <ul class="col-in">
                                     <li>
@@ -165,24 +79,6 @@ Dashboard
                                         <div class="progress">
                                             <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{(isset($materiaisHistorico->where('tipo', 's')[0]) ? (100*count($materiaisHistorico->where('tipo', 's')->where('status', 1)))/count($materiaisHistorico->where('tipo', 's')) : 0)}}" aria-valuemin="0" aria-valuemax="100" style="width: {{(isset($materiaisHistorico->where('tipo', 's')[0]) ? (100*count($materiaisHistorico->where('tipo', 's')->where('status', 1)))/count($materiaisHistorico->where('tipo', 's')) : 0)}}%">
                                                 <span class="sr-only">{{(isset($materiaisHistorico->where('tipo', 's')[0]) ? (100*count($materiaisHistorico->where('tipo', 's')->where('status', 1)))/count($materiaisHistorico->where('tipo', 's')) : 0)}}% Aprovado (aprovado)</span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-lg-4 col-sm-6">
-                                <ul class="col-in">
-                                    <li>
-                                        <span class="circle circle-md bg-danger"><i class="ti-package"></i></span>
-                                    </li>
-                                    <li class="col-last">
-                                        <h3 class="counter text-right m-t-15">{{count($materiaisHistorico->where('tipo', 's')->where('status', 2))}}</h3>
-                                    </li>
-                                    <li class="col-middle">
-                                        <h4>Solicitações recusadas</h4>
-                                        <div class="progress">
-                                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="{{(isset($materiaisHistorico->where('tipo', 's')[0]) ? (100*count($materiaisHistorico->where('tipo', 's')->where('status', 2)))/count($materiaisHistorico->where('tipo', 's')) : 0)}}" aria-valuemin="0" aria-valuemax="100" style="width: {{(isset($materiaisHistorico->where('tipo', 's')[0]) ? (100*count($materiaisHistorico->where('tipo', 's')->where('status', 2)))/count($materiaisHistorico->where('tipo', 's')) : 0)}}%">
-                                                <span class="sr-only">{{(isset($materiaisHistorico->where('tipo', 's')[0]) ? (100*count($materiaisHistorico->where('tipo', 's')->where('status', 2)))/count($materiaisHistorico->where('tipo', 's')) : 0)}}% Total (total)</span>
                                             </div>
                                         </div>
                                     </li>
@@ -278,6 +174,111 @@ Dashboard
 						</div>
 					</div>
 				</section>
+				<section id="section-iconbox-2">
+					<div class="row col-12 white-box">
+						<div class="col-lg-6 col-sm-12 col-xs-12">
+							<h3 class="box-title mb-0 text-center">Total de documentos</h3>
+							<hr class="mt-2">
+							<div class="col-lg-12 col-sm-12 col-xs-12 text-center row m-auto align-items-center justify-content-center h-75 pb-5">
+								<h1 style="font-size: 55px;">{{count($documentos)}} 
+									<small>cadastrados</small>
+								</h1>
+							</div>
+							
+						</div>
+						<div class="col-lg-6 col-sm-12 col-xs-12">
+							<h3 class="box-title mb-0 text-center">Quantidade por status</h3>
+							<hr class="mt-2">
+							<div id="morris-donut-chart1" class="morris-donut-chart" style="height: 300px"></div>
+						</div>
+						<div class="col-lg-12 col-sm-12 col-xs-12 mt-4">
+							<h3 class="box-title mb-0">Adicionados recentes</h3>
+							<hr class="mt-2">
+							<div class="table-responsive">
+								<table class="table color-table muted-table" id="table2">
+									<thead>
+										<tr>
+											<th>Nome</th>
+											<th>Status</th>
+											<th>Data de inclusão</th>
+										</tr>
+									</thead>
+									<tbody>
+										@foreach($documentos->sortByDesc('created_at') as $key => $dados)
+										<tr class="text-center">
+											<td class="txt-oflo">{{$dados->nome}}</td>
+											<td>{{($dados->status == 1 ? "Ativo" : "Desativado")}}</td>
+											<td class="txt-oflo">{{$dados->created_at->format('d/m/Y H:i')}}</td>
+										</tr>
+										@endforeach
+									</tbody>
+								</table>
+							</div>
+						</div>      
+					</div>
+				</section>
+				<section id="section-iconbox-3">
+					<div class="row col-12 white-box">
+						<div class="col-lg-6 col-sm-12 col-xs-12">
+							<h3 class="box-title text-center mb-0">Total de bens</h3>
+							<hr class="mt-2">
+							<div class="col-lg-12 col-sm-12 col-xs-12 text-center row m-auto align-items-center justify-content-center h-75 pb-5">
+								<h1 style="font-size: 55px;">{{count($bens)}} 
+									<small>cadastrados</small>
+								</h1>
+							</div>
+						</div>
+						<div class="col-lg-6 col-sm-12 col-xs-12">
+							<h3 class="box-title mb-0 text-center">Quantidade por tipo</h3>
+							<hr class="mt-2">
+							<div id="morris-donut-chart" class="morris-donut-chart" style="height: 300px"></div>
+
+						</div>
+						<div class="col-lg-12 col-sm-12 col-xs-12 mt-4">
+							<h3 class="box-title mb-0">Adicionados recentes</h3>
+							<hr class="mt-2">
+							<div class="table-responsive">
+								<table class="table color-table muted-table" id="table1">
+									<thead>
+										<tr>
+											<th>Nome</th>
+											<th>Tipo</th>
+											<th>Localização</th>
+											<th>Valor</th>
+											<th>Data de inclusão</th>
+										</tr>
+									</thead>
+									<tbody>
+										@foreach($bens->sortByDesc('created_at') as $dados)
+										<tr class="text-center">
+											<td class="txt-oflo">{{$dados->nome}}</td>
+											<td>{{($dados->tipo == 'veiculos' ? "Veículos" : ($dados->tipo == 'imovel' ? "Imóvel" : "Outros"))}}</td>
+											<td class="txt-oflo">{{$dados->cidade}}</td>
+											<td class="txt-oflo">R$ {{number_format($dados->valor, 2, ',', '.')}}</td>
+											<td class="txt-oflo">{{date('d/m/Y H:i', strtotime($dados->created_at))}}</td>
+										</tr>
+										@endforeach
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div class="col-lg-12 col-sm-12 col-xs-12 mt-5">
+							<h3 class="box-title mb-0">Bens por cidade</h3>
+							<hr class="mt-2">
+							<ul class="country-state">
+								@foreach($bensCidade as $dados)
+								<li>
+									<h2>{{count($bens->whereNotNull('cidade')->where('cidade', $dados->cidade))}}</h2> <small>{{$dados->cidade}}</small>
+									<div class="progress">
+										<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{(100*count($bens->whereNotNull('cidade')->where('cidade', $dados->cidade)))/count($bens)}}%" aria-valuemin="0" aria-valuemax="100" style="width:{{(100*count($bens->whereNotNull('cidade')->where('cidade', $dados->cidade)))/count($bens)}}%"> <span class="sr-only">{{(100*count($bens->whereNotNull('cidade')->where('cidade', $dados->cidade)))/count($bens)}}% Complete</span></div>
+									</div>
+								</li>
+								@endforeach
+							</ul>
+						</div>         
+					</div>
+				</section>
+				
 			</div>
 			<!-- /content -->
 		</div>
