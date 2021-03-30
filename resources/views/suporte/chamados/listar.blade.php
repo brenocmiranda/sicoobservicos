@@ -72,7 +72,7 @@ Chamados
 													<small class="text-dark"><b>Descrição:</b> {{(isset($chamado->descricao) ? $chamado->descricao : '-')}}</small>
 												</label>	
 												<label class="text-truncate d-block mb-0">
-													<small class="text-dark"><b>Data de abertura:</b> {{$chamado->created_at->format('d/m/Y H:i')}}</small>
+													<small class="text-dark"><b>Data de abertura:</b> {{$chamado->created_at->format('d/m/Y H:i')}} - {{$chamado->created_at->subMinutes(2)->diffForHumans()}}</small>
 												</label>
 												@if($chamado->RelationStatus->first()->finish == 1)
 												<label class="text-truncate d-block">
@@ -127,11 +127,11 @@ Chamados
 													<small class="text-dark"><b>Descrição:</b> {{(isset($chamado->descricao) ? $chamado->descricao : '-')}}</small>
 												</label>	
 												<label class="text-truncate d-block mb-0">
-													<small class="text-dark"><b>Data de abertura:</b> {{$chamado->created_at->format('d/m/Y H:i')}}</small>
+													<small class="text-dark"><b>Data de abertura:</b> {{$chamado->created_at->format('d/m/Y H:i')}} - {{$chamado->created_at->subMinutes(2)->diffForHumans()}}</small>
 												</label>
 												@if($chamado->RelationStatus->first()->finish == 1)
 												<label class="text-truncate d-block">
-													<small class="text-dark"><b>Data de fechamento:</b> {{$chamado->RelationStatus->first()->pivot->created_at->format('d/m/Y H:i')}}</small>
+													<small class="text-dark"><b>Data de fechamento:</b> {{$chamado->RelationStatus->first()->pivot->created_at->format('d/m/Y H:i')}} - {{$chamado->RelationStatus->first()->pivot->created_at->subMinutes(2)->diffForHumans()}}</small>
 												</label>	
 												@endif				
 											</div>

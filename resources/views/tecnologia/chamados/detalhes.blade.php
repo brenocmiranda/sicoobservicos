@@ -59,12 +59,12 @@ Detalhes do chamado
               </label>  
               <label class="d-block">
                 <b>Data de abertura:</b> 
-                <p>{{$chamado->created_at->format('d/m/Y H:i')}}</p>
+                <p>{{$chamado->created_at->format('d/m/Y H:i')}} - {{$chamado->created_at->subMinutes(2)->diffForHumans()}}</p>
               </label>
               @if($chamado->RelationStatus->first()->finish == 1)
               <label class="d-block">
                 <b>Data de fechamento:</b> 
-                <p>{{$chamado->RelationStatus->first()->pivot->created_at->format('d/m/Y H:i')}}</p>
+                <p>{{$chamado->RelationStatus->first()->pivot->created_at->format('d/m/Y H:i')}} - {{$chamado->RelationStatus->first()->pivot->created_at->subMinutes(2)->diffForHumans()}}</p>
               </label> 
               @endif  
             </div>
