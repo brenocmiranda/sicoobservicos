@@ -110,6 +110,7 @@ class SuporteCtrl extends Controller
         $create = Chamados::create([
             'assunto' => $request->assunto, 
             'descricao' => $request->descricao, 
+            'teamViewer' => $request->teamViewer,
             'gti_id_ambientes' => $request->gti_id_ambientes, 
             'gti_id_fontes' => $request->gti_id_fontes,             
             'usr_id_usuarios' => Auth::id(), 

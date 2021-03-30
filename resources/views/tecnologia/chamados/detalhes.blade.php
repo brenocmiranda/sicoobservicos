@@ -58,6 +58,10 @@ Detalhes do chamado
                 <p>{{(isset($chamado->descricao) ? $chamado->descricao : '-')}}</p>
               </label>  
               <label class="d-block">
+                <b>ID TeamViewer</b> 
+                <p>{{(isset($chamado->teamViewer) ? $chamado->teamViewer : '-')}}</p>
+              </label>
+              <label class="d-block">
                 <b>Data de abertura:</b> 
                 <p>{{$chamado->created_at->format('d/m/Y H:i')}} - {{$chamado->created_at->subMinutes(2)->diffForHumans()}}</p>
               </label>

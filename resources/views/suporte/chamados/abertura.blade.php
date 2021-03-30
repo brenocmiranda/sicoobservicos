@@ -46,6 +46,24 @@ Abertura de chamado
 									</select>
 								</div>
 							</div>
+							<div class="col-lg-12 col-12 mb-4">
+								<div class="form-group mb-2 col-lg-4 px-0">
+									<label class="col-form-label pb-0">ID TeamViewer</label>
+									<input class="form-control form-control-line teamViewer" name="teamViewer" placeholder="0 000 000 000" required/>
+								</div>
+								<div class="col-lg-2">
+									<span class="mytooltip tooltip-effect-1">
+					                    <span class="tooltip-item mt-5"><i class="mdi mdi-information-outline tooltip-item"></i></span> 
+				                    	<span class="tooltip-content clearfix" style="min-width: 430px;">
+					                      	<img src="{{asset('public/img/teamViewer.png')}}">
+					                      	<span class="tooltip-text">Para obter esse ID acesse na sua área de trabalho o atalho TeamViewer 13 Hostpot.</span> 
+					                  	</span>
+					                </span>
+								</div>
+								<div class="col-lg-12 px-0">
+									<small>Preencha esse campo caso seja necessária conexão a sua máquina.</small>
+								</div>
+							</div>
 							<div class="col-12">
 								<div class="form-group">
 									<label class="col-form-label pb-0">Assunto <span class="text-danger">*</span></label>
@@ -110,6 +128,8 @@ Abertura de chamado
 		});
 	}
 	$(document).ready( function (){
+		$('.teamViewer').mask('00 000 000 000', {reverse: true});
+
 		// Buscando os ambientes relacionados aquela fontes
 		$('.ambientes').on('change', function(e){
 			var ambientes = $('.ambientes').val();
