@@ -59,10 +59,10 @@
             </div>
             
           </div>
-          <div class="col-12 text-justify">
+          <div class="col-12 text-left">
             <div>
               <h4>{{$dados->titulo}} <small class="text-capitalize">{{$dados->tipo}}</small></h4>
-              <h5>{{$dados->RelationAmbientes->nome}} &#183 {{$dados->RelationFontes->nome}}</h5>
+              <h5 class="text-left">{{$dados->RelationAmbientes->nome}} &#183 {{$dados->RelationFontes->nome}}</h5>
               <label>{{$dados->subtitulo}}</label> 
 
               @foreach($dados->RelationArquivos as $arquivos)

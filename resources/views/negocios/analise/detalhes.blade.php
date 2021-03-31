@@ -71,6 +71,15 @@ Executar análise
 						<h6>Data de relacionamento:</h6>
 						<label>{{date('d/m/Y', strtotime($associado->data_relacionamento))}}</label>
 					</div>
+					 <div class="col-lg-3 col-12">
+		              <h6>Data de renovação</h6>
+		              @if(strtotime(date('Y-m-d', strtotime($associado->data_renovacao.'+ 1 year'))) < strtotime(date('Y-m-d')))
+		                <small class="bg-danger px-3 py-1 text-white rounded" style="border-radius:15px">
+		                {{date('d/m/Y', strtotime($associado->data_renovacao))}}</small>
+		              @else
+		                <label>{{date('d/m/Y', strtotime($associado->data_renovacao))}}</label>
+		              @endif
+		            </div>
 					<div class="col-lg-3 col-12">
 		                <h6>Participa de conglomerado?</h6>
 		                <span class="mytooltip tooltip-effect-2">
