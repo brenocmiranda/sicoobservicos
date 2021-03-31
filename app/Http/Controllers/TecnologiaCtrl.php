@@ -84,7 +84,7 @@ class TecnologiaCtrl extends Controller
 	// Exibir todos chamados
     public function ExibirChamados(){
         if(Auth::user()->RelationFuncao->ver_gti == 1 || Auth::user()->RelationFuncao->gerenciar_gti == 1){
-            $chamados = Chamados::orderBy('updated_at', 'DESC')->get();
+            $chamados = Chamados::orderBy('created_at', 'ASC')->get();
             $chamadosEmaberto = 0;
             $chamadosEmandamento = 0;
             $chamadosEncerrado = 0;
