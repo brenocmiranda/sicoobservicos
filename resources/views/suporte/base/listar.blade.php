@@ -40,7 +40,7 @@ Tópicos
 											<i class="mdi mdi-bookmark-outline mdi-24px"></i>
 										</div>
 										<div class="col-10 pl-3 my-auto">
-											<h5 class="mb-1 text-primary">{{$todos->titulo}}</h5>
+											<h5 class="mb-1 text-primary">{{$todos->titulo}} <small class="text-capitalize">({{$todos->tipo}})</small></h5>
 											<small>{{$todos->subtitulo}}</small>
 										</div>								
 									</div>
