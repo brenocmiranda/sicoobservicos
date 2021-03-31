@@ -84,7 +84,7 @@ class TecnologiaCtrl extends Controller
 	// Exibir todos chamados
     public function ExibirChamados(){
         if(Auth::user()->RelationFuncao->ver_gti == 1 || Auth::user()->RelationFuncao->gerenciar_gti == 1){
-            $chamados = Chamados::orderBy('created_at', 'ASC')->get();
+            $chamados = Chamados::orderBy('updated_at', 'DESC')->get();
             $chamadosEmaberto = 0;
             $chamadosEmandamento = 0;
             $chamadosEncerrado = 0;
@@ -123,8 +123,7 @@ class TecnologiaCtrl extends Controller
                 'gti_id_status' => $finalizar->id,
                 'descricao' => (isset($request->descricao) ? $request->descricao : "Chamado finalizado por ".Auth::user()->RelationAssociado->nome."."),
                 'usr_id_usuarios' => Auth::id()
-            ]);
-            
+            ]);            
             // Cadastramento de vários arquivos 
 	        if ($request->arquivos) {
 	            foreach($request->arquivos as $arq){
@@ -134,8 +133,10 @@ class TecnologiaCtrl extends Controller
 	                ]);
 	            }
 	        }
-
+            // Alteração feita para atualizar a ordem de tratamento
             $create = Chamados::find($id);
+            $atualizacao = Chamados::where('id', $id)->update(['assunto' => $create->assunto]);
+            // Criando notificações por e-mail
             $create->RelationUsuario->notify(new SolicitacaoChamadosCliente($create));
             Atividades::create([
                 'nome' => 'Encerramento de chamado',
@@ -172,7 +173,6 @@ class TecnologiaCtrl extends Controller
                 'descricao' => (isset($request->descricao) ? $request->descricao : "Estado do chamado alterado por ".Auth::user()->RelationAssociado->nome."."),
                 'usr_id_usuarios' => Auth::id()
             ]);
-            
             // Cadastramento de vários arquivos 
 	        if ($request->arquivos) {
 	            foreach($request->arquivos as $arq){
@@ -182,9 +182,11 @@ class TecnologiaCtrl extends Controller
 	                ]);
 	            }
 	        }
-
-	        $chamado->RelationUsuario->notify(new SolicitacaoChamadosCliente($chamado));  
-            
+            // Alteração feita para atualizar a ordem de tratamento
+            $create = Chamados::find($id);
+            $atualizacao = Chamados::where('id', $id)->update(['assunto' => $create->assunto]);
+            // Criando notificações por e-mail
+	        $chamado->RelationUsuario->notify(new SolicitacaoChamadosCliente($chamado));             
             Atividades::create([
                 'nome' => 'Alteração de estado do chamado',
                 'descricao' => 'Você modificou o status do chamado, '.$chamado->assunto.'.',
