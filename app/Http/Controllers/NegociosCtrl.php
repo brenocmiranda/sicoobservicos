@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
+use App\Models\Atividades;
 use App\Models\Associados;
 use App\Models\AssociadosConglomerados;
 use App\Models\ContaCapital;
@@ -39,22 +41,18 @@ class NegociosCtrl extends Controller
 	}
 	public function DatatablesAnalise(){
 		if(Auth::user()->RelationFuncao->gerenciar_negocios == 1){
-	        $dados = ContaCapital::leftJoin('cli_associados', 'cli_id_associado', 'cli_associados.id')
-	        ->where('situacao_capital', '!=', 'DEMITIDO')
-	        ->where('situacao_capital', '!=', 'EXCLUÍDO')
-	        ->where('sigla', 'PF')
-	        ->select('cli_id_associado', 'nome', 'documento', 'renda', 'nome_gerente', 'PA')
-	        ->get();  
+	        $dados = DB::select("SELECT (SELECT status FROM neg_carteira_status where neg_id_carteira = neg_carteira.id ORDER BY neg_carteira_status.created_at DESC LIMIT 1) as statusCarteira, cca_contacapital.cli_id_associado, nome, documento, renda, nome_gerente, PA FROM cca_contacapital LEFT JOIN cli_associados ON cca_contacapital.cli_id_associado = cli_associados.id LEFT JOIN neg_carteira ON cca_contacapital.cli_id_associado = neg_carteira.cli_id_associado WHERE situacao_capital != 'DEMITIDO' AND situacao_capital != 'EXCLUÍDO' AND sigla = 'PF'");
 			foreach ($dados as $key => $value) {
-				$carteira = NegociosCarteira::where('cli_id_associado', $value->cli_id_associado)->first();
-				if(!isset($carteira) || $carteira->RelationStatus->status == 'aberto'){
+				if(!isset($dados[$key]->statusCarteira) || $dados[$key]->statusCarteira == 'aberto'){
 					$dados[$key]->documento = (strlen($dados[$key]->documento) == 11 ? substr($dados[$key]->documento, 0, 3).'.'.substr($dados[$key]->documento, 3, 3).'.'.substr($dados[$key]->documento, 6, 3).'-'.substr($dados[$key]->documento, 9, 2) : substr($dados[$key]->documento, 0, 2).'.'.substr($dados[$key]->documento, 3, 3).'.'.substr($dados[$key]->documento, 6, 3).'/'.substr($dados[$key]->documento, 8, 4).'-'.substr($dados[$key]->documento, 12, 2));
 					$dados[$key]->gerente = explode(' ', $dados[$key]->nome_gerente)[0];
-					$dados[$key]->acoes = (isset($carteira) ? 
+					$dados[$key]->acoes = (isset($dados[$key]->statusCarteira) ? 
 						'<a href="'.route('executar.analise.negocios', $dados[$key]->cli_id_associado).'" class="btn btn-dark btn-xs btn-rounded mx-1" id="analisar" title="Analisar o associado"><i class="mx-0 mdi mdi-clipboard-outline"></i></a>
+						<a href="javascript:" class="btn btn-dark btn-xs btn-rounded ml-1" id="remover" title="Remover o associado da análise"><i class="mx-0 mdi mdi-account-remove"></i></a>
 						<a href="javascript:" class="btn btn-dark btn-xs btn-rounded ml-1" id="encaminhar" title="Encaminhar o associado para análise"><i class="mx-0 mdi mdi-subdirectory-arrow-right"></i></a>' : 
-						'<a href="'.route('executar.analise.negocios', $dados[$key]->cli_id_associado).'" class="btn btn-dark btn-xs btn-rounded mx-1" id="analisar" title="Analisar o associado"><i class="mx-0 mdi mdi-clipboard-outline"></i></a>');
-					$dados[$key]->analise = (isset($carteira) ? '<div class="badge badge-success">Em aberto</div>' : '<div class="badge badge-danger">Não possui</div>');
+						'<a href="'.route('executar.analise.negocios', $dados[$key]->cli_id_associado).'" class="btn btn-dark btn-xs btn-rounded mx-1" id="analisar" title="Analisar o associado"><i class="mx-0 mdi mdi-clipboard-outline"></i></a>
+						<a href="javascript:" class="btn btn-dark btn-xs btn-rounded ml-1" id="remover" title="Remover o associado da análise"><i class="mx-0 mdi mdi-account-remove"></i></a>');
+					$dados[$key]->status = (isset($dados[$key]->statusCarteira) ? '<div class="badge badge-success">Em aberto</div>' : '<div class="badge badge-danger">Não possui</div>');
 					$novo[] = $dados[$key];
 				}
 			}
@@ -141,6 +139,14 @@ class NegociosCtrl extends Controller
 						'usr_id_usuarios' => $request->usr_id_usuarios,
 						'neg_id_carteira' => $request->id_carteira
 					]);
+					$associado = Associados::find($id);
+					Atividades::create([
+						'nome' => 'Você executou uma análise',
+						'descricao' => 'Você realizou o cadastrado de uma análise do associado: '.$associado->nome.'.',
+						'icone' => 'mdi-clipboard-outline',
+						'url' => 'javascript:',
+						'id_usuario' => Auth::id()
+					]);
 				}else{
 				// Encaminhando para um dos atendentes
 					$status = NegociosCarteiraStatus::create([
@@ -148,6 +154,14 @@ class NegociosCtrl extends Controller
 						'observacoes' => $request->observacoes,
 						'usr_id_usuarios' => $request->usr_id_usuarios,
 						'neg_id_carteira' => $request->id_carteira
+					]);
+					$associado = Associados::find($id);
+					Atividades::create([
+						'nome' => 'Você encaminhou a análise para tratamento',
+						'descricao' => 'Você encaminhou a análise de '.$associado->nome.' para tratamento.',
+						'icone' => 'mdi-subdirectory-arrow-right',
+						'url' => 'javascript:',
+						'id_usuario' => Auth::id()
 					]);
 				}	
 			}else{
@@ -194,6 +208,14 @@ class NegociosCtrl extends Controller
 						'usr_id_usuarios' => $request->usr_id_usuarios,
 						'neg_id_carteira' => $create->id
 					]);
+					$associado = Associados::find($id);
+					Atividades::create([
+						'nome' => 'Você executou uma análise',
+						'descricao' => 'Você realizou o cadastrado de uma análise do associado: '.$associado->nome.'.',
+						'icone' => 'mdi-clipboard-outline',
+						'url' => 'javascript:',
+						'id_usuario' => Auth::id()
+					]);
 				}else{
 				// Salvando e encaminhando a análise
 					$status = NegociosCarteiraStatus::create([
@@ -208,6 +230,21 @@ class NegociosCtrl extends Controller
 						'usr_id_usuarios' => $request->usr_id_usuarios,
 						'neg_id_carteira' => $create->id
 					]);
+					$associado = Associados::find($id);
+					Atividades::create([
+						'nome' => 'Você executou uma análise',
+						'descricao' => 'Você realizou o cadastrado de uma análise do associado: '.$associado->nome.'.',
+						'icone' => 'mdi-clipboard-outline',
+						'url' => 'javascript:',
+						'id_usuario' => Auth::id()
+					]);
+					Atividades::create([
+						'nome' => 'Você encaminhou a análise para tratamento',
+						'descricao' => 'Você encaminhou a análise de '.$associado->nome.' para tratamento.',
+						'icone' => 'mdi-subdirectory-arrow-right',
+						'url' => 'javascript:',
+						'id_usuario' => Auth::id()
+					]);
 				}	
 			}
 			return redirect(route('exibir.analise.negocios'));
@@ -219,7 +256,7 @@ class NegociosCtrl extends Controller
 	public function EncaminharAnalise($id){
 		if(Auth::user()->RelationFuncao->gerenciar_negocios == 1){
 			$dados = NegociosCarteira::where('cli_id_associado', $id)->first();
-				// Encaminhando registro
+			// Encaminhando registro
 			if($dados->RelationStatus->status == "aberto"){
 				NegociosCarteiraStatus::create([
 					'status' => 'andamento', 
@@ -227,10 +264,75 @@ class NegociosCtrl extends Controller
 					'usr_id_usuarios' => $dados->RelationStatus->usr_id_usuarios,
 					'neg_id_carteira' => $dados->id,
 				]);
+				$associado = Associados::find($dados->cli_id_associado);
+				Atividades::create([
+					'nome' => 'Você encaminhou a análise para tratamento',
+					'descricao' => 'Você encaminhou a análise de '.$associado->nome.' para tratamento.',
+					'icone' => 'mdi-subdirectory-arrow-right',
+					'url' => 'javascript:',
+					'id_usuario' => Auth::id()
+				]);
 				return response()->json(['success' => true]);
 			}else{
 				return response()->json(['success' => false]);
 			}
+		}else{
+			return redirect(route('403'));
+		}
+	}
+	// Não executar contato
+	public function RemoverAnalise(Request $request, $id){
+		if(Auth::user()->RelationFuncao->gerenciar_negocios == 1){
+			// Criando portfólio 
+			$create = NegociosCarteira::create([
+				'especial_atual' => '0.00', 
+				'cartao_atual' =>  '0.00',
+				'emp_atual' =>  '0.00',
+				'fin_atual' =>  '0.00',
+				'svida_atual' =>  '0.00',
+				'sgeral_atual' =>  '0.00',
+				'consorcio_atual' =>  '0.00',
+				'previdencia_atual' =>  '0.00',
+				'especial_sugerido' =>  '0.00',
+				'cartao_sugerido' =>  '0.00',
+				'emp_sugerido' =>  '0.00',
+				'fin_sugerido' => '0.00',
+				'svida_sugerido' =>'0.00',
+				'sgeral_sugerido' => '0.00',
+				'consorcio_sugerido' => '0.00',
+				'previdencia_sugerido' => '0.00',
+				'bc_data' => null,
+				'bc_consignados' => '0.00',
+				'bc_creditopessoal' => '0.00',
+				'bc_chequeespecial' => '0.00',
+				'bc_cartao' => '0.00',
+				'bc_financiamento' => '0.00',
+				'bc_dividavencida' => null,
+				'se_data' => null,
+				'se_restricao' => null,
+				'se_restricao_data' => null,
+				'se_restricao_tipo' => null,
+				'se_restricao_valor' => null,
+				'se_endereco' => null,
+				'se_telefone' => null,
+				'cli_id_associado' => $id,
+			]);
+			// Encaminhando registro
+			NegociosCarteiraStatus::create([
+				'status' => 'excecao', 
+				'observacoes' => $request->observacoes,
+				'usr_id_usuarios' => Auth::id(),
+				'neg_id_carteira' => $create->id,
+			]);
+			$associado = Associados::find($id);
+			Atividades::create([
+				'nome' => 'Você excluir um associado da análise',
+				'descricao' => 'Você removeu o associado '.$associado->nome.' do processo de análise.',
+				'icone' => 'mdi-account-remove',
+				'url' => 'javascript:',
+				'id_usuario' => Auth::id()
+			]);
+			return response()->json(['success' => true]);
 		}else{
 			return redirect(route('403'));
 		}
@@ -287,6 +389,14 @@ class NegociosCtrl extends Controller
 				'usr_id_usuarios' => Auth::id(),
 				'neg_id_carteira' => $request->id_carteira
 			]);
+			$associado = Associados::find($dados->cli_id_associado);
+			Atividades::create([
+				'nome' => 'Você executou um tratamento',
+				'descricao' => 'Você tratou a análise do associado: '.$associado->nome.'.',
+				'icone' => 'mdi-headset',
+				'url' => 'javascript:',
+				'id_usuario' => Auth::id()
+			]);
 			return redirect(route('exibir.carteira.negocios'));
 		}else{
 			\Session::flash('error', array(
@@ -307,6 +417,14 @@ class NegociosCtrl extends Controller
 				'usr_id_usuarios' => Auth::id(),
 				'neg_id_carteira' => $dados->id,
 			]);
+			$associado = Associados::find($dados->cli_id_associado);
+			Atividades::create([
+				'nome' => 'Você devolveu a análise para correções',
+				'descricao' => 'Você devolveu a análise de '.$associado->nome.' para alterações.',
+				'icone' => 'mdi-subdirectory-arrow-right',
+				'url' => 'javascript:',
+				'id_usuario' => Auth::id()
+			]);
 			return response()->json(['success' => true]);
 		}else{
 			return response()->json(['success' => false]);
@@ -325,10 +443,10 @@ class NegociosCtrl extends Controller
 			$dados[$key]->documento1 = (strlen($dados[$key]->RelationAssociado->documento) == 11 ? substr($dados[$key]->RelationAssociado->documento, 0, 3).'.'.substr($dados[$key]->RelationAssociado->documento, 3, 3).'.'.substr($dados[$key]->RelationAssociado->documento, 6, 3).'-'.substr($dados[$key]->RelationAssociado->documento, 9, 2) : substr($dados[$key]->RelationAssociado->documento, 0, 2).'.'.substr($dados[$key]->RelationAssociado->documento, 3, 3).'.'.substr($dados[$key]->RelationAssociado->documento, 6, 3).'/'.substr($dados[$key]->RelationAssociado->documento, 8, 4).'-'.substr($dados[$key]->RelationAssociado->documento, 12, 2));
 			$dados[$key]->nome = $dados[$key]->RelationAssociado->nome;
 			$dados[$key]->colaborador = $dados[$key]->RelationStatus->RelationUsuario->RelationAssociado->nome;
-			$dados[$key]->data = date('d/m/Y', strtotime($dados[$key]->RelationStatus->created_at));
+			$dados[$key]->data = date('d/m/Y H:i', strtotime($dados[$key]->RelationStatus->created_at));
 			$dados[$key]->acoes = '<a href="'.route('executar.acompanhamento.negocios', $dados[$key]->RelationAssociado->id).'" class="btn btn-dark btn-xs btn-rounded mx-1" id="detalhes" title="Detalhes da análise"><i class="mx-0 mdi mdi-account-outline"></i></a>
 			<a href="javascript:" class="btn btn-dark btn-xs btn-rounded ml-1" id="alterar" title="Alterar estado do registro"><i class="mx-0 mdi mdi-autorenew"></i></a>';
-			$dados[$key]->status1 = ($dados[$key]->RelationStatus->status == 'aberto' ? '<div class="badge badge-success">Em aberto</div>' : ($dados[$key]->RelationStatus->status == 'andamento' ? '<div class="badge badge-info">Em andamento</div>' : '<div class="badge badge-danger">Finalizado</div>'));
+			$dados[$key]->status1 = ($dados[$key]->RelationStatus->status == 'aberto' ? '<div class="badge badge-success">Em aberto</div>' : ($dados[$key]->RelationStatus->status == 'andamento' ? '<div class="badge badge-info">Em andamento</div>' : ($dados[$key]->RelationStatus->status == 'excecao' ? '<div class="badge badge-warning">Não contatar</div>' : '<div class="badge badge-danger">Finalizado</div>')));
 		}
 		return response()->json($dados);
 	}

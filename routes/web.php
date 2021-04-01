@@ -277,6 +277,7 @@ Route::group(['prefix' => 'app'], function(){
 			Route::get('executar/{id}', 'NegociosCtrl@ExecutarAnalise')->name('executar.analise.negocios');
 			Route::post('finalizar/{id}', 'NegociosCtrl@SalvarAnalise')->name('finalizar.analise.negocios');
 			Route::get('encaminhar/{id}', 'NegociosCtrl@EncaminharAnalise')->name('encaminhar.analise.negocios');
+			Route::post('remover/{id}', 'NegociosCtrl@RemoverAnalise')->name('remover.analise.negocios');
 		});
 		// Carteira
 		Route::group(['prefix' => 'carteira'], function(){

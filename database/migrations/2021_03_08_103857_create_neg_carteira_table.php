@@ -43,7 +43,7 @@ class CreateNegCarteiraTable extends Migration
             $table->double('consorcio_contratado')->nullable();
             $table->double('previdencia_contratado')->nullable();
 
-            $table->string('bc_data');
+            $table->string('bc_data')->nullable();
             $table->double('bc_consignados')->nullable();
             $table->double('bc_creditopessoal')->nullable();
             $table->double('bc_chequeespecial')->nullable();
@@ -51,8 +51,8 @@ class CreateNegCarteiraTable extends Migration
             $table->double('bc_financiamento')->nullable();
             $table->string('bc_dividavencida');
 
-            $table->string('se_data');
-            $table->string('se_restricao');
+            $table->string('se_data')->nullable();
+            $table->string('se_restricao')->nullable();
             $table->text('se_restricao_data')->nullable();
             $table->text('se_restricao_tipo')->nullable();
             $table->text('se_restricao_valor')->nullable();

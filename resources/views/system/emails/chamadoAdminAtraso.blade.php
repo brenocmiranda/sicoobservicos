@@ -25,14 +25,12 @@
 							@foreach($todos as $dados)
 							<p>
 								<ul>
-									<li><b>Chamado:</b> {{$dados->id}}</li>
+									<li><b>Nº chamado:</b> #{{$dados->id}}</li>
 									<li><b>Ambiente:</b> {{$dados->RelationAmbientes->nome}}</li>
 									<li><b>Fonte:</b> {{$dados->RelationFontes->nome}}</li>
 									<li><b>Assunto:</b> {{$dados->assunto}}</li>
+									<li><a href="{{route('detalhes.chamados.gti', $dados->id)}}" target="_blank"><b>Mais informações</b></a></li>
 								</ul>
-								<p>
-									<a href="{{route('detalhes.chamados.gti', $dados->id)}}" target="_blank"><b>Mais informações.</b></a>
-								</p>
 							</p>
 							@endforeach				
 							<p> Estamos a disposição!</p>
