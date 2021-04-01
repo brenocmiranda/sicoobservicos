@@ -49,7 +49,7 @@ Abertura de chamado
 							<div class="col-lg-12 col-12 row mx-auto mb-4">
 								<div class="form-group mb-2 col-lg-4 col-10 px-0">
 									<label class="col-form-label pb-0">ID TeamViewer</label>
-									<input class="form-control form-control-line teamViewer" name="teamViewer" placeholder="0 000 000 000" required/>
+									<input class="form-control form-control-line teamViewer" name="teamViewer" placeholder="0 000 000 000"/>
 								</div>
 								<div class="col-lg-2 col-2">
 									<span class="mytooltip tooltip-effect-1">

@@ -18,7 +18,7 @@ class CreateAdmMateriaisHistorico extends Migration
             $table->bigIncrements('id');
             $table->enum('tipo', ['e', 's']); // s -> saída  e -> entrada
             $table->integer('quantidade');
-            $table->string('quantidade_tipo');
+            $table->string('quantidade_tipo')->nullable();
             $table->text('motivo')->nullable();
             $table->text('observacoes')->nullable();
             $table->bigInteger('id_material')->unsigned();

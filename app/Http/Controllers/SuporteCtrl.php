@@ -42,10 +42,10 @@ class SuporteCtrl extends Controller
 	public function Aprendizagem(){
         if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
 		    $ambientes = Base::join('gti_ambientes', 'gti_id_ambientes', 'gti_ambientes.id')->where('gti_ambientes.status', 1)->select('gti_ambientes.*')->orderBy('nome', 'ASC')->groupBy('gti_base.gti_id_ambientes')->get();
-		    $fontes = Base::join('gti_fontes', 'gti_id_fontes', 'gti_fontes.id')->where('gti_fontes.status', 1)->select('gti_fontes.*')->orderBy('nome', 'ASC')->get();
+		    $fontes = Base::join('gti_fontes', 'gti_id_fontes', 'gti_fontes.id')->where('gti_fontes.status', 1)->select('gti_fontes.*')->orderBy('nome', 'ASC')->groupBy('gti_base.gti_id_fontes')->get();
         }else{
             $ambientes = Base::join('gti_ambientes', 'gti_id_ambientes', 'gti_ambientes.id')->where('gti_ambientes.status', 1)->where('tipo', 'externo')->select('gti_ambientes.*')->orderBy('nome', 'ASC')->groupBy('gti_base.gti_id_ambientes')->get();
-            $fontes = Base::join('gti_fontes', 'gti_id_fontes', 'gti_fontes.id')->where('gti_fontes.status', 1)->where('tipo', 'externo')->select('gti_fontes.*')->orderBy('nome', 'ASC')->get();
+            $fontes = Base::join('gti_fontes', 'gti_id_fontes', 'gti_fontes.id')->where('gti_fontes.status', 1)->where('tipo', 'externo')->select('gti_fontes.*')->orderBy('nome', 'ASC')->groupBy('gti_base.gti_id_fontes')->get();
         }
 		return view('suporte.base.exibir')->with('ambientes', $ambientes)->with('fontes', $fontes);	
 	}
@@ -115,7 +115,6 @@ class SuporteCtrl extends Controller
             'gti_id_fontes' => $request->gti_id_fontes,             
             'usr_id_usuarios' => Auth::id(), 
         ]);
-
         // Cadastramento do status de abertura
         $statusAbertura = Status::where('open', 1)->first();
         $status = ChamadosStatus::create([
@@ -123,7 +122,6 @@ class SuporteCtrl extends Controller
             'gti_id_status' => $statusAbertura->id,
             'descricao' => "Abertura do chamado registrado junto a equipe de TI. Aguarde alguns instantes que logo estaremos analisando sua solicitação."
         ]);
-
         // Cadastramento de vários arquivos 
         if ($request->arquivos) {
             foreach($request->arquivos as $arq){
@@ -133,10 +131,9 @@ class SuporteCtrl extends Controller
                 ]);
             }
         }
-
+        // Criando notificações por e-mail
         Auth::user()->notify(new SolicitacaoChamadosCliente($create));  
         $this->email->notify(new SolicitacaoChamadosAdmin($create));
-
         Atividades::create([
             'nome' => 'Abertura de chamado',
             'descricao' => 'Você efetuou a abertura de uma chamado, '.$create->assunto.'.',
@@ -162,7 +159,6 @@ class SuporteCtrl extends Controller
             'descricao' => (isset($request->descricao) ? $request->descricao : "Chamado finalizado por ".Auth::user()->RelationAssociado->nome."."),
             'usr_id_usuarios' => Auth::id()
         ]);
-        
         // Cadastramento de vários arquivos 
         if ($request->arquivos) {
             foreach($request->arquivos as $arq){
@@ -172,8 +168,10 @@ class SuporteCtrl extends Controller
                 ]);
             }
         }
-
+        // Alteração feita para atualizar a ordem de tratamento
         $create = Chamados::find($id);
+        $atualizacao = Chamados::where('id', $id)->update(['assunto' => $create->assunto]);
+        // Criando notificações por e-mail
         $create->RelationUsuario->notify(new SolicitacaoChamadosCliente($status));  
         Atividades::create([
             'nome' => 'Encerramento de chamado',
@@ -195,10 +193,10 @@ class SuporteCtrl extends Controller
                 'descricao' =>  $request->descricao,
                 'usr_id_usuarios' => Auth::id()
             ]);
-
-            $create = Chamados::find($id);
             // Alteração feita para atualizar a ordem de tratamento
-            $atualizacao = Chamados::find($id)->update('assunto', $create->assunto);
+            $create = Chamados::find($id);
+            $atualizacao = Chamados::where('id', $id)->update(['assunto' => $create->assunto]);
+            // Criando notificações por e-mail
             Auth::user()->notify(new SolicitacaoChamadosReCliente($create));  
             $this->email->notify(new SolicitacaoChamadosReAdmin($create));
             Atividades::create([
@@ -278,7 +276,6 @@ class SuporteCtrl extends Controller
                 'descricao' => (isset($request->descricao) ? $request->descricao : "Estado do chamado alterado por ".Auth::user()->RelationAssociado->nome."."),
                 'usr_id_usuarios' => Auth::id()
             ]);
-
             // Cadastramento de vários arquivos 
             if ($request->arquivos) {
                 foreach($request->arquivos as $arq){
@@ -288,7 +285,9 @@ class SuporteCtrl extends Controller
                     ]);
                 }
             }
-
+            // Alteração feita para atualizar a ordem de tratamento
+            $atualizacao = Chamados::where('id', $id)->update(['assunto' => $chamado->assunto]);
+            // Criando notificações por e-mail
             $this->email->notify(new SolicitacaoChamadosAdmin($chamado)); 
             Atividades::create([
                 'nome' => 'Nova mensagem cadastrada',

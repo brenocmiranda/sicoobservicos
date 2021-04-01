@@ -43,26 +43,24 @@ Tópicos
 								@foreach($topicos as $topico)
 								<li class="row mx-auto">
 									<div class="row mx-auto col-12 border shadow-sm rounded my-2 p-3">
-										<div class="col-10">
+										<div class="col-lg-10 col-8">
 											<a href="{{route('detalhes.base', $topico->id)}}">
 												<div>
 													<h6>{{$topico->RelationAmbientes->nome}} &#183 {{$topico->RelationFontes->nome}}</h6>
 													<h5>{{$topico->titulo}} <small class="text-capitalize">({{$topico->tipo}})</small></h5>
 										            <label>{{$topico->subtitulo}}</label> 
-										            <br>
-										            
 												</div>
 											</a>
 										</div>
-										<div class="col-2 m-auto row text-right">
+										<div class="col-lg-2 col-4 m-auto row text-right">
 											<div class="ml-auto">
-								              <a href="{{route('editar.base.aprendizagem', $topico->id)}}" class="btn btn-default btn-rounded btn-outline btn-xs px-3 my-1 col-10">
+								              <a href="{{route('editar.base.aprendizagem', $topico->id)}}" class="btn btn-default btn-rounded btn-outline btn-xs px-lg-3 my-1 col-10">
 								                <i class="mdi mdi-pencil"></i>
-								                <small>Editar</small>
+								                <small class="hidden-xs">Editar</small>
 								              </a>
-								              <a href="javascript:void(0)" data="{{route('delete.base.aprendizagem', $topico->id)}}" class="btn-delete btn btn-default btn-rounded btn-outline btn-xs px-3 my-1 col-10">
+								              <a href="javascript:void(0)" data="{{route('delete.base.aprendizagem', $topico->id)}}" class="btn-delete btn btn-default btn-rounded btn-outline btn-xs px-lg-3 my-1 col-10">
 								                <i class="mdi mdi-close"></i>
-								                <small>Remover</small>
+								                <small class="hidden-xs">Remover</small>
 								              </a>
 								            </div>
 										</div>

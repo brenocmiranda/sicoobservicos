@@ -51,7 +51,7 @@ Solicitações de Suporte
                     	<?php $i=0; ?>
                     	@foreach($statusAtivos as $status)
                         <section id="section-{{$status->id}}" class="{{($status->id == 1 ? 'content-current' : '')}}">
-                            <ul class="row col-12 m-auto px-0">
+                            <ul class="row col-12 m-auto px-0" id="chamados">
                             	@if($status->nome == 'Encerrado')
 									@foreach($chamados->sortByDesc('updated_at') as $chamado)
 										@if($chamado->RelationStatus->first()->id == $status->id)
@@ -221,6 +221,16 @@ Solicitações de Suporte
 	  }
 
 	 $(document).ready( function (){
+	 	// Campo de pesquisa
+		$("input[type=search]").keyup(function(){
+			var texto = $(this).val().toUpperCase();
+			$("#chamados li").css("display", "block");
+			$("#chamados li").each(function(){
+				if($(this).text().indexOf(texto) < 0)
+					$(this).css("display", "none");
+			});
+		});
+
 	 	// Pré-visualização de várias imagens no navegador
 	    $('#addArquivo').on('change', function(event) {
 	      var formData = new FormData();
