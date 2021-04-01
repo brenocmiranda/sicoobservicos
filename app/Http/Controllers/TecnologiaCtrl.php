@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use App\Notifications\SolicitacaoChamadosCliente;
+use App\Notifications\SolicitacaoChamadosAdmin;
 use App\Notifications\SolicitacaoChamadosAdminAtraso;
 use App\Http\Requests\AtivoRqt; 
 use App\Http\Requests\BaseRqt;
@@ -44,6 +45,7 @@ class TecnologiaCtrl extends Controller
 {
 
 	public function __construct(){
+        $this->email = CogEmailsChamado::first();
 		$this->middleware('auth');
 	}
 
@@ -186,7 +188,8 @@ class TecnologiaCtrl extends Controller
             $create = Chamados::find($id);
             $atualizacao = Chamados::where('id', $id)->update(['assunto' => $create->assunto]);
             // Criando notificações por e-mail
-	        $chamado->RelationUsuario->notify(new SolicitacaoChamadosCliente($chamado));             
+	        //$chamado->RelationUsuario->notify(new SolicitacaoChamadosCliente($chamado));     
+            $this->email->notify(new SolicitacaoChamadosAdmin($create));        
             Atividades::create([
                 'nome' => 'Alteração de estado do chamado',
                 'descricao' => 'Você modificou o status do chamado, '.$chamado->assunto.'.',
@@ -269,7 +272,7 @@ class TecnologiaCtrl extends Controller
     	$chamados = Chamados::all();
     	foreach($chamados as $dados){
     		$tempo = explode(':', $dados->RelationStatus->first()->tempo);
-            if(date('d/m/Y H:i:s', strtotime($dados->RelationStatus->first()->pivot->created_at)) < date('d/m/Y H:i:s', strtotime('-'.explode(':', $dados->RelationStatus->first()->tempo)[0].' hours -'.explode(':', $dados->RelationStatus->first()->tempo)[1].' minutes -'.explode(':', $dados->RelationStatus->first()->tempo)[2].' seconds')) && ($dados->RelationStatus->first()->finish != 1)){
+            if($dados->RelationStatus->first()->pivot->created_at < date('Y-m-d H:i:s', strtotime('-'.explode(':', $dados->RelationStatus->first()->tempo)[0].' hours -'.explode(':', $dados->RelationStatus->first()->tempo)[1].' minutes -'.explode(':', $dados->RelationStatus->first()->tempo)[2].' seconds')) && ($dados->RelationStatus->first()->finish != 1)){
                 $atrasados[] = $dados;  
             }
     	}
