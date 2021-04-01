@@ -18,17 +18,32 @@ Executar análise
 			</ol>
 		</div>
 	</div>
-	@if(isset($carteira))
-	<div class="alert alert-warning">
-		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-		</button>
-		<label class="m-0">Este associado já foi analisado, altere as informações e encaminhe-o para o tratamento.</label>
-	</div>
-	@endif
+
 	<form class="form-sample" method="POST" id="formFinalizar" action="{{route('finalizar.analise.negocios', $associado->id)}}" enctype="multipart/form-data" autocomplete="off">
         @csrf
         <input type="hidden" name="id_carteira" value="{{@$carteira->id}}">
+        <div class="row mx-auto col-12 mb-4">
+        	<div class="col-6 px-0 text-left">
+		        <a href="{{route('exibir.analise.negocios')}}">
+					<i class="mdi mdi-arrow-left pr-2"></i> 
+					<span>Voltar</span>
+				</a>
+			</div>
+			<div class="col-6 px-0 text-right">
+				<a href="javascript:" id="remover" class="text-danger">
+					<i class="mdi mdi-close pr-2"></i> 
+					<span>Remover análise do associado</span>
+				</a>
+			</div>
+		</div>
+		@if(isset($carteira))
+		<div class="alert alert-warning">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<label class="m-0">Este associado já foi analisado, altere as informações e encaminhe-o para o tratamento.</label>
+		</div>
+		@endif
 		<div class="card mb-4">
 			<div class="card-header" style="border-top-right-radius: 0.6em; border-top-left-radius: 0.6em;">
 				<h5 class="text-white">Associado <a href="{{route('exibirID.associado.atendimento', $associado->id)}}" target="_blank"><small  class="text-info">(Visualizar painel comercial)</small></a></h5>
@@ -82,10 +97,11 @@ Executar análise
 		            </div>
 					<div class="col-lg-3 col-12">
 		                <h6>Participa de conglomerado?</h6>
-		                <span class="mytooltip tooltip-effect-2">
+		                <span class="mytooltip tooltip-effect-2" style="z-index: 10">
 		               		<label>{!!(isset($associado->RelationConglomerados) ? 'Sim '.'<i class="mdi mdi-information-outline text-danger tooltip-item"></i>' : 'Não')!!}</label>
+		               		@if(isset($associado->RelationConglomerados))
 	                    	<span class="tooltip-content clearfix">
-	                      		<span class="tooltip-text p-4">
+	                      		<span class="tooltip-text p-4" style="font-size: 10px; line-height: 18px">
 	                      			@if(isset($conglomerado))
 						                @foreach($conglomerado as $participante)
 						                	<label class="d-block">&#183 {{$participante->RelationAssociado->nome}}</label>
@@ -95,6 +111,7 @@ Executar análise
 					                @endif
 	                      		</span> 
 	                      	</span>
+	                      	  @endif
                         </span>
 	              	</div>
 					<div class="col-12 col-lg-3">
@@ -343,21 +360,21 @@ Executar análise
 		</div>
 		<hr class="col-10">
 		<div class="row col-12 justify-content-center mx-auto">
-			<a href="{{route('exibir.analise.negocios')}}" class="btn btn-danger col-3 col-lg-3 d-flex align-items-center justify-content-center mx-2">
-				<i class="mdi mdi-arrow-left pr-2"></i> 
-				<span>Voltar</span>
-			</a>
 			<button type="submit" class="btn btn-info col-3 col-lg-3 d-flex align-items-center justify-content-center mx-2" name="button" value="salvar">
 				<i class="mdi mdi-content-save pr-2"></i> 
 				<span>Salvar</span>
 			</button>
 			<button type="submit" class="btn btn-success col-3 col-lg-3 d-flex align-items-center justify-content-center mx-2" name="button" value="encaminhar">
 				<i class="mdi mdi-file-send pr-2"></i> 
-				<span>Enviar</span>
+				<span>Enviar p/ tratamento</span>
 			</button>
 		</div>
 	</form>
 </div>
+@endsection
+
+@section('modal')
+	@include('negocios.analise.remover')
 @endsection
 
 @section('suporte')
@@ -369,6 +386,53 @@ Executar análise
 	$(document).ready( function (){
 		$('.money').mask('000.000.000.000.000,00', {reverse: true});
 		$('.numeroTelefone').mask('(00) 00000-0000');
+
+		// Remover o associado da análise
+		$('#remover').on('click', function(e) {
+			$('#modal-remover #cli_id_associado').val('{{$associado->id}}');
+			$('#modal-remover .nome').html('{{$associado->nome}}');
+			$('#modal-remover').modal('show');
+		});
+
+		// Enviar processo de remoção
+		$('#modal-remover #formRemover').on('submit', function(e){
+			e.preventDefault();
+			$.ajax({
+				url: "{{url('app/negocios/analise/remover')}}/"+$('#modal-remover #cli_id_associado').val(),
+				type: 'POST',
+				data: new FormData(this),
+				processData: false,
+		        contentType: false,
+				beforeSend: function(){
+					$('.modal-body, .modal-footer').addClass('d-none');
+					$('.carregamento').html('<div class="mx-auto text-center my-5"> <div class="col-12"> <div class="spinner-border my-4" role="status"> <span class="sr-only"> Loading... </span> </div> </div> <label>Salvando informações...</label></div>');
+					$('#modal-remover #err').html('');
+				},
+				success: function(data){
+					$('.modal-body, .modal-footer').addClass('d-none');
+					$('.carregamento').html('<div class="mx-auto text-center my-5"><div class="col-12"><i class="col-2 mdi mdi-check-all mdi-48px"></i></div><label>Informações alteradas com sucesso!</label></div>');
+					setTimeout(function(){
+						window.location.href = '{{route('exibir.analise.negocios')}}';
+					}, 1200);
+				}, error: function (data) {
+					setTimeout(function(){
+						$('.modal-body, .modal-footer').removeClass('d-none');
+						$('.carregamento').html('');
+						if(!data.responseJSON){
+							console.log(data.responseText);
+							$('#modal-remover #err').html(data.responseText);
+						}else{
+							$('#modal-remover #err').html('');
+							$('input').removeClass('border-bottom border-danger');
+							$.each(data.responseJSON.errors, function(key, value){
+								$('#modal-remover #err').append('<div class="text-danger mx-4"><p>'+value+'</p></div>');
+								$('input[name="'+key+'"]').addClass('border-bottom border-danger');
+							});
+						}
+					}, 2000);
+				}
+			});
+		});
 
 		// Exibindo restrições serasa
 		$('.se_restricao').on('change', function(){

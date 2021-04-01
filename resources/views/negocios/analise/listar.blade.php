@@ -17,6 +17,7 @@ Análise econômica
 			</ol>
 		</div>
 	</div>
+	
 	<div class="card">
 		<div class="card-body">
 			<div class="col-12 mb-3">
@@ -42,10 +43,13 @@ Análise econômica
 </div>
 @endsection
 
+@section('modal')
+	@include('negocios.analise.remover')
+@endsection
+
 @section('suporte')
 <script type="text/javascript">
-	$(document).ready( function (){
-
+	$(document).ready( function(){
 		// Criando a datatables
 		$.ajax({
 			url: '{{ route("listar.analise.negocios") }}',
@@ -54,7 +58,7 @@ Análise econômica
 				// Carregamento de dados
 				$('.processing-in').addClass('d-none');
 				$('.processing-off').fadeIn();
-				$('#table').fadeIn();
+				$('#table').fadeIn('fast');
 				$('#table').DataTable({
 					deferRender: true,
 					order: [ 1, "asc" ],
@@ -69,7 +73,7 @@ Análise econômica
 					{ "data": "nome", "name":"nome"},
 					{ "data": "gerente", "name":"gerente"},
 					{ "data": "PA", "name":"PA"},
-					{ "data": "analise", "name":"analise"},
+					{ "data": "status", "name":"status"},
 					{ "data": "acoes","name":"acoes"},
 					]
 				});	
@@ -103,6 +107,60 @@ Análise econômica
 							});
 						} else {
 							swal.close();
+						}
+					});
+				});
+
+				// Remover o associado da análise
+				$('#table tbody').on('click', 'a#remover', function(e) {
+					var table = $('#table').DataTable();
+					table.$('tr.selected').removeClass('selected');
+					$(this).parents('tr').addClass('selected');
+					$(this).parent('tr').addClass('selected');
+					var data = table.row('tr.selected').data();
+					$('#modal-remover #cli_id_associado').val(data.cli_id_associado);
+					$('#modal-remover .nome').html(data.nome);
+					$('#modal-remover').modal('show');
+				});
+
+				// Enviar processo de remoção
+				$('#modal-remover #formRemover').on('submit', function(e){
+					e.preventDefault();
+					$.ajax({
+						url: "{{url('app/negocios/analise/remover')}}/"+$('#modal-remover #cli_id_associado').val(),
+						type: 'POST',
+						data: new FormData(this),
+						processData: false,
+				        contentType: false,
+						beforeSend: function(){
+							$('.modal-body, .modal-footer').addClass('d-none');
+							$('.carregamento').html('<div class="mx-auto text-center my-5"> <div class="col-12"> <div class="spinner-border my-4" role="status"> <span class="sr-only"> Loading... </span> </div> </div> <label>Salvando informações...</label></div>');
+							$('#modal-remover #err').html('');
+						},
+						success: function(data){
+							$('.modal-body, .modal-footer').addClass('d-none');
+							$('.carregamento').html('<div class="mx-auto text-center my-5"><div class="col-12"><i class="col-2 mdi mdi-check-all mdi-48px"></i></div><label>Informações alteradas com sucesso!</label></div>');
+							var table = $('#table').DataTable();
+							table.row('tr.selected').remove().draw();
+							setTimeout(function(){
+								$('#modal-remover').modal('hide');
+							}, 2000);
+						}, error: function (data) {
+							setTimeout(function(){
+								$('.modal-body, .modal-footer').removeClass('d-none');
+								$('.carregamento').html('');
+								if(!data.responseJSON){
+									console.log(data.responseText);
+									$('#modal-remover #err').html(data.responseText);
+								}else{
+									$('#modal-remover #err').html('');
+									$('input').removeClass('border-bottom border-danger');
+									$.each(data.responseJSON.errors, function(key, value){
+										$('#modal-remover #err').append('<div class="text-danger mx-4"><p>'+value+'</p></div>');
+										$('input[name="'+key+'"]').addClass('border-bottom border-danger');
+									});
+								}
+							}, 2000);
 						}
 					});
 				});

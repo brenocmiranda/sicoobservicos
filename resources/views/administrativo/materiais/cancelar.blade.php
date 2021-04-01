@@ -25,7 +25,7 @@
               <div class="col-12">
                 <div class="form-group">
                   <label class="col-form-label pb-0">Qual o motivo?</label>
-                  <textarea class="motivo form-control form-control-line" name="motivo" onkeyup="this.value = this.value.toUpperCase();" rows="4" placeholder="Descreve o motivo do cancelamento da solicitação..." required></textarea>
+                  <textarea class="motivo form-control form-control-line" name="motivo" onkeyup="this.value = this.value.toUpperCase();" rows="4" placeholder="Descreva o motivo do cancelamento da solicitação..." required></textarea>
                 </div>
               </div>
             </div>

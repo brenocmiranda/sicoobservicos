@@ -54,7 +54,7 @@ Acompanhamento
 			success: function(table){
 				// Carregamento de dados
 				$('#table').DataTable({
-					order: [ 0, "asc" ],
+					order: [ 3, "asc" ],
 					pageLength: 100,
 					paging: true,
 					select: true,
