@@ -49,7 +49,7 @@
 							@endif
 							<p>
 								<a href="{{route('exibir.solicitacoes.administrativo')}}" target="_blank">
-									<b>Gerencie suas solicitações de materiais</b>
+									<b>Gerencie suas solicitações de materiais.</b>
 								</a>
 							</p>
 						</font>

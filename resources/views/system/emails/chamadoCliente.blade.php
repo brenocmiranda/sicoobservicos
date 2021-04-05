@@ -33,6 +33,9 @@
 								<p>
 									<b>{{$chamado->RelationStatus->first()->pivot->descricao}}</b>
 								</p>
+								<p>
+									<b>{{$chamado->RelationUsuarios->RelationAssociado->nome}}</b>
+								</p>
 							@endif
 							<p>
 								<a href="{{route('exibir.chamados')}}" target="_blank">
