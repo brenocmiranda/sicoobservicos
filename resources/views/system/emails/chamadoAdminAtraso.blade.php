@@ -29,17 +29,11 @@
 									<li><b>Ambiente:</b> {{$dados->RelationAmbientes->nome}}</li>
 									<li><b>Fonte:</b> {{$dados->RelationFontes->nome}}</li>
 									<li><b>Assunto:</b> {{$dados->assunto}}</li>
-									<li><b>Usuário:</b> {{$dados->RelationStatus->first()->RelationUsuario->RelationAssociado->nome}}</li>
 								</ul>
 								<a href="{{route('detalhes.chamados.gti', $dados->id)}}" target="_blank"><b>Acesse aqui para mais informações sobre esse chamado.</b></a>
 							</p>
 							<hr>
 							@endforeach		
-							<p>
-								<a href="{{route('exibir.chamados.gti')}}" target="_blank">
-									<b>Veja aqui todos os chamados que estão tramitando na plataforma.</b>
-								</a>
-							</p>
 						</font>
 					</td>
 				</tr>
