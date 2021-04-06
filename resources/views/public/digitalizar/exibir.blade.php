@@ -167,7 +167,7 @@ Digitalizar
 				</div>	
 			</div>	
 			<div class="row col-12 col-lg-12 mt-5 text-center mx-auto justify-content-center">
-				<button type="submit" id="btn-submit" class="btn btn-success mx-4 col-8 col-lg-2 d-flex align-items-center justify-content-center">
+				<button type="submit" class="btn btn-success mx-4 col-8 col-lg-2 d-flex align-items-center justify-content-center">
 		          	<i class="mdi mdi-send pr-2"></i> 
 		          	<span>Enviar</span>
 		        </button>
@@ -268,7 +268,7 @@ Digitalizar
 		});
 
 		// Abrindo carregamento ao enviar
-		$('#btn-submit').on('click', function(){
+		$('.form-sample').on('submit', function(){
 			$('.preloader').fadeIn();
 		});
 
@@ -291,8 +291,6 @@ Digitalizar
 				$('.totalArquivos input[type=text]').removeAttr('disabled');
 			}
 		});
-
-		
 	});
 </script>
 @endsection
