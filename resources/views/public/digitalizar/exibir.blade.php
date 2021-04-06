@@ -157,7 +157,7 @@ Digitalizar
 								<div class="row col-12 justify-content-center mx-auto mb-2">
 									<input type="text" class="form-control col-8 px-3 h-100" name="nomeArquivos[]" onkeyup="this.value = this.value.toUpperCase();" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo">
 									<label for="fupload1" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px"><i class="mdi mdi-file"></i></label>
-									<input type="file" name="arquivos[]" id="fupload1" class="position-absolute offset-6 col-1 px-0 mt-3" style="opacity: 0" accept="image/*" onchange="outros(this)">
+									<input type="file" id="fupload1" class="position-absolute offset-6 col-1 px-0 mt-3" style="opacity: 0" accept="image/*" onchange="outros(this, 'outros')">
 									<a href="javascript:" title="Remover arquivos" class="btn btn-danger col-2" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;" onclick="remover(this)"><i class="mdi mdi-close"></i></a>
 								</div>
 							</div>
@@ -184,7 +184,7 @@ Digitalizar
 			var formData = new FormData();
 	      	formData.append('_token', '{{csrf_token()}}');
 
-		     if (input.files) {
+		    if (input.files) {
 		        for (i = 0; i < input.files.length; i++) {
 		          formData.append('arquivos[]', input.files[i]);
 		        }
@@ -196,11 +196,11 @@ Digitalizar
 		          contentType: false,
 		          success: function(data){ 
 		            $(input).prev('label').addClass('bg-success');
-		            $(input).prev('label').append('<input type="hidden" name="'+name+'[]" value="'+data+'">')
+		            $(input).prev('label').append('<input type="hidden" name="'+name+'[]" value="'+data+'">');
 		          }
 		        });
 		        $(input).val('');
-		     }
+		    }
 		}else{
 			$(input).prev('label').removeClass('bg-success');
 		}	
@@ -208,16 +208,36 @@ Digitalizar
 	function remover(input){
 		$(input).val('');
 		$(input).prev().prev().removeClass('bg-success');
+		$(input).prev().prev().html('<i class="mdi mdi-file"></i>');
 	}
 
 	// Para outros arquivos
-	function outros(input){
+	function outros(input, name){
 		if(input.value){
-			if( !($(input).prev().prev().val()) ){
-				$(input).prev().prev().val('Arquivo');
-			}
-			$(input).prev().html('<i class="mdi mdi-sync"></i>');
-			$(input).prev().addClass('bg-success');
+			var formData = new FormData();
+	      	formData.append('_token', '{{csrf_token()}}');
+
+		    if (input.files) {
+		        for (i = 0; i < input.files.length; i++) {
+		          formData.append('arquivos[]', input.files[i]);
+		        }
+		        $.ajax({
+		          url: "{{ route('arquivo.digitalizar.enviar') }}",
+		          type: 'POST',
+		          data: formData,
+		          processData: false,
+		          contentType: false,
+		          success: function(data){ 
+		          	if( !($(input).prev().prev().val()) ){
+						$(input).prev().prev().val('Arquivo');
+					}
+					$(input).prev().html('<i class="mdi mdi-sync"></i>');
+					$(input).prev().addClass('bg-success');
+		            $(input).prev('label').append('<input type="hidden" name="'+name+'[]" value="'+data+'">');
+		          }
+		        });
+		        $(input).val('');
+		    }
 		}else{
 			$(input).prev().html('<i class="mdi mdi-file"></i>');
 			$(input).prev().removeClass('bg-success');
@@ -256,10 +276,10 @@ Digitalizar
 		$('#btnAdicionar').on('click', function(){
 			if($('#pagina').val() == 1){
 				t++;
-				$('.totalArquivos').append('<div class="row col-12 justify-content-center mx-auto mb-2"> <input type="text" class="form-control col-8 px-3 h-100" name="nomeArquivos[]" onkeyup="this.value = this.value.toUpperCase();" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" required> <label for="fupload'+t+'" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px"><i class="mdi mdi-file"></i></label> <input type="file" name="arquivos[]" id="fupload'+t+'" class="mb-3 text-white col-lg-11 col-10 d-none" accept=".jpg, .jpeg, .png, .svg" onchange="outros(this)" required> <a href="javascript:" title="Remover arquivos" class="btn btn-danger col-2" onclick="deletar(this)" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-close"></i></a> </div>'); 
+				$('.totalArquivos').append('<div class="row col-12 justify-content-center mx-auto mb-2"> <input type="text" class="form-control col-8 px-3 h-100" name="nomeArquivos[]" onkeyup="this.value = this.value.toUpperCase();" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" required> <label for="fupload'+t+'" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px"><i class="mdi mdi-file"></i></label> <input type="file" id="fupload'+t+'" class="mb-3 text-white col-lg-11 col-10 d-none" accept=".jpg, .jpeg, .png, .svg" onchange="outros(this, "outros")" required> <a href="javascript:" title="Remover arquivos" class="btn btn-danger col-2" onclick="deletar(this)" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-close"></i></a> </div>'); 
 			}else{
 				t++;
-				$('.totalArquivos').append('<div class="row col-12 justify-content-center mx-auto mb-2"> <input type="text" class="form-control col-8 px-3 h-100" name="nomeArquivos[]" onkeyup="this.value = this.value.toUpperCase();" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" disabled> <label for="fupload'+t+'" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px"><i class="mdi mdi-file"></i></label> <input type="file" name="arquivos[]" id="fupload'+t+'" class="mb-3 text-white col-lg-11 col-10 d-none" accept=".jpg, .jpeg, .png, .svg"  onchange="outros(this)" required> <a href="javascript:" title="Remover arquivos" class="btn btn-danger col-2" onclick="deletar(this)" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-close"></i></a> </div>'); 
+				$('.totalArquivos').append('<div class="row col-12 justify-content-center mx-auto mb-2"> <input type="text" class="form-control col-8 px-3 h-100" name="nomeArquivos[]" onkeyup="this.value = this.value.toUpperCase();" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" disabled> <label for="fupload'+t+'" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px"><i class="mdi mdi-file"></i></label> <input type="file" id="fupload'+t+'" class="mb-3 text-white col-lg-11 col-10 d-none" accept=".jpg, .jpeg, .png, .svg"  onchange="outros(this, "outros")" required> <a href="javascript:" title="Remover arquivos" class="btn btn-danger col-2" onclick="deletar(this)" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-close"></i></a> </div>'); 
 			}
 			
 		});

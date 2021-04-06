@@ -195,7 +195,7 @@ class PublicCtrl extends Controller
             }
         }
     }
-
+    // Transformando imagens em pdf
 	public function Upload(Request $request){
 		// Documento de identificação
 		if(isset($request->identificacao)){
@@ -475,14 +475,13 @@ class PublicCtrl extends Controller
 			copy($file, $newfile);
 		}
 
-		/* Outros arquivos
-		if (isset($request->arquivos)) {
+		// Outros arquivos
+		if (isset($request->outros)) {
 			if($request->pagina == 1){
-		        foreach($request->arquivos as $key => $arq){
-		        	// Copia arquivo para servidor com a nomeclatura
+		        foreach($request->outros as $key => $arq){
+		        	/* Copia arquivo para servidor com a nomeclatura
 	            	$nameFile = 'Digitalizar_'.date('Y_m_d_H_i_s_').$key.'.'.$arq->getClientOriginalExtension();
 					$upload = $arq->storeAs('digitalizar', $nameFile);
-
 					// Compactando a imagem
 					$info = getimagesize(storage_path().'/app/digitalizar/'.$nameFile);
 					if ($info['mime'] == 'image/jpeg') {
@@ -492,7 +491,6 @@ class PublicCtrl extends Controller
 					}elseif ($info['mime'] == 'image/png') {
 				        $image = imagecreatefrompng(storage_path().'/app/digitalizar/'.$nameFile);
 					}
-					
 					// Alterando a orientação da imagem
 					$exif = @exif_read_data($arq);
 	                if(!empty($exif['Orientation'])) {
@@ -515,21 +513,21 @@ class PublicCtrl extends Controller
 	                }	
 					// Gerando nova imagem
 					imagejpeg($newimage, storage_path().'/app/digitalizar/'.$nameFile, 30);
-
+					*/
 					// Criando nome do arquivo do PDF
 					if($request->nomeArquivos[$key]){
-						if(is_dir("//10.11.26.1/digitalizarss$/".$request->usuario.'/'.$request->nomePasta.'/'.$request->nomeArquivos[$key].'.pdf')){
+						if(is_dir("//10.11.26.1/digitalizarss$/".date('d-m-Y').'/'.$request->nomePasta.'/'.$request->nomeArquivos[$key].'.pdf')){
 							$namePdf = $request->nomeArquivos[$key].'.pdf';
 						}else{
 							$namePdf = $request->nomeArquivos[$key].date('His').'.pdf';
 						}
 					}else{
-						$namePdf = str_replace('.'.$arq->getClientOriginalExtension(), '', $nameFile).'.pdf';
+						$namePdf = str_replace('.'.$arq->getClientOriginalExtension(), '', $request->outros[$key]).'.pdf';
 					}
 					
 					// HTML para criação do PDF
 					$usuario = Usuarios::where('login', $request->usuario)->first();
-					$html = '<div><img src="'.asset('storage/app/digitalizar/'.$nameFile).'" style="max-width: 100%; max-height: 27cm;"><div style="font-size: 1.5px !important; text-align:right; color:white; width:100%; background-color: #292828; padding-right: 1px; padding-top: 0.5px; padding-bottom: 0.5px;">Confere com o original <br> '.$usuario->RelationAssociado->nome.'</div></div>';
+					$html = '<div><img src="'.asset('storage/'.$request->outros[$key]).'" style="max-width: 100%; max-height: 27cm;"><div style="font-size: 1.5px !important; text-align:right; color:white; width:100%; background-color: #292828; padding-right: 1px; padding-top: 0.5px; padding-bottom: 0.5px;">Confere com o original <br> '.$usuario->RelationAssociado->nome.'</div></div>';
 					$html = preg_replace("/>s+</", "><", $html);
 
 					// Gerando PDF
@@ -552,7 +550,7 @@ class PublicCtrl extends Controller
 	            }
             }elseif($request->pagina == 2){
             	foreach($request->arquivos as $key => $arq){
-		        	// Copia arquivo para servidor com a nomeclatura
+		        	/* Copia arquivo para servidor com a nomeclatura
 	            	$nameFile = 'Digitalizar_'.date('Y_m_d_H_i_s_').$key.'.'.$arq->getClientOriginalExtension();
 					$upload = $arq->storeAs('digitalizar', $nameFile);
 
@@ -583,15 +581,16 @@ class PublicCtrl extends Controller
 	                }else{
 	                	$newimage = $image;
 	                }	
-
+			
 	                // Gerando nova imagem
 					imagejpeg($newimage, storage_path().'/app/digitalizar/'.$nameFile, 30);
+					*/
 
 					// Criando nome do arquivo do PDF
-					$namePdf = str_replace('.'.$arq->getClientOriginalExtension(), '', $nameFile).'.pdf';
+					$namePdf = str_replace('.'.$arq->getClientOriginalExtension(), '', $request->outros[$key]).'.pdf';
 					// Gerando PDF
 					$usuario = Usuarios::where('login', $request->usuario)->first();
-					$html[] = preg_replace("/>s+</", "><", '<div style="page-break-after: always;"><img src="'.asset('storage/app/digitalizar/'.$nameFile).'" style="max-width: 100%; max-height: 27cm;"><div style="font-size: 1.5px !important; text-align:right; color:white; width:100%; background-color: #292828; padding-right: 1px; padding-top: 0.5px; padding-bottom: 0.5px;">Confere com o original <br>'.$usuario->RelationAssociado->nome.'</div></div>');
+					$html[] = preg_replace("/>s+</", "><", '<div style="page-break-after: always;"><img src="'.asset('storage/'.$request->outros[$key]).'" style="max-width: 100%; max-height: 27cm;"><div style="font-size: 1.5px !important; text-align:right; color:white; width:100%; background-color: #292828; padding-right: 1px; padding-top: 0.5px; padding-bottom: 0.5px;">Confere com o original <br>'.$usuario->RelationAssociado->nome.'</div></div>');
 				}
 				// Gerando PDF 
 				if(is_dir("//10.11.26.1/Digitalizarss$/".date('d-m-Y'))){
@@ -611,9 +610,9 @@ class PublicCtrl extends Controller
 					}
 			    }
            	 }
-        }*/
+        }
 
-        if(isset($request->identificacao) || isset($request->cpf) || isset($request->renda) || isset($request->residencia) || isset($request->assinatura) || isset($request->arquivos)) {
+        if(isset($request->identificacao) || isset($request->cpf) || isset($request->renda) || isset($request->residencia) || isset($request->assinatura) || isset($request->arquivos) || isset($request->outros)) {
 			\Session::flash('confirm', array(
 				'class' => 'success',
 				'mensagem' => 'Seu arquivos foram enviados com sucesso.'
