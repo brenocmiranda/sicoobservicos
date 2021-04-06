@@ -291,15 +291,15 @@ Tecnologia
 		// Chamados por usuário
 		$('#table1').DataTable({
 	    	searching: false,
-	    	pageLength: 5,
-	    	ordering: false
+	    	pageLength: 7,
+	    	ordering: true,
 	    });
 
 		// Homepage
 	    $('#table2').DataTable({
 	    	searching: false,
-	    	pageLength: 5,
-	    	ordering: false
+	    	pageLength: 7,
+	    	ordering: true,
 	    });
 
 	    // Equipamentos por setor
