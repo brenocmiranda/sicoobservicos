@@ -21,7 +21,7 @@ Análise econômica
 	<div class="card">
 		<div class="card-body">
 			<div class="col-12 mb-3">
-				<table class="table table-striped text-center color-table muted-table rounded d-block d-lg-table" id="table" style="overflow-y: auto; display: none !important;">
+				<table class="table table-responsive table-striped text-center color-table muted-table rounded d-block d-lg-table" id="table" style="overflow-y: auto; display: none !important;">
 					<thead>
 						<th> Documento </th>
 						<th> Nome </th>
