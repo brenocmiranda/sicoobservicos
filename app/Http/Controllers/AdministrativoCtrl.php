@@ -648,15 +648,19 @@ class AdministrativoCtrl extends Controller
 		if(Auth::user()->RelationFuncao->gerenciar_administrativo == 1){
 			$historicoInicio = MateriaisHistorico::find($id);
 			if($historicoInicio->RelationMaterial->quantidade >= $historicoInicio->quantidade){
+				// Aprova solicitação
 				MateriaisHistorico::find($id)->update(['status' => 1]);
+				// Decrementa no estoque
+				Materiais::find($historicoInicio->id_material)->decrement('quantidade', $historicoInicio->quantidade);
+				// Verificando se está na quantidade mínima
 				$historicoAtual[] = MateriaisHistorico::find($id);
-				Materiais::find($historicoAtual[0]->id_material)->decrement('quantidade', $historicoAtual[0]->quantidade);
 				$material = Materiais::find($historicoAtual[0]->id_material);
 				if($material->quantidade <= $material->quantidade_min){
-					$this->email->notify(new SolicitacaoMaterialQtdMinima($historicoAtual));
+					$this->email->notify(new SolicitacaoMaterialQtdMinima($historicoAtual[0]));
 				}
+				// Envio de alerta de aprovação
 				$historicoAtual[0]->RelationUsuario->notify(new SolicitacaoMaterialCliente($historicoAtual));	
-				
+			
 				Atividades::create([
 					'nome' => 'Aprovação de solicitação de material',
 					'descricao' => 'Você acabou de aprovar a solicitação do material, '.$historicoAtual[0]->RelationMaterial->nome.'.',
