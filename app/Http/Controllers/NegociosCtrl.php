@@ -148,7 +148,7 @@ class NegociosCtrl extends Controller
 						'id_usuario' => Auth::id()
 					]);
 				}else{
-				// Encaminhando para um dos atendentes
+					// Encaminhando para um dos atendentes
 					$status = NegociosCarteiraStatus::create([
 						'status' => 'andamento', 
 						'observacoes' => $request->observacoes,
@@ -200,8 +200,8 @@ class NegociosCtrl extends Controller
 					'cli_id_associado' => $id,
 				]);
 
-				// Salvando apenas a análise
 				if($request->button == "salvar"){
+					// Salvando apenas a análise
 					$status = NegociosCarteiraStatus::create([
 						'status' => 'aberto', 
 						'observacoes' => $request->observacoes,
@@ -217,7 +217,7 @@ class NegociosCtrl extends Controller
 						'id_usuario' => Auth::id()
 					]);
 				}else{
-				// Salvando e encaminhando a análise
+					// Salvando e encaminhando a análise
 					$status = NegociosCarteiraStatus::create([
 						'status' => 'aberto', 
 						'observacoes' => $request->observacoes,
@@ -228,7 +228,8 @@ class NegociosCtrl extends Controller
 						'status' => 'andamento', 
 						'observacoes' => $request->observacoes,
 						'usr_id_usuarios' => $request->usr_id_usuarios,
-						'neg_id_carteira' => $create->id
+						'neg_id_carteira' => $create->id,
+						'created_at' => now()->addSeconds(20)
 					]);
 					$associado = Associados::find($id);
 					Atividades::create([
@@ -415,7 +416,7 @@ class NegociosCtrl extends Controller
 				'status' => 'aberto', 
 				'observacoes' => $dados->RelationStatus->observacoes,
 				'usr_id_usuarios' => Auth::id(),
-				'neg_id_carteira' => $dados->id,
+				'neg_id_carteira' => $dados->id
 			]);
 			$associado = Associados::find($dados->cli_id_associado);
 			Atividades::create([
@@ -442,7 +443,7 @@ class NegociosCtrl extends Controller
 		foreach ($dados as $key => $value) {
 			$dados[$key]->documento1 = (strlen($dados[$key]->RelationAssociado->documento) == 11 ? substr($dados[$key]->RelationAssociado->documento, 0, 3).'.'.substr($dados[$key]->RelationAssociado->documento, 3, 3).'.'.substr($dados[$key]->RelationAssociado->documento, 6, 3).'-'.substr($dados[$key]->RelationAssociado->documento, 9, 2) : substr($dados[$key]->RelationAssociado->documento, 0, 2).'.'.substr($dados[$key]->RelationAssociado->documento, 3, 3).'.'.substr($dados[$key]->RelationAssociado->documento, 6, 3).'/'.substr($dados[$key]->RelationAssociado->documento, 8, 4).'-'.substr($dados[$key]->RelationAssociado->documento, 12, 2));
 			$dados[$key]->nome = $dados[$key]->RelationAssociado->nome;
-			$dados[$key]->colaborador = $dados[$key]->RelationStatus->RelationUsuario->RelationAssociado->nome;
+			$dados[$key]->colaborador = explode(' ', $dados[$key]->RelationStatus->RelationUsuario->RelationAssociado->nome)[0];
 			$dados[$key]->data = date('d/m/Y H:i', strtotime($dados[$key]->RelationStatus->created_at));
 			$dados[$key]->acoes = '<a href="'.route('executar.acompanhamento.negocios', $dados[$key]->RelationAssociado->id).'" class="btn btn-dark btn-xs btn-rounded mx-1" id="detalhes" title="Detalhes da análise"><i class="mx-0 mdi mdi-account-outline"></i></a>
 			<a href="javascript:" class="btn btn-dark btn-xs btn-rounded ml-1" id="alterar" title="Alterar estado do registro"><i class="mx-0 mdi mdi-autorenew"></i></a>';
