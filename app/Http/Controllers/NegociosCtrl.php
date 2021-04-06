@@ -47,11 +47,11 @@ class NegociosCtrl extends Controller
 					$dados[$key]->documento = (strlen($dados[$key]->documento) == 11 ? substr($dados[$key]->documento, 0, 3).'.'.substr($dados[$key]->documento, 3, 3).'.'.substr($dados[$key]->documento, 6, 3).'-'.substr($dados[$key]->documento, 9, 2) : substr($dados[$key]->documento, 0, 2).'.'.substr($dados[$key]->documento, 3, 3).'.'.substr($dados[$key]->documento, 6, 3).'/'.substr($dados[$key]->documento, 8, 4).'-'.substr($dados[$key]->documento, 12, 2));
 					$dados[$key]->gerente = explode(' ', $dados[$key]->nome_gerente)[0];
 					$dados[$key]->acoes = (isset($dados[$key]->statusCarteira) ? 
+						'<a href="'.route('executar.analise.negocios', $dados[$key]->cli_id_associado).'" class="btn btn-dark btn-xs btn-rounded m-1" id="analisar" title="Analisar o associado"><i class="mx-0 mdi mdi-clipboard-outline"></i></a>
+						<a href="javascript:" class="btn btn-dark btn-xs btn-rounded m-1" id="remover" title="Remover o associado da análise"><i class="mx-0 mdi mdi-account-remove"></i></a>
+						<a href="javascript:" class="btn btn-dark btn-xs btn-rounded m-1" id="encaminhar" title="Encaminhar o associado para análise"><i class="mx-0 mdi mdi-subdirectory-arrow-right"></i></a>' : 
 						'<a href="'.route('executar.analise.negocios', $dados[$key]->cli_id_associado).'" class="btn btn-dark btn-xs btn-rounded mx-1" id="analisar" title="Analisar o associado"><i class="mx-0 mdi mdi-clipboard-outline"></i></a>
-						<a href="javascript:" class="btn btn-dark btn-xs btn-rounded ml-1" id="remover" title="Remover o associado da análise"><i class="mx-0 mdi mdi-account-remove"></i></a>
-						<a href="javascript:" class="btn btn-dark btn-xs btn-rounded ml-1" id="encaminhar" title="Encaminhar o associado para análise"><i class="mx-0 mdi mdi-subdirectory-arrow-right"></i></a>' : 
-						'<a href="'.route('executar.analise.negocios', $dados[$key]->cli_id_associado).'" class="btn btn-dark btn-xs btn-rounded mx-1" id="analisar" title="Analisar o associado"><i class="mx-0 mdi mdi-clipboard-outline"></i></a>
-						<a href="javascript:" class="btn btn-dark btn-xs btn-rounded ml-1" id="remover" title="Remover o associado da análise"><i class="mx-0 mdi mdi-account-remove"></i></a>');
+						<a href="javascript:" class="btn btn-dark btn-xs btn-rounded m-1" id="remover" title="Remover o associado da análise"><i class="mx-0 mdi mdi-account-remove"></i></a>');
 					$dados[$key]->status = (isset($dados[$key]->statusCarteira) ? '<div class="badge badge-success">Em aberto</div>' : '<div class="badge badge-danger">Não possui</div>');
 					$novo[] = $dados[$key];
 				}
@@ -226,7 +226,7 @@ class NegociosCtrl extends Controller
 					]);
 					$status = NegociosCarteiraStatus::create([
 						'status' => 'andamento', 
-						'observacoes' => $request->observacoes,
+						'observacoes' => '',
 						'usr_id_usuarios' => $request->usr_id_usuarios,
 						'neg_id_carteira' => $create->id,
 						'created_at' => now()->addSeconds(20)
@@ -261,7 +261,7 @@ class NegociosCtrl extends Controller
 			if($dados->RelationStatus->status == "aberto"){
 				NegociosCarteiraStatus::create([
 					'status' => 'andamento', 
-					'observacoes' => $dados->RelationStatus->observacoes,
+					'observacoes' => '',
 					'usr_id_usuarios' => $dados->RelationStatus->usr_id_usuarios,
 					'neg_id_carteira' => $dados->id,
 				]);
@@ -352,9 +352,9 @@ class NegociosCtrl extends Controller
 			if($dados[$key]->RelationStatus->status == "andamento" && $dados[$key]->RelationStatus->usr_id_usuarios == Auth::id()){
 				$dados[$key]->documento1 = (strlen($dados[$key]->RelationAssociado->documento) == 11 ? substr($dados[$key]->RelationAssociado->documento, 0, 3).'.'.substr($dados[$key]->RelationAssociado->documento, 3, 3).'.'.substr($dados[$key]->RelationAssociado->documento, 6, 3).'-'.substr($dados[$key]->RelationAssociado->documento, 9, 2) : substr($dados[$key]->RelationAssociado->documento, 0, 2).'.'.substr($dados[$key]->RelationAssociado->documento, 3, 3).'.'.substr($dados[$key]->RelationAssociado->documento, 6, 3).'/'.substr($dados[$key]->RelationAssociado->documento, 8, 4).'-'.substr($dados[$key]->RelationAssociado->documento, 12, 2));
 				$dados[$key]->nome = $dados[$key]->RelationAssociado->nome;
-				$dados[$key]->nome_gerente = $dados[$key]->RelationAssociado->nome_gerente;
-				$dados[$key]->PA = $dados[$key]->RelationAssociado->PA;
-				$dados[$key]->acoes = '<a href="'.route('executar.carteira.negocios', $dados[$key]->cli_id_associado).'" class="btn btn-dark btn-xs btn-rounded mx-1" id="analisar" title="Tratar o associado"><i class="mx-0 mdi mdi-headset"></i></a><a href="javascript:" class="btn btn-dark btn-xs btn-rounded ml-1" id="devolver" title="Devolver associado para análise"><i class="mx-0 mdi mdi-subdirectory-arrow-left"></i></a>';
+				$dados[$key]->nome_gerente = explode(' ', $dados[$key]->RelationAssociado->nome_gerente)[0];
+				$dados[$key]->data = date('d/m/Y', strtotime($dados[$key]->RelationStatus->created_at));
+				$dados[$key]->acoes = '<a href="'.route('executar.carteira.negocios', $dados[$key]->cli_id_associado).'" class="btn btn-dark btn-xs btn-rounded m-1" id="analisar" title="Tratar o associado"><i class="mx-0 mdi mdi-headset"></i></a><a href="javascript:" class="btn btn-dark btn-xs btn-rounded m-1" id="devolver" title="Devolver associado para análise"><i class="mx-0 mdi mdi-subdirectory-arrow-left"></i></a>';
 				$dados[$key]->status1 = '<div class="badge badge-info">Em andamento</div>';
 				$novo[] = $dados[$key];
 			}
@@ -439,14 +439,14 @@ class NegociosCtrl extends Controller
 		return view('negocios.acompanhamento.listar');
 	}
 	public function DatatablesAcompanhamento(){
-		$dados = NegociosCarteira::all();
+		$dados = NegociosCarteira::orderBy('updated_at', 'DESC')->get();
 		foreach ($dados as $key => $value) {
 			$dados[$key]->documento1 = (strlen($dados[$key]->RelationAssociado->documento) == 11 ? substr($dados[$key]->RelationAssociado->documento, 0, 3).'.'.substr($dados[$key]->RelationAssociado->documento, 3, 3).'.'.substr($dados[$key]->RelationAssociado->documento, 6, 3).'-'.substr($dados[$key]->RelationAssociado->documento, 9, 2) : substr($dados[$key]->RelationAssociado->documento, 0, 2).'.'.substr($dados[$key]->RelationAssociado->documento, 3, 3).'.'.substr($dados[$key]->RelationAssociado->documento, 6, 3).'/'.substr($dados[$key]->RelationAssociado->documento, 8, 4).'-'.substr($dados[$key]->RelationAssociado->documento, 12, 2));
 			$dados[$key]->nome = $dados[$key]->RelationAssociado->nome;
 			$dados[$key]->colaborador = explode(' ', $dados[$key]->RelationStatus->RelationUsuario->RelationAssociado->nome)[0];
 			$dados[$key]->data = date('d/m/Y H:i', strtotime($dados[$key]->RelationStatus->created_at));
-			$dados[$key]->acoes = '<a href="'.route('executar.acompanhamento.negocios', $dados[$key]->RelationAssociado->id).'" class="btn btn-dark btn-xs btn-rounded mx-1" id="detalhes" title="Detalhes da análise"><i class="mx-0 mdi mdi-account-outline"></i></a>
-			<a href="javascript:" class="btn btn-dark btn-xs btn-rounded ml-1" id="alterar" title="Alterar estado do registro"><i class="mx-0 mdi mdi-autorenew"></i></a>';
+			$dados[$key]->acoes = '<a href="'.route('executar.acompanhamento.negocios', $dados[$key]->RelationAssociado->id).'" class="btn btn-dark btn-xs btn-rounded m-1" id="detalhes" title="Detalhes da análise"><i class="mx-0 mdi mdi-account-outline"></i></a>
+			<a href="javascript:" class="btn btn-dark btn-xs btn-rounded mx-1" id="alterar" title="Alterar estado do registro"><i class="mx-0 mdi mdi-autorenew"></i></a><a href="javascript:" class="btn btn-dark btn-xs btn-rounded m-1" id="alterar" title="Imprimir relatório da análise estado do registro"><i class="mx-0 mdi mdi-printer"></i></a>';
 			$dados[$key]->status1 = ($dados[$key]->RelationStatus->status == 'aberto' ? '<div class="badge badge-success">Em aberto</div>' : ($dados[$key]->RelationStatus->status == 'andamento' ? '<div class="badge badge-info">Em andamento</div>' : ($dados[$key]->RelationStatus->status == 'excecao' ? '<div class="badge badge-warning">Não contatar</div>' : '<div class="badge badge-danger">Finalizado</div>')));
 		}
 		return response()->json($dados);

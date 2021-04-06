@@ -17,18 +17,11 @@ Acompanhamento
 			</ol>
 		</div>
 	</div>
-	@if(Session::has('error'))
-      <div class="col-12 rounded alert alert-{{ Session::get('error')['class'] }}">
-      	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-		</button>
-        {{ Session::get('error')['mensagem'] }}
-      </div>
-    @endif
+
 	<div class="card">
 		<div class="card-body">
 			<div class="col-12 mb-3">
-				<table class="table table-striped text-center color-table muted-table rounded d-block d-lg-table" id="table">
+				<table class="table table-responsive table-striped text-center color-table muted-table rounded d-block d-lg-table" id="table">
 					<thead>
 						<th> Documento </th>
 						<th> Nome </th>
@@ -54,7 +47,6 @@ Acompanhamento
 			success: function(table){
 				// Carregamento de dados
 				$('#table').DataTable({
-					order: [ 3, "asc" ],
 					pageLength: 100,
 					paging: true,
 					select: true,

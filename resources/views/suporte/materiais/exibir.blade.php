@@ -78,14 +78,14 @@ Materiais
 										<div class="col-12 badge badge-{{($requisicao->status == 1 ? 'success' : ($requisicao->status == 0 ? 'warning' : 'danger'))}} px-3">
 											<label class="text-white my-auto">
 												<i class="mdi {{($requisicao->status == 1 ? 'mdi-check' : ($requisicao->status == 0 ? 'mdi-alert-circle-outline' : 'mdi-close'))}} pr-2"></i>
-												<h6 class="text-white float-right my-1 font-weight-normal">{{($requisicao->status == 1 ? 'Atendida' : ($requisicao->status == 0 ? 'Pendente' : 'Cancelada'))}}</h6>
+												<h6 class="text-white float-right my-1 font-weight-normal hidden-xs">{{($requisicao->status == 1 ? 'Atendida' : ($requisicao->status == 0 ? 'Pendente' : 'Cancelada'))}}</h6>
 											</label>
 										</div>
 										@if($requisicao->status == 0)
 										<div class="col-12 text-center mt-2">
 											<a href="javascript:void(0)" class="btn-cancelar" data="{{$requisicao->id}}">
 												<small>
-													<i class="mdi mdi-close pr-2"></i><span>Cancelar</span>
+													<i class="mdi mdi-close pr-2"></i><span class="hidden-xs">Cancelar</span>
 												</small>
 											</a>
 										</div>

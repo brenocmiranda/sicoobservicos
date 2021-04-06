@@ -30,6 +30,10 @@ Executar análise
 				</a>
 			</div>
 			<div class="col-6 px-0 text-right">
+				<a href="{{route('exibirID.associado.atendimento', $associado->id)}}" target="_blank" class="pr-3">
+					<i class="mdi mdi-account pr-2"></i> 
+					<span>Painel comercial</span>
+				</a>
 				<a href="javascript:" id="remover" class="text-danger">
 					<i class="mdi mdi-close pr-2"></i> 
 					<span>Remover análise do associado</span>
@@ -46,7 +50,7 @@ Executar análise
 		@endif
 		<div class="card mb-4">
 			<div class="card-header" style="border-top-right-radius: 0.6em; border-top-left-radius: 0.6em;">
-				<h5 class="text-white">Associado <a href="{{route('exibirID.associado.atendimento', $associado->id)}}" target="_blank"><small  class="text-info">(Visualizar painel comercial)</small></a></h5>
+				<h5 class="text-white">Dados do associado</a></h5>
 			</div>
 			<div class="card-body">
 				<div class="row mx-auto">
@@ -86,7 +90,7 @@ Executar análise
 						<h6>Data de relacionamento:</h6>
 						<label>{{date('d/m/Y', strtotime($associado->data_relacionamento))}}</label>
 					</div>
-					 <div class="col-lg-3 col-12">
+					<div class="col-lg-3 col-12">
 		              <h6>Data de renovação</h6>
 		              @if(strtotime(date('Y-m-d', strtotime($associado->data_renovacao.'+ 1 year'))) < strtotime(date('Y-m-d')))
 		                <small class="bg-danger px-3 py-1 text-white rounded" style="border-radius:15px">
@@ -237,8 +241,8 @@ Executar análise
 						</div>
 						<hr class="mt-1 mx-auto col-8">
 						<div class="col-12 row mx-auto px-0">
-							<h5 class="col-lg-4 col-12 px-0 px-lg-4">Data-Base <span class="text-danger">*</span></h5>
-							<input type="month" name="bc_data" class="form-control form-control-line col-lg-4 col-11" placeholder="10/01/2020" value="{{@$carteira->bc_data}}" required>
+							<h5 class="col-lg-4 col-12 px-0 px-lg-4">Data-Base</h5>
+							<input type="month" name="bc_data" class="form-control form-control-line col-lg-4 col-11" placeholder="10/01/2020" value="{{@$carteira->bc_data}}">
 						</div>
 						<div class="col-12 row mx-auto px-0">
 							<h5 class="col-lg-4 col-12 px-0 px-lg-4">Consignados:</h5>
@@ -266,8 +270,8 @@ Executar análise
 							<input type="text" name="bc_financiamento" class="form-control form-control-line col-lg-4 col-11" placeholder="0,00" value="{{number_format(@$carteira->bc_financiamento, 2, ',', '.')}}">
 						</div>
 						<div class="col-12 row mx-auto px-0 mt-2 mb-5 mb-lg-0">
-							<h5 class="col-lg-4 col-12 px-0 px-lg-4">Possui divida vencida? <span class="text-danger">*</span></h5>
-							<select class="form-control form-control-line col-lg-5 col-11" name="bc_dividavencida" required>
+							<h5 class="col-lg-4 col-12 px-0 px-lg-4">Possui divida vencida?</h5>
+							<select class="form-control form-control-line col-lg-5 col-11" name="bc_dividavencida">
 								<option value="Sim" {{(@$carteira->bc_dividavencida == 'Sim' ? 'selected' : '')}}>Sim</option>
 								<option value="Não" {{(@$carteira->bc_dividavencida == 'Não' ? 'selected' : (@$carteira->bc_dividavencida != 'Sim' ? 'selected' : ''))}}>Não</option>
 							</select>
@@ -279,8 +283,8 @@ Executar análise
 						</div>
 						<hr class="mt-1 mx-auto col-8">
 						<div class="form-group col-12 row mx-auto px-0">
-							<h5 class="col-lg-4 col-12 px-0 px-lg-4">Data-Base <span class="text-danger">*</span></h5>
-							<input type="date" name="se_data" class="form-control form-control-line col-lg-4 col-12" placeholder="10/01/2020" value="{{@$carteira->se_data}}" required>
+							<h5 class="col-lg-4 col-12 px-0 px-lg-4">Data-Base</h5>
+							<input type="date" name="se_data" class="form-control form-control-line col-lg-4 col-12" placeholder="10/01/2020" value="{{@$carteira->se_data}}">
 						</div>
 						<div class="form-group col-12 row mx-auto px-0 px-lg-4">
 							<h5 class="col-12 px-0">Endereço</h5>
@@ -291,8 +295,8 @@ Executar análise
 							<input type="text" name="se_telefone" class="numeroTelefone form-control form-control-line col-lg-6 col-11" placeholder="(38) 3741-6250" value="{{@$carteira->se_telefone}}">
 						</div>
 						<div class="form-group col-12 row mx-auto px-0">
-							<h5 class="col-lg-5 col-12 px-0 px-lg-4">Possui restrição? <span class="text-danger">*</span></h5>
-							<select class="form-control form-control-line col-lg-5 col-12 se_restricao" name="se_restricao" required>
+							<h5 class="col-lg-5 col-12 px-0 px-lg-4">Possui restrição?</h5>
+							<select class="form-control form-control-line col-lg-5 col-12 se_restricao" name="se_restricao">
 								<option value="Sim" {{(@$carteira->se_restricao == 'Sim' ? 'selected' : '')}}>Sim</option>
 								<option value="Não" {{(@$carteira->se_restricao == 'Não' ? 'selected' : (@$carteira->se_restricao != 'Sim' ? 'selected' : ''))}}>Não</option>
 							</select>

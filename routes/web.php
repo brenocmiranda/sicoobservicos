@@ -520,7 +520,6 @@ Route::group(['prefix' => 'app'], function(){
 			Route::group(['prefix' => 'disparar'], function(){
 				Route::get('', 'ConfiguracoesCtrl@ExibirDisparoEmails')->name('exibir.disparo.emails');
 				Route::post('enviar', 'ConfiguracoesCtrl@EnviarDisparoEmails')->name('enviar.disparo.emails');
-				Route::any('credenciais', 'ConfiguracoesCtrl@DisparoCredenciais')->name('disparar.credenciais.emails');
 			});
 			// Menssagens
 			Route::group(['prefix' => 'mensagens'], function(){

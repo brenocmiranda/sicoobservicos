@@ -17,23 +17,16 @@ Carteira de atendimento
 			</ol>
 		</div>
 	</div>
-	@if(Session::has('error'))
-      <div class="col-12 rounded alert alert-{{ Session::get('error')['class'] }}">
-      	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-		</button>
-        {{ Session::get('error')['mensagem'] }}
-      </div>
-    @endif
+
 	<div class="card">
 		<div class="card-body">
 			<div class="col-12 mb-3">
-				<table class="table table-striped text-center color-table muted-table rounded d-block d-lg-table" id="table">
+				<table class="table table-responsive table-striped text-center color-table muted-table rounded d-block d-lg-table" id="table" style="overflow-y: none;">
 					<thead>
 						<th> Documento </th>
 						<th> Nome </th>
 						<th> Gerente </th>
-						<th> PA </th>
+						<th> Data de envio </th>
 						<th> Status </th>
 						<th> Ações </th>
 					</thead>
@@ -54,7 +47,7 @@ Carteira de atendimento
 			success: function(table){
 				// Carregamento de dados
 				$('#table').DataTable({
-					order: [ 0, "asc" ],
+					order: [ 3, "desc" ],
 					pageLength: 100,
 					paging: true,
 					select: true,
@@ -65,7 +58,7 @@ Carteira de atendimento
 					{ "data": "documento1", "name":"documento1"},
 					{ "data": "nome", "name":"nome"},
 					{ "data": "nome_gerente", "name":"nome_gerente"},
-					{ "data": "PA", "name":"PA"},
+					{ "data": "data", "name":"data"},
 					{ "data": "status1", "name":"status1"},
 					{ "data": "acoes","name":"acoes"},
 					]

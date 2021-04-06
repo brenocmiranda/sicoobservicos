@@ -1,5 +1,5 @@
 @section('title')
-Detalhes da análise
+Acompanhamento da análise
 @endsection
 
 @extends('layouts.index')
@@ -8,22 +8,36 @@ Detalhes da análise
 <div class="container-fluid">
 	<div class="row bg-title">
 		<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-			<h4 class="page-title">Detalhes da análise</h4> 
+			<h4 class="page-title">Acompanhamento da análise</h4> 
 		</div>
 		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
 			<ol class="breadcrumb">
 				<li><a href="javascript:void(0)">Negócios</a></li>
 				<li><a href="{{route('exibir.acompanhamento.negocios')}}">Acompanhamento</a></li>
-				<li class="active">Detalhes da nálise</li>
+				<li class="active">Acompanhamento da análise</li>
 			</ol>
 		</div>
 	</div>
 	<form class="form-sample" method="POST" id="formFinalizar" action="{{route('finalizar.carteira.negocios', $associado->id)}}" enctype="multipart/form-data" autocomplete="off">
         @csrf
         <input type="hidden" name="id_carteira" value="{{@$carteira->id}}">
+         <div class="row mx-auto col-12 mb-4">
+        	<div class="col-6 px-0 text-left">
+		        <a href="{{route('exibir.acompanhamento.negocios')}}">
+					<i class="mdi mdi-arrow-left pr-2"></i> 
+					<span>Voltar</span>
+				</a>
+			</div>
+			<div class="col-6 px-0 text-right">
+				<a href="{{route('exibirID.associado.atendimento', $associado->id)}}" target="_blank">
+					<i class="mdi mdi-account pr-2"></i> 
+					<span>Painel comercial</span>
+				</a>
+			</div>
+		</div>
 		<div class="card mb-4">
 			<div class="card-header" style="border-top-right-radius: 0.6em; border-top-left-radius: 0.6em;">
-				<h5 class="text-white">Associado <a href="{{route('exibirID.associado.atendimento', $associado->id)}}" target="_blank"><small  class="text-info">(Visualizar painel comercial)</small></a></h5>
+				<h5 class="text-white">Dados do associado </h5>
 			</div>
 			<div class="card-body">
 				<div class="row mx-auto">
@@ -64,11 +78,21 @@ Detalhes da análise
 						<label>{{date('d/m/Y', strtotime($associado->data_relacionamento))}}</label>
 					</div>
 					<div class="col-lg-3 col-12">
+		              <h6>Data de renovação</h6>
+		              @if(strtotime(date('Y-m-d', strtotime($associado->data_renovacao.'+ 1 year'))) < strtotime(date('Y-m-d')))
+		                <small class="bg-danger px-3 py-1 text-white rounded" style="border-radius:15px">
+		                {{date('d/m/Y', strtotime($associado->data_renovacao))}}</small>
+		              @else
+		                <label>{{date('d/m/Y', strtotime($associado->data_renovacao))}}</label>
+		              @endif
+		            </div>
+					<div class="col-lg-3 col-12">
 		                <h6>Participa de conglomerado?</h6>
-		                <span class="mytooltip tooltip-effect-2">
+		                <span class="mytooltip tooltip-effect-2" style="z-index: 10">
 		               		<label>{!!(isset($associado->RelationConglomerados) ? 'Sim '.'<i class="mdi mdi-information-outline text-danger tooltip-item"></i>' : 'Não')!!}</label>
+		               		@if(isset($associado->RelationConglomerados))
 	                    	<span class="tooltip-content clearfix">
-	                      		<span class="tooltip-text p-4">
+	                      		<span class="tooltip-text p-4" style="font-size: 10px; line-height: 18px">
 	                      			@if(isset($conglomerado))
 						                @foreach($conglomerado as $participante)
 						                	<label class="d-block">&#183 {{$participante->RelationAssociado->nome}}</label>
@@ -78,6 +102,7 @@ Detalhes da análise
 					                @endif
 	                      		</span> 
 	                      	</span>
+	                      	  @endif
                         </span>
 	              	</div>
 					<div class="col-12 col-lg-3">
@@ -175,6 +200,35 @@ Detalhes da análise
 									</td>
 									<td>
 										R$ {{number_format($carteira->previdencia_sugerido, 2, ',', '.')}}
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<label>Contratado</label>
+									</td>
+									<td>
+										{{(isset($carteira->especial_contratado) ? 'R$'.number_format($carteira->especial_contratado, 2, ',', '.') : '-')}}
+									</td>
+									<td>
+										{{(isset($carteira->cartao_contratado) ? 'R$'.number_format($carteira->cartao_contratado, 2, ',', '.') : '-')}}
+									</td>
+									<td>
+										{{(isset($carteira->emp_contratado) ? 'R$'.number_format($carteira->emp_contratado, 2, ',', '.') : '-')}}
+									</td>
+									<td>
+										{{(isset($carteira->fin_contratado) ? 'R$'.number_format($carteira->fin_contratado, 2, ',', '.') : '-')}}
+									</td>
+									<td>
+										{{(isset($carteira->svida_contratado) ? 'R$'.number_format($carteira->svida_contratado, 2, ',', '.') : '-')}}
+									</td>
+									<td>
+										{{(isset($carteira->sgeral_contratado) ? 'R$'.number_format($carteira->sgeral_contratado, 2, ',', '.') : '-')}}
+									</td>
+									<td>
+										{{(isset($carteira->consorcio_contratado) ? 'R$'.number_format($carteira->consorcio_contratado, 2, ',', '.') : '-')}}
+									</td>
+									<td>
+										{{(isset($carteira->previdencia_contratado) ? 'R$'.number_format($carteira->previdencia_contratado, 2, ',', '.') : '-')}}
 									</td>
 								</tr>
 							</tbody>
@@ -293,25 +347,32 @@ Detalhes da análise
 			</div>
 			<div class="card-body">
 				<div class="row mx-auto">
-					<div class="form-group col-12 row mx-auto">
-						<h5 class="col-12 px-0">Parecer do analista <small>({{$carteira->RelationStatus->RelationUsuario->RelationAssociado->nome}})</small></h5>
-						<p class="col-12 px-0">{{$carteira->RelationStatus->observacoes}}</p>
-					</div>
-					<div class="form-group col-12 row mx-auto">
-						<h5 class="col-12 px-0">Parecer do atendimento <small>({{$carteira->RelationStatus->RelationUsuario->RelationAssociado->nome}})</small></h5>
-						<p class="col-12 px-0">{{$carteira->RelationStatus->observacoes}}</p>					</div>
+				@if($carteira->RelationStatusTodos)
+					@foreach($carteira->RelationStatusTodos as $dados)
+						@if($dados->status == 'aberto')
+						<div class="form-group col-12 row mx-auto">
+							<h5 class="col-12 px-0">Parecer do analista <small>({{$dados->RelationUsuario->RelationAssociado->nome}})</small></h5>
+							<p class="col-12 px-0">{{$dados->observacoes}}</p>
+						</div>
+						@endif
+						@if($dados->status == 'finalizado')
+						<div class="form-group col-12 row mx-auto">
+							<h5 class="col-12 px-0">Parecer do atendimento <small>({{$dados->RelationUsuario->RelationAssociado->nome}})</small></h5>
+							<p class="col-12 px-0">{{$dados->observacoes}}</p>
+						</div>
+						@endif
+					@endforeach
+				@else
+					<p> Nenhuma informação cadastrada</p>
+				@endif
 				</div>
 			</div>
 		</div>
 		<hr class="col-10">
 		<div class="row col-12 justify-content-center mx-auto">
-			<a href="{{route('exibir.carteira.negocios')}}" class="btn btn-danger col-3 col-lg-3 d-flex align-items-center justify-content-center mx-2">
-				<i class="mdi mdi-arrow-left pr-2"></i> 
-				<span>Voltar</span>
-			</a>
-			<button type="submit" class="btn btn-success col-3 col-lg-3 d-flex align-items-center justify-content-center mx-2" name="button" value="salvar">
-				<i class="mdi mdi-check-all pr-2"></i> 
-				<span>Finalizar</span>
+			<button type="submit" class="btn btn-info col-3 col-lg-3 d-flex align-items-center justify-content-center mx-2" name="button" value="salvar">
+				<i class="mdi mdi-printer pr-2"></i> 
+				<span>Gerar relatório</span>
 			</button>
 		</div>
 	</form>

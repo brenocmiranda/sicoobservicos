@@ -254,10 +254,10 @@ class AdministrativoCtrl extends Controller
 	            })
 	            ->editColumn('acoes', function(Documentos $dados){ 
 	                return ($dados->status == 1 ? '
-						<button class="btn btn-dark btn-xs btn-rounded mx-1" id="editar" title="Editar informações do documento"><i class="mx-0 mdi mdi-settings"></i></button>
-						<button class="btn btn-dark btn-xs btn-rounded" id="alterar" title="Desativar o documento"><i class="mx-0 mdi mdi-close"></i></button>' : '
-						<button class="btn btn-dark btn-xs btn-rounded mx-1" id="editar" title="Editar informações do documento"><i class="mx-0 mdi mdi-settings"></i></button>
-						<button class="btn btn-dark btn-xs btn-rounded" id="alterar" title="Ativar o documento"><i class="mx-0 mdi mdi-check"></i></button>');
+						<button class="btn btn-dark btn-xs btn-rounded m-1" id="editar" title="Editar informações do documento"><i class="mx-0 mdi mdi-settings"></i></button>
+						<button class="btn btn-dark btn-xs btn-rounded m-1" id="alterar" title="Desativar o documento"><i class="mx-0 mdi mdi-close"></i></button>' : '
+						<button class="btn btn-dark btn-xs btn-rounded m-1" id="editar" title="Editar informações do documento"><i class="mx-0 mdi mdi-settings"></i></button>
+						<button class="btn btn-dark btn-xs btn-rounded m-1" id="alterar" title="Ativar o documento"><i class="mx-0 mdi mdi-check"></i></button>');
 	            })->rawColumns(['nome1', 'documento',  'arquivo', 'status1', 'acoes'])->make(true);
         }else{
         	return datatables()->of(Documentos::all())
@@ -401,12 +401,12 @@ class AdministrativoCtrl extends Controller
 	            })
 	            ->editColumn('acoes', function(Materiais $dados){ 
 	                return ($dados->status == 1 ? '
-	                	<button class="btn btn-dark btn-xs btn-rounded mx-1" id="reposicao" title="Reposição de material"><i class="mx-0 mdi mdi-plus"></i></button>
-						<button class="btn btn-dark btn-xs btn-rounded mx-1" id="editar" title="Editar informações da material"><i class="mx-0 mdi mdi-settings"></i></button>
-						<button class="btn btn-dark btn-xs btn-rounded" id="alterar" title="Desativar a material"><i class="mx-0 mdi mdi-close"></i></button>' : '
-						<button class="btn btn-dark btn-xs btn-rounded mx-1" id="reposicao" title="Reposição de material"><i class="mx-0 mdi mdi-plus"></i></button>
-						<button class="btn btn-dark btn-xs btn-rounded mx-1" id="editar" title="Editar informações do armário"><i class="mx-0 mdi mdi-settings"></i></button>
-						<button class="btn btn-dark btn-xs btn-rounded" id="alterar" title="Ativar  material"><i class="mx-0 mdi mdi-check"></i></button>');
+	                	<button class="btn btn-dark btn-xs btn-rounded m-1" id="reposicao" title="Reposição de material"><i class="mx-0 mdi mdi-plus"></i></button>
+						<button class="btn btn-dark btn-xs btn-rounded m-1" id="editar" title="Editar informações da material"><i class="mx-0 mdi mdi-settings"></i></button>
+						<button class="btn btn-dark btn-xs btn-rounded m-1" id="alterar" title="Desativar a material"><i class="mx-0 mdi mdi-close"></i></button>' : '
+						<button class="btn btn-dark btn-xs btn-rounded m-1" id="reposicao" title="Reposição de material"><i class="mx-0 mdi mdi-plus"></i></button>
+						<button class="btn btn-dark btn-xs btn-rounded m-1" id="editar" title="Editar informações do armário"><i class="mx-0 mdi mdi-settings"></i></button>
+						<button class="btn btn-dark btn-xs btn-rounded m-1" id="alterar" title="Ativar  material"><i class="mx-0 mdi mdi-check"></i></button>');
 	            })->rawColumns(['nome1', 'status1', 'categoria1', 'acoes'])->make(true);
 	    }else{
 	    	return datatables()->of(Materiais::all())
@@ -544,10 +544,10 @@ class AdministrativoCtrl extends Controller
 			})
 			->editColumn('acoes', function(MateriaisCategorias $dados){ 
 				return ($dados->status == 1 ? '
-					<button class="btn btn-dark btn-xs btn-rounded mx-1" id="editar" title="Editar informações da função"><i class="mx-0 mdi mdi-settings"></i></button>
-					<button class="btn btn-dark btn-xs btn-rounded" id="alterar" title="Desativar a função"><i class="mx-0 mdi mdi-close"></i></button>' : '
-					<button class="btn btn-dark btn-xs btn-rounded mx-1" id="editar" title="Editar informações do armário"><i class="mx-0 mdi mdi-settings"></i></button>
-					<button class="btn btn-dark btn-xs btn-rounded" id="alterar" title="Ativar a função"><i class="mx-0 mdi mdi-check"></i></button>');
+					<button class="btn btn-dark btn-xs btn-rounded m-1" id="editar" title="Editar informações da função"><i class="mx-0 mdi mdi-settings"></i></button>
+					<button class="btn btn-dark btn-xs btn-rounded m-1" id="alterar" title="Desativar a função"><i class="mx-0 mdi mdi-close"></i></button>' : '
+					<button class="btn btn-dark btn-xs btn-rounded m-1" id="editar" title="Editar informações do armário"><i class="mx-0 mdi mdi-settings"></i></button>
+					<button class="btn btn-dark btn-xs btn-rounded m-1" id="alterar" title="Ativar a função"><i class="mx-0 mdi mdi-check"></i></button>');
 			})->rawColumns(['nome1',  'status1','acoes'])->make(true);
 		}else{
 			return datatables()->of(MateriaisCategorias::all())

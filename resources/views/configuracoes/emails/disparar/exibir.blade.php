@@ -21,12 +21,6 @@ Enviar e-mails
 	
 	<form method="POST" class="form-sample" action="{{route('enviar.disparo.emails')}}" enctype="multipart/form-data" autocomplete="off">
 	@csrf
-		<div class="mb-4 text-right">
-			<a href="{{route('disparar.credenciais.emails')}}" target="_blank">
-				<i class="mdi mdi-email-variant pr-2"></i>
-				<span>Enviar credênciais dos usuários</span>
-			</a>
-		</div>
 		@if(Session::has('envio'))
 		<p class="mx-auto col-sm-12 alert alert-{{ Session::get('envio')['class'] }}">
 			{{ Session::get('envio')['mensagem'] }}

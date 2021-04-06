@@ -62,9 +62,9 @@ class ConfiguracoesCtrl extends Controller
             })
             ->editColumn('acoes', function(Funcoes $dados){ 
                 return ($dados->status == 1 ? '
-					<button class="btn btn-dark btn-xs btn-rounded mx-1" id="editar" title="Editar informações da função"><i class="mx-0 mdi mdi-settings"></i></button>
+					<button class="btn btn-dark btn-xs btn-rounded m-1" id="editar" title="Editar informações da função"><i class="mx-0 mdi mdi-settings"></i></button>
 					<button class="btn btn-dark btn-xs btn-rounded" id="alterar" title="Desativar a função"><i class="mx-0 mdi mdi-close"></i></button>' : '
-					<button class="btn btn-dark btn-xs btn-rounded mx-1" id="editar" title="Editar informações da função"><i class="mx-0 mdi mdi-settings"></i></button>
+					<button class="btn btn-dark btn-xs btn-rounded m-1" id="editar" title="Editar informações da função"><i class="mx-0 mdi mdi-settings"></i></button>
 					<button class="btn btn-dark btn-xs btn-rounded" id="alterar" title="Ativar a função"><i class="mx-0 mdi mdi-check"></i></button>');
             })->rawColumns(['nome1', 'status1', 'acoes'])->make(true);
         }else{
@@ -284,9 +284,9 @@ class ConfiguracoesCtrl extends Controller
 	            })
 	            ->editColumn('acoes', function(Setores $dados){ 
 	                return ($dados->status == 1 ? '
-						<button class="btn btn-dark btn-xs btn-rounded mx-1" id="editar" title="Editar informações da função"><i class="mx-0 mdi mdi-settings"></i></button>
+						<button class="btn btn-dark btn-xs btn-rounded m-1" id="editar" title="Editar informações da função"><i class="mx-0 mdi mdi-settings"></i></button>
 						<button class="btn btn-dark btn-xs btn-rounded" id="alterar" title="Desativar a função"><i class="mx-0 mdi mdi-close"></i></button>' : '
-						<button class="btn btn-dark btn-xs btn-rounded mx-1" id="editar" title="Editar informações do armário"><i class="mx-0 mdi mdi-settings"></i></button>
+						<button class="btn btn-dark btn-xs btn-rounded m-1" id="editar" title="Editar informações do armário"><i class="mx-0 mdi mdi-settings"></i></button>
 						<button class="btn btn-dark btn-xs btn-rounded" id="alterar" title="Ativar a função"><i class="mx-0 mdi mdi-check"></i></button>');
 	            })->rawColumns(['nome1', 'status1', 'acoes'])->make(true);
 	    }else{
@@ -515,12 +515,12 @@ class ConfiguracoesCtrl extends Controller
 	                return '<label class="badge'.($dados->status == 'Ativo' ? " badge-success" : ($dados->status == 'Bloqueado' ? " badge-warning" : " badge-danger")).'">'.($dados->status == 'Ativo' ? "Ativo" : ($dados->status == 'Bloqueado' ? "Bloqueado" : "Desativado")).'</label>';
 	            })
 	            ->editColumn('acoes', function(Usuarios $dados){ 
-	                return ($dados->status == 'Ativo' ? '<button class="btn btn-dark btn-xs btn-rounded mx-1" name="editar" id="editar" title="Editar informações do usuário"><i class="mx-0 mdi mdi-settings"></i></button>
-					<button class="btn btn-dark btn-xs btn-rounded" name="resetar" id="resetar" title="Resetar senha do usuário"><i class="mx-0 mdi mdi-sync"></i></button>
-					<button class="btn btn-dark btn-xs btn-rounded" name="alterar" id="alterar" title="Alterar estado do usuário"><i class="mx-0 mdi mdi-account-switch"></i></button>' : '
-					<button class="btn btn-dark btn-xs btn-rounded mx-1" name="editar" id="editar" title="Editar informações do usuário"><i class="mx-0 mdi mdi-settings"></i></button>
-					<button class="btn btn-dark btn-xs btn-rounded" name="resetar" id="resetar" title="Resetar senha do usuário"><i class="mx-0 mdi mdi-sync"></i></button>
-					<button class="btn btn-dark btn-xs btn-rounded" name="alterar" id="alterar" title="Alterar estado do usuário"><i class="mx-0 mdi mdi-account-switch"></i></button>');
+	                return ($dados->status == 'Ativo' ? '<button class="btn btn-dark btn-xs btn-rounded m-1" name="editar" id="editar" title="Editar informações do usuário"><i class="mx-0 mdi mdi-settings"></i></button>
+					<button class="btn btn-dark btn-xs btn-rounded m-1" name="resetar" id="resetar" title="Resetar senha do usuário"><i class="mx-0 mdi mdi-sync"></i></button>
+					<button class="btn btn-dark btn-xs btn-rounded m-1" name="alterar" id="alterar" title="Alterar estado do usuário"><i class="mx-0 mdi mdi-account-switch"></i></button>' : '
+					<button class="btn btn-dark btn-xs btn-rounded m-1" name="editar" id="editar" title="Editar informações do usuário"><i class="mx-0 mdi mdi-settings"></i></button>
+					<button class="btn btn-dark btn-xs btn-rounded m-1" name="resetar" id="resetar" title="Resetar senha do usuário"><i class="mx-0 mdi mdi-sync"></i></button>
+					<button class="btn btn-dark btn-xs btn-rounded m-1" name="alterar" id="alterar" title="Alterar estado do usuário"><i class="mx-0 mdi mdi-account-switch"></i></button>');
 	            })->rawColumns(['image', 'funcao', 'nome', 'status1', 'acoes'])->make(true);
 	    }else{
 	    	return datatables()->of(Usuarios::where('id', '!=', Auth::id())->where('id', '<>', 1)->get())
@@ -793,14 +793,6 @@ class ConfiguracoesCtrl extends Controller
 			'mensagem' => 'E-mail enviado para o(s) destinatário(s).'
 		));
 		return redirect(route('exibir.disparo.emails'));
-	}
-	// Disparo de todas as credênciais dos usuaríos
-	public function DisparoCredenciais(){
-		$dados = Usuarios::all();
-		foreach ($dados as $value) {
-			$value->notify(new Cadastro($value));
-		}
-		return redirect(route('exibir.mensagens.emails'));
 	}
 
 	#-------------------------------------------------------------------
