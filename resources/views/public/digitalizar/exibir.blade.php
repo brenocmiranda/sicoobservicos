@@ -50,18 +50,19 @@ Digitalizar
 						<input class="form-control form-control-line px-3" type="text" name="nomePasta" style="border-radius: 10px" onkeyup="this.value = this.value.toUpperCase();" required>
 					</div>
 				</div>
+				<img src="" id="ImagePrincipal">
 				<div class="col-12">
 					<div class="form-group">
 						<label class="col-form-label text-white">Documento de identificação</label>
 						<div class="row">
 							<div class="row col-12 justify-content-center mx-auto mb-2">
 								<label for="identificacao1" class="btn btn-default col-10 px-0 border-0 pt-3" title="Selecione o arquivo" style="border-radius: 0px; border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;"><span class="my-auto">Frente</span></label>
-								<input type="file" name="identificacao[]" id="identificacao1" class="position-absolute col-8 ml-n5 px-0 mt-3" style="opacity: 0" accept="image/*" onchange="arquivo(this)">
+								<input type="file" id="identificacao1" class="position-absolute col-8 ml-n5 px-0 mt-3" style="opacity: 0" accept="image/*" onchange="arquivo(this, 'identificacao')">
 								<a href="javascript:" title="Remover arquivos" class="btn btn-danger col-2" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;" onclick="remover(this)"><i class="mdi mdi-close"></i></a>
 							</div>
 							<div class="row col-12 justify-content-center mx-auto mb-2 identificao2" style="display: none;">
 								<label for="identificacao2" class="btn btn-default col-10 px-0 border-0 pt-3" title="Selecione o arquivo" style="border-radius: 0px; border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;">Verso</label>
-								<input type="file" name="identificacao[]" id="identificacao2" class="position-absolute offset-6 col-1 px-0 mt-3" style="opacity: 0" accept="image/*" onchange="arquivo(this)">
+								<input type="file" name="identificacao[]" id="identificacao2" class="position-absolute offset-6 col-1 px-0 mt-3" style="opacity: 0" accept="image/*" onchange="arquivo(this, 'identificacao')">
 								<a href="javascript:" title="Remover arquivos" class="btn btn-danger col-2" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;" onclick="remover(this)"><i class="mdi mdi-close"></i></a>
 							</div>
 							<div class="col-12">
@@ -79,7 +80,7 @@ Digitalizar
 						<div class="row">
 							<div class="row col-12 justify-content-center mx-auto mb-2">
 								<label for="cpf" class="btn btn-default col-10 px-0 border-0 pt-3" title="Selecione o arquivo" style="border-radius: 0px; border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;">CPF</label>
-								<input type="file" name="cpf" id="cpf" class="position-absolute col-8 ml-n5 px-0 mt-3" style="opacity: 0" accept="image/*" onchange="arquivo(this)">
+								<input type="file" id="cpf" class="position-absolute col-8 ml-n5 px-0 mt-3" style="opacity: 0" accept="image/*" onchange="arquivo(this, 'cpf')">
 								<a href="javascript:" title="Remover arquivos" class="btn btn-danger col-2" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;" onclick="remover(this)"><i class="mdi mdi-close"></i></a>
 							</div>
 						</div>
@@ -91,7 +92,7 @@ Digitalizar
 						<div class="row">
 							<div class="row col-12 justify-content-center mx-auto mb-2">
 								<label for="renda" class="btn btn-default col-10 px-0 border-0 pt-3" title="Selecione o arquivo" style="border-radius: 0px; border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;">Renda</label>
-								<input type="file" name="renda" id="renda" class="position-absolute col-8 ml-n5 px-0 mt-3" style="opacity: 0" accept="image/*" onchange="arquivo(this)">
+								<input type="file" id="renda" class="position-absolute col-8 ml-n5 px-0 mt-3" style="opacity: 0" accept="image/*" onchange="arquivo(this, 'renda')">
 								<a href="javascript:" title="Remover arquivos" class="btn btn-danger col-2" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;" onclick="remover(this)"><i class="mdi mdi-close"></i></a>
 							</div>
 						</div>
@@ -103,7 +104,7 @@ Digitalizar
 						<div class="row">
 							<div class="row col-12 justify-content-center mx-auto mb-2">
 								<label for="residencia" class="btn btn-default col-10 px-0 border-0 pt-3" title="Selecione o arquivo" style="border-radius: 0px; border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;">Residência</label>
-								<input type="file" name="residencia" id="residencia" class="position-absolute col-8 ml-n5 px-0 mt-3" style="opacity: 0" accept="image/*" onchange="arquivo(this)">
+								<input type="file" id="residencia" class="position-absolute col-8 ml-n5 px-0 mt-3" style="opacity: 0" accept="image/*" onchange="arquivo(this, 'residencia')">
 								<a href="javascript:" title="Remover arquivos" class="btn btn-danger col-2" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;" onclick="remover(this)"><i class="mdi mdi-close"></i></a>
 							</div>
 						</div>
@@ -115,7 +116,7 @@ Digitalizar
 						<div class="row">
 							<div class="row col-12 justify-content-center mx-auto mb-2">
 								<label for="assinatura" class="btn btn-default col-10 px-0 border-0 pt-3" title="Selecione o arquivo" style="border-radius: 0px; border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;"> Assinatura </label>
-								<input type="file" name="assinatura" id="assinatura" class="position-absolute col-8 ml-n5 px-0 mt-3" style="opacity: 0" accept="image/*" onchange="arquivo(this)">
+								<input type="file" id="assinatura" class="position-absolute col-8 ml-n5 px-0 mt-3" style="opacity: 0" accept="image/*" onchange="arquivo(this, 'assinatura')">
 								<a href="javascript:" title="Remover arquivos" class="btn btn-danger col-2" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;" onclick="remover(this)"><i class="mdi mdi-close"></i></a>
 							</div>
 						</div>
@@ -178,9 +179,28 @@ Digitalizar
 @section('suporte')
 <script type="text/javascript">
 	// Para arquivos definidos
-	function arquivo(input){
+	function arquivo(input, name){
 		if(input.value){
-			$(input).prev('label').addClass('bg-success');
+			var formData = new FormData();
+	      	formData.append('_token', '{{csrf_token()}}');
+
+		     if (input.files) {
+		        for (i = 0; i < input.files.length; i++) {
+		          formData.append('arquivos[]', input.files[i]);
+		        }
+		        $.ajax({
+		          url: "{{ route('arquivo.digitalizar.enviar') }}",
+		          type: 'POST',
+		          data: formData,
+		          processData: false,
+		          contentType: false,
+		          success: function(data){ 
+		            $(input).prev('label').addClass('bg-success');
+		            $(input).prev('label').append('<input type="hidden" name="'+name+'[]" value="'+data+'">')
+		          }
+		        });
+		        $(input).val('');
+		     }
 		}else{
 			$(input).prev('label').removeClass('bg-success');
 		}	
@@ -209,7 +229,6 @@ Digitalizar
 	}
 
 	$(document).ready( function (){
-
 		// Inserindo verso do documento de identificação
 		$('#checkbox-1').on('click', function(){
 			if($(this).prop('checked')){

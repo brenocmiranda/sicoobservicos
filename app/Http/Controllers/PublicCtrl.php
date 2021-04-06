@@ -139,17 +139,68 @@ class PublicCtrl extends Controller
 		return redirect(route('login'));
 	}
 
+	#-------------------------------------------------------------------
+	# Digitalização de arquivos
+	#-------------------------------------------------------------------
 	// Importação de documentos
 	public function ExibirImportacao(){
 		$usuarios = Usuarios::where('id', '<>', 1)->where('status', 'Ativo')->orderBy('login', 'ASC')->get();
 		$homepage = Imagens::where('tipo', 'homepage_principal')->get();
 		return view('public.digitalizar.exibir')->with('usuarios', $usuarios)->with('homepage', $homepage);
 	}
-	public function Importar(Request $request){
+	// Fazendo upload de arquivos
+    public function ArquivoDigitalizar(Request $request){
+        if ($request->hasFile('arquivos')) {
+            foreach($request->file('arquivos') as $imagem){
+                if($imagem->isValid()){
+                    $name = 'Digitalizar_'.date('Y_m_d_H_i_s_').rand(1, 999);
+                    $extension =  $imagem->extension();
+                    $nameFile = "{$name}.{$extension}";
+                    $upload =  $imagem->storeAs('digitalizar', $nameFile);
+                }
+                // Compactando a imagem
+				$info = getimagesize(storage_path().'/app/digitalizar/'.$nameFile);
+				if ($info['mime'] == 'image/jpeg') {
+			        $image = imagecreatefromjpeg(storage_path().'/app/digitalizar/'.$nameFile);
+				}elseif ($info['mime'] == 'image/gif') {
+			        $image = imagecreatefromgif(storage_path().'/app/digitalizar/'.$nameFile);
+				}elseif ($info['mime'] == 'image/png') {
+			        $image = imagecreatefrompng(storage_path().'/app/digitalizar/'.$nameFile);
+				}
+
+				// Alterando a orientação da imagem
+				$exif = @exif_read_data($arq);
+                if(!empty($exif['Orientation'])) {
+	                switch($exif['Orientation']) {
+	                case 8:
+	                    $newimage = imagerotate($image,90,0);
+	                    break;
+	                case 3:
+	                    $newimage = imagerotate($image,180,0);
+	                    break;
+	                case 6:
+	                    $newimage = imagerotate($image,-90,0);
+	                    break;
+	                case 1:
+	                   	$newimage = $image;
+	                    break;
+	                }
+                }else{
+                	$newimage = $image;
+                }	
+				// Gerando nova imagem
+				imagejpeg($newimage, storage_path().'/app/digitalizar/'.$nameFile, 30);
+				$urlImage = 'app/digitalizar/'.$nameFile;
+				return $urlImage;
+            }
+        }
+    }
+
+	public function Upload(Request $request){
 		// Documento de identificação
 		if(isset($request->identificacao)){
 			foreach($request->identificacao as $key => $arq){
-				// Copia arquivo para servidor com a nomeclatura
+				/* Copia arquivo para servidor com a nomeclatura
             	$nameFile = 'Digitalizar_'.date('Y_m_d_H_i_s_').$key.'.'.$arq->getClientOriginalExtension();
 				$upload = $arq->storeAs('digitalizar', $nameFile);
 				// Compactando a imagem
@@ -184,10 +235,10 @@ class PublicCtrl extends Controller
                 }	
 				// Gerando nova imagem
 				imagejpeg($newimage, storage_path().'/app/digitalizar/'.$nameFile, 30);
-
+				*/
 				// HTML para criação do PDF
 				$usuario = Usuarios::where('login', $request->usuario)->first();
-				$html[] = preg_replace("/>s+</", "><", '<div style="page-break-after: always;"><img src="'.asset('storage/app/digitalizar/'.$nameFile).'" style="max-width: 100%; max-height: 27cm;"><div style="font-size: 1px !important; text-align:right; color:white; width:100%; background-color: #292828; padding-right: 1px; padding-top: 0.5px; padding-bottom: 0.5px;">Confere com o original <br>'.$usuario->RelationAssociado->nome.'</div></div>');
+				$html[] = preg_replace("/>s+</", "><", '<div style="page-break-after: always;"><img src="'.asset('storage/'.$arq).'" style="max-width: 100%; max-height: 27cm;"><div style="font-size: 1px !important; text-align:right; color:white; width:100%; background-color: #292828; padding-right: 1px; padding-top: 0.5px; padding-bottom: 0.5px;">Confere com o original <br>'.$usuario->RelationAssociado->nome.'</div></div>');
 			}
 			// Gerando PDF
 			if(is_dir("//10.11.26.1/Digitalizarss$/".date('d-m-Y'))){
@@ -206,7 +257,7 @@ class PublicCtrl extends Controller
 
 		// Documento CPF
 		if(isset($request->cpf)){
-			// Copia arquivo para servidor com a nomeclatura
+			/* Copia arquivo para servidor com a nomeclatura
         	$nameFile = 'Digitalizar_'.date('Y_m_d_H_i_s_').$request->cpf->getClientOriginalExtension();
 			$upload = $request->cpf->storeAs('digitalizar', $nameFile);
 			// Compactando a imagem
@@ -218,7 +269,6 @@ class PublicCtrl extends Controller
 			}elseif ($info['mime'] == 'image/png') {
 		        $image = imagecreatefrompng(storage_path().'/app/digitalizar/'.$nameFile);
 			}
-
 			// Alterando a orientação da imagem
 			$exif = @exif_read_data($request->cpf);
             if(!empty($exif['Orientation'])) {
@@ -242,10 +292,10 @@ class PublicCtrl extends Controller
 
 			// Gerando nova imagem
 			imagejpeg($newimage, storage_path().'/app/digitalizar/'.$nameFile, 30);
-			
+			*/
 			// HTML para criação do PDF
 			$usuario = Usuarios::where('login', $request->usuario)->first();
-			$html = '<div><img src="'.asset('storage/app/digitalizar/'.$nameFile).'" style="max-width: 100%; max-height: 27cm;"><div style="font-size: 1px !important; text-align:right; color:white; width:100%; background-color: #292828; padding-right: 1px; padding-top: 0.5px; padding-bottom: 0.5px;">Confere com o original <br> '.$usuario->RelationAssociado->nome.'</div></div>';
+			$html = '<div><img src="'.asset('storage/'.$request->cpf[0]).'" style="max-width: 100%; max-height: 27cm;"><div style="font-size: 1px !important; text-align:right; color:white; width:100%; background-color: #292828; padding-right: 1px; padding-top: 0.5px; padding-bottom: 0.5px;">Confere com o original <br> '.$usuario->RelationAssociado->nome.'</div></div>';
 			$html = preg_replace("/>s+</", "><", $html);
 
 			// Gerando PDF
@@ -266,7 +316,7 @@ class PublicCtrl extends Controller
 
 		// Comprovante de renda
 		if(isset($request->renda)){
-			// Copia arquivo para servidor com a nomeclatura
+			/* Copia arquivo para servidor com a nomeclatura
         	$nameFile = 'Digitalizar_'.date('Y_m_d_H_i_s_').$request->renda->getClientOriginalExtension();
 			$upload = $request->renda->storeAs('digitalizar', $nameFile);
 			// Compactando a imagem
@@ -278,7 +328,6 @@ class PublicCtrl extends Controller
 			}elseif ($info['mime'] == 'image/png') {
 		        $image = imagecreatefrompng(storage_path().'/app/digitalizar/'.$nameFile);
 			}
-
 			// Alterando a orientação da imagem
 			$exif = @exif_read_data($request->renda);
             if(!empty($exif['Orientation'])) {
@@ -302,10 +351,10 @@ class PublicCtrl extends Controller
 
 			// Gerando nova imagem
 			imagejpeg($newimage, storage_path().'/app/digitalizar/'.$nameFile, 30);
-			
+			*/
 			// HTML para criação do PDF
 			$usuario = Usuarios::where('login', $request->usuario)->first();
-			$html = '<div><img src="'.asset('storage/app/digitalizar/'.$nameFile).'" style="max-width: 100%; max-height: 27cm;"><div style="font-size: 1px !important; text-align:right; color:white; width:100%; background-color: #292828; padding-right: 1px; padding-top: 0.5px; padding-bottom: 0.5px;">Confere com o original <br> '.$usuario->RelationAssociado->nome.'</div></div>';
+			$html = '<div><img src="'.asset('storage/'.$request->renda[0]).'" style="max-width: 100%; max-height: 27cm;"><div style="font-size: 1px !important; text-align:right; color:white; width:100%; background-color: #292828; padding-right: 1px; padding-top: 0.5px; padding-bottom: 0.5px;">Confere com o original <br> '.$usuario->RelationAssociado->nome.'</div></div>';
 			$html = preg_replace("/>s+</", "><", $html);
 
 			// Gerando PDF
@@ -326,7 +375,7 @@ class PublicCtrl extends Controller
 
 		// Comprovante de residência
 		if(isset($request->residencia)){
-			// Copia arquivo para servidor com a nomeclatura
+			/* Copia arquivo para servidor com a nomeclatura
         	$nameFile = 'Digitalizar_'.date('Y_m_d_H_i_s_').$request->residencia->getClientOriginalExtension();
 			$upload = $request->residencia->storeAs('digitalizar', $nameFile);
 			// Compactando a imagem
@@ -338,7 +387,6 @@ class PublicCtrl extends Controller
 			}elseif ($info['mime'] == 'image/png') {
 		        $image = imagecreatefrompng(storage_path().'/app/digitalizar/'.$nameFile);
 			}
-
 			// Alterando a orientação da imagem
 			$exif = @exif_read_data($request->residencia);
             if(!empty($exif['Orientation'])) {
@@ -362,10 +410,10 @@ class PublicCtrl extends Controller
 
 			// Gerando nova imagem
 			imagejpeg($newimage, storage_path().'/app/digitalizar/'.$nameFile, 30);
-			
+			*/
 			// HTML para criação do PDF
 			$usuario = Usuarios::where('login', $request->usuario)->first();
-			$html = '<div><img src="'.asset('storage/app/digitalizar/'.$nameFile).'" style="max-width: 100%; max-height: 27cm;"><div style="font-size: 1px !important; text-align:right; color:white; width:100%; background-color: #292828; padding-right: 1px; padding-top: 0.5px; padding-bottom: 0.5px;">Confere com o original <br> '.$usuario->RelationAssociado->nome.'</div></div>';
+			$html = '<div><img src="'.asset('storage/'.$request->residencia[0]).'" style="max-width: 100%; max-height: 27cm;"><div style="font-size: 1px !important; text-align:right; color:white; width:100%; background-color: #292828; padding-right: 1px; padding-top: 0.5px; padding-bottom: 0.5px;">Confere com o original <br> '.$usuario->RelationAssociado->nome.'</div></div>';
 			$html = preg_replace("/>s+</", "><", $html);
 
 			// Gerando PDF
@@ -386,7 +434,7 @@ class PublicCtrl extends Controller
 
 		// Cartão de assinatura
 		if(isset($request->assinatura)){
-			// Copia arquivo para servidor com a nomeclatura
+			/* Copia arquivo para servidor com a nomeclatura
         	$nameFile = 'Digitalizar_'.date('Y_m_d_H_i_s_').$request->assinatura->getClientOriginalExtension();
 			$upload = $request->assinatura->storeAs('digitalizar', $nameFile);
 			// Compactando a imagem
@@ -419,12 +467,15 @@ class PublicCtrl extends Controller
             }else{
             	$newimage = $image;
             }	
-
 			// Gerando nova imagem
 			imagejpeg($newimage, "//10.11.26.1/Digitalizarss$/".date('d-m-Y').'/'.$request->nomePasta.'/CARTAO DE ASSINATURA.jpg', 80);
+			*/
+			$file = asset('storage/'.$request->assinatura[0]);
+			$newfile = "//10.11.26.1/Digitalizarss$/".date('d-m-Y').'/'.$request->nomePasta.'/CARTAO DE ASSINATURA.jpg';
+			copy($file, $newfile);
 		}
 
-		// Outros arquivos
+		/* Outros arquivos
 		if (isset($request->arquivos)) {
 			if($request->pagina == 1){
 		        foreach($request->arquivos as $key => $arq){
@@ -560,7 +611,7 @@ class PublicCtrl extends Controller
 					}
 			    }
            	 }
-        }
+        }*/
 
         if(isset($request->identificacao) || isset($request->cpf) || isset($request->renda) || isset($request->residencia) || isset($request->assinatura) || isset($request->arquivos)) {
 			\Session::flash('confirm', array(
@@ -576,7 +627,9 @@ class PublicCtrl extends Controller
 		return redirect()->route('digitalizar');
 	}
 
-	// Telefones internos
+	#-------------------------------------------------------------------
+	# Telefones internos
+	#-------------------------------------------------------------------
 	public function ExibirTelefones(){
 		$unidades = Unidades::where('status', 1)->whereNotNull('cep')->get();
 		$usuariosRamal = Usuarios::where('id', '<>', 1)->where('status', 'Ativo')->whereNotNull('telefone_ramal')->get();
