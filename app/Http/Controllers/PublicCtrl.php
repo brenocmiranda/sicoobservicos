@@ -290,9 +290,6 @@ class PublicCtrl extends Controller
 
 		// Cartão de assinatura
 		if(isset($request->assinatura)){
-			// Gerando nova imagem
-			imagejpeg($newimage, "//10.11.26.1/Digitalizarss$/".date('d-m-Y').'/'.$request->nomePasta.'/CARTAO DE ASSINATURA.jpg', 80);
-			*/
 			$file = asset('storage/'.$request->assinatura[0]);
 			$newfile = "//10.11.26.1/Digitalizarss$/".date('d-m-Y').'/'.$request->nomePasta.'/CARTAO DE ASSINATURA.jpg';
 			copy($file, $newfile);
