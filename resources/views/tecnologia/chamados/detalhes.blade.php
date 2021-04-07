@@ -21,7 +21,7 @@ Detalhes do chamado
 
   <div class="confirm"></div>
 
-  <div class="row" style="height: 600px !important;">
+  <div class="row">
     <div class="col-lg-7 col-12 h-100">
       <div class="card h-100">
         <div class="card-header" style="border-top-right-radius: 0.6em; border-top-left-radius: 0.6em;">
@@ -40,14 +40,12 @@ Detalhes do chamado
               <span>{{$chamado->RelationFontes->nome}}</span>
             </h5>
           </div>
-
           <div class="col-12 mb-4">
             <label class="text-capitalize d-block text-primary">
               {{$chamado->RelationUsuario->RelationAssociado->nome}}
             </label>
           </div>
-
-          <div class="">
+          <div>
             <div class="col-12 mb-4">
               <label class="d-block">
                 <b>Assunto</b> 
@@ -105,8 +103,8 @@ Detalhes do chamado
               </div>
             </div>
           </div>
-
-          <div class="col-12 px-0 pt-0 footer" style="border-radius: 0.8rem;">
+        </div>
+         <div class="col-12 px-0 pt-0 card-footer bg-white border-0 pb-5">
             <hr class="col-10">
             <div class="row justify-content-center">
               <div> 
@@ -125,12 +123,10 @@ Detalhes do chamado
               @endif
             </div>
           </div>
-
-        </div>
       </div>
     </div>
 
-    <div class="col-lg-5 col-12 h-100 py-4 py-lg-0">
+    <div class="col-lg-5 col-12 mh-100 py-4 py-lg-0">
       <div class="card h-100">
         <div class="card-header {{($chamado->RelationStatus->first()->finish != 1 ? 'p-1' : '')}}" style="border-top-right-radius: 0.6em; border-top-left-radius: 0.6em;">
           <div class="m-4 row">
@@ -140,7 +136,6 @@ Detalhes do chamado
           </div>
         </div>
         <div class="card-body" style="overflow-y: auto">
-
           @if($chamado->RelationStatus->first()->finish != 1)
           <div class="col-12 text-center">
             <a href="javascript:" title="Adicionar nova atualização" data-toggle="modal" data-target="#modal-alterar">
@@ -149,7 +144,6 @@ Detalhes do chamado
             </a>
           </div>
           @endif
-
           <ul class="p-0" id="statusNews">
             @foreach($historicoStatus as $status)
             <li class="m-3" id="status{{$status->id}}">
