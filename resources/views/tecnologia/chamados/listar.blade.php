@@ -57,7 +57,7 @@ Solicitações de Suporte
 										@if($chamado->RelationStatus->first()->id == $status->id)
 										<li class="col-12 border rounded shadow-sm mb-3" style="border-left: 5px solid {{$chamado->RelationStatus->first()->color}} !important">
 											<div class="p-3 h-100 row">
-												<div class="text-left col-lg-6 col-8">
+												<div class="text-left col-lg-8 col-8">
 													<a href="{{route('detalhes.chamados.gti', $chamado->id)}}">
 														<h5 class="text-uppercase my-1 text-truncate">
 															<span>{{$chamado->RelationAmbientes->nome}}</span> 
@@ -119,7 +119,7 @@ Solicitações de Suporte
 										@if($chamado->RelationStatus->first()->id == $status->id)
 										<li class="col-12 border rounded shadow-sm mb-3" style="border-left: 5px solid {{$chamado->RelationStatus->first()->color}} !important">
 											<div class="p-3 h-100 row">
-												<div class="text-left col-lg-6 col-8">
+												<div class="text-left col-lg-8 col-8">
 													<a href="{{route('detalhes.chamados.gti', $chamado->id)}}">
 														<h5 class="text-uppercase my-1 text-truncate">
 															<span>{{$chamado->RelationAmbientes->nome}}</span> 

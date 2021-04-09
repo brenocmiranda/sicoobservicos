@@ -188,7 +188,7 @@ class TecnologiaCtrl extends Controller
             $create = Chamados::find($id);
             $atualizacao = Chamados::where('id', $id)->update(['assunto' => $create->assunto]);
             // Criando notificações por e-mail
-	        // $chamado->RelationUsuario->notify(new SolicitacaoChamadosCliente($chamado));     
+	        $chamado->RelationUsuario->notify(new SolicitacaoChamadosCliente($chamado));     
             $this->email->notify(new SolicitacaoChamadosAdmin($create));        
             Atividades::create([
                 'nome' => 'Alteração de estado do chamado',

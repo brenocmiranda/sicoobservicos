@@ -291,23 +291,18 @@ Dashboard
 <script type="text/javascript">
 	$(document).ready( function (){
 
-		// Bens cadastrados
-		$('.sttabs').tabs({active: 0});
-		var chart = Morris.Donut({
-			element: 'morris-donut-chart',
-			data: [{
-				label: "Imóveis",
-				value: "{{count($bens->where('tipo', 'imovel'))}}",
-			}, {
-				label: "Veículos",
-				value: "{{count($bens->where('tipo', 'veiculos'))}}",
-			}, {
-				label: "Outros",
-				value: "{{count($bens->where('tipo', 'outros'))}}",
-			}],
-			resize: true,
-			colors:['#99d683', '#13dafe', '#6164c1']
-		});
+		 // Materiais
+	    $('.sttabs').tabs({active: 0});
+	    var materiais = {!! $materiaisCategoria !!};
+	    var morrisData = [];
+	    $.each(materiais, function(key, val){
+	    	morrisData.push({'label': val.nome, 'value': val.quantidade}); 
+	    });
+	    var chart2 = Morris.Donut({
+	    	element: 'morris-donut-chart2',
+	    	data: morrisData,
+	    	resize: true
+	    });
 
 	    // Documentos cadastrados
 	    $('.sttabs').tabs({active: 1});
@@ -324,20 +319,24 @@ Dashboard
 	    	colors:['#99d683', '#ff0000']
 	    });
 
-
-	    // Materiais
-	    $('.sttabs').tabs({active: 2});
-	    var materiais = {!! $materiaisCategoria !!};
-	    var morrisData = [];
-	    $.each(materiais, function(key, val){
-	    	morrisData.push({'label': val.nome, 'value': val.quantidade}); 
-	    });
-	    var chart2 = Morris.Donut({
-	    	element: 'morris-donut-chart2',
-	    	data: morrisData,
-	    	resize: true
-	    });
-
+	    // Bens cadastrados
+		$('.sttabs').tabs({active: 2});
+		var chart = Morris.Donut({
+			element: 'morris-donut-chart',
+			data: [{
+				label: "Imóveis",
+				value: "{{count($bens->where('tipo', 'imovel'))}}",
+			}, {
+				label: "Veículos",
+				value: "{{count($bens->where('tipo', 'veiculos'))}}",
+			}, {
+				label: "Outros",
+				value: "{{count($bens->where('tipo', 'outros'))}}",
+			}],
+			resize: true,
+			colors:['#99d683', '#13dafe', '#6164c1']
+		});
+	   
 	    $('#table1').DataTable({
 	    	searching: false,
 	    	pageLength: 5,
