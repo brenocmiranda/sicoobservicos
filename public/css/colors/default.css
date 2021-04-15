@@ -80,7 +80,7 @@ body {
 #side-menu > li > a.active {
   background: transparent;
   color: #54667a;
-  border-left: 5px solid #00b09f;
+  border-left: 5px solid #7eb61e;
   font-weight: 600;
 }
 #side-menu ul > li > a:hover {
