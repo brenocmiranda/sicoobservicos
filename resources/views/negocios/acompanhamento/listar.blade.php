@@ -37,6 +37,10 @@ Acompanhamento
 </div>
 @endsection
 
+@section('modal')
+	@include('negocios.acompanhamento.alterar')
+@endsection
+
 @section('suporte')
 <script type="text/javascript">
 	$(document).ready( function (){
@@ -93,6 +97,59 @@ Acompanhamento
 							});
 						} else {
 							swal.close();
+						}
+					});
+				});
+
+				// Remover o associado da análise
+				$('#table tbody').on('click', 'a#alterar', function(e) {
+					var table = $('#table').DataTable();
+					table.$('tr.selected').removeClass('selected');
+					$(this).parents('tr').addClass('selected');
+					$(this).parent('tr').addClass('selected');
+					var data = table.row('tr.selected').data();
+					$('#modal-alterar #id_carteira').val(data.id);
+					$('#modal-alterar .nome').html(data.nome);
+					$('#modal-alterar').modal('show');
+				});
+
+				// Enviar processo de remoção
+				$('#modal-alterar #formAlterar').on('submit', function(e){
+					var table = $('#table').DataTable();
+					e.preventDefault();
+					$.ajax({
+						url: "{{url('app/negocios/acompanhamento/alterar')}}/"+$('#modal-alterar #id_carteira').val(),
+						type: 'POST',
+						data: new FormData(this),
+						processData: false,
+				        contentType: false,
+						beforeSend: function(){
+							$('.modal-body, .modal-footer').addClass('d-none');
+							$('.carregamento').html('<div class="mx-auto text-center my-5"> <div class="col-12"> <div class="spinner-border my-4" role="status"> <span class="sr-only"> Loading... </span> </div> </div> <label>Salvando informações...</label></div>');
+							$('#modal-alterar #err').html('');
+						},
+						success: function(data){
+							$('.modal-body, .modal-footer').addClass('d-none');
+							$('.carregamento').html('<div class="mx-auto text-center my-5"><div class="col-12"><i class="col-2 mdi mdi-check-all mdi-48px"></i></div><label>Informações alteradas com sucesso!</label></div>');
+							setTimeout(function(){
+								location.reload();
+							}, 1200);
+						}, error: function (data) {
+							setTimeout(function(){
+								$('.modal-body, .modal-footer').removeClass('d-none');
+								$('.carregamento').html('');
+								if(!data.responseJSON){
+									console.log(data.responseText);
+									$('#modal-alterar #err').html(data.responseText);
+								}else{
+									$('#modal-alterar #err').html('');
+									$('input').removeClass('border-bottom border-danger');
+									$.each(data.responseJSON.errors, function(key, value){
+										$('#modal-alterar #err').append('<div class="text-danger mx-4"><p>'+value+'</p></div>');
+										$('input[name="'+key+'"]').addClass('border-bottom border-danger');
+									});
+								}
+							}, 2000);
 						}
 					});
 				});

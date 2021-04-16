@@ -47,7 +47,7 @@ Digitalizar
 				<div class="col-12">
 					<div class="form-group">
 						<label class="col-form-label text-white">Nome da pasta <span class="text-danger">*</span></label>
-						<input class="form-control form-control-line px-3" type="text" name="nomePasta" style="border-radius: 10px" onkeyup="this.value = this.value.toUpperCase();" required>
+						<input class="form-control form-control-line px-3 text-uppercase" type="text" name="nomePasta" style="border-radius: 10px" required>
 					</div>
 				</div>
 				<img src="" id="ImagePrincipal">

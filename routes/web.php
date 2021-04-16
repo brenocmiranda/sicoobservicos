@@ -295,6 +295,8 @@ Route::group(['prefix' => 'app'], function(){
 			Route::get('', 'NegociosCtrl@ExibirAcompanhamento')->name('exibir.acompanhamento.negocios');
 			Route::get('listar', 'NegociosCtrl@DatatablesAcompanhamento')->name('listar.acompanhamento.negocios');
 			Route::get('executar/{id}', 'NegociosCtrl@ExecutarAcompanhamento')->name('executar.acompanhamento.negocios');
+			Route::any('alterar/{id}', 'NegociosCtrl@AlterarAcompanhamento')->name('alterar.acompanhamento.negocios');
+			Route::get('relatorio/{id}', 'NegociosCtrl@RelatorioAcompanhamento')->name('relatorio.acompanhamento.negocios');
 		});
 		// Relatórios
 		Route::group(['prefix' => 'relatorios'], function(){

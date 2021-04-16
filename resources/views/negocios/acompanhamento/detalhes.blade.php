@@ -343,23 +343,37 @@ Acompanhamento da análise
 		</div>
 		<div class="card mb-4">
 			<div class="card-header" style="border-top-right-radius: 0.6em; border-top-left-radius: 0.6em;">
-				<h5 class="text-white">Histórico de tratamentos</h5>
+				<h5 class="text-white">Histórico de tratamentos {!!($carteira->RelationStatus->status == 'aberto' ? '<div class="ml-2 badge badge-success">Em aberto</div>' : ($carteira->RelationStatus->status == 'andamento' ? '<div class="ml-2 badge badge-info">Em andamento</div>' : ($carteira->RelationStatus->status == 'excecao' ? '<div class="ml-2 badge badge-warning">Não contatar</div>' : '<div class="ml-2 badge badge-danger">Finalizado</div>')))!!}</h5>
 			</div>
 			<div class="card-body">
 				<div class="row mx-auto">
 				@if($carteira->RelationStatusTodos)
 					@foreach($carteira->RelationStatusTodos as $dados)
-						@if($dados->status == 'aberto')
+						@if($dados->status == 'aberto' && $dados->observacoes != null)
 						<div class="form-group col-12 row mx-auto">
-							<h5 class="col-12 px-0">Parecer do analista <small>({{$dados->RelationUsuario->RelationAssociado->nome}})</small></h5>
+							<h5 class="col-12 px-0">Parecer do analista</h5>
 							<p class="col-12 px-0">{{$dados->observacoes}}</p>
+							<p class="col-12 px-0">
+								<small>
+									<span><b>Responsável:</b> {{$dados->RelationUsuario->RelationAssociado->nome}}</span>
+									<br>
+									<span><b>Data:</b> {{date('d/m/Y H:i:s', strtotime($dados->created_at))}}</span>
+								</small>
+							</p>
 						</div>
 						@endif
-						@if($dados->status == 'finalizado')
+						@if($dados->status == 'finalizado' && $dados->observacoes != null)
 						<div class="form-group col-12 row mx-auto">
-							<h5 class="col-12 px-0">Parecer do atendimento <small>({{$dados->RelationUsuario->RelationAssociado->nome}})</small></h5>
-							<p class="col-12 px-0">{{$dados->observacoes}}</p>
-						</div>
+								<h5 class="col-12 px-0">Parecer do atendimento</h5>
+								<p class="col-12 px-0">{{$dados->observacoes}}</p>
+								<p class="col-12 px-0">
+									<small>
+										<span><b>Responsável:</b> {{$dados->RelationUsuario->RelationAssociado->nome}}</span>
+										<br>
+										<span><b>Data:</b> {{date('d/m/Y H:i:s', strtotime($dados->created_at))}}</span>
+									</small>
+								</p>
+							</div>
 						@endif
 					@endforeach
 				@else

@@ -322,8 +322,15 @@ Tratamento do associado
 						@foreach($carteira->RelationStatusTodos as $dados)
 							@if($dados->status == 'aberto')
 							<div class="form-group col-12 row mx-auto">
-								<h5 class="col-12 px-0">Parecer do analista <small>({{$dados->RelationUsuario->RelationAssociado->nome}})</small></h5>
+								<h5 class="col-12 px-0">Parecer do analista</h5>
 								<p class="col-12 px-0">{{$dados->observacoes}}</p>
+								<p class="col-12 px-0">
+									<small>
+										<span><b>Responsável:</b> {{$dados->RelationUsuario->RelationAssociado->nome}}</span>
+										<br>
+										<span><b>Data:</b> {{date('d/m/Y H:i:s', strtotime($dados->created_at))}}</span>
+									</small>
+								</p>
 							</div>
 							@endif
 						@endforeach

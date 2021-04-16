@@ -22,6 +22,6 @@ class NegociosCarteira extends Model
     }
 
     public function RelationAssociado(){
-        return $this->belongsTo(Associados::class, 'cli_id_associado');
+        return $this->belongsTo(Associados::class, 'cli_id_associado'); 
     }
 }

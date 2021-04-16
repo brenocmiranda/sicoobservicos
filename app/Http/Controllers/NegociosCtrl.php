@@ -50,7 +50,7 @@ class NegociosCtrl extends Controller
 						'<a href="'.route('executar.analise.negocios', $dados[$key]->cli_id_associado).'" class="btn btn-dark btn-xs btn-rounded m-1" id="analisar" title="Analisar o associado"><i class="mx-0 mdi mdi-clipboard-outline"></i></a>
 						<a href="javascript:" class="btn btn-dark btn-xs btn-rounded m-1" id="remover" title="Remover o associado da análise"><i class="mx-0 mdi mdi-account-remove"></i></a>
 						<a href="javascript:" class="btn btn-dark btn-xs btn-rounded m-1" id="encaminhar" title="Encaminhar o associado para análise"><i class="mx-0 mdi mdi-subdirectory-arrow-right"></i></a>' : 
-						'<a href="'.route('executar.analise.negocios', $dados[$key]->cli_id_associado).'" class="btn btn-dark btn-xs btn-rounded mx-1" id="analisar" title="Analisar o associado"><i class="mx-0 mdi mdi-clipboard-outline"></i></a>
+						'<a href="'.route('executar.analise.negocios', $dados[$key]->cli_id_associado).'" class="btn btn-dark btn-xs btn-rounded m-1" id="analisar" title="Analisar o associado"><i class="mx-0 mdi mdi-clipboard-outline"></i></a>
 						<a href="javascript:" class="btn btn-dark btn-xs btn-rounded m-1" id="remover" title="Remover o associado da análise"><i class="mx-0 mdi mdi-account-remove"></i></a>');
 					$dados[$key]->status = (isset($dados[$key]->statusCarteira) ? '<div class="badge badge-success">Em aberto</div>' : '<div class="badge badge-danger">Não possui</div>');
 					$novo[] = $dados[$key];
@@ -446,13 +446,39 @@ class NegociosCtrl extends Controller
 			$dados[$key]->colaborador = explode(' ', $dados[$key]->RelationStatus->RelationUsuario->RelationAssociado->nome)[0];
 			$dados[$key]->data = date('d/m/Y H:i', strtotime($dados[$key]->RelationStatus->created_at));
 			$dados[$key]->acoes = '<a href="'.route('executar.acompanhamento.negocios', $dados[$key]->RelationAssociado->id).'" class="btn btn-dark btn-xs btn-rounded m-1" id="detalhes" title="Detalhes da análise"><i class="mx-0 mdi mdi-account-outline"></i></a>
-			<a href="javascript:" class="btn btn-dark btn-xs btn-rounded mx-1" id="alterar" title="Alterar estado do registro"><i class="mx-0 mdi mdi-autorenew"></i></a><a href="javascript:" class="btn btn-dark btn-xs btn-rounded m-1" id="alterar" title="Imprimir relatório da análise estado do registro"><i class="mx-0 mdi mdi-printer"></i></a>';
+			<a href="javascript:" class="btn btn-dark btn-xs btn-rounded mr-1" id="alterar" title="Alterar estado do registro"><i class="mx-0 mdi mdi-autorenew"></i></a><a href="javascript:" class="btn btn-dark btn-xs btn-rounded m-1" id="alterar" title="Imprimir relatório da análise estado do registro"><i class="mx-0 mdi mdi-printer"></i></a>';
 			$dados[$key]->status1 = ($dados[$key]->RelationStatus->status == 'aberto' ? '<div class="badge badge-success">Em aberto</div>' : ($dados[$key]->RelationStatus->status == 'andamento' ? '<div class="badge badge-info">Em andamento</div>' : ($dados[$key]->RelationStatus->status == 'excecao' ? '<div class="badge badge-warning">Não contatar</div>' : '<div class="badge badge-danger">Finalizado</div>')));
 		}
 		return response()->json($dados);
 	}
 	// Exibindo painel de acompanhamento 
 	public function ExecutarAcompanhamento($id){
+		$associado = Associados::find($id);
+		$carteira =	NegociosCarteira::where('cli_id_associado', $id)->first();
+		if($associado->RelationConglomerados){
+				$conglomerado = AssociadosConglomerados::where('codigo', $associado->RelationConglomerados->codigo)->get();
+  		}else{
+  			$conglomerado = null;
+  		}
+		return view('negocios.acompanhamento.detalhes')->with('associado', $associado)->with('carteira', $carteira)->with('conglomerado', $conglomerado);
+	}
+	// Alterar estado do acompanhamento
+	public function AlterarAcompanhamento(Request $request, $id){
+		$status = NegociosCarteiraStatus::where('neg_id_carteira', $id)->where('status', $request->status)->get();
+		if(isset($status[0])){
+			NegociosCarteiraStatus::where('neg_id_carteira', $id)->where('status', $request->status)->update(['created_at' => now()]);
+		}else{
+			NegociosCarteiraStatus::create([
+				'status' => $request->status, 
+				'observacoes' => null,
+				'usr_id_usuarios' => Auth::id(),
+				'neg_id_carteira' => $id
+			]);
+		}	
+		return response()->json(['success' => true]);
+	}
+	// Exibindo painel de acompanhamento 
+	public function RelatorioAcompanhamento($id){
 		$associado = Associados::find($id);
 		$carteira =	NegociosCarteira::where('cli_id_associado', $id)->first();
 		if($associado->RelationConglomerados){

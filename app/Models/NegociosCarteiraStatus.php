@@ -18,3 +18,4 @@ class NegociosCarteiraStatus extends Model
     }
 
 }
+ 
