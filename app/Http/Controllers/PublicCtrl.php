@@ -168,7 +168,11 @@ class PublicCtrl extends Controller
 			        $image = imagecreatefrompng(storage_path().'/app/digitalizar/'.$nameFile);
 				}
 
+				// Alterando filtros da imagem
+				imagefilter($image, IMG_FILTER_BRIGHTNESS, 30);
+
 				// Alterando a orientação da imagem
+				$arq = storage_path().'/app/digitalizar/'.$nameFile;
 				$exif = @exif_read_data($arq);
                 if(!empty($exif['Orientation'])) {
 	                switch($exif['Orientation']) {
