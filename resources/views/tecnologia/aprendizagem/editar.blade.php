@@ -167,7 +167,7 @@ Editar tópico
     $('.gti_id_ambientes').on('change', function(e){
       var ambientes = $('.gti_id_ambientes').val();
       $.ajax({
-        url: "../chamados/fontes/"+ambientes,
+        url: "../fontes/"+ambientes,
         type: 'GET',
         success: function(data){ 
           if(data[0]){
