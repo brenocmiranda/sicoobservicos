@@ -186,8 +186,8 @@ class PublicCtrl extends Controller
 	                    break;
 	                }
                 }else{
-                	$newimage = imagerotate($image, -90,0);
-                	//$newimage = $image;
+                	//$newimage = imagerotate($image, -90,0);
+                	$newimage = $image;
                 }	
 				// Gerando nova imagem
 				imagejpeg($newimage, storage_path().'/app/digitalizar/'.$nameFile, 30);
