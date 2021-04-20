@@ -36,14 +36,13 @@
   <link href="{{ asset('public/vendor/bootstrap-tagsinput/dist/bootstrap-tagsinput.css') }}" rel="stylesheet">
   <link href="{{ asset('public/vendor/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css') }}" rel="stylesheet">
   <link href="{{ asset('public/vendor/multiselect/css/multi-select.css') }}" rel="stylesheet" type="text/css">
-  <link href="{{ asset('public/vendor/dropzone-master/dist/dropzone.css')  }}" rel="stylesheet" type="text/css">  
+  <link href="{{ asset('public/vendor/dropzone-master/dist/dropzone.css') }}" rel="stylesheet" type="text/css">  
   <link href="{{ asset('public/vendor/Magnific-Popup-master/dist/magnific-popup.css')  }}" rel="stylesheet">
-  <link href="{{ asset('public/vendor/owl.carousel/owl.carousel.min.css')  }}" rel="stylesheet" type="text/css">
-  <link href="{{ asset('public/vendor/owl.carousel/owl.theme.default.css')  }}" rel="stylesheet" type="text/css">
-  <link href="{{ asset('public/vendor/summernote/dist/summernote.css')  }}" rel="stylesheet">
-  <link href="{{ asset('public/css/smart_wizard_all.css')  }}" rel="stylesheet">
-  <!--<link href="{{ asset('public/css/jquery-ui.css')  }}" rel="stylesheet">-->
-  <link href="{{ asset('public/css/darkroom.css') }}" rel="stylesheet">
+  <link href="{{ asset('public/vendor/owl.carousel/owl.carousel.min.css') }}" rel="stylesheet" type="text/css">
+  <link href="{{ asset('public/vendor/owl.carousel/owl.theme.default.css') }}" rel="stylesheet" type="text/css">
+  <link href="{{ asset('public/vendor/summernote/dist/summernote.css') }}" rel="stylesheet">
+  <link href="{{ asset('public/css/smart_wizard_all.css') }}" rel="stylesheet">
+  <link href="{{ asset('public/css/jcrop.css') }}" rel="stylesheet" >
   
   @yield('header-support')
 </head>

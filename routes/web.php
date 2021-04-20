@@ -263,6 +263,10 @@ Route::group(['prefix' => 'app'], function(){
 				Route::any('detalhes/{id}', 'CreditoCtrl@DetalhesProdutos')->name('detalhes.produtos.credito');
 			});
 		});
+		// FAMPE
+		Route::group(['prefix' => ''], function(){
+			Route::get('fampe', 'CreditoCtrl@Fampe')->name('fampe.credito');
+		});
 	});
 	
 	#---------------------------------------------------------------------

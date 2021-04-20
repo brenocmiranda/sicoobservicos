@@ -143,7 +143,7 @@
 						</div>
 
 						<div class="row col-12 px-0 mx-auto dadosTelefone"></div>
-						<div class="col-lg-12 col-12 mb-4">
+						<div class="col-lg-12 col-12 mb-4 px-0 px-lg-4">
 							<a href="javascript:" class="novoTelefone">
 								<i class="mdi mdi-plus mr-2"></i> 
 								<span>Mais telefones</span> 
@@ -166,12 +166,13 @@
 								<div class="row dadosIdentificacao">
 									<div class="row col-12 justify-content-center mx-auto mb-2">
 										<input type="text" class="form-control col-10 px-3 h-100" name="nomeIdentificacao" onkeyup="this.value = this.value.toUpperCase();"  style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" value="DOCUMENTO DE IDENTIFICACAO" required>
-										<label for="fupload1" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-file"></i></label>
-										<input type="file" name="documentoIdentificacao[]" id="fupload1" class="position-absolute offset-10 col-1 px-0 mt-3" style="opacity: 0" accept="image/*" onchange="arquivo(this)" required>
+										<label for="fupload1" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;">
+											<i class="mdi mdi-file"></i>
+											<input type="file" name="documentoIdentificacao[]" id="fupload1" class="position-absolute col-12 px-0" style="opacity: 0;top: 0; height: 100%;" accept="application/pdf" onchange="arquivo(this)" required>
+										</label>
 									</div>
 								</div>
 							</div>
-							<a href="javascript:" id="btnIdentificacao"> <i class="ti-plus pr-2"></i> Adicionar mais arquivos</a>
 						</div>
 						<div class="col-12 mb-4 px-0 px-lg-4">
 							<div class="form-group mb-0">
@@ -179,12 +180,13 @@
 								<div class="row dadosCPF">
 									<div class="row col-12 justify-content-center mx-auto mb-2">
 										<input type="text" class="form-control col-10 px-3 h-100" name="nomeCPF" onkeyup="this.value = this.value.toUpperCase();" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" value="CPF" required>
-										<label for="fupload2" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-file"></i></label>
-										<input type="file" name="documentoCPF[]" id="fupload2" class="position-absolute offset-10 col-1 px-0 mt-3" style="opacity: 0" accept="image/*" onchange="arquivo(this)" required>
+										<label for="fupload2" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;">
+											<i class="mdi mdi-file"></i>
+											<input type="file" name="documentoCPF[]" id="fupload2" class="position-absolute col-12 px-0" style="opacity: 0;top: 0; height: 100%;" accept="application/pdf" onchange="arquivo(this)" required>
+										</label>
 									</div>
 								</div>
 							</div>
-							<a href="javascript:" id="btnCPF"> <i class="ti-plus pr-2"></i> Adicionar mais arquivos</a>
 						</div>
 						<div class="col-12 mb-4 px-0 px-lg-4">
 							<div class="form-group mb-0">
@@ -192,12 +194,13 @@
 								<div class="row dadosRenda">
 									<div class="row col-12 justify-content-center mx-auto mb-2">
 										<input type="text" class="form-control col-10 px-3 h-100" name="nomeRenda" onkeyup="this.value = this.value.toUpperCase();" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" value="COMPROVANTE DE RENDA" required>
-										<label for="fupload3" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-file"></i></label>
-										<input type="file" name="documentoRenda[]" id="fupload3" class="position-absolute offset-10 col-1 px-0 mt-3" style="opacity: 0" accept="image/*" onchange="arquivo(this)" required>
+										<label for="fupload3" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;">
+											<i class="mdi mdi-file"></i>
+											<input type="file" name="documentoRenda[]" id="fupload3" class="position-absolute col-12 px-0" style="opacity: 0;top: 0; height: 100%;" accept="application/pdf" onchange="arquivo(this)" required>
+										</label>
 									</div>
 								</div>
 							</div>
-							<a href="javascript:" id="btnRenda"> <i class="ti-plus pr-2"></i> Adicionar mais arquivos</a>
 						</div>
 						<div class="col-12 mb-4 px-0 px-lg-4">
 							<div class="form-group mb-0">
@@ -205,12 +208,13 @@
 								<div class="row dadosResidencia">
 									<div class="row col-12 justify-content-center mx-auto mb-2">
 										<input type="text" class="form-control col-10 px-3 h-100" name="nomeResidencia" onkeyup="this.value = this.value.toUpperCase();" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" value="COMPROVANTE DE RENSIDENCIA" required>
-										<label for="fupload4" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-file"></i></label>
-										<input type="file" name="documentoResidencia[]" id="fupload4" class="position-absolute offset-10 col-1 px-0 mt-3" style="opacity: 0" accept="image/*" onchange="arquivo(this)" required>
+										<label for="fupload4" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;">
+											<i class="mdi mdi-file"></i>
+											<input type="file" name="documentoResidencia[]" id="fupload4" class="position-absolute col-12 px-0" style="opacity: 0;top: 0; height: 100%;" accept="application/pdf" onchange="arquivo(this)" required>
+										</label>
 									</div>
 								</div>
 							</div>
-							<a href="javascript:" id="btnResidencia"> <i class="ti-plus pr-2"></i> Adicionar mais arquivos</a>
 						</div>
 						<div class="col-12 mb-4 px-0 px-lg-4">
 							<div class="form-group mb-0">
@@ -218,12 +222,13 @@
 								<div class="row dadosCasamento">
 									<div class="row col-12 justify-content-center mx-auto mb-2">
 										<input type="text" class="form-control col-10 px-3 h-100" name="nomeCasamento" onkeyup="this.value = this.value.toUpperCase();" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" value="CERTIDAO DE CASAMENTO">
-										<label for="fupload5" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-file"></i></label>
-										<input type="file" name="documentoCasamento[]" id="fupload5" class="position-absolute offset-10 col-1 px-0 mt-3" style="opacity: 0" accept="image/*" onchange="arquivo(this)">
+										<label for="fupload5" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;">
+											<i class="mdi mdi-file"></i>
+											<input type="file" name="documentoCasamento[]" id="fupload5" class="position-absolute col-12 px-0" style="opacity: 0;top: 0; height: 100%;" accept="application/pdf" onchange="arquivo(this)">
+										</label>
 									</div>
 								</div>
 							</div>
-							<a href="javascript:" id="btnCasamento"> <i class="ti-plus pr-2"></i> Adicionar mais arquivos</a>
 						</div>
 						<div class="col-12 mb-4 px-0 px-lg-4">
 							<div class="form-group mb-0">
@@ -231,12 +236,21 @@
 								<div class="row dadosImposto">
 									<div class="row col-12 justify-content-center mx-auto mb-2">
 										<input type="text" class="form-control col-10 px-3 h-100" name="nomeImposto" onkeyup="this.value = this.value.toUpperCase();" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" value="DECLARACAO DE IMPOSTO">
-										<label for="fupload6" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-file"></i></label>
-										<input type="file" name="documentoImposto[]" id="fupload6" class="position-absolute offset-10 col-1 px-0 mt-3" style="opacity: 0" accept="image/*" onchange="arquivo(this)">
+										<label for="fupload6" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;">
+											<i class="mdi mdi-file"></i>
+											<input type="file" name="documentoImposto[]" id="fupload6" class="position-absolute col-12 px-0" style="opacity: 0;top: 0; height: 100%;" accept="application/pdf" onchange="arquivo(this)">
+										</label>
 									</div>
 								</div>
 							</div>
-							<a href="javascript:" id="btnImposto"> <i class="ti-plus pr-2"></i> Adicionar mais arquivos</a>
+						</div>
+						<div class="col-12 mb-4 px-0 px-lg-4">
+							<div class="form-group mb-0">
+								<label class="col-form-label">Outros arquivos</label>
+								<div class="row dadosOutrosPF mb-2"></div>
+							</div>
+							<a href="javascript:" id="btnOutrosPF"> <i class="ti-plus pr-2"></i> Adicionar mais arquivos</a>
+							<div></div>
 						</div>
 					</div>
 				</div>
@@ -249,13 +263,17 @@
 									<div class="row col-12 justify-content-center mx-auto mb-2">
 										<input type="text" class="form-control col-10 px-3 h-100" name="nomeCartao" onkeyup="this.value = this.value.toUpperCase();" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" value="CARTAO DE ASSINATURA">
 										<label for="fupload15" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-file"></i></label>
-										<input type="file" name="cartaoAssinatura" id="fupload15" class="position-absolute offset-10 col-1 px-0 mt-3" style="opacity: 0" accept="image/*" onchange="cartao(this); ">
+										<input type="file" name="cartaoAssinatura" id="fupload15" class="position-absolute offset-10 col-1 px-0 mt-3" style="opacity: 0" accept="image/*" onchange="cartao(this, 'PF'); ">
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="col-12 px-0 mt-5 pt-5 justify-content-center image" style="display: none;">
-							<img id="PreviewImage" src="" class="col-12 col-lg-4 px-0">
+						<div class="col-10 px-0 mt-5 pt-5 justify-content-center imagePF">
+							<img id="PreviewImagePF" src="">
+							<input type="hidden" id="xPF" name="x" />
+				            <input type="hidden" id="yPF" name="y" />
+				            <input type="hidden" id="wPF" name="w" />
+				            <input type="hidden" id="hPF" name="h" />
 						</div>
 						<div class="col-12 mt-3">
 							<div class="checkbox checkbox-success mb-0 text-center">
@@ -277,7 +295,7 @@
 				</button>
 				<button type="submit" class="btn sw-btn-enviar" style="display: none;"> 
 					<span>Finalizar</span> 
-					<i class="mdi mdi-cube-send pl-2"></i> 
+					<i class="mdi mdi-check-all pl-2"></i> 
 				</button>
 			</div>
 		</div>

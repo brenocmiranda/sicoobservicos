@@ -23,7 +23,7 @@ Novo associado
 		<div class="card-body">
 			<div class="row">
 				<div class="row col-12 mx-auto px-0 text-center">
-					<p class="col-12 text-muted mb-4 ont-13"> Selecione qual o tipo de associado:</p>
+					<p class="col-12 text-muted mb-4 ont-13"> Selecione o tipo de associado</p>
 					<div class="btn-group btn-group-justified select-mode col-12 col-sm-6 col-lg-6 mx-auto">
 						<div class="btn-group">
 							<button class="btn btn-default btn-outline" id="PF" type="button">
@@ -55,11 +55,15 @@ Novo associado
 <script type="text/javascript">
 	function removerTelefone(input){
 		$(input).parent('div').parent('div').remove();
-	}
+	};
+
+	function removerSocio(input){
+		$(input).parent('div').parent('div').parent('div').remove();
+	};
 
 	function remover(input){
 		$(input).parent('div').remove();
-	}
+	};
 
 	function arquivo(input){
 		if(input.value){
@@ -73,41 +77,49 @@ Novo associado
 			$(input).prev().removeClass('border-danger');
 			$(input).prev().addClass('border-0');
 		}
-		
-	}
+	};
 
-	function cartao(input){
-		if(input.files && input.files[0]){
-			var reader = new FileReader();
-			reader.onload = function (oFREvent){
-				$('.image').fadeIn();
-				$('.image').html('');
-				$('.image').html('<img id="PreviewImage" src="" style="width: 400px">');
-				$('#PreviewImage').attr('src', oFREvent.target.result);
-					new Darkroom('#PreviewImage', {
-				  	// Canvas initialization size
-				  	minWidth: 100,
-				  	minHeight: 100,
-				  	maxWidth: 400,
-				  	maxHeight: 400,
-				  	// Plugins options
-				  	plugins: {
-				  		save: false,
-					},
-				  // Post initialization method
-				  initialize: function() {
-				    // Active crop selection
-				    this.plugins['crop'].requireFocus();
 
-				    // Add custom listener
-					this.addEventListener('core:transformation', function() { /* ... */ });
-					}
+	function cartao(input, type){
+		if(type == "PF"){
+			// Cortando o cartão de assinatura para PF
+			if(input.files && input.files[0]){
+				var reader = new FileReader();
+				reader.onload = function (oFREvent){
+					$('#PreviewImagePF').attr('src', oFREvent.target.result);
+				}
+				reader.readAsDataURL(input.files[0]);
+				const jcrop = Jcrop.attach('PreviewImagePF');
+				jcrop.listen('crop.change',(widget,e) => {
+					$('#xPF').val(widget.pos.x);
+	                $('#yPF').val(widget.pos.y);
+	                $('#wPF').val(widget.pos.w);
+	                $('#hPF').val(widget.pos.h);
 				});
-			}	
-			reader.readAsDataURL(input.files[0]);
+			}
+		}else{
+			// Cortando o cartão de assinatura para PJ
+			if(input.files && input.files[0]){
+				var reader = new FileReader();
+				reader.onload = function (oFREvent){
+					$('#PreviewImagePJ').attr('src', oFREvent.target.result);
+				}
+				reader.readAsDataURL(input.files[0]);
+				const jcrop = Jcrop.attach('PreviewImagePj');
+				jcrop.setOptions({ multi: true });
+				jcrop.listen('crop.change',(widget,e) => {
+					$('#xPJ').val(widget.pos.x);
+	                $('#yPJ').val(widget.pos.y);
+	                $('#wPJ').val(widget.pos.w);
+	                $('#hPJ').val(widget.pos.h);
+				});
+			}
 		}
-	}
+	};
+
+
 	$(document).ready(function(){
+
 		// Mascaras 
 		var t = 15; // Contador de label de arquivos
 		var j = 1;
@@ -185,7 +197,7 @@ Novo associado
 			$('#dadosPJ').fadeIn();
 		});
 
-		// Verificação das etapas do PF
+		/* Verificação das etapas do PF
 		$("#smartwizardPF").on("leaveStep", function(e, anchorObject, currentStepIndex, nextStepIndex, stepDirection) {
 			if(currentStepIndex == 0){
 				var count = 0;
@@ -253,7 +265,7 @@ Novo associado
 			    	return true;
 			    }
 			}
-		});
+		});*/
 		/* Verificação das etapas do PJ
 		$("#smartwizardPJ").on("leaveStep", function(e, anchorObject, currentStepIndex, nextStepIndex, stepDirection) {
 			if(currentStepIndex == 0){
@@ -397,6 +409,7 @@ Novo associado
 	    				$('.situacao').html('-');
 	    				$('.data_situacao').html('-');
 	    				$('.verificarDocumentoPJ').html('<span class="text-danger">'+data.message+'</span>');
+	    				$('#dadosReceita').fadeOut();
 	    			}else{
 	    				$.ajax({
 	    					url: 'existe/'+cnpj,
@@ -425,6 +438,7 @@ Novo associado
 	    							$('#data_abertura').val(data.abertura);
 	    							$('.data_situacao').html(data.data_situacao);
 	    							$('.verificarDocumentoPJ').html('<span class="text-success"><i class="mdi mdi-check mdi-24px"></i></span>');
+	    							$('#dadosReceita').fadeIn();
 	    						}	    			
 	    					}, error: function (data) {
 	    						$('.verificarDocumentoPJ').html('<span class="text-danger"><i class="mdi mdi-close mdi-24px"></i></span>');
@@ -447,6 +461,7 @@ Novo associado
 	    			$('.situacao').html('-');
 	    			$('.data_situacao').html('-');
 	    			$('.verificarDocumentoPJ').html('<span class="text-danger"><i class="mdi mdi-close mdi-24px"></i></span>');
+	    			$('#dadosReceita').fadeOut();
 	    		}
 	    	});
 	    });
@@ -503,112 +518,50 @@ Novo associado
 	    	$('.dadosTelefone').append('<div class="col-12 px-0"> <div class="col-lg-4 col-12 px-0 px-lg-4"> <div class="form-group"> <label class="col-form-label pb-0">Tipo <span class="text-danger">*</span></label> <select class="form-control form-control-line" name="tipoTelefone[]" onchange="$(this).removeClass("border-danger");"  required> <option value="">Selecione</option> <option value="celular">Celular</option> <option value="residencial">Residencial</option> <option value="comercial">Comercial</option> <option value="recado">Recado</option> <option value="fax">Fax</option> </select> </div> </div> <div class="col-lg-5 col-11 px-0 px-lg-4"> <div class="form-group"> <label class="col-form-label pb-0">Número <span class="text-danger">*</span></label> <input class="form-control form-control-line numeroTelefone" onkeyup="$(this).removeClass("border-danger");" name="numeroTelefone[]" placeholder="(38) 99168-0335" required/> </div> </div> <div class="row col-lg-1 col-1 h-100"> <a href="javascript:" title="Remover arquivos" onclick="removerTelefone(this)" class="m-auto"><i class="mdi mdi-delete text-danger mdi-24px"></i></a> </div> </div>'); 
 	    });
 
+		// Adicionando outros arquivos para PF
+		$('#btnOutrosPF').on('click', function(){
+			t++;
+			$('.dadosOutrosPF').append('<div class="row col-12 justify-content-center mx-auto mb-2"> <input type="text" class="form-control col-8 px-3 h-100" name="nomeOutros" onkeyup="this.value = this.value.toUpperCase();"  style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" value="ARQUIVO" required> <label for="fupload'+	t+'" class="btn btn-default col-2 px-0 rounded-0" title="Selecione o arquivo"> <i class="mdi mdi-file"></i> <input type="file" name="documentoOutros[]" id="fupload'+t+'" class="position-absolute col-12 px-0" style="opacity: 0; top: 0; height: 100%;" accept="application/pdf" onchange="arquivo(this)" required> </label> <a href="javascript:" onclick="remover(this)" class="btn btn-danger col-2 px-0 border-0 m-auto" title="Remover o arquivo" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"> <i class="mdi mdi-delete text-white"></i> </a> </div>'); 
+		});
+		
+		// Adicionando outros arquivos para PJ
+		$('#btnOutrosPJ').on('click', function(){
+			t++;
+			$('.dadosOutrosPJ').append('<div class="row col-12 justify-content-center mx-auto mb-2"> <input type="text" class="form-control col-8 px-3 h-100" name="nomeOutros" onkeyup="this.value = this.value.toUpperCase();"  style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" value="ARQUIVO" required> <label for="fupload'+t+'" class="btn btn-default col-2 px-0 rounded-0" title="Selecione o arquivo"> <i class="mdi mdi-file"></i> <input type="file" name="documentoOutros[]" id="fupload'+t+'" class="position-absolute col-12 px-0" style="opacity: 0; top: 0; height: 100%;" accept="application/pdf" onchange="arquivo(this)" required> </label> <a href="javascript:" onclick="remover(this)" class="btn btn-danger col-2 px-0 border-0 m-auto" title="Remover o arquivo" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"> <i class="mdi mdi-delete text-white"></i> </a> </div>'); 
+		});
 
-		// --------------- PF -------------------------------
-			$('#btnIdentificacao').on('click', function(){
-				// Adicionando novos arquivos de Certidão de Nascimento, RG, CNH ou CTPS
-				t++;
-				$('.dadosIdentificacao').append('<div class="row col-12 justify-content-center mx-auto mb-2"> <input type="text" class="form-control col-8 px-3 h-100" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" disabled> <label for="fupload'+t+'" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px"><i class="mdi mdi-file"></i></label> <input type="file" name="documentoIdentificacao[]" id="fupload'+t+'" class="mb-3 text-white col-lg-11 col-10 d-none" accept=".jpg, .jpeg, .png, .svg" onchange="arquivo(this)" required> <a href="javascript:" title="Remover arquivos" class="btn btn-danger col-2" onclick="remover(this)" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-close"></i></a> </div>'); 
-			});
-			$('#btnCPF').on('click', function(){
-				// Adicionando novos arquivos de CPF
-				t++;
-				$('.dadosCPF').append('<div class="row col-12 justify-content-center mx-auto mb-2"> <input type="text" class="form-control col-8 px-3 h-100" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" disabled> <label for="fupload'+t+'" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px"><i class="mdi mdi-file"></i></label> <input type="file" name="documentoCPF[]" id="fupload'+t+'" class="mb-3 text-white col-lg-11 col-10 d-none" accept=".jpg, .jpeg, .png, .svg" onchange="arquivo(this)" required> <a href="javascript:" title="Remover arquivos" class="btn btn-danger col-2" onclick="remover(this)" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-close"></i></a> </div>'); 
-			});
-			$('#btnRenda').on('click', function(){
-				// Adicionando novos arquivos de comprovante de renda
-				t++;
-				$('.dadosRenda').append('<div class="row col-12 justify-content-center mx-auto mb-2"> <input type="text" class="form-control col-8 px-3 h-100" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" disabled> <label for="fupload'+t+'" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px"><i class="mdi mdi-file"></i></label> <input type="file" name="documentoRenda[]" id="fupload'+t+'" class="mb-3 text-white col-lg-11 col-10 d-none" accept=".jpg, .jpeg, .png, .svg" onchange="arquivo(this)" required> <a href="javascript:" title="Remover arquivos" class="btn btn-danger col-2" onclick="remover(this)" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-close"></i></a> </div>'); 
-			});
-			$('#btnResidencia').on('click', function(){
-				// Adicionando novos arquivos de comprovante de rensidência
-				t++;
-				$('.dadosResidencia').append('<div class="row col-12 justify-content-center mx-auto mb-2"> <input type="text" class="form-control col-8 px-3 h-100" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" disabled> <label for="fupload'+t+'" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px"><i class="mdi mdi-file"></i></label> <input type="file" name="documentoResidencia[]" id="fupload'+t+'" class="mb-3 text-white col-lg-11 col-10 d-none" accept=".jpg, .jpeg, .png, .svg" onchange="arquivo(this)" required> <a href="javascript:" title="Remover arquivos" class="btn btn-danger col-2" onclick="remover(this)" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-close"></i></a> </div>'); 
-			});
-			$('#btnCasamento').on('click', function(){
-				// Adicionando novos arquivos de certidão de casamento
-				t++;
-				$('.dadosCasamento').append('<div class="row col-12 justify-content-center mx-auto mb-2"> <input type="text" class="form-control col-8 px-3 h-100" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" disabled> <label for="fupload'+t+'" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px"><i class="mdi mdi-file"></i></label> <input type="file" name="documentoCasamento[]" id="fupload'+t+'" class="mb-3 text-white col-lg-11 col-10 d-none" accept=".jpg, .jpeg, .png, .svg" onchange="arquivo(this)" required> <a href="javascript:" title="Remover arquivos" class="btn btn-danger col-2" onclick="remover(this)" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-close"></i></a> </div>'); 
-			});
-			$('#btnImposto').on('click', function(){
-				// Adicionando novos arquivos de Recibo e Declaração de Imposto de Renda
-				t++;
-				$('.dadosImposto').append('<div class="row col-12 justify-content-center mx-auto mb-2"> <input type="text" class="form-control col-8 px-3 h-100" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" disabled> <label for="fupload'+t+'" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px"><i class="mdi mdi-file"></i></label> <input type="file" name="documentoImposto[]" id="fupload'+t+'" class="mb-3 text-white col-lg-11 col-10 d-none" accept=".jpg, .jpeg, .png, .svg" onchange="arquivo(this)" required> <a href="javascript:" title="Remover arquivos" class="btn btn-danger col-2" onclick="remover(this)" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-close"></i></a> </div>'); 
-			});
-		// --------------- PF -------------------------------
+		// Retornando os dados dos sócios
+		$('#btnSocios').on('click', function(){
+			// Adicionando novos campos para os sócios
+			j++;
+			$('.dadosSocios').append('<div class="col-12 mb-2 mt-1"> <label class="col-12 col-form-label px-0">Sócio <span class="text-danger">*</span> </label> <div class="row mx-auto"> <input class="col-9 col-lg-11 form-control form-control-line pesquisar px-2 ui-autocomplete-input" onkeyup="this.value = this.value.toUpperCase(); $(this).removeClass("border-danger");" placeholder="Entre com nome ou documento do associado..." onchange="this.value = this.value.toUpperCase();" aria-controls="table" name="socios[]" required="" autocomplete="off"> <div class="col-2 col-lg-1 d-flex"> <a href="javascript:" class="btn btn-default btn-xs mx-1 my-auto text-center" title="Cadastrar novo associado"> <i class="mdi mdi-account-plus"></i> </a> <a href="javascript:" class="btn btn-danger btn-xs mx-1 my-auto text-center" onclick="removerSocio(this)" title="Remover o associado"> <i class="mdi mdi-delete"></i> </a> </div> </div> </div>');
 
-		// --------------- PJ -------------------------------
-			$('#btnContrato').on('click', function(){
-				// Adicionando novos arquivos de Contrato Social, Requerimento de Empresário, MEI ou Estatuto
-				t++;
-				$('.dadosContrato').append('<div class="row col-12 justify-content-center mx-auto mb-2"> <input type="text" class="form-control col-8 px-3 h-100" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" disabled> <label for="fupload'+t+'" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px"><i class="mdi mdi-file"></i></label> <input type="file" name="documentoContrato[]" id="fupload'+t+'" class="mb-3 text-white col-lg-11 col-10 d-none" accept=".jpg, .jpeg, .png, .svg" onchange="arquivo(this)" required> <a href="javascript:" title="Remover arquivos" class="btn btn-danger col-2" onclick="remover(this)" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-close"></i></a> </div>'); 
-			});
-			$('#btnFaturamento').on('click', function(){
-				// Adicionando novos arquivos de Faturamento dos Últimos 12 meses
-				t++;
-				$('.dadosFaturamento').append('<div class="row col-12 justify-content-center mx-auto mb-2"> <input type="text" class="form-control col-8 px-3 h-100" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" disabled> <label for="fupload'+t+'" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px"><i class="mdi mdi-file"></i></label> <input type="file" name="documentoFaturamento[]" id="fupload'+t+'" class="mb-3 text-white col-lg-11 col-10 d-none" accept=".jpg, .jpeg, .png, .svg" onchange="arquivo(this)" required> <a href="javascript:" title="Remover arquivos" class="btn btn-danger col-2" onclick="remover(this)" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-close"></i></a> </div>'); 
-			});
-			$('#btnEndereco').on('click', function(){
-				// Adicionando novos arquivos de Endereço comercial
-				t++;
-				$('.dadosEndereco').append('<div class="row col-12 justify-content-center mx-auto mb-2"> <input type="text" class="form-control col-8 px-3 h-100" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" disabled> <label for="fupload'+t+'" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px"><i class="mdi mdi-file"></i></label> <input type="file" name="documentoEnderecoComercial[]" id="fupload'+t+'" class="mb-3 text-white col-lg-11 col-10 d-none" accept=".jpg, .jpeg, .png, .svg" onchange="arquivo(this)" required> <a href="javascript:" title="Remover arquivos" class="btn btn-danger col-2" onclick="remover(this)" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-close"></i></a> </div>'); 
-			});
-			$('#btnSimples').on('click', function(){
-				// Adicionando novos arquivos de Extrato Simples
-				t++;
-				$('.dadosSimples').append('<div class="row col-12 justify-content-center mx-auto mb-2"> <input type="text" class="form-control col-8 px-3 h-100" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" disabled> <label for="fupload'+t+'" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px"><i class="mdi mdi-file"></i></label> <input type="file" name="documentoSimples[]" id="fupload'+t+'" class="mb-3 text-white col-lg-11 col-10 d-none" accept=".jpg, .jpeg, .png, .svg" onchange="arquivo(this)" required> <a href="javascript:" title="Remover arquivos" class="btn btn-danger col-2" onclick="remover(this)" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-close"></i></a> </div>'); 
-			});
-			$('#btnAlteracao').on('click', function(){
-				// Adicionando novos arquivos de Incrição Estadual
-				t++;
-				$('.dadosAlteracao').append('<div class="row col-12 justify-content-center mx-auto mb-2"> <input type="text" class="form-control col-8 px-3 h-100" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" disabled> <label for="fupload'+t+'" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px"><i class="mdi mdi-file"></i></label> <input type="file" name="documentoAlteracao[]" id="fupload'+t+'" class="mb-3 text-white col-lg-11 col-10 d-none" accept=".jpg, .jpeg, .png, .svg" onchange="arquivo(this)" required> <a href="javascript:" title="Remover arquivos" class="btn btn-danger col-2" onclick="remover(this)" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-close"></i></a> </div>'); 
-			});
-			$('#btnInscricao').on('click', function(){
-				// Adicionando novos arquivos de Incrição Estadual
-				t++;
-				$('.dadosInscricao').append('<div class="row col-12 justify-content-center mx-auto mb-2"> <input type="text" class="form-control col-8 px-3 h-100" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" disabled> <label for="fupload'+t+'" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px"><i class="mdi mdi-file"></i></label> <input type="file" name="documentoInscricao[]" id="fupload'+t+'" class="mb-3 text-white col-lg-11 col-10 d-none" accept=".jpg, .jpeg, .png, .svg" onchange="arquivo(this)" required> <a href="javascript:" title="Remover arquivos" class="btn btn-danger col-2" onclick="remover(this)" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-close"></i></a> </div>'); 
-			});
-			$('#btnAta').on('click', function(){
-				// Adicionando novos arquivos de Ata de Eleição da Diretoria 
-				t++;
-				$('.dadosAta').append('<div class="row col-12 justify-content-center mx-auto mb-2"> <input type="text" class="form-control col-8 px-3 h-100" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" disabled> <label for="fupload'+t+'" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px"><i class="mdi mdi-file"></i></label> <input type="file" name="documentoAta[]" id="fupload'+t+'" class="mb-3 text-white col-lg-11 col-10 d-none" accept=".jpg, .jpeg, .png, .svg" onchange="arquivo(this)" required> <a href="javascript:" title="Remover arquivos" class="btn btn-danger col-2" onclick="remover(this)" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-close"></i></a> </div>'); 
-			});
-			$('#btnMandato').on('click', function(){
-				// Adicionando novos arquivos de Instrumento de Mandato/Carta de revigoramento
-				t++;
-				$('.dadosMandato').append('<div class="row col-12 justify-content-center mx-auto mb-2"> <input type="text" class="form-control col-8 px-3 h-100" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo" disabled> <label for="fupload'+t+'" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px"><i class="mdi mdi-file"></i></label> <input type="file" name="documentoAta[]" id="fupload'+t+'" class="mb-3 text-white col-lg-11 col-10 d-none" accept=".jpg, .jpeg, .png, .svg" onchange="arquivo(this)" required> <a href="javascript:" title="Remover arquivos" class="btn btn-danger col-2" onclick="remover(this)" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;"><i class="mdi mdi-close"></i></a> </div>'); 
-			});
-			$('#btnSocios').on('click', function(){
-				// Adicionando novos campos para os sócios
-				j++;
-				$('.dadosSocios').append('<div class="col-12 mb-2  mt-1"> <label class="col-form-label pb-0">Sócio '+j+' <span class="text-danger">*</span></label> <input class="form-control form-control-line pesquisar" onkeyup="this.value = this.value.toUpperCase(); $(this).removeClass("border-danger");" placeholder="Entre com nome ou documento do associado..." onchange="this.value = this.value.toUpperCase();" aria-controls="table" name="socios[]" required/> </div>');
-				// Retornando dados do associado 
-				$("#dadosPJ .pesquisar").autocomplete({
-					source: function(request, response){
-						$.ajax({
-							url: "{{ route('pesquisar.associado.atendimento') }}",
-							data: {	term : request.term	},
-							dataType: "json",
-							success: function(dados){
-								var resp = $.map(dados, function(obj){
-									return obj.nome +" : "+ obj.documento;
-								}); 
-								response(resp);
-							}
-						})
-					},
-					minLength: 1
-				});
-				$("#dadosPJ .pesquisar").autocomplete({
-					change: function( event, ui ) {
-						if(ui.item == null){
-							$(this).val('');
+			// Retornando dados do associado
+			$("#dadosPJ .pesquisar").autocomplete({
+				source: function(request, response){
+					$.ajax({
+						url: "{{ route('pesquisar.associado.atendimento') }}",
+						data: {	term : request.term	},
+						dataType: "json",
+						success: function(dados){
+							var resp = $.map(dados, function(obj){
+								return obj.nome +" : "+ obj.documento;
+							}); 
+							response(resp);
 						}
-					}
-				});
+					})
+				},
+				minLength: 1
 			});
+			$("#dadosPJ .pesquisar").autocomplete({
+				change: function( event, ui ) {
+					if(ui.item == null){
+						$(this).val('');
+					}
+				}
+			});
+		});
 
-		// --------------- PJ -------------------------------
 	});
 </script>
 @endsection

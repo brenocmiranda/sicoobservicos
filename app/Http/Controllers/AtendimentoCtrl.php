@@ -88,6 +88,7 @@ class AtendimentoCtrl extends Controller
 			return view('atendimento.painel.pesquisar');
 		}
 	}
+	// Retorno de dados completos do associado pelo Nº do sisbr
 	public function MostrarPainelID($id){
   		$associado = Associados::find($id);
   		if($associado->RelationConglomerados){

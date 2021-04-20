@@ -41,8 +41,8 @@
 <script src="{{ asset('public/vendor/blockUI/jquery.blockUI.js') }}"></script>
 <script src="{{ asset('public/js/jquery.smartWizard.js') }}"></script>
 <script src="{{ asset('public/js/fabric.js') }}"></script>
-<script src="{{ asset('public/js/darkroom.js') }}"></script>
-
+<script src="{{ asset('public/js/jcrop.js') }}"></script>
+	
 <script type="text/javascript">
 	$(document).ready(function() {
 		$(".colorpicker").asColorPicker();
