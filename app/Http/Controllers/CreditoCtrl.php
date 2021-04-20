@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use App\Notifications\SolicitacaoContratoAdmin;
 use App\Notifications\SolicitacaoContratoCliente;
+use App\Notifications\Fampe;
 use App\Http\Requests\ArmariosRqt;
 use App\Http\Requests\ModalidadesRqt;
 use App\Http\Requests\ProdutosCredRqt;
@@ -1057,12 +1058,15 @@ class CreditoCtrl extends Controller
 	
 
 	#-------------------------------------------------------------------
-	# Envio de informações para o SEBRAR
+	# Envio de informações para o SEBRAE
 	#-------------------------------------------------------------------
 	public function Fampe(){
-		$contrato = Contratos::where('cod_linha', '86156')->orWhere('cod_linha', '86158')->orWhere('cod_linha', '86160')->orWhere('cod_linha', '86161')->orWhere('cod_linha', '86162')->orWhere('cod_linha', '86163')->orWhere('cod_linha', '86164')->get();
+		$operacoes = Contratos::where('cod_linha', '86156')->orWhere('cod_linha', '86158')->orWhere('cod_linha', '86160')->orWhere('cod_linha', '86161')->orWhere('cod_linha', '86162')->orWhere('cod_linha', '86163')->orWhere('cod_linha', '86164')->orderBy('data_operacao', 'DESC')->get();
 		
-		return $contrato;
+		$usuario = ["email" => "breno.miranda@sicoobsertaominas.com.br"];
+		$usuario->notify(new Fampe($operacoes));  
+
+		return true;
 	}
 
 }
