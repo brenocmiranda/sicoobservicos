@@ -23,6 +23,8 @@ class CreateCreContratos extends Migration
             $table->date('data_quitacao')->nullable();
             $table->double('valor_contrato');
             $table->string('finalidade');
+            $table->string('cod_linha');
+            $table->string('linha');
             $table->string('renegociacao');
             $table->integer('cli_id_associado')->unsigned();
             $table->foreign('cli_id_associado')->references('id')->on('cli_associados');
