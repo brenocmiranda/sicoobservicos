@@ -34,7 +34,7 @@
 									<b>{{$chamado->RelationStatus->first()->pivot->descricao}}</b>
 								</p>
 								<p>
-									<b>{{$chamado->RelationUsuarios->RelationAssociado->nome}}</b>
+									<b>{{$chamado->RelationUsuario->RelationAssociado->nome}}</b>
 								</p>
 							@endif
 							<p>

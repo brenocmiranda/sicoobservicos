@@ -168,7 +168,6 @@ class TecnologiaCtrl extends Controller
     // Atualizando status
     public function StatusChamados(Request $request, $id){
         if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
-            $chamado = Chamados::find($id);
             $status = ChamadosStatus::create([
                 'gti_id_chamados' => $id,
                 'gti_id_status' => $request->status,
@@ -188,11 +187,11 @@ class TecnologiaCtrl extends Controller
             $create = Chamados::find($id);
             $atualizacao = Chamados::where('id', $id)->update(['assunto' => $create->assunto]);
             // Criando notificações por e-mail
-	        $chamado->RelationUsuario->notify(new SolicitacaoChamadosCliente($chamado));     
+	        $create->RelationUsuario->notify(new SolicitacaoChamadosCliente($create));     
             $this->email->notify(new SolicitacaoChamadosAdmin($create));        
             Atividades::create([
                 'nome' => 'Alteração de estado do chamado',
-                'descricao' => 'Você modificou o status do chamado, '.$chamado->assunto.'.',
+                'descricao' => 'Você modificou o status do chamado, '.$create->assunto.'.',
                 'icone' => 'mdi-file-document',
                 'url' => route('detalhes.chamados.gti', $id),
                 'id_usuario' => Auth::id()
