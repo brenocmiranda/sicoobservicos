@@ -30,7 +30,7 @@ class Chamados extends Model
     }
 
     public function RelationStatus1(){
-        return $this->belongsTo(ChamadosStatus::class, 'id', 'gti_id_chamados');
+        return $this->belongsTo(ChamadosStatus::class, 'id', 'gti_id_chamados')->orderBy('gti_chamados_has_status.created_at', 'DESC');
     }
 
     public function RelationArquivos(){

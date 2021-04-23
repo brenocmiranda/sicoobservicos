@@ -40,6 +40,7 @@ Detalhes do chamado
               <span>{{$chamado->RelationFontes->nome}}</span>
             </h5>
           </div>
+          
           <div class="col-12 mb-4">
             <label class="text-capitalize d-block text-primary">
               {{$chamado->RelationUsuario->RelationAssociado->nome}}
