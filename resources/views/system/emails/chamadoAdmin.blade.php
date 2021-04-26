@@ -63,6 +63,10 @@
 									<b>{{$chamado->RelationStatus->first()->pivot->descricao}}</b>
 								</p>
 								<p>
+									<b>Responsável: </b>
+									<span>{{$chamado->RelationStatus1->RelationUsuarios->RelationAssociado->nome}}</span>
+								</p>
+								<p>
 									<a href="{{route('detalhes.chamados.gti', $chamado->id)}}" target="_blank">
 										<b>Saiba mais sobre esse chamado.</b>
 									</a>

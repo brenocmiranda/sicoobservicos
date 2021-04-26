@@ -155,7 +155,7 @@ Digitalizar
 							<label class="col-form-label text-white">Outros</label>
 							<div class="row totalArquivos">
 								<div class="row col-12 justify-content-center mx-auto mb-2">
-									<input type="text" class="form-control col-8 px-3 h-100" name="nomeArquivos[]" onkeyup="this.value = this.value.toUpperCase();" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo">
+									<input type="text" class="form-control col-8 px-3 h-100 text-uppercase" name="nomeArquivos[]" style="border-top-left-radius: 10px !important; border-bottom-left-radius: 10px !important;" placeholder="Nome do arquivo">
 									<label for="fupload1" class="btn btn-default col-2 px-0 border-0" title="Selecione o arquivo" style="border-radius: 0px"><i class="mdi mdi-file"></i></label>
 									<input type="file" id="fupload1" class="position-absolute offset-6 col-1 px-0 mt-3" style="opacity: 0" accept="image/*" onchange="outros(this, 'outros')">
 									<a href="javascript:" title="Remover arquivos" class="btn btn-danger col-2" style="border-radius: 0px !important; border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important;" onclick="remover(this)"><i class="mdi mdi-close"></i></a>

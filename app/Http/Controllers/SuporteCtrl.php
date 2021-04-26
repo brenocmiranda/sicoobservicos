@@ -120,7 +120,8 @@ class SuporteCtrl extends Controller
         $status = ChamadosStatus::create([
             'gti_id_chamados' => $create->id,
             'gti_id_status' => $statusAbertura->id,
-            'descricao' => "Abertura do chamado registrado junto a equipe de TI. Aguarde alguns instantes que logo estaremos analisando sua solicitação."
+            'descricao' => "Abertura do chamado registrado junto a equipe de TI. Aguarde alguns instantes que logo estaremos analisando sua solicitação.",
+            'usr_id_usuarios' => Auth::id(),
         ]);
         // Cadastramento de vários arquivos 
         if ($request->arquivos) {

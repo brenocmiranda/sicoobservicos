@@ -207,7 +207,7 @@ class PublicCtrl extends Controller
 			foreach($request->identificacao as $key => $arq){
 				// HTML para criação do PDF
 				$usuario = Usuarios::where('login', $request->usuario)->first();
-				$html[] = preg_replace("/>s+</", "><", '<div style="page-break-after: always;"><img src="'.asset('storage/'.$arq).'" style="max-width: 100%; max-height: 27cm;"><div style="font-size: 1px !important; text-align:right; color:white; width:100%; background-color: #292828; padding-right: 1px; padding-top: 0.5px; padding-bottom: 0.5px;">Confere com o original <br>'.$usuario->RelationAssociado->nome.'</div></div>');
+				$html[] = preg_replace("/>s+</", "><", '<div><img src="'.asset('storage/'.$arq).'" style="max-width: 100%; max-height: 26cm;"><div style="font-size: 1px !important; text-align:right; color:white; width:100%; background-color: #292828; padding-right: 1px; padding-top: 0.5px; padding-bottom: 0.5px;">Confere com o original <br>'.$usuario->RelationAssociado->nome.'</div></div>');
 			}
 			// Gerando PDF
 			if(is_dir("//10.11.26.1/digitaliza_ss/".date('d-m-Y'))){
@@ -307,9 +307,9 @@ class PublicCtrl extends Controller
 					// Criando nome do arquivo do PDF
 					if($request->nomeArquivos[$key]){
 						if(is_dir("//10.11.26.1/digitaliza_ss/".date('d-m-Y').'/'.strtoupper($request->nomePasta).'/'.$request->nomeArquivos[$key].'.pdf')){
-							$namePdf = $request->nomeArquivos[$key].'.pdf';
+							$namePdf = strtoupper($request->nomeArquivos[$key]).'.pdf';
 						}else{
-							$namePdf = $request->nomeArquivos[$key].date('His').'.pdf';
+							$namePdf = strtoupper($request->nomeArquivos[$key]).date('His').'.pdf';
 						}
 					}else{
 						$namePdf = str_replace('.'.$arq->getClientOriginalExtension(), '', $request->outros[$key]).'.pdf';
@@ -317,7 +317,7 @@ class PublicCtrl extends Controller
 					
 					// HTML para criação do PDF
 					$usuario = Usuarios::where('login', $request->usuario)->first();
-					$html = '<div><img src="'.asset('storage/'.$request->outros[$key]).'" style="max-width: 100%; max-height: 27cm;"><div style="font-size: 1.5px !important; text-align:right; color:white; width:100%; background-color: #292828; padding-right: 1px; padding-top: 0.5px; padding-bottom: 0.5px;">Confere com o original <br> '.$usuario->RelationAssociado->nome.'</div></div>';
+					$html = '<div><img src="'.asset('storage/'.$request->outros[$key]).'" style="max-width: 100%; max-height: 26cm;"><div style="font-size: 1.5px !important; text-align:right; color:white; width:100%; background-color: #292828; padding-right: 1px; padding-top: 0.5px; padding-bottom: 0.5px;">Confere com o original <br> '.$usuario->RelationAssociado->nome.'</div></div>';
 					$html = preg_replace("/>s+</", "><", $html);
 
 					// Gerando PDF
