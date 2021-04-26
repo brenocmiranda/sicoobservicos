@@ -1057,7 +1057,7 @@ class CreditoCtrl extends Controller
 	
 
 	#-------------------------------------------------------------------
-	# Envio de informações para o SEBRAR
+	# Envio de informações para o SEBRAE
 	#-------------------------------------------------------------------
 	public function Fampe(){
 		$contrato = Contratos::where('cod_linha', '86156')->orWhere('cod_linha', '86158')->orWhere('cod_linha', '86160')->orWhere('cod_linha', '86161')->orWhere('cod_linha', '86162')->orWhere('cod_linha', '86163')->orWhere('cod_linha', '86164')->get();

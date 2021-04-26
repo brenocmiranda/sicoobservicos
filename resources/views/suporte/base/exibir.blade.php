@@ -46,7 +46,7 @@ Aprendizagem
 	                        <div class="tab-content">
 	                        	<?php $i=0; ?> 
 	                        	@foreach($ambientes as $ambiente)
-		                            <div id="section{{$ambiente->id}}" class="tab-pane{{($ambiente->id == $fontes->first()->id ? ' active' : '')}}">
+		                            <div id="section{{$ambiente->id}}" class="tab-pane {{($ambiente->id == $fontes->first()->id ? ' active' : '')}}">
 		                                <div class="col-12">
 		                                	<div class="mx-4">
 			                                	<h4 class="mb-3">{{$ambiente->nome}}</h4> 

@@ -268,7 +268,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-10 px-0 mt-5 pt-5 justify-content-center imagePF">
+						<div class="col-10 px-0 mt-5 pt-5 justify-content-center imagePF w-100">
 							<img id="PreviewImagePF" src="">
 							<input type="hidden" id="xPF" name="x" />
 				            <input type="hidden" id="yPF" name="y" />
