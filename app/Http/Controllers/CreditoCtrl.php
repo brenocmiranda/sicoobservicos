@@ -24,7 +24,7 @@ use App\Models\ContratosSolicitacoesStatus;
 use App\Models\Atividades;
 use App\Models\Ativos;
 use App\Models\Chamados;
-
+use App\Models\Usuarios;
 use App\Models\CogEmailsContrato;
 
 class CreditoCtrl extends Controller
@@ -1063,7 +1063,7 @@ class CreditoCtrl extends Controller
 	public function Fampe(){
 		$operacoes = Contratos::where('cod_linha', '86156')->orWhere('cod_linha', '86158')->orWhere('cod_linha', '86160')->orWhere('cod_linha', '86161')->orWhere('cod_linha', '86162')->orWhere('cod_linha', '86163')->orWhere('cod_linha', '86164')->orderBy('data_operacao', 'DESC')->get();
 		
-		$usuario = ["email" => "breno.miranda@sicoobsertaominas.com.br"];
+		$usuario = Usuarios::find(1);
 		$usuario->notify(new Fampe($operacoes));  
 
 		return true;

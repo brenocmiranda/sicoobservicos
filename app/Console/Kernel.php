@@ -30,6 +30,9 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('TempoVida:monitorar')
         ->twiceDaily(9, 13);
+
+        $schedule->command('Fampe:operacoes')
+        ->dailyAt(9);
     }
 
     /**

@@ -19,6 +19,7 @@ class CreateCliAssociados extends Migration
             $table->integer('id_sisbr')->unique();
             $table->text('nome');
             $table->string('nome_fantasia');
+            $table->string('representante');
             $table->string('documento')->unique();
             $table->string('tipo_renda');
             $table->double('renda');

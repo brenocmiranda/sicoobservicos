@@ -37,7 +37,7 @@ class Fampe extends Notification
 
     /**
      * Get the mail representation of the notification.
-     *
+     * 
      * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
@@ -46,6 +46,10 @@ class Fampe extends Notification
         return (new MailMessage)
                 ->from('sertaominass@gmail.com', 'Sicoob Serviços')
                 ->subject('Operações do FAMPE')
+                ->cc('alexandrina@sicoobsertaominas.com.br')
+                ->cc('sabino@sicoobsertaominas.com.br')
+                ->cc('c2249@sebrae.com.br')
+                ->cc('isabela.vieira@sebraemg.com.br')
                 ->view('system.emails.fampe', ['operacoesOntem' => $this->operacoesOntem]);
     }
 

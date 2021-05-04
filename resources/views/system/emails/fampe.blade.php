@@ -25,26 +25,43 @@
 							<h4 style="text-decoration: underline;">Todas operações:</h4>
 							@if(isset($operacoesOntem))
 								@foreach($operacoesOntem as $novas)
-									<ul>
-										<li>
-											<b>Representante:</b> 
-										</li>
+									<ul style="border-bottom:1px solid #dddddd; padding-bottom: 15px">
 										<li>
 											<b>Razão Social:</b>
 											{{$novas->RelationAssociados->nome}}
 										</li>
 										<li>
+											<b>Nome Fantasia:</b>
+											{{$novas->RelationAssociados->nome_fantasia}}
+										</li>
+										<li>
 											<b>CNPJ:</b> 
 											{{(strlen($novas->RelationAssociados->documento) == 11 ? substr($novas->RelationAssociados->documento, 0, 3).'.'.substr($novas->RelationAssociados->documento, 3, 3).'.'.substr($novas->RelationAssociados->documento, 6, 3).'-'.substr($novas->RelationAssociados->documento, 9, 2) : substr($novas->RelationAssociados->documento, 0, 2).'.'.substr($novas->RelationAssociados->documento, 3, 3).'.'.substr($novas->RelationAssociados->documento, 6, 3).'/'.substr($novas->RelationAssociados->documento, 8, 4).'-'.substr($novas->RelationAssociados->documento, 12, 2))}}
 										</li>
+										@if($novas->RelationAssociados->RelationTelefones->numero_celular != -2)
 										<li>
-											<b>Telefones disponíveis:</b> 
-											<br>
-											<span style="font-weight: 600; padding-left: 10px;">Celular:</span> 
+											<b>Telefone Celular:</b>
 											{{$novas->RelationAssociados->RelationTelefones->numero_celular}}
-											<br>
-											<span style="font-weight: 600; padding-left: 10px;">Residêncial:</span> {{($novas->RelationAssociados->RelationTelefones->numero_residencial > 0 ? $novas->RelationAssociados->RelationTelefones->numero_residencial : "Não possui")}}
 										</li>
+										@endif
+										@if($novas->RelationAssociados->RelationTelefones->numero_comercial != -2)
+										<li>
+											<b>Telefone Comercial:</b>
+											{{$novas->RelationAssociados->RelationTelefones->numero_comercial}}
+										</li>
+										@endif
+										@if($novas->RelationAssociados->RelationTelefones->numero_residencial != -2)
+										<li>
+											<b>Telefone Residêncial:</b>
+											{{$novas->RelationAssociados->RelationTelefones->numero_residencial}}
+										</li>
+										@endif
+										@if($novas->RelationAssociados->RelationTelefones->numero_recado != -2)
+										<li>
+											<b>Telefone Recado:</b>
+											{{$novas->RelationAssociados->RelationTelefones->numero_recado}}
+										</li>
+										@endif
 										<li>
 											<b>E-mail:</b> 
 											{{$novas->RelationAssociados->RelationEmails->email}}
