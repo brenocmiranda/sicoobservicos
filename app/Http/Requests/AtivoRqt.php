@@ -27,6 +27,9 @@ class AtivoRqt extends FormRequest
             return [
                 'id_equipamento' => 'required|numeric',
                 'n_patrimonio' => 'nullable|string', 
+                'sistema_operacional' => 'nullable|string', 
+                'tipo_licenca' => 'nullable|string', 
+                'antivirus' => 'nullable|string', 
                 'serialNumber' => 'required|string', 
                 'id_marca' => 'required|numeric',
                 'modelo' => 'required|string',
@@ -40,6 +43,9 @@ class AtivoRqt extends FormRequest
             return [
                 'id_equipamento' => 'required|numeric',
                 'n_patrimonio' => 'nullable|string',
+                'sistema_operacional' => 'nullable|string', 
+                'tipo_licenca' => 'nullable|string', 
+                'antivirus' => 'nullable|string', 
                 'serialNumber' => 'required|string', 
                 'id_marca' => 'required|numeric',
                 'modelo' => 'required|string',

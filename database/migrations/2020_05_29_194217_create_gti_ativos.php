@@ -16,6 +16,9 @@ class CreateGtiAtivos extends Migration
         Schema::create('gti_ativos', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
+            $table->string('sistema_operacional')->nullable();
+            $table->string('tipo_licenca')->nullable();
+            $table->string('antivirus')->nullable();
             $table->string('n_patrimonio')->nullable();
             $table->string('serialNumber');
             $table->string('serviceTag')->nullable();

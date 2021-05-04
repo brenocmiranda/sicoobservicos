@@ -55,7 +55,7 @@ Invetário por usuário
 										<span id="marca" class="font-weight-bold"></span>
 									</label>
 									<label class="d-block">
-										<span >Modelo:</span>
+										<span>Modelo:</span>
 										<span id="modelo" class="font-weight-bold"></span>
 									</label>
 									<label class="d-block">
@@ -65,6 +65,18 @@ Invetário por usuário
 									<label class="d-block">
 										<span>Serial Number:</span>
 										<span id="serialNumber" class="font-weight-bold"></span>
+									</label>
+									<label class="d-block">
+										<span>Sistema operacional:</span>
+										<span id="sistema_operacional" class="font-weight-bold"></span>
+									</label>
+									<label class="d-block">
+										<span>Tipo de licença:</span>
+										<span id="tipo_licenca" class="font-weight-bold"></span>
+									</label>
+									<label class="d-block">
+										<span>Antivírus:</span>
+										<span id="antivirus" class="font-weight-bold"></span>
 									</label>
 									<label class="d-block">
 										<span>Localização:</span>
@@ -144,6 +156,9 @@ Invetário por usuário
 				console.log(data);
 				$('#imagem').attr('src', "{{url('storage/app')}}/"+data.imagem.endereco);
 				$('#equipamento').html(data.equipamento);
+				$('#sistema_operacional').html(data.sistema_operacional);
+				$('#tipo_licenca').html(data.tipo_licenca);
+				$('#antivirus').html(data.antivirus);
 				$('#marca').html(data.marca);
 				$('#modelo').html(data.modelo);
 				$('#n_patrimonio').html(data.n_patrimonio);

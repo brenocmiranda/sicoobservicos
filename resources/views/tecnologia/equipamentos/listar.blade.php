@@ -85,6 +85,9 @@ Invetário geral
 			$(this).parent('tr').addClass('active');
 			var data = table.row('tr.active').data();
 			$('.modal .equipamento').html(data.equipamento);
+			$('.modal .sistema_operacional').html(data.sistema_operacional);
+			$('.modal .tipo_licenca').html(data.tipo_licenca);
+			$('.modal .antivirus').html(data.antivirus);
 			$('.modal .marca').html(data.marca);
 			$('.modal .modelo').html(data.modelo);
 			$('.modal .serviceTag').html(data.serviceTag);

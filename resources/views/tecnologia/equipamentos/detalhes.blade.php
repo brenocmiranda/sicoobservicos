@@ -15,7 +15,7 @@
       </div>
       <div class="modal-body">
         <div class="col-12 grid-margin mb-0">
-          <div class="card-body py-0">
+          <div class="card-body p-0">
             <div class="row mx-auto">
               <div class="col-lg-8 col-12 order-lg-1 order-2 px-0 px-lg-4">
                 <div class="form-group">
@@ -24,20 +24,21 @@
                       <label class="col-form-label">Equipamento</label>
                       <div class="">
                         <label class="equipamento"></label>
+                        <label class="marca"></label>
                       </div>
                     </div>
                     <div class="col-lg-6 col-12 px-0 px-lg-4">
-                      <label class="col-form-label">Marca</label>
+                      <label class="col-form-label">Modelo</label>
                       <div class="">
-                        <label class="marca"></label>
+                        <label class="modelo"></label>
                       </div>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-lg-6 col-12 px-0 px-lg-4">
-                      <label class="col-form-label">Modelo</label>
+                      <label class="col-form-label">Sistema operacional</label>
                       <div class="">
-                        <label class="modelo"></label>
+                        <label class="sistema_operacional"></label>
                       </div>
                     </div>
                     <div class="col-lg-6 col-12 px-0 px-lg-4">
@@ -49,15 +50,29 @@
                   </div>
                   <div class="row">
                     <div class="col-lg-6 col-12 px-0 px-lg-4">
-                      <label class="col-form-label">Nº patrimônio</label>
+                      <label class="col-form-label">Antivírus</label>
                       <div class="">
-                        <label class="n_patrimonio"></label>
+                        <label class="antivirus"></label>
                       </div>
                     </div>
                     <div class="col-lg-6 col-12 px-0 px-lg-4">
                       <label class="col-form-label">Service TAG</label>
                       <div class="">
                         <label class="serviceTag"></label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6 col-12 px-0 px-lg-4">
+                      <label class="col-form-label">Tipo de licença</label>
+                      <div class="">
+                        <label class="tipo_licenca"></label>
+                      </div>
+                    </div>
+                    <div class="col-lg-6 col-12 px-0 px-lg-4">
+                      <label class="col-form-label">Nº patrimônio</label>
+                      <div class="">
+                        <label class="n_patrimonio"></label>
                       </div>
                     </div>
                   </div>

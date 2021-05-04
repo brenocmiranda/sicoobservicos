@@ -1149,7 +1149,7 @@ class TecnologiaCtrl extends Controller
 	                return $dados->RelationEquipamento->nome;
 	            })
 	            ->editColumn('nome1', function(Ativos $dados){ 
-	                return '<a href="javascript:void(0)" id="detalhes">'.$dados->RelationEquipamento->nome.'<br><small>'.$dados->RelationMarca->nome.' <b>&#183</b> '.$dados->modelo.'</small></a>';
+	                return '<a href="javascript:void(0)" id="detalhes">'.$dados->RelationEquipamento->nome.' '.$dados->RelationMarca->nome.'<br><small>'.$dados->modelo.'</small></a>';
 	            })
 	            ->editColumn('acoes', function(Ativos $dados){ 
 	                return '
@@ -1174,7 +1174,7 @@ class TecnologiaCtrl extends Controller
 		                return $dados->RelationEquipamento->nome;
 		            })
 		            ->editColumn('nome1', function(Ativos $dados){ 
-		                return '<a href="javascript:void(0)" id="detalhes">'.$dados->RelationEquipamento->nome.'<br><small>'.$dados->RelationMarca->nome.' <b>&#183</b> '.$dados->modelo.'</small></a>';
+	                  return '<a href="javascript:void(0)" id="detalhes">'.$dados->RelationEquipamento->nome.' '.$dados->RelationMarca->nome.'<br><small>'.$dados->modelo.'</small></a>';
 		            })
 		            ->editColumn('acoes', function(Ativos $dados){ 
 		                return '';
@@ -1209,6 +1209,9 @@ class TecnologiaCtrl extends Controller
 		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
 			$create = Ativos::create([
 				'id_equipamento' => $request->id_equipamento,
+                'sistema_operacional' => (isset($request->sistema_operacional) ? $request->sistema_operacional : null),
+                'tipo_licenca' => (isset($request->tipo_licenca) ? $request->tipo_licenca : null),
+                'antivirus' => (isset($request->antivirus) ? $request->antivirus : null),
 				'n_patrimonio' => (isset($request->n_patrimonio) ? $request->n_patrimonio : null), 
 				'serialNumber' => $request->serialNumber, 
 				'serviceTag' => (isset($request->serviceTag) ? $request->serviceTag : null),
@@ -1275,6 +1278,9 @@ class TecnologiaCtrl extends Controller
 			Ativos::find($id)->update([
 				'id_equipamento' => $request->id_equipamento,
 				'n_patrimonio' => (isset($request->n_patrimonio) ? $request->n_patrimonio : null),  
+                'sistema_operacional' => (isset($request->sistema_operacional) ? $request->sistema_operacional : null),
+                'tipo_licenca' => (isset($request->tipo_licenca) ? $request->tipo_licenca : null),
+                'antivirus' => (isset($request->antivirus) ? $request->antivirus : null),
 				'serialNumber' => $request->serialNumber, 
 				'serviceTag' => (isset($request->serviceTag) ? $request->serviceTag : null),
 				'id_marca' => $request->id_marca,

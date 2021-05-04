@@ -11,7 +11,7 @@ class Ativos extends Model
 
     protected $table = 'gti_ativos';
     protected $primaryKey = 'id';
-    protected $fillable = [ 'id', 'n_patrimonio', 'serialNumber', 'serviceTag',  'modelo', 'descricao', 'id_marca', 'id_equipamento', 'id_setor', 'id_unidade', 'id_imagem', 'created_at', 'updated_at'];
+    protected $fillable = [ 'id', 'sistema_operacional', 'tipo_licenca', 'antivirus', 'n_patrimonio', 'serialNumber', 'serviceTag',  'modelo', 'descricao', 'id_marca', 'id_equipamento', 'id_setor', 'id_unidade', 'id_imagem', 'created_at', 'updated_at'];
 
     public function RelationImagemPrincipal(){
     	return $this->belongsTo(Imagens::class, 'id_imagem');

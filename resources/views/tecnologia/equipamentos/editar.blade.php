@@ -33,150 +33,210 @@ Editar equipamento
     <div class="row">
       <div class="col-lg-8 col-12 mb-4 mb-lg-0 order-2 order-lg-1">
         <div class="card">
+          <div class="card-header" style="border-top-right-radius: 0.6em; border-top-left-radius: 0.6em;">
+            <h5 class="text-white font-weight-normal">Dados do equipamento</h5>
+          </div>
           <div class="card-body">
             <div class="row mx-auto">
-              <div class="col-lg-6 col-12">
-                <div class="form-group">
-                  <label class="col-form-label pb-0">Equipamento <span class="text-danger">*</span></label>
-                  <select class="form-control form-control-line" name="id_equipamento" required>
-                    <option value="">Selecione</option>
-                    @foreach($equipamentos as $equipamento)
-                    <option value="{{$equipamento->id}}" {{($ativo->id_equipamento == $equipamento->id ? 'selected' : '')}}>{{$equipamento->nome}}</option>
-                    @endforeach
-                  </select>
-                </div>
-              </div>
-              <div class="col-lg-6 col-12">
-                <div class="form-group">
-                  <label class="col-form-label pb-0">Marcas <span class="text-danger">*</span></label>
-                  <select class="form-control form-control-line" name="id_marca" required>
-                    <option value="">Selecione</option>
-                    @foreach($marcas as $marca)
-                    <option value="{{$marca->id}}" {{($ativo->id_marca == $marca->id ? 'selected' : '')}}>{{$marca->nome}}</option>
-                    @endforeach
-                  </select>
-                </div>
-              </div>
-              <div class="col-lg-6 col-12">
-                <div class="form-group">
-                  <label class="col-form-label pb-0">Modelo <span class="text-danger">*</span></label>
-                  <div class="">
-                    <input class="form-control form-control-line" name="modelo" onkeyup="this.value = this.value.toUpperCase();" value="{{$ativo->modelo}}" required/>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-6 col-12">
-                <div class="form-group">
-                  <label class="col-form-label pb-0">Nº patrimônio</label>
-                  <div class="">
-                    <input class="form-control form-control-line" name="n_patrimonio" onkeyup="this.value = this.value.toUpperCase();" value="{{$ativo->n_patrimonio}}"/>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-6 col-12">
-                <div class="form-group">
-                  <label class="col-form-label pb-0">Service TAG <span class="text-danger">*</span></label>
-                  <div class="">
-                    <input class="form-control form-control-line" name="serviceTag" onkeyup="this.value = this.value.toUpperCase();" value="{{$ativo->serviceTag}}" required/>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-6 col-12">
-                <div class="form-group">
-                  <label class="col-form-label pb-0">Nº série <span class="text-danger">*</span></label>
-                  <div class="">
-                    <input class="form-control form-control-line" name="serialNumber" onkeyup="this.value = this.value.toUpperCase();" value="{{$ativo->serialNumber}}" required/>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-6 col-12">
-                <div class="form-group">
-                  <label class="col-form-label pb-0">Setor <span class="text-danger">*</span></label>
-                  <select class="form-control form-control-line" name="id_setor" required>
-                    <option value="">Selecione</option>
-                    @foreach($setores as $setor)
-                    <option value="{{$setor->id}}" {{($setor->id == $ativo->id_setor ? 'selected' : '')}}>{{$setor->nome}}</option>
-                    @endforeach
-                  </select>
-                </div>
-              </div>
-              <div class="col-lg-6 col-12">
-                <div class="form-group">
-                  <label class="col-form-label pb-0">PA <span class="text-danger">*</span></label>
-                  <select class="form-control form-control-line" name="id_unidade" required>
-                    <option value="">Selecione</option>
-                    @foreach($unidades as $unidade)
-                    <option value="{{$unidade->id}}" {{($unidade->id == $ativo->id_unidade ? 'selected' : '')}}>{{$unidade->nome}}</option>
-                    @endforeach
-                  </select>
-                </div>
-              </div>
-  
-              <div class="col-lg-9 col-12">
-                <div class="form-group">
-                  <label class="col-form-label pb-0">Usuário responsável</label>
-                  <div class="">
-                    <select class="form-control form-control-line" name="usuario" required>
+              <div class="row col-12">
+                <div class="col-lg-6 col-12">
+                  <div class="form-group">
+                    <label class="col-form-label pb-0">Equipamento <span class="text-danger">*</span></label>
+                    <select class="form-control form-control-line" name="id_equipamento" required>
                       <option value="">Selecione</option>
-                      @foreach($usuarios as $usuario)
-                      <option value="{{$usuario->id}}" {{($usuario->id == $ativo->RelationUsuario->last()->id ? 'selected' : '')}}>{{$usuario->RelationAssociado->nome}}</option>
+                      @foreach($equipamentos as $equipamento)
+                      <option value="{{$equipamento->id}}" {{($ativo->id_equipamento == $equipamento->id ? 'selected' : '')}}>{{$equipamento->nome}}</option>
                       @endforeach
                     </select>
                   </div>
                 </div>
-              </div>
-              <div class="col-12">
-                <div class="form-group">
-                  <label class="col-form-label pb-0">Descrição</label>
-                  <div class="">
-                    <textarea class="form-control form-control-line descricao" name="descricao" onkeyup="this.value = this.value.toUpperCase();" rows="3" placeholder="Digite suas observações">{{$ativo->descricao}}</textarea>
+                <div class="col-lg-6 col-12">
+                  <div class="form-group">
+                    <label class="col-form-label pb-0">Marca <span class="text-danger">*</span></label>
+                    <select class="form-control form-control-line" name="id_marca" required>
+                      <option value="">Selecione</option>
+                      @foreach($marcas as $marca)
+                      <option value="{{$marca->id}}" {{($ativo->id_marca == $marca->id ? 'selected' : '')}}>{{$marca->nome}}</option>
+                      @endforeach
+                    </select>
+                  </div>
+                </div>
+                <div class="col-lg-8 col-12">
+                  <div class="form-group">
+                    <label class="col-form-label pb-0">Modelo <span class="text-danger">*</span></label>
+                    <div class="">
+                      <input class="form-control form-control-line" name="modelo" onkeyup="this.value = this.value.toUpperCase();" value="{{$ativo->modelo}}" required/>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-12">
+                  <div class="form-group">
+                    <label class="col-form-label pb-0">Sistema operacional</label>
+                    <select class="form-control form-control-line" name="sistema_operacional">
+                      <option value="">Selecione</option>
+                      <option value="Windows 10" {{($ativo->sistema_operacional == 'Windows 10' ? 'selected' : '')}}>Windows 10</option>
+                      <option value="Windows 8.1" {{($ativo->sistema_operacional == 'Windows 8.1' ? 'selected' : '')}}>Windows 8.1</option>
+                      <option value="Linux Ubuntu" {{($ativo->sistema_operacional == 'Linux Ubuntu' ? 'selected' : '')}}>Linux Ubuntu</option>
+                      <option value="Linux Mint" {{($ativo->sistema_operacional == 'Linux Mint' ? 'selected' : '')}}>Linux Mint</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-12">
+                  <div class="form-group">
+                    <label class="col-form-label pb-0">Tipo de licença</label>
+                    <select class="form-control form-control-line" name="tipo_licenca">
+                      <option value="">Selecione</option>
+                      <option value="OEM" {{($ativo->tipo_licenca == 'OEM' ? 'selected' : '')}}>OEM</option>
+                      <option value="Por volume" {{($ativo->tipo_licenca == 'Por volume' ? 'selected' : '')}}>Por volume</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-12">
+                  <div class="form-group">
+                    <label class="col-form-label pb-0">Antivírus</label>
+                    <select class="form-control form-control-line" name="antivirus">
+                      <option value="">Selecione</option>
+                      <option value="Kaspersky" {{($ativo->antivirus == 'Kaspersky' ? 'selected' : '')}}>Kaspersky</option>
+                      <option value="Windows Defender" {{($ativo->antivirus == 'Windows Defender' ? 'selected' : '')}}>Windows Defender</option>
+                    </select>
                   </div>
                 </div>
               </div>
-              <div class="col-12">
-                <div class="form-group">
-                  <label class="col-form-label col-12 row mb-0">Imagem principal <span class="text-danger">*</span></label>
-                  <small>Formatos de imagem aceitos: <b>.png</b>, <b>.jpg</b> ou <b>.svg</b></small>
-                  <div class="row col-12 mt-3 mx-0 p-0">
-                    <div class="border mx-2 rounded col-lg-2 col-6 row p-0 mb-4" style="height: 8em;">
-                      <img class="w-100 h-100 p-3" id="PreviewImage" src="{{(isset($ativo->RelationImagemPrincipal) ? asset('storage/app/'.$ativo->RelationImagemPrincipal->endereco) : asset('public/img/image.png'))}}">
-                      <input type="file" class="px-0 col-12 position-absolute mx-auto h-100 pointer" style="opacity: 0; top: 0%; left: 0%" accept=".png, .jpg, .jpeg" name="imagem_principal" accept="image/*" title="Selecione a imagem principal" onchange="image(this)">
+            </div>
+          </div>
+        </div>
+        <div class="card my-4">
+          <div class="card-header" style="border-top-right-radius: 0.6em; border-top-left-radius: 0.6em;">
+            <h5 class="text-white font-weight-normal">Identificação</h5>
+          </div>
+          <div class="card-body">
+            <div class="row mx-auto">
+              <div class="row col-12">
+                <div class="col-lg-4 col-12">
+                  <div class="form-group">
+                    <label class="col-form-label pb-0">Nº série <span class="text-danger">*</span></label>
+                    <div class="">
+                      <input class="form-control form-control-line" name="serialNumber" onkeyup="this.value = this.value.toUpperCase();" value="{{$ativo->serialNumber}}" required/>
                     </div>
-                  </div> 
+                  </div>
                 </div>
-              </div>
-              <div class="col-12">
-                <div class="form-group">
-                  <label class="col-form-label col-12 row mb-0">Selecione demais imagens</label>
-                  <small>Formatos de imagem aceitos: <b>.png</b>, <b>.jpg</b> ou <b>.svg</b></small>
-                  <div class="row col-12 mt-3 preview mx-0 p-0">
-                    <div class="border mx-2 rounded col-lg-2 col-4 row p-0 mb-4" style="height: 7em;">
-                      <i class="mdi mdi-plus mdi-36px m-auto"></i>
-                      <input type="file" class="px-0 col-12 position-absolute mx-auto h-100 pointer" style="opacity: 0; top: 0%; left: 0%" accept=".png, .jpg, .jpeg" id="addFotoGaleria" accept="image/*" title="Selecione as imagens do problema" multiple>
+                <div class="col-lg-4 col-12">
+                  <div class="form-group">
+                    <label class="col-form-label pb-0">Nº patrimônio</label>
+                    <div class="">
+                      <input class="form-control form-control-line" name="n_patrimonio" onkeyup="this.value = this.value.toUpperCase();" value="{{$ativo->n_patrimonio}}"/>
                     </div>
-                    @foreach($ativo->RelationImagem as $imagens)
-                    <div class="border mx-2 mb-4 rounded col-lg-2 col-4 d-flex p-0" id="PreviewImage{{$imagens->id}}"> 
-                      <input type="hidden" name="imagens[]" value="{{$imagens->id}}"> 
-                      <img class="p-3 w-100" src="{{asset('storage/app/').'/'.$imagens->endereco}}" style="height: 7em;">
-                      <a href="javascript:void(0)" onclick="removeImagem('{{$imagens->id}}')" class="btn btn-light rounded-circle m-n3 border btn-xs" style="height: 26px;">x</a> 
-                    </div>
-                    @endforeach
-                  </div> 
+                  </div>
                 </div>
-              </div>
-              <hr class="col-10 mt-0">
-              <div class="row col-12 justify-content-center mx-auto">
-                <a href="{{route('exibir.geral.equipamentos')}}" class="btn btn-danger btn-outline col-lg-3 col-5 d-flex align-items-center justify-content-center mx-2">
-                  <i class="mdi mdi-arrow-left pr-2"></i> 
-                  <span>Voltar</span>
-                </a>
-                <button type="submit" class="btn btn-success btn-outline col-lg-3 col-5 d-flex align-items-center justify-content-center mx-2">
-                  <i class="mdi mdi-check pr-2"></i> 
-                  <span>Salvar</span>
-                </button>
+                <div class="col-lg-4 col-12">
+                  <div class="form-group">
+                    <label class="col-form-label pb-0">Service TAG</label>
+                    <div class="">
+                      <input class="form-control form-control-line" name="serviceTag" onkeyup="this.value = this.value.toUpperCase();"  value="{{$ativo->serviceTag}}" required/>
+                    </div>
+                  </div>
+                </div>
+                <div class="row col-12 mx-auto px-0">
+                  <div class="col-lg-6 col-12">
+                    <div class="form-group">
+                      <label class="col-form-label pb-0">Setor <span class="text-danger">*</span></label>
+                      <select class="form-control form-control-line" name="id_setor" required>
+                        <option value="">Selecione</option>
+                        @foreach($setores as $setor)
+                        <option value="{{$setor->id}}" {{($setor->id == $ativo->id_setor ? 'selected' : '')}}>{{$setor->nome}}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-12">
+                    <div class="form-group">
+                      <label class="col-form-label pb-0">PA <span class="text-danger">*</span></label>
+                      <select class="form-control form-control-line" name="id_unidade" required>
+                        <option value="">Selecione</option>
+                        @foreach($unidades as $unidade)
+                        <option value="{{$unidade->id}}" {{($unidade->id == $ativo->id_unidade ? 'selected' : '')}}>{{$unidade->nome}}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-12 col-12">
+                  <div class="form-group">
+                    <label class="col-form-label pb-0">Usuário responsável</label>
+                    <div class="">
+                      <select class="form-control form-control-line" name="usuario" required>
+                        <option value="">Selecione</option>
+                        @foreach($usuarios as $usuario)
+                        <option value="{{$usuario->id}}" {{($usuario->id == $ativo->RelationUsuario->last()->id ? 'selected' : '')}}>{{$usuario->RelationAssociado->nome}}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
+        </div>
+        <div class="card">
+          <div class="card-header" style="border-top-right-radius: 0.6em; border-top-left-radius: 0.6em;">
+            <h5 class="text-white font-weight-normal">Outras informações</h5>
+          </div>
+          <div class="card-body">
+            <div class="row mx-auto">
+              <div class="row col-12">
+                <div class="col-12">
+                  <div class="form-group">
+                    <label class="col-form-label pb-0">Descrição</label>
+                    <div class="">
+                      <textarea class="form-control form-control-line descricao" name="descricao" onkeyup="this.value = this.value.toUpperCase();" rows="3" placeholder="Digite suas observações">{{$ativo->descricao}}</textarea>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="form-group">
+                    <label class="col-form-label col-12 row mb-0">Imagem principal <span class="text-danger">*</span></label>
+                    <small>Formatos de imagem aceitos: <b>.png</b>, <b>.jpg</b> ou <b>.svg</b></small>
+                    <div class="row col-12 mt-3 mx-0 p-0">
+                      <div class="border mx-2 rounded col-lg-2 col-6 row p-0 mb-4" style="height: 8em;">
+                        <img class="w-100 h-100 p-3" id="PreviewImage" src="{{(isset($ativo->RelationImagemPrincipal) ? asset('storage/app/'.$ativo->RelationImagemPrincipal->endereco) : asset('public/img/image.png'))}}">
+                        <input type="file" class="px-0 col-12 position-absolute mx-auto h-100 pointer" style="opacity: 0; top: 0%; left: 0%" accept=".png, .jpg, .jpeg" name="imagem_principal" accept="image/*" title="Selecione a imagem principal" onchange="image(this)">
+                      </div>
+                    </div> 
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="form-group">
+                    <label class="col-form-label col-12 row mb-0">Selecione demais imagens</label>
+                    <small>Formatos de imagem aceitos: <b>.png</b>, <b>.jpg</b> ou <b>.svg</b></small>
+                    <div class="row col-12 mt-3 preview mx-0 p-0">
+                      <div class="border mx-2 rounded col-lg-2 col-4 row p-0 mb-4" style="height: 7em;">
+                        <i class="mdi mdi-plus mdi-36px m-auto"></i>
+                        <input type="file" class="px-0 col-12 position-absolute mx-auto h-100 pointer" style="opacity: 0; top: 0%; left: 0%" accept=".png, .jpg, .jpeg" id="addFotoGaleria" accept="image/*" title="Selecione as imagens do problema" multiple>
+                      </div>
+                      @foreach($ativo->RelationImagem as $imagens)
+                      <div class="border mx-2 mb-4 rounded col-lg-2 col-4 d-flex p-0" id="PreviewImage{{$imagens->id}}"> 
+                        <input type="hidden" name="imagens[]" value="{{$imagens->id}}"> 
+                        <img class="p-3 w-100" src="{{asset('storage/app/').'/'.$imagens->endereco}}" style="height: 7em;">
+                        <a href="javascript:void(0)" onclick="removeImagem('{{$imagens->id}}')" class="btn btn-light rounded-circle m-n3 border btn-xs" style="height: 26px;">x</a> 
+                      </div>
+                      @endforeach
+                    </div> 
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr class="col-10 mt-0">
+        <div class="row col-12 justify-content-center mx-auto">
+          <a href="{{route('exibir.geral.equipamentos')}}" class="btn btn-danger btn-outline col-lg-3 col-5 d-flex align-items-center justify-content-center mx-2">
+            <i class="mdi mdi-arrow-left pr-2"></i> 
+            <span>Voltar</span>
+          </a>
+          <button type="submit" class="btn btn-success btn-outline col-lg-3 col-5 d-flex align-items-center justify-content-center mx-2">
+            <i class="mdi mdi-check pr-2"></i> 
+            <span>Salvar</span>
+          </button>
         </div>
       </div>
       <div class="col-lg-4 col-12 mb-4 mb-lg-0 order-1 order-lg-2">
