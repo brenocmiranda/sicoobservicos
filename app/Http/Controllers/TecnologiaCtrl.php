@@ -1125,7 +1125,8 @@ class TecnologiaCtrl extends Controller
 	public function ExibirInventario(){
 		if(Auth::user()->RelationFuncao->ver_gti == 1 || Auth::user()->RelationFuncao->gerenciar_gti == 1){
 			$equipamentos = Ativos::all();
-			return view('tecnologia.equipamentos.listar')->with('ativos', $equipamentos);
+            $usuarios = Usuarios::where('status', 1)->orderBy('login', 'ASC')->get();
+			return view('tecnologia.equipamentos.listar')->with('ativos', $equipamentos)->with('usuarios', $usuarios);
 		}else{
 			return redirect(route('403'));
 		}
@@ -1145,6 +1146,9 @@ class TecnologiaCtrl extends Controller
 	            ->editColumn('marca', function(Ativos $dados){ 
 	                return $dados->RelationMarca->nome;
 	            })
+                ->editColumn('localizacao', function(Ativos $dados){ 
+                    return $dados->RelationSetor->nome;
+                })
 	            ->editColumn('equipamento', function(Ativos $dados){ 
 	                return $dados->RelationEquipamento->nome;
 	            })
@@ -1153,8 +1157,10 @@ class TecnologiaCtrl extends Controller
 	            })
 	            ->editColumn('acoes', function(Ativos $dados){ 
 	                return '
+                    <a href="javascript:" class="btn btn-dark btn-xs btn-rounded mx-1" id="historico" title="Histórico de usuários"><i class="mx-0 mdi mdi-file-document-box"></i></a>
 	                <a href="'.route('editar.equipamentos', $dados->id).'" class="btn btn-dark btn-xs btn-rounded mx-1" id="editar" title="Editar informações do equipamento"><i class="mx-0 mdi mdi-settings"></i></a>
-						<button class="btn btn-dark btn-xs btn-rounded" id="remover" title="Remover o equipamento"><i class="mx-0 mdi mdi-close"></i></button>';
+                    <a href="javascript:" class="btn btn-dark btn-xs btn-rounded mx-1" id="alterar" title="Alterar usuário responsável"><i class="mx-0 mdi mdi-account-convert"></i></a>
+					<button class="btn btn-dark btn-xs btn-rounded" id="remover" title="Remover o equipamento"><i class="mx-0 mdi mdi-close"></i></button>';
 	            })->rawColumns(['imagem1', 'nome1', 'acoes'])->make(true);
 	        }else{
 				return datatables()->of(Ativos::all())
@@ -1170,6 +1176,9 @@ class TecnologiaCtrl extends Controller
 		            ->editColumn('marca', function(Ativos $dados){ 
 	                return $dados->RelationMarca->nome;
 		            })
+                    ->editColumn('localizacao', function(Ativos $dados){ 
+                        return $dados->RelationSetor->nome;
+                    })
 		            ->editColumn('equipamento', function(Ativos $dados){ 
 		                return $dados->RelationEquipamento->nome;
 		            })
@@ -1212,14 +1221,14 @@ class TecnologiaCtrl extends Controller
                 'sistema_operacional' => (isset($request->sistema_operacional) ? $request->sistema_operacional : null),
                 'tipo_licenca' => (isset($request->tipo_licenca) ? $request->tipo_licenca : null),
                 'antivirus' => (isset($request->antivirus) ? $request->antivirus : null),
-				'n_patrimonio' => (isset($request->n_patrimonio) ? $request->n_patrimonio : null), 
-				'serialNumber' => $request->serialNumber, 
-				'serviceTag' => (isset($request->serviceTag) ? $request->serviceTag : null),
+				'n_patrimonio' => (isset($request->n_patrimonio) ? strtoupper($request->n_patrimonio) : null), 
+				'serviceTag' => (isset($request->serviceTag) ? strtoupper($request->serviceTag) : null),
+                'serialNumber' => strtoupper($request->serialNumber), 
 				'id_marca' => $request->id_marca,
-				'modelo' => $request->modelo,
+				'modelo' => strtoupper($request->modelo),
 				'id_setor' => $request->id_setor,
 				'id_unidade' => $request->id_unidade,
-				'descricao' => (isset($request->descricao) ? $request->descricao : null), 
+				'descricao' => (isset($request->descricao) ? strtoupper($request->descricao) : null), 
 			]);
 			// Carregando imagem principal
 			if ($request->hasFile('imagem_principal')) {
@@ -1277,17 +1286,17 @@ class TecnologiaCtrl extends Controller
 		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
 			Ativos::find($id)->update([
 				'id_equipamento' => $request->id_equipamento,
-				'n_patrimonio' => (isset($request->n_patrimonio) ? $request->n_patrimonio : null),  
                 'sistema_operacional' => (isset($request->sistema_operacional) ? $request->sistema_operacional : null),
                 'tipo_licenca' => (isset($request->tipo_licenca) ? $request->tipo_licenca : null),
                 'antivirus' => (isset($request->antivirus) ? $request->antivirus : null),
-				'serialNumber' => $request->serialNumber, 
-				'serviceTag' => (isset($request->serviceTag) ? $request->serviceTag : null),
-				'id_marca' => $request->id_marca,
-				'modelo' => $request->modelo,
-				'id_setor' => $request->id_setor,
-				'id_unidade' => $request->id_unidade,
-				'descricao' => (isset($request->descricao) ? $request->descricao : null),  
+                'n_patrimonio' => (isset($request->n_patrimonio) ? strtoupper($request->n_patrimonio) : null), 
+                'serviceTag' => (isset($request->serviceTag) ? strtoupper($request->serviceTag) : null),
+                'serialNumber' => strtoupper($request->serialNumber), 
+                'id_marca' => $request->id_marca,
+                'modelo' => strtoupper($request->modelo),
+                'id_setor' => $request->id_setor,
+                'id_unidade' => $request->id_unidade,
+                'descricao' => (isset($request->descricao) ? strtoupper($request->descricao) : null),  
 			]);
 			// Carregando imagem principal
 			if ($request->hasFile('imagem_principal')) {
@@ -1380,7 +1389,26 @@ class TecnologiaCtrl extends Controller
 		}
 		return response()->json($imagens);
 	}
+    // Alterando o usuário responsável
+    public function AlterarUsuarioInvetario(Request $request){
+        $equipamento = Ativos::find($request->id);
+        if($request->usuario){
+            if($equipamento->RelationUsuario->first()->id != $request->usuario){
+                AtivosUsuarios::find($equipamento->RelationUsuario->first()->pivot->id)->update(['dataDevolucao' => now()]);
+                $usuarios = AtivosUsuarios::create([
+                    'gti_id_ativos' => $request->id,
+                    'usr_id_usuarios' => $request->usuario,
+                    'dataRecebimento' => now()
+                ]);
+            }
+        }
+    }
 
+    // Histórico dos usuários
+    public function HistoricoInvetario($id){
+        $dados = AtivosUsuarios::join('usr_usuarios', 'usr_id_usuarios', 'usr_usuarios.id')->join('cli_associados', 'usr_usuarios.cli_id_associado', 'cli_associados.id')->where('gti_id_ativos', $id)->select('gti_ativos_has_usuarios.*', 'cli_associados.nome')->get();
+        return response()->json($dados); 
+    }
 
 	#-------------------------------------------------------------------
 	# Relatórios

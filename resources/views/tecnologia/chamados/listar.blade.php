@@ -255,9 +255,10 @@ Solicitações de Suporte
 	        });
 	      }
 	    });
-    
+    	
+    	// Editando as informações do chamado
 	    $('#modal-alterar #formAlterar').on('submit', function(e){
-	      // Editando as informações
+	      // 
 	      e.preventDefault();
 	      $.ajax({
 	        url: "{{url('app/gti/chamados/status')}}/"+$('#modal-alterar .idChamado').val(),

@@ -455,6 +455,8 @@ Route::group(['prefix' => 'app'], function(){
 			Route::get('remover/{id}', 'TecnologiaCtrl@DeleteInventario')->name('remover.equipamentos');
 			Route::any('detalhes/{id}', 'TecnologiaCtrl@DetalhesInventario')->name('detalhes.equipamentos');
 			Route::post('addImagens', 'TecnologiaCtrl@ImagensInventario')->name('adicionar.imagens.equipamentos');
+			Route::post('alterarUsuario/{id}', 'TecnologiaCtrl@AlterarUsuarioInvetario')->name('alterar.usuarios.equipamentos');
+			Route::any('historico/{id}', 'TecnologiaCtrl@HistoricoInvetario')->name('historico.usuarios.equipamentos');
 		});
 		
 		// Relatórios

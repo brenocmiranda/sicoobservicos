@@ -1,5 +1,5 @@
 @section('title')
-Invetário geral
+Inventário geral
 @endsection
 
 @extends('layouts.index')
@@ -8,12 +8,12 @@ Invetário geral
 <div class="container-fluid">
 	<div class="row bg-title">
 		<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-			<h4 class="page-title">Invetário geral</h4> 
+			<h4 class="page-title">Inventário geral</h4> 
 		</div>
 		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
 			<ol class="breadcrumb">
 				<li><a href="{{route('dashboard.gti')}}">Tecnologia</a></li>
-				<li><a href="javascript:void(0)">Invetário</a></li>
+				<li><a href="javascript:void(0)">Inventário</a></li>
 				<li class="active">Geral</li>
 			</ol>
 		</div>
@@ -37,6 +37,7 @@ Invetário geral
 					<thead>
 						<th> Imagem </th>
 						<th> Equipamento </th>
+						<th> Localização </th>
 						<th> Nº patrimonio </th>
 						<th> Nº série </th>
 						<th> Ações </th>
@@ -50,6 +51,8 @@ Invetário geral
 
 @section('modal')
 	@include('tecnologia.equipamentos.detalhes')
+	@include('tecnologia.equipamentos.alterar')
+	@include('tecnologia.equipamentos.historico')
 @endsection
 
 @section('suporte')
@@ -69,6 +72,7 @@ Invetário geral
 			"columns": [ 
 			{ "data": "imagem1","name":"imagem1"},
 			{ "data": "nome1", "name":"nome1"},
+			{ "data": "localizacao", "name":"localizacao"},
 			{ "data": "n_patrimonio", "name":"n_patrimonio"},
 			{ "data": "serialNumber", "name":"serialNumber"},
 			{ "data": "acoes","name":"acoes"},
@@ -101,7 +105,7 @@ Invetário geral
 				$('.modal .descricao').html('Não informado');
 			}
 			
-			$.get('./detalhes/'+data.id, function(data){
+			$.get("{{url('app/gti/equipamentos/detalhes')}}/"+data.id, function(data){
 				$('.modal #ImagemPrincipalUrl').attr('href', "{{url('storage/app')}}/"+data.imagem.endereco);
 				$('.modal #ImagemPrincipal').attr('src', "{{url('storage/app')}}/"+data.imagem.endereco);
 				$('.preview').html('');
@@ -110,6 +114,31 @@ Invetário geral
 				});
 			});
 			$('#modal-detalhes').modal('show');	
+		});
+
+		// Alterando o usuário
+		$('#table tbody').on('click', 'a#alterar', function (){
+			var table = $('#table').DataTable();
+			table.$('tr.active').removeClass('active');
+			$(this).parents('tr').addClass('active');
+			$(this).parent('tr').addClass('active');
+			var data = table.row('tr.active').data();
+			$('.modal .identificador').val(data.id);
+			$('#modal-alterar').modal('show');	
+		});
+
+		// Abrindo o histórico do equipamento
+		$('#table tbody').on('click', 'a#historico', function (){
+			var table = $('#table').DataTable();
+			table.$('tr.active').removeClass('active');
+			$(this).parents('tr').addClass('active');
+			$(this).parent('tr').addClass('active');
+			var data = table.row('tr.active').data();
+			$.get("{{url('app/gti/equipamentos/historico')}}/"+data.id, function(dados){
+				$.each(dados, function(key, value) {
+					$('.modal .historico').html('<div class="mb-4"> <p class="mb-0 font-weight-bold">'+value.nome+'</p> <small>Entrega: '+value.dataRecebimento+'</small> - <small>Devolução: '+value.dataDevolucao+'</small> </div>'); });
+			});
+			$('#modal-historico').modal('show');	
 		});
 
 		// -------------------------------------------------
@@ -130,7 +159,7 @@ Invetário geral
 			})
 			.then((willDelete) => {
 				if (willDelete) {
-					$.get('./remover/'+data.id, function(data){
+					$.get("{{url('app/gti/equipamentos/remover')}}/"+data.id, function(data){
 						if(data.success == true){
 							swal("Equipamento removido com sucesso!", {
 								icon: "success",
@@ -147,7 +176,45 @@ Invetário geral
 					swal.close();
 				}
 			});
-		});		
+		});
+
+		// Editando as informações
+		$('#modal-alterar #formAlterar').on('submit', function(e){
+	      e.preventDefault();
+	      $.ajax({
+	        url: "{{url('app/gti/equipamentos/alterarUsuario')}}/"+$('#modal-alterar .identificador').val(),
+	        type: 'POST',
+	        data: $('#modal-alterar #formAlterar').serialize(),
+	        beforeSend: function(){
+	          $('.modal-body, .modal-footer').addClass('d-none');
+	          $('.carregamento').html('<div class="mx-auto text-center my-5"> <div class="col-12"> <div class="spinner-border my-4" role="status"> <span class="sr-only"> Loading... </span> </div> </div> <label>Salvando informações...</label></div>');
+	          $('#modal-alterar #err').html('');
+	        },
+	        success: function(data){
+	          $('.modal-body, .modal-footer').addClass('d-none');
+	          $('.carregamento').html('<div class="mx-auto text-center my-5"><div class="col-12"><i class="col-2 mdi mdi-check-all mdi-48px"></i></div><label>Informações alteradas com sucesso!</label></div>');
+	          setTimeout(function(){
+	            location.reload();
+	          }, 1000);
+	        }, error: function (data) {
+	          setTimeout(function(){
+	            $('.modal-body, .modal-footer').removeClass('d-none');
+	            $('.carregamento').html('');
+	            if(!data.responseJSON){
+	              console.log(data.responseText);
+	              $('#modal-alterar #err').html(data.responseText);
+	            }else{
+	              $('#modal-alterar #err').html('');
+	              $('input').removeClass('border-bottom border-danger');
+	              $.each(data.responseJSON.errors, function(key, value){
+	                $('#modal-alterar #err').append('<div class="text-danger mx-4"><p>'+value+'</p></div>');
+	                $('input[name="'+key+'"]').addClass('border-bottom border-danger');
+	              });
+	            }
+	          }, 2000);
+	        }
+	      });
+	    });		
 	});
 </script>
 @endsection

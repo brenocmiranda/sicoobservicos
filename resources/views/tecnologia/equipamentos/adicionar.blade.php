@@ -65,7 +65,7 @@ Adicionar equipamento
 									<div class="form-group">
 										<label class="col-form-label pb-0">Modelo <span class="text-danger">*</span></label>
 										<div class="">
-											<input class="form-control form-control-line" name="modelo" onkeyup="this.value = this.value.toUpperCase();" required/>
+											<input class="form-control form-control-line text-uppercase" name="modelo" required/>
 										</div>
 									</div>
 								</div>
@@ -117,7 +117,7 @@ Adicionar equipamento
 									<div class="form-group">
 										<label class="col-form-label pb-0">Nº série <span class="text-danger">*</span></label>
 										<div class="">
-											<input class="form-control form-control-line" name="serialNumber" onkeyup="this.value = this.value.toUpperCase();" required/>
+											<input class="form-control form-control-line text-uppercase" name="serialNumber" required/>
 										</div>
 									</div>
 								</div>
@@ -125,7 +125,7 @@ Adicionar equipamento
 									<div class="form-group">
 										<label class="col-form-label pb-0">Nº patrimônio </label>
 										<div class="">
-											<input class="form-control form-control-line" name="n_patrimonio" onkeyup="this.value = this.value.toUpperCase();"/>
+											<input class="form-control form-control-line text-uppercase" name="n_patrimonio"/>
 										</div>
 									</div>
 								</div>
@@ -133,7 +133,7 @@ Adicionar equipamento
 									<div class="form-group">
 										<label class="col-form-label pb-0">Service TAG </label>
 										<div class="">
-											<input class="form-control form-control-line" name="serviceTag" onkeyup="this.value = this.value.toUpperCase();" required/>
+											<input class="form-control form-control-line text-uppercase" name="serviceTag"/>
 										</div>
 									</div>
 								</div>
@@ -163,7 +163,7 @@ Adicionar equipamento
 								</div>
 								<div class="col-lg-12 col-12">
 									<div class="form-group">
-										<label class="col-form-label pb-0">Usuário responsável </label>
+										<label class="col-form-label pb-0">Usuário responsável <span class="text-danger">*</span></label>
 										<div class="">
 											<select class="form-control form-control-line" name="usuario" required>
 												<option value="">Selecione</option>
@@ -190,7 +190,7 @@ Adicionar equipamento
 									<div class="form-group">
 										<label class="col-form-label pb-0">Descrição</label>
 										<div class="">
-											<textarea class="form-control form-control-line descricao" name="descricao" onkeyup="this.value = this.value.toUpperCase();" rows="3" placeholder="Digite suas observações"></textarea>
+											<textarea class="form-control form-control-line descricao text-uppercase" name="descricao" rows="3" placeholder="Digite suas observações"></textarea>
 										</div>
 									</div>
 								</div>
@@ -235,11 +235,11 @@ Adicionar equipamento
 						<div class="d-block">
 							<h5 class="d-block mb-0" id="equipamento"></h5>
 							<label class="d-block mb-0 mt-2">
-								<span id="modelo"></span>
+								<span id="modelo" class="text-uppercase"></span>
 								&#183 
 								<span id="marca"></span>
 							</label>
-							<small class="d-block mt-2" id="n_patrimonio"></small>
+							<small class="d-block mt-2 text-uppercase" id="serialNumber"></small>
 							<hr class="mx-5">
 							<label class="d-block mt-3 mb-0" id="usuario"></label>
 							<label class="d-block mt-2" id="id_setor"></label>
@@ -282,8 +282,8 @@ Adicionar equipamento
 		$('form input[name="modelo"]').on('keyup', function(){
 			$('#modelo').html($('input[name="modelo"]').val());
 		});
-		$('form input[name="n_patrimonio"]').on('keyup', function(){
-			$('#n_patrimonio').html($('input[name="n_patrimonio"]').val());
+		$('form input[name="serialNumber"]').on('keyup', function(){
+			$('#serialNumber').html($('input[name="serialNumber"]').val());
 		});
 		$('form select[name="usuario"]').on('change', function(){
 			$('#usuario').html($('select[name="usuario"] option:selected').text());

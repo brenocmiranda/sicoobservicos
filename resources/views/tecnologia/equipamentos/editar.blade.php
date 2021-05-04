@@ -65,7 +65,7 @@ Editar equipamento
                   <div class="form-group">
                     <label class="col-form-label pb-0">Modelo <span class="text-danger">*</span></label>
                     <div class="">
-                      <input class="form-control form-control-line" name="modelo" onkeyup="this.value = this.value.toUpperCase();" value="{{$ativo->modelo}}" required/>
+                      <input class="form-control form-control-line text-uppercase" name="modelo" value="{{$ativo->modelo}}" required/>
                     </div>
                   </div>
                 </div>
@@ -116,7 +116,7 @@ Editar equipamento
                   <div class="form-group">
                     <label class="col-form-label pb-0">Nº série <span class="text-danger">*</span></label>
                     <div class="">
-                      <input class="form-control form-control-line" name="serialNumber" onkeyup="this.value = this.value.toUpperCase();" value="{{$ativo->serialNumber}}" required/>
+                      <input class="form-control form-control-line text-uppercase" name="serialNumber" value="{{$ativo->serialNumber}}" required/>
                     </div>
                   </div>
                 </div>
@@ -124,7 +124,7 @@ Editar equipamento
                   <div class="form-group">
                     <label class="col-form-label pb-0">Nº patrimônio</label>
                     <div class="">
-                      <input class="form-control form-control-line" name="n_patrimonio" onkeyup="this.value = this.value.toUpperCase();" value="{{$ativo->n_patrimonio}}"/>
+                      <input class="form-control form-control-line text-uppercase" name="n_patrimonio" value="{{$ativo->n_patrimonio}}"/>
                     </div>
                   </div>
                 </div>
@@ -132,7 +132,7 @@ Editar equipamento
                   <div class="form-group">
                     <label class="col-form-label pb-0">Service TAG</label>
                     <div class="">
-                      <input class="form-control form-control-line" name="serviceTag" onkeyup="this.value = this.value.toUpperCase();"  value="{{$ativo->serviceTag}}" required/>
+                      <input class="form-control form-control-line text-uppercase" name="serviceTag" value="{{$ativo->serviceTag}}" required/>
                     </div>
                   </div>
                 </div>
@@ -188,7 +188,7 @@ Editar equipamento
                   <div class="form-group">
                     <label class="col-form-label pb-0">Descrição</label>
                     <div class="">
-                      <textarea class="form-control form-control-line descricao" name="descricao" onkeyup="this.value = this.value.toUpperCase();" rows="3" placeholder="Digite suas observações">{{$ativo->descricao}}</textarea>
+                      <textarea class="form-control form-control-line descricao text-uppercase" name="descricao" rows="3" placeholder="Digite suas observações">{{$ativo->descricao}}</textarea>
                     </div>
                   </div>
                 </div>
