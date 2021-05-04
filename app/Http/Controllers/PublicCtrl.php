@@ -295,9 +295,25 @@ class PublicCtrl extends Controller
 
 		// Cartão de assinatura
 		if(isset($request->assinatura)){
-			$file = asset('storage/'.$request->assinatura[0]);
-			$newfile = "//10.11.26.1/digitaliza_ss/".date('d-m-Y').'/'.strtoupper($request->nomePasta).'/CARTAO DE ASSINATURA.jpg';
-			copy($file, $newfile);
+			if(is_dir("//10.11.26.1/digitaliza_ss/".date('d-m-Y'))){
+				if(is_dir("//10.11.26.1/digitaliza_ss/".date('d-m-Y').'/'.strtoupper($request->nomePasta))){
+					$file = asset('storage/'.$request->assinatura[0]);
+					$newfile = "//10.11.26.1/digitaliza_ss/".date('d-m-Y').'/'.strtoupper($request->nomePasta).'/CARTAO DE ASSINATURA.jpg';
+					copy($file, $newfile);
+					
+				}else{
+					mkdir("//10.11.26.1/digitaliza_ss/".date('d-m-Y').'/'.strtoupper($request->nomePasta), 0755);
+					$file = asset('storage/'.$request->assinatura[0]);
+					$newfile = "//10.11.26.1/digitaliza_ss/".date('d-m-Y').'/'.strtoupper($request->nomePasta).'/CARTAO DE ASSINATURA.jpg';
+					copy($file, $newfile);
+				}
+			}else{
+				mkdir("//10.11.26.1/digitaliza_ss/".date('d-m-Y'), 0755);
+				mkdir("//10.11.26.1/digitaliza_ss/".date('d-m-Y').'/'.strtoupper($request->nomePasta), 0755);
+				$file = asset('storage/'.$request->assinatura[0]);
+				$newfile = "//10.11.26.1/digitaliza_ss/".date('d-m-Y').'/'.strtoupper($request->nomePasta).'/CARTAO DE ASSINATURA.jpg';
+				copy($file, $newfile);
+			}
 		}
 
 		// Outros arquivos
