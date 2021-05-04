@@ -161,7 +161,6 @@ Invetário por usuário
         $('#treeview').on('nodeSelected', function(event, data) {
         	$('#equipamentos').fadeOut();
 			$.get("{{url('app/gti')}}/"+data.href, function(data){
-				$('#imagem').attr('src', "{{url('storage/app')}}/"+data.imagem.endereco);
 				$('#equipamento').html(data.equipamento+' '+data.marca);
 				$('#sistema_operacional').html((data.sistema_operacional ? data.sistema_operacional : '-'));
 				$('#tipo_licenca').html((data.tipo_licenca ? data.tipo_licenca : '-'));
@@ -176,17 +175,14 @@ Invetário por usuário
 				}else{
 					$('#descricao').html('Não informado');
 				}
-				$.get("{{url('app/gti/equipamentos/detalhes')}}/"+data.id, function(data){
-					$('#ImagemPrincipalUrl').attr('href', "{{url('storage/app')}}/"+data.imagem.endereco);
-					$('#ImagemPrincipal').attr('src', "{{url('storage/app')}}/"+data.imagem.endereco);
-					$('.preview').html('');
-					$.each(data.imagens, function(count,dados){
-						$('.preview').append('<a href="{{url("storage/app")}}/'+dados.endereco+'"><img class="border rounded m-1 p-2" src="{{url("storage/app")}}/'+dados.endereco+'" height="50" width="50"></a>')
-					});
+				$('#ImagemPrincipalUrl').attr('href', "{{url('storage/app')}}/"+data.imagem.endereco);
+				$('#ImagemPrincipal').attr('src', "{{url('storage/app')}}/"+data.imagem.endereco);
+				$('.preview').html('');
+				$.each(data.imagens, function(count,dados){
+					$('.preview').append('<a href="{{url("storage/app")}}/'+dados.endereco+'"><img class="border rounded m-1 p-2" src="{{url("storage/app")}}/'+dados.endereco+'" height="50" width="50"></a>')
 				});
-
-				$('#equipamentos').fadeIn();
 				$('#editar').attr('href', 'editar/'+data.id);
+				$('#equipamentos').fadeIn();
 			});
 		});
 
