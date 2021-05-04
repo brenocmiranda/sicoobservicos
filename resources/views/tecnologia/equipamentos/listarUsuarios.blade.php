@@ -42,17 +42,21 @@ Invetário por usuário
 							<h5>Descrições do equipamento</h5>
 							<hr class="mt-2">
 							<div class="row">
-								<div class="col-lg-4 col-12 row m-lg-auto mx-auto mb-5 justify-content-center">
-									<img src="{{ asset('public/img/image.png').'?'.rand() }}" id="imagem" height="80" width="80">
+								<div class="col-lg-12 col-12 row m-lg-auto mx-auto mb-5 justify-content-center">
+									<div class="zoom-gallery border mx-auto rounded col-4 row p-0" style="height: 9em;">
+					                    <a href="#" id="ImagemPrincipalUrl">
+					                      <img class="p-3" id="ImagemPrincipal" src="{{ asset('public/img/image.png').'?'.rand() }}" width="100%" style="height: 9em;">
+					                    </a>
+					                </div>
+					                <div class="form-group col-12">
+					                  <div class="row justify-content-center mt-3 preview zoom-gallery">
+					                  </div>
+					                </div>
 								</div>
-								<div class="col-lg-8 col-12 tex">
+								<div class="col-lg-12 col-12 text-center">
 									<label class="d-block">
-										<span>Nome:</span>
+										<span>Equipamento:</span>
 										<span id="equipamento" class="font-weight-bold"></span>
-									</label>
-									<label class="d-block">
-										<span>Marca:</span>
-										<span id="marca" class="font-weight-bold"></span>
 									</label>
 									<label class="d-block">
 										<span>Modelo:</span>
@@ -65,6 +69,10 @@ Invetário por usuário
 									<label class="d-block">
 										<span>Serial Number:</span>
 										<span id="serialNumber" class="font-weight-bold"></span>
+									</label>
+									<label class="d-block">
+										<span>Service TAG:</span>
+										<span id="serviceTag" class="font-weight-bold"></span>
 									</label>
 									<label class="d-block">
 										<span>Sistema operacional:</span>
@@ -153,22 +161,30 @@ Invetário por usuário
         $('#treeview').on('nodeSelected', function(event, data) {
         	$('#equipamentos').fadeOut();
 			$.get("{{url('app/gti')}}/"+data.href, function(data){
-				console.log(data);
 				$('#imagem').attr('src', "{{url('storage/app')}}/"+data.imagem.endereco);
-				$('#equipamento').html(data.equipamento);
-				$('#sistema_operacional').html(data.sistema_operacional);
-				$('#tipo_licenca').html(data.tipo_licenca);
-				$('#antivirus').html(data.antivirus);
-				$('#marca').html(data.marca);
+				$('#equipamento').html(data.equipamento+' '+data.marca);
+				$('#sistema_operacional').html((data.sistema_operacional ? data.sistema_operacional : '-'));
+				$('#tipo_licenca').html((data.tipo_licenca ? data.tipo_licenca : '-'));
+				$('#antivirus').html((data.antivirus ? data.antivirus : '-'));
 				$('#modelo').html(data.modelo);
-				$('#n_patrimonio').html(data.n_patrimonio);
+				$('#n_patrimonio').html((data.n_patrimonio ? data.n_patrimonio : '-'));
 				$('#serialNumber').html(data.serialNumber);
+				$('#serviceTag').html((data.serviceTag ? data.serviceTag : '-'));
 				$('#localizacao').html(data.setor+" - "+data.unidade);
 				if(data.descricao){
 					$('#descricao').html(data.descricao);
 				}else{
 					$('#descricao').html('Não informado');
 				}
+				$.get("{{url('app/gti/equipamentos/detalhes')}}/"+data.id, function(data){
+					$('#ImagemPrincipalUrl').attr('href', "{{url('storage/app')}}/"+data.imagem.endereco);
+					$('#ImagemPrincipal').attr('src', "{{url('storage/app')}}/"+data.imagem.endereco);
+					$('.preview').html('');
+					$.each(data.imagens, function(count,dados){
+						$('.preview').append('<a href="{{url("storage/app")}}/'+dados.endereco+'"><img class="border rounded m-1 p-2" src="{{url("storage/app")}}/'+dados.endereco+'" height="50" width="50"></a>')
+					});
+				});
+
 				$('#equipamentos').fadeIn();
 				$('#editar').attr('href', 'editar/'+data.id);
 			});

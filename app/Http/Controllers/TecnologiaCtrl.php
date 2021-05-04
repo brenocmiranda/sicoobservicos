@@ -1322,8 +1322,8 @@ class TecnologiaCtrl extends Controller
 	        // Cadastrando o usuário responsável
 			$equipamento = Ativos::find($id);
 			if($request->usuario){
-				if($equipamento->RelationUsuario->first()->id != $request->usuario){
-					AtivosUsuarios::find($equipamento->RelationUsuario->first()->pivot->id)->update(['dataDevolucao' => now()]);
+				if($equipamento->RelationUsuario->last()->id != $request->usuario){
+					AtivosUsuarios::find($equipamento->RelationUsuario->last()->pivot->id)->update(['dataDevolucao' => now()]);
 					$usuarios = AtivosUsuarios::create([
 						'gti_id_ativos' => $id,
 						'usr_id_usuarios' => $request->usuario,
@@ -1393,20 +1393,18 @@ class TecnologiaCtrl extends Controller
     public function AlterarUsuarioInvetario(Request $request){
         $equipamento = Ativos::find($request->id);
         if($request->usuario){
-            if($equipamento->RelationUsuario->first()->id != $request->usuario){
-                AtivosUsuarios::find($equipamento->RelationUsuario->first()->pivot->id)->update(['dataDevolucao' => now()]);
-                $usuarios = AtivosUsuarios::create([
-                    'gti_id_ativos' => $request->id,
-                    'usr_id_usuarios' => $request->usuario,
-                    'dataRecebimento' => now()
-                ]);
-            }
+            AtivosUsuarios::find($equipamento->RelationUsuario->last()->pivot->id)->update(['dataDevolucao' => now()]);
+            $usuarios = AtivosUsuarios::create([
+                'gti_id_ativos' => $request->id,
+                'usr_id_usuarios' => $request->usuario,
+                'dataRecebimento' => now()
+            ]);
         }
     }
 
     // Histórico dos usuários
     public function HistoricoInvetario($id){
-        $dados = AtivosUsuarios::join('usr_usuarios', 'usr_id_usuarios', 'usr_usuarios.id')->join('cli_associados', 'usr_usuarios.cli_id_associado', 'cli_associados.id')->where('gti_id_ativos', $id)->select('gti_ativos_has_usuarios.*', 'cli_associados.nome')->get();
+        $dados = AtivosUsuarios::join('usr_usuarios', 'usr_id_usuarios', 'usr_usuarios.id')->join('cli_associados', 'usr_usuarios.cli_id_associado', 'cli_associados.id')->where('gti_id_ativos', $id)->select('gti_ativos_has_usuarios.*', 'cli_associados.nome')->orderBy('dataRecebimento', 'ASC')->get();
         return response()->json($dados); 
     }
 

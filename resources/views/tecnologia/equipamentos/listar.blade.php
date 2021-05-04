@@ -50,9 +50,9 @@ Inventário geral
 @endsection
 
 @section('modal')
-	@include('tecnologia.equipamentos.detalhes')
-	@include('tecnologia.equipamentos.alterar')
-	@include('tecnologia.equipamentos.historico')
+@include('tecnologia.equipamentos.detalhes')
+@include('tecnologia.equipamentos.alterar')
+@include('tecnologia.equipamentos.historico')
 @endsection
 
 @section('suporte')
@@ -89,13 +89,13 @@ Inventário geral
 			$(this).parent('tr').addClass('active');
 			var data = table.row('tr.active').data();
 			$('.modal .equipamento').html(data.equipamento);
-			$('.modal .sistema_operacional').html(data.sistema_operacional);
-			$('.modal .tipo_licenca').html(data.tipo_licenca);
-			$('.modal .antivirus').html(data.antivirus);
+			$('.modal .sistema_operacional').html((data.sistema_operacional ? data.sistema_operacional : '-'));
+			$('.modal .tipo_licenca').html((data.tipo_licenca ? data.tipo_licenca : '-'));
+			$('.modal .antivirus').html((data.antivirus ? data.antivirus : '-'));
 			$('.modal .marca').html(data.marca);
 			$('.modal .modelo').html(data.modelo);
-			$('.modal .serviceTag').html(data.serviceTag);
-			$('.modal .n_patrimonio').html(data.n_patrimonio);
+			$('.modal .serviceTag').html((data.serviceTag ? data.serviceTag : '-'));
+			$('.modal .n_patrimonio').html((data.n_patrimonio ? data.n_patrimonio : '-'));
 			$('.modal .serialNumber').html(data.serialNumber);
 			$('.modal .id_setor').html(data.setor);
 			$('.modal .usuario').html(data.usuario);
@@ -135,8 +135,9 @@ Inventário geral
 			$(this).parent('tr').addClass('active');
 			var data = table.row('tr.active').data();
 			$.get("{{url('app/gti/equipamentos/historico')}}/"+data.id, function(dados){
+				$('.modal .historico').html('');
 				$.each(dados, function(key, value) {
-					$('.modal .historico').html('<div class="mb-4"> <p class="mb-0 font-weight-bold">'+value.nome+'</p> <small>Entrega: '+value.dataRecebimento+'</small> - <small>Devolução: '+value.dataDevolucao+'</small> </div>'); });
+					$('.modal .historico').append('<div class="mb-4"> <p class="mb-0 font-weight-bold">'+value.nome+'</p> <small>Entrega: '+new Date(value.dataRecebimento).toLocaleDateString('pt-br')+' '+new Date(value.dataRecebimento).toLocaleTimeString('pt-br')+'</small> &#183 <small>Devolução: '+(value.dataDevolucao != null ? new Date(value.dataDevolucao).toLocaleDateString('pt-br')+' '+new Date(value.dataDevolucao).toLocaleTimeString('pt-br') : '-')+'</small> </div>'); });
 			});
 			$('#modal-historico').modal('show');	
 		});
@@ -168,8 +169,8 @@ Inventário geral
 							table.ajax.reload();
 						}else{
 							swal("Não foi possível remover as informações.", {
-				              icon: "error",
-				            });
+								icon: "error",
+							});
 						}
 					});
 				} else {
@@ -180,41 +181,49 @@ Inventário geral
 
 		// Editando as informações
 		$('#modal-alterar #formAlterar').on('submit', function(e){
-	      e.preventDefault();
-	      $.ajax({
-	        url: "{{url('app/gti/equipamentos/alterarUsuario')}}/"+$('#modal-alterar .identificador').val(),
-	        type: 'POST',
-	        data: $('#modal-alterar #formAlterar').serialize(),
-	        beforeSend: function(){
-	          $('.modal-body, .modal-footer').addClass('d-none');
-	          $('.carregamento').html('<div class="mx-auto text-center my-5"> <div class="col-12"> <div class="spinner-border my-4" role="status"> <span class="sr-only"> Loading... </span> </div> </div> <label>Salvando informações...</label></div>');
-	          $('#modal-alterar #err').html('');
-	        },
-	        success: function(data){
-	          $('.modal-body, .modal-footer').addClass('d-none');
-	          $('.carregamento').html('<div class="mx-auto text-center my-5"><div class="col-12"><i class="col-2 mdi mdi-check-all mdi-48px"></i></div><label>Informações alteradas com sucesso!</label></div>');
-	          setTimeout(function(){
-	            location.reload();
-	          }, 1000);
-	        }, error: function (data) {
-	          setTimeout(function(){
-	            $('.modal-body, .modal-footer').removeClass('d-none');
-	            $('.carregamento').html('');
-	            if(!data.responseJSON){
-	              console.log(data.responseText);
-	              $('#modal-alterar #err').html(data.responseText);
-	            }else{
-	              $('#modal-alterar #err').html('');
-	              $('input').removeClass('border-bottom border-danger');
-	              $.each(data.responseJSON.errors, function(key, value){
-	                $('#modal-alterar #err').append('<div class="text-danger mx-4"><p>'+value+'</p></div>');
-	                $('input[name="'+key+'"]').addClass('border-bottom border-danger');
-	              });
-	            }
-	          }, 2000);
-	        }
-	      });
-	    });		
+			var table = $('#table').DataTable();
+			e.preventDefault();
+			$.ajax({
+				url: "{{url('app/gti/equipamentos/alterarUsuario')}}/"+$('#modal-alterar .identificador').val(),
+				type: 'POST',
+				data: $('#modal-alterar #formAlterar').serialize(),
+				beforeSend: function(){
+					$('.modal-body, .modal-footer').addClass('d-none');
+					$('.carregamento').html('<div class="mx-auto text-center my-5"> <div class="col-12"> <div class="spinner-border my-4" role="status"> <span class="sr-only"> Loading... </span> </div> </div> <label>Salvando informações...</label></div>');
+					$('#modal-alterar #err').html('');
+				},
+				success: function(data){
+					$('.modal-body, .modal-footer').addClass('d-none');
+					$('.carregamento').html('<div class="mx-auto text-center my-5"><div class="col-12"><i class="col-2 mdi mdi-check-all mdi-48px"></i></div><label>Informações alteradas com sucesso!</label></div>');
+					setTimeout(function(){
+						$('#modal-alterar #formAlterar').each (function(){
+							this.reset();
+						});
+						table.ajax.reload();
+						$('input').removeClass('border-bottom border-danger');
+						$('.carregamento').html('');
+						$('.modal-body, .modal-footer').removeClass('d-none');
+						$('#modal-alterar').modal('hide');
+					}, 1000);
+				}, error: function (data) {
+					setTimeout(function(){
+						$('.modal-body, .modal-footer').removeClass('d-none');
+						$('.carregamento').html('');
+						if(!data.responseJSON){
+							console.log(data.responseText);
+							$('#modal-alterar #err').html(data.responseText);
+						}else{
+							$('#modal-alterar #err').html('');
+							$('input').removeClass('border-bottom border-danger');
+							$.each(data.responseJSON.errors, function(key, value){
+								$('#modal-alterar #err').append('<div class="text-danger mx-4"><p>'+value+'</p></div>');
+								$('input[name="'+key+'"]').addClass('border-bottom border-danger');
+							});
+						}
+					}, 2000);
+				}
+			});
+		});		
 	});
 </script>
 @endsection

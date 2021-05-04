@@ -45,7 +45,7 @@
             </button>
             <button type="submit" class="btn btn-success btn-outline col-lg-3 col-5 mx-1 d-flex align-items-center justify-content-center">
               <i class="mdi mdi-check pr-2"></i> 
-              <span>Finalizar</span>
+              <span>Alterar</span>
             </button>
           </div>
         </div>
