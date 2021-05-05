@@ -22,7 +22,7 @@
                 <div class="col-10">
                   <div class="form-group">
                     <label class="col-form-label pb-0">Nome</label>
-                    <input class="form-control form-control-line nome" name="nome" disabled/>
+                    <input class="form-control form-control-line nome text-uppercase" name="nome" disabled/>
                   </div>
                 </div>
                 <div class="col-12 row">

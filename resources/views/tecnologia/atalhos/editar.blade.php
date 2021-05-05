@@ -26,13 +26,13 @@
                   <div class="col-10">
                     <div class="form-group">
                       <label class="col-form-label pb-0">Título <span class="text-danger">*</span></label>
-                      <input class="titulo form-control form-control-line" name="titulo" placeholder="Sicoob Serviços" onkeyup="this.value = this.value.toUpperCase();" required/>
+                      <input class="titulo form-control form-control-line text-uppercase" name="titulo" placeholder="Sicoob Serviços" required/>
                     </div>
                   </div>
                   <div class="col-11">
                     <div class="form-group">
                       <label class="col-form-label pb-0">Subtítulo</label>
-                      <input class="subtitulo form-control form-control-line" name="subtitulo" placeholder="Página de login" onkeyup="this.value = this.value.toUpperCase();"/>
+                      <input class="subtitulo form-control form-control-line text-uppercase" name="subtitulo" placeholder="Página de login"/>
                     </div>
                   </div>
                   <div class="col-11">

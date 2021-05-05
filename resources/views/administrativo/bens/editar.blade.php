@@ -42,7 +42,7 @@ Editar bens
                 <div class="col-lg-10 col-12">
                   <div class="form-group">
                     <label class="col-form-label pb-0">Nome <span class="text-danger">*</span></label>
-                    <input class="form-control form-control-line" name="nome" onkeyup="this.value = this.value.toUpperCase();" placeholder="VEÍCULOS FIAT ESTRADA" value="{{$bens->nome}}" onchange="this.value = this.value.toUpperCase();" required/>
+                    <input class="form-control form-control-line text-uppercase" name="nome" placeholder="VEÍCULOS FIAT ESTRADA" value="{{$bens->nome}}" required/>
                   </div>
                 </div>
                 <div class="col-lg-5 col-12">
@@ -63,9 +63,15 @@ Editar bens
                   </div>
                 </div>
                 <div class="col-12">
+                  <div class="checkbox checkbox-success">
+                      <input id="checkbox-1" type="checkbox" {{(isset($bens->cep) ? 'checked;' : '')}}>
+                      <label for="checkbox-1"> Deseja cadastrar o endereço do bem? </label>
+                  </div>
+                </div>
+                <div class="col-12">
                   <div class="form-group">
                     <label class="col-form-label">Descrição</label>
-                    <textarea class="summernote" name="descricao" placeholder="Digite suas observações" onkeyup="this.value = this.value.toUpperCase();">{{$bens->descricao}}</textarea>
+                    <textarea class="summernote text-uppercase" name="descricao" placeholder="Digite suas observações">{{$bens->descricao}}</textarea>
                   </div>
                 </div>
                 <div class="col-12">
@@ -104,7 +110,7 @@ Editar bens
           </div>
         </div>
         
-        <div class="card mt-5">
+        <div class="card mt-5 endereco" style="{{(isset($bens->cep) ? 'display:none;' : '')}}">
           <div class="card-header" style="border-top-right-radius: 0.6em; border-top-left-radius: 0.6em;">
             <h5 class="text-white">Localização do bem <small class="text-white">(Opcional)</small></h5>
           </div>
@@ -120,13 +126,13 @@ Editar bens
                 <div class="col-lg-10 col-12">
                   <div class="form-group">
                     <label class="col-form-label pb-0">Rua</label>
-                    <input class="form-control form-control-line rua" placeholder="AVENIDA ANTONIO NASCIMENTO" name="rua" onkeyup="this.value = this.value.toUpperCase();" value="{{$bens->rua}}"/>
+                    <input class="form-control form-control-line rua text-uppercase" placeholder="AVENIDA ANTONIO NASCIMENTO" name="rua" value="{{$bens->rua}}"/>
                   </div>
                 </div>
                 <div class="col-lg-6 col-12">
                   <div class="form-group">
                     <label class="col-form-label pb-0">Bairro</label>
-                    <input class="form-control form-control-line bairro" placeholder="CENTRO" name="bairro"  onkeyup="this.value = this.value.toUpperCase();" value="{{$bens->bairro}}"/>
+                    <input class="form-control form-control-line bairro text-uppercase" placeholder="CENTRO" name="bairro" value="{{$bens->bairro}}"/>
                   </div>
                 </div>
                 <div class="col-lg-6 col-12">
@@ -138,14 +144,14 @@ Editar bens
                 <div class="col-lg-8 col-12">
                   <div class="form-group">
                     <label class="col-form-label pb-0">Complemento</label>
-                    <input class="form-control form-control-line complemento" name="complemento" onkeyup="this.value = this.value.toUpperCase();" value="{{$bens->complemento}}"/>
+                    <input class="form-control form-control-line complemento text-uppercase" name="complemento" value="{{$bens->complemento}}"/>
                   </div>
                 </div>
                 <div class="row col-12">
                   <div class="col-lg-5 col-12">
                     <div class="form-group">
                       <label class="col-form-label pb-0">Cidade</label>
-                      <input class="form-control form-control-line cidade"  placeholder="PIRAPORA" name="cidade" onkeyup="this.value = this.value.toUpperCase();" value="{{$bens->cidade}}"/>
+                      <input class="form-control form-control-line cidade text-uppercase" placeholder="PIRAPORA" name="cidade" value="{{$bens->cidade}}"/>
                     </div>
                   </div>
                   <div class="col-lg-5 col-12">
@@ -221,63 +227,72 @@ Editar bens
     $('.money').mask('000.000.000.000.000,00', {reverse: true});
     $('.cep').mask('00.000-000', {reverse: true});
     $('.summernote').summernote({
-            height: 150, // set editor height
-            minHeight: null, // set minimum height of editor
-            maxHeight: null, // set maximum height of editor
-            focus: false // set focus to editable area after initializing summernote
-        });
+        height: 150, // set editor height
+        minHeight: null, // set minimum height of editor
+        maxHeight: null, // set maximum height of editor
+        focus: false // set focus to editable area after initializing summernote
+    });
+
+    // Inserindo card de endereço
+    $('#checkbox-1').on('click', function(){
+      if($(this).prop('checked')){
+        $('.endereco').fadeIn();
+      }else{
+        $('.endereco').fadeOut();
+      }
+    });
 
     // Buscando dados do cep
-        $(".cep").blur(function() {
-            var cep = $(this).val().replace(/\D/g, '');
-            if (cep != "") {
-                var validacep = /^[0-9]{8}$/;
+    $(".cep").blur(function() {
+        var cep = $(this).val().replace(/\D/g, '');
+        if (cep != "") {
+            var validacep = /^[0-9]{8}$/;
 
-                if(validacep.test(cep)) {
+            if(validacep.test(cep)) {
 
-                    $(".rua").val("...");
-                    $(".bairro").val("...");
-                    $(".cidade").val("...");
-                    $(".estado").val("...");
+                $(".rua").val("...");
+                $(".bairro").val("...");
+                $(".cidade").val("...");
+                $(".estado").val("...");
 
-                    //Consulta o webservice viacep.com.br/
-                    $.getJSON("https://viacep.com.br/ws/"+ cep +"/json/?callback=?", function(dados) {
-                        if (!("erro" in dados)) {
-                            //Atualiza os campos com os valores da consulta.
-                            $(".rua").val(dados.logradouro.toUpperCase());
-                            $(".bairro").val(dados.bairro.toUpperCase());
-                            $(".cidade").val(dados.localidade.toUpperCase());
-                            $(".estado").val(dados.uf);
-                        } 
-                        else {
-                           //cep é não encontrado.
-                            $(".rua").val("");
-                      $(".bairro").val("");
-                      $(".cidade").val("");
-                      $(".estado").val("");
-                            alert("CEP não encontrado.");
-                        }
-                    });
-                } 
-                else {
-                    //cep é inválido.
-                    $(".rua").val("");
+                //Consulta o webservice viacep.com.br/
+                $.getJSON("https://viacep.com.br/ws/"+ cep +"/json/?callback=?", function(dados) {
+                    if (!("erro" in dados)) {
+                        //Atualiza os campos com os valores da consulta.
+                        $(".rua").val(dados.logradouro.toUpperCase());
+                        $(".bairro").val(dados.bairro.toUpperCase());
+                        $(".cidade").val(dados.localidade.toUpperCase());
+                        $(".estado").val(dados.uf);
+                    } 
+                    else {
+                       //cep é não encontrado.
+                        $(".rua").val("");
                   $(".bairro").val("");
                   $(".cidade").val("");
                   $(".estado").val("");
-                    alert("Formato de CEP inválido.");
-                }
-            } //end if.
+                        alert("CEP não encontrado.");
+                    }
+                });
+            } 
             else {
-                //cep sem valor, limpa formulário.
+                //cep é inválido.
                 $(".rua").val("");
-                $(".bairro").val("");
-                $(".cidade").val("");
-                $(".estado").val("");
+              $(".bairro").val("");
+              $(".cidade").val("");
+              $(".estado").val("");
+                alert("Formato de CEP inválido.");
             }
-        });
+        } //end if.
+        else {
+            //cep sem valor, limpa formulário.
+            $(".rua").val("");
+            $(".bairro").val("");
+            $(".cidade").val("");
+            $(".estado").val("");
+        }
+    });
 
-        // Pré-visualização de várias imagens no navegador
+    // Pré-visualização de várias imagens no navegador
     $('#addImagens').on('change', function(event) {
       var formData = new FormData();
       formData.append('_token', '{{csrf_token()}}');

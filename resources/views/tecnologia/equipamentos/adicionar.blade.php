@@ -69,36 +69,44 @@ Adicionar equipamento
 										</div>
 									</div>
 								</div>
-								<div class="col-lg-6 col-12">
-									<div class="form-group">
-										<label class="col-form-label pb-0">Sistema operacional</label>
-										<select class="form-control form-control-line" name="sistema_operacional">
-											<option value="">Selecione</option>
-											<option value="Windows 10">Windows 10</option>
-											<option value="Windows 8.1">Windows 8.1</option>
-											<option value="Linux Ubuntu">Linux Ubuntu</option>
-											<option value="Linux Mint">Linux Mint</option>
-										</select>
-									</div>
+								<div class="col-12">
+									<div class="checkbox checkbox-success">
+				                        <input id="checkbox-1" type="checkbox">
+				                        <label for="checkbox-1"> Mais informações? </label>
+				                    </div>
 								</div>
-								<div class="col-lg-6 col-12">
-									<div class="form-group">
-										<label class="col-form-label pb-0">Tipo de licença</label>
-										<select class="form-control form-control-line" name="tipo_licenca">
-											<option value="">Selecione</option>
-											<option value="OEM">OEM</option>
-											<option value="Por volume">Por volume</option>
-										</select>
+								<div class="informacoes mt-4" style="display: none;">
+									<div class="col-lg-6 col-12">
+										<div class="form-group">
+											<label class="col-form-label pb-0">Sistema operacional</label>
+											<select class="form-control form-control-line" name="sistema_operacional">
+												<option value="">Selecione</option>
+												<option value="Windows 10">Windows 10</option>
+												<option value="Windows 8.1">Windows 8.1</option>
+												<option value="Linux Ubuntu">Linux Ubuntu</option>
+												<option value="Linux Mint">Linux Mint</option>
+											</select>
+										</div>
 									</div>
-								</div>
-								<div class="col-lg-6 col-12">
-									<div class="form-group">
-										<label class="col-form-label pb-0">Antivírus</label>
-										<select class="form-control form-control-line" name="antivirus">
-											<option value="">Selecione</option>
-											<option value="Kaspersky">Kaspersky</option>
-											<option value="Windows Defender">Windows Defender</option>
-										</select>
+									<div class="col-lg-6 col-12">
+										<div class="form-group">
+											<label class="col-form-label pb-0">Tipo de licença</label>
+											<select class="form-control form-control-line" name="tipo_licenca">
+												<option value="">Selecione</option>
+												<option value="OEM">OEM</option>
+												<option value="Por volume">Por volume</option>
+											</select>
+										</div>
+									</div>
+									<div class="col-lg-6 col-12">
+										<div class="form-group">
+											<label class="col-form-label pb-0">Antivírus</label>
+											<select class="form-control form-control-line" name="antivirus">
+												<option value="">Selecione</option>
+												<option value="Kaspersky">Kaspersky</option>
+												<option value="Windows Defender">Windows Defender</option>
+											</select>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -194,7 +202,7 @@ Adicionar equipamento
 								</div>
 								<div class="col-12">
 									<div class="form-group">
-										<label class="col-form-label col-12 row mb-0">Imagem principal <span class="text-danger">*</span></label>
+										<label class="col-form-label col-12 row mb-0">Imagem principal <span class="text-danger pl-1">*</span></label>
 										<small>Formatos de imagem aceitos: <b>.png</b>, <b>.jpg</b> ou <b>.svg</b></small>
 										<div class="row col-12 mt-3 mx-0 p-0">
 											<div class="border mx-2 rounded col-lg-2 col-6 row p-0 mb-4" style="height: 8em;">
@@ -293,6 +301,16 @@ Adicionar equipamento
 	      $('#id_unidade').html($('select[name="id_unidade"] option:selected').text());
 	    });
 
+		// Inserindo outras informações
+		$('#checkbox-1').on('click', function(){
+			if($(this).prop('checked')){
+				$('.informacoes').fadeIn();
+			}else{
+				$('.informacoes').fadeOut();
+			}
+		});
+
+		// Alterando a imagem principal
 		$('input[name=imagem_principal]').on('change', function(){
 			if(this.files && this.files[0]){
 				var reader = new FileReader();

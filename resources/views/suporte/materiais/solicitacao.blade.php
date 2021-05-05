@@ -61,7 +61,7 @@
 					                <div class="col-12">
 										<div class="form-group">
 						                    <label class="col-form-label pb-0">Observações</label>
-						                    <textarea class="observacoes form-control form-control-line" name="observacoes" rows="2" onkeyup="this.value = this.value.toUpperCase();"></textarea>  
+						                    <textarea class="observacoes form-control form-control-line text-capitalize" name="observacoes" rows="2"></textarea>  
 						                  </div>
 									</div>
 								</div>

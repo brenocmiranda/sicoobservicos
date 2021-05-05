@@ -55,7 +55,7 @@
                       <div class="form-group">
                         <label class="col-form-label pb-0">Nome <span class="text-danger">*</span></label>
                         <div class="">
-                          <input class="form-control form-control-line" placeholder="PA NOVO" name="nome" onkeyup="this.value = this.value.toUpperCase();" required/>
+                          <input class="form-control form-control-line text-uppercase" placeholder="PA NOVO" name="nome" required/>
                         </div>
                       </div>
                     </div>
@@ -63,7 +63,7 @@
                       <div class="form-group">
                         <label class="col-form-label pb-0">Referência <span class="text-danger">*</span></label>
                         <div class="">
-                          <input class="form-control form-control-line" placeholder="4133-00" onkeyup="this.value = this.value.toUpperCase();" name="referencia" required/>
+                          <input class="form-control form-control-line text-uppercase" placeholder="4133-00" name="referencia" required/>
                         </div>
                       </div>
                     </div>
@@ -111,7 +111,7 @@
                         <div class="form-group">
                           <label class="col-form-label pb-0">CEP</label>
                           <div class="">
-                            <input class="form-control form-control-line" onkeyup="this.value = this.value.toUpperCase();" name="cep"/>
+                            <input class="form-control form-control-line text-uppercase" name="cep"/>
                           </div>
                         </div>
                       </div>
@@ -123,7 +123,7 @@
                       <div class="form-group">
                         <label class="col-form-label pb-0">Rua</label>
                         <div class="">
-                          <input class="rua form-control form-control-line" onkeyup="this.value = this.value.toUpperCase();" name="rua"/>
+                          <input class="rua form-control form-control-line text-uppercase" name="rua"/>
                           <input type="hidden" name="cidade" class="cidade">
                           <input type="hidden" name="estado" class="estado">
                         </div>
@@ -141,7 +141,7 @@
                       <div class="form-group">
                         <label class="col-form-label pb-0">Bairro</label>
                         <div class="">
-                          <input class="bairro form-control form-control-line" onkeyup="this.value = this.value.toUpperCase();" name="bairro"/>
+                          <input class="bairro form-control form-control-line text-uppercase" name="bairro"/>
                         </div>
                       </div>
                     </div>
@@ -149,7 +149,7 @@
                       <div class="form-group">
                         <label class="col-form-label pb-0">Complemento</label>
                         <div class="">
-                          <input class="complemento form-control form-control-line" onkeyup="this.value = this.value.toUpperCase();" name="complemento"/>
+                          <input class="complemento form-control form-control-line text-capitalize" name="complemento"/>
                         </div>
                       </div>
                     </div>

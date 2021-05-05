@@ -25,7 +25,7 @@
                   <div class="form-group">
                     <label class="col-form-label pb-0">Nome <span class="text-danger">*</span></label>
                     <div class="">
-                      <input class="form-control form-control-line" name="nome" placeholder="Sicoob Sertão Minas" onkeyup="this.value = this.value.toUpperCase();" required/>
+                      <input class="form-control form-control-line text-uppercase" name="nome" placeholder="Sicoob Sertão Minas" required/>
                     </div>
                   </div>
                 </div>
@@ -51,7 +51,7 @@
                   <div class="form-group">
                     <label class="col-form-label pb-0">Descrição</label>
                     <div class="">
-                      <textarea class="form-control form-control-line descricao" name="descricao" onkeyup="this.value = this.value.toUpperCase();" rows="2" placeholder="Digite suas observações"></textarea>
+                      <textarea class="form-control form-control-line descricao text-uppercase" name="descricao" rows="2" placeholder="Digite suas observações"></textarea>
                     </div>
                   </div>
                 </div>

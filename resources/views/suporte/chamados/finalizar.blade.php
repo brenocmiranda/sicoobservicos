@@ -24,7 +24,7 @@
                 <div class="col-12">
                   <div class="form-group">
                     <label class="col-form-label mb-2">Motivo <span class="text-danger">*</span></label>
-                    <textarea class="form-control form-control-line" name="descricao" placeholder="Descreva qual o motivo de fechamento do chamado..." rows="4" required onkeyup="this.value = this.value.toUpperCase();" ></textarea>
+                    <textarea class="form-control form-control-line text-uppercase" name="descricao" placeholder="Descreva qual o motivo de fechamento do chamado..." rows="4" required ></textarea>
                   </div>
                 </div>
                 <div class="col-12">

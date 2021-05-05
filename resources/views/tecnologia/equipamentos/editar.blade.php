@@ -69,36 +69,44 @@ Editar equipamento
                     </div>
                   </div>
                 </div>
-                <div class="col-lg-6 col-12">
-                  <div class="form-group">
-                    <label class="col-form-label pb-0">Sistema operacional</label>
-                    <select class="form-control form-control-line" name="sistema_operacional">
-                      <option value="">Selecione</option>
-                      <option value="Windows 10" {{($ativo->sistema_operacional == 'Windows 10' ? 'selected' : '')}}>Windows 10</option>
-                      <option value="Windows 8.1" {{($ativo->sistema_operacional == 'Windows 8.1' ? 'selected' : '')}}>Windows 8.1</option>
-                      <option value="Linux Ubuntu" {{($ativo->sistema_operacional == 'Linux Ubuntu' ? 'selected' : '')}}>Linux Ubuntu</option>
-                      <option value="Linux Mint" {{($ativo->sistema_operacional == 'Linux Mint' ? 'selected' : '')}}>Linux Mint</option>
-                    </select>
+                <div class="col-12">
+                  <div class="checkbox checkbox-success">
+                      <input id="checkbox-1" type="checkbox">
+                      <label for="checkbox-1"> Mais informações? </label>
                   </div>
                 </div>
-                <div class="col-lg-6 col-12">
-                  <div class="form-group">
-                    <label class="col-form-label pb-0">Tipo de licença</label>
-                    <select class="form-control form-control-line" name="tipo_licenca">
-                      <option value="">Selecione</option>
-                      <option value="OEM" {{($ativo->tipo_licenca == 'OEM' ? 'selected' : '')}}>OEM</option>
-                      <option value="Por volume" {{($ativo->tipo_licenca == 'Por volume' ? 'selected' : '')}}>Por volume</option>
-                    </select>
+                <div class="informacoes mt-4" style="display: none;">
+                  <div class="col-lg-6 col-12">
+                    <div class="form-group">
+                      <label class="col-form-label pb-0">Sistema operacional</label>
+                      <select class="form-control form-control-line" name="sistema_operacional">
+                        <option value="">Selecione</option>
+                        <option value="Windows 10" {{($ativo->sistema_operacional == 'Windows 10' ? 'selected' : '')}}>Windows 10</option>
+                        <option value="Windows 8.1" {{($ativo->sistema_operacional == 'Windows 8.1' ? 'selected' : '')}}>Windows 8.1</option>
+                        <option value="Linux Ubuntu" {{($ativo->sistema_operacional == 'Linux Ubuntu' ? 'selected' : '')}}>Linux Ubuntu</option>
+                        <option value="Linux Mint" {{($ativo->sistema_operacional == 'Linux Mint' ? 'selected' : '')}}>Linux Mint</option>
+                      </select>
+                    </div>
                   </div>
-                </div>
-                <div class="col-lg-6 col-12">
-                  <div class="form-group">
-                    <label class="col-form-label pb-0">Antivírus</label>
-                    <select class="form-control form-control-line" name="antivirus">
-                      <option value="">Selecione</option>
-                      <option value="Kaspersky" {{($ativo->antivirus == 'Kaspersky' ? 'selected' : '')}}>Kaspersky</option>
-                      <option value="Windows Defender" {{($ativo->antivirus == 'Windows Defender' ? 'selected' : '')}}>Windows Defender</option>
-                    </select>
+                  <div class="col-lg-6 col-12">
+                    <div class="form-group">
+                      <label class="col-form-label pb-0">Tipo de licença</label>
+                      <select class="form-control form-control-line" name="tipo_licenca">
+                        <option value="">Selecione</option>
+                        <option value="OEM" {{($ativo->tipo_licenca == 'OEM' ? 'selected' : '')}}>OEM</option>
+                        <option value="Por volume" {{($ativo->tipo_licenca == 'Por volume' ? 'selected' : '')}}>Por volume</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-12">
+                    <div class="form-group">
+                      <label class="col-form-label pb-0">Antivírus</label>
+                      <select class="form-control form-control-line" name="antivirus">
+                        <option value="">Selecione</option>
+                        <option value="Kaspersky" {{($ativo->antivirus == 'Kaspersky' ? 'selected' : '')}}>Kaspersky</option>
+                        <option value="Windows Defender" {{($ativo->antivirus == 'Windows Defender' ? 'selected' : '')}}>Windows Defender</option>
+                      </select>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -299,7 +307,17 @@ Editar equipamento
     $('form select[name="id_unidade"]').on('change', function(){
       $('#id_unidade').html($('select[name="id_unidade"] option:selected').text());
     });
-    
+
+    // Inserindo outras informações
+    $('#checkbox-1').on('click', function(){
+      if($(this).prop('checked')){
+        $('.informacoes').fadeIn();
+      }else{
+        $('.informacoes').fadeOut();
+      }
+    });
+
+    // Carregando imagem principal
     $('input[name=imagem_principal]').on('change', function(){
       if(this.files && this.files[0]){
         var reader = new FileReader();

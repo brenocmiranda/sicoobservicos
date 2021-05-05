@@ -21,7 +21,7 @@
                 <div class="form-group">
                   <label class="col-form-label pb-0">Nome</label>
                   <div class="">
-                    <input class="form-control form-control-line nome" disabled/>
+                    <input class="form-control form-control-line nome text-uppercase" disabled/>
                   </div>
                 </div>
               </div>
@@ -47,7 +47,7 @@
                 <div class="form-group">
                   <label class="col-form-label pb-0">Descrição</label>
                   <div class="">
-                    <textarea class="form-control form-control-line descricao" onkeyup="this.value = this.value.toUpperCase();" rows="2" disabled></textarea>
+                    <textarea class="form-control form-control-line descricao text-uppercase" rows="2" disabled></textarea>
                   </div>
                 </div>
               </div>

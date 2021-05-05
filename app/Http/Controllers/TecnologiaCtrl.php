@@ -123,7 +123,7 @@ class TecnologiaCtrl extends Controller
             $status = ChamadosStatus::create([
                 'gti_id_chamados' => $id,
                 'gti_id_status' => $finalizar->id,
-                'descricao' => (isset($request->descricao) ? $request->descricao : "Chamado finalizado por ".Auth::user()->RelationAssociado->nome."."),
+                'descricao' => (isset($request->descricao) ? strtoupper($request->descricao) : "Chamado finalizado por ".Auth::user()->RelationAssociado->nome."."),
                 'usr_id_usuarios' => Auth::id()
             ]);            
             // Cadastramento de vários arquivos 
@@ -171,7 +171,7 @@ class TecnologiaCtrl extends Controller
             $status = ChamadosStatus::create([
                 'gti_id_chamados' => $id,
                 'gti_id_status' => $request->status,
-                'descricao' => (isset($request->descricao) ? $request->descricao : "Estado do chamado alterado por ".Auth::user()->RelationAssociado->nome."."),
+                'descricao' => (isset($request->descricao) ? strtoupper($request->descricao) : "Estado do chamado alterado por ".Auth::user()->RelationAssociado->nome."."),
                 'usr_id_usuarios' => Auth::id()
             ]);
             // Cadastramento de vários arquivos 
@@ -209,7 +209,7 @@ class TecnologiaCtrl extends Controller
     // Alterando descrição dos status
     public function DescricaoChamados(Request $request){
         if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
-            ChamadosStatus::find($request->id)->update(['descricao' => $request->descricao]);
+            ChamadosStatus::find($request->id)->update(['descricao' => strtoupper($request->descricao)]);
             return $request;
         }else{
             return redirect(route('403'));
@@ -308,8 +308,8 @@ class TecnologiaCtrl extends Controller
 	public function AdicionarSalvarAprendizagem(BaseRqt $request){
 		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
 			$create = Base::create([
-				'titulo' => $request->titulo,
-				'subtitulo' => (isset($request->subtitulo) ? $request->subtitulo : null), 
+				'titulo' => strtoupper($request->titulo),
+				'subtitulo' => (isset($request->subtitulo) ? strtoupper($request->subtitulo) : null), 
 				'descricao' => $request->descricao, 
                 'tipo' => $request->tipo, 
 				'gti_id_ambientes' => $request->gti_id_ambientes,
@@ -350,8 +350,8 @@ class TecnologiaCtrl extends Controller
 	public function EditarSalvarAprendizagem(BaseRqt $request, $id){
 		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
 			Base::find($id)->update([
-				'titulo' => $request->titulo,
-				'subtitulo' => (isset($request->subtitulo) ? $request->subtitulo : null),
+				'titulo' => strtoupper($request->titulo),
+				'subtitulo' => (isset($request->subtitulo) ? strtoupper($request->subtitulo) : null),
 				'descricao' => $request->descricao, 
                 'tipo' => $request->tipo, 
 				'gti_id_ambientes' => $request->gti_id_ambientes,
@@ -468,8 +468,8 @@ class TecnologiaCtrl extends Controller
 	public function AdicionarAmbientes(AmbientesRqt $request){
 		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
 			$create = Ambientes::create([
-				'nome' => $request->nome, 
-				'descricao' => $request->descricao, 
+				'nome' => strtoupper($request->nome), 
+				'descricao' => strtoupper($request->descricao), 
 				'status' => ($request->status == "on" ? 1 : 0)
 			]);
 			Atividades::create([
@@ -488,8 +488,8 @@ class TecnologiaCtrl extends Controller
 	public function EditarAmbientes(AmbientesRqt $request, $id){
 		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
 			Ambientes::find($id)->update([
-				'nome' => $request->nome, 
-				'descricao' => $request->descricao, 
+				'nome' => strtoupper($request->nome), 
+                'descricao' => strtoupper($request->descricao), 
 				'status' => ($request->status == "on" ? 1 : 0)
 			]);
 			$create = Ambientes::find($id);
@@ -576,8 +576,8 @@ class TecnologiaCtrl extends Controller
 	public function AdicionarEquipamentos(EquipamentosRqt $request){
 		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
 			$create = AtivosEquipamentos::create([
-				'nome' => $request->nome, 
-				'descricao' => $request->descricao,
+				'nome' => strtoupper($request->nome), 
+				'descricao' => strtoupper($request->descricao),
 				'status' => ($request->status == "on" ? 1 : 0)
 			]);
 			Atividades::create([
@@ -596,8 +596,8 @@ class TecnologiaCtrl extends Controller
 	public function EditarEquipamentos(EquipamentosRqt $request, $id){
 		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
 			AtivosEquipamentos::find($id)->update([
-				'nome' => $request->nome, 
-				'descricao' => $request->descricao,
+				'nome' => strtoupper($request->nome), 
+				'descricao' => strtoupper($request->descricao),
 				'status' => ($request->status == "on" ? 1 : 0)
 			]);
 			$create = AtivosEquipamentos::find($id);
@@ -684,8 +684,8 @@ class TecnologiaCtrl extends Controller
 	public function AdicionarMarcas(MarcasRqt $request){
 		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
 			$create = AtivosMarcas::create([
-				'nome' => $request->nome, 
-				'descricao' => $request->descricao,
+				'nome' => strtoupper($request->nome), 
+				'descricao' => strtoupper($request->descricao),
 				'status' => ($request->status == "on" ? 1 : 0)
 			]);
 			Atividades::create([
@@ -704,8 +704,8 @@ class TecnologiaCtrl extends Controller
 	public function EditarMarcas(MarcasRqt $request, $id){
 		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
 			AtivosMarcas::find($id)->update([
-				'nome' => $request->nome, 
-				'descricao' => $request->descricao,
+				'nome' => strtoupper($request->nome), 
+				'descricao' => strtoupper($request->descricao),
 				'status' => ($request->status == "on" ? 1 : 0)
 			]);
 			$create = AtivosMarcas::find($id);
@@ -799,8 +799,8 @@ class TecnologiaCtrl extends Controller
 	public function AdicionarFontes(FontesRqt $request){
 		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
 			$create = Fontes::create([
-				'nome' => $request->nome, 
-				'descricao' => $request->descricao,
+				'nome' => strtoupper($request->nome), 
+				'descricao' => strtoupper($request->descricao),
 				'gti_id_ambientes' => $request->gti_id_ambientes,
 				'status' => ($request->status == "on" ? 1 : 0)
 			]);
@@ -820,8 +820,8 @@ class TecnologiaCtrl extends Controller
 	public function EditarFontes(FontesRqt $request, $id){
 		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
 			Fontes::find($id)->update([
-				'nome' => $request->nome, 
-				'descricao' => $request->descricao,
+				'nome' => strtoupper($request->nome), 
+				'descricao' => strtoupper($request->descricao),
 				'gti_id_ambientes' => $request->gti_id_ambientes,
 				'status' => ($request->status == "on" ? 1 : 0)
 			]);
@@ -1045,8 +1045,8 @@ class TecnologiaCtrl extends Controller
 	            } 
 	        }
 			$create = Homepage::create([
-				'titulo' => $request->titulo,
-				'subtitulo' => $request->subtitulo,
+				'titulo' => strtoupper($request->titulo),
+				'subtitulo' => strtoupper($request->subtitulo),
 				'endereco' => $request->endereco, 
 				'id_imagem' => $imagem->id,
 			]);
@@ -1077,8 +1077,8 @@ class TecnologiaCtrl extends Controller
 	        }
 	        $dados = Homepage::find($id);
 			Homepage::find($id)->update([
-				'titulo' => $request->titulo,
-				'subtitulo' => $request->subtitulo,
+				'titulo' => strtoupper($request->titulo),
+                'subtitulo' => strtoupper($request->subtitulo),
 				'endereco' => $request->endereco, 
 				'id_imagem' => (isset($imagem->id) ? $imagem->id : $dados->id_imagem),
 			]);

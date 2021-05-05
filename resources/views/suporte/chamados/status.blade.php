@@ -25,7 +25,7 @@
                 <div class="col-12">
                   <div class="form-group">
                     <label class="col-form-label mb-2">Descrição <span class="text-danger">*</span></label>
-                    <textarea class="form-control form-control-line" name="descricao" placeholder="Escreva aqui um descrição para o colaborador..." rows="2" required  onkeyup="this.value = this.value.toUpperCase();"></textarea>
+                    <textarea class="form-control form-control-line text-uppercase" name="descricao" placeholder="Escreva aqui um descrição para o colaborador..." rows="2" required></textarea>
                   </div>
                 </div>
                 <div class="col-12">

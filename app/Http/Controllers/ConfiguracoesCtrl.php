@@ -197,10 +197,10 @@ class ConfiguracoesCtrl extends Controller
 	public function AdicionarInstituicoes(InstituicoesRqt $request){
 		if(Auth::user()->RelationFuncao->gerenciar_configuracoes == 1){
 			$create = Instituicoes::create([
-				'nome' => $request->nome,
+				'nome' => strtoupper($request->nome),
 				'telefone' => $request->telefone, 
 				'email' => $request->email, 
-				'descricao' => $request->descricao, 
+				'descricao' => strtoupper($request->descricao), 
 				'status' => ($request->status == "on" ? 1 : 0)
 			]);
 			Atividades::create([
@@ -219,10 +219,10 @@ class ConfiguracoesCtrl extends Controller
 	public function EditarInstituicoes(InstituicoesRqt $request, $id){
 		if(Auth::user()->RelationFuncao->gerenciar_configuracoes == 1){
 			Instituicoes::find($id)->update([
-				'nome' => $request->nome,
+				'nome' => strtoupper($request->nome),
 				'telefone' => $request->telefone, 
 				'email' => $request->email, 
-				'descricao' => $request->descricao, 
+				'descricao' => strtoupper($request->descricao), 
 				'status' => ($request->status == "on" ? 1 : 0)
 			]);
 			Atividades::create([
@@ -386,18 +386,18 @@ class ConfiguracoesCtrl extends Controller
 	public function AdicionarUnidades(UnidadesRqt $request){
 		if(Auth::user()->RelationFuncao->gerenciar_configuracoes == 1){
 			$create = Unidades::create([
-				'nome' => $request->nome,
+				'nome' => strtoupper($request->nome),
 				'cnpj' => $request->cnpj,
-				'referencia' => $request->referencia,
+				'referencia' => strtoupper($request->referencia),
 				'telefone' => $request->telefone,
 				'telefone1' => $request->telefone1,
-				'rua' => $request->rua,
-				'bairro' => $request->bairro,
+				'rua' => strtoupper($request->rua),
+				'bairro' => strtoupper($request->bairro),
 				'numero' => $request->numero,
-				'complemento' => $request->complemento,
+				'complemento' => strtoupper($request->complemento),
 				'cidade' => $request->cidade,
 				'estado' => $request->estado,
-				'cep' => $request->cep,
+				'cep' => strtoupper($request->cep),
 				'usr_id_instituicao' => $request->usr_id_instituicao, 
 				'status' => ($request->status == "on" ? 1 : 0)
 			]);
@@ -418,18 +418,18 @@ class ConfiguracoesCtrl extends Controller
 		$create = Unidades::find($id);
 		if(Auth::user()->RelationFuncao->gerenciar_configuracoes == 1){
 			Unidades::find($id)->update([
-				'nome' => $request->nome,
+				'nome' => strtoupper($request->nome),
 				'cnpj' => $request->cnpj,
-				'referencia' => $request->referencia,
+				'referencia' => strtoupper($request->referencia),
 				'telefone' => $request->telefone,
 				'telefone1' => $request->telefone1,
-				'rua' => $request->rua,
-				'bairro' => $request->bairro,
+				'rua' => strtoupper($request->rua),
+				'bairro' => strtoupper($request->bairro),
 				'numero' => $request->numero,
-				'complemento' => $request->complemento,
+				'complemento' => strtoupper($request->complemento),
 				'cidade' => $request->cidade,
 				'estado' => $request->estado,
-				'cep' => $request->cep,
+				'cep' => strtoupper($request->cep),
 				'usr_id_instituicao' => $request->usr_id_instituicao, 
 				'status' => ($request->status == "on" ? 1 : 0)
 			]);

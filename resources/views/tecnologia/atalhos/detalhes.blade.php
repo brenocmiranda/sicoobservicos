@@ -21,13 +21,13 @@
                 <div class="col-10">
                   <div class="form-group">
                     <label class="col-form-label pb-0">Título</label>
-                    <input class="titulo form-control form-control-line" onkeyup="this.value = this.value.toUpperCase();" disabled/>
+                    <input class="titulo form-control form-control-linetext-uppercase" disabled/>
                   </div>
                 </div>
                 <div class="col-11">
                   <div class="form-group">
                     <label class="col-form-label pb-0">Subtítulo</label>
-                    <input class="subtitulo form-control form-control-line" onkeyup="this.value = this.value.toUpperCase();" disabled/>
+                    <input class="subtitulo form-control form-control-line text-uppercase" disabled/>
                   </div>
                 </div>
                 <div class="col-11">

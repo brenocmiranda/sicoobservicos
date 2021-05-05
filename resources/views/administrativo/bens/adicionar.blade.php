@@ -42,7 +42,7 @@ Adicionar bens
 								<div class="col-lg-10 col-12">
 									<div class="form-group">
 										<label class="col-form-label pb-0">Nome <span class="text-danger">*</span></label>
-										<input class="form-control form-control-line" name="nome" onkeyup="this.value = this.value.toUpperCase();" placeholder="VEÍCULOS FIAT ESTRADA" onchange="this.value = this.value.toUpperCase();" required/>
+										<input class="form-control form-control-line text-uppercase" name="nome" placeholder="VEÍCULOS FIAT ESTRADA" required/>
 									</div>
 								</div>
 								<div class="col-lg-5 col-12">
@@ -63,9 +63,15 @@ Adicionar bens
 									</div>
 								</div>
 								<div class="col-12">
+									<div class="checkbox checkbox-success">
+				                        <input id="checkbox-1" type="checkbox">
+				                        <label for="checkbox-1"> Deseja cadastrar o endereço do bem? </label>
+				                    </div>
+								</div>
+								<div class="col-12">
 									<div class="form-group">
 										<label class="col-form-label">Descrição</label>
-										<textarea class="summernote" name="descricao" placeholder="Digite suas observações" onkeyup="this.value = this.value.toUpperCase();" ></textarea>
+										<textarea class="summernote text-uppercase" name="descricao" placeholder="Digite suas observações"></textarea>
 									</div>
 								</div>
 								<div class="col-12">
@@ -93,13 +99,14 @@ Adicionar bens
 									</div>
 								</div>
 							</div>
+
 						</div>
 					</div>
 				</div>
-				
-				<div class="card mt-5">
+
+				<div class="card mt-5 endereco" style="display: none;">
 					<div class="card-header" style="border-top-right-radius: 0.6em; border-top-left-radius: 0.6em;">
-						<h5 class="text-white">Localização do bem <small class="text-white">(Opcional)</small></h5>
+						<h5 class="text-white">Endereço</h5>
 					</div>
 					<div class="card-body">
 						<div class="row col-12 mx-auto">		
@@ -113,13 +120,13 @@ Adicionar bens
 								<div class="col-lg-10 col-12">
 									<div class="form-group">
 										<label class="col-form-label pb-0">Rua</label>
-										<input class="form-control form-control-line rua" placeholder="AVENIDA ANTONIO NASCIMENTO" name="rua" onkeyup="this.value = this.value.toUpperCase();"/>
+										<input class="form-control form-control-line rua text-uppercase" placeholder="AVENIDA ANTONIO NASCIMENTO" name="rua"/>
 									</div>
 								</div>
 								<div class="col-lg-6 col-12">
 									<div class="form-group">
 										<label class="col-form-label pb-0">Bairro</label>
-										<input class="form-control form-control-line bairro" placeholder="CENTRO" name="bairro"  onkeyup="this.value = this.value.toUpperCase();"/>
+										<input class="form-control form-control-line bairro text-uppercase" placeholder="CENTRO" name="bairro"/>
 									</div>
 								</div>
 								<div class="col-lg-6 col-12">
@@ -131,14 +138,14 @@ Adicionar bens
 								<div class="col-lg-8 col-12">
 									<div class="form-group">
 										<label class="col-form-label pb-0">Complemento</label>
-										<input class="form-control form-control-line complemento" name="complemento" onkeyup="this.value = this.value.toUpperCase();"/>
+										<input class="form-control form-control-line complemento text-uppercase" name="complemento"/>
 									</div>
 								</div>
 								<div class="row col-12">
 									<div class="col-lg-5 col-12">
 										<div class="form-group">
 											<label class="col-form-label pb-0">Cidade</label>
-											<input class="form-control form-control-line cidade"  placeholder="PIRAPORA" name="cidade" onkeyup="this.value = this.value.toUpperCase();"/>
+											<input class="form-control form-control-line cidade text-uppercase" placeholder="PIRAPORA" name="cidade"/>
 										</div>
 									</div>
 									<div class="col-lg-5 col-12">
@@ -219,6 +226,15 @@ Adicionar bens
             maxHeight: null, // set maximum height of editor
             focus: false // set focus to editable area after initializing summernote
         });
+
+		// Inserindo card de endereço
+		$('#checkbox-1').on('click', function(){
+			if($(this).prop('checked')){
+				$('.endereco').fadeIn();
+			}else{
+				$('.endereco').fadeOut();
+			}
+		});
 
 		// Buscando dados do cep
         $(".cep").blur(function() {

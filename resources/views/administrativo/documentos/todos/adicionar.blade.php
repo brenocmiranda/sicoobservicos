@@ -24,13 +24,13 @@
                 <div class="col-lg-8 col-12">
                   <div class="form-group">
                     <label class="col-form-label pb-0">Nome <span class="text-danger">*</span></label>
-                    <input class="form-control form-control-line" name="nome" onkeyup="this.value = this.value.toUpperCase();" placeholder="MODELO DE BORDERÔ" required/>
+                    <input class="form-control form-control-line text-uppercase" name="nome" placeholder="MODELO DE BORDERÔ" required/>
                   </div>
                 </div>
                 <div class="col-lg-10 col-12">
                   <div class="form-group">
                     <label class="col-form-label pb-0">Descrição</label>
-                    <textarea class="form-control form-control-line" name="descricao" onkeyup="this.value = this.value.toUpperCase();"></textarea>
+                    <textarea class="form-control form-control-line text-uppercase" name="descricao"></textarea>
                   </div>
                 </div>
                 <div class="col-lg-10 col-12">

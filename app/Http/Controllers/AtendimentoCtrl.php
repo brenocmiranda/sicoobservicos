@@ -136,7 +136,7 @@ class AtendimentoCtrl extends Controller
 	public function AtividadesPainel(Request $request){
   		AssociadosAtividades::create([
   			'tipo' => $request->tipo, 
-  			'descricao' => $request->descricao, 
+  			'descricao' => strtoupper($request->descricao), 
   			'contato' => $request->contato, 
   			'cli_id_associado' => $request->cli_id_associado,
   			'usr_id_usuario' => Auth::id(),
@@ -147,7 +147,7 @@ class AtendimentoCtrl extends Controller
 	public function EditandoPainel(Request $request){
   		AssociadosAtividades::find($request->id)->update([
   			'tipo' => $request->tipo, 
-  			'descricao' => $request->descricao, 
+  			'descricao' => strtoupper($request->descricao),
   			'contato' => $request->contato
   		]);
   		return response()->json(['success' => true]);

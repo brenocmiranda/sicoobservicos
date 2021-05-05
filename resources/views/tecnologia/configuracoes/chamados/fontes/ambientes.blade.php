@@ -24,13 +24,13 @@
                 <div class="col-lg-8 col-12">
                   <div class="form-group">
                     <label class="col-form-label pb-0">Nome <span class="text-danger">*</span></label>
-                    <input class="form-control form-control-line" name="nome" placeholder="SISBR 2.0" onkeyup="this.value = this.value.toUpperCase();" required/>
+                    <input class="form-control form-control-line text-uppercase" name="nome" placeholder="SISBR 2.0" required/>
                   </div>
                 </div>
                 <div class="col-lg-10 col-12">
                   <div class="form-group">
                     <label class="col-form-label pb-0">Descrição</label>
-                    <textarea class="form-control form-control-line" name="descricao" onkeyup="this.value = this.value.toUpperCase();"></textarea>
+                    <textarea class="form-control form-control-line text-uppercase" name="descricao"></textarea>
                   </div>
                 </div>
                 <div class="col-lg-3 col-12">

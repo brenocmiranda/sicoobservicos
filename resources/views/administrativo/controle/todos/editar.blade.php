@@ -35,13 +35,13 @@
               <div class="col-lg-8 col-12">
                 <div class="form-group">
                   <label class="col-form-label pb-0">Nome <span class="text-danger">*</span></label>
-                  <input class="nome form-control form-control-line" name="nome" onkeyup="this.value = this.value.toUpperCase();" placeholder="Caneta azul" required/>
+                  <input class="nome form-control form-control-line text-uppercase" name="nome" placeholder="Caneta azul" required/>
                 </div>
               </div>
               <div class="col-lg-10 col-12">
                 <div class="form-group">
                   <label class="col-form-label pb-0">Descrição</label>
-                  <textarea class="descricao form-control form-control-line" name="descricao" onkeyup="this.value = this.value.toUpperCase();"></textarea>
+                  <textarea class="descricao form-control form-control-line text-uppercase" name="descricao"></textarea>
                 </div>
               </div>
               <div class="row col-12">

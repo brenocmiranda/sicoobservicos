@@ -67,13 +67,13 @@ Abertura de chamado
 							<div class="col-12">
 								<div class="form-group">
 									<label class="col-form-label pb-0">Assunto <span class="text-danger">*</span></label>
-									<input class="form-control form-control-line" name="assunto" placeholder="Resuma o seu problema" onkeyup="this.value = this.value.toUpperCase();"  required/>
+									<input class="form-control form-control-line text-uppercase" name="assunto" placeholder="Resuma o seu problema"  required/>
 								</div>
 							</div>
 							<div class="col-12">
 								<div class="form-group">
 									<label class="col-form-label pb-0">Descrição</label>
-									<textarea class="form-control form-control-line" name="descricao" onkeyup="this.value = this.value.toUpperCase();" rows="4" placeholder="Descreva aqui mais informações..."></textarea>
+									<textarea class="form-control form-control-line  text-uppercase" name="descricao" rows="4" placeholder="Descreva aqui mais informações..."></textarea>
 								</div>
 							</div>
 							<div class="col-12">

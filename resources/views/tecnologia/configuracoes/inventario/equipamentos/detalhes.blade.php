@@ -20,13 +20,13 @@
                 <div class="col-lg-8 col-12">
                   <div class="form-group">
                     <label class="col-form-label pb-0">Nome</label>
-                    <input class="nome form-control form-control-line" onkeyup="this.value = this.value.toUpperCase();" disabled/>
+                    <input class="nome form-control form-control-line text-uppercase" disabled/>
                   </div>
                 </div>
                 <div class="col-lg-10 col-12">
                   <div class="form-group">
                     <label class="col-form-label pb-0">Descrição</label>
-                    <textarea class="descricao form-control form-control-line" onkeyup="this.value = this.value.toUpperCase();" disabled></textarea>
+                    <textarea class="descricao form-control form-control-line text-uppercase" disabled></textarea>
                   </div>
                 </div>
                 <div class="col-lg-3 col-12">
