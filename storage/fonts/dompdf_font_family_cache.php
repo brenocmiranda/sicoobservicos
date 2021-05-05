@@ -123,7 +123,7 @@
     'normal' => $fontDir . '/linea-weather-10-normal_2e8a2116d5a2b24c2aff09ebc73ca541',
   ),
   'asap' => array(
-    'normal' => $fontDir . '/asap-normal_5c24b7d6d54f9d544024a0b26bfbbc63',
+    'normal' => $fontDir . '/asap-normal_dd9616193aa900e5b6c909f6b3f15612',
     '500' => $fontDir . '/asap-500_e9a0e0022de3beb0b5c68c30e2a43fcb',
     'italic' => $fontDir . '/asap-italic_38a10f1e4ce5eac4f21ad42f345911d5',
     '500_italic' => $fontDir . '/asap-500-italic_720c6428e97799a81cc82065822d42e8',

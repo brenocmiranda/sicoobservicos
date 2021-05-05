@@ -41,22 +41,20 @@
 				<div class="body">
 					<p> Em <b>{{now()->format('d')}}</b> de <b>{{now()->format('m')}}</b> de <b>{{now()->format('Y')}}</b>, eu, <b>{{$equipamentos->first()->RelationUsuarios->RelationAssociado->nome}}</b>, com as atribuições de <b>{{$equipamentos->first()->RelationUsuarios->RelationFuncao->nome}}</b>, pelo presente instrumento, acuso o recebimento dos equipamentos de propriedade da Cooperativa de Crédito de Livre Admissão do Sertão de Minas Gerais LTDA – Sicoob Sertão Minas, com a(s) seguinte(s) descrição: </p>
 
-					<table class="my-5" style="border: 1px solid black; width: 100%; text-align: center">
+					<table class="my-5" style="border: 1px solid black; width: 100%; text-align: center; border-collapse: collapse;">
 						<thead style="border-bottom: 1px solid black;">
 							<th>Nome</th>
-							<th>Marca</th>
 							<th>Modelo</th>
 							<th>Nº de patrimônio</th>
 							<th>Nº de Série</th>
 						</thead>
 						<tbody>
 							@foreach($equipamentos as $dados)
-							<tr style="border-bottom: 1px solid black;">
-								<td>{{$dados->nome}}</td>
-								<td>{{$dados->marca}}</td>
-								<td>{{$dados->modelo}}</td>
-								<td>{{$dados->n_patrimonio}}</td>
-								<td>{{$dados->serialNumber}}</td>
+							<tr>
+								<td style="border-bottom: 1px solid black;">{{$dados->equipamento}} {{$dados->marca}}</td>
+								<td style="border-bottom: 1px solid black;">{{$dados->modelo}}</td>
+								<td style="border-bottom: 1px solid black;">{{$dados->n_patrimonio}}</td>
+								<td style="border-bottom: 1px solid black;">{{$dados->serialNumber}}</td>
 							</tr>
 							@endforeach
 						</tbody>
