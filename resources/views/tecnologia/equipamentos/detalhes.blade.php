@@ -15,9 +15,9 @@
       </div>
       <div class="modal-body">
         <div class="col-12 grid-margin mb-0">
-          <div class="card-body p-0">
+          <div class="card-body py-0">
             <div class="row mx-auto">
-              <div class="col-lg-8 col-12 order-lg-1 order-2 px-0 px-lg-4">
+              <div class="col-lg-8 col-12 order-lg-1 order-2 px-0">
                 <div class="form-group">
                   <div class="row">
                     <div class="col-lg-6 col-12 px-0 px-lg-4">
@@ -98,7 +98,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-lg-4 col-12 mt-5 order-lg-2 order-1 px-0 px-lg-4">
+              <div class="col-lg-4 col-12 mt-5 order-lg-2 order-1 px-0">
                 <div class="form-group">
                   <div class="zoom-gallery border mx-auto rounded col-7 row p-0" style="height: 9em;">
                     <a href="#" id="ImagemPrincipalUrl">

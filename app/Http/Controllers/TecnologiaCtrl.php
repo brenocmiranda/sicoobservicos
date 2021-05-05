@@ -1157,10 +1157,10 @@ class TecnologiaCtrl extends Controller
 	            })
 	            ->editColumn('acoes', function(Ativos $dados){ 
 	                return '
-                    <a href="javascript:" class="btn btn-dark btn-xs btn-rounded mx-1" id="historico" title="Histórico de usuários"><i class="mx-0 mdi mdi-file-document-box"></i></a>
-	                <a href="'.route('editar.equipamentos', $dados->id).'" class="btn btn-dark btn-xs btn-rounded mx-1" id="editar" title="Editar informações do equipamento"><i class="mx-0 mdi mdi-settings"></i></a>
-                    <a href="javascript:" class="btn btn-dark btn-xs btn-rounded mx-1" id="alterar" title="Alterar usuário responsável"><i class="mx-0 mdi mdi-account-convert"></i></a>
-					<button class="btn btn-dark btn-xs btn-rounded" id="remover" title="Remover o equipamento"><i class="mx-0 mdi mdi-close"></i></button>';
+                    <a href="javascript:" class="btn btn-dark btn-xs btn-rounded m-1" id="historico" title="Histórico de usuários"><i class="mx-0 mdi mdi-file-document-box"></i></a>
+	                <a href="'.route('editar.equipamentos', $dados->id).'" class="btn btn-dark btn-xs btn-rounded m-1" id="editar" title="Editar informações do equipamento"><i class="mx-0 mdi mdi-settings"></i></a>
+                    <a href="javascript:" class="btn btn-dark btn-xs btn-rounded m-1" id="alterar" title="Alterar usuário responsável"><i class="mx-0 mdi mdi-account-convert"></i></a>
+					<button class="btn btn-dark btn-xs btn-rounded m-1" id="remover" title="Remover o equipamento"><i class="mx-0 mdi mdi-close"></i></button>';
 	            })->rawColumns(['imagem1', 'nome1', 'acoes'])->make(true);
 	        }else{
 				return datatables()->of(Ativos::all())

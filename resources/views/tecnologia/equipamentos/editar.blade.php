@@ -31,14 +31,14 @@ Editar equipamento
   <form class="form-sample" action="{{route('salvar.editar.equipamentos', $ativo->id)}}" method="POST" enctype="multipart/form-data" autocomplete="off">
     @csrf
     <div class="row">
-      <div class="col-lg-8 col-12 mb-4 mb-lg-0 order-2 order-lg-1">
+      <div class="col-lg-8 col-12 mb-4 mb-lg-0">
         <div class="card">
           <div class="card-header" style="border-top-right-radius: 0.6em; border-top-left-radius: 0.6em;">
             <h5 class="text-white font-weight-normal">Dados do equipamento</h5>
           </div>
           <div class="card-body">
             <div class="row mx-auto">
-              <div class="row col-12">
+              <div class="row col-12 px-0 mx-auto">
                 <div class="col-lg-6 col-12">
                   <div class="form-group">
                     <label class="col-form-label pb-0">Equipamento <span class="text-danger">*</span></label>
@@ -111,7 +111,7 @@ Editar equipamento
           </div>
           <div class="card-body">
             <div class="row mx-auto">
-              <div class="row col-12">
+              <div class="row col-12 px-0 mx-auto">
                 <div class="col-lg-4 col-12">
                   <div class="form-group">
                     <label class="col-form-label pb-0">Nº série <span class="text-danger">*</span></label>
@@ -183,7 +183,7 @@ Editar equipamento
           </div>
           <div class="card-body">
             <div class="row mx-auto">
-              <div class="row col-12">
+              <div class="row col-12 px-0 mx-auto">
                 <div class="col-12">
                   <div class="form-group">
                     <label class="col-form-label pb-0">Descrição</label>
@@ -227,19 +227,8 @@ Editar equipamento
             </div>
           </div>
         </div>
-        <hr class="col-10 mt-0">
-        <div class="row col-12 justify-content-center mx-auto">
-          <a href="{{route('exibir.geral.equipamentos')}}" class="btn btn-danger btn-outline col-lg-3 col-5 d-flex align-items-center justify-content-center mx-2">
-            <i class="mdi mdi-arrow-left pr-2"></i> 
-            <span>Voltar</span>
-          </a>
-          <button type="submit" class="btn btn-success btn-outline col-lg-3 col-5 d-flex align-items-center justify-content-center mx-2">
-            <i class="mdi mdi-check pr-2"></i> 
-            <span>Salvar</span>
-          </button>
-        </div>
       </div>
-      <div class="col-lg-4 col-12 mb-4 mb-lg-0 order-1 order-lg-2">
+      <div class="col-lg-4 col-12 mb-4 mb-lg-0 hidden-xs">
         <div class="card text-center">
           <div class="card-header" style="border-top-right-radius: 0.6em; border-top-left-radius: 0.6em;">
             <h5 class="text-white font-weight-normal">Detalhes do equipamento</h5>
@@ -263,6 +252,17 @@ Editar equipamento
             </div>
           </div>
         </div>
+      </div>
+      <hr class="col-10 mt-0">
+      <div class="row col-12 justify-content-center mx-auto">
+        <a href="{{route('exibir.geral.equipamentos')}}" class="btn btn-danger btn-outline col-lg-3 col-5 d-flex align-items-center justify-content-center mx-2">
+          <i class="mdi mdi-arrow-left pr-2"></i> 
+          <span>Voltar</span>
+        </a>
+        <button type="submit" class="btn btn-success btn-outline col-lg-3 col-5 d-flex align-items-center justify-content-center mx-2">
+          <i class="mdi mdi-check pr-2"></i> 
+          <span>Salvar</span>
+        </button>
       </div>
     </div>
   </form>

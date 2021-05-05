@@ -38,7 +38,7 @@ Adicionar equipamento
 					</div>
 					<div class="card-body">
 						<div class="row mx-auto">
-							<div class="row col-12">
+							<div class="row col-12 px-0 mx-auto">
 								<div class="col-lg-6 col-12">
 									<div class="form-group">
 										<label class="col-form-label pb-0">Equipamento <span class="text-danger">*</span></label>
@@ -105,14 +105,13 @@ Adicionar equipamento
 						</div>
 					</div>
 				</div>
-
 				<div class="card my-4">
 					<div class="card-header" style="border-top-right-radius: 0.6em; border-top-left-radius: 0.6em;">
 						<h5 class="text-white font-weight-normal">Identificação</h5>
 					</div>
 					<div class="card-body">
 						<div class="row mx-auto">
-							<div class="row col-12">
+							<div class="row col-12 px-0 mx-auto">
 								<div class="col-lg-4 col-12">
 									<div class="form-group">
 										<label class="col-form-label pb-0">Nº série <span class="text-danger">*</span></label>
@@ -178,14 +177,13 @@ Adicionar equipamento
 						</div>
 					</div>
 				</div>
-
 				<div class="card">
 					<div class="card-header" style="border-top-right-radius: 0.6em; border-top-left-radius: 0.6em;">
 						<h5 class="text-white font-weight-normal">Outras informações</h5>
 					</div>
 					<div class="card-body">
 						<div class="row mx-auto">
-							<div class="row col-12">
+							<div class="row col-12 px-0 mx-auto">
 								<div class="col-12">
 									<div class="form-group">
 										<label class="col-form-label pb-0">Descrição</label>
@@ -223,7 +221,7 @@ Adicionar equipamento
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-4 col-12">
+			<div class="col-lg-4 col-12 mb-4 mb-lg-0 hidden-xs">
 				<div class="card text-center">
 					<div class="card-header" style="border-top-right-radius: 0.6em; border-top-left-radius: 0.6em;">
 						<h5 class="text-white font-weight-normal">Seu equipamento</h5>
