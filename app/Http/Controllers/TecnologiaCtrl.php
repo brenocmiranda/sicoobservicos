@@ -74,7 +74,7 @@ class TecnologiaCtrl extends Controller
 		$chamadosUsuarios = Chamados::groupBy('usr_id_usuarios')->select('usr_id_usuarios', \DB::raw('count(usr_id_usuarios) as quantidade'))->get();
 		$equipamentosSetor = Ativos::join('usr_setores', 'id_setor', 'usr_setores.id')->select('id_setor', 'usr_setores.nome', \DB::raw('count(id_setor) as quantidade'))->groupBy('id_setor')->get();
 		$equipamentosPA = Ativos::join('usr_unidades', 'id_unidade', 'usr_unidades.id')->select('id_unidade', 'usr_unidades.nome', \DB::raw('count(id_unidade) as quantidade'))->groupBy('id_unidade')->get();
-		$equipamentosUsuarios = AtivosUsuarios::groupBy('usr_id_usuarios')->whereNotNull('dataDevolucao')->select('usr_id_usuarios', \DB::raw('count(usr_id_usuarios) as quantidade'))->get();
+		$equipamentosUsuarios = AtivosUsuarios::whereNull('dataDevolucao')->select('usr_id_usuarios', \DB::raw('count(usr_id_usuarios) as quantidade'))->groupBy('usr_id_usuarios')->get();
 		$equipamentosMarca = Ativos::join('gti_ativos_has_marcas', 'id_marca', 'gti_ativos_has_marcas.id')->groupBy('id_marca')->select('nome', \DB::raw('count(id_marca) as quantidade'))->get();
 
 		return view('tecnologia.dashboard')->with('homepage', $homepage)->with('chamados', $chamados)->with('chamadosEmaberto', $chamadosEmaberto)->with('chamadosEmandamento', $chamadosEmandamento)->with('chamadosEncerrado', $chamadosEncerrado)->with('chamadosFontes', $chamadosFontes)->with('chamadosAmbientes', $chamadosAmbientes)->with('chamadosDia', $chamadosDia)->with('chamadosUsuarios', $chamadosUsuarios)->with('equipamentosSetor', $equipamentosSetor)->with('equipamentosPA', $equipamentosPA)->with('equipamentosMarca', $equipamentosMarca)->with('equipamentosUsuarios', $equipamentosUsuarios); 
