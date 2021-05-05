@@ -132,7 +132,7 @@ Editar equipamento
                   <div class="form-group">
                     <label class="col-form-label pb-0">Service TAG</label>
                     <div class="">
-                      <input class="form-control form-control-line text-uppercase" name="serviceTag" value="{{$ativo->serviceTag}}" required/>
+                      <input class="form-control form-control-line text-uppercase" name="serviceTag" value="{{$ativo->serviceTag}}"/>
                     </div>
                   </div>
                 </div>

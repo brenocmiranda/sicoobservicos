@@ -30,7 +30,7 @@ class cli_bacen implements ToCollection, WithChunkReading, WithHeadingRow, Shoul
                 'submodalidade' => $row['submodalidade_bacen'],
                 'saldo_prejuizo' => number_format($row['valor_prejuizo_sfn'], 2, '.', ''),
                 'saldo_responsabilidade' => number_format($row['valor_saldo_devedor_sfn'], 2, '.', ''),
-                'saldo_credito_liberar' => number_format($row['valor_credito_a_liberar_sfn'], 2, '.', ''),
+                'saldo_credito_liberar' => ($row['modalidade_bacen'] == 'LIMITE' ? number_format($row['valor_credito_a_liberar_sfn'], 2, '.', '') : 0),
                 'saldo_avencer' => number_format($row['valor_a_vencer_sfn'], 2, '.', ''),
                 'saldo_avencer_30' => number_format($row['valor_a_vencer_ate_30_dias_sfn'], 2, '.', ''),
                 'saldo_avencer_3160' => number_format($row['valor_a_vencer_31_a_60_dias_sfn'], 2, '.', ''),
