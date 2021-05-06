@@ -72,16 +72,16 @@ class AdministrativoCtrl extends Controller
 	public function AdicionarSalvarBens(Request $request){
 		if(Auth::user()->RelationFuncao->gerenciar_administrativo == 1){
 			$create = Bens::create([
-				'nome' => strtoupper($request->nome),
+				'nome' => mb_strtoupper($request->nome),
 				'tipo' => $request->tipo, 
 				'valor' => str_replace(',', '.', str_replace('.', '', $request->valor)), 
-				'descricao' => (isset($request->descricao) ? strtoupper($request->descricao) : null),
+				'descricao' => (isset($request->descricao) ? mb_strtoupper($request->descricao) : null),
 				'cep' => (isset($request->cep) ? $request->cep : null),
-				'rua' => (isset($request->rua) ? strtoupper($request->rua) : null),
-				'bairro' => (isset($request->bairro) ? strtoupper($request->bairro) : null),
+				'rua' => (isset($request->rua) ? mb_strtoupper($request->rua) : null),
+				'bairro' => (isset($request->bairro) ? mb_strtoupper($request->bairro) : null),
 				'numero' => (isset($request->numero) ? $request->numero : null),
-				'complemento' => (isset($request->complemento) ? strtoupper($request->complemento) : null),
-				'cidade' => (isset($request->cidade) ? strtoupper($request->cidade) : null),
+				'complemento' => (isset($request->complemento) ? mb_strtoupper($request->complemento) : null),
+				'cidade' => (isset($request->cidade) ? mb_strtoupper($request->cidade) : null),
 				'estado' => (isset($request->estado) ? $request->estado : null),
 			]);
 			// Carregando imagem principal
@@ -128,16 +128,16 @@ class AdministrativoCtrl extends Controller
 	public function EditarSalvarBens(Request $request, $id){
 		if(Auth::user()->RelationFuncao->gerenciar_administrativo == 1){
 			Bens::find($id)->update([
-				'nome' => strtoupper($request->nome),
+				'nome' => mb_strtoupper($request->nome),
 				'tipo' => $request->tipo, 
 				'valor' => str_replace(',', '.', str_replace('.', '', $request->valor)), 
-				'descricao' => (isset($request->descricao) ? strtoupper($request->descricao) : null),
+				'descricao' => (isset($request->descricao) ? mb_strtoupper($request->descricao) : null),
 				'cep' => (isset($request->cep) ? $request->cep : null),
-				'rua' => (isset($request->rua) ? strtoupper($request->rua) : null),
-				'bairro' => (isset($request->bairro) ? strtoupper($request->bairro) : null),
+				'rua' => (isset($request->rua) ? mb_strtoupper($request->rua) : null),
+				'bairro' => (isset($request->bairro) ? mb_strtoupper($request->bairro) : null),
 				'numero' => (isset($request->numero) ? $request->numero : null),
-				'complemento' => (isset($request->complemento) ? strtoupper($request->complemento) : null),
-				'cidade' => (isset($request->cidade) ? strtoupper($request->cidade) : null),
+				'complemento' => (isset($request->complemento) ? mb_strtoupper($request->complemento) : null),
+				'cidade' => (isset($request->cidade) ? mb_strtoupper($request->cidade) : null),
 				'estado' => (isset($request->estado) ? $request->estado : null),
 			]);
 			// Carregando imagem principal
@@ -295,8 +295,8 @@ class AdministrativoCtrl extends Controller
 	            }  
 	        }
 			$create = Documentos::create([
-				'nome' => strtoupper($request->nome), 
-				'descricao' => strtoupper($request->descricao),
+				'nome' => mb_strtoupper($request->nome), 
+				'descricao' => mb_strtoupper($request->descricao),
 				'status' => ($request->status == "on" ? 1 : 0),
 				'id_arquivo' => $arquivo->id
 			]);
@@ -330,8 +330,8 @@ class AdministrativoCtrl extends Controller
 	        }
 	        $arq = Documentos::find($id);
 			Documentos::find($id)->update([
-				'nome' => strtoupper($request->nome), 
-				'descricao' => strtoupper($request->descricao),
+				'nome' => mb_strtoupper($request->nome), 
+				'descricao' => mb_strtoupper($request->descricao),
 				'status' => ($request->status == "on" ? 1 : 0),
 				'id_arquivo' => (isset($arquivo->id) ? $arquivo->id : $arq->id)
 			]);
@@ -428,8 +428,8 @@ class AdministrativoCtrl extends Controller
 	public function AdicionarMateriais(MateriaisRqt $request){
 		if(Auth::user()->RelationFuncao->gerenciar_administrativo == 1){
 			$create = Materiais::create([
-				'nome' => strtoupper($request->nome), 
-				'descricao' => strtoupper($request->descricao), 
+				'nome' => mb_strtoupper($request->nome), 
+				'descricao' => mb_strtoupper($request->descricao), 
 				'quantidade' => $request->quantidade, 
 				'quantidade_min' => $request->quantidade_min, 
 				'id_categoria' => $request->id_categoria, 
@@ -451,8 +451,8 @@ class AdministrativoCtrl extends Controller
 	public function EditarMateriais(MateriaisRqt $request, $id){
 		if(Auth::user()->RelationFuncao->gerenciar_administrativo == 1){
 			Materiais::find($id)->update([
-				'nome' => strtoupper($request->nome), 
-				'descricao' => strtoupper($request->descricao),
+				'nome' => mb_strtoupper($request->nome), 
+				'descricao' => mb_strtoupper($request->descricao),
 				'quantidade' => $request->quantidade, 
 				'quantidade_min' => $request->quantidade_min, 
 				'id_categoria' => $request->id_categoria, 
@@ -566,7 +566,7 @@ class AdministrativoCtrl extends Controller
 	public function AdicionarCategorias(CategoriasRqt $request){
 		if(Auth::user()->RelationFuncao->gerenciar_administrativo == 1){
 			$create = MateriaisCategorias::create([
-				'nome' => strtoupper($request->nome), 
+				'nome' => mb_strtoupper($request->nome), 
 				'status' => ($request->status == "on" ? 1 : 0)
 			]);
 			Atividades::create([
@@ -585,7 +585,7 @@ class AdministrativoCtrl extends Controller
 	public function EditarCategorias(CategoriasRqt $request, $id){
 		if(Auth::user()->RelationFuncao->gerenciar_administrativo == 1){
 			MateriaisCategorias::find($id)->update([
-				'nome' => strtoupper($request->nome), 
+				'nome' => mb_strtoupper($request->nome), 
 				'status' => ($request->status == "on" ? 1 : 0)
 			]);
 			$create = MateriaisCategorias::find($id);
@@ -679,7 +679,7 @@ class AdministrativoCtrl extends Controller
 	// Desaprovando solicitação de material
 	public function SolicitacaoMateriaisAdminDesaprovar(Request $request){
 		if(Auth::user()->RelationFuncao->gerenciar_administrativo == 1){
-				MateriaisHistorico::find($request->id)->update(['status' => 2, 'motivo' => strtoupper($request->motivo)]);
+				MateriaisHistorico::find($request->id)->update(['status' => 2, 'motivo' => mb_strtoupper($request->motivo)]);
 				$historico[] = MateriaisHistorico::find($request->id);
 				$historico[0]->RelationUsuario->notify(new SolicitacaoMaterialCliente($historico));
 				$this->email->notify(new SolicitacaoMaterialAdmin($historico));

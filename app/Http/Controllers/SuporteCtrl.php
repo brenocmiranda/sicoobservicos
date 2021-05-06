@@ -108,8 +108,8 @@ class SuporteCtrl extends Controller
     public function AberturaEnviarChamados(Request $request){
         // Abertura
         $create = Chamados::create([
-            'assunto' => strtoupper($request->assunto), 
-            'descricao' => strtoupper($request->descricao), 
+            'assunto' => mb_mb_strtoupper($request->assunto), 
+            'descricao' => mb_mb_strtoupper($request->descricao), 
             'teamViewer' => $request->teamViewer,
             'gti_id_ambientes' => $request->gti_id_ambientes, 
             'gti_id_fontes' => $request->gti_id_fontes,             
@@ -157,7 +157,7 @@ class SuporteCtrl extends Controller
         $status = ChamadosStatus::create([
             'gti_id_chamados' => $id,
             'gti_id_status' => $finalizar->id,
-            'descricao' => (isset($request->descricao) ? strtoupper($request->descricao) : "Chamado finalizado por ".Auth::user()->RelationAssociado->nome."."),
+            'descricao' => (isset($request->descricao) ? mb_mb_strtoupper($request->descricao) : "Chamado finalizado por ".Auth::user()->RelationAssociado->nome."."),
             'usr_id_usuarios' => Auth::id()
         ]);
         // Cadastramento de vários arquivos 
@@ -191,7 +191,7 @@ class SuporteCtrl extends Controller
             $status = ChamadosStatus::create([
                 'gti_id_chamados' => $id,
                 'gti_id_status' => $abertura->id,
-                'descricao' =>  strtoupper($request->descricao),
+                'descricao' =>  mb_mb_strtoupper($request->descricao),
                 'usr_id_usuarios' => Auth::id()
             ]);
             // Alteração feita para atualizar a ordem de tratamento
@@ -274,7 +274,7 @@ class SuporteCtrl extends Controller
             $status = ChamadosStatus::create([
                 'gti_id_chamados' => $id,
                 'gti_id_status' => $chamado->RelationStatus->first()->id,
-                'descricao' => (isset($request->descricao) ? strtoupper($request->descricao) : "Estado do chamado alterado por ".Auth::user()->RelationAssociado->nome."."),
+                'descricao' => (isset($request->descricao) ? mb_mb_strtoupper($request->descricao) : "Estado do chamado alterado por ".Auth::user()->RelationAssociado->nome."."),
                 'usr_id_usuarios' => Auth::id()
             ]);
             // Cadastramento de vários arquivos 
@@ -354,7 +354,7 @@ class SuporteCtrl extends Controller
     			'tipo' => 's',
     			'quantidade' => $request->quantidade[$key],
                 'quantidade_tipo' => $request->quantidade_tipo[$key],
-                'observacoes' => strtoupper($request->observacoes[$key]),
+                'observacoes' => mb_mb_strtoupper($request->observacoes[$key]),
     			'id_material' =>$request->id_material[$key], 
     			'id_usuario' => Auth::id(), 
     			'status' => 0,
@@ -374,7 +374,7 @@ class SuporteCtrl extends Controller
 	}
     // Cancelar solicitação 
     public function MateriaisSolicitacaoCancelar(Request $request){
-        MateriaisHistorico::find($request->id)->update(['status' => 2, 'motivo' => strtoupper($request->motivo)]);
+        MateriaisHistorico::find($request->id)->update(['status' => 2, 'motivo' => mb_mb_strtoupper($request->motivo)]);
         $historico[] = MateriaisHistorico::find($request->id);
         $historico[0]->RelationUsuario->notify(new SolicitacaoMaterialCliente($historico));
         $this->email->notify(new SolicitacaoMaterialAdmin($historico));
