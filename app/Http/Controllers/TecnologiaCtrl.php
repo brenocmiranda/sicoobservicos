@@ -1235,7 +1235,7 @@ class TecnologiaCtrl extends Controller
 					$name = uniqid(date('HisYmd'));
 					$extension =  $request->imagem_principal->extension();
 					$nameFile = "{$name}.{$extension}";
-					$upload =  $request->imagem_principal->storeAs('equipamentos', $nameFile);
+					$upload =  $request->imagem_principal->storeAs('ativos', $nameFile);
 				}
 				$imagem = Imagens::create(['endereco' => $upload, 'tipo' => 'ativos_principal']);
 				Ativos::find($create->id)->update(['id_imagem' => $imagem->id]);
