@@ -41,7 +41,7 @@ Bens
 										<div class="row col-12 px-0 mx-auto border shadow-sm">
 											<div class="col-lg-4 d-none d-lg-block w-100 px-0 border-right">
 												<a href="{{route('detalhes.bens.administrativo', $item->id)}}">
-													<img src="{{asset('storage/app').'/'.$item->RelationImagemPrincipal->endereco}}" height="100%" width="100%">
+													<div style="height: 155px; background: url({{asset('storage/app').'/'.$item->RelationImagemPrincipal->endereco}}); background-size: 100% 100%;"></div>
 												</a>
 											</div>
 											<div class="row mx-auto col-12 col-lg-8 py-3 px-0 h-100">
