@@ -64,7 +64,7 @@ Editar bens
                 </div>
                 <div class="col-12">
                   <div class="checkbox checkbox-success">
-                      <input id="checkbox-1" type="checkbox" {{(isset($bens->cep) ? 'checked;' : '')}}>
+                      <input id="checkbox-1" type="checkbox" {{(isset($bens->cep) ? 'checked' : '')}}>
                       <label for="checkbox-1"> Deseja cadastrar o endereço do bem? </label>
                   </div>
                 </div>
@@ -110,9 +110,9 @@ Editar bens
           </div>
         </div>
         
-        <div class="card mt-5 endereco" style="{{(isset($bens->cep) ? 'display:none;' : '')}}">
+        <div class="card mt-5 endereco" style="{{(!isset($bens->cep) ? 'display:none;' : '')}}">
           <div class="card-header" style="border-top-right-radius: 0.6em; border-top-left-radius: 0.6em;">
-            <h5 class="text-white">Localização do bem <small class="text-white">(Opcional)</small></h5>
+            <h5 class="text-white">Endereço</h5>
           </div>
           <div class="card-body">
             <div class="row col-12 mx-auto">    

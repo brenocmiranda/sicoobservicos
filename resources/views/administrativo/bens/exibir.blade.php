@@ -31,45 +31,47 @@ Bens
 					</div>
 				</div>
 				@endif
-				<div class="row col-12 mx-auto my-5">
+				<div class="row col-12 mx-auto my-5 px-0">
 					<div class="col-12 p-0">
 						@if(isset($bens[0]))
 							<ul class="row p-0" id="bens">
 								@foreach($bens as $item)
 								<li class="col-lg-6 col-sm-6 col-12">
-									<div class="row mx-auto col-12 border shadow-sm rounded my-3 p-3">
-										<div class="col-12">
-											<a href="{{route('detalhes.bens.administrativo', $item->id)}}" class="row">
-												<div class="col-4 d-none d-lg-block row mx-auto p-1">
-													<img src="{{asset('storage/app').'/'.$item->RelationImagemPrincipal->endereco}}" class="rounded" height="100" width="140">
+									<div class="row mx-auto col-12 px-0 h-100 py-3">
+										<div class="row col-12 px-0 mx-auto border shadow-sm">
+											<div class="col-lg-4 d-none d-lg-block w-100 px-0 border-right">
+												<a href="{{route('detalhes.bens.administrativo', $item->id)}}">
+													<img src="{{asset('storage/app').'/'.$item->RelationImagemPrincipal->endereco}}" height="100%" width="100%">
+												</a>
+											</div>
+											<div class="row mx-auto col-12 col-lg-8 py-3 px-0 h-100">
+												<div class="mx-auto row col-12">
+													<a href="{{route('detalhes.bens.administrativo', $item->id)}}" class="w-100 text-left">
+														<h5 class="mt-2">{{$item->nome}} <small>{{($item->tipo == 'veiculos' ? "Veículos" : ($item->tipo == 'imovel' ? "Imóvel" : "Outros"))}}</small></h5>
+														@if(isset($item->cep))
+														<div style="line-height: 15px">
+															<small class="text-dark d-block">{{(isset($item->rua) ? $item->rua.', ' : '').(isset($item->numero) ? $item->numero.', ' : '').(isset($item->bairro) ? $item->bairro : '')}}</small>
+															<small class="text-dark d-block">{{$item->complemento}}</small>
+															<small class="text-dark d-block">{{$item->cidade}}/{{$item->estado}}</small>
+														</div>
+														@endif
+														<h5>R$ {{number_format($item->valor,2,",",".")}}</h5> 
+													</a>
 												</div>
-												<div class="col-12 col-lg-8 pr-0">
-													<h5 class="text-truncate">{{$item->nome}} <small>{{($item->tipo == 'veiculos' ? "Veículos" : ($item->tipo == 'imovel' ? "Imóvel" : "Outros"))}}</small></h5>
-													@if(isset($item->cep))
-													<div style="line-height: 15px">
-														<small class="text-dark d-block">{{(isset($item->rua) ? $item->rua.',' : '')}} {{$item->numero}}, {{$item->bairro}}</small>
-														<small class="text-dark d-block">CEP: {{$item->cep}}</small>
-														<small class="text-dark d-block">{{$item->cidade}}/{{$item->estado}}</small>
+									            @if(Auth::user()->RelationFuncao->gerenciar_administrativo == 1)
+													<div class="mx-auto mt-auto row col-12">
+														<div class="w-100 text-right">
+												            <a href="{{route('editar.bens.administrativo', $item->id)}}" title="Alterar informações" class="btn btn-default btn-xs m-2 col-2">
+												                <i class="mdi mdi-pencil"></i>
+												            </a>
+												            <a href="javascript:void(0)" data="{{route('delete.bens.administrativo', $item->id)}}" title="Remover item" class="btn btn-default btn-xs btn-delete my-2 col-2">
+												                <i class="mdi mdi-close"></i>
+												            </a>
+										          		</div>
 													</div>
-													@endif
-										            <h5>R$ {{number_format($item->valor,2,",",".")}}</h5> 
-												</div>
-											</a>
+												@endif
+											</div>
 										</div>
-										@if(Auth::user()->RelationFuncao->gerenciar_administrativo == 1)
-										<div class="col-12 m-auto row text-right">
-											<div class="row ml-auto">
-								              <a href="{{route('editar.bens.administrativo', $item->id)}}" class="btn btn-default btn-xs px-3 m-2 col-5">
-								                <i class="mdi mdi-pencil"></i>
-								                <small>Editar</small>
-								              </a>
-								              <a href="javascript:void(0)" data="{{route('delete.bens.administrativo', $item->id)}}" class="btn btn-default btn-xs btn-delete px-3 my-2 col-6">
-								                <i class="mdi mdi-close"></i>
-								                <small>Remover</small>
-								              </a>
-								            </div>
-										</div>
-										@endif
 									</div>
 								</li>
 								@endforeach

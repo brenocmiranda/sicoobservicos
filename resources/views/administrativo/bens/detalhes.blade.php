@@ -55,7 +55,8 @@ Detalhes do bem
                       @if(isset($bens->cep))
                       <div class="d-block py-2" style="line-height: 15px">
                         <h5>Localização:</h5>
-                        <label class="text-dark d-block">{{(isset($bens->rua) ? $bens->rua.',' : '')}} {{$bens->numero}}, {{$bens->bairro}}</label>
+                        <label class="text-dark d-block">{{(isset($bens->rua) ? $bens->rua.', ' : '').(isset($bens->numero) ? $bens->numero.',' : '').(isset($bens->bairro) ? $bens->bairro : '')}}</label>
+                        <label class="text-dark d-block">{{(isset($bens->complemento) ? $bens->complemento.', ' : '')}}</label>
                         <label class="text-dark d-block">{{$bens->cep}} - {{$bens->cidade}}/{{$bens->estado}}</label>
                       </div>
                       @endif
