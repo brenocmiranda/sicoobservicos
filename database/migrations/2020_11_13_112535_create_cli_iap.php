@@ -19,7 +19,7 @@ class CreateCliIap extends Migration
 
             $table->integer('indicador_conta_limite');
             $table->integer('indicador_cobranca');
-            $table->integer('indicador_consorcio');
+            $table->integer('indicador_debito');
             $table->integer('indicador_consorcio_auto');
             $table->integer('indicador_consorcio_imovel');
             $table->integer('indicador_consorcio_servicos');

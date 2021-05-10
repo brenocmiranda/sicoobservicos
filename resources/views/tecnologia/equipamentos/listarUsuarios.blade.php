@@ -127,7 +127,7 @@ Invetário por usuário
 
 		// Carregando dados do treeview
 		var defaultData = [
-          @foreach($usuarios->sortBy('login') as $usuario)
+          @foreach($usuarios as $usuario)
 	      	{
 	      	text: "{{$usuario->nome}}",
 	        href: "usuarios/detalhes/{{$usuario->id}}",

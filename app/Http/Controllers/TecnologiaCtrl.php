@@ -1194,7 +1194,7 @@ class TecnologiaCtrl extends Controller
 	public function ExibirUsuariosInventario(){
 		if(Auth::user()->RelationFuncao->ver_gti == 1 || Auth::user()->RelationFuncao->gerenciar_gti == 1){
 			$equipamentos = Ativos::all();
-			$usuarios = AtivosUsuarios::join('usr_usuarios', 'usr_id_usuarios', 'usr_usuarios.id')->join('cli_associados', 'usr_usuarios.cli_id_associado', 'cli_associados.id')->whereNull('dataDevolucao')->select('cli_associados.nome', 'usr_usuarios.id')->groupBy('id')->get();
+			$usuarios = AtivosUsuarios::join('usr_usuarios', 'usr_id_usuarios', 'usr_usuarios.id')->join('cli_associados', 'usr_usuarios.cli_id_associado', 'cli_associados.id')->whereNull('dataDevolucao')->select('cli_associados.nome', 'usr_usuarios.id')->groupBy('id')->orderBy('cli_associados.nome', 'ASC')->get();
 			return view('tecnologia.equipamentos.listarUsuarios')->with('ativos', $equipamentos)->with('usuarios', $usuarios);
 		}else{
 			return redirect(route('403'));

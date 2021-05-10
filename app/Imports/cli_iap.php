@@ -29,7 +29,7 @@ class cli_iap implements ToCollection, WithChunkReading, WithHeadingRow, ShouldQ
                 AssociadosIAPs::where('cli_id_associado', $associado->id)->update([
                     'indicador_conta_limite' => ($row['indicador_produto_cheque_especial_conta_garantida'] == 'SIM' ? 1 : 0), 
                     'indicador_cobranca' => ($row['indicador_produto_cobranca'] == 'SIM' ? 1 : 0), 
-                    'indicador_consorcio' => ($row['indicador_produto_consorcio'] == 'SIM' ? 1 : 0), 
+                    'indicador_debito' => ($row['indicador_debito_automatico_efetivado'] == 'SIM' ? 1 : 0), 
                     'indicador_consorcio_auto' => ($row['indicador_produto_consorcio_automovel'] == 'SIM' ? 1 : 0), 
                     'indicador_consorcio_imovel' => ($row['indicador_produto_consorcio_imovel'] == 'SIM' ? 1 : 0), 
                     'indicador_consorcio_servicos' => ($row['indicador_produto_consorcio_servicos'] == 'SIM' ? 1 : 0), 
@@ -59,7 +59,7 @@ class cli_iap implements ToCollection, WithChunkReading, WithHeadingRow, ShouldQ
                 AssociadosIAPs::create([
                    	'indicador_conta_limite' => ($row['indicador_produto_cheque_especial_conta_garantida'] == 'SIM' ? 1 : 0), 
                     'indicador_cobranca' => ($row['indicador_produto_cobranca'] == 'SIM' ? 1 : 0), 
-                    'indicador_consorcio' => ($row['indicador_produto_consorcio'] == 'SIM' ? 1 : 0), 
+                    'indicador_debito' => ($row['indicador_debito_automatico_efetivado'] == 'SIM' ? 1 : 0), 
                     'indicador_consorcio_auto' => ($row['indicador_produto_consorcio_automovel'] == 'SIM' ? 1 : 0), 
                     'indicador_consorcio_imovel' => ($row['indicador_produto_consorcio_imovel'] == 'SIM' ? 1 : 0), 
                     'indicador_consorcio_servicos' => ($row['indicador_produto_consorcio_servicos'] == 'SIM' ? 1 : 0), 
