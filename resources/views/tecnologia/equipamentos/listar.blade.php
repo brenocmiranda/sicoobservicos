@@ -62,7 +62,7 @@ Inventário geral
 		// Criando a datatables
 		$('#table').DataTable({
 			deferRender: true,
-			order: [1, 'asc'],
+			order: false,
 			paginate: true,
 			select: true,
 			searching: true,

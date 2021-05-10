@@ -1133,7 +1133,7 @@ class TecnologiaCtrl extends Controller
 	}
 	public function DatatablesInventario(){
 		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
-			return datatables()->of(Ativos::all())
+			return datatables()->of(Ativos::orderByDesc('gti_ativos.created_at')->get())
 				->editColumn('imagem1', function(Ativos $dados){ 
 	                return '<img src="'.asset('storage/app/'.$dados->RelationImagemPrincipal->endereco).'" height="50" class="rounded">';
 	            })
@@ -1163,7 +1163,7 @@ class TecnologiaCtrl extends Controller
 					<button class="btn btn-dark btn-xs btn-rounded m-1" id="remover" title="Remover o equipamento"><i class="mx-0 mdi mdi-close"></i></button>';
 	            })->rawColumns(['imagem1', 'nome1', 'acoes'])->make(true);
 	        }else{
-				return datatables()->of(Ativos::all())
+				return datatables()->of(Ativos::orderByDesc('gti_ativos.created_at')->get())
 					->editColumn('imagem1', function(Ativos $dados){ 
 		                return '<img src="'.asset('storage/app/'.$dados->RelationImagemPrincipal->endereco).'" height="50" class="rounded">';
 		            })
