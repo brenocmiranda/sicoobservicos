@@ -29,6 +29,8 @@ class CreateAdmBens extends Migration
             $table->text('cidade')->nullable();
             $table->text('estado')->nullable();
             
+            $table->integer('cli_id_associado')->unsigned();
+            $table->foreign('cli_id_associado')->references('id')->on('cli_associados');
             $table->integer('id_imagem')->unsigned()->nullable();
             $table->foreign('id_imagem')->references('id')->on('sys_imagens');
             

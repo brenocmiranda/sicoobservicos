@@ -53,13 +53,17 @@ Detalhes do bem
                         <p>{!! $bens->descricao !!}</p>
                       </div>
                       @if(isset($bens->cep))
-                      <div class="d-block py-2" style="line-height: 15px">
+                      <div class="d-block pb-2" style="line-height: 15px">
                         <h5>Localização:</h5>
                         <label class="text-dark d-block">{{(isset($bens->rua) ? $bens->rua.', ' : '').(isset($bens->numero) ? $bens->numero.',' : '').(isset($bens->bairro) ? $bens->bairro : '')}}</label>
                         <label class="text-dark d-block">{{(isset($bens->complemento) ? $bens->complemento.', ' : '')}}</label>
                         <label class="text-dark d-block">{{$bens->cep}} - {{$bens->cidade}}/{{$bens->estado}}</label>
                       </div>
                       @endif
+                      <div class="d-block py-2" style="line-height: 15px">
+                        <h5>Aquisição:</h5>
+                        <label class="text-dark d-block">{{$bens->RelationAssociado->nome}}</label>
+                      </div>
                       <div class="d-block">
                         <h2 class="py-2">R$ {{number_format($bens->valor,2,",",".")}}</h2> 
                       </div>

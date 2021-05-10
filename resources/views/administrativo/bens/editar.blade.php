@@ -45,6 +45,12 @@ Editar bens
                     <input class="form-control form-control-line text-uppercase" name="nome" placeholder="VEÍCULOS FIAT ESTRADA" value="{{$bens->nome}}" required/>
                   </div>
                 </div>
+                <div class="col-lg-8 col-12">
+                  <div class="form-group">
+                    <label class="col-form-label pb-0">Aquisição <span class="text-danger">*</span></label>
+                    <input class="form-control form-control-line text-uppercase pesquisar" name="cli_id_associado" placeholder="" value="{{$bens->RelationAssociado->nome.' : '.$bens->RelationAssociado->documento}}" required/>
+                  </div>
+                </div>
                 <div class="col-lg-5 col-12">
                   <div class="form-group">
                     <label class="col-form-label pb-0">Tipo <span class="text-danger">*</span></label>
@@ -158,6 +164,7 @@ Editar bens
                     <div class="form-group">
                       <label class="col-form-label pb-0">Estado</label>
                       <select class="form-control form-control-line estado" name="estado">
+                        <option value="" {{($bens->estado == null ? 'selected' : '')}}>Selecione</option>
                         <option value="AC" {{($bens->estado == 'AC' ? 'selected' : '')}}>Acre</option>
                         <option value="AL" {{($bens->estado == 'AL' ? 'selected' : '')}}>Alagoas</option>
                         <option value="AP" {{($bens->estado == 'AP' ? 'selected' : '')}}>Amapá</option>
@@ -239,6 +246,31 @@ Editar bens
         $('.endereco').fadeIn();
       }else{
         $('.endereco').fadeOut();
+      }
+    });
+
+    // Retornando dados do associado 
+    $(".pesquisar").autocomplete({
+      source: function(request, response){
+        $.ajax({
+          url: "{{ route('pesquisar.associado.bens.administrativo') }}",
+          data: { term : request.term },
+          dataType: "json",
+          success: function(dados){
+            var resp = $.map(dados, function(obj){
+              return obj.nome +" : "+ obj.documento;
+            }); 
+            response(resp);
+          }
+        })
+      },
+      minLength: 1
+    });
+    $(".pesquisar").autocomplete({
+      change: function( event, ui ) {
+        if(ui.item == null){
+          $(this).val('');
+        }
       }
     });
 
