@@ -22,6 +22,12 @@ Detalhes do bem
     <div class="row mb-5">
       <div class="col-12">
           <div class="row mx-auto">
+            <a href="{{route('exibir.bens.administrativo')}}" class="col-12 mb-4">
+              <i class="mdi mdi-arrow-left pr-2"></i> 
+              <span>Voltar</span>
+            </a>
+          </div>
+          <div class="row mx-auto">
               <div class="col-12 col-sm-6 col-lg-6 p-0 mb-lg-0 mb-3">
                 <div class="card">
                   <div class="card-body">
@@ -29,11 +35,11 @@ Detalhes do bem
                         <div class="panel-wrapper collapse in">
                             <div id="owl-demo" class="owl-carousel owl-theme zoom-gallery">
                               <a class="item active" href="{{asset('storage/app').'/'.$bens->RelationImagemPrincipal->endereco}}" data-effect="mfp-zoom-in"> 
-                                <img src="{{asset('storage/app').'/'.$bens->RelationImagemPrincipal->endereco}}" alt="Imagem Principal" class="rounded" style="height: 400px">
+                                <img src="{{asset('storage/app').'/'.$bens->RelationImagemPrincipal->endereco}}" alt="Imagem Principal" class="rounded" style="min-height: 400px">
                               </a>
                               @foreach($bens->RelationImagem as $imagem)
                               <a class="item" href="{{asset('storage/app').'/'.$imagem->endereco}}" data-effect="mfp-zoom-in"> 
-                                <img src="{{asset('storage/app').'/'.$imagem->endereco}}" class="rounded" style="height: 400px">
+                                <img src="{{asset('storage/app').'/'.$imagem->endereco}}" class="rounded" style="min-height: 400px">
                               </a>
                               @endforeach
                               </div>
@@ -69,12 +75,8 @@ Detalhes do bem
                       </div>
                     </div>
                     <div class="row col-12 justify-content-center mx-auto">
-                      <hr class="col-12 p-0">
-                      <a href="{{route('exibir.bens.administrativo')}}" class="btn btn-danger btn-outline col-5 col-sm-4 col-lg-4 d-flex align-items-center justify-content-center mx-2">
-                        <i class="mdi mdi-arrow-left pr-2"></i> 
-                        <span>Voltar</span>
-                      </a>
                       @if(Auth::user()->RelationFuncao->gerenciar_administrativo == 1)
+                      <hr class="col-12 p-0">
                       <a href="{{route('editar.bens.administrativo', $bens->id)}}" class="btn btn-success btn-outline col-5 col-lg-4 col-sm-4 d-flex align-items-center justify-content-center mx-2">
                         <i class="mdi mdi-pencil pr-2"></i>
                         <span>Editar</span>
