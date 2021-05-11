@@ -81,6 +81,7 @@
             <small><b>{{$atividade->RelationUsuarios->RelationAssociado->nome}}</b> - {{date('d/m/Y H:i:s', strtotime($atividade->created_at))}}</small>
           </div>
         </div>
+        <br>
         @endforeach
       </div>
     </div>
@@ -91,7 +92,7 @@
     @endif
   </div>
   @endif
-  
+
   @if(isset($imprimir['cadastro']))
   <div style="margin-bottom: 30px;">
     <h2>Dados cadastrais</h2>
@@ -242,6 +243,7 @@
                 @if(isset($conglomerado))
                 @foreach($conglomerado as $participante)
                 <label class="d-block">{{$participante->RelationAssociado->nome}}</label>
+                <br>
                 @endforeach
                 @else
                 <label>-</label>
@@ -366,19 +368,19 @@
     <table style="width: 100%">
       <tbody style="width: 100%">
         <tr>
-          <td>
+          <td style="width: 25%;">
             <h5>Total a vencer</h5>
             <label>R$ {{number_format($associado->RelationBacen->sum('saldo_avencer'), 2, ',', '.')}}</label>
           </td>
-          <td>
+          <td style="width: 25%;">
             <h5>Total vencido</h5>
             <label class="{{(!empty($associado->RelationBacen->sum('saldo_vencido')) ? 'text-danger' : '')}}">R$ {{number_format($associado->RelationBacen->sum('saldo_vencido'), 2, ',', '.')}}</label>
           </td>
-          <td>
+          <td style="width: 25%;">
             <h5>Prejuízo</h5>
             <label class="{{(!empty($associado->RelationBacen->sum('saldo_prejuizo')) ? 'text-danger' : '')}}">R$ {{number_format($associado->RelationBacen->sum('saldo_prejuizo'), 2, ',', '.')}}</label>
           </td>
-          <td>
+          <td style="width: 25%;">
             <h5>Respon. Total</h5>
             <label>R$ {{number_format(($associado->RelationBacen->sum('saldo_prejuizo')+$associado->RelationBacen->sum('saldo_vencido')+$associado->RelationBacen->sum('saldo_avencer')), 2, ',', '.')}}</label>
           </td>
@@ -606,33 +608,33 @@
       <table style="width: 100%">
         <tbody style="width: 100%">
           <tr>
-            <td>
+            <td style="width: 25%;" valign="top">
               <h5>Nº matrícula</h5>
               <label>{{(isset($associado->RelationCapital) ? $associado->RelationCapital->num_capital : '-')}}</label>
             </td>
-            <td>
+            <td style="width: 25%;" valign="top">
               <h5>Situação</h5>
               <label>{{(isset($associado->RelationCapital) ? $associado->RelationCapital->situacao_capital : '-')}}</label>
             </td>
-            <td>
+            <td style="width: 25%;" valign="top">
               <h5>Data da matrícula</h5>
               <label>{{(isset($associado->RelationCapital) ? date('d/m/Y', strtotime($associado->RelationCapital->data_matricula)) : '-')}}</label>
             </td>
-            <td>
+            <td style="width: 25%;" valign="top">
               <h5>Data de saída da matrícula</h5>
               <label>{{(isset($associado->RelationCapital) ? (date('d/m/Y', strtotime($associado->RelationCapital->saida_matricula)) != '31/12/9999' ? date('d/m/Y', strtotime($associado->RelationCapital->saida_matricula)) : '-')  : '-')}}</label>
             </td>
           </tr>
           <tr>
-            <td>
+            <td style="width: 25%;" valign="top">
               <h5>Tem direito ao voto?</h5>
               <label>{{(isset($associado->RelationCapital) ? $associado->RelationCapital->direito_voto : '-')}}</label>
             </td>
-            <td>
+            <td style="width: 25%;" valign="top">
               <h5>Tem direito ao rateio?</h5>
               <label>{{(isset($associado->RelationCapital) ? $associado->RelationCapital->direito_rateio : '-')}}</label>
             </td>
-            <td>
+            <td style="width: 25%;" valign="top">
               <h5>Valor integralizado</h5>
               <label>R$ {{(isset($associado->RelationCapital) ? number_format($associado->RelationCapital->valor_integralizado, 2, ',', '.') : '-')}}</label>
             </td>
@@ -659,62 +661,62 @@
     </h2>
     <hr>
     @if(isset($associado->RelationContaCorrente[0]))  
-      @foreach($associado->RelationContaCorrente->sortByDesc('data_abertura') as $conta)
-      <div style="margin-top: 10px; margin-left: 10px; margin-right: 10px">
-        <h4><b>{{$conta->num_contrato}}</b> <small>({{$conta->situacao}})</small></h4>
-        <hr>
-        <table style="width: 100%">
-          <tbody style="width: 100%">
-            <tr>
-              <td>
-                <h5>Modalidade</h5>
-                <label>{{$conta->modalidade_conta}}</label>
-              </td>
-              <td>
-                <h5>Tipo de conta</h5>
-                <label>{{$conta->tipo_conta}}</label>
-              </td>
-              <td>
-                <h5>Categoria</h5>
-                <label>{{$conta->categoria_conta}}</label>
-              </td>
-              <td>
-                <h5>Utilizando o limite</h5>
-                <label>{{$conta->utilizacao_limite}} dias</label>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <h5>Taxa de limite</h5>
-                <label>{{number_format($conta->taxa_limite, 2, ',', '.')}} %</label>
-              </td>
-              <td>
-                <h5>Valor contratado</h5>
-                <label>R$ {{number_format($conta->valor_contratado, 2, ',', '.')}}</label>
-              </td>
-              <td>
-                <h5>Valor utilizado</h5>
-                <label>R$ {{number_format($conta->valor_utilizado, 2, ',', '.')}}</label>
-              </td>
-              <td>
-                <h5>Valor pacote tarifário</h5>
-                <label>R$ {{number_format($conta->valor_pacote, 2, ',', '.')}}</label>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <h5>Saldo atual em conta</h5>
-                <label>R$ {{number_format($conta->valor_saldo, 2, ',', '.')}}</label>
-              </td>
-              <td>
-                <h5>Última movimentação</h5>
-                <label>{{date('d/m/Y', strtotime($conta->ultima_movimentacao))}} <small>({{$conta->sem_movimentacao}} dias)</small></label>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      @endforeach
+    @foreach($associado->RelationContaCorrente->sortByDesc('data_abertura') as $conta)
+    <div style="margin-top: 10px; margin-left: 10px; margin-right: 10px">
+      <h4><b>{{$conta->num_contrato}}</b> <small>({{$conta->situacao}})</small></h4>
+      <hr>
+      <table style="width: 100%">
+        <tbody style="width: 100%">
+          <tr>
+            <td style="width: 25%;" valign="top">
+              <h5>Modalidade</h5>
+              <label>{{$conta->modalidade_conta}}</label>
+            </td>
+            <td style="width: 25%;" valign="top">
+              <h5>Tipo de conta</h5>
+              <label>{{$conta->tipo_conta}}</label>
+            </td>
+            <td style="width: 25%;" valign="top">
+              <h5>Categoria</h5>
+              <label>{{$conta->categoria_conta}}</label>
+            </td>
+            <td style="width: 25%;" valign="top">
+              <h5>Utilizando o limite</h5>
+              <label>{{$conta->utilizacao_limite}} dias</label>
+            </td>
+          </tr>
+          <tr>
+            <td style="width: 25%;" valign="top">
+              <h5>Taxa de limite</h5>
+              <label>{{number_format($conta->taxa_limite, 2, ',', '.')}} %</label>
+            </td>
+            <td style="width: 25%;" valign="top">
+              <h5>Valor contratado</h5>
+              <label>R$ {{number_format($conta->valor_contratado, 2, ',', '.')}}</label>
+            </td>
+            <td style="width: 25%;" valign="top">
+              <h5>Valor utilizado</h5>
+              <label>R$ {{number_format($conta->valor_utilizado, 2, ',', '.')}}</label>
+            </td>
+            <td style="width: 25%;" valign="top">
+              <h5>Valor pacote tarifário</h5>
+              <label>R$ {{number_format($conta->valor_pacote, 2, ',', '.')}}</label>
+            </td>
+          </tr>
+          <tr>
+            <td style="width: 25%;" valign="top">
+              <h5>Saldo atual em conta</h5>
+              <label>R$ {{number_format($conta->valor_saldo, 2, ',', '.')}}</label>
+            </td>
+            <td style="width: 25%;" valign="top">
+              <h5>Última movimentação</h5>
+              <label>{{date('d/m/Y', strtotime($conta->ultima_movimentacao))}} <small>({{$conta->sem_movimentacao}} dias)</small></label>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    @endforeach
     @else
     <div class="text-center">
       <i class="mdi mdi-36px mdi-close-octagon-outline"></i>
@@ -742,39 +744,39 @@
         <table style="width: 100%">
           <tbody style="width: 100%">
             <tr>
-              <td>
+              <td style="width: 25%;" valign="top">
                 <h5>Produto</h5>
                 <label>{{$cartao->produto_cartao}}</label>
               </td>
-              <td>
+              <td style="width: 25%;" valign="top">
                 <h5>Função do cartão</h5>
                 <label>{{$cartao->funcao_cartao}}</label>
               </td>
-              <td>
+              <td style="width: 25%;" valign="top">
                 <h5>Bandeira</h5>
                 <label>{{$cartao->bandeira_cartao}}</label>
               </td>
-              <td>
+              <td style="width: 25%;" valign="top">
                 <h5>Fatura</h5>
                 <label>{{$cartao->fatura}}</label>
               </td>
             </tr>
             <tr>
-              <td>
+              <td style="width: 25%;" valign="top">
                 <h5>Data de implantação</h5>
                 <label>{{(date('d/m/Y', strtotime($cartao->data_limite)) != '01/01/1900' ? date('d/m/Y', strtotime($cartao->data_limite)) : '-')}}</label>
               </td>
-              <td>
+              <td style="width: 25%;" valign="top">
                 <h5>Valor contratado</h5>
                 <label>R$ {{number_format($cartao->valor_atribuido, 2, ',', '.')}}</label>
               </td>
-              <td>
+              <td style="width: 25%;" valign="top">
                 <h5>Valor utilizado</h5>
                 <label>R$ {{number_format($cartao->valor_utilizado, 2, ',', '.')}}</label>
               </td>
-              <td>
-               <h5>Valor disponivel</h5>
-               <label>R$ {{number_format($cartao->valor_disponivel, 2, ',', '.')}}</label>
+              <td style="width: 25%;" valign="top">
+                <h5>Valor disponivel</h5>
+                <label>R$ {{number_format($cartao->valor_disponivel, 2, ',', '.')}}</label>
               </td>
             </tr>
           </tbody>
@@ -782,10 +784,10 @@
       </div>
       @endforeach
     @else
-      <div class="text-center">
-        <i class="mdi mdi-36px mdi-close-octagon-outline"></i>
-        <h3 style="font-weight: normal">Nenhuma informação encontrada.</h3>
-      </div>
+    <div class="text-center">
+      <i class="mdi mdi-36px mdi-close-octagon-outline"></i>
+      <h3 style="font-weight: normal">Nenhuma informação encontrada.</h3>
+    </div>
     @endif
   </div>
   @endif
@@ -808,55 +810,55 @@
       <table style="width: 100%">
         <tbody style="width: 100%">
           <tr>
-            <td>
+            <td style="width: 25%;" valign="top">
               <h5>Produto</h5>
               <label>{{$carteira->RelationArquivos->RelationProdutos->nome}}</label>
             </td>
-            <td>
+            <td style="width: 25%;" valign="top">
               <h5>Modalidade</h5>
               <label>{{$carteira->RelationArquivos->RelationModalidades->nome}}</label>
             </td>
-            <td>
+            <td style="width: 25%;" valign="top">
               <h5>Data da operação</h5>
               <label>{{date('d/m/Y', strtotime($carteira->data_operacao))}}</label>
             </td>
-            <td>
+            <td style="width: 25%;" valign="top">
               <h5>Data da vencimento</h5>
               <label>{{date('d/m/Y', strtotime($carteira->data_vencimento))}}</label>
             </td>
           </tr>
           <tr>
-            <td>
+            <td style="width: 25%;" valign="top">
               <h5>Nível de risco</h5>
               <label>{{$carteira->nivel_risco}}</label>
             </td>
-            <td>
+            <td style="width: 25%;" valign="top">
               <h5>Taxa da operação</h5>
               <label>{{number_format($carteira->taxa_operacao, 2, ',', '')}} %</label>
             </td>
-            <td>
+            <td style="width: 25%;" valign="top">
               <h5>Taxa de mora</h5>
               <label>{{number_format($carteira->taxa_mora, 2, ',', '')}} %</label>
             </td>
-            <td>
+            <td style="width: 25%;" valign="top">
               <h5>Taxa de multa</h5>
               <label>{{number_format($carteira->taxa_multa, 2, ',', '')}} %</label>
             </td>
           </tr>
           <tr>
-            <td>
+            <td style="width: 25%;" valign="top">
               <h5>Qtd de parcelas</h5>
               <label>{{$carteira->qtd_parcelas}}</label>
             </td>
-            <td>
+            <td style="width: 25%;" valign="top">
               <h5>Qtd de parcelas pagas</h5>
               <label>{{$carteira->qtd_parcelas_pagas}}</label>
             </td>
-            <td>
+            <td style="width: 25%;" valign="top">
               <h5>Valor contratado</h5>
               <label>R$ {{number_format($carteira->valor_contrato, 2, ',', '.')}}</label>
             </td>
-            <td>
+            <td style="width: 25%;" valign="top">
               <h5>Saldo devedor*</h5>
               <label>R$ {{number_format($carteira->valor_devido, 2, ',', '.')}}</label>
             </td>
@@ -892,19 +894,19 @@
       <table style="width: 100%">
         <tbody style="width: 100%">
           <tr>
-            <td>
+            <td style="width: 25%;" valign="top">
               <h5>Tipo de conta</h5>
               <label>{{$poupanca->tipo_conta}}</label>
             </td>
-            <td>
+            <td style="width: 25%;" valign="top">
               <h5>Tipo de poupança</h5>
               <label>{{$poupanca->tipo_poupanca}}</label>
             </td>
-            <td>
+            <td style="width: 25%;" valign="top">
               <h5>Data de abertura</h5>
               <label>{{date('d/m/Y', strtotime($poupanca->data_abertura))}}</label>
             </td>
-            <td>
+            <td style="width: 25%;" valign="top">
               <h5>Valor saldo</h5>
               <label>R$ {{number_format($poupanca->valor_saldo, 2, ',', '.')}}</label>
             </td>
@@ -939,29 +941,29 @@
       <table style="width: 100%">
         <tbody style="width: 100%">
           <tr>
-            <td>
+            <td style="width: 25%;" valign="top">
               <h5>Conta corrente</h5>
               <label>{{$aplicacao->RelationContaCorrente->num_contrato}}</label>
             </td>
-            <td>
+            <td style="width: 25%;" valign="top">
               <h5>Modalidade</h5>
               <label>{{$aplicacao->modalidade}}</label>
             </td>
-            <td>
+            <td style="width: 25%;" valign="top">
               <h5>Tipo</h5>
               <label>{{$aplicacao->tipo}}</label>
             </td>
-            <td>
+            <td style="width: 25%;" valign="top">
               <h5>Valor inicial</h5>
               <label>R$ {{number_format($aplicacao->valor_inicial, 2, ',', '.')}}</label>
             </td>
           </tr>
           <tr>
-            <td>
+            <td style="width: 25%;" valign="top">
               <h5>Valor da correção monetária</h5>
               <label>R$ {{number_format($aplicacao->valor_correcao, 2, ',', '.')}}</label>
             </td>
-            <td>
+            <td style="width: 25%;" valign="top">
               <h5>Valor saldo</h5>
               <label>R$ {{number_format($aplicacao->valor_saldo, 2, ',', '.')}}</label>
             </td>
@@ -997,6 +999,19 @@
         <tbody style="width: 100%">
           <tr>
             <td style="width: 25%">
+              @if($associado->RelationIAP->indicador_cartao_credito)
+              <div>
+                <input type="radio" checked>
+                <label> Cartão de crédito  </label>
+              </div>
+              @else
+              <div>
+                <input type="radio">
+                <label> CCartão de crédito  </label>
+              </div>
+              @endif
+            </td>
+            <td style="width: 25%">
               @if($associado->RelationIAP->indicador_conta_limite)
               <div>
                 <input type="radio" checked>
@@ -1019,19 +1034,6 @@
               <div>
                 <input type="radio">
                 <label> Cobrança  </label>
-              </div>
-              @endif
-            </td>
-            <td style="width: 25%">
-              @if($associado->RelationIAP->indicador_consorcio)
-              <div>
-                <input type="radio" checked>
-                <label> Consórcio </label>
-              </div>
-              @else
-              <div>
-                <input type="radio">
-                <label> Consórcio  </label>
               </div>
               @endif
             </td>
@@ -1118,60 +1120,6 @@
               @endif
             </td>
             <td>
-              @if($associado->RelationIAP->indicador_cartao_credito)
-              <div>
-                <input type="radio" checked>
-                <label> Cartão de crédito </label>
-              </div>
-              @else
-              <div>
-                <input type="radio">
-                <label> Cartão de crédito </label>
-              </div>
-              @endif
-            </td>
-            <td>
-              @if($associado->RelationIAP->indicador_sipag)
-              <div>
-                <input type="radio" checked>
-                <label> SIPAG </label>
-              </div>
-              @else
-              <div>
-                <input type="radio">
-                <label> SIPAG </label>
-              </div>
-              @endif
-            </td>
-            <td>
-              @if($associado->RelationIAP->indicador_previdencia)
-              <div>
-                <input type="radio" checked>
-                <label> Previdência </label>
-              </div>
-              @else
-              <div>
-                <input type="radio">
-                <label> Previdência </label>
-              </div>
-              @endif
-            </td>
-          </tr>
-          <tr>
-            <td>
-              @if($associado->RelationIAP->indicador_pacotes_tarifa)
-              <div>
-                <input type="radio" checked>
-                <label> Pacote de tarifas </label>
-              </div>
-              @else
-              <div>
-                <input type="radio">
-                <label> Pacote de tarifas </label>
-              </div>
-              @endif
-            </td>
-            <td>
               @if($associado->RelationIAP->indicador_emprestimo)
               <div >
                 <input type="radio" checked>
@@ -1213,6 +1161,114 @@
           </tr>
           <tr>
             <td>
+              @if($associado->RelationIAP->indicador_previdencia)
+              <div>
+                <input type="radio" checked>
+                <label> Previdência </label>
+              </div>
+              @else
+              <div>
+                <input type="radio">
+                <label> Previdência </label>
+              </div>
+              @endif
+            </td>
+            <td>
+              @if($associado->RelationIAP->indicador_rdc)
+              <div>
+                <input type="radio" checked>
+                <label> RDC </label>
+              </div>
+              @else
+              <div>
+                <input type="radio">
+                <label> RDC </label>
+              </div>
+              @endif
+            </td>
+            <td>
+              @if($associado->RelationIAP->indicador_lca)
+              <div>
+                <input type="radio" checked>
+                <label> LCA </label>
+              </div>
+              @else
+              <div>
+                <input type="radio">
+                <label> LCA </label>
+              </div>
+              @endif
+            </td>
+            <td>
+              @if($associado->RelationIAP->indicador_seguro_auto)
+              <div>
+                <input type="radio" checked>
+                <label> Seguro de auto. </label>
+              </div>
+              @else
+              <div>
+                <input type="radio">
+                <label> Seguro de auto. </label>
+              </div>
+              @endif
+            </td>
+          </tr>
+          <tr>
+            <td>
+              @if($associado->RelationIAP->indicador_seguro_vida)
+              <div>
+                <input type="radio" checked>
+                <label> Seguro de vida </label>
+              </div>
+              @else
+              <div>
+                <input type="radio">
+                <label> Seguro de vida </label>
+              </div>
+              @endif
+            </td>
+            <td>
+              @if($associado->RelationIAP->indicador_seguro_rural)
+              <div>
+                <input type="radio" checked>
+                <label> Seguro rural </label>
+              </div>
+              @else
+              <div>
+                <input type="radio">
+                <label> Seguro rural </label>
+              </div>
+              @endif
+            </td>
+            <td>
+              @if($associado->RelationIAP->indicador_seguro_massificados)
+              <div>
+                <input type="radio" checked>
+                <label> Seguro massificado </label>
+              </div>
+              @else
+              <div>
+                <input type="radio">
+                <label> Seguro massificado </label>
+              </div>
+              @endif
+            </td>
+            <td>
+              @if($associado->RelationIAP->indicador_sipag)
+              <div>
+                <input type="radio" checked>
+                <label> SIPAG </label>
+              </div>
+              @else
+              <div>
+                <input type="radio">
+                <label> SIPAG </label>
+              </div>
+              @endif
+            </td>
+          </tr>
+          <tr>
+            <td>
               @if($associado->RelationIAP->indicador_titulo_descontado)
               <div>
                 <input type="radio" checked>
@@ -1225,104 +1281,352 @@
               </div>
               @endif
             </td>
-            <td>
-             @if($associado->RelationIAP->indicador_rdc)
-             <div>
-              <input type="radio" checked>
-              <label> RDC </label>
-            </div>
-            @else
-            <div>
-              <input type="radio">
-              <label> RDC </label>
-            </div>
-            @endif
-          </td>
-          <td>
-            @if($associado->RelationIAP->indicador_lca)
-            <div>
-              <input type="radio" checked>
-              <label> LCA </label>
-            </div>
-            @else
-            <div>
-              <input type="radio">
-              <label> LCA </label>
-            </div>
-            @endif
-          </td>
-          <td>
-            @if($associado->RelationIAP->indicador_seguro_auto)
-            <div>
-              <input type="radio" checked>
-              <label> Seguro de auto. </label>
-            </div>
-            @else
-            <div>
-              <input type="radio">
-              <label> Seguro de auto. </label>
-            </div>
-            @endif
-          </td>
-        </tr>
-        <tr>
-          <td>
-            @if($associado->RelationIAP->indicador_seguro_massificados)
-            <div>
-              <input type="radio" checked>
-              <label> Seguro empresarial </label>
-            </div>
-            @else
-            <div>
-              <input type="radio">
-              <label> Seguro empresarial </label>
-            </div>
-            @endif
-          </td>
-          <td>
-            @if($associado->RelationIAP->indicador_seguro_rural)
-            <div>
-              <input type="radio" checked>
-              <label> Seguro rural </label>
-            </div>
-            @else
-            <div>
-              <input type="radio">
-              <label> Seguro rural </label>
-            </div>
-            @endif
-          </td>
-          <td>
-            @if($associado->RelationIAP->indicador_seguro_vida)
-            <div>
-              <input type="radio" checked>
-              <label> Seguro de vida </label>
-            </div>
-            @else
-            <div>
-              <input type="radio">
-              <label> Seguro de vida </label>
-            </div>
-            @endif
-          </td>
-          <td>
-            @if($associado->RelationIAP->indicador_prestamista)
-            <div >
-              <input type="radio" checked>
-              <label> Seguro prestamista </label>
-            </div>
-            @else
-            <div>
-              <input type="radio">
-              <label> Seguro prestamista </label>
-            </div>
-            @endif
-          </td>
-        </tr>
+          </tr>
         </tbody>
       </table>
     </div>
     @endif
+  </div>
   @endif
+
+  @if(isset($imprimir['cobranca']))
+  <div style="margin-bottom: 30px;">
+    <h2>Cobrança
+      <small style="font-weight: normal; font-size: 12px;padding-left: 2px">
+        @if(isset($associado->RelationCobrancas[0]))
+        (Data base: {{date('d/m/Y', strtotime($associado->RelationCobrancas[0]->data_movimento))}})
+        @endif
+      </small>
+    </h2>
+    <hr>
+    @if(isset($associado->RelationCobrancas[0]))  
+    @foreach($associado->RelationCobrancas->sortByDesc('data_adesao') as $cobranca)
+    <div style="margin-top: 10px; margin-left: 10px; margin-right: 10px">
+      <h4><b>{{$cobranca->perfil}}</b> <small>({{$cobranca->situacao}})</small></h4>
+      <hr>
+      <table style="width: 100%">
+        <tbody style="width: 100%">
+          <tr>
+            <td style="width: 25%;" valign="top">
+              <h5>Ramo</h5>
+              <label>{{$cobranca->ramo}}</label>
+            </td>
+            <td style="width: 25%;" valign="top">
+              <h5>Grupo</h5>
+              <label>{{$cobranca->grupo}}</label>
+            </td>
+            <td style="width: 25%;" valign="top">
+              <h5>Tipo de DDA</h5>
+              <label>{{$cobranca->tipo_dda}}</label>
+            </td>
+            <td style="width: 25%;" valign="top">
+              <h5>Possui cotrato?</h5>
+              <label>{{($cobranca->indicador_contrato == 1 ? 'SIM' : 'NÃO')}}</label>
+            </td>
+          </tr>
+          <tr>
+            <td style="width: 25%;" valign="top">
+              <h5>Data de adesão</h5>
+              <label>{{date('d/m/Y', strtotime($cobranca->data_adesao))}}</label>
+            </td>
+            <td style="width: 25%;" valign="top">
+              <h5>Float</h5>
+              <label>{{$cobranca->float}} dia(s)</label>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    @endforeach
+    @else
+    <div class="text-center">
+      <i class="mdi mdi-36px mdi-close-octagon-outline"></i>
+      <h3 style="font-weight: normal">Nenhuma informação encontrada.</h3>
+    </div>
+    @endif
+  </div>
+  @endif
+
+  @if(isset($imprimir['consorcio']))
+  <div style="margin-bottom: 30px;">
+    <h2>Consórcios
+      <small style="font-weight: normal; font-size: 12px;padding-left: 2px">
+        @if(isset($associado->RelationConsorcios[0]))
+        (Data base: {{date('d/m/Y', strtotime($associado->RelationConsorcios[0]->data_movimento))}})
+        @endif
+      </small>
+    </h2>
+    <hr>
+    @if(isset($associado->RelationConsorcios[0]))  
+    @foreach($associado->RelationConsorcios->sortBy('versao') as $consorcios)
+    <div style="margin-top: 10px; margin-left: 10px; margin-right: 10px">
+      <h4><b>{{$consorcios->n_contrato}}</b> <small>({{$consorcios->versao}})</small></h4>
+      <hr>
+      <table style="width: 100%">
+        <tbody style="width: 100%">
+          <tr>
+            <td style="width: 25%;" valign="top">
+              <h5>Segmento</h5>
+              <label>{{$consorcios->segmento}}</label>
+            </td>
+            <td style="width: 25%;" valign="top">
+              <h5>Bem de referência</h5>
+              <label>{{$consorcios->bem_referencia}}</label>
+            </td>
+            <td style="width: 25%;" valign="top">
+              <h5>Situação</h5>
+              <label>{{$consorcios->situacao}}</label>
+            </td>
+            <td style="width: 25%;" valign="top">
+              <h5>Taxa de administração</h5>
+              <label>{{number_format($consorcios->taxa_administracao, 2, ',', '.')}} %</label>
+            </td>
+          </tr>
+          <tr>
+            <td style="width: 25%;" valign="top">
+              <h5>Grupo</h5>
+              <label>{{$consorcios->grupo}}</label>
+            </td>
+            <td style="width: 25%;" valign="top">
+              <h5>Cota</h5>
+              <label>{{$consorcios->cota}}</label>
+            </td>
+            <td style="width: 25%;" valign="top">
+              <h5>Forma de pagamento</h5>
+              <label>{{$consorcios->forma_pagamento}}</label>
+            </td>
+            <td style="width: 25%;" valign="top">
+              <h5>Tipo de comtemplação</h5>
+              <label>{{$consorcios->tipo_contemplacao}}</label>
+            </td>
+          </tr>
+          <tr>       
+            <td style="width: 25%;" valign="top">
+              <h5>Data de adesão</h5>
+              <label>{{date('d/m/Y', strtotime($consorcios->data_adesao))}}</label>
+            </td>
+            <td style="width: 25%;" valign="top">
+              <h5>Data de cancelamento</h5>
+              <label>{{(date('d/m/Y', strtotime($consorcios->data_cancelamento)) != '31/12/1969' ? date('d/m/Y', strtotime($consorcios->data_cancelamentoo)) : '-')}}</label>
+            </td>
+            <td style="width: 25%;" valign="top">
+              <h5>Valor contratado</h5>
+              <label>R$ {{number_format($consorcios->valor_contratado, 2, ',', '.')}}</label>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    @endforeach
+    @else
+    <div class="text-center">
+      <i class="mdi mdi-36px mdi-close-octagon-outline"></i>
+      <h3 style="font-weight: normal">Nenhuma informação encontrada.</h3>
+    </div>
+    @endif
+  </div>
+  @endif
+
+  @if(isset($imprimir['previdencia']))
+  <div style="margin-bottom: 30px;">
+    <h2>Previdências
+      <small style="font-weight: normal; font-size: 12px;padding-left: 2px">
+        @if(isset($associado->RelationPrevidencias[0]))
+        (Data base: {{date('d/m/Y', strtotime($associado->RelationPrevidencias[0]->data_movimento))}})
+        @endif
+      </small>
+    </h2>
+    <hr>
+    @if(isset($associado->RelationPrevidencias[0]))  
+    @foreach($associado->RelationPrevidencias->sortByDesc('data_adesao') as $previdencias)
+    <div style="margin-top: 10px; margin-left: 10px; margin-right: 10px">
+      <h4><b>{{$previdencias->n_registro}}</b> <small>({{$previdencias->situacao_participante}})</small></h4>
+      <hr>
+      <table style="width: 100%">
+        <tbody style="width: 100%">
+          <tr>
+            <td style="width: 25%;" valign="top">
+              <h5>Plano</h5>
+              <label>{{$previdencias->plano}}</label>
+            </td>
+            <td style="width: 25%;" valign="top">
+              <h5>Regime</h5>
+              <label>{{$previdencias->regime}}</label>
+            </td>
+            <td style="width: 25%;" valign="top">
+              <h5>Tipo de participante</h5>
+              <label>{{$previdencias->tipo_participante}}</label>
+            </td>
+            <td style="width: 25%;" valign="top">
+              <h5>Situação</h5>
+              <label>{{$previdencias->situacao_participante}}</label>
+            </td>
+          </tr>
+          <tr>
+            <td style="width: 25%;" valign="top">
+              <h5>Forma de pagamento</h5>
+              <label>{{$previdencias->forma_pagamento}}</label>
+            </td>
+            <td style="width: 25%;" valign="top">
+              <h5>Data de adesão</h5>
+              <label>{{date('d/m/Y', strtotime($previdencias->data_adesao))}}</label>
+            </td>
+            <td style="width: 25%;" valign="top">
+              <h5>Data de cancelamento</h5>
+              <label>{{(date('d/m/Y', strtotime($previdencias->data_desligamento)) != '01/01/1900' ? date('d/m/Y', strtotime($previdencias->data_desligamento)) : '-')}}</label>
+            </td>
+            <td style="width: 25%;" valign="top">
+              <h5>Valor da proposta</h5>
+              <label>R$ {{number_format($previdencias->valor_proposta, 2, ',', '.')}}</label>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    @endforeach
+    @else
+    <div class="text-center">
+      <i class="mdi mdi-36px mdi-close-octagon-outline"></i>
+      <h3 style="font-weight: normal">Nenhuma informação encontrada.</h3>
+    </div>
+    @endif
+  </div>
+  @endif
+
+  @if(isset($imprimir['seguros']))
+  <div style="margin-bottom: 30px;">
+    <h2>Seguros
+      <small style="font-weight: normal; font-size: 12px;padding-left: 2px">
+        @if(isset($associado->RelationSeguros[0]))
+        (Data base: {{date('d/m/Y', strtotime($associado->RelationSeguros[0]->data_movimento))}})
+        @endif
+      </small>
+    </h2>
+    <hr>
+    @if(isset($associado->RelationSeguros[0]))  
+    @foreach($associado->RelationSeguros->sortByDesc('data_vigencia') as $seguros)
+    <div style="margin-top: 10px; margin-left: 10px; margin-right: 10px">
+      <h4><b>{{$seguros->produto}}</b> <small>(Vigente)</small></h4>
+      <hr>
+      <table style="width: 100%">
+        <tbody style="width: 100%">
+          <tr>
+            <td style="width: 25%;" valign="top">
+              <h5>Nº da apólice</h5>
+              <label>{{$seguros->n_apolice}}</label>
+            </td>
+            <td style="width: 25%;" valign="top">
+              <h5>Ramo</h5>
+              <label>{{$seguros->ramo}}</label>
+            </td>
+            <td style="width: 25%;" valign="top">
+              <h5>Família</h5>
+              <label>{{$seguros->familia}}</label>
+            </td>
+            <td style="width: 25%;" valign="top">
+              <h5>Tipo proposta</h5>
+              <label>{{$seguros->tipo_proposta}}</label>
+            </td>
+          </tr>
+          <tr>
+            <td style="width: 25%;" valign="top">
+              <h5>Corretora</h5>
+              <label>{{$seguros->corretora}}</label>
+            </td>
+            <td style="width: 25%;" valign="top">
+              <h5>Seguradora</h5>
+              <label>{{$seguros->seguradora}}</label>
+            </td>
+            <td style="width: 25%;" valign="top">
+              <h5>Início de vigência</h5>
+              <label>{{date('d/m/Y', strtotime($seguros->data_vigencia))}}</label>
+            </td>
+            <td style="width: 25%;" valign="top">
+              <h5>Final de vigência</h5>
+              <label>{{(date('d/m/Y', strtotime($seguros->data_encerramento)) != '01/01/1900' ? date('d/m/Y', strtotime($seguros->data_encerramento)) : '-')}}</label>
+            </td>
+          </tr>
+          <tr>
+            <td style="width: 25%;" valign="top">
+              <h5>Prêmio Líquido</h5>
+              <label>R$ {{number_format($seguros->premio_liquido, 2, ',', '.')}}</label>
+            </td>
+            <td style="width: 25%;" valign="top">
+              <h5>Prêmio Bruto</h5>
+              <label>R$ {{number_format($seguros->premio_bruto, 2, ',', '.')}}</label>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    @endforeach
+    @else
+    <div class="text-center">
+      <i class="mdi mdi-36px mdi-close-octagon-outline"></i>
+      <h3 style="font-weight: normal">Nenhuma informação encontrada.</h3>
+    </div>
+    @endif
+  </div>
+  @endif
+
+  <!--
+  @if(isset($imprimir['sipag']))
+  <div style="margin-bottom: 30px;">
+    <h2>SIPAG
+      <small style="font-weight: normal; font-size: 12px;padding-left: 2px">
+        @if(isset($associado->RelationAplicacoes[0]))
+        (Data base: {{date('d/m/Y', strtotime($associado->RelationAplicacoes[0]->data_movimento))}})
+        @endif
+      </small>
+    </h2>
+    <hr>
+    @if(isset($associado->RelationAplicacoes[0]))  
+    @foreach($associado->RelationAplicacoes->sortByDesc('data_abertura') as $aplicacao)
+    <div style="margin-top: 10px; margin-left: 10px; margin-right: 10px">
+      <h4><b>{{$aplicacao->num_conta}}</b> <small>({{$aplicacao->tipo}})</small></h4>
+      <hr>
+      <table style="width: 100%">
+        <tbody style="width: 100%">
+          <tr>
+            <td style="width: 25%;" valign="top">
+              <h5>Conta corrente</h5>
+              <label>{{$aplicacao->RelationContaCorrente->num_contrato}}</label>
+            </td>
+            <td style="width: 25%;" valign="top">
+              <h5>Modalidade</h5>
+              <label>{{$aplicacao->modalidade}}</label>
+            </td>
+            <td style="width: 25%;" valign="top">
+              <h5>Tipo</h5>
+              <label>{{$aplicacao->tipo}}</label>
+            </td>
+            <td style="width: 25%;" valign="top">
+              <h5>Valor inicial</h5>
+              <label>R$ {{number_format($aplicacao->valor_inicial, 2, ',', '.')}}</label>
+            </td>
+          </tr>
+          <tr>
+            <td style="width: 25%;" valign="top">
+              <h5>Valor da correção monetária</h5>
+              <label>R$ {{number_format($aplicacao->valor_correcao, 2, ',', '.')}}</label>
+            </td>
+            <td style="width: 25%;" valign="top">
+              <h5>Valor saldo</h5>
+              <label>R$ {{number_format($aplicacao->valor_saldo, 2, ',', '.')}}</label>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    @endforeach
+    @else
+    <div class="text-center">
+      <i class="mdi mdi-36px mdi-close-octagon-outline"></i>
+      <h3 style="font-weight: normal">Nenhuma informação encontrada.</h3>
+    </div>
+    @endif
+  </div>
+  @endif
+  -->
 </body>
 </html>

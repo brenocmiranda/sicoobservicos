@@ -83,10 +83,34 @@
                 </div>
                 <div class="col-lg-4 col-6">
                   <div class="checkbox checkbox-info checkbox-circle">
-                      <input id="checkbox11" type="checkbox" name="inadimplencia" checked>
-                      <label for="checkbox11"> Inadimplência </label>
+                      <input id="checkbox11" type="checkbox" name="cobranca" checked>
+                      <label for="checkbox11"> Cobrança </label>
                   </div>
-                </div>        
+                </div>  
+                <div class="col-lg-4 col-6">
+                  <div class="checkbox checkbox-info checkbox-circle">
+                      <input id="checkbox11" type="checkbox" name="consorcio" checked>
+                      <label for="checkbox11"> Consórcio </label>
+                  </div>
+                </div>  
+                <div class="col-lg-4 col-6">
+                  <div class="checkbox checkbox-info checkbox-circle">
+                      <input id="checkbox11" type="checkbox" name="previdencia" checked>
+                      <label for="checkbox11"> Previdência </label>
+                  </div>
+                </div>
+                <div class="col-lg-4 col-6">
+                  <div class="checkbox checkbox-info checkbox-circle">
+                      <input id="checkbox11" type="checkbox" name="seguros" checked>
+                      <label for="checkbox11"> Seguros </label>
+                  </div>
+                </div>
+                <div class="col-lg-4 col-6">
+                  <div class="checkbox checkbox-info checkbox-circle">
+                      <input id="checkbox11" type="checkbox" name="sipag" checked>
+                      <label for="checkbox11"> SIPAG </label>
+                  </div>
+                </div>             
               </div>
             </div>
           </div>
