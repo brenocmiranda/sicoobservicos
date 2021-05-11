@@ -44,9 +44,11 @@ Painel do associado
       <li role="presentation"> <a href="#poupanca" aria-controls="poupanca" role="tab" data-toggle="tab" aria-expanded="true"> <span>Poupança</span> </a> </li> 
       <li role="presentation"> <a href="#aplicacoes" aria-controls="aplicacoes" role="tab" data-toggle="tab" aria-expanded="true"> <span>Aplicações</span> </a> </li> 
       <li role="presentation"> <a href="#iap" aria-controls="iap" role="tab" data-toggle="tab" aria-expanded="true"> <span>IAP</span> </a> </li>  
+      <li role="presentation"> <a href="#cobranca" aria-controls="cobranca" role="tab" data-toggle="tab" aria-expanded="true"> <span>Cobrança</span> </a> </li>
+      <li role="presentation"> <a href="#consorcios" aria-controls="consorcios" role="tab" data-toggle="tab" aria-expanded="true"> <span>Consórcios</span> </a> </li>
+      <li role="presentation"> <a href="#previdencias" aria-controls="previdencias" role="tab" data-toggle="tab" aria-expanded="true"> <span>Previdências</span> </a> </li> 
       <li role="presentation"> <a href="#seguros" aria-controls="seguros" role="tab" data-toggle="tab" aria-expanded="true"> <span>Seguros</span> </a> </li>
-      <li role="presentation"> <a href="#consorcios" aria-controls="consorcios" role="tab" data-toggle="tab" aria-expanded="true"> <span>Consórcios</span> </a> </li> 
-      <li role="presentation"> <a href="#previdencias" aria-controls="previdencias" role="tab" data-toggle="tab" aria-expanded="true"> <span>Previdência</span> </a> </li> 
+      <li role="presentation"> <a href="#sipag" aria-controls="sipag" role="tab" data-toggle="tab" aria-expanded="true"> <span>SIPAG</span> </a> </li>
     </ul>
     <!-- Tab panes -->
     <div class="tab-content white-box mt-0">
@@ -905,188 +907,6 @@ Painel do associado
         @endif
         <div class="clearfix"></div>
       </div>
-      <div role="tabpanel" class="tab-pane fade" id="seguros">
-        @if(isset($associado->RelationSeguros[0]))
-        <div class="row bg-light justify-content-center mt-n4 mb-5 p-3 rounded">
-          <label class="m-auto font-weight-bold">Data base: {{date('d/m/Y', strtotime($pro_seguros->data_movimento))}}</label>
-        </div>
-        @foreach($associado->RelationSeguros->sortByDesc('data_vigencia') as $seguros)
-        <div class="col-12"> 
-          <div class="mb-5">
-            <h5 class="font-weight-normal"><b>{{$seguros->familia}}</b> <small>({{$seguros->n_proposta}})</small></h5>
-            <hr class="mt-2">
-            <div class="row">
-              <div class="col-lg-3 col-12">
-                <h6 class="mt-lg-0">Nº da apólice</h6>
-                <label>{{$seguros->n_apolice}}</label>
-              </div>
-              <div class="col-lg-3 col-12">
-                <h6 class="mt-lg-0">Corretora</h6>
-                <label>{{$seguros->corretora}}</label>
-              </div>
-              <div class="col-lg-3 col-12">
-                <h6 class="mt-lg-0">Seguradora</h6>
-                <label>{{$seguros->seguradora}}</label>
-              </div>
-              <div class="col-lg-3 col-12">
-                <h6 class="mt-lg-0">Ramo</h6>
-                <label>{{$seguros->ramo}}</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-3 col-12">
-                <h6>Início de vigência</h6>
-                <label>{{date('d/m/Y', strtotime($seguros->data_vigencia))}}</label>
-              </div>
-              <div class="col-lg-3 col-12">
-                <h6>Final de vigência</h6>
-                <label>{{(date('d/m/Y', strtotime($seguros->data_encerramento)) != '01/01/1900' ? date('d/m/Y', strtotime($seguros->data_encerramento)) : '-')}}</label>
-              </div>
-              <div class="col-lg-3 col-12">
-                <h6>Prêmio Bruto</h6>
-                <label>R$ {{number_format($seguros->premio_bruto, 2, ',', '.')}}</label>
-              </div>
-              <div class="col-lg-3 col-12">
-                <h6>Prêmio Líquido</h6>
-                <label>R$ {{number_format($seguros->premio_liquido, 2, ',', '.')}}</label>
-              </div>
-            </div>
-          </div>
-        </div>
-        @endforeach
-        @else
-        <div class="text-center">
-          <i class="mdi mdi-36px mdi-close-octagon-outline"></i>
-          <h5>Nenhuma informação encontrada.</h5>
-        </div>
-        @endif
-      </div>
-      <div role="tabpanel" class="tab-pane fade" id="consorcios">
-        @if(isset($associado->RelationConsorcios[0]))
-        <div class="row bg-light justify-content-center mt-n4 mb-5 p-3 rounded">
-          <label class="m-auto font-weight-bold">Data base: {{date('d/m/Y', strtotime($pro_consorcios->data_movimento))}}</label>
-        </div>
-        @foreach($associado->RelationConsorcios->sortBy('versao') as $consorcios)
-        <div class="col-12"> 
-          <div class="mb-5">
-            <h5 class="font-weight-normal"><b>{{$consorcios->n_contrato}}</b> <small class="{{($consorcios->versao == 'ATIVA' ? 'badge badge-success' : ($consorcios->versao == 'CANCELADO POR SOLICITAÇÃO OU INAD.' ? 'badge badge-danger' : 'badge badge-info'))}}">{{$consorcios->versao}}</small></h5>
-            <hr class="mt-2">
-            <div class="row">
-              <div class="col-lg-6 col-12">
-                <h6 class="mt-lg-0">Segmento</h6>
-                <label>{{$consorcios->segmento}}</label>
-              </div>
-              <div class="col-lg-3 col-12">
-                <h6 class="mt-lg-0">Bem de referência</h6>
-                <label>{{$consorcios->bem_referencia}}</label>
-              </div>  
-              <div class="col-lg-3 col-12">
-                <h6 class="mt-lg-0">Situação</h6>
-                <label>{{$consorcios->situacao}}</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-3 col-12">
-                <h6>Grupo</h6>
-                <label>{{$consorcios->grupo}}</label>
-              </div>
-              <div class="col-lg-3 col-12">
-                <h6>Cota</h6>
-                <label>{{$consorcios->cota}}</label>
-              </div>
-              <div class="col-lg-3 col-12">
-                <h6>Taxa de administração</h6>
-                <label>{{number_format($consorcios->taxa_administracao, 2, ',', '.')}} %</label>
-              </div>
-              <div class="col-lg-3 col-12">
-                <h6>Forma de pagamento</h6>
-                <label>{{$consorcios->forma_pagamento}}</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-3 col-12">
-                <h6>Tipo de comtemplação</h6>
-                <label>{{$consorcios->tipo_contemplacao}}</label>
-              </div>
-              <div class="col-lg-3 col-12">
-                <h6>Data de adesão</h6>
-                <label>{{date('d/m/Y', strtotime($consorcios->data_adesao))}}</label>
-              </div>
-              <div class="col-lg-3 col-12">
-                <h6>Data de cancelamento</h6>
-                <label>{{(date('d/m/Y', strtotime($consorcios->data_cancelamento)) != '31/12/1969' ? date('d/m/Y', strtotime($consorcios->data_cancelamentoo)) : '-')}}</label>
-              </div>
-              <div class="col-lg-3 col-12">
-                <h6>Valor contratado</h6>
-                <label>R$ {{number_format($consorcios->valor_contratado, 2, ',', '.')}}</label>
-              </div>
-            </div>
-          </div>
-        </div>
-        @endforeach
-        @else
-        <div class="text-center">
-          <i class="mdi mdi-36px mdi-close-octagon-outline"></i>
-          <h5>Nenhuma informação encontrada.</h5>
-        </div>
-        @endif
-      </div>
-      <div role="tabpanel" class="tab-pane fade" id="previdencias">
-        @if(isset($associado->RelationPrevidencias[0]))
-        <div class="row bg-light justify-content-center mt-n4 mb-5 p-3 rounded">
-          <label class="m-auto font-weight-bold">Data base: {{date('d/m/Y', strtotime($pro_previdencias->data_movimento))}}</label>
-        </div>
-        @foreach($associado->RelationPrevidencias->sortByDesc('data_adesao') as $previdencias)
-        <div class="col-12"> 
-          <div class="mb-5">
-            <h5 class="font-weight-normal"><b>{{$previdencias->n_registro}}</b> <small class="{{($previdencias->tipo_participante == 'ATIVO - COBRANÇA BANCÁRIA' ? 'badge badge-success' : ($previdencias->tipo_participante == 'CANCELADO' ? 'badge badge-danger' : 'badge badge-info'))}}">{{$previdencias->situacao_participante}}</small></h5>
-            <hr class="mt-2">
-            <div class="row">
-              <div class="col-lg-3 col-12">
-                <h6 class="mt-lg-0">Plano</h6>
-                <label>{{$previdencias->plano}}</label>
-              </div>
-              <div class="col-lg-3 col-12">
-                <h6 class="mt-lg-0">Regime</h6>
-                <label>{{$previdencias->regime}}</label>
-              </div>  
-              <div class="col-lg-3 col-12">
-                <h6 class="mt-lg-0">Tipo de participante</h6>
-                <label>{{$previdencias->tipo_participante}}</label>
-              </div>
-              <div class="col-lg-3 col-12">
-                <h6 class="mt-lg-0">Situação</h6>
-                <label>{{$previdencias->situacao_participante}}</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-3 col-12">
-                <h6>Forma de pagamento</h6>
-                <label>{{$previdencias->forma_pagamento}}</label>
-              </div>
-              <div class="col-lg-3 col-12">
-                <h6>Data de adesão</h6>
-                <label>{{date('d/m/Y', strtotime($previdencias->data_adesao))}}</label>
-              </div>
-              <div class="col-lg-3 col-12">
-                <h6>Data de cancelamento</h6>
-                <label>{{(date('d/m/Y', strtotime($previdencias->data_desligamento)) != '01/01/1900' ? date('d/m/Y', strtotime($previdencias->data_desligamento)) : '-')}}</label>
-              </div>
-              <div class="col-lg-3 col-12">
-                <h6>Valor da proposta</h6>
-                <label>R$ {{number_format($previdencias->valor_proposta, 2, ',', '.')}}</label>
-              </div>
-            </div>
-          </div>
-        </div>
-        @endforeach
-        @else
-        <div class="text-center">
-          <i class="mdi mdi-36px mdi-close-octagon-outline"></i>
-          <h5>Nenhuma informação encontrada.</h5>
-        </div>
-        @endif
-      </div>
       <div role="tabpanel" class="tab-pane fade" id="iap">
         @if(isset($associado->RelationIAP))
         <div class="row bg-light justify-content-center mt-n4 mb-5 p-3 rounded">
@@ -1487,6 +1307,321 @@ Painel do associado
         @endif
         <div class="clearfix"></div>
       </div>
+      <div role="tabpanel" class="tab-pane fade" id="cobranca">
+        @if(isset($associado->RelationPrevidencias[0]))
+        <div class="row bg-light justify-content-center mt-n4 mb-5 p-3 rounded">
+          <label class="m-auto font-weight-bold">Data base: {{date('d/m/Y', strtotime($pro_previdencias->data_movimento))}}</label>
+        </div>
+        @foreach($associado->RelationPrevidencias->sortByDesc('data_adesao') as $previdencias)
+        <div class="col-12"> 
+          <div class="mb-5">
+            <h5 class="font-weight-normal"><b>{{$previdencias->n_registro}}</b> <small class="{{($previdencias->tipo_participante == 'ATIVO - COBRANÇA BANCÁRIA' ? 'badge badge-success' : ($previdencias->tipo_participante == 'CANCELADO' ? 'badge badge-danger' : 'badge badge-info'))}}">{{$previdencias->situacao_participante}}</small></h5>
+            <hr class="mt-2">
+            <div class="row">
+              <div class="col-lg-3 col-12">
+                <h6 class="mt-lg-0">Plano</h6>
+                <label>{{$previdencias->plano}}</label>
+              </div>
+              <div class="col-lg-3 col-12">
+                <h6 class="mt-lg-0">Regime</h6>
+                <label>{{$previdencias->regime}}</label>
+              </div>  
+              <div class="col-lg-3 col-12">
+                <h6 class="mt-lg-0">Tipo de participante</h6>
+                <label>{{$previdencias->tipo_participante}}</label>
+              </div>
+              <div class="col-lg-3 col-12">
+                <h6 class="mt-lg-0">Situação</h6>
+                <label>{{$previdencias->situacao_participante}}</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-3 col-12">
+                <h6>Forma de pagamento</h6>
+                <label>{{$previdencias->forma_pagamento}}</label>
+              </div>
+              <div class="col-lg-3 col-12">
+                <h6>Data de adesão</h6>
+                <label>{{date('d/m/Y', strtotime($previdencias->data_adesao))}}</label>
+              </div>
+              <div class="col-lg-3 col-12">
+                <h6>Data de cancelamento</h6>
+                <label>{{(date('d/m/Y', strtotime($previdencias->data_desligamento)) != '01/01/1900' ? date('d/m/Y', strtotime($previdencias->data_desligamento)) : '-')}}</label>
+              </div>
+              <div class="col-lg-3 col-12">
+                <h6>Valor da proposta</h6>
+                <label>R$ {{number_format($previdencias->valor_proposta, 2, ',', '.')}}</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        @endforeach
+        @else
+        <div class="text-center">
+          <i class="mdi mdi-36px mdi-close-octagon-outline"></i>
+          <h5>Nenhuma informação encontrada.</h5>
+        </div>
+        @endif
+      </div>
+      <div role="tabpanel" class="tab-pane fade" id="consorcios">
+        @if(isset($associado->RelationConsorcios[0]))
+        <div class="row bg-light justify-content-center mt-n4 mb-5 p-3 rounded">
+          <label class="m-auto font-weight-bold">Data base: {{date('d/m/Y', strtotime($pro_consorcios->data_movimento))}}</label>
+        </div>
+        @foreach($associado->RelationConsorcios->sortBy('versao') as $consorcios)
+        <div class="col-12"> 
+          <div class="mb-5">
+            <h5 class="font-weight-normal"><b>{{$consorcios->n_contrato}}</b> <small class="{{($consorcios->versao == 'ATIVA' ? 'badge badge-success' : ($consorcios->versao == 'CANCELADO POR SOLICITAÇÃO OU INAD.' ? 'badge badge-danger' : 'badge badge-info'))}}">{{$consorcios->versao}}</small></h5>
+            <hr class="mt-2">
+            <div class="row">
+              <div class="col-lg-6 col-12">
+                <h6 class="mt-lg-0">Segmento</h6>
+                <label>{{$consorcios->segmento}}</label>
+              </div>
+              <div class="col-lg-3 col-12">
+                <h6 class="mt-lg-0">Bem de referência</h6>
+                <label>{{$consorcios->bem_referencia}}</label>
+              </div>  
+              <div class="col-lg-3 col-12">
+                <h6 class="mt-lg-0">Situação</h6>
+                <label>{{$consorcios->situacao}}</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-3 col-12">
+                <h6>Grupo</h6>
+                <label>{{$consorcios->grupo}}</label>
+              </div>
+              <div class="col-lg-3 col-12">
+                <h6>Cota</h6>
+                <label>{{$consorcios->cota}}</label>
+              </div>
+              <div class="col-lg-3 col-12">
+                <h6>Taxa de administração</h6>
+                <label>{{number_format($consorcios->taxa_administracao, 2, ',', '.')}} %</label>
+              </div>
+              <div class="col-lg-3 col-12">
+                <h6>Forma de pagamento</h6>
+                <label>{{$consorcios->forma_pagamento}}</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-3 col-12">
+                <h6>Tipo de comtemplação</h6>
+                <label>{{$consorcios->tipo_contemplacao}}</label>
+              </div>
+              <div class="col-lg-3 col-12">
+                <h6>Data de adesão</h6>
+                <label>{{date('d/m/Y', strtotime($consorcios->data_adesao))}}</label>
+              </div>
+              <div class="col-lg-3 col-12">
+                <h6>Data de cancelamento</h6>
+                <label>{{(date('d/m/Y', strtotime($consorcios->data_cancelamento)) != '31/12/1969' ? date('d/m/Y', strtotime($consorcios->data_cancelamentoo)) : '-')}}</label>
+              </div>
+              <div class="col-lg-3 col-12">
+                <h6>Valor contratado</h6>
+                <label>R$ {{number_format($consorcios->valor_contratado, 2, ',', '.')}}</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        @endforeach
+        @else
+        <div class="text-center">
+          <i class="mdi mdi-36px mdi-close-octagon-outline"></i>
+          <h5>Nenhuma informação encontrada.</h5>
+        </div>
+        @endif
+      </div>
+      <div role="tabpanel" class="tab-pane fade" id="seguros">
+        @if(isset($associado->RelationSeguros[0]))
+        <div class="row bg-light justify-content-center mt-n4 mb-5 p-3 rounded">
+          <label class="m-auto font-weight-bold">Data base: {{date('d/m/Y', strtotime($pro_seguros->data_movimento))}}</label>
+        </div>
+        @foreach($associado->RelationSeguros->sortByDesc('data_vigencia') as $seguros)
+        <div class="col-12"> 
+          <div class="mb-5">
+            <h5 class="font-weight-normal"><b>{{$seguros->produto}}</b> <small class="badge badge-success">Vigente</small></h5>
+            <hr class="mt-2">
+            <div class="row">
+              <div class="col-lg-3 col-12">
+                <h6 class="mt-lg-0">Nº da apólice</h6>
+                <label>{{$seguros->n_apolice}}</label>
+              </div>
+              <div class="col-lg-3 col-12">
+                <h6 class="mt-lg-0">Ramo</h6>
+                <label>{{$seguros->ramo}}</label>
+              </div>
+              <div class="col-lg-3 col-12">
+                <h6 class="mt-lg-0">Família</h6>
+                <label>{{$seguros->familia}}</label>
+              </div>
+              <div class="col-lg-3 col-12">
+                <h6 class="mt-lg-0">Tipo proposta</h6>
+                <label>{{$seguros->tipo_proposta}}</label>
+              </div>
+            </div>
+             <div class="row">
+              <div class="col-lg-3 col-12">
+                <h6>Corretora</h6>
+                <label>{{$seguros->corretora}}</label>
+              </div>
+              <div class="col-lg-3 col-12">
+                <h6>Seguradora</h6>
+                <label>{{$seguros->seguradora}}</label>
+              </div>
+              <div class="col-lg-3 col-12">
+                <h6>Início de vigência</h6>
+                <label>{{date('d/m/Y', strtotime($seguros->data_vigencia))}}</label>
+              </div>
+              <div class="col-lg-3 col-12">
+                <h6>Final de vigência</h6>
+                <label>{{(date('d/m/Y', strtotime($seguros->data_encerramento)) != '01/01/1900' ? date('d/m/Y', strtotime($seguros->data_encerramento)) : '-')}}</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-3 col-12">
+                <h6>Prêmio Líquido</h6>
+                <label>R$ {{number_format($seguros->premio_liquido, 2, ',', '.')}}</label>
+              </div>
+              <div class="col-lg-3 col-12">
+                <h6>Prêmio Bruto</h6>
+                <label>R$ {{number_format($seguros->premio_bruto, 2, ',', '.')}}</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        @endforeach
+        @else
+        <div class="text-center">
+          <i class="mdi mdi-36px mdi-close-octagon-outline"></i>
+          <h5>Nenhuma informação encontrada.</h5>
+        </div>
+        @endif
+      </div>
+      <div role="tabpanel" class="tab-pane fade" id="sipag">
+        @if(isset($associado->RelationSeguros[0]))
+        <div class="row bg-light justify-content-center mt-n4 mb-5 p-3 rounded">
+          <label class="m-auto font-weight-bold">Data base: {{date('d/m/Y', strtotime($pro_seguros->data_movimento))}}</label>
+        </div>
+        @foreach($associado->RelationSeguros->sortByDesc('data_vigencia') as $seguros)
+        <div class="col-12"> 
+          <div class="mb-5">
+            <h5 class="font-weight-normal"><b>{{$seguros->produto}}</b> <small class="badge badge-success">Vigente</small></h5>
+            <hr class="mt-2">
+            <div class="row">
+              <div class="col-lg-3 col-12">
+                <h6 class="mt-lg-0">Nº da apólice</h6>
+                <label>{{$seguros->n_apolice}}</label>
+              </div>
+              <div class="col-lg-3 col-12">
+                <h6 class="mt-lg-0">Ramo</h6>
+                <label>{{$seguros->ramo}}</label>
+              </div>
+              <div class="col-lg-3 col-12">
+                <h6 class="mt-lg-0">Família</h6>
+                <label>{{$seguros->familia}}</label>
+              </div>
+              <div class="col-lg-3 col-12">
+                <h6 class="mt-lg-0">Tipo proposta</h6>
+                <label>{{$seguros->tipo_proposta}}</label>
+              </div>
+            </div>
+             <div class="row">
+              <div class="col-lg-3 col-12">
+                <h6>Corretora</h6>
+                <label>{{$seguros->corretora}}</label>
+              </div>
+              <div class="col-lg-3 col-12">
+                <h6>Seguradora</h6>
+                <label>{{$seguros->seguradora}}</label>
+              </div>
+              <div class="col-lg-3 col-12">
+                <h6>Início de vigência</h6>
+                <label>{{date('d/m/Y', strtotime($seguros->data_vigencia))}}</label>
+              </div>
+              <div class="col-lg-3 col-12">
+                <h6>Final de vigência</h6>
+                <label>{{(date('d/m/Y', strtotime($seguros->data_encerramento)) != '01/01/1900' ? date('d/m/Y', strtotime($seguros->data_encerramento)) : '-')}}</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-3 col-12">
+                <h6>Prêmio Líquido</h6>
+                <label>R$ {{number_format($seguros->premio_liquido, 2, ',', '.')}}</label>
+              </div>
+              <div class="col-lg-3 col-12">
+                <h6>Prêmio Bruto</h6>
+                <label>R$ {{number_format($seguros->premio_bruto, 2, ',', '.')}}</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        @endforeach
+        @else
+        <div class="text-center">
+          <i class="mdi mdi-36px mdi-close-octagon-outline"></i>
+          <h5>Nenhuma informação encontrada.</h5>
+        </div>
+        @endif
+      </div>
+      <div role="tabpanel" class="tab-pane fade" id="previdencias">
+        @if(isset($associado->RelationPrevidencias[0]))
+        <div class="row bg-light justify-content-center mt-n4 mb-5 p-3 rounded">
+          <label class="m-auto font-weight-bold">Data base: {{date('d/m/Y', strtotime($pro_previdencias->data_movimento))}}</label>
+        </div>
+        @foreach($associado->RelationPrevidencias->sortByDesc('data_adesao') as $previdencias)
+        <div class="col-12"> 
+          <div class="mb-5">
+            <h5 class="font-weight-normal"><b>{{$previdencias->n_registro}}</b> <small class="{{($previdencias->tipo_participante == 'ATIVO - COBRANÇA BANCÁRIA' ? 'badge badge-success' : ($previdencias->tipo_participante == 'CANCELADO' ? 'badge badge-danger' : 'badge badge-info'))}}">{{$previdencias->situacao_participante}}</small></h5>
+            <hr class="mt-2">
+            <div class="row">
+              <div class="col-lg-3 col-12">
+                <h6 class="mt-lg-0">Plano</h6>
+                <label>{{$previdencias->plano}}</label>
+              </div>
+              <div class="col-lg-3 col-12">
+                <h6 class="mt-lg-0">Regime</h6>
+                <label>{{$previdencias->regime}}</label>
+              </div>  
+              <div class="col-lg-3 col-12">
+                <h6 class="mt-lg-0">Tipo de participante</h6>
+                <label>{{$previdencias->tipo_participante}}</label>
+              </div>
+              <div class="col-lg-3 col-12">
+                <h6 class="mt-lg-0">Situação</h6>
+                <label>{{$previdencias->situacao_participante}}</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-3 col-12">
+                <h6>Forma de pagamento</h6>
+                <label>{{$previdencias->forma_pagamento}}</label>
+              </div>
+              <div class="col-lg-3 col-12">
+                <h6>Data de adesão</h6>
+                <label>{{date('d/m/Y', strtotime($previdencias->data_adesao))}}</label>
+              </div>
+              <div class="col-lg-3 col-12">
+                <h6>Data de cancelamento</h6>
+                <label>{{(date('d/m/Y', strtotime($previdencias->data_desligamento)) != '01/01/1900' ? date('d/m/Y', strtotime($previdencias->data_desligamento)) : '-')}}</label>
+              </div>
+              <div class="col-lg-3 col-12">
+                <h6>Valor da proposta</h6>
+                <label>R$ {{number_format($previdencias->valor_proposta, 2, ',', '.')}}</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        @endforeach
+        @else
+        <div class="text-center">
+          <i class="mdi mdi-36px mdi-close-octagon-outline"></i>
+          <h5>Nenhuma informação encontrada.</h5>
+        </div>
+        @endif
+      </div>
+      
     </div>
   </div>
 </div>

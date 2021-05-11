@@ -16,7 +16,6 @@ class CreateProConsorciosTable extends Migration
         Schema::create('pro_consorcios', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-
             $table->string('n_contrato');
             $table->string('grupo');
             $table->string('cota');
