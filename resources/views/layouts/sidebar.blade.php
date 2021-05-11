@@ -122,7 +122,8 @@
         </ul>
       </li>
       @endif
-
+      
+      <!--
       @if(Auth::user()->RelationFuncao->ver_negocios == 1 || Auth::user()->RelationFuncao->gerenciar_negocios == 1)
       <li> 
         <a href="javascript:" class="waves-effect {{ (Request::segment(2) == 'produtos' ? 'active' : '') }}">
@@ -131,7 +132,7 @@
         </a>
         <ul class="nav nav-second-level {{ (Request::segment(2) == 'produtos' ? ' collapse in' : '') }}">
           @if(Auth::user()->RelationFuncao->gerenciar_negocios == 1)
-          <!--<li> <a href="{{route('dashboard.negocios')}}"><span class="hide-menu">Dashboard</span></a> </li>-->
+         <li> <a href="{{route('dashboard.negocios')}}"><span class="hide-menu">Dashboard</span></a> </li>
           <li> <a href="{{route('exibir.analise.negocios')}}"><span class="hide-menu">Análise econômica</span></a> </li>
           @endif
           @if(Auth::user()->RelationFuncao->ver_negocios == 1)
@@ -139,11 +140,12 @@
           @endif
           @if(Auth::user()->RelationFuncao->gerenciar_negocios == 1)
           <li> <a href="{{route('exibir.acompanhamento.negocios')}}"><span class="hide-menu">Acompanhamento</span></a> </li>
-          <!--<li> <a href="{{route('exibir.relatorios.negocios')}}"><span class="hide-menu">Relatórios</span></a> </li>-->
+          <li> <a href="{{route('exibir.relatorios.negocios')}}"><span class="hide-menu">Relatórios</span></a> </li>
           @endif
         </ul>
       </li>
       @endif
+      -->
 
       @if(Auth::user()->RelationFuncao->ver_suporte == 1)
       <li> 

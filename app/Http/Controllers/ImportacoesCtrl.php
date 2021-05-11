@@ -24,6 +24,7 @@ use App\Imports\cre_garantias;
 use App\Imports\pro_seguros;
 use App\Imports\pro_consorcios;
 use App\Imports\pro_previdencias;
+use App\Imports\pro_cobranca;
 use Maatwebsite\Excel\HeadingRowImport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Associados;
