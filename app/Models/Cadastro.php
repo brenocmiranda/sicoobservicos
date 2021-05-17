@@ -34,6 +34,6 @@ class Cadastro extends Model
     }
 
     public function RelationArquivos(){
-        return $this->hasMany(CadastroArquivos::class, 'cad_id_novos');
+        return $this->belongsToMany(Arquivos::class, 'cad_novos_has_arquivos', 'cad_id_novos', 'id_arquivo')->withPivot('nome');
     }
 }

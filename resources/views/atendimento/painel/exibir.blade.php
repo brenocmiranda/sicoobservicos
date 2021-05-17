@@ -1069,7 +1069,6 @@ Painel do associado
               </a>
               @endif
             </div>
-            <!--
             <div class="col-lg-3 col-6">
               @if($associado->RelationIAP->indicador_debito)
                 <div class="radio radio-success">
@@ -1083,7 +1082,6 @@ Painel do associado
                 </div>
               @endif
             </div>
-            -->
             <div class="col-lg-3 col-6">
               @if($associado->RelationIAP->indicador_emprestimo)
               <a href="javascript:" class="text-dark" onclick="$('a[href=#carteiracredito]').click();">
