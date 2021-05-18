@@ -274,7 +274,6 @@
 									<span>Adicionar arquivos</span>
 								</a>
 							</div>
-							
 						</div>
 					</div>
 				</div>
@@ -286,9 +285,9 @@
 									<label class="col-12 col-form-label px-0">Sócio <span class="text-danger">*</span>
 									</label> 
 									<div class="row mx-auto">
-										<input class="col-9 col-lg-11 form-control form-control-line pesquisar px-2 ui-autocomplete-input" onkeyup="this.value = this.value.toUpperCase(); $(this).removeClass('border-danger');" placeholder="Entre com nome ou documento do associado..." onchange="this.value = this.value.toUpperCase();" aria-controls="table" name="socios[]" required="" autocomplete="off"> 
+										<input class="col-8 col-lg-11 form-control form-control-line pesquisar px-2 ui-autocomplete-input" onkeyup="this.value = this.value.toUpperCase(); $(this).removeClass('border-danger');" placeholder="Entre com nome ou documento do associado..." onchange="this.value = this.value.toUpperCase();" aria-controls="table" name="socios[]" required="" autocomplete="off"> 
 										<div class="col-2 col-lg-1 d-flex">
-											<a href="javascript:" class="btn btn-default btn-xs mx-1 my-auto text-center" title="Cadastrar novo associado">
+											<a href="#" class="btn btn-default btn-xs mx-1 my-auto text-center" data-toggle="modal" data-target="#modal-socios" title="Cadastrar novo associado">
 												<i class="mdi mdi-account-plus"></i>
 											</a>
 											<a href="javascript:" class="btn btn-danger btn-xs mx-1 my-auto text-center disabled" title="Remover o associado"> 
