@@ -321,7 +321,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-12 px-0 mt-5 pt-5 justify-content-center imagePJ">
+						<div class="col-12 px-0 mt-5 pt-5 d-flex justify-content-center imagePJ">
 							<img id="PreviewImagePJ" src="">
 							<input type="hidden" id="xPJ" name="x" />
 					        <input type="hidden" id="yPJ" name="y" />
