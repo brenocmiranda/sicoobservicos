@@ -20,17 +20,17 @@ Bens
 	<div class="card">
 		<div class="card-body">
 			<div class="col-12">
-				@if(Auth::user()->RelationFuncao->gerenciar_administrativo == 1)
 				<div class="col-12 row mb-4 mx-auto">
 					@include('layouts.search')
 					<div class="col-2 col-lg-5 col-sm-5 p-0 row mx-auto">
+						@if(Auth::user()->RelationFuncao->gerenciar_administrativo == 1)
 						<a href="{{route('adicionar.bens.administrativo')}}" class="btn btn-primary btn-outline ml-auto" id="adicionar" name="adicionar" title="Adicionar novo bens da da cooperativa">
 							<i class="m-0 pr-lg-1 mdi mdi-plus"></i> 
 							<span class="hidden-xs">Cadastrar</span>
 						</a>
+						@endif
 					</div>
 				</div>
-				@endif
 				<div class="row col-12 mx-auto my-5 px-0">
 					<div class="col-12 p-0">
 						@if(isset($bens[0]))
@@ -41,13 +41,16 @@ Bens
 										<div class="row col-12 px-0 mx-auto border shadow-sm">
 											<div class="col-lg-4 d-none d-lg-block w-100 px-0 border-right">
 												<a href="{{route('detalhes.bens.administrativo', $item->id)}}">
-													<div style="height: 155px; background: url({{asset('storage/app').'/'.$item->RelationImagemPrincipal->endereco}}); background-size: 100% 100%;"></div>
+													<div style="min-height: 160px; height: 100%; background: url({{asset('storage/app').'/'.$item->RelationImagemPrincipal->endereco}}); background-size: cover; background-position: center"></div>
 												</a>
 											</div>
 											<div class="row mx-auto col-12 col-lg-8 py-3 px-0 h-100">
 												<div class="mx-auto row col-12">
 													<a href="{{route('detalhes.bens.administrativo', $item->id)}}" class="w-100 text-left">
-														<h5 class="mt-2">{{$item->nome}} <small>{{($item->tipo == 'veiculos' ? "Veículos" : ($item->tipo == 'imovel' ? "Imóvel" : "Outros"))}}</small></h5>
+														<h5 class="mt-2 mb-1">{{$item->nome}} <small>{{($item->tipo == 'veiculos' ? "Veículos" : ($item->tipo == 'imovel' ? "Imóvel" : "Outros"))}}</small></h5>
+														<p class="text-dark mb-3" style="line-height: 13px">
+															<small>{{$item->RelationAssociado->nome}}</small>
+														</p>
 														@if(isset($item->cep))
 														<div style="line-height: 15px">
 															<small class="text-dark d-block">{{(isset($item->rua) ? $item->rua.', ' : '').(isset($item->numero) ? $item->numero.', ' : '').(isset($item->bairro) ? $item->bairro : '')}}</small>

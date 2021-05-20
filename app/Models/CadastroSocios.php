@@ -16,4 +16,8 @@ class CadastroSocios extends Model
     public function RelationCadastro(){
         return $this->belongsTo(Cadastro::class, 'cad_id_novos');
     }
+
+    public function RelationAssociado(){
+        return $this->belongsTo(Associados::class, 'cli_id_associado'); 
+    }
 }

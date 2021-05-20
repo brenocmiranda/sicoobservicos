@@ -24,6 +24,8 @@ class CreateProSegurosTable extends Migration
             $table->string('seguradora');
             $table->string('ramo');
             $table->string('familia');
+            $table->string('produto');
+            $table->string('tipo_proposta');
             $table->double('premio_bruto');
             $table->double('premio_liquido');
             $table->double('comissao');

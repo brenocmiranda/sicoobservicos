@@ -71,8 +71,12 @@ class AdministrativoCtrl extends Controller
 	}
 	public function AdicionarSalvarBens(Request $request){
 		if(Auth::user()->RelationFuncao->gerenciar_administrativo == 1){
+			$documento = explode(': ', $request->cli_id_associado);
+	  		$associado = Associados::where('documento', $documento[1])->first();
+
 			$create = Bens::create([
 				'nome' => mb_strtoupper($request->nome),
+				'cli_id_associado' => $associado->id,
 				'tipo' => $request->tipo, 
 				'valor' => str_replace(',', '.', str_replace('.', '', $request->valor)), 
 				'descricao' => (isset($request->descricao) ? mb_strtoupper($request->descricao) : null),
@@ -127,8 +131,12 @@ class AdministrativoCtrl extends Controller
 	}
 	public function EditarSalvarBens(Request $request, $id){
 		if(Auth::user()->RelationFuncao->gerenciar_administrativo == 1){
+			$documento = explode(': ', $request->cli_id_associado);
+	  		$associado = Associados::where('documento', $documento[1])->first();
+
 			Bens::find($id)->update([
 				'nome' => mb_strtoupper($request->nome),
+				'cli_id_associado' => $associado->id,
 				'tipo' => $request->tipo, 
 				'valor' => str_replace(',', '.', str_replace('.', '', $request->valor)), 
 				'descricao' => (isset($request->descricao) ? mb_strtoupper($request->descricao) : null),
@@ -224,7 +232,12 @@ class AdministrativoCtrl extends Controller
         Imagens::find($id)->delete();
         return response()->json(['success' => true]);
     }
-
+    // Pesquisando associados por partes do nome
+	public function PesquisarDacao(Request $request){
+  		$search = $request->get('term');
+  		$result = Associados::where('nome', 'LIKE', '%'. $search. '%')->orWhere('nome_fantasia', 'LIKE', '%'. $search. '%')->orWhere('documento', 'LIKE', '%'. $search. '%')->select('nome', 'documento', 'id')->get();
+  		return response()->json($result);
+	}
 
     #-------------------------------------------------------------------
 	# Documentos 

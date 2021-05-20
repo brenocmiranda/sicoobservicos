@@ -16,7 +16,6 @@ class CreateProPrevidenciasTable extends Migration
         Schema::create('pro_previdencias', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-
             $table->string('documento');
             $table->string('n_registro');
             $table->string('aposentadoria');

@@ -14,7 +14,7 @@ Novo associado
 			<ol class="breadcrumb">
 				<li><a href="javascript:void(0)">Atendimento</a></li>
 				<li><a href="{{route('exibir.cadastro.atendimento')}}">Associados</a></li>
-				<li class="active">Novo associado</li>
+				<li class="active">Cadastro</li>
 			</ol>
 		</div>
 	</div>
@@ -49,6 +49,10 @@ Novo associado
 		</div>
 	</div>
 </div>
+@endsection
+
+@section('modal')
+	@include('atendimento.cadastro.addSocio')
 @endsection
 
 @section('suporte')
@@ -123,8 +127,8 @@ Novo associado
 		// Mascaras 
 		var t = 15; // Contador de label de arquivos
 		var j = 1;
-		$('#formPF #cpf').mask('000.000.000-00', {reverse: true});
-		$('#formPJ #cnpj').mask('00.000.000/0000-00', {reverse: true});
+		$('#formPF .cpf').mask('000.000.000-00', {reverse: true});
+		$('#formPJ .cnpj').mask('00.000.000/0000-00', {reverse: true});
 		$('.numeroTelefone').mask('(00) 0000-0000');
 
 		// Inicilizando formulário de pessoa física
@@ -534,7 +538,7 @@ Novo associado
 		$('#btnSocios').on('click', function(){
 			// Adicionando novos campos para os sócios
 			j++;
-			$('.dadosSocios').append('<div class="col-12 mb-2 mt-1"> <label class="col-12 col-form-label px-0">Sócio <span class="text-danger">*</span> </label> <div class="row mx-auto"> <input class="col-9 col-lg-11 form-control form-control-line pesquisar px-2 ui-autocomplete-input" onkeyup="this.value = this.value.toUpperCase(); $(this).removeClass("border-danger");" placeholder="Entre com nome ou documento do associado..." onchange="this.value = this.value.toUpperCase();" aria-controls="table" name="socios[]" required="" autocomplete="off"> <div class="col-2 col-lg-1 d-flex"> <a href="javascript:" class="btn btn-default btn-xs mx-1 my-auto text-center" title="Cadastrar novo associado"> <i class="mdi mdi-account-plus"></i> </a> <a href="javascript:" class="btn btn-danger btn-xs mx-1 my-auto text-center" onclick="removerSocio(this)" title="Remover o associado"> <i class="mdi mdi-delete"></i> </a> </div> </div> </div>');
+			$('.dadosSocios').append('<div class="col-12 mb-2 mt-1"> <label class="col-12 col-form-label px-0">Sócio <span class="text-danger">*</span> </label> <div class="row mx-auto"> <input class="col-8 col-lg-11 form-control form-control-line pesquisar px-2 ui-autocomplete-input" onkeyup="this.value = this.value.toUpperCase(); $(this).removeClass("border-danger");" placeholder="Entre com nome ou documento do associado..." onchange="this.value = this.value.toUpperCase();" aria-controls="table" name="socios[]" required="" autocomplete="off"> <div class="col-2 col-lg-1 d-flex"> <a href="javascript:" class="btn btn-default btn-xs mx-1 my-auto text-center" title="Cadastrar novo associado"> <i class="mdi mdi-account-plus"></i> </a> <a href="javascript:" class="btn btn-danger btn-xs mx-1 my-auto text-center" onclick="removerSocio(this)" title="Remover o associado"> <i class="mdi mdi-delete"></i> </a> </div> </div> </div>');
 
 			// Retornando dados do associado
 			$("#dadosPJ .pesquisar").autocomplete({
@@ -561,6 +565,46 @@ Novo associado
 				}
 			});
 		});
+
+        // Adicionar novo sócio
+        $('#modal-socios #formSocio').on('submit', function(e){
+            e.preventDefault();
+            $.ajax({
+                url: "{{route('salvarPF.cadastro.atendimento')}}",
+                type: 'POST',
+                data: new FormData(this),
+                processData: false,
+                contentType: false,
+                beforeSend: function(){
+                    $('.modal-body, .modal-footer').addClass('d-none');
+                    $('.carregamento').html('<div class="mx-auto text-center my-5"> <div class="col-12"> <div class="spinner-border my-4" role="status"> <span class="sr-only"> Loading... </span> </div> </div> <label>Salvando informações...</label></div>');
+                    $('#modal-socios #err').html('');
+                },
+                success: function(data){
+                    $('.modal-body, .modal-footer').addClass('d-none');
+                    $('.carregamento').html('<div class="mx-auto text-center my-5"><div class="col-12"><i class="col-2 mdi mdi-check-all mdi-48px"></i></div><label>Informações alteradas com sucesso!</label></div>');
+                    setTimeout(function(){
+                        window.reload();
+                    }, 1200);
+                }, error: function (data) {
+                    setTimeout(function(){
+                        $('.modal-body, .modal-footer').removeClass('d-none');
+                        $('.carregamento').html('');
+                        if(!data.responseJSON){
+                            console.log(data.responseText);
+                            $('#modal-socios #err').html(data.responseText);
+                        }else{
+                            $('#modal-socios #err').html('');
+                            $('input').removeClass('border-bottom border-danger');
+                            $.each(data.responseJSON.errors, function(key, value){
+                                $('#modal-socios #err').append('<div class="text-danger mx-4"><p>'+value+'</p></div>');
+                                $('input[name="'+key+'"]').addClass('border-bottom border-danger');
+                            });
+                        }
+                    }, 2000);
+                }
+            });
+        });
 
 	});
 </script>

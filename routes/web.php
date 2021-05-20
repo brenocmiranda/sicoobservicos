@@ -70,6 +70,7 @@ Route::group(['prefix' => 'app'], function(){
 			Route::any('detalhes/{id}', 'AdministrativoCtrl@DetalhesBens')->name('detalhes.bens.administrativo');
 			Route::post('addImagens', 'AdministrativoCtrl@ImagensBens')->name('adicionar.imagens.bens.administrativo');
 			Route::get('removeImagem/{id}', 'AdministrativoCtrl@RemoveImagemBens')->name('remover.imagens.bens.administrativo');
+			Route::any('pesquisar', 'AdministrativoCtrl@PesquisarDacao')->name('pesquisar.associado.bens.administrativo');
 		});
 		// Documentos
 		Route::group(['prefix' => 'documentos'], function(){

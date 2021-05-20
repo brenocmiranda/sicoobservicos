@@ -1,5 +1,5 @@
 @section('title')
-Solicitações de Cadastro
+Novos associados
 @endsection
 
 @extends('layouts.index')
@@ -31,7 +31,7 @@ Solicitações de Cadastro
 			</div>
             <section class="py-4">
                 <div class="sttabs tabs-style-linetriangle row justify-content-center mx-auto">
-                    <nav class="col-lg-8 col-12 mx-auto">
+                    <nav class="col-lg-9 col-12 mx-auto">
                         <ul>
                             <li class="tab-current">
                                 <a href="#section-1">
@@ -102,15 +102,11 @@ Solicitações de Cadastro
                                         </div>
                                         <div class="text-right row col-lg-3 col-4 ml-auto my-auto">
                                             <div class="ml-auto">
-                                                <a href="#" class="btn btn-default btn-outline btn-rounded btn-xs col-10 mb-2" title="">
+                                                <a href="{{route('detalhes.cadastro.atendimento', $solicitacao->id)}}" class="btn btn-default btn-outline btn-rounded btn-xs col-10 mb-2 py-2" title="Detalhes do cadastro">
                                                     <i class="mdi mdi-comment-processing-outline"></i>
                                                     <small class="hidden-xs"> Mais informações</small>
                                                 </a>
-                                                <a href="#" class="btn btn-default btn-outline btn-rounded btn-xs col-10 mb-2" title="">
-                                                    <i class="mdi mdi-cached"></i>
-                                                    <small class="hidden-xs"> Atualizar status</small>
-                                                </a>
-                                                <a href="#" class="btn btn-default btn-outline btn-rounded btn-xs col-10 mb-2" title="">
+                                                <a href="#" class="btn btn-default btn-outline btn-rounded btn-xs col-10 mb-2 py-2" title="Gerar relatório">
                                                     <i class="mdi mdi-cloud-print-outline"></i>
                                                     <small class="hidden-xs"> Gerar relatório</small>
                                                 </a>
@@ -177,15 +173,11 @@ Solicitações de Cadastro
                                                 </div>
                                                 <div class="text-right row col-lg-3 col-4 ml-auto my-auto">
                                                     <div class="ml-auto">
-                                                        <a href="#" class="btn btn-default btn-outline btn-rounded btn-xs col-10 mb-2" title="">
+                                                        <a href="{{route('detalhes.cadastro.atendimento', $solicitacao->id)}}" class="btn btn-default btn-outline btn-rounded btn-xs col-10 mb-2 py-2" title="Detalhes do cadastro">
                                                             <i class="mdi mdi-comment-processing-outline"></i>
                                                             <small class="hidden-xs"> Mais informações</small>
                                                         </a>
-                                                        <a href="#" class="btn btn-default btn-outline btn-rounded btn-xs col-10 mb-2" title="">
-                                                            <i class="mdi mdi-cached"></i>
-                                                            <small class="hidden-xs"> Atualizar status</small>
-                                                        </a>
-                                                        <a href="#" class="btn btn-default btn-outline btn-rounded btn-xs col-10 mb-2" title="">
+                                                        <a href="#" class="btn btn-default btn-outline btn-rounded btn-xs col-10 mb-2 py-2" title="Gerar relatório">
                                                             <i class="mdi mdi-cloud-print-outline"></i>
                                                             <small class="hidden-xs"> Gerar relatório</small>
                                                         </a>
@@ -252,15 +244,11 @@ Solicitações de Cadastro
                                         </div>
                                         <div class="text-right row col-lg-3 col-4 ml-auto my-auto">
                                             <div class="ml-auto">
-                                                <a href="#" class="btn btn-default btn-outline btn-rounded btn-xs col-10 mb-2" title="">
+                                                <a href="{{route('detalhes.cadastro.atendimento', $solicitacao->id)}}" class="btn btn-default btn-outline btn-rounded btn-xs col-10 mb-2 py-2" title="Detalhes do cadastro">
                                                     <i class="mdi mdi-comment-processing-outline"></i>
                                                     <small class="hidden-xs"> Mais informações</small>
                                                 </a>
-                                                <a href="#" class="btn btn-default btn-outline btn-rounded btn-xs col-10 mb-2" title="">
-                                                    <i class="mdi mdi-cached"></i>
-                                                    <small class="hidden-xs"> Atualizar status</small>
-                                                </a>
-                                                <a href="#" class="btn btn-default btn-outline btn-rounded btn-xs col-10 mb-2" title="">
+                                                <a href="#" class="btn btn-default btn-outline btn-rounded btn-xs col-10 mb-2 py-2" title="Gerar relatório">
                                                     <i class="mdi mdi-cloud-print-outline"></i>
                                                     <small class="hidden-xs"> Gerar relatório</small>
                                                 </a>
@@ -326,15 +314,11 @@ Solicitações de Cadastro
                                         </div>
                                         <div class="text-right row col-lg-3 col-4 ml-auto my-auto">
                                             <div class="ml-auto">
-                                                <a href="#" class="btn btn-default btn-outline btn-rounded btn-xs col-10 mb-2" title="">
+                                                <a href="{{route('detalhes.cadastro.atendimento', $solicitacao->id)}}" class="btn btn-default btn-outline btn-rounded btn-xs col-10 mb-2 py-2" title="Detalhes do cadastro">
                                                     <i class="mdi mdi-comment-processing-outline"></i>
                                                     <small class="hidden-xs"> Mais informações</small>
                                                 </a>
-                                                <a href="#" class="btn btn-default btn-outline btn-rounded btn-xs col-10 mb-2" title="">
-                                                    <i class="mdi mdi-cached"></i>
-                                                    <small class="hidden-xs"> Atualizar status</small>
-                                                </a>
-                                                <a href="#" class="btn btn-default btn-outline btn-rounded btn-xs col-10 mb-2" title="">
+                                                <a href="#" class="btn btn-default btn-outline btn-rounded btn-xs col-10 mb-2 py-2" title="Gerar relatório">
                                                     <i class="mdi mdi-cloud-print-outline"></i>
                                                     <small class="hidden-xs"> Gerar relatório</small>
                                                 </a>
@@ -400,15 +384,11 @@ Solicitações de Cadastro
                                         </div>
                                         <div class="text-right row col-lg-3 col-4 ml-auto my-auto">
                                             <div class="ml-auto">
-                                                <a href="#" class="btn btn-default btn-outline btn-rounded btn-xs col-10 mb-2" title="">
+                                                <a href="{{route('detalhes.cadastro.atendimento', $solicitacao->id)}}" class="btn btn-default btn-outline btn-rounded btn-xs col-10 mb-2 py-2" title="Detalhes do cadastro">
                                                     <i class="mdi mdi-comment-processing-outline"></i>
                                                     <small class="hidden-xs"> Mais informações</small>
                                                 </a>
-                                                <a href="#" class="btn btn-default btn-outline btn-rounded btn-xs col-10 mb-2" title="">
-                                                    <i class="mdi mdi-cached"></i>
-                                                    <small class="hidden-xs"> Atualizar status</small>
-                                                </a>
-                                                <a href="#" class="btn btn-default btn-outline btn-rounded btn-xs col-10 mb-2" title="">
+                                                <a href="#" class="btn btn-default btn-outline btn-rounded btn-xs col-10 mb-2 py-2" title="Gerar relatório">
                                                     <i class="mdi mdi-cloud-print-outline"></i>
                                                     <small class="hidden-xs"> Gerar relatório</small>
                                                 </a>

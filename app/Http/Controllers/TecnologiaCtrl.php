@@ -1133,7 +1133,7 @@ class TecnologiaCtrl extends Controller
 	}
 	public function DatatablesInventario(){
 		if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
-			return datatables()->of(Ativos::all())
+			return datatables()->of(Ativos::orderByDesc('gti_ativos.created_at')->get())
 				->editColumn('imagem1', function(Ativos $dados){ 
 	                return '<img src="'.asset('storage/app/'.$dados->RelationImagemPrincipal->endereco).'" height="50" class="rounded">';
 	            })
@@ -1163,7 +1163,7 @@ class TecnologiaCtrl extends Controller
 					<button class="btn btn-dark btn-xs btn-rounded m-1" id="remover" title="Remover o equipamento"><i class="mx-0 mdi mdi-close"></i></button>';
 	            })->rawColumns(['imagem1', 'nome1', 'acoes'])->make(true);
 	        }else{
-				return datatables()->of(Ativos::all())
+				return datatables()->of(Ativos::orderByDesc('gti_ativos.created_at')->get())
 					->editColumn('imagem1', function(Ativos $dados){ 
 		                return '<img src="'.asset('storage/app/'.$dados->RelationImagemPrincipal->endereco).'" height="50" class="rounded">';
 		            })
@@ -1194,7 +1194,7 @@ class TecnologiaCtrl extends Controller
 	public function ExibirUsuariosInventario(){
 		if(Auth::user()->RelationFuncao->ver_gti == 1 || Auth::user()->RelationFuncao->gerenciar_gti == 1){
 			$equipamentos = Ativos::all();
-			$usuarios = AtivosUsuarios::join('usr_usuarios', 'usr_id_usuarios', 'usr_usuarios.id')->join('cli_associados', 'usr_usuarios.cli_id_associado', 'cli_associados.id')->whereNull('dataDevolucao')->select('cli_associados.nome', 'usr_usuarios.id')->groupBy('id')->get();
+			$usuarios = AtivosUsuarios::join('usr_usuarios', 'usr_id_usuarios', 'usr_usuarios.id')->join('cli_associados', 'usr_usuarios.cli_id_associado', 'cli_associados.id')->whereNull('dataDevolucao')->select('cli_associados.nome', 'usr_usuarios.id')->groupBy('id')->orderBy('cli_associados.nome', 'ASC')->get();
 			return view('tecnologia.equipamentos.listarUsuarios')->with('ativos', $equipamentos)->with('usuarios', $usuarios);
 		}else{
 			return redirect(route('403'));

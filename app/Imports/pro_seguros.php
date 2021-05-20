@@ -12,6 +12,7 @@ use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Maatwebsite\Excel\Events\AfterImport;
+use Maatwebsite\Excel\Events\BeforeImport;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\RegistersEventListeners;
 
@@ -23,51 +24,35 @@ class pro_seguros implements ToCollection, WithChunkReading, WithHeadingRow, Sho
     {
         foreach ($rows as $row) 
         {   
-            $dados = ProSeguros::where('n_proposta', $row['numero_proposta_seguro'])->first();
-            if(isset($dados)){
-                 ProSeguros::where('n_proposta', $row['numero_proposta_seguro'])->update([
-                    'documento' => $row['numero_cpfcnpj'], 
-                    'nome_associado' => $row['nome_razao_social'], 
-                    'n_proposta' => $row['numero_proposta_seguro'], 
-                    'n_apolice' => $row['numero_apolice_certificado_seguro'], 
-                    'corretora' => $row['nome_corretora'], 
-                    'seguradora' => $row['nome_seguradora'], 
-                    'ramo' => $row['descricao_ramo_produto'], 
-                    'familia' => $row['descricao_familia_produto'], 
-                    'premio_bruto' => number_format($row['valor_premio_bruto'], 2, '.', ''), 
-                    'premio_liquido' => number_format($row['valor_premio_liquido'], 2, '.', ''),
-                    'comissao' => number_format($row['valor_comissao_prevista'], 2, '.', ''),
-                    'data_vigencia' => gmdate('Y-m-d', (($row['data_inicio_vigencia_apolice'] - 25569) * 86400)), 
-                    'data_encerramento' => gmdate('Y-m-d', (($row['data_fim_vigencia_apolice'] - 25569) * 86400)), 
-                    'cpf_atendente' => $row['numero_cpf_atendente'], 
-                    'data_movimento' => gmdate('Y-m-d', (($row['data_movimento'] - 25569) * 86400)),
-                ]);
-            }else{
-                ProSeguros::create([
-                    'documento' => $row['numero_cpfcnpj'], 
-                    'nome_associado' => $row['nome_razao_social'], 
-                    'n_proposta' => $row['numero_proposta_seguro'], 
-                    'n_apolice' => $row['numero_apolice_certificado_seguro'], 
-                    'corretora' => $row['nome_corretora'], 
-                    'seguradora' => $row['nome_seguradora'], 
-                    'ramo' => $row['descricao_ramo_produto'], 
-                    'familia' => $row['descricao_familia_produto'], 
-                    'premio_bruto' => number_format($row['valor_premio_bruto'], 2, '.', ''), 
-                    'premio_liquido' => number_format($row['valor_premio_liquido'], 2, '.', ''),
-                    'comissao' => number_format($row['valor_comissao_prevista'], 2, '.', ''),
-                    'data_vigencia' => gmdate('Y-m-d', (($row['data_inicio_vigencia_apolice'] - 25569) * 86400)), 
-                    'data_encerramento' => gmdate('Y-m-d', (($row['data_fim_vigencia_apolice'] - 25569) * 86400)), 
-                    'cpf_atendente' => $row['numero_cpf_atendente'], 
-                    'data_movimento' => gmdate('Y-m-d', (($row['data_movimento'] - 25569) * 86400)),
-                    'cli_id_associado' => ($row['numero_cliente_sisbr'] > 0 ? Associados::where('id_sisbr', $row['numero_cliente_sisbr'])->select('id')->first()->id : null),
-                ]);
-            }
+            ProSeguros::create([
+                'documento' => $row['numero_cpfcnpj'], 
+                'nome_associado' => $row['nome_razao_social'], 
+                'n_proposta' => $row['numero_proposta_seguro'], 
+                'n_apolice' => $row['numero_apolice_certificado_seguro'], 
+                'corretora' => $row['nome_corretora'], 
+                'seguradora' => $row['nome_seguradora'], 
+                'ramo' => $row['descricao_ramo_produto'], 
+                'familia' => $row['descricao_familia_produto'],
+                'produto' => $row['descricao_produto_seguro'], 
+                'tipo_proposta' => $row['descricao_tipo_proposta'],
+                'premio_bruto' => number_format($row['valor_premio_bruto'], 2, '.', ''), 
+                'premio_liquido' => number_format($row['valor_premio_liquido'], 2, '.', ''),
+                'comissao' => number_format($row['valor_comissao_prevista'], 2, '.', ''),
+                'data_vigencia' => gmdate('Y-m-d', (($row['data_inicio_vigencia_apolice'] - 25569) * 86400)), 
+                'data_encerramento' => gmdate('Y-m-d', (($row['data_fim_vigencia_apolice'] - 25569) * 86400)), 
+                'cpf_atendente' => $row['numero_cpf_atendente'], 
+                'data_movimento' => gmdate('Y-m-d', (($row['data_movimento'] - 25569) * 86400)),
+                'cli_id_associado' => ($row['numero_cliente_sisbr'] > 0 ? Associados::where('id_sisbr', $row['numero_cliente_sisbr'])->select('id')->first()->id : null),
+            ]);
         }
     }
 
     public function registerEvents(): array
     {
         return [
+            BeforeImport::class => function(BeforeImport $event) { 
+                ProSeguros::truncate();
+            },
             AfterImport::class => function(AfterImport $event) {
                 Logs::create(['mensagem' => 'Inicilizando importação de pro_seguros.xlsx...']);
                 Logs::create(['mensagem' => 'Processando o arquivo pro_seguros.xlsx...']);
