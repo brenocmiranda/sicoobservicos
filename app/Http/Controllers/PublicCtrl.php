@@ -121,7 +121,8 @@ class PublicCtrl extends Controller
 		$user = Usuarios::find($request->id);
 		$dados = Usuarios::find($user->id)->update([
 			'password' => Hash::make($request->password), 
-			'remember_token' => $request->_token
+			'remember_token' => $request->_token,
+			'attempts' => 0,
 		]);
 		Usuarios::find($user->id)->update(['attempts' => 0]);
 		//$user->notify(new ResetPassword($user));

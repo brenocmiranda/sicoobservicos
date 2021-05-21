@@ -769,7 +769,7 @@ Painel do associado
               </div>
               <div class="col-lg-3 col-12">
                 <h6>Data de quitação</h6>
-                <label>{{date('d/m/Y', strtotime($carteira->data_quitacao))}}</label>
+                <label>{{(date('d/m/Y', strtotime($carteira->data_quitacao)) != "01/01/1900" ? date('d/m/Y', strtotime($carteira->data_quitacao)) : '-')}}</label>
               </div>
             </div>
             <div class="row">   

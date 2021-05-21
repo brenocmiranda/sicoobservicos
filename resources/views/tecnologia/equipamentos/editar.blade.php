@@ -94,6 +94,7 @@ Editar equipamento
                       <select class="form-control form-control-line" name="tipo_licenca">
                         <option value="">Selecione</option>
                         <option value="OEM" {{($ativo->tipo_licenca == 'OEM' ? 'selected' : '')}}>OEM</option>
+                        <option value="GPL" {{($ativo->tipo_licenca == 'GPL' ? 'selected' : '')}}>GPL</option>
                         <option value="Por volume" {{($ativo->tipo_licenca == 'Por volume' ? 'selected' : '')}}>Por volume</option>
                       </select>
                     </div>

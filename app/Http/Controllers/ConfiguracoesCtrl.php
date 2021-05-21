@@ -638,7 +638,7 @@ class ConfiguracoesCtrl extends Controller
 	// Alterar status do usuário
 	public function AlterarUsuarios(Request $request, $id){
 		if(Auth::user()->RelationFuncao->gerenciar_configuracoes == 1){
-			Usuarios::find($id)->update(['status' => $request->status]);
+			Usuarios::find($id)->update(['status' => $request->status, 'attempts' => 0]);
 			$create = Usuarios::find($id);
 			Atividades::create([
 					'nome' => 'Alteração de estado',
@@ -657,7 +657,8 @@ class ConfiguracoesCtrl extends Controller
 		if(Auth::user()->RelationFuncao->gerenciar_configuracoes == 1){
 			Usuarios::find($id)->update([
 				'password' => Hash::make('Sicoob4133'),
-				'email_verified_at' => null
+				'email_verified_at' => null,
+				'attempts' => 0
 			]);
 			$user = Usuarios::find($id);
 			$user->notify(new ResetPassword($user));

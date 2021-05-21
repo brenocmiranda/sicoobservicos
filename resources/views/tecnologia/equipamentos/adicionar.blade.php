@@ -94,6 +94,7 @@ Adicionar equipamento
 											<select class="form-control form-control-line" name="tipo_licenca">
 												<option value="">Selecione</option>
 												<option value="OEM">OEM</option>
+												<option value="GPL">GPL</option>
 												<option value="Por volume">Por volume</option>
 											</select>
 										</div>
