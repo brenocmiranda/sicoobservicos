@@ -71,11 +71,11 @@ Editar equipamento
                 </div>
                 <div class="col-12">
                   <div class="checkbox checkbox-success">
-                      <input id="checkbox-1" type="checkbox">
+                      <input id="checkbox-1" type="checkbox" {{(isset($ativo->sistema_operacional) || isset($ativo->tipo_licenca) || isset($ativo->antivirus) ? 'checked' : '')}}>
                       <label for="checkbox-1"> Mais informações? </label>
                   </div>
                 </div>
-                <div class="informacoes mt-4" style="display: none;">
+                <div class="informacoes mt-4" style="{{(isset($ativo->sistema_operacional) || isset($ativo->tipo_licenca) || isset($ativo->antivirus) ? '' : 'display: none;')}}">
                   <div class="col-lg-6 col-12">
                     <div class="form-group">
                       <label class="col-form-label pb-0">Sistema operacional</label>

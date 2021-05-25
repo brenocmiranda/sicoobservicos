@@ -1548,11 +1548,60 @@ Painel do associado
         @endif
       </div>
       <div role="tabpanel" class="tab-pane fade" id="sipag">
-        <div class="col-12 text-center">
-          <i class="ti-hummer" style="font-size: 30px"></i>
-          <h4>Página em desenvolvimento!</h4>
+        @if(isset($associado->RelationSipag[0]))
+        <div class="row bg-light justify-content-center mt-n4 mb-5 p-3 rounded">
+          <label class="m-auto font-weight-bold">Data base: {{date('d/m/Y', strtotime($pro_seguros->data_movimento))}}</label>
         </div>
-        <div class="clearfix"></div>
+        @foreach($associado->RelationSipag->sortByDesc('data_credenciamento') as $sipag)
+        <div class="col-12"> 
+          <div class="mb-5">
+            <h5 class="font-weight-normal"><b>{{$sipag->ec}}</b> <small class="{{($sipag->status == 'ATIVO' ? 'badge badge-success' : ($sipag->status == 'SUSPENSO' ? 'badge badge-danger' : 'badge badge-info'))}}">{{$sipag->status}}</small></h5>
+            <hr class="mt-2">
+            <div class="row">
+              <div class="col-lg-2 col-12">
+                <h6 class="mt-lg-0">Base</h6>
+                <label>{{$sipag->base}}</label>
+              </div>
+              <div class="col-lg-2 col-12">
+                <h6 class="mt-lg-0">MCC</h6>
+                <label>{{$sipag->mcc}}</label>
+              </div>
+               <div class="col-lg-2 col-12">
+                <h6 class="mt-lg-0">Macro Segmento</h6>
+                <label>{{$sipag->segmento}}</label>
+              </div>
+              <div class="col-lg-6 col-12">
+                <h6 class="mt-lg-0">Descrição MCC</h6>
+                <label>{{$sipag->descricao_mcc}}</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-2 col-12">
+                <h6>CNAE</h6>
+                <label>{{$sipag->cnae}}</label>
+              </div>
+              <div class="col-lg-5 col-12">
+                <h6>Descrição do CNAE</h6>
+                <label>{{$sipag->descricao_cnae}}</label>
+              </div>
+              <div class="col-lg-3 col-12">
+                <h6>Data de credênciamento</h6>
+                <label>{{date('d/m/Y', strtotime($sipag->data_credenciamento))}}</label>
+              </div>
+              <div class="col-lg-2 col-12">
+                <h6>E-commerce</h6>
+                <label>{{($sipag->ecommerce == 1 ? 'SIM' : 'NÃO')}}</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        @endforeach
+        @else
+        <div class="text-center">
+          <i class="mdi mdi-36px mdi-close-octagon-outline"></i>
+          <h5>Nenhuma informação encontrada.</h5>
+        </div>
+        @endif
       </div>
     </div>
   </div>

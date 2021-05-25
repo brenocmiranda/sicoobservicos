@@ -284,7 +284,7 @@ Importar
                                     </div>
                                     <hr>
                                 </li>
-                                 <li class="col-12">
+                                <li class="col-12">
                                     <div class="col-12 row mx-auto p-0">
                                         <div class="col-8 p-0">
                                             <label class="col-form-label mb-2 p-0">pro_cobranca.xlsx</label>
@@ -293,6 +293,21 @@ Importar
                                         <div class="col-4 p-0 m-auto text-right">
                                             <label class="mb-0 d-block">
                                                 <b>{!! ( strtotime(date('Y-m-d', strtotime(@$pro_cobranca->updated_at))) == 
+                                                    strtotime(date('Y-m-d')) ? '<i class="mdi mdi-bell mdi-24px text-success px-2"></i>' : '<i class="mdi mdi-bell mdi-24px text-danger px-2"></i>')!!}</b>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </li>
+                                <li class="col-12">
+                                    <div class="col-12 row mx-auto p-0">
+                                        <div class="col-8 p-0">
+                                            <label class="col-form-label mb-2 p-0">pro_sipag.xlsx</label>
+                                            <input type="file" name="pro_sipag" accept=".xlsx">
+                                        </div>
+                                        <div class="col-4 p-0 m-auto text-right">
+                                            <label class="mb-0 d-block">
+                                                <b>{!! ( strtotime(date('Y-m-d', strtotime(@$pro_sipag->updated_at))) == 
                                                     strtotime(date('Y-m-d')) ? '<i class="mdi mdi-bell mdi-24px text-success px-2"></i>' : '<i class="mdi mdi-bell mdi-24px text-danger px-2"></i>')!!}</b>
                                             </label>
                                         </div>

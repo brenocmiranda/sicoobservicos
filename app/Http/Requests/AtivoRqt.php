@@ -36,7 +36,7 @@ class AtivoRqt extends FormRequest
                 'id_setor' => 'required|numeric',
                 'id_unidade' => 'required|numeric',
                 'descricao' => 'nullable',
-                'serviceTag' => 'nullable',
+                'serviceTag' => 'nullable|unique:gti_ativos,serviceTag',
                 'imagem_principal' => 'required|image', 
             ];
         }else{
@@ -52,7 +52,7 @@ class AtivoRqt extends FormRequest
                 'id_setor' => 'required|numeric',
                 'id_unidade' => 'required|numeric',
                 'descricao' => 'nullable',
-                'serviceTag' => 'nullable',
+                'serviceTag' => 'nullable|unique:gti_ativos,serviceTag,'.$this->segment(5).',id',
                 'imagem_principal' => 'nullable', 
             ];
         }   
