@@ -193,7 +193,21 @@ Importar
                                     </div>
                                     <hr>
                                 </li>
-                                
+                                <li class="col-12">
+                                    <div class="col-12 row mx-auto p-0">
+                                        <div class="col-8 p-0">
+                                            <label class="col-form-label mb-2 p-0">cre_contratos_parcelas.xlsx</label>
+                                            <input type="file" name="cre_contratos_parcelas" accept=".xlsx">
+                                        </div>
+                                        <div class="col-4 p-0 m-auto text-right">
+                                            <label class="mb-0 d-block">
+                                                <b>{!! ( strtotime(date('Y-m-d', strtotime(@$cre_contratos_parcelas->updated_at))) == 
+                                                    strtotime(date('Y-m-d')) ? '<i class="mdi mdi-bell mdi-24px text-success px-2"></i>' : '<i class="mdi mdi-bell mdi-24px text-danger px-2"></i>')!!}</b>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </li>
                                 <li class="col-12">
                                     <div class="col-12 row mx-auto p-0">
                                         <div class="col-8 p-0">

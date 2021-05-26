@@ -127,6 +127,13 @@ Database
                             <td>{!! ( strtotime(date('Y-m-d', strtotime(@$cre_contratos->updated_at))) == strtotime(date('Y-m-d')) ? '<i class="mdi mdi-check text-success px-2"></i>'.'Atualizado' : '<i class="mdi mdi-close text-danger px-2"></i>'.'Desatualizado')!!}</td>
                         </tr>
                         <tr>
+                            <td>cre_contratos_parcelas</td>
+                            <td>Diário</td>
+                            <td>{{date('d/m/Y', strtotime(@$cre_contratos_parcelas->data_movimento))}}</td>
+                            <td>{{date('d/m/Y H:i:s', strtotime(@$cre_contratos_parcelas->updated_at))}}</td>
+                            <td>{!! ( strtotime(date('Y-m-d', strtotime(@$cre_contratos_parcelas->updated_at))) == strtotime(date('Y-m-d')) ? '<i class="mdi mdi-check text-success px-2"></i>'.'Atualizado' : '<i class="mdi mdi-close text-danger px-2"></i>'.'Desatualizado')!!}</td>
+                        </tr>
+                        <tr>
                             <td>cre_avalistas</td>
                             <td>Mensal</td>
                             <td>{{date('d/m/Y', strtotime(@$cre_avalistas->data_movimento))}}</td>

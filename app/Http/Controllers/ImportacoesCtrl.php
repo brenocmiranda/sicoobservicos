@@ -19,6 +19,7 @@ use App\Imports\pop_poupanca;
 use App\Imports\dep_aplicacoes;
 use App\Imports\cre_contratos;
 use App\Imports\cre_contratos_historico;
+use App\Imports\cre_contratos_parcelas;
 use App\Imports\cre_avalistas;
 use App\Imports\cre_garantias;
 use App\Imports\pro_seguros;
@@ -40,6 +41,7 @@ use App\Models\AssociadosConglomerados;
 use App\Models\ContaCapital;
 use App\Models\ContaCorrente;
 use App\Models\Contratos;
+use App\Models\ContratosParcelas;
 use App\Models\ContratosAvalistas;
 use App\Models\ContratosGarantias;
 use App\Models\CartaoCredito;
@@ -73,6 +75,7 @@ class ImportacoesCtrl extends Controller
 		$cli_iap = AssociadosIAPs::select('updated_at', 'data_movimento')->orderBy('data_movimento', 'DESC')->first();
 		$cli_bacen = AssociadosBacen::select('updated_at', 'data_movimento')->orderBy('data_movimento', 'DESC')->first();
 		$cre_contratos = Contratos::select('updated_at', 'data_movimento')->orderBy('data_movimento', 'DESC')->first();
+		$cre_contratos_parcelas = ContratosParcelas::select('updated_at', 'data_movimento')->orderBy('data_movimento', 'DESC')->first();
 		$cre_avalistas = ContratosAvalistas::select('updated_at', 'data_movimento')->orderBy('data_movimento', 'DESC')->first();
 		$cre_garantias = ContratosGarantias::select('updated_at', 'data_movimento')->orderBy('data_movimento', 'DESC')->first();
 		$cca_contacapital = ContaCapital::select('updated_at', 'data_movimento')->orderBy('data_movimento', 'DESC')->first();
@@ -86,9 +89,8 @@ class ImportacoesCtrl extends Controller
 		$pro_cobranca = ProCobranca::select('updated_at', 'data_movimento')->orderBy('data_movimento', 'DESC')->first();
 		$pro_sipag = ProSipagFaturamento::select('updated_at', 'data_movimento')->orderBy('data_movimento', 'DESC')->first();
 
-		return view('configuracoes.importacoes.data')->with('cli_associados', $cli_associados)->with('cli_consolidado', $cli_consolidado)->with('cli_emails', $cli_emails)->with('cli_enderecos', $cli_enderecos)->with('cli_telefones', $cli_telefones)->with('cca_contacapital', $cca_contacapital)->with('cco_contacorrente', $cco_contacorrente)->with('crt_cartaocredito', $crt_cartaocredito)->with('cli_conglomerados', $cli_conglomerados)->with('cre_contratos', $cre_contratos)->with('pop_poupanca', $pop_poupanca)->with('dep_aplicacoes', $dep_aplicacoes)->with('cli_iap', $cli_iap)->with('cli_bacen', $cli_bacen)->with('cre_avalistas', $cre_avalistas)->with('cre_garantias', $cre_garantias)->with('pro_seguros', $pro_seguros)->with('pro_consorcios', $pro_consorcios)->with('pro_previdencias', $pro_previdencias)->with('pro_cobranca', $pro_cobranca)->with('pro_sipag', $pro_sipag);
+		return view('configuracoes.importacoes.data')->with('cli_associados', $cli_associados)->with('cli_consolidado', $cli_consolidado)->with('cli_emails', $cli_emails)->with('cli_enderecos', $cli_enderecos)->with('cli_telefones', $cli_telefones)->with('cca_contacapital', $cca_contacapital)->with('cco_contacorrente', $cco_contacorrente)->with('crt_cartaocredito', $crt_cartaocredito)->with('cli_conglomerados', $cli_conglomerados)->with('cre_contratos', $cre_contratos)->with('pop_poupanca', $pop_poupanca)->with('dep_aplicacoes', $dep_aplicacoes)->with('cli_iap', $cli_iap)->with('cli_bacen', $cli_bacen)->with('cre_avalistas', $cre_avalistas)->with('cre_garantias', $cre_garantias)->with('pro_seguros', $pro_seguros)->with('pro_consorcios', $pro_consorcios)->with('pro_previdencias', $pro_previdencias)->with('pro_cobranca', $pro_cobranca)->with('pro_sipag', $pro_sipag)->with('cre_contratos_parcelas', $cre_contratos_parcelas);
 	}
-
 
 	#-------------------------------------------------------------------
 	# Importar 
@@ -104,6 +106,7 @@ class ImportacoesCtrl extends Controller
 		$cli_iap = AssociadosIAPs::select('updated_at')->orderBy('updated_at', 'DESC')->first();
 		$cli_bacen = AssociadosBacen::select('updated_at')->orderBy('updated_at', 'DESC')->first();
 		$cre_contratos = Contratos::select('updated_at')->orderBy('updated_at', 'DESC')->first();
+		$cre_contratos_parcelas = ContratosParcelas::select('updated_at', 'data_movimento')->orderBy('data_movimento', 'DESC')->first();
 		$cre_avalistas = ContratosAvalistas::select('updated_at')->orderBy('updated_at', 'DESC')->first();
 		$cre_garantias = ContratosGarantias::select('updated_at')->orderBy('updated_at', 'DESC')->first();
 		$cca_contacapital = ContaCapital::select('updated_at')->orderBy('updated_at', 'DESC')->first();
@@ -117,7 +120,7 @@ class ImportacoesCtrl extends Controller
 		$pro_cobranca = ProCobranca::select('updated_at')->orderBy('updated_at', 'DESC')->first();
 		$pro_sipag = ProSipagFaturamento::select('updated_at', 'data_movimento')->orderBy('data_movimento', 'DESC')->first();
 
-		return view('configuracoes.importacoes.manual')->with('cli_associados', $cli_associados)->with('cli_consolidado', $cli_consolidado)->with('cli_emails', $cli_emails)->with('cli_enderecos', $cli_enderecos)->with('cli_telefones', $cli_telefones)->with('cca_contacapital', $cca_contacapital)->with('cco_contacorrente', $cco_contacorrente)->with('crt_cartaocredito', $crt_cartaocredito)->with('cli_conglomerados', $cli_conglomerados)->with('cre_contratos', $cre_contratos)->with('pop_poupanca', $pop_poupanca)->with('dep_aplicacoes', $dep_aplicacoes)->with('cli_iap', $cli_iap)->with('cli_bacen', $cli_bacen)->with('cre_avalistas', $cre_avalistas)->with('cre_garantias', $cre_garantias)->with('pro_seguros', $pro_seguros)->with('pro_consorcios', $pro_consorcios)->with('pro_previdencias', $pro_previdencias)->with('pro_cobranca', $pro_cobranca)->with('pro_sipag', $pro_sipag);
+		return view('configuracoes.importacoes.manual')->with('cli_associados', $cli_associados)->with('cli_consolidado', $cli_consolidado)->with('cli_emails', $cli_emails)->with('cli_enderecos', $cli_enderecos)->with('cli_telefones', $cli_telefones)->with('cca_contacapital', $cca_contacapital)->with('cco_contacorrente', $cco_contacorrente)->with('crt_cartaocredito', $crt_cartaocredito)->with('cli_conglomerados', $cli_conglomerados)->with('cre_contratos', $cre_contratos)->with('pop_poupanca', $pop_poupanca)->with('dep_aplicacoes', $dep_aplicacoes)->with('cli_iap', $cli_iap)->with('cli_bacen', $cli_bacen)->with('cre_avalistas', $cre_avalistas)->with('cre_garantias', $cre_garantias)->with('pro_seguros', $pro_seguros)->with('pro_consorcios', $pro_consorcios)->with('pro_previdencias', $pro_previdencias)->with('pro_cobranca', $pro_cobranca)->with('pro_sipag', $pro_sipag)->with('cre_contratos_parcelas', $cre_contratos_parcelas);
 	}
 	// Importação manual (return (new HeadingRowImport)->toArray($request->myData))
 	public function ImportarManual(Request $request){
@@ -244,6 +247,18 @@ class ImportacoesCtrl extends Controller
 					return response()->json(['status' => true]);
 				} catch (\Exception $ex){
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cre_contratos_quitados.xlsx!</span>']);
+					return response()->json(['status' => false, 'error' => $ex]);
+				}
+			}
+			// cre_contratos_parcelas
+			if($request->relatorio == 'cre_contratos_parcelas'){
+				try{
+					$nameFile = 'cre_contratos_parcelas-'.date('dmYHis').'.'.request()->file('myData')->getClientOriginalExtension();
+					$upload = $request->myData->storeAs('importacoes', $nameFile);
+					Excel::queueImport(new cre_contratos_parcelas, getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('low');
+					return response()->json(['status' => true]);
+				} catch (\Exception $ex){
+					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cre_contratos_parcelas.xlsx!</span>']);
 					return response()->json(['status' => false, 'error' => $ex]);
 				}
 			}
@@ -564,6 +579,18 @@ class ImportacoesCtrl extends Controller
 				} catch (\Exception $ex){
 					copy(getcwd().'/storage/app/importacoes/'.$nameFile, getcwd().'/cre_contratos_quitados.xlsx');
 					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cre_contratos_quitados.xlsx!</span>']);
+				}
+			}
+			// cre_contratos_parcelas
+			if(file_exists(getcwd().'/outlook/cre_contratos_parcelas.xlsx')){
+				try{
+					$nameFile = 'cre_contratos_parcelas'.date('dmY-His').'.xlsx';
+					copy(getcwd().'/outlook/cre_contratos_parcelas.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
+					unlink(getcwd().'/outlook/cre_contratos_parcelas.xlsx');
+					(new cre_contratos_parcelas)->queue(getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('low')->delay(now()->addMinutes(5));
+				} catch (\Exception $ex){
+					copy(getcwd().'/storage/app/importacoes/'.$nameFile, getcwd().'/cre_contratos_parcelas.xlsx');
+					Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cre_contratos_parcelas.xlsx!</span>']);
 				}
 			}
 			// crt_cartaocredito

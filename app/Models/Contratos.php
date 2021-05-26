@@ -19,7 +19,7 @@ class Contratos extends Model
     }
 
     public function RelationGarantias(){
-        return $this->hasMany(ContratosGarantias::class,'cre_id_contrato');
+        return $this->hasMany(ContratosGarantias::class, 'cre_id_contrato');
     }
 
     public function RelationAvalistas(){
@@ -37,5 +37,9 @@ class Contratos extends Model
 
     public function RelationArquivos(){
         return $this->belongsTo(ContratosArquivos::class, 'cre_id_arquivo', 'id');
+    }
+
+    public function RelationParcelas(){
+        return $this->hasMany(ContratosParcelas::class, 'cre_id_contratos');
     }
 }
