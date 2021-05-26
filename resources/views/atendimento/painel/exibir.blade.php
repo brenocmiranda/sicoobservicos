@@ -48,7 +48,7 @@ Painel do associado
       <li role="presentation"> <a href="#consorcios" aria-controls="consorcios" role="tab" data-toggle="tab" aria-expanded="true"> <span>Consórcios</span> </a> </li>
       <li role="presentation"> <a href="#previdencias" aria-controls="previdencias" role="tab" data-toggle="tab" aria-expanded="true"> <span>Previdências</span> </a> </li> 
       <li role="presentation"> <a href="#seguros" aria-controls="seguros" role="tab" data-toggle="tab" aria-expanded="true"> <span>Seguros</span> </a> </li>
-      <li role="presentation"> <a href="#sipag" aria-controls="sipag" role="tab" data-toggle="tab" aria-expanded="true"> <span>SIPAG</span> </a> </li>
+      <li role="presentation"> <a href="#sipag" aria-controls="sipag" role="tab" data-toggle="tab" aria-expanded="true"> <span>Sipag</span> </a> </li>
     </ul>
     <!-- Tab panes -->
     <div class="tab-content white-box mt-0">
@@ -1116,7 +1116,6 @@ Painel do associado
               </a>
               @endif
             </div>
-            <!--
             <div class="col-lg-3 col-6">
               @if($associado->RelationIAP->indicador_pacotes_tarifa)
               <a href="javascript:" class="text-dark" onclick="$('a[href=#contacorrente]').click();">  
@@ -1134,7 +1133,6 @@ Painel do associado
               </a>
               @endif
             </div>
-            -->
             <div class="col-lg-3 col-6">
               @if($associado->RelationIAP->indicador_poupanca)
               <a href="javascript:" class="text-dark" onclick="$('a[href=#poupanca]').click();">
@@ -1412,7 +1410,7 @@ Painel do associado
               </div>
               <div class="col-lg-3 col-12">
                 <h6>Data de cancelamento</h6>
-                <label>{{(date('d/m/Y', strtotime($consorcios->data_cancelamento)) != '31/12/1969' ? date('d/m/Y', strtotime($consorcios->data_cancelamentoo)) : '-')}}</label>
+                <label>{{($consorcios->data_cancelamento != '1899-12-31' ? date('d/m/Y', strtotime($consorcios->data_cancelamentoo)) : '-')}}</label>
               </div>
               <div class="col-lg-3 col-12">
                 <h6>Valor contratado</h6>
@@ -1468,7 +1466,7 @@ Painel do associado
               </div>
               <div class="col-lg-3 col-12">
                 <h6>Data de cancelamento</h6>
-                <label>{{(date('d/m/Y', strtotime($previdencias->data_desligamento)) != '01/01/1900' ? date('d/m/Y', strtotime($previdencias->data_desligamento)) : '-')}}</label>
+                <label>{{($previdencias->data_desligamento != '1900-01-01' ? date('d/m/Y', strtotime($previdencias->data_desligamento)) : '-')}}</label>
               </div>
               <div class="col-lg-3 col-12">
                 <h6>Valor da proposta</h6>
@@ -1528,7 +1526,7 @@ Painel do associado
               </div>
               <div class="col-lg-3 col-12">
                 <h6>Final de vigência</h6>
-                <label>{{(date('d/m/Y', strtotime($seguros->data_encerramento)) != '01/01/1900' ? date('d/m/Y', strtotime($seguros->data_encerramento)) : '-')}}</label>
+                <label>{{($seguros->data_encerramento != '1900-01-01' ? date('d/m/Y', strtotime($seguros->data_encerramento)) : '-')}}</label>
               </div>
             </div>
             <div class="row">
@@ -1584,7 +1582,7 @@ Painel do associado
                     <label>{{date('d/m/Y', strtotime($sipag->data_credenciamento))}}</label>
                   </div>
                   <div class="col-lg-6 col-12">
-                    <h6>Faturamento acumulado <small>(2021)</small></h6>
+                    <h6>Faturamento acumulado <small>({{date('Y')}})</small></h6>
                     <label>R$ {{number_format($sipag->RelationFaturamento->sum('total_cnpj'), 2, ',', '.')}}</label>
                   </div>
                 </div>

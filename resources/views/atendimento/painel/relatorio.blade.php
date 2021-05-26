@@ -1569,50 +1569,79 @@
   </div>
   @endif
 
-  <!--
   @if(isset($imprimir['sipag']))
   <div style="margin-bottom: 30px;">
     <h2>SIPAG
       <small style="font-weight: normal; font-size: 12px;padding-left: 2px">
-        @if(isset($associado->RelationAplicacoes[0]))
-        (Data base: {{date('d/m/Y', strtotime($associado->RelationAplicacoes[0]->data_movimento))}})
+        @if(isset($associado->RelationSipag[0]))
+        (Data base: {{date('d/m/Y', strtotime($associado->RelationSipag[0]->RelationFaturamento[0]->data_movimento))}})
         @endif
       </small>
     </h2>
     <hr>
-    @if(isset($associado->RelationAplicacoes[0]))  
-    @foreach($associado->RelationAplicacoes->sortByDesc('data_abertura') as $aplicacao)
+    @if(isset($associado->RelationSipag[0]))  
+    @foreach($associado->RelationSipag->sortByDesc('data_credenciamento') as $sipag)
     <div style="margin-top: 10px; margin-left: 10px; margin-right: 10px">
-      <h4><b>{{$aplicacao->num_conta}}</b> <small>({{$aplicacao->tipo}})</small></h4>
+      <h4><b>{{str_replace('_', ' ', $sipag->base)}}</b> <small>({{$sipag->status}})</small></h4>
       <hr>
       <table style="width: 100%">
         <tbody style="width: 100%">
           <tr>
-            <td style="width: 25%;" valign="top">
-              <h5>Conta corrente</h5>
-              <label>{{$aplicacao->RelationContaCorrente->num_contrato}}</label>
+            <td>
+              <table style="width: 100%">
+                <tr>
+                  <td style="width: 50%;" valign="top">
+                    <h5>Estabelescimento</h5>
+                    <label>{{$sipag->ec}}</label>
+                  </td>
+                  <td style="width: 50%;" valign="top">
+                    <h5>MCC</h5>
+                    <label>{{(isset($sipag->descricao_mcc) ? $sipag->descricao_mcc : 'Não possui')}}</label>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="width: 50%;" valign="top">
+                    <h5>Macro Segmento</h5>
+                    <label>{{(isset($sipag->segmento) ? $sipag->segmento : 'Não possui')}}</label>
+                  </td>
+                  <td style="width: 50%;" valign="top">
+                    <h5>Domicílio <small>(Banco/Agência)</small></h5>
+                    <label>{{$sipag->domicilio_banco}} - {{$sipag->domicilio_agencia}}</label>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="width: 50%;" valign="top">
+                    <h5>Data de credênciamento</h5>
+                    <label>{{date('d/m/Y', strtotime($sipag->data_credenciamento))}}</label>
+                  </td>
+                  <td style="width: 50%;" valign="top">
+                    <h5>Faturamento acumulado<small>({{date('Y')}})</small></h5>
+                    <label>R$ {{number_format($sipag->RelationFaturamento->sum('total_cnpj'), 2, ',', '.')}}</label>
+                  </td>
+                </tr>
+              </table>
             </td>
-            <td style="width: 25%;" valign="top">
-              <h5>Modalidade</h5>
-              <label>{{$aplicacao->modalidade}}</label>
-            </td>
-            <td style="width: 25%;" valign="top">
-              <h5>Tipo</h5>
-              <label>{{$aplicacao->tipo}}</label>
-            </td>
-            <td style="width: 25%;" valign="top">
-              <h5>Valor inicial</h5>
-              <label>R$ {{number_format($aplicacao->valor_inicial, 2, ',', '.')}}</label>
-            </td>
-          </tr>
-          <tr>
-            <td style="width: 25%;" valign="top">
-              <h5>Valor da correção monetária</h5>
-              <label>R$ {{number_format($aplicacao->valor_correcao, 2, ',', '.')}}</label>
-            </td>
-            <td style="width: 25%;" valign="top">
-              <h5>Valor saldo</h5>
-              <label>R$ {{number_format($aplicacao->valor_saldo, 2, ',', '.')}}</label>
+            <td>
+              @if($sipag->RelationFaturamento->sum('total_cnpj') > 0)
+                <table width="100%" border="1">
+                  <thead>
+                    <th>Data de movimento</th>
+                    <th>Valor faturado</th>
+                  </thead>
+                  <tbody>
+                    @foreach($sipag->RelationFaturamento->sortByDesc('data_movimento') as $faturamento)
+                    <tr>
+                      <td>{{date('m/Y', strtotime($faturamento->data_movimento))}}</td> 
+                      <td>{{number_format($faturamento->total_cnpj, 2, ',', '.')}}</td>
+                    </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+              @else
+                <div>
+                  <h5>Não possui faturamento.</h5>
+                </div>
+              @endif
             </td>
           </tr>
         </tbody>
@@ -1627,6 +1656,6 @@
     @endif
   </div>
   @endif
-  -->
+
 </body>
 </html>
