@@ -26,7 +26,6 @@ class Contratos extends Model
         return $this->belongsToMany(Associados::class, 'cre_avalistas', 'cre_id_contrato', 'cli_id_associado');
     }
 
-
     public function RelationFinalidades(){
         return $this->belongsTo(ContratosFinalidades::class, 'cre_id_finalidades', 'id');
     }

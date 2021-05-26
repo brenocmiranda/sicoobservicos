@@ -52,7 +52,7 @@ Painel do associado
     </ul>
     <!-- Tab panes -->
     <div class="tab-content white-box mt-0">
-      <div role="tabpanel" class="tab-pane fade  active in" id="atividades">
+      <div role="tabpanel" class="tab-pane fade active in" id="atividades">
         @if(isset($atividades[0]))
         <div class="col-12">
           <div class="row">
@@ -734,7 +734,20 @@ Painel do associado
         @foreach($associado->RelationCarteiraCredito->sortBy('situacao') as $carteira)
         <div class="col-12"> 
           <div class="mb-5">
-            <h5 class="font-weight-normal"><b>{{$carteira->num_contrato}}</b> <small class="{{($carteira->situacao == 'ENTRADA NORMAL' ? 'badge badge-success' : ($carteira->situacao == 'QUITADO' ? 'badge badge-danger' : 'badge badge-info'))}}">{{$carteira->situacao}}</small></h5>
+            <h5 class="row mx-auto font-weight-normal">
+              <div class="mr-auto"> 
+                <b>{{$carteira->num_contrato}}</b> 
+                <small class="{{($carteira->situacao == 'ENTRADA NORMAL' ? 'badge badge-success' : ($carteira->situacao == 'QUITADO' ? 'badge badge-danger' : 'badge badge-info'))}}">{{$carteira->situacao}}</small> 
+              </div>
+              @if(isset($carteira->RelationParcelas[0]))
+              <div class="ml-auto">
+                <a href="javascript:" data-toggle="modal" data-target="#{{$carteira->num_contrato}}">
+                  <i class="mdi mdi-file-outline mdi-18px"></i>
+                  <small>Extrato da operação</small>
+                </a>
+              </div>
+              @endif
+            </h5>
             <hr class="mt-2">
             <div class="row">
               <div class="col-lg-3 col-12">
@@ -769,7 +782,7 @@ Painel do associado
               </div>
               <div class="col-lg-3 col-12">
                 <h6>Data de quitação</h6>
-                <label>{{(date('d/m/Y', strtotime($carteira->data_quitacao)) != "01/01/1900" ? date('d/m/Y', strtotime($carteira->data_quitacao)) : '-')}}</label>
+                <label>{{($carteira->data_quitacao != "1900-01-01" ? date('d/m/Y', strtotime($carteira->data_quitacao)) : '-')}}</label>
               </div>
             </div>
             <div class="row">   
@@ -808,6 +821,53 @@ Painel do associado
                 <label>R$ {{number_format($carteira->valor_devido, 2, ',', '.')}}</label>
               </div>
             </div>
+            @if(isset($carteira->RelationParcelas[0]))
+            <!-- Extrato operação de crédito -->
+            <div class="modal fade" id="{{$carteira->num_contrato}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true" data-backdrop="static" style="overflow-y: hidden;">
+              <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header d-block pb-0">
+                    <div class="col-12">
+                      <button type="button" class="close px-0 py-2" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                      <h5 class="modal-title">Extrato da operação de crédito</h5>
+                    </div>
+                    <div class="col-12 mb-0">
+                      <p>Informações do contrato de crédito</p>
+                    </div>
+                    <div id="err"></div>
+                  </div>
+                  <div class="carregamento"></div>
+                  <div class="modal-body">
+                    <div class="col-12 mx-auto">
+                      <table class="table text-center color-table inverse-table border">
+                        <thead>
+                          <th>Nº de parcela</th>
+                          <th>Data de vencimento</th>
+                          <th>Valor da parcela</th>
+                          <th>Dias de atraso</th>
+                          <th>Situação</th>
+                        </thead>
+                        <tbody>
+                          @foreach($carteira->RelationParcelas->sortBy('num_parcela') as $parcelas)
+                          <tr>
+                            <td>{{$parcelas->num_parcela}}</td>
+                            <td>{{($parcelas->data_vencimento != "1900-01-01" ? date('d/m/Y', strtotime($parcelas->data_vencimento)) : '-')}}</td>
+                            <td>R$ {{number_format($parcelas->valor_parcela, 2, ',', '.')}}</td>
+                            <td>{{$parcelas->dias_atraso}} dias</td>
+                            <td>{{$parcelas->situacao}}</td>
+                          </tr>
+                          @endforeach
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /Extrato operação de crédito -->
+            @endif
           </div>
         </div>
         @endforeach
