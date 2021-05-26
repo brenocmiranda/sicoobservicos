@@ -1273,15 +1273,19 @@ Painel do associado
             </div>   
             <div class="col-lg-3 col-6">
               @if($associado->RelationIAP->indicador_sipag)
-              <div class="radio radio-success">
-                <input type="radio" checked>
-                <label> SIPAG </label>
-              </div>
+              <a href="javascript:" class="text-dark" onclick="$('a[href=#sipag]').click();"> 
+                <div class="radio radio-success">
+                  <input type="radio" checked>
+                  <label> SIPAG </label>
+                </div>
+              </a>
               @else
-              <div class="radio radio-danger">
-                <input type="radio" checked>
-                <label> SIPAG </label>
-              </div>
+              <a href="javascript:" class="text-dark" onclick="$('a[href=#sipag]').click();"> 
+                <div class="radio radio-danger">
+                  <input type="radio" checked>
+                  <label> SIPAG </label>
+                </div>
+              </a>
               @endif
             </div>
             <div class="col-lg-3 col-6">
@@ -1557,8 +1561,8 @@ Painel do associado
             <div class="mb-5">
               <h5 class="font-weight-normal"><b>{{str_replace('_', ' ', $sipag->base)}}</b> <small class="{{($sipag->status == 'ATIVO' ? 'badge badge-success' : ($sipag->status == 'SUSPENSO' ? 'badge badge-danger' : 'badge badge-info'))}}">{{$sipag->status}}</small></h5>
               <hr class="mt-2">
-              <div class="row">
-                <div class="col-lg-8 col-12">
+              <div class="row mx-auto">
+                <div class="col-lg-8 px-0 col-12">
                   <div class="col-lg-6 col-12">
                     <h6 class="mt-lg-0">Estabelescimento</h6>
                     <label>{{$sipag->ec}}</label>
@@ -1584,10 +1588,10 @@ Painel do associado
                     <label>R$ {{number_format($sipag->RelationFaturamento->sum('total_cnpj'), 2, ',', '.')}}</label>
                   </div>
                 </div>
-                <div class="col-lg-4 col-12">
-                  @if($sipag->RelationFaturamento)
+                <div class="col-lg-4 col-12 pl-0">
+                  @if($sipag->RelationFaturamento->sum('total_cnpj') > 0)
                     <div class="row">
-                      <div class="col-12 px-0 mx-auto">
+                      <div class="col-12">
                         <table class="table table-striped text-center border">
                           <thead>
                             <th>Data de movimento</th>
@@ -1605,10 +1609,12 @@ Painel do associado
                       </div>
                     </div>
                   @else
+                  <div class="row col-12 h-100 px-0 align-items-center justify-content-center">
                     <div class="text-center">
                       <i class="mdi mdi-36px mdi-close-octagon-outline"></i>
                       <h5>Não possui faturamento.</h5>
                     </div>
+                  </div>
                   @endif
                 </div>
               </div>
