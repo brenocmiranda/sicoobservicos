@@ -458,6 +458,8 @@ Route::group(['prefix' => 'app'], function(){
 			Route::post('addImagens', 'TecnologiaCtrl@ImagensInventario')->name('adicionar.imagens.equipamentos');
 			Route::post('alterarUsuario/{id}', 'TecnologiaCtrl@AlterarUsuarioInvetario')->name('alterar.usuarios.equipamentos');
 			Route::any('historico/{id}', 'TecnologiaCtrl@HistoricoInvetario')->name('historico.usuarios.equipamentos');
+			Route::any('serialNumber/{dados}', 'TecnologiaCtrl@ExisteSerialNumber')->name('serialNumber.equipamentos');
+			Route::any('patrimonio/{dados}', 'TecnologiaCtrl@ExistePatrimonio')->name('patrimonio.equipamentos');
 		});
 		
 		// Relatórios

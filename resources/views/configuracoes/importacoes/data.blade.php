@@ -189,6 +189,13 @@ Database
                             <td>{{date('d/m/Y H:i:s', strtotime(@$pro_cobranca->updated_at))}}</td>
                             <td>{!! ( strtotime(date('Y-m-d', strtotime(@$pro_cobranca->updated_at))) == strtotime(date('Y-m-d')) ? '<i class="mdi mdi-check text-success px-2"></i>'.'Atualizado' : '<i class="mdi mdi-close text-danger px-2"></i>'.'Desatualizado')!!}</td>
                         </tr>
+                        <tr>
+                            <td>pro_sipag</td>
+                            <td>Diário</td>
+                            <td>{{date('d/m/Y', strtotime(@$pro_sipag->data_movimento))}}</td>
+                            <td>{{date('d/m/Y H:i:s', strtotime(@$pro_sipag->updated_at))}}</td>
+                            <td>{!! ( strtotime(date('Y-m-d', strtotime(@$pro_sipag->updated_at))) == strtotime(date('Y-m-d')) ? '<i class="mdi mdi-check text-success px-2"></i>'.'Atualizado' : '<i class="mdi mdi-close text-danger px-2"></i>'.'Desatualizado')!!}</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -203,7 +210,7 @@ Database
        $('table').DataTable({
             order: [0, 'asc'],
             paginate: true,
-            pageLength: 20,
+            pageLength: 22,
             searching: true,       
         });
     });

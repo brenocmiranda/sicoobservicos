@@ -1550,52 +1550,71 @@ Painel do associado
       <div role="tabpanel" class="tab-pane fade" id="sipag">
         @if(isset($associado->RelationSipag[0]))
         <div class="row bg-light justify-content-center mt-n4 mb-5 p-3 rounded">
-          <label class="m-auto font-weight-bold">Data base: {{date('d/m/Y', strtotime($pro_seguros->data_movimento))}}</label>
+          <label class="m-auto font-weight-bold">Data base: {{date('d/m/Y', strtotime(@$pro_sipag->data_movimento))}}</label>
         </div>
-        @foreach($associado->RelationSipag->sortByDesc('data_credenciamento') as $sipag)
-        <div class="col-12"> 
-          <div class="mb-5">
-            <h5 class="font-weight-normal"><b>{{$sipag->ec}}</b> <small class="{{($sipag->status == 'ATIVO' ? 'badge badge-success' : ($sipag->status == 'SUSPENSO' ? 'badge badge-danger' : 'badge badge-info'))}}">{{$sipag->status}}</small></h5>
-            <hr class="mt-2">
-            <div class="row">
-              <div class="col-lg-2 col-12">
-                <h6 class="mt-lg-0">Base</h6>
-                <label>{{$sipag->base}}</label>
-              </div>
-              <div class="col-lg-2 col-12">
-                <h6 class="mt-lg-0">MCC</h6>
-                <label>{{$sipag->mcc}}</label>
-              </div>
-               <div class="col-lg-2 col-12">
-                <h6 class="mt-lg-0">Macro Segmento</h6>
-                <label>{{$sipag->segmento}}</label>
-              </div>
-              <div class="col-lg-6 col-12">
-                <h6 class="mt-lg-0">Descrição MCC</h6>
-                <label>{{$sipag->descricao_mcc}}</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-2 col-12">
-                <h6>CNAE</h6>
-                <label>{{$sipag->cnae}}</label>
-              </div>
-              <div class="col-lg-5 col-12">
-                <h6>Descrição do CNAE</h6>
-                <label>{{$sipag->descricao_cnae}}</label>
-              </div>
-              <div class="col-lg-3 col-12">
-                <h6>Data de credênciamento</h6>
-                <label>{{date('d/m/Y', strtotime($sipag->data_credenciamento))}}</label>
-              </div>
-              <div class="col-lg-2 col-12">
-                <h6>E-commerce</h6>
-                <label>{{($sipag->ecommerce == 1 ? 'SIM' : 'NÃO')}}</label>
+          @foreach($associado->RelationSipag->sortByDesc('data_credenciamento') as $sipag)
+          <div class="col-12"> 
+            <div class="mb-5">
+              <h5 class="font-weight-normal"><b>{{str_replace('_', ' ', $sipag->base)}}</b> <small class="{{($sipag->status == 'ATIVO' ? 'badge badge-success' : ($sipag->status == 'SUSPENSO' ? 'badge badge-danger' : 'badge badge-info'))}}">{{$sipag->status}}</small></h5>
+              <hr class="mt-2">
+              <div class="row">
+                <div class="col-lg-8 col-12">
+                  <div class="col-lg-6 col-12">
+                    <h6 class="mt-lg-0">Estabelescimento</h6>
+                    <label>{{$sipag->ec}}</label>
+                  </div>
+                  <div class="col-lg-6 col-12">
+                    <h6 class="mt-lg-0">MCC</h6>
+                    <label>{{(isset($sipag->descricao_mcc) ? $sipag->descricao_mcc : 'Não possui')}}</label>
+                  </div>
+                  <div class="col-lg-6 col-12">
+                    <h6>Macro Segmento</h6>
+                    <label>{{(isset($sipag->segmento) ? $sipag->segmento : 'Não possui')}}</label>
+                  </div>
+                  <div class="col-lg-6 col-12">
+                    <h6>Domicílio <small>(Banco/Agência)</small></h6>
+                    <label>{{$sipag->domicilio_banco}} - {{$sipag->domicilio_agencia}}</label>
+                  </div>
+                  <div class="col-lg-6 col-12">
+                    <h6>Data de credênciamento</h6>
+                    <label>{{date('d/m/Y', strtotime($sipag->data_credenciamento))}}</label>
+                  </div>
+                  <div class="col-lg-6 col-12">
+                    <h6>Faturamento acumulado <small>(2021)</small></h6>
+                    <label>R$ {{number_format($sipag->RelationFaturamento->sum('total_cnpj'), 2, ',', '.')}}</label>
+                  </div>
+                </div>
+                <div class="col-lg-4 col-12">
+                  @if($sipag->RelationFaturamento)
+                    <div class="row">
+                      <div class="col-12 px-0 mx-auto">
+                        <table class="table table-striped text-center border">
+                          <thead>
+                            <th>Data de movimento</th>
+                            <th>Valor faturado</th>
+                          </thead>
+                          <tbody>
+                            @foreach($sipag->RelationFaturamento->sortByDesc('data_movimento') as $faturamento)
+                            <tr>
+                              <td>{{date('m/Y', strtotime($faturamento->data_movimento))}}</td> 
+                              <td>{{number_format($faturamento->total_cnpj, 2, ',', '.')}}</td>
+                            </tr>
+                            @endforeach
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  @else
+                    <div class="text-center">
+                      <i class="mdi mdi-36px mdi-close-octagon-outline"></i>
+                      <h5>Não possui faturamento.</h5>
+                    </div>
+                  @endif
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        @endforeach
+          @endforeach
         @else
         <div class="text-center">
           <i class="mdi mdi-36px mdi-close-octagon-outline"></i>
@@ -1609,113 +1628,117 @@ Painel do associado
 @endsection
 
 @section('modal')
-@include('atendimento.painel.adicionarAtividade')
-@include('atendimento.painel.editarAtividade')
-@include('atendimento.painel.impressao')
+  @include('atendimento.painel.adicionarAtividade')
+  @include('atendimento.painel.editarAtividade')
+  @include('atendimento.painel.impressao')
 @endsection
 
 @section('suporte')
 <script type="text/javascript">
   $(document).ready( function (){
-// Adicionando novas atividades
-$('#modal-adicionar #formAdicionar').on('submit', function(e){
-  e.preventDefault();
-  $.ajax({
-    url: '{{ route("atividade.associado.atendimento") }}',
-    type: 'POST',
-    data: $('#modal-adicionar #formAdicionar').serialize(),
-    beforeSend: function(){
-      $('.modal-body, .modal-footer').addClass('d-none');
-      $('.carregamento').html('<div class="mx-auto text-center my-5"> <div class="col-12"> <div class="spinner-border my-4" role="status"> <span class="sr-only"> Loading... </span> </div> </div> <label>Salvando informações...</label></div>');
-      $('#modal-adicionar #err').html('');
-    },
-    success: function(data){
-      $('.modal-body, .modal-footer').addClass('d-none');
-      $('.carregamento').html('<div class="mx-auto text-center my-5"><div class="col-12"><i class="col-2 mdi mdi-check-all mdi-48px"></i></div><label>Informações alteradas com sucesso!</label></div>');
-      setTimeout(function(){
-        location.reload();
-      }, 2000);
-    }, error: function (data) {
-      setTimeout(function(){
-        $('.modal-body, .modal-footer').removeClass('d-none');
-        $('.carregamento').html('');
-        if(!data.responseJSON){
-          console.log(data.responseText);
-          $('#modal-adicionar #err').html(data.responseText);
-        }else{
+
+    // Criando a datatables
+
+
+    // Adicionando novas atividades
+    $('#modal-adicionar #formAdicionar').on('submit', function(e){
+      e.preventDefault();
+      $.ajax({
+        url: '{{ route("atividade.associado.atendimento") }}',
+        type: 'POST',
+        data: $('#modal-adicionar #formAdicionar').serialize(),
+        beforeSend: function(){
+          $('.modal-body, .modal-footer').addClass('d-none');
+          $('.carregamento').html('<div class="mx-auto text-center my-5"> <div class="col-12"> <div class="spinner-border my-4" role="status"> <span class="sr-only"> Loading... </span> </div> </div> <label>Salvando informações...</label></div>');
           $('#modal-adicionar #err').html('');
-          $('input').removeClass('border-bottom border-danger');
-          $.each(data.responseJSON.errors, function(key, value){
-            $('#modal-adicionar #err').append('<div class="text-danger mx-4"><p>'+value+'</p></div>');
-            $('input[name="'+key+'"]').addClass('border-bottom border-danger');
-          });
+        },
+        success: function(data){
+          $('.modal-body, .modal-footer').addClass('d-none');
+          $('.carregamento').html('<div class="mx-auto text-center my-5"><div class="col-12"><i class="col-2 mdi mdi-check-all mdi-48px"></i></div><label>Informações alteradas com sucesso!</label></div>');
+          setTimeout(function(){
+            location.reload();
+          }, 2000);
+        }, error: function (data) {
+          setTimeout(function(){
+            $('.modal-body, .modal-footer').removeClass('d-none');
+            $('.carregamento').html('');
+            if(!data.responseJSON){
+              console.log(data.responseText);
+              $('#modal-adicionar #err').html(data.responseText);
+            }else{
+              $('#modal-adicionar #err').html('');
+              $('input').removeClass('border-bottom border-danger');
+              $.each(data.responseJSON.errors, function(key, value){
+                $('#modal-adicionar #err').append('<div class="text-danger mx-4"><p>'+value+'</p></div>');
+                $('input[name="'+key+'"]').addClass('border-bottom border-danger');
+              });
+            }
+          }, 2000);
         }
-      }, 2000);
-    }
-  });
-});
+      });
+    });
 
-// Retornando dados da atividade
-$('.editarAtividade').on('click', function(){
-  url = $(this).attr('data');
-  $.get(url, function(data){
-    $('#modal-editar #identificador').val(data.id);
-    $('#modal-editar .tipo').val(data.tipo);
-    $('#modal-editar .descricao').html(data.descricao);
-    $('#modal-editar .contato').val(data.contato);
-  });
-  $('#modal-editar').modal('show');
-});
+    // Retornando dados da atividade
+    $('.editarAtividade').on('click', function(){
+      url = $(this).attr('data');
+      $.get(url, function(data){
+        $('#modal-editar #identificador').val(data.id);
+        $('#modal-editar .tipo').val(data.tipo);
+        $('#modal-editar .descricao').html(data.descricao);
+        $('#modal-editar .contato').val(data.contato);
+      });
+      $('#modal-editar').modal('show');
+    });
 
-// Editando atividade
-$('#modal-editar #formEditar').on('submit', function(e){
-  e.preventDefault();
-  $.ajax({
-    url: '{{ route("editando.atividade.associado.atendimento") }}',
-    type: 'POST',
-    data: $('#modal-editar #formEditar').serialize(),
-    beforeSend: function(){
-      $('.modal-body, .modal-footer').addClass('d-none');
-      $('.carregamento').html('<div class="mx-auto text-center my-5"> <div class="col-12"> <div class="spinner-border my-4" role="status"> <span class="sr-only"> Loading... </span> </div> </div> <label>Salvando informações...</label></div>');
-      $('#modal-editar #err').html('');
-    },
-    success: function(data){
-      $('.modal-body, .modal-footer').addClass('d-none');
-      $('.carregamento').html('<div class="mx-auto text-center my-5"><div class="col-12"><i class="col-2 mdi mdi-check-all mdi-48px"></i></div><label>Informações alteradas com sucesso!</label></div>');
-      setTimeout(function(){
-        location.reload();
-      }, 2000);
-    }, error: function (data) {
-      setTimeout(function(){
-        $('.modal-body, .modal-footer').removeClass('d-none');
-        $('.carregamento').html('');
-        if(!data.responseJSON){
-          console.log(data.responseText);
-          $('#modal-editar #err').html(data.responseText);
-        }else{
+    // Editando atividade
+    $('#modal-editar #formEditar').on('submit', function(e){
+      e.preventDefault();
+      $.ajax({
+        url: '{{ route("editando.atividade.associado.atendimento") }}',
+        type: 'POST',
+        data: $('#modal-editar #formEditar').serialize(),
+        beforeSend: function(){
+          $('.modal-body, .modal-footer').addClass('d-none');
+          $('.carregamento').html('<div class="mx-auto text-center my-5"> <div class="col-12"> <div class="spinner-border my-4" role="status"> <span class="sr-only"> Loading... </span> </div> </div> <label>Salvando informações...</label></div>');
           $('#modal-editar #err').html('');
-          $('input').removeClass('border-bottom border-danger');
-          $.each(data.responseJSON.errors, function(key, value){
-            $('#modal-editar #err').append('<div class="text-danger mx-4"><p>'+value+'</p></div>');
-            $('input[name="'+key+'"]').addClass('border-bottom border-danger');
-          });
+        },
+        success: function(data){
+          $('.modal-body, .modal-footer').addClass('d-none');
+          $('.carregamento').html('<div class="mx-auto text-center my-5"><div class="col-12"><i class="col-2 mdi mdi-check-all mdi-48px"></i></div><label>Informações alteradas com sucesso!</label></div>');
+          setTimeout(function(){
+            location.reload();
+          }, 2000);
+        }, error: function (data) {
+          setTimeout(function(){
+            $('.modal-body, .modal-footer').removeClass('d-none');
+            $('.carregamento').html('');
+            if(!data.responseJSON){
+              console.log(data.responseText);
+              $('#modal-editar #err').html(data.responseText);
+            }else{
+              $('#modal-editar #err').html('');
+              $('input').removeClass('border-bottom border-danger');
+              $.each(data.responseJSON.errors, function(key, value){
+                $('#modal-editar #err').append('<div class="text-danger mx-4"><p>'+value+'</p></div>');
+                $('input[name="'+key+'"]').addClass('border-bottom border-danger');
+              });
+            }
+          }, 2000);
         }
-      }, 2000);
-    }
-  });
-});
-
-// Relatório de impressão
-$('#modal-impressao #formImpressao').on('submit', function(e){
-  $('#modal-impressao .modal-body, #modal-impressao .modal-footer').addClass('d-none');
-  $('#modal-impressao .carregamento').removeClass('d-none');
-  $('#modal-impressao .carregamento').html('<div class="mx-auto text-center my-5"><div class="col-12"><i class="col-2 mdi mdi-check-all mdi-48px"></i></div><label>Relatório gerado com sucesso!</label></div>');
-  setTimeout(function(){
-    $('#modal-impressao').modal('hide');
-    $('#modal-impressao .modal-body, #modal-impressao .modal-footer').removeClass('d-none');
-    $('#modal-impressao .carregamento').addClass('d-none');
-  }, 2000);      
-});
+      });
+    });
+    
+    // Relatório de impressão
+    $('#modal-impressao #formImpressao').on('submit', function(e){
+      $('#modal-impressao .modal-body, #modal-impressao .modal-footer').addClass('d-none');
+      $('#modal-impressao .carregamento').removeClass('d-none');
+      $('#modal-impressao .carregamento').html('<div class="mx-auto text-center my-5"><div class="col-12"><i class="col-2 mdi mdi-check-all mdi-48px"></i></div><label>Relatório gerado com sucesso!</label></div>');
+      setTimeout(function(){
+        $('#modal-impressao').modal('hide');
+        $('#modal-impressao .modal-body, #modal-impressao .modal-footer').removeClass('d-none');
+        $('#modal-impressao .carregamento').addClass('d-none');
+      }, 2000);      
+    });
 });
 </script>
 @endsection

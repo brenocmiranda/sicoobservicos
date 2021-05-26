@@ -18,15 +18,12 @@ class CreateProSipag extends Migration
             $table->increments('id');
             $table->integer('ec');
             $table->string('base');
-            $table->string('mcc');
-            $table->string('descricao_mcc');
-            $table->string('segmento');
-            $table->string('cnae');
-            $table->string('descricao_cnae');
+            $table->string('domicilio_banco')->nullable();
+            $table->string('domicilio_agencia')->nullable();
+            $table->string('descricao_mcc')->nullable();
+            $table->string('segmento')->nullable();
             $table->date('data_credenciamento');
             $table->string('status');
-            $table->integer('ecommerce');
-            $table->date('data_movimento');
 
             $table->integer('cli_id_associado')->unsigned()->nullable();
             $table->foreign('cli_id_associado')->references('id')->on('cli_associados');

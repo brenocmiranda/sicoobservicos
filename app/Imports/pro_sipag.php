@@ -23,40 +23,29 @@ class pro_sipag implements ToCollection, WithChunkReading, WithHeadingRow, Shoul
     {
         foreach ($rows as $row) 
         {   
-        	$item = ProSipag::where('ec', $row['estabelecimento_comercial'])->first();
+        	$item = ProSipag::where('ec', $row['numero_ec'])->first();
             $associado = Associados::where('documento', $row['cpfcnpj'])->select('id')->first();
 
         	if(isset($item)){
-        		ProSipag::where('ec', $row['estabelecimento_comercial'])->update([
-	                'base' => $row['base'], 
-	                'mcc' => $row['mcc'], 
-	                'descricao_mcc' => $row['descricao_mcc'], 
-	                'segmento' => $row['macro_segmento'], 
-	                'cnae' => $row['cnae'], 
-	                'descricao_cnae' => $row['descricao_cnae'], 
-	                'data_credenciamento' => gmdate('Y-m-d', (($row['dt_credenc'] - 25569) * 86400)),
-	                'status' => $row['status'], 
-	                'ecommerce' => ($row['e_commerce'] == "SIM" ? 1 : 0),
-                    'data_movimento' => date('Y-m-d', strtotime('-2 day')),
-	                'cli_id_associado' => (isset($associado) ? $associado->id : null),
+        		ProSipag::where('ec', $row['numero_ec'])->update([
+                    'data_credenciamento' => gmdate('Y-m-d', (($row['data_credenciamento'] - 25569) * 86400)),
+                    'domicilio_banco' => (isset($row['banco']) ? $row['banco'] : null), 
+                    'domicilio_agencia' => (isset($row['agencia']) ? $row['agencia'] : null),
+                    'base' => $row['base'],
+                    'status' => $row['status'], 
+                    'cli_id_associado' => (isset($associado) ? $associado->id : null),
 	            ]);
         	}else{
         		ProSipag::create([
-	                'ec' => $row['estabelecimento_comercial'], 
-	                'base' => $row['base'], 
-	                'mcc' => $row['mcc'], 
-	                'descricao_mcc' => $row['descricao_mcc'], 
-	                'segmento' => $row['macro_segmento'], 
-	                'cnae' => $row['cnae'], 
-	                'descricao_cnae' => $row['descricao_cnae'], 
-	                'data_credenciamento' => gmdate('Y-m-d', (($row['dt_credenc'] - 25569) * 86400)),
-	                'status' => $row['status'], 
-	                'ecommerce' => ($row['e_commerce'] == "SIM" ? 1 : 0),
-                    'data_movimento' => date('Y-m-d', strtotime('-2 day')),
+	                'ec' => (int) $row['numero_ec'], 
+                    'data_credenciamento' => gmdate('Y-m-d', (($row['data_credenciamento'] - 25569) * 86400)),
+                    'domicilio_banco' => (isset($row['banco']) ? $row['banco'] : null), 
+                    'domicilio_agencia' => (isset($row['agencia']) ? $row['agencia'] : null),
+	                'base' => $row['base'],
+                    'status' => $row['status'], 
                     'cli_id_associado' => (isset($associado) ? $associado->id : null),
 	            ]);
         	}
-            
         }
     }
 
@@ -64,14 +53,14 @@ class pro_sipag implements ToCollection, WithChunkReading, WithHeadingRow, Shoul
     {
         return [
             AfterImport::class => function(AfterImport $event) {
-                Logs::create(['mensagem' => 'Inicilizando importação de pro_seguros.xlsx...']);
-                Logs::create(['mensagem' => 'Processando o arquivo pro_seguros.xlsx...']);
-                Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de pro_seguros.xlsx efetuada com sucesso!</span>']);
+                Logs::create(['mensagem' => 'Inicilizando importação de pro_sipag.xlsx...']);
+                Logs::create(['mensagem' => 'Processando o arquivo pro_sipag.xlsx...']);
+                Logs::create(['mensagem' => '<span class="text-success font-weight-bold">Importação de pro_sipag.xlsx efetuada com sucesso!</span>']);
             },
             ImportFailed::class => function(ImportFailed $event) {
-                Logs::create(['mensagem' => 'Inicilizando importação de pro_seguros.xlsx...']);
-                Logs::create(['mensagem' => 'Processando o arquivo pro_seguros.xlsx...']);
-                Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo pro_seguros.xlsx!</span>']);
+                Logs::create(['mensagem' => 'Inicilizando importação de pro_sipag.xlsx...']);
+                Logs::create(['mensagem' => 'Processando o arquivo pro_sipag.xlsx...']);
+                Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo pro_sipag.xlsx!</span>']);
             },
         ];
     }

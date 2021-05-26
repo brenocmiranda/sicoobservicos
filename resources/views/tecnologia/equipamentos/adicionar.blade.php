@@ -126,6 +126,7 @@ Adicionar equipamento
 										<label class="col-form-label pb-0">Nº série <span class="text-danger">*</span></label>
 										<div class="">
 											<input class="form-control form-control-line text-uppercase" name="serialNumber" required/>
+											<small class="serialNumber d-block"></small>
 										</div>
 									</div>
 								</div>
@@ -134,6 +135,7 @@ Adicionar equipamento
 										<label class="col-form-label pb-0">Nº patrimônio </label>
 										<div class="">
 											<input class="form-control form-control-line text-uppercase" name="n_patrimonio"/>
+											<small class="n_patrimonio d-block"></small>
 										</div>
 									</div>
 								</div>
@@ -141,7 +143,7 @@ Adicionar equipamento
 									<div class="form-group">
 										<label class="col-form-label pb-0">Service TAG </label>
 										<div class="">
-											<input class="form-control form-control-line text-uppercase" name="serviceTag"/>
+											<input class="form-control form-control-line text-uppercase serviceTag" name="serviceTag"/>
 										</div>
 									</div>
 								</div>
@@ -246,7 +248,7 @@ Adicionar equipamento
 								&#183 
 								<span id="marca"></span>
 							</label>
-							<small class="d-block mt-2 text-uppercase" id="serialNumber"></small>
+							<small class="d-block mt-2 text-uppercase" id="n_patrimonio"></small>
 							<hr class="mx-5">
 							<label class="d-block mt-3 mb-0" id="usuario"></label>
 							<label class="d-block mt-2" id="id_setor"></label>
@@ -279,6 +281,9 @@ Adicionar equipamento
   	}
 
 	$(document).ready( function (){
+		// Mascara de formatação
+		$('form input[name="n_patrimonio"]').mask('00.0000000', {reverse: true});
+
 		// Atualizando detalhes do ativo
 		$('form select[name="id_equipamento"]').on('change', function(){
 			$('#equipamento').html($('select[name="id_equipamento"] option:selected').text());
@@ -290,7 +295,31 @@ Adicionar equipamento
 			$('#modelo').html($('input[name="modelo"]').val());
 		});
 		$('form input[name="serialNumber"]').on('keyup', function(){
-			$('#serialNumber').html($('input[name="serialNumber"]').val());
+			$.get("{{url('app/gti/equipamentos/serialNumber')}}/"+$('input[name="serialNumber"]').val(), function(data){
+				if(data.success == true){
+					$('input[name="serialNumber"]').removeClass('border-success').addClass('border-danger');
+					$('.serialNumber').html('Nº de série já cadastrado.').addClass('text-danger pt-2');
+					$('button[type=submit]').attr('disabled', 'disabled');
+				}else{
+					$('input[name="serialNumber"]').removeClass('border-danger').addClass('border-success');
+					$('.serialNumber').html('').removeClass('text-danger pt-2');
+					$('button[type=submit]').removeAttr('disabled');
+				}
+			});
+		});
+		$('form input[name="n_patrimonio"]').on('keyup', function(){
+			$('#n_patrimonio').html($('input[name="n_patrimonio"]').val());
+			$.get("{{url('app/gti/equipamentos/patrimonio')}}/"+$('input[name="n_patrimonio"]').val(), function(data){
+				if(data.success == true){
+					$('input[name="n_patrimonio"]').removeClass('border-success').addClass('border-danger');
+					$('.n_patrimonio').html('Nº de patrimônio já cadastrado.').addClass('text-danger pt-2');
+					$('button[type=submit]').attr('disabled', 'disabled');
+				}else{
+					$('input[name="n_patrimonio"]').removeClass('border-danger').addClass('border-success');
+					$('.n_patrimonio').html('').removeClass('text-danger pt-2');
+					$('button[type=submit]').removeAttr('disabled');
+				}
+			});
 		});
 		$('form select[name="usuario"]').on('change', function(){
 			$('#usuario').html($('select[name="usuario"] option:selected').text());

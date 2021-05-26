@@ -23,6 +23,8 @@ use App\Models\ProSeguros;
 use App\Models\ProConsorcios;
 use App\Models\ProPrevidencias;
 use App\Models\ProCobranca;
+use App\Models\ProSipag;
+use App\Models\ProSipagFaturamento;
 use App\Models\Aplicacoes;
 use App\Models\Cadastro;
 use App\Models\CadastroArquivos;
@@ -78,6 +80,7 @@ class AtendimentoCtrl extends Controller
 			$pro_consorcios = ProConsorcios::select('updated_at', 'data_movimento')->orderBy('updated_at', 'DESC')->first();
 			$pro_previdencias = ProPrevidencias::select('updated_at', 'data_movimento')->orderBy('updated_at', 'DESC')->first();
 			$pro_cobranca = ProCobranca::select('updated_at', 'data_movimento')->orderBy('updated_at', 'DESC')->first();
+			$pro_sipag = ProSipagFaturamento::select('updated_at', 'data_movimento')->orderBy('data_movimento', 'DESC')->first();
 
 			Atividades::create([
 				'nome' => 'Acesso ao painel do associado',
@@ -87,7 +90,7 @@ class AtendimentoCtrl extends Controller
 				'id_usuario' => Auth::id()
 			]);
 
-	  		return view('atendimento.painel.exibir')->with('associado', $associado)->with('conglomerado', $conglomerado)->with('atividades', $atividades)->with('cca_contacapital', $cca_contacapital)->with('cco_contacorrente', $cco_contacorrente)->with('crt_cartaocredito', $crt_cartaocredito)->with('cre_contratos', $cre_contratos)->with('pop_poupanca', $pop_poupanca)->with('dep_aplicacoes', $dep_aplicacoes)->with('cli_iap', $cli_iap)->with('cli_bacen', $cli_bacen)->with('cre_avalistas', $cre_avalistas)->with('cre_garantias', $cre_garantias)->with('pro_seguros', $pro_seguros)->with('pro_consorcios', $pro_consorcios)->with('pro_previdencias', $pro_previdencias)->with('pro_cobranca', $pro_cobranca);
+	  		return view('atendimento.painel.exibir')->with('associado', $associado)->with('conglomerado', $conglomerado)->with('atividades', $atividades)->with('cca_contacapital', $cca_contacapital)->with('cco_contacorrente', $cco_contacorrente)->with('crt_cartaocredito', $crt_cartaocredito)->with('cre_contratos', $cre_contratos)->with('pop_poupanca', $pop_poupanca)->with('dep_aplicacoes', $dep_aplicacoes)->with('cli_iap', $cli_iap)->with('cli_bacen', $cli_bacen)->with('cre_avalistas', $cre_avalistas)->with('cre_garantias', $cre_garantias)->with('pro_seguros', $pro_seguros)->with('pro_consorcios', $pro_consorcios)->with('pro_previdencias', $pro_previdencias)->with('pro_cobranca', $pro_cobranca)->with('pro_sipag', $pro_sipag);
 		}else{
 			\Session::flash('login', array(
 					'class' => 'danger',

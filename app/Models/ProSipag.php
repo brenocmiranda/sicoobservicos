@@ -11,5 +11,9 @@ class ProSipag extends Model
 
     protected $table = 'pro_sipag';
     protected $primaryKey = 'id';
-    protected $fillable = ['id', 'ec', 'base', 'mcc', 'descricao_mcc', 'segmento', 'cnae', 'descricao_cnae', 'data_credenciamento', 'status', 'ecommerce', 'data_movimento', 'cli_id_associado', 'created_at', 'updated_at'];
+    protected $fillable = ['id', 'ec', 'base', 'domicilio_banco', 'domicilio_agencia', 'descricao_mcc', 'segmento', 'data_credenciamento', 'status', 'cli_id_associado', 'created_at', 'updated_at'];
+
+    public function RelationFaturamento(){
+        return $this->hasMany(ProSipagFaturamento::class, 'pro_id_sipag');
+    }
 }

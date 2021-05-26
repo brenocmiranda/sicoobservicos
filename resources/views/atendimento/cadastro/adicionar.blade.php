@@ -83,7 +83,6 @@ Novo associado
 		}
 	};
 
-
 	function cartao(input, type){
 		if(type == "PF"){
 			// Cortando o cartão de assinatura para PF

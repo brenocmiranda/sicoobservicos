@@ -1407,11 +1407,28 @@ class TecnologiaCtrl extends Controller
             'id_usuario' => Auth::id()
         ]);
     }
-
     // Histórico dos usuários
     public function HistoricoInvetario($id){
         $dados = AtivosUsuarios::join('usr_usuarios', 'usr_id_usuarios', 'usr_usuarios.id')->join('cli_associados', 'usr_usuarios.cli_id_associado', 'cli_associados.id')->where('gti_id_ativos', $id)->select('gti_ativos_has_usuarios.*', 'cli_associados.nome')->orderBy('dataRecebimento', 'ASC')->get();
         return response()->json($dados); 
+    }
+    // Verifica se já existe serialNumber cadastrado 
+    public function ExisteSerialNumber($dados){
+        $serialNumber = Ativos::where('serialNumber', $dados)->first();
+        if(isset($serialNumber)){
+            return response()->json(['success' => true]);
+        }else{
+            return response()->json(['success' => false]);
+        }
+    }
+    // Verifica se já existe patrimônio cadastrado 
+    public function ExistePatrimonio($dados){
+        $patrimonio = Ativos::where('n_patrimonio', $dados)->first();
+        if(isset($patrimonio)){
+            return response()->json(['success' => true]);
+        }else{
+            return response()->json(['success' => false]);
+        }
     }
 
 	#-------------------------------------------------------------------
