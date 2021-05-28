@@ -12,7 +12,7 @@ class Contratos extends Model
     
     protected $table = 'cre_contratos';
     protected $primaryKey = 'id';
-    protected $fillable = ['id', 'num_contrato', 'situacao', 'data_operacao', 'data_vencimento', 'data_quitacao', 'valor_contrato', 'finalidade', 'renegociacao', 'cod_linha', 'linha', 'cli_id_associado', 'cre_id_arquivo', 'taxa_operacao', 'taxa_mora', 'taxa_multa', 'nivel_risco', 'valor_devido', 'qtd_parcelas', 'qtd_parcelas_pagas', 'renegociacao_contrato', 'observacoes', 'data_movimento', 'created_at', 'updated_at'];
+    protected $fillable = ['id', 'num_contrato', 'situacao', 'produto', 'codigo_produto', 'sigla_produto', 'data_operacao', 'data_vencimento', 'data_quitacao', 'valor_contrato', 'finalidade', 'renegociacao', 'cod_linha', 'linha', 'cli_id_associado', 'cre_id_arquivo', 'taxa_operacao', 'taxa_mora', 'taxa_multa', 'nivel_risco', 'valor_devido', 'qtd_parcelas', 'qtd_parcelas_pagas', 'renegociacao_contrato', 'observacoes', 'data_movimento', 'created_at', 'updated_at'];
 
     public function RelationUnidade(){
         return $this->belongsTo(Unidades::class, 'cli_id_unidade', 'id');

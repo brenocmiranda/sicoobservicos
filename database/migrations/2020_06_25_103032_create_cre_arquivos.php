@@ -16,11 +16,7 @@ class CreateCreArquivos extends Migration
         Schema::create('cre_arquivos', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            
-            $table->integer('cre_id_modalidades')->unsigned();
-            $table->foreign('cre_id_modalidades')->references('id')->on('cre_modalidades');
-            $table->integer('cre_id_produtos')->unsigned();
-            $table->foreign('cre_id_produtos')->references('id')->on('cre_produtos');
+
             $table->integer('cre_id_armarios')->unsigned()->nullable();
             $table->foreign('cre_id_armarios')->references('id')->on('cre_armarios');
 

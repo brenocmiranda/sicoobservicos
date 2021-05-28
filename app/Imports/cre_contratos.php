@@ -48,6 +48,9 @@ class cre_contratos implements ToCollection, WithChunkReading, WithHeadingRow, S
                 ]);
                 Contratos::where('num_contrato', $row['numero_contrato_credito'])->update([
                     'situacao' => $row['situacao_contrato'],
+                    'produto' => $row['modalidade_produto'],
+                    'codigo_produto' => $row['codigo_modalidade_produto'],
+                    'sigla_produto' => $row['sigla_modalidade_produto'],
                     'data_operacao' => gmdate('Y-m-d', (($row['data_operacao_contrato'] - 25569) * 86400)),
                     'data_vencimento' => gmdate('Y-m-d', (($row['data_vencimento_contrato'] - 25569) * 86400)),
                     'data_quitacao' => ($row['situacao_contrato'] == 'QUITADO' ? gmdate('Y-m-d', (($row['data_movimento'] - 25569) * 86400)) : '1900-01-01'),
@@ -75,6 +78,12 @@ class cre_contratos implements ToCollection, WithChunkReading, WithHeadingRow, S
                 Contratos::create([
                     'num_contrato' => (int) $row['numero_contrato_credito'],
                     'situacao' => $row['situacao_contrato'],
+                    'produto' => $row['modalidade_produto'],
+                    'codigo_produto' => $row['codigo_modalidade_produto'],
+                    'sigla_produto' => $row['sigla_modalidade_produto'],
+                    'produto' => $row['modalidade_produto'],
+                    'codigo_produto' => $row['codigo_modalidade_produto'],
+                    'sigla_produto' => $row['sigla_modalidade_produto'],
                     'data_operacao' => gmdate('Y-m-d', (($row['data_operacao_contrato'] - 25569) * 86400)),
                     'data_vencimento' => gmdate('Y-m-d', (($row['data_vencimento_contrato'] - 25569) * 86400)),
                     'data_quitacao' => ($row['situacao_contrato'] == 'QUITADO' ? gmdate('Y-m-d', (($row['data_movimento'] - 25569) * 86400)) : '1900-01-01'),

@@ -17,6 +17,9 @@ class CreateCreContratos extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->integer('num_contrato')->unique();
+            $table->string('produto');
+            $table->string('codigo_produto');
+            $table->string('sigla_produto');
             $table->string('situacao');
             $table->date('data_operacao');
             $table->date('data_vencimento');

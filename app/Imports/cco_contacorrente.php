@@ -27,36 +27,7 @@ class cco_contacorrente implements ToCollection, WithChunkReading, WithHeadingRo
         foreach ($rows as $row) 
         {  
             $dados = ContaCorrente::where('num_contrato', $row['numero_conta_corrente'])->first();
-            if(isset($dados)){
-                $item = ContratosArquivos::find($dados->cre_id_arquivo);
-                if(isset($item)){
-                    ContratosArquivos::find($dados->cre_id_arquivo)->update([
-                        'cre_id_modalidades' => (
-                            $row['modalidade_conta_corrente'] == 'CHEQUE ADMINISTRATIVO' ? ContratosModalidades::where('codigo', 801)->select('id')->first()->id : 
-                            ($row['modalidade_conta_corrente'] == 'CONTA BENEFÍCIO INSS' ? ContratosModalidades::where('codigo', 802)->select('id')->first()->id : 
-                            ($row['modalidade_conta_corrente'] == 'CONTA CONTROLE INTERNO' ? ContratosModalidades::where('codigo', 803)->select('id')->first()->id : 
-                            ($row['modalidade_conta_corrente'] == 'CONTA CORRENTE' ? ContratosModalidades::where('codigo', 804)->select('id')->first()->id :
-                            ($row['modalidade_conta_corrente'] == 'CONTA INVESTIMENTO' ? ContratosModalidades::where('codigo', 805)->select('id')->first()->id :
-                            ($row['modalidade_conta_corrente'] == 'CONTA SALÁRIO' ? ContratosModalidades::where('codigo', 806)->select('id')->first()->id :
-                            ($row['modalidade_conta_corrente'] == 'CORRESPONDENTE BANCÁRIO' ? ContratosModalidades::where('codigo', 807)->select('id')->first()->id : 
-                                ContratosModalidades::where('codigo', 99999)->select('id')->first()->id))))))),
-                        'cre_id_produtos' => ContratosProdutos::where('codigo', 3)->select('id')->first()->id,
-                    ]);
-                }else{
-                    $arquivo = ContratosArquivos::create([
-                        'cre_id_modalidades' => (
-                            $row['modalidade_conta_corrente'] == 'CHEQUE ADMINISTRATIVO' ? ContratosModalidades::where('codigo', 801)->select('id')->first()->id : 
-                            ($row['modalidade_conta_corrente'] == 'CONTA BENEFÍCIO INSS' ? ContratosModalidades::where('codigo', 802)->select('id')->first()->id : 
-                            ($row['modalidade_conta_corrente'] == 'CONTA CONTROLE INTERNO' ? ContratosModalidades::where('codigo', 803)->select('id')->first()->id : 
-                            ($row['modalidade_conta_corrente'] == 'CONTA CORRENTE' ? ContratosModalidades::where('codigo', 804)->select('id')->first()->id :
-                            ($row['modalidade_conta_corrente'] == 'CONTA INVESTIMENTO' ? ContratosModalidades::where('codigo', 805)->select('id')->first()->id :
-                            ($row['modalidade_conta_corrente'] == 'CONTA SALÁRIO' ? ContratosModalidades::where('codigo', 806)->select('id')->first()->id :
-                            ($row['modalidade_conta_corrente'] == 'CORRESPONDENTE BANCÁRIO' ? ContratosModalidades::where('codigo', 807)->select('id')->first()->id : 
-                                ContratosModalidades::where('codigo', 99999)->select('id')->first()->id))))))),
-                        'cre_id_produtos' => ContratosProdutos::where('codigo', 3)->select('id')->first()->id,
-                    ]);
-                }
-               
+            if(isset($dados)){             
                 ContaCorrente::where('num_contrato', $row['numero_conta_corrente'])->update([
                     'situacao' => $row['situacao_conta_corrente'],
                     'modalidade_conta' => $row['modalidade_conta_corrente'],
@@ -79,18 +50,6 @@ class cco_contacorrente implements ToCollection, WithChunkReading, WithHeadingRo
                     'cre_id_arquivo' => $dados->cre_id_arquivo,
                 ]); 
             }else{
-                $arquivo = ContratosArquivos::create([
-                    'cre_id_modalidades' => (
-                        $row['modalidade_conta_corrente'] == 'CHEQUE ADMINISTRATIVO' ? ContratosModalidades::where('codigo', 801)->select('id')->first()->id : 
-                        ($row['modalidade_conta_corrente'] == 'CONTA BENEFÍCIO INSS' ? ContratosModalidades::where('codigo', 802)->select('id')->first()->id : 
-                        ($row['modalidade_conta_corrente'] == 'CONTA CONTROLE INTERNO' ? ContratosModalidades::where('codigo', 803)->select('id')->first()->id : 
-                        ($row['modalidade_conta_corrente'] == 'CONTA CORRENTE' ? ContratosModalidades::where('codigo', 804)->select('id')->first()->id :
-                        ($row['modalidade_conta_corrente'] == 'CONTA INVESTIMENTO' ? ContratosModalidades::where('codigo', 805)->select('id')->first()->id :
-                        ($row['modalidade_conta_corrente'] == 'CONTA SALÁRIO' ? ContratosModalidades::where('codigo', 806)->select('id')->first()->id :
-                        ($row['modalidade_conta_corrente'] == 'CORRESPONDENTE BANCÁRIO' ? ContratosModalidades::where('codigo', 807)->select('id')->first()->id : 
-                            ContratosModalidades::where('codigo', 99999)->select('id')->first()->id))))))),
-                    'cre_id_produtos' => ContratosProdutos::where('codigo', 3)->select('id')->first()->id,
-                ]);
                 ContaCorrente::create([
                     'num_contrato' => (int) $row['numero_conta_corrente'],
                     'situacao' => $row['situacao_conta_corrente'],
