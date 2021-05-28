@@ -756,7 +756,7 @@ Painel do associado
               </div>
               <div class="col-lg-3 col-12">
                 <h6 class="mt-lg-0">Modalidade</h6>
-                <label>{{$carteira->RelationArquivos->RelationModalidades->nome}}</label>
+                <label>{{$carteira->modalidade}}</label>
               </div>
               <div class="col-lg-3 col-12">
                 <h6  class="mt-lg-0">Finalidade</h6>

@@ -182,7 +182,9 @@ Homepage
 		</ul>
 	</div>
 	<div class="col-12 text-lg-right text-center position-absolute px-5 mx-lg-4 mx-auto py-4"style="bottom: 0; right: 0;">
-		<h5 class="text-weight-normal" style="font-family: system-ui;color: #9e9e9e !important;" title="{{explode(' ', exec('getmac'))[0]}}">Client IP - {{$_SERVER['REMOTE_ADDR']}}</h5>
+		<h5 class="text-weight-normal" style="font-family: system-ui;color: #9e9e9e !important;">{{gethostbyaddr($_SERVER['REMOTE_ADDR'])}}</h5>
+		<h5 class="text-weight-normal" style="font-family: system-ui;color: #9e9e9e !important;">{{explode(' ', exec('getmac'))[0]}}</h5>
+		<h5 class="text-weight-normal" style="font-family: system-ui;color: #9e9e9e !important;">{{$_SERVER['REMOTE_ADDR']}}</h5>
 	</div>
 </div>
 

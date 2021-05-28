@@ -28,6 +28,9 @@ class crt_cartaocredito implements ToCollection, WithChunkReading, WithHeadingRo
         {  
             $dados = CartaoCredito::where('num_contrato', $row['numero_conta_cartao'])->first();
             if(isset($dados)){
+                ContratosArquivos::find($dados->cre_id_arquivo)->update([
+                    'cre_id_produtos' => ContratosProdutos::where('codigo', 99)->select('id')->first()->id,
+                ]);
                 CartaoCredito::where('num_contrato', $row['numero_conta_cartao'])->update([
                     'situacao' => $row['situacao_conta_cartao'],
                     'cod_cliente' => $row['codigo_cliente'],
@@ -46,6 +49,9 @@ class crt_cartaocredito implements ToCollection, WithChunkReading, WithHeadingRo
                     'cre_id_arquivo' => $dados->cre_id_arquivo
                 ]);
             }else{
+                $arquivo = ContratosArquivos::create([
+                    'cre_id_produtos' => ContratosProdutos::where('codigo', 99)->select('id')->first()->id,
+                ]);
                 CartaoCredito::create([
                     'num_contrato' => (int) $row['numero_conta_cartao'],
                     'situacao' => $row['situacao_conta_cartao'],
