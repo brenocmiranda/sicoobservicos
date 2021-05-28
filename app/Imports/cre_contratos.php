@@ -6,7 +6,6 @@ use App\Models\Contratos;
 use App\Models\Associados;
 use App\Models\ContratosArquivos;
 use App\Models\ContratosProdutos;
-use App\Models\ContratosModalidades;
 use App\Models\Logs;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\Importable;
@@ -61,6 +60,7 @@ class cre_contratos implements ToCollection, WithChunkReading, WithHeadingRow, S
                 ]);
                 Contratos::create([
                     'num_contrato' => (int) $row['numero_contrato_credito'],
+                    'situacao' => $row['situacao_contrato'],
                     'modalidade' => $row['modalidade_produto'],
                     'codigo_modalidade' => $row['codigo_modalidade_produto'],
                     'sigla_modalidade' => $row['sigla_modalidade_produto'],

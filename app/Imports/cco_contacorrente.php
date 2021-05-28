@@ -6,7 +6,6 @@ use App\Models\ContaCorrente;
 use App\Models\Associados;
 use App\Models\ContratosArquivos;
 use App\Models\ContratosProdutos;
-use App\Models\ContratosModalidades;
 use App\Models\Logs;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\Importable;
