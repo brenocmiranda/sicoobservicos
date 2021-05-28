@@ -817,7 +817,7 @@ Painel do associado
                 <label>{{$carteira->qtd_parcelas_pagas}}</label>
               </div>
               <div class="col-lg-3 col-12">
-                <h6>Valor devido</h6>
+                <h6>Saldo devedor</h6>
                 <label>R$ {{number_format($carteira->valor_devido, 2, ',', '.')}}</label>
               </div>
             </div>
