@@ -183,12 +183,10 @@ Homepage
 	</div>
 	<div class="col-12 text-lg-right text-center position-absolute px-5 mx-lg-4 mx-auto py-4 hidden-xs" style="bottom: 0; right: 0;">
 		<h5 class="text-weight-normal" style="font-family: system-ui;color: #9e9e9e !important;">{{str_replace('.sicoob.coop', '', gethostbyaddr($_SERVER['REMOTE_ADDR']))}}</h5>
-		<h5 class="text-weight-normal" style="font-family: system-ui;color: #9e9e9e !important;">{{explode(' ', exec('getmac'))[0]}}</h5>
 		<h5 class="text-weight-normal" style="font-family: system-ui;color: #9e9e9e !important;">{{$_SERVER['REMOTE_ADDR']}}</h5>
 	</div>
 	<div class="col-12 text-lg-right text-center px-5 mx-lg-4 mx-auto visible-xs" style="bottom: 0; right: 0;">
 		<h5 class="text-weight-normal" style="font-family: system-ui;color: #9e9e9e !important;">{{str_replace('.sicoob.coop', '', gethostbyaddr($_SERVER['REMOTE_ADDR']))}}</h5>
-		<h5 class="text-weight-normal" style="font-family: system-ui;color: #9e9e9e !important;">{{explode(' ', exec('getmac'))[0]}}</h5>
 		<h5 class="text-weight-normal" style="font-family: system-ui;color: #9e9e9e !important;">{{$_SERVER['REMOTE_ADDR']}}</h5>
 	</div>
 </div>
