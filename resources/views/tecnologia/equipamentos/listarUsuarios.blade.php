@@ -37,9 +37,9 @@ Invetário por usuário
 				@if(!empty($usuarios[0]))
 					<div id="treeview" class="col-lg-7 col-12 order-1 order-lg-2 px-0 px-lg-4"></div>
 
-					<div class="col-lg-5 col-12 order-1 order-lg-2 border" id="equipamentos" style="display: none">
+					<div class="col-lg-5 col-12 order-1 order-lg-2 border h-100" id="equipamentos" style="display: none">
 						<div class="p-3">
-							<h5>Descrições do equipamento</h5>
+							<h5 class="text-center">Descrição do equipamento</h5>
 							<hr class="mt-2">
 							<div class="row">
 								<div class="col-lg-12 col-12 row m-lg-auto mx-auto mb-5 justify-content-center">
