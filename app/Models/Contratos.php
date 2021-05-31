@@ -15,11 +15,11 @@ class Contratos extends Model
     protected $fillable = ['id', 'num_contrato', 'situacao', 'modalidade', 'codigo_modalidade', 'sigla_modalidade', 'data_operacao', 'data_vencimento', 'data_quitacao', 'valor_contrato', 'finalidade', 'renegociacao', 'cod_linha', 'linha', 'cli_id_associado', 'cre_id_arquivo', 'taxa_operacao', 'taxa_mora', 'taxa_multa', 'nivel_risco', 'valor_devido', 'qtd_parcelas', 'qtd_parcelas_pagas', 'renegociacao_contrato', 'observacoes', 'data_movimento', 'created_at', 'updated_at'];
 
     public function RelationGarantias(){
-        return $this->hasMany(ContratosGarantias::class, 'cre_id_contrato');
+        return $this->hasMany(ContratosGarantias::class, 'cre_id_arquivo', 'cre_id_arquivo');
     }
 
     public function RelationAvalistas(){
-        return $this->belongsToMany(Associados::class, 'cre_avalistas', 'cre_id_contrato', 'cli_id_associado');
+        return $this->hasMany(ContratosAvalistas::class, 'cre_id_arquivo', 'cre_id_arquivo');
     }
 
     public function RelationAssociados(){

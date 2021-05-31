@@ -739,14 +739,22 @@ Painel do associado
                 <b>{{$carteira->num_contrato}}</b> 
                 <small class="{{($carteira->situacao == 'ENTRADA NORMAL' ? 'badge badge-success' : ($carteira->situacao == 'QUITADO' ? 'badge badge-danger' : 'badge badge-info'))}}">{{$carteira->situacao}}</small> 
               </div>
-              @if(isset($carteira->RelationParcelas[0]))
+             
               <div class="ml-auto">
-                <a href="javascript:" data-toggle="modal" data-target="#{{$carteira->num_contrato}}">
+                @if(isset($carteira->RelationGarantias[0]) || isset($carteira->RelationAvalistas[0]))
+                <a href="javascript:" class="pr-3" data-toggle="modal" data-target="#{{$carteira->num_contrato}}-garantias">
+                  <i class="mdi mdi-bulletin-board mdi-18px"></i>
+                  <small>Garantias da operação</small>
+                </a>
+                @endif
+                @if(isset($carteira->RelationParcelas[0]))
+                <a href="javascript:" data-toggle="modal" data-target="#{{$carteira->num_contrato}}-parcelas">
                   <i class="mdi mdi-file-outline mdi-18px"></i>
                   <small>Extrato da operação</small>
                 </a>
+                @endif
               </div>
-              @endif
+              
             </h5>
             <hr class="mt-2">
             <div class="row">
@@ -823,7 +831,7 @@ Painel do associado
             </div>
             @if(isset($carteira->RelationParcelas[0]))
             <!-- Extrato operação de crédito -->
-            <div class="modal fade" id="{{$carteira->num_contrato}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true" data-backdrop="static" style="overflow-y: hidden;">
+            <div class="modal fade" id="{{$carteira->num_contrato}}-parcelas" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true" data-backdrop="static" style="overflow-y: hidden;">
               <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered" role="document">
                 <div class="modal-content">
                   <div class="modal-header d-block pb-0">
@@ -867,6 +875,78 @@ Painel do associado
               </div>
             </div>
             <!-- /Extrato operação de crédito -->
+            @endif
+             @if(isset($carteira->RelationGarantias[0]) || isset($carteira->RelationAvalistas[0]))
+            <!-- Garantias da operação de crédito -->
+            <div class="modal fade" id="{{$carteira->num_contrato}}-garantias" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true" data-backdrop="static" style="overflow-y: hidden;">
+              <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header d-block pb-0">
+                    <div class="col-12">
+                      <button type="button" class="close px-0 py-2" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                      <h5 class="modal-title">Garantias da operação de crédito</h5>
+                    </div>
+                    <div class="col-12 mb-0">
+                      <p>Informações do contrato de crédito</p>
+                    </div>
+                    <div id="err"></div>
+                  </div>
+                  <div class="carregamento"></div>
+                  <div class="modal-body">
+                    <div class="col-12 mx-auto">
+                      <div class="card-body pt-0">
+                        <div class="row">
+                          <h5>Garantias Fidejussórias <small>{{(isset($carteira->RelationAvalistas[0]) ? '('.date('d/m/Y', strtotime($carteira->RelationAvalistas->first()->data_movimento)).')' : '')}}</small></h5>
+                          <hr class="w-100 mt-1 mb-3">
+                          @if(isset($carteira->RelationAvalistas[0]))
+                            @foreach($carteira->RelationAvalistas as $avalistas)
+                            <div class="col-lg-12 col-12">
+                              <div class="form-group">
+                                <label class="col-form-label">Avalista</label>
+                                <p>{{$avalistas->RelationAssociados->nome}}</p>
+                              </div>
+                            </div>
+                            @endforeach
+                          @else
+                          <div class="col-12 text-left">
+                            <label>Nenhuma informação encontrada.</label>
+                          </div>
+                          @endif
+                        </div>
+                        <br>
+                        <div class="row">
+                          <h5>Garantias Fidunciária <small>{{(isset($carteira->RelationGarantias[0]) ? '('.date('d/m/Y', strtotime($carteira->RelationGarantias->first()->data_movimento)).')' : '')}}</small></h5>
+                          <hr class="w-100 mt-1 mb-3">
+                          @if(isset($carteira->RelationGarantias[0]))
+                            @foreach($carteira->RelationGarantias as $reais)
+                            <div class="col-lg-4 col-12">
+                              <div class="form-group">
+                                <label class="col-form-label">Tipo</label>
+                                <p>{{$reais->tipo}}</p>
+                              </div>
+                            </div>
+                            <div class="col-lg-8 col-12">
+                              <div class="form-group">
+                                <label class="col-form-label">Descrição</label>
+                                <p>{{$reais->descricao}}</p>
+                              </div>
+                            </div>
+                            @endforeach
+                          @else
+                          <div class="col-12 text-left">
+                            <label>Nenhuma informação encontrada.</label>
+                          </div>
+                          @endif
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /Garantias da operação de crédito -->
             @endif
           </div>
         </div>

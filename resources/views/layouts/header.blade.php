@@ -14,7 +14,7 @@
   <link rel="shortcut icon" href="{{ asset('public/img/favicon.png') }}?<?php echo rand();?>">
 
   <!-- Title &#8226 -->
-  <title>@yield('title') &#183 {{ env('APP_NAME') }} </title>
+  <title>@yield('title') &#183 Sicoob Serviços </title>
 
   
   <link href="{{ asset('public/css/bootstrap.css') }}" rel="stylesheet">
