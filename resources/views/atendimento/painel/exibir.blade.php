@@ -737,7 +737,8 @@ Painel do associado
             <h5 class="row mx-auto font-weight-normal">
               <div class="mr-auto"> 
                 <b>{{$carteira->num_contrato}}</b> 
-                <small class="{{($carteira->situacao == 'ENTRADA NORMAL' ? 'badge badge-success' : ($carteira->situacao == 'QUITADO' ? 'badge badge-danger' : 'badge badge-info'))}}">{{$carteira->situacao}}</small> 
+                <small class="{{($carteira->situacao == 'ENTRADA NORMAL' ? 'badge badge-success' : ($carteira->situacao == 'QUITADO' ? 'badge badge-danger' : 'badge badge-info'))}}">{{$carteira->situacao}}</small>
+                <small class="text-danger font-weight-bold">{!!($carteira->RelationParcelas->max('dias_atraso') > 15 ? '&#183 POSSUI PARCELAS EM ATRASO HÁ '.$carteira->RelationParcelas->max('dias_atraso').' DIAS' : '')!!}</small>
               </div>
              
               <div class="ml-auto">
@@ -876,7 +877,7 @@ Painel do associado
             </div>
             <!-- /Extrato operação de crédito -->
             @endif
-             @if(isset($carteira->RelationGarantias[0]) || isset($carteira->RelationAvalistas[0]))
+            @if(isset($carteira->RelationGarantias[0]) || isset($carteira->RelationAvalistas[0]))
             <!-- Garantias da operação de crédito -->
             <div class="modal fade" id="{{$carteira->num_contrato}}-garantias" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true" data-backdrop="static" style="overflow-y: hidden;">
               <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered" role="document">
