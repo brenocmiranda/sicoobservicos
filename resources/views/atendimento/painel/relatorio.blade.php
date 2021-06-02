@@ -816,7 +816,21 @@
             </td>
             <td style="width: 25%;" valign="top">
               <h5>Modalidade</h5>
-              <label>{{$carteira->RelationArquivos->RelationModalidades->nome}}</label>
+              <label>{{$carteira->modalidade}}</label>
+            </td>
+            <td style="width: 25%;" valign="top">
+              <h5>Finalidade</h5>
+              <label>{{$carteira->finalidade}}</label>
+            </td>
+            <td style="width: 25%;" valign="top">
+              <h5>Renegociação?</h5>
+              <label>{{$carteira->renegociacao}}</label>
+            </td>
+          </tr>
+          <tr>
+            <td style="width: 25%;" valign="top">
+              <h5>Nível de risco</h5>
+              <label>{{$carteira->nivel_risco}}</label>
             </td>
             <td style="width: 25%;" valign="top">
               <h5>Data da operação</h5>
@@ -826,12 +840,12 @@
               <h5>Data da vencimento</h5>
               <label>{{date('d/m/Y', strtotime($carteira->data_vencimento))}}</label>
             </td>
+            <td style="width: 25%;" valign="top">
+              <h5>Data de quitação</h5>
+              <label>{{($carteira->data_quitacao != "1900-01-01" ? date('d/m/Y', strtotime($carteira->data_quitacao)) : '-')}}</label>
+            </td>
           </tr>
           <tr>
-            <td style="width: 25%;" valign="top">
-              <h5>Nível de risco</h5>
-              <label>{{$carteira->nivel_risco}}</label>
-            </td>
             <td style="width: 25%;" valign="top">
               <h5>Taxa da operação</h5>
               <label>{{number_format($carteira->taxa_operacao, 2, ',', '')}} %</label>
@@ -844,6 +858,10 @@
               <h5>Taxa de multa</h5>
               <label>{{number_format($carteira->taxa_multa, 2, ',', '')}} %</label>
             </td>
+            <td style="width: 25%;" valign="top">
+              <h5>Valor contratado</h5>
+              <label>R$ {{number_format($carteira->valor_contrato, 2, ',', '.')}}</label>
+            </td>
           </tr>
           <tr>
             <td style="width: 25%;" valign="top">
@@ -855,8 +873,8 @@
               <label>{{$carteira->qtd_parcelas_pagas}}</label>
             </td>
             <td style="width: 25%;" valign="top">
-              <h5>Valor contratado</h5>
-              <label>R$ {{number_format($carteira->valor_contrato, 2, ',', '.')}}</label>
+              <h5>Valor da parcela</h5>
+              <label>R$ {{($carteira->RelationParcelas->last()['valor_parcela'] > 0 ? number_format($carteira->RelationParcelas->last()['valor_parcela'], 2, ',', '.') : number_format($carteira->RelationParcelas->last()['valor_devedor_parcela'], 2, ',', '.'))}}</label>
             </td>
             <td style="width: 25%;" valign="top">
               <h5>Saldo devedor*</h5>
@@ -982,6 +1000,7 @@
   @endif
 
   @if(isset($imprimir['iap']))
+  <?php $count = 0; ?>
   <div style="margin-bottom: 30px;">
     <h2>IAP
       <small style="font-weight: normal; font-size: 12px;padding-left: 2px">
@@ -993,13 +1012,14 @@
     <hr>
     @if(isset($associado->RelationIAP))  
     <div style="margin-top: 10px; margin-left: 10px; margin-right: 10px">    
-      <h4><b>Associado possui {{($associado->sigla == 'PF' ? $associado->RelationIAP->produtos_pf : $associado->RelationIAP->produtos_pj)}} produtos</b></h4>
+      <h5><b>Veja os produtos/serviços do associado:</b></h5>
       <hr>
       <table style="width: 100%">
         <tbody style="width: 100%">
           <tr>
-            <td style="width: 25%">
-              @if($associado->RelationIAP->indicador_cartao_credito)
+            <td>
+              @if($associado->RelationCartaoCredito->sum('valor_atribuido') > 0)
+              <?php $count++; ?>
               <div>
                 <input type="radio" checked>
                 <label> Cartão de crédito  </label>
@@ -1011,8 +1031,9 @@
               </div>
               @endif
             </td>
-            <td style="width: 25%">
-              @if($associado->RelationIAP->indicador_conta_limite)
+            <td>
+              @if($associado->RelationContaCorrente->sum('valor_contratado') > 0)
+              <?php $count++; ?>
               <div>
                 <input type="radio" checked>
                 <label> Cheque especial  </label>
@@ -1024,8 +1045,9 @@
               </div>
               @endif
             </td>
-            <td style="width: 25%">
-              @if($associado->RelationIAP->indicador_cobranca)
+            <td>
+              @if($associado->RelationCobrancas->where('situacao', 'ATIVO')->count() > 0)
+              <?php $count++; ?>
               <div>
                 <input type="radio" checked>
                 <label> Cobrança </label>
@@ -1037,8 +1059,9 @@
               </div>
               @endif
             </td>
-            <td style="width: 25%">
-              @if($associado->RelationIAP->indicador_consorcio_auto)
+            <td>
+              @if($associado->RelationConsorcios->where('versao', 'ATIVA')->where('segmento', 'VEICULOS AUTOMOTORES NAO INCLUIDOS NO SEGMENTO ANTERIOR, EXCETO MOTOCICLETAS E MOTONETAS')->sum('valor_contratado') > 0 || $associado->RelationConsorcios->where('versao', 'ATIVA')->where('segmento', 'TRATORES,EQUIP. RODOVIARIOS,MAQ. E EQUIP. AGRICOLAS,EMBARCACOES,AERONAVES,VEICULOS AUTOMOTORES DESTINADOS TRANSP. CARGAS CAPACIDADE SUPERIOR A 1.500 KG. E VEICULOS AUTOMOTORES DESTINADOS TRANSP. COLETIVO CAPACIDADE PARA 20 (VINTE) PASSAGEIROS OU MAIS')->sum('valor_contratado') > 0)
+              <?php $count++; ?>
               <div>
                 <input type="radio" checked>
                 <label> Cons. de automóvel </label>
@@ -1053,7 +1076,8 @@
           </tr>
           <tr>
             <td>
-              @if($associado->RelationIAP->indicador_consorcio_imovel)
+              @if($associado->RelationConsorcios->where('versao', 'ATIVA')->where('segmento', 'IMÓVEIS')->sum('valor_contratado') > 0)
+              <?php $count++; ?>
               <div>
                 <input type="radio" checked>
                 <label> Cons. de imóvel </label>
@@ -1066,7 +1090,8 @@
               @endif
             </td>
             <td>
-              @if($associado->RelationIAP->indicador_consorcio_servicos)
+              @if($associado->RelationConsorcios->where('versao', 'ATIVA')->where('segmento', 'SERVICOS TURISTICOS (BILHETES DE PASSAGEM AEREA E/OU PACOTES TURISTICOS)')->sum('valor_contratado') > 0 || $associado->RelationConsorcios->where('versao', 'ATIVA')->where('segmento', 'OUTROS BENS MOVEIS')->sum('valor_contratado') > 0)
+              <?php $count++; ?>
               <div>
                 <input type="radio" checked>
                 <label> Cons. de serviços </label>
@@ -1079,7 +1104,8 @@
               @endif
             </td>
             <td>
-              @if($associado->RelationIAP->indicador_consorcio_moto)
+              @if($associado->RelationConsorcios->where('versao', 'ATIVA')->where('segmento', 'MOTOCICLETAS E MOTONETAS')->sum('valor_contratado') > 0)
+              <?php $count++; ?>
               <div>
                 <input type="radio" checked>
                 <label> Cons. de moto. </label>
@@ -1092,36 +1118,39 @@
               @endif
             </td>
             <td>
-              @if($associado->RelationIAP->indicador_conta_capital)
+              @if($associado->RelationCarteiraCredito->where('situacao', 'ENTRADA NORMAL')->where('codigo_modalidade', '10006')->count() > 0 || $associado->RelationCarteiraCredito->where('situacao', 'ENTRADA NORMAL')->where('codigo_modalidade', '10052')->count() > 0 || $associado->RelationCarteiraCredito->where('situacao', 'ENTRADA NORMAL')->where('codigo_modalidade', '10053')->count() > 0 || $associado->RelationCarteiraCredito->where('situacao', 'ENTRADA NORMAL')->where('codigo_modalidade', '10054')->count() > 0 || $associado->RelationCarteiraCredito->where('situacao', 'ENTRADA NORMAL')->where('codigo_modalidade', '10055')->count() > 0)
+              <?php $count++; ?>
               <div>
                 <input type="radio" checked>
-                <label> Conta capital </label>
+                <label> Crédito rural </label>
               </div>
               @else
               <div>
                 <input type="radio">
-                <label> Conta capital </label>
+                <label> Crédito rural </label>
               </div>
               @endif
             </td>
           </tr>
           <tr>
             <td>
-              @if($associado->RelationIAP->indicador_credito_rural)
-              <div>
-                <input type="radio" checked>
-                <label> Crédito rural </label>
-              </div>
-              @else
-              <div>
-                <input type="radio">
-                <label> Crédito rural </label>
-              </div>
-              @endif
+                @if($associado->RelationIAP->indicador_debito)
+                <?php $count++; ?>
+                <div>
+                  <input type="radio" checked>
+                  <label> Debito automático </label>
+                </div>
+                @else
+                <div>
+                  <input type="radio">
+                  <label> Debito automático </label>
+                </div>
+                @endif
             </td>
             <td>
-              @if($associado->RelationIAP->indicador_emprestimo)
-              <div >
+              @if($associado->RelationCarteiraCredito->where('situacao', 'ENTRADA NORMAL')->where('codigo_modalidade', '!=', '10006')->where('codigo_modalidade', '!=', '10052')->where('codigo_modalidade', '!=', '10053')->where('codigo_modalidade', '!=', '10054')->where('codigo_modalidade', '!=', '10055')->where('codigo_modalidade', '!=', '1018')->where('codigo_modalidade', '!=', '1024')->count() > 0)
+              <?php $count++; ?>
+              <div>
                 <input type="radio" checked>
                 <label> Emprestimos </label>
               </div>
@@ -1133,7 +1162,8 @@
               @endif
             </td>
             <td>
-              @if($associado->RelationIAP->indicador_financiamento)
+              @if($associado->RelationCarteiraCredito->where('situacao', 'ENTRADA NORMAL')->where('codigo_modalidade', '1018')->count() > 0 || $associado->RelationCarteiraCredito->where('situacao', 'ENTRADA NORMAL')->where('codigo_modalidade', '1024')->count() > 0)
+              <?php $count++; ?>
               <div>
                 <input type="radio" checked>
                 <label> Financiamentos </label>
@@ -1146,7 +1176,8 @@
               @endif
             </td>
             <td>
-              @if($associado->RelationIAP->indicador_poupanca)
+              @if($associado->RelationPoupancas->sum('valor_saldo') > 0)
+              <?php $count++; ?>
               <div>
                 <input type="radio" checked>
                 <label> Poupança </label>
@@ -1161,7 +1192,8 @@
           </tr>
           <tr>
             <td>
-              @if($associado->RelationIAP->indicador_previdencia)
+              @if($associado->RelationPrevidencias->sum('valor_proposta') > 0)
+              <?php $count++; ?>
               <div>
                 <input type="radio" checked>
                 <label> Previdência </label>
@@ -1174,7 +1206,8 @@
               @endif
             </td>
             <td>
-              @if($associado->RelationIAP->indicador_rdc)
+              @if($associado->RelationAplicacoes->where('tipo', 'RDC')->sum('valor_saldo') > 0)
+              <?php $count++; ?>
               <div>
                 <input type="radio" checked>
                 <label> RDC </label>
@@ -1187,7 +1220,8 @@
               @endif
             </td>
             <td>
-              @if($associado->RelationIAP->indicador_lca)
+              @if($associado->RelationAplicacoes->where('tipo', 'LCA')->sum('valor_saldo') > 0)
+              <?php $count++; ?>
               <div>
                 <input type="radio" checked>
                 <label> LCA </label>
@@ -1200,7 +1234,8 @@
               @endif
             </td>
             <td>
-              @if($associado->RelationIAP->indicador_seguro_auto)
+              @if($associado->RelationSeguros->where('familia', 'AUTOMÓVEL')->sum('premio_bruto') > 0 || $associado->RelationSeguros->where('familia', 'CONSÓRCIO AUTO')->sum('premio_bruto') > 0)
+              <?php $count++; ?>
               <div>
                 <input type="radio" checked>
                 <label> Seguro de auto. </label>
@@ -1215,20 +1250,36 @@
           </tr>
           <tr>
             <td>
-              @if($associado->RelationIAP->indicador_seguro_vida)
+              @if($associado->RelationIAP->indicador_prestamista)
+              <?php $count++; ?>
               <div>
                 <input type="radio" checked>
-                <label> Seguro de vida </label>
+                <label> Seguro prestamista </label>
               </div>
               @else
               <div>
                 <input type="radio">
-                <label> Seguro de vida </label>
+                <label> Seguro prestamista. </label>
+              </div>
+              @endif
+            </td>
+            <td>
+              @if($associado->RelationSeguros->where('familia', 'PRESTAMISTA')->sum('premio_bruto') > 0 || $associado->RelationSeguros->where('familia', 'RESIDENCIAL')->sum('premio_bruto') > 0 || $associado->RelationSeguros->where('familia', 'EMPRESARIAL')->sum('premio_bruto') > 0 || $associado->RelationSeguros->where('familia', 'DEMAIS')->sum('premio_bruto') > 0)
+              <?php $count++; ?>
+              <div>
+                <input type="radio" checked>
+                <label> Seguro massificado </label>
+              </div>
+              @else
+              <div>
+                <input type="radio">
+                <label> Seguro massificado </label>
               </div>
               @endif
             </td>
             <td>
               @if($associado->RelationIAP->indicador_seguro_rural)
+              <?php $count++; ?>
               <div>
                 <input type="radio" checked>
                 <label> Seguro rural </label>
@@ -1241,35 +1292,38 @@
               @endif
             </td>
             <td>
-              @if($associado->RelationIAP->indicador_seguro_massificados)
+              @if($associado->RelationSeguros->where('familia', 'VIDA EMPRESARIAL')->sum('premio_bruto') > 0 || $associado->RelationSeguros->where('familia', 'VIDA INDIVIDUAL')->sum('premio_bruto') > 0)
+              <?php $count++; ?>
               <div>
                 <input type="radio" checked>
-                <label> Seguro massificado </label>
+                <label> Seguro de vida </label>
               </div>
               @else
               <div>
                 <input type="radio">
-                <label> Seguro massificado </label>
-              </div>
-              @endif
-            </td>
-            <td>
-              @if($associado->RelationIAP->indicador_sipag)
-              <div>
-                <input type="radio" checked>
-                <label> SIPAG </label>
-              </div>
-              @else
-              <div>
-                <input type="radio">
-                <label> SIPAG </label>
+                <label> Seguro de vida </label>
               </div>
               @endif
             </td>
           </tr>
           <tr>
             <td>
+              @if($associado->RelationSipag->where('status', 'ATIVO')->count() > 0)
+              <?php $count++; ?>
+              <div>
+                <input type="radio" checked>
+                <label> SIPAG </label>
+              </div>
+              @else
+              <div>
+                <input type="radio">
+                <label> SIPAG </label>
+              </div>
+              @endif
+            </td>
+            <td>
               @if($associado->RelationIAP->indicador_titulo_descontado)
+              <?php $count++; ?>
               <div>
                 <input type="radio" checked>
                 <label> Títulos descontados </label>
@@ -1281,6 +1335,42 @@
               </div>
               @endif
             </td>
+          </tr>
+        </tbody>
+      </table>
+      <h5 class="font-weight-normal"><b>Outros produtos/serviços </b></h5>
+      <hr class="mt-2">
+      <table style="width: 100%">
+        <tbody style="width: 100%">
+          <tr>
+            <td style="width: 25%">
+              @if(isset($associado->RelationCapital) && $associado->RelationCapital->valor_integralizado > 0)
+              <div>
+                <input type="radio" checked>
+                <label> Conta capital </label>
+              </div>
+              @else
+              <div>
+                <input type="radio">
+                <label> Conta capital </label>
+              </div>
+              @endif
+            </td>
+            <td style="width: 25%">
+              @if($associado->RelationContaCorrente->sum('valor_pacote') > 0)
+              <div>
+                <input type="radio" checked>
+                <label> Pacote de tarifas </label>
+              </div>
+              @else
+              <div>
+                <input type="radio">
+                <label> Pacote de tarifas </label>
+              </div>
+              @endif
+            </td>
+            <td style="width: 25%"></td>
+            <td style="width: 25%"></td>
           </tr>
         </tbody>
       </table>
@@ -1656,6 +1746,5 @@
     @endif
   </div>
   @endif
-
 </body>
 </html>
