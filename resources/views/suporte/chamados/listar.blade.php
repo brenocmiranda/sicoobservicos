@@ -32,17 +32,26 @@ Chamados
 			
 			<section class="py-4">
 				<div class="sttabs tabs-style-linetriangle row justify-content-center mx-auto">
-                    <nav class="col-lg-8 col-12 mx-auto px-0">
-						<ul>
-							@foreach($statusAtivos as $status)
-							<li class="{{($status->id == 1 ? 'tab-current' : '')}}">
-								<a href="#section-{{$status->id}}">
-									<span class="font-weight-bold d-block">{{$status->nome}}</span>
-								</a>
-							</li>
-							@endforeach
-						</ul>
-					</nav>
+					<nav class="col-lg-8 col-12 mx-auto">
+              <ul>
+              	<li class="tab-current">
+              		<a href="#section-1">
+              			<span class="font-weight-bold d-block">Em aberto <small>( {{$chamadosEmaberto}} )</small></span>
+              		</a>
+              	</li>
+              	<li>
+              		<a href="#section-2">
+              			<span class="font-weight-bold d-block">Em andamento <small>( {{$chamadosEmandamento}} )</small></span>
+              		</a>
+              	</li>
+              	<li>
+              		<a href="#section-3">
+              			<span class="font-weight-bold d-block">Encerrado <small>( {{$chamadosEncerrado}} )</small></span>
+              		</a>
+              	</li>
+              
+              </ul>
+          </nav>
 					<div class="content-wrap col-12 p-0">
 						<?php $i=0; ?>
 						@foreach($statusAtivos as $status)

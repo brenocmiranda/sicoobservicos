@@ -1059,7 +1059,7 @@ Painel do associado
           <hr class="mt-2">
           <div class="row mx-auto mb-5">
             <div class="col-lg-3 col-6">
-              @if($associado->RelationIAP->indicador_cartao_credito || $associado->RelationCartaoCredito->sum('valor_atribuido') > 0)
+              @if($associado->RelationCartaoCredito->sum('valor_atribuido') > 0)
               <?php $count++; ?>
               <a href="javascript:" class="text-dark" onclick="$('a[href=#cartaocredito]').click();">  
                 <div class="radio radio-success">
@@ -1077,7 +1077,7 @@ Painel do associado
               @endif
             </div>
             <div class="col-lg-3 col-6">
-              @if($associado->RelationIAP->indicador_conta_limite || $associado->RelationContaCorrente->sum('valor_contratado') > 0)
+              @if($associado->RelationContaCorrente->sum('valor_contratado') > 0)
               <?php $count++; ?>
               <a href="javascript:" class="text-dark" onclick="$('a[href=#contacorrente]').click();">  
                 <div class="radio radio-success">
@@ -1095,7 +1095,7 @@ Painel do associado
               @endif
             </div>
             <div class="col-lg-3 col-6">
-              @if($associado->RelationIAP->indicador_cobranca || $associado->RelationCobrancas->where('situacao', 'ATIVO')->count() > 0)
+              @if($associado->RelationCobrancas->where('situacao', 'ATIVO')->count() > 0)
               <?php $count++; ?>
               <a href="javascript:" class="text-dark" onclick="$('a[href=#cobranca]').click();">  
                 <div class="radio radio-success">
@@ -1113,7 +1113,7 @@ Painel do associado
               @endif
             </div>
             <div class="col-lg-3 col-6">
-              @if($associado->RelationIAP->indicador_consorcio_auto || $associado->RelationConsorcios->where('versao', 'ATIVA')->where('segmento', 'VEICULOS AUTOMOTORES NAO INCLUIDOS NO SEGMENTO ANTERIOR, EXCETO MOTOCICLETAS E MOTONETAS')->sum('valor_contratado') > 0 || $associado->RelationConsorcios->where('versao', 'ATIVA')->where('segmento', 'TRATORES,EQUIP. RODOVIARIOS,MAQ. E EQUIP. AGRICOLAS,EMBARCACOES,AERONAVES,VEICULOS AUTOMOTORES DESTINADOS TRANSP. CARGAS CAPACIDADE SUPERIOR A 1.500 KG. E VEICULOS AUTOMOTORES DESTINADOS TRANSP. COLETIVO CAPACIDADE PARA 20 (VINTE) PASSAGEIROS OU MAIS')->sum('valor_contratado') > 0)
+              @if($associado->RelationConsorcios->where('versao', 'ATIVA')->where('segmento', 'VEICULOS AUTOMOTORES NAO INCLUIDOS NO SEGMENTO ANTERIOR, EXCETO MOTOCICLETAS E MOTONETAS')->sum('valor_contratado') > 0 || $associado->RelationConsorcios->where('versao', 'ATIVA')->where('segmento', 'TRATORES,EQUIP. RODOVIARIOS,MAQ. E EQUIP. AGRICOLAS,EMBARCACOES,AERONAVES,VEICULOS AUTOMOTORES DESTINADOS TRANSP. CARGAS CAPACIDADE SUPERIOR A 1.500 KG. E VEICULOS AUTOMOTORES DESTINADOS TRANSP. COLETIVO CAPACIDADE PARA 20 (VINTE) PASSAGEIROS OU MAIS')->sum('valor_contratado') > 0)
               <?php $count++; ?>
               <a href="javascript:" class="text-dark" onclick="$('a[href=#consorcios]').click();">  
                 <div class="radio radio-success">
@@ -1131,7 +1131,7 @@ Painel do associado
               @endif
             </div>
             <div class="col-lg-3 col-6">
-              @if($associado->RelationIAP->indicador_consorcio_imovel || $associado->RelationConsorcios->where('versao', 'ATIVA')->where('segmento', 'IMÓVEIS')->sum('valor_contratado') > 0)
+              @if($associado->RelationConsorcios->where('versao', 'ATIVA')->where('segmento', 'IMÓVEIS')->sum('valor_contratado') > 0)
               <?php $count++; ?>
               <a href="javascript:" class="text-dark" onclick="$('a[href=#consorcios]').click();">  
                 <div class="radio radio-success">
@@ -1149,7 +1149,7 @@ Painel do associado
               @endif
             </div>
             <div class="col-lg-3 col-6">
-              @if($associado->RelationIAP->indicador_consorcio_servicos || $associado->RelationConsorcios->where('versao', 'ATIVA')->where('segmento', 'SERVICOS TURISTICOS (BILHETES DE PASSAGEM AEREA E/OU PACOTES TURISTICOS)')->sum('valor_contratado') > 0 || $associado->RelationConsorcios->where('versao', 'ATIVA')->where('segmento', 'OUTROS BENS MOVEIS')->sum('valor_contratado') > 0)
+              @if($associado->RelationConsorcios->where('versao', 'ATIVA')->where('segmento', 'SERVICOS TURISTICOS (BILHETES DE PASSAGEM AEREA E/OU PACOTES TURISTICOS)')->sum('valor_contratado') > 0 || $associado->RelationConsorcios->where('versao', 'ATIVA')->where('segmento', 'OUTROS BENS MOVEIS')->sum('valor_contratado') > 0)
               <?php $count++; ?>
               <a href="javascript:" class="text-dark" onclick="$('a[href=#consorcios]').click();">   
                 <div class="radio radio-success">
@@ -1167,7 +1167,7 @@ Painel do associado
               @endif
             </div>
             <div class="col-lg-3 col-6">
-              @if($associado->RelationIAP->indicador_consorcio_moto || $associado->RelationConsorcios->where('versao', 'ATIVA')->where('segmento', 'MOTOCICLETAS E MOTONETAS')->sum('valor_contratado') > 0)
+              @if($associado->RelationConsorcios->where('versao', 'ATIVA')->where('segmento', 'MOTOCICLETAS E MOTONETAS')->sum('valor_contratado') > 0)
               <?php $count++; ?>
               <a href="javascript:" class="text-dark" onclick="$('a[href=#consorcios]').click();">   
                 <div class="radio radio-success">
@@ -1185,7 +1185,7 @@ Painel do associado
               @endif
             </div>
             <div class="col-lg-3 col-6">
-              @if($associado->RelationIAP->indicador_credito_rural || $associado->RelationCarteiraCredito->where('situacao', 'ENTRADA NORMAL')->where('codigo_modalidade', '10006')->count() > 0 || $associado->RelationCarteiraCredito->where('situacao', 'ENTRADA NORMAL')->where('codigo_modalidade', '10052')->count() > 0 || $associado->RelationCarteiraCredito->where('situacao', 'ENTRADA NORMAL')->where('codigo_modalidade', '10053')->count() > 0 || $associado->RelationCarteiraCredito->where('situacao', 'ENTRADA NORMAL')->where('codigo_modalidade', '10054')->count() > 0 || $associado->RelationCarteiraCredito->where('situacao', 'ENTRADA NORMAL')->where('codigo_modalidade', '10055')->count() > 0)
+              @if($associado->RelationCarteiraCredito->where('situacao', 'ENTRADA NORMAL')->where('codigo_modalidade', '10006')->count() > 0 || $associado->RelationCarteiraCredito->where('situacao', 'ENTRADA NORMAL')->where('codigo_modalidade', '10052')->count() > 0 || $associado->RelationCarteiraCredito->where('situacao', 'ENTRADA NORMAL')->where('codigo_modalidade', '10053')->count() > 0 || $associado->RelationCarteiraCredito->where('situacao', 'ENTRADA NORMAL')->where('codigo_modalidade', '10054')->count() > 0 || $associado->RelationCarteiraCredito->where('situacao', 'ENTRADA NORMAL')->where('codigo_modalidade', '10055')->count() > 0)
               <?php $count++; ?>
               <a href="javascript:" class="text-dark" onclick="$('a[href=#carteiracredito]').click();">
                 <div class="radio radio-success">
@@ -1235,7 +1235,7 @@ Painel do associado
               @endif
             </div>
             <div class="col-lg-3 col-6">
-              @if($associado->RelationIAP->indicador_financiamento || $associado->RelationCarteiraCredito->where('situacao', 'ENTRADA NORMAL')->where('codigo_modalidade', '1018')->count() > 0 || $associado->RelationCarteiraCredito->where('situacao', 'ENTRADA NORMAL')->where('codigo_modalidade', '1024')->count() > 0)
+              @if($associado->RelationCarteiraCredito->where('situacao', 'ENTRADA NORMAL')->where('codigo_modalidade', '1018')->count() > 0 || $associado->RelationCarteiraCredito->where('situacao', 'ENTRADA NORMAL')->where('codigo_modalidade', '1024')->count() > 0)
               <?php $count++; ?>
               <a href="javascript:" class="text-dark" onclick="$('a[href=#carteiracredito]').click();">
                 <div class="radio radio-success">
@@ -1254,7 +1254,7 @@ Painel do associado
             </div>
             
             <div class="col-lg-3 col-6">
-              @if($associado->RelationIAP->indicador_poupanca || $associado->RelationPoupancas->sum('valor_saldo') > 0)
+              @if($associado->RelationPoupancas->sum('valor_saldo') > 0)
               <?php $count++; ?>
               <a href="javascript:" class="text-dark" onclick="$('a[href=#poupanca]').click();">
                 <div class="radio radio-success">
@@ -1272,7 +1272,7 @@ Painel do associado
               @endif
             </div>
             <div class="col-lg-3 col-6">
-              @if($associado->RelationIAP->indicador_previdencia || $associado->RelationPrevidencias->sum('valor_proposta') > 0)
+              @if($associado->RelationPrevidencias->sum('valor_proposta') > 0)
               <?php $count++; ?>
               <a href="javascript:" class="text-dark" onclick="$('a[href=#previdencias]').click();">
                 <div class="radio radio-success">
@@ -1290,7 +1290,7 @@ Painel do associado
               @endif
             </div>
             <div class="col-lg-3 col-6">
-              @if($associado->RelationIAP->indicador_rdc || $associado->RelationAplicacoes->where('tipo', 'RDC')->sum('valor_saldo') > 0)
+              @if($associado->RelationAplicacoes->where('tipo', 'RDC')->sum('valor_saldo') > 0)
               <?php $count++; ?>
               <a href="javascript:" class="text-dark" onclick="$('a[href=#aplicacoes]').click();">
                 <div class="radio radio-success">
@@ -1308,7 +1308,7 @@ Painel do associado
               @endif
             </div>
             <div class="col-lg-3 col-6">
-              @if($associado->RelationIAP->indicador_lca || $associado->RelationAplicacoes->where('tipo', 'LCA')->sum('valor_saldo') > 0)
+              @if($associado->RelationAplicacoes->where('tipo', 'LCA')->sum('valor_saldo') > 0)
               <?php $count++; ?>
               <a href="javascript:" class="text-dark" onclick="$('a[href=#aplicacoes]').click();"> 
                 <div class="radio radio-success">
@@ -1326,7 +1326,7 @@ Painel do associado
               @endif
             </div>
             <div class="col-lg-3 col-6">
-              @if($associado->RelationIAP->indicador_seguro_auto || $associado->RelationSeguros->where('familia', 'AUTOMÓVEL')->sum('premio_bruto') > 0 || $associado->RelationSeguros->where('familia', 'CONSÓRCIO AUTO')->sum('premio_bruto') > 0)
+              @if($associado->RelationSeguros->where('familia', 'AUTOMÓVEL')->sum('premio_bruto') > 0 || $associado->RelationSeguros->where('familia', 'CONSÓRCIO AUTO')->sum('premio_bruto') > 0)
               <?php $count++; ?>
               <a href="javascript:" class="text-dark" onclick="$('a[href=#seguros]').click();">
                 <div class="radio radio-success">
@@ -1362,7 +1362,7 @@ Painel do associado
               @endif
             </div>
             <div class="col-lg-3 col-6">
-              @if($associado->RelationIAP->indicador_seguro_massificados || $associado->RelationSeguros->where('familia', 'PRESTAMISTA')->sum('premio_bruto') > 0 || $associado->RelationSeguros->where('familia', 'RESIDENCIAL')->sum('premio_bruto') > 0 || $associado->RelationSeguros->where('familia', 'EMPRESARIAL')->sum('premio_bruto') > 0 || $associado->RelationSeguros->where('familia', 'DEMAIS')->sum('premio_bruto') > 0)
+              @if($associado->RelationSeguros->where('familia', 'PRESTAMISTA')->sum('premio_bruto') > 0 || $associado->RelationSeguros->where('familia', 'RESIDENCIAL')->sum('premio_bruto') > 0 || $associado->RelationSeguros->where('familia', 'EMPRESARIAL')->sum('premio_bruto') > 0 || $associado->RelationSeguros->where('familia', 'DEMAIS')->sum('premio_bruto') > 0)
               <?php $count++; ?>
               <a href="javascript:" class="text-dark" onclick="$('a[href=#seguros]').click();"> 
                 <div class="radio radio-success">
@@ -1398,7 +1398,7 @@ Painel do associado
               @endif
             </div>
             <div class="col-lg-3 col-6">
-              @if($associado->RelationIAP->indicador_seguro_vida || $associado->RelationSeguros->where('familia', 'VIDA EMPRESARIAL')->sum('premio_bruto') > 0 || $associado->RelationSeguros->where('familia', 'VIDA INDIVIDUAL')->sum('premio_bruto') > 0)
+              @if($associado->RelationSeguros->where('familia', 'VIDA EMPRESARIAL')->sum('premio_bruto') > 0 || $associado->RelationSeguros->where('familia', 'VIDA INDIVIDUAL')->sum('premio_bruto') > 0)
               <?php $count++; ?>
               <a href="javascript:" class="text-dark" onclick="$('a[href=#seguros]').click();"> 
                 <div class="radio radio-success">
@@ -1416,7 +1416,7 @@ Painel do associado
               @endif
             </div> 
             <div class="col-lg-3 col-6">
-              @if($associado->RelationIAP->indicador_sipag || $associado->RelationSipag->where('status', 'ATIVO')->count() > 0)
+              @if($associado->RelationSipag->where('status', 'ATIVO')->count() > 0)
               <?php $count++; ?>
               <a href="javascript:" class="text-dark" onclick="$('a[href=#sipag]').click();"> 
                 <div class="radio radio-success">
@@ -1452,7 +1452,7 @@ Painel do associado
           <hr class="mt-2">
           <div class="row mx-auto mb-5">
             <div class="col-lg-3 col-6">
-              @if($associado->RelationIAP->indicador_conta_capital || $associado->RelationCapital->sum('valor_integralizado') > 0)
+              @if(isset($associado->RelationCapital) && $associado->RelationCapital->valor_integralizado > 0)
               <a href="javascript:" class="text-dark" onclick="$('a[href=#contacapital]').click();">
                 <div class="radio radio-success">
                   <input type="radio" checked>
@@ -1469,7 +1469,7 @@ Painel do associado
               @endif
             </div>
             <div class="col-lg-3 col-6">
-              @if($associado->RelationIAP->indicador_pacotes_tarifa || $associado->RelationContaCorrente->sum('valor_pacote') > 0)
+              @if($associado->RelationContaCorrente->sum('valor_pacote') > 0)
               <a href="javascript:" class="text-dark" onclick="$('a[href=#contacorrente]').click();">  
                 <div class="radio radio-success">
                   <input type="radio" checked>

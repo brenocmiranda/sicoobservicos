@@ -96,8 +96,20 @@ class SuporteCtrl extends Controller
 	// Exibir todos chamados
     public function Chamados(){
         $chamados = Chamados::where('usr_id_usuarios', Auth::id())->orderBy('created_at', 'ASC')->get();
+        $chamadosEmaberto = 0;
+        $chamadosEmandamento = 0;
+        $chamadosEncerrado = 0;
+        foreach ($chamados as $value) {
+            if($value->RelationStatus->first()->pivot->gti_id_status == 1){
+                $chamadosEmaberto++;
+            }elseif ($value->RelationStatus->first()->pivot->gti_id_status == 2) {
+                $chamadosEmandamento++;
+            }elseif ($value->RelationStatus->first()->pivot->gti_id_status == 3) {
+                $chamadosEncerrado++;
+            }
+        }
         $status = Status::where('status', 1)->get();
-        return view('suporte.chamados.listar')->with('chamados', $chamados)->with('statusAtivos', $status);  
+        return view('suporte.chamados.listar')->with('chamados', $chamados)->with('chamadosEmaberto', $chamadosEmaberto)->with('chamadosEmandamento', $chamadosEmandamento)->with('chamadosEncerrado', $chamadosEncerrado)->with('statusAtivos', $status);  
     }
 	// Abertura de chamados
 	public function AberturaChamados(){
