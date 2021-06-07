@@ -116,6 +116,7 @@
                         <label for="checkbox43"> Gerenciar </label>
                       </div>
                     </div>
+                    <!--
                     <div class="col-6 col-lg-3">
                       <label class="border-bottom py-2 w-100">Negócios</label>
                       <div class="checkbox checkbox-circle">
@@ -127,6 +128,7 @@
                         <label for="checkbox45"> Gerenciar </label>
                       </div>
                     </div>
+                    -->
                     <div class="col-6 col-lg-3">
                       <label class="border-bottom py-2 w-100">Suporte</label>
                       <div class="checkbox checkbox-circle">
