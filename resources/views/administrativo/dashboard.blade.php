@@ -1,5 +1,5 @@
 @section('title')
-Dashboard
+Administrativo
 @endsection
 
 @extends('layouts.index')
@@ -154,7 +154,7 @@ Dashboard
 									<thead>
 										<tr>
 											<th>Produto</th>
-											<th>Solicitante</th>
+											<th>Responsável</th>
 											<th>Data</th>
 											<th>Quantidade</th>
 										</tr>

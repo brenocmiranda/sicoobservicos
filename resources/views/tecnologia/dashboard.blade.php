@@ -23,7 +23,7 @@ Tecnologia
 				<ul style="background: transparent; border: transparent;">
 					<li class="tab-current"><a href="#section-iconbox-1" class="sticon ti-headphone-alt"><span>Chamados</span></a></li>
 					<li><a href="#section-iconbox-2" class="sticon ti-link"><span>Homepage</span></a></li>
-					<li><a href="#section-iconbox-3" class="sticon ti-package"><span>Invetário</span></a></li>
+					<li><a href="#section-iconbox-3" class="sticon ti-package"><span>Inventário</span></a></li>
 				</ul>
 			</nav>
 			<div class="content-wrap">
