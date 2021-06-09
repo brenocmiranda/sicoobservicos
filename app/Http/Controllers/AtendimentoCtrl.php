@@ -605,4 +605,25 @@ class AtendimentoCtrl extends Controller
 		return view('atendimento.cadastro.detalhes')->with('dados', $dados);
 	}
 	
+	#-------------------------------------------------------------------
+	# Minhas atividades
+	#-------------------------------------------------------------------
+	// Exibir todas atividades
+	public function ExibirAtividades(){
+		$dados = AssociadosAtividades::where('usr_id_usuario', Auth::id())->get();
+		return view('atendimento.atividades.exibir')->with('dados', $dados);
+	}
+	public function DatatablesAtividades(){
+		return datatables()->of(AssociadosAtividades::where('usr_id_usuario', Auth::id())->get())
+        ->editColumn('pa', function(AssociadosAtividades $dados){ 
+            return $dados->RelationAssociado->PA;
+        })
+        ->editColumn('documento', function(AssociadosAtividades $dados){
+            return (strlen($dados->RelationAssociado->documento) == 11 ? substr($dados->RelationAssociado->documento, 0, 3).'.'.substr($dados->RelationAssociado->documento, 3, 3).'.'.substr($dados->RelationAssociado->documento, 6, 3).'-'.substr($dados->RelationAssociado->documento, 9, 2) : substr($dados->RelationAssociado->documento, 0, 2).'.'.substr($dados->RelationAssociado->documento, 3, 3).'.'.substr($dados->RelationAssociado->documento, 6, 3).'/'.substr($dados->RelationAssociado->documento, 8, 4).'-'.substr($dados->RelationAssociado->documento, 12, 2));
+        })
+        ->editColumn('associado', function(AssociadosAtividades $dados){
+            return $dados->RelationAssociado->nome;
+        })->rawColumns(['pa', 'documento', 'associado'])->make(true);
+    }
+
 }

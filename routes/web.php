@@ -117,9 +117,14 @@ Route::group(['prefix' => 'app'], function(){
 	});
 
 	#---------------------------------------------------------------------
-	# Módulo Atendimento *
+	# Módulo Atendimento
 	#---------------------------------------------------------------------
 	Route::group(['prefix' => 'atendimento'], function(){
+		// Atividades
+		Route::group(['prefix' => 'atividades'], function(){
+			Route::get('', 'AtendimentoCtrl@ExibirAtividades')->name('exibir.atividades.atendimento');
+			Route::get('listar', 'AtendimentoCtrl@DatatablesAtividades')->name('listar.atividades.atendimento');
+		});
 		// Painel comercial
 		Route::group(['prefix' => 'painel'], function(){
 			Route::get('', 'AtendimentoCtrl@ExibirPainel')->name('exibir.painel.atendimento');
@@ -134,7 +139,7 @@ Route::group(['prefix' => 'app'], function(){
 				Route::post('editando', 'AtendimentoCtrl@EditandoPainel')->name('editando.atividade.associado.atendimento');
 			});
 		});
-		// Cadastro
+		// Cadastro *
 		Route::group(['prefix' => 'cadastro'], function(){
 			Route::group(['prefix' => 'novos'], function(){
 				Route::get('', 'AtendimentoCtrl@ExibirAssociado')->name('exibir.cadastro.atendimento');

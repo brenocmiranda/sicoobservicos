@@ -823,7 +823,7 @@ Painel do associado
               </div>
               <div class="col-lg-3 col-12">
                 <h6>Valor da parcela</h6>
-                <label>R$ {{($carteira->RelationParcelas->last()['valor_parcela'] > 0 ? number_format($carteira->RelationParcelas->last()['valor_parcela'], 2, ',', '.') : number_format($carteira->RelationParcelas->last()['valor_devedor_parcela'], 2, ',', '.'))}}</label>
+                <label>R$ {{($carteira->RelationParcelas->sortBy('num_parcela')->last()['valor_parcela'] > 0 ? number_format($carteira->RelationParcelas->sortBy('num_parcela')->last()['valor_parcela'], 2, ',', '.') : number_format($carteira->RelationParcelas->sortBy('num_parcela')->last()['valor_devedor_parcela'], 2, ',', '.'))}}</label>
               </div>
               <div class="col-lg-3 col-12">
                 <h6>Saldo devedor</h6>
@@ -863,7 +863,7 @@ Painel do associado
                           <tr>
                             <td>{{$parcelas->num_parcela}}</td>
                             <td>{{($parcelas->data_vencimento != "1900-01-01" ? date('d/m/Y', strtotime($parcelas->data_vencimento)) : '-')}}</td>
-                            <td>R$ {{$parcelas->valor_parcela > 0 ? number_format($parcelas->valor_parcela, 2, ',', '.') : number_format($parcelas->valor_devedor_parcela, 2, ',', '.')}}</td>
+                            <td>R$ {{($parcelas->valor_parcela > 0 ? number_format($parcelas->valor_parcela, 2, ',', '.') : number_format($parcelas->valor_devedor_parcela, 2, ',', '.'))}}</td>
                             <td>{{$parcelas->dias_atraso}} dias</td>
                             <td>{{$parcelas->situacao}}</td>
                           </tr>
@@ -1049,13 +1049,12 @@ Painel do associado
         <div class="clearfix"></div>
       </div>
       <div role="tabpanel" class="tab-pane fade" id="iap">
-        @if(isset($associado->RelationIAP))
         <?php $count = 0; ?>
         <div class="row bg-light justify-content-center mt-n4 mb-5 p-3 rounded">
           <label class="m-auto font-weight-bold">Data base: {{date('d/m/Y', strtotime('-3 days'))}} </label>
         </div>
         <div class="col-12 px-0 px-lg-4"> 
-          <h5 class="font-weight-normal"><b>Associado possui <span class="IAP">{{($associado->sigla == 'PF' ? $associado->RelationIAP->produtos_pf : $associado->RelationIAP->produtos_pj)}}</span> produtos/serviços</b></h5>
+          <h5 class="font-weight-normal"><b>Associado possui <span class="IAP">{{($associado->sigla == 'PF' ? @$associado->RelationIAP->produtos_pf : @$associado->RelationIAP->produtos_pj)}}</span> produtos/serviços</b></h5>
           <hr class="mt-2">
           <div class="row mx-auto mb-5">
             <div class="col-lg-3 col-6">
@@ -1203,7 +1202,7 @@ Painel do associado
               @endif
             </div>
             <div class="col-lg-3 col-6">
-              @if($associado->RelationIAP->indicador_debito)
+              @if(@$associado->RelationIAP->indicador_debito)
               <?php $count++; ?>
                 <div class="radio radio-success">
                   <input type="radio" checked>
@@ -1252,7 +1251,6 @@ Painel do associado
               </a>
               @endif
             </div>
-            
             <div class="col-lg-3 col-6">
               @if($associado->RelationPoupancas->sum('valor_saldo') > 0)
               <?php $count++; ?>
@@ -1344,7 +1342,7 @@ Painel do associado
               @endif
             </div>
             <div class="col-lg-3 col-6">
-              @if($associado->RelationIAP->indicador_prestamista)
+              @if(@$associado->RelationIAP->indicador_prestamista)
               <?php $count++; ?>
               <a href="javascript:" class="text-dark" onclick="$('a[href=#seguros]').click();"> 
                 <div class="radio radio-success">
@@ -1380,7 +1378,7 @@ Painel do associado
               @endif
             </div>  
             <div class="col-lg-3 col-6">
-              @if($associado->RelationIAP->indicador_seguro_rural)
+              @if(@$associado->RelationIAP->indicador_seguro_rural)
               <?php $count++; ?>
               <a href="javascript:" class="text-dark" onclick="$('a[href=#seguros]').click();"> 
                 <div class="radio radio-success">
@@ -1434,7 +1432,7 @@ Painel do associado
               @endif
             </div>
             <div class="col-lg-3 col-6">
-              @if($associado->RelationIAP->indicador_titulo_descontado)
+              @if(@$associado->RelationIAP->indicador_titulo_descontado)
               <?php $count++; ?>
               <div class="radio radio-success">
                 <input type="radio" checked>
@@ -1487,12 +1485,6 @@ Painel do associado
             </div>
           </div>
         </div>
-        @else
-        <div class="text-center">
-          <i class="mdi mdi-36px mdi-close-octagon-outline"></i>
-          <h5>Nenhuma informação encontrada.</h5>
-        </div>
-        @endif
         <div class="clearfix"></div>
       </div>
       <div role="tabpanel" class="tab-pane fade" id="cobranca">
