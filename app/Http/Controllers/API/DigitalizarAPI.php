@@ -8,35 +8,21 @@ use App\Models\Usuarios;
 
 class DigitalizarAPI extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return false;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
-    {
-       if ($request->hasFile('arquivos')) {
+    {   
+        /*
+        if ($request->hasFile('arquivos')) {
             foreach($request->file('arquivos') as $imagem){
                 if($imagem->isValid()){
                     $name = 'Digitalizar_'.date('Y_m_d_H_i_s_').rand(1, 999);
@@ -82,51 +68,62 @@ class DigitalizarAPI extends Controller
                 // Gerando nova imagem
                 imagejpeg($newimage, storage_path().'/app/digitalizar/'.$nameFile, 30);
                 $urlImage = 'app/digitalizar/'.$nameFile;
-                return $urlImage;
+                
+                foreach($request->outros as $key => $arq){
+                    // Criando nome do arquivo do PDF
+                    if($request->nomeArquivos[$key]){
+                        if(is_dir("//10.11.26.1/digitaliza_ss/".date('d-m-Y').'/'.mb_strtoupper($request->nomePasta).'/'.$request->nomeArquivos[$key].'.pdf')){
+                            $namePdf = mb_strtoupper($request->nomeArquivos[$key]).'.pdf';
+                        }else{
+                            $namePdf = mb_strtoupper($request->nomeArquivos[$key]).date('His').'.pdf';
+                        }
+                    }else{
+                        $namePdf = str_replace('.'.$arq->getClientOriginalExtension(), '', $request->outros[$key]).'.pdf';
+                    }
+                    
+                    // HTML para criação do PDF
+                    $usuario = Usuarios::where('login', $request->usuario)->first();
+                    $html = '<div><img src="'.asset('storage/'.$request->outros[$key]).'" style="max-width: 100%; max-height: 26cm;"><div style="font-size: 1.5px !important; text-align:right; color:white; width:100%; background-color: #292828; padding-right: 1px; padding-top: 0.5px; padding-bottom: 0.5px;">Confere com o original <br> '.$usuario->RelationAssociado->nome.'</div></div>';
+                    $html = preg_replace("/>s+</", "><", $html);
+
+                    // Gerando PDF
+                    if(is_dir("//10.11.26.1/digitaliza_ss/".date('d-m-Y'))){
+                        if(is_dir("//10.11.26.1/digitaliza_ss/".date('d-m-Y').'/'.mb_strtoupper($request->nomePasta))){
+                            $pdf = PDF::loadHTML($html)->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitaliza_ss/".date('d-m-Y').'/'.mb_strtoupper($request->nomePasta).'/'.$namePdf);
+                        }else{
+                            mkdir("//10.11.26.1/digitaliza_ss/".date('d-m-Y').'/'.mb_strtoupper($request->nomePasta), 0755);
+                            $pdf = PDF::loadHTML($html)->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitaliza_ss/".date('d-m-Y').'/'.mb_strtoupper($request->nomePasta).'/'.$namePdf);
+                        }
+                    }else{
+                        mkdir("//10.11.26.1/digitaliza_ss/".date('d-m-Y'), 0755);
+                        if(is_dir("//10.11.26.1/digitaliza_ss/".date('d-m-Y').'/'.mb_strtoupper($request->nomePasta))){
+                            $pdf = PDF::loadHTML($html)->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitaliza_ss/".date('d-m-Y').'/'.mb_strtoupper($request->nomePasta).'/'.$namePdf);
+                        }else{
+                            mkdir("//10.11.26.1/digitaliza_ss/".date('d-m-Y').'/'.mb_strtoupper($request->nomePasta), 0755);
+                            $pdf = PDF::loadHTML($html)->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitaliza_ss/".date('d-m-Y').'/'.mb_strtoupper($request->nomePasta).'/'.$namePdf);
+                        }
+                    }
+                }
             }
         }
+        */
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         return false;
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         return false;
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         return false;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         return false;
