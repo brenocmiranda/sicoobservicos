@@ -611,7 +611,7 @@ class AtendimentoCtrl extends Controller
 	#-------------------------------------------------------------------
 	// Exibir todas atividades
 	public function ExibirAtividades(){
-		$dados = AssociadosAtividades::where('usr_id_usuario', Auth::id())->get();
+		$dados = AssociadosAtividades::all();
 		$colaboradores = Usuarios::all();
 		return view('atendimento.atividades.exibir')->with('dados', $dados)->with('colaboradores', $colaboradores);
 	}

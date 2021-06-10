@@ -22,20 +22,20 @@
             <div class="card-body py-0">
               <div class="row">
                 <div class="col-12">
-                    <div class="form-group">
-                        <label class="col-form-label pb-0">Colaborador </label>
-                        <select class="form-control form-control-line" name="colaborador" required>
-                            <option>Selecione</option>
-                            @foreach($colaboradores as $colaborador)
-                            <option value="{{$colaborador->id}}">{{$colaborador->RelationAssociado->nome}}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                  <div class="form-group">
+                    <label class="col-form-label pb-0">Colaborador </label>
+                    <select class="form-control form-control-line" name="colaborador">
+                        <option>Selecione</option>
+                        @foreach($colaboradores as $colaborador)
+                        <option value="{{$colaborador->id}}">{{$colaborador->RelationAssociado->nome}}</option>
+                        @endforeach
+                    </select>
+                  </div>
                 </div>
                 <div class="col-6">
                   <div class="form-group">
-                    <label class="col-form-label pb-0">Tipo <span class="text-danger">*</span></label>
-                    <select class="form-control form-control-line tipo" name="tipo" required>
+                    <label class="col-form-label pb-0">Tipo </label>
+                    <select class="form-control form-control-line tipo" name="tipo">
                       <option value="">Selecione</option>
                       <option value="dificuldades">Dificuldades</option>
                       <option value="liberações">Liberações</option>
@@ -47,8 +47,8 @@
                 </div>
                 <div class="col-6">
                   <div class="form-group">
-                    <label class="col-form-label pb-0">Contato <span class="text-danger">*</span></label>
-                    <select class="form-control form-control-line contato" name="contato" required>
+                    <label class="col-form-label pb-0">Contato</label>
+                    <select class="form-control form-control-line contato" name="contato">
                       <option value="">Selecione</option>
                       <option value="telefone">Por telefone</option>
                       <option value="atendimento">Por atendimento</option>
@@ -59,15 +59,15 @@
                 </div>
                 <div class="col-4">
                   <div class="form-group">
-                      <label class="col-form-label pb-0">Data inicial <span class="text-danger">*</span></label>
-                      <input type="date" class="form-control form-control-line" name="data_inicial" required/>
-                    </div>
+                    <label class="col-form-label pb-0">Data inicial </label>
+                    <input type="date" class="form-control form-control-line" name="data_inicial"/>
+                  </div>
                 </div>
                 <div class="col-4">
-                    <div class="form-group">
-                        <label class="col-form-label pb-0">Data final <span class="text-danger">*</span></label>
-                        <input type="date" class="form-control form-control-line" name="data_final"  required/>
-                    </div>
+                  <div class="form-group">
+                    <label class="col-form-label pb-0">Data final </label>
+                    <input type="date" class="form-control form-control-line" name="data_final"  />
+                  </div>
                 </div>   
               </div>
             </div>

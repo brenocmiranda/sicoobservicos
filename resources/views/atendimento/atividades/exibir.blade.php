@@ -32,7 +32,10 @@ Atividades
                 @foreach($dados as $atividade)
                 <li class="row">
                     <div class="col-12">
-                        <h5 class="text-uppercase">{{$atividade->RelationAssociado->nome}} &#183 {{$atividade->RelationAssociado->documento}}</h5>
+                        <a href="{{route('exibirID.associado.atendimento', $atividade->cli_id_associado)}}" class="d-flex">
+                            <i class="pr-2 mdi mdi-account"></i>
+                            <h5 class="text-uppercase my-auto">{{$atividade->RelationAssociado->nome}} &#183 {{(strlen($atividade->RelationAssociado->documento) == 11 ? substr($atividade->RelationAssociado->documento, 0, 3).'.'.substr($atividade->RelationAssociado->documento, 3, 3).'.'.substr($atividade->RelationAssociado->documento, 6, 3).'-'.substr($atividade->RelationAssociado->documento, 9, 2) : substr($atividade->RelationAssociado->documento, 0, 2).'.'.substr($atividade->RelationAssociado->documento, 3, 3).'.'.substr($atividade->RelationAssociado->documento, 6, 3).'/'.substr($atividade->RelationAssociado->documento, 8, 4).'-'.substr($atividade->RelationAssociado->documento, 12, 2))}}</h5>
+                        </a>
                         <h6 class="font-weight-normal text-capitalize">Tipo: <b>{{$atividade->tipo}}</b></h6>
                         <h6 class="font-weight-normal">Contato por: <b class="text-capitalize">{{$atividade->contato}}</b></h6>
                         <label class="d-block">{{$atividade->descricao}}</label>
