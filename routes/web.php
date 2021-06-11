@@ -124,7 +124,7 @@ Route::group(['prefix' => 'app'], function(){
 		Route::group(['prefix' => 'atividades'], function(){
 			Route::get('', 'AtendimentoCtrl@ExibirAtividades')->name('exibir.atividades.atendimento');
 			Route::get('listar', 'AtendimentoCtrl@DatatablesAtividades')->name('listar.atividades.atendimento');
-			Route::any('filtros', 'AtendimentoCtrl@PesquisaAtividades')->name('filtros.atividades.atendimento');
+			Route::any('filter', 'AtendimentoCtrl@PesquisaAtividades')->name('filtros.atividades.atendimento');
 		});
 		// Painel comercial
 		Route::group(['prefix' => 'painel'], function(){

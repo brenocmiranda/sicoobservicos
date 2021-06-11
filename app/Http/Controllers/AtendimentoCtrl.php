@@ -616,36 +616,37 @@ class AtendimentoCtrl extends Controller
 		}else{
 			$dados = AssociadosAtividades::where('usr_id_usuario', Auth::id())->orderBy('created_at', 'DESC')->get();
 		}
+		$filtros = null;
 		$colaboradores = Usuarios::orderBy('login', 'ASC')->where('id', '!=', 1)->get();
-		return view('atendimento.atividades.exibir')->with('dados', $dados)->with('colaboradores', $colaboradores);
+		return view('atendimento.atividades.exibir')->with('dados', $dados)->with('colaboradores', $colaboradores)->with('filtros', $filtros);
 	}
+
 	// Aplicando os filtros nas atividades
 	public function PesquisaAtividades(Request $request){
 		
 		// Aplicação dos filtros enviados
 		$dados = AssociadosAtividades::query();
-
 		if ($request->has('tipo') && isset($request->tipo)) {
         	$dados->where('tipo', 'LIKE', '%' .$request->tipo. '%');
+        	$filtros['tipo'] = $request->tipo;
 	    }
-
 	    if ($request->has('contato') && isset($request->contato)) {
 	        $dados->where('contato', 'LIKE', '%' .$request->contato. '%');
+	        $filtros['contato'] = $request->contato;
 	    }
-
 	    if ($request->has('colaborador') && isset($request->colaborador)) {
-	        $dados->where('usr_id_usuarios', '=', $request->colaborador);
+	        $dados->where('usr_id_usuario', '=', $request->colaborador);
+	        $filtros['colaborador']  = Usuarios::find($request->colaborador)->RelationAssociado->nome;
 	    }
-	    
 	    if ($request->has('data_inicial') && isset($request->data_inicial)) {
-	        $dados->where('created_at', '>=', $request->data_inicial);
+	        $dados->whereDate('created_at', '>=', $request->data_inicial);
+	        $filtros['data_inicial']  = date('d/m/Y', strtotime($request->data_inicial));
 	    }
-
 	    if ($request->has('data_final') && isset($request->data_final)) {
-	        $dados->where('created_at', '<=', $request->data_final);
+	        $dados->whereDate('created_at', '<=', $request->data_final);
+	        $filtros['data_final']  = date('d/m/Y', strtotime($request->data_final));
 	    }
-	    
-		$filtros = $request->all();
+	    $dados = $dados->get();
 		$colaboradores = Usuarios::orderBy('login', 'ASC')->where('id', '!=', 1)->get();
 		return view('atendimento.atividades.exibir')->with('dados', $dados)->with('colaboradores', $colaboradores)->with('filtros', $filtros);
 	}

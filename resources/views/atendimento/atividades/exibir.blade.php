@@ -28,10 +28,21 @@ Atividades
                     </button>
                 </div>-->
             </div>
-            @if(isset($dados))
-            <ul class="col-12" id="atividades">
+            @if(isset($filtros))
+                <div class="pl-3">
+                    <b class="pr-2">Filtros:</b>
+                    <span class="badge badge-info badge-pill mr-2" style="font-size: 10px;">{{(isset($filtros['tipo']) ? $filtros['tipo'] : '')}}</span>
+                    <span class="badge badge-info badge-pill mr-2" style="font-size: 10px;">{{(isset($filtros['contato']) ? $filtros['contato'] : '')}}</span>
+                    <span class="badge badge-info badge-pill mr-2" style="font-size: 10px;">{{(isset($filtros['colaborador']) ? $filtros['colaborador'] : '')}}</span>
+                    <span class="badge badge-info badge-pill mr-2" style="font-size: 10px;">{{(isset($filtros['data_inicial']) ? date('d/m/Y', strtotime($filtros['data_inicial'])) : '').(isset($filtros['data_inicial']) && isset($filtros['data_final']) ? ' até ' : '').(isset($filtros['data_final']) ? date('d/m/Y', strtotime($filtros['data_final'])) : '')}}</span>
+                    <a href="{{route('exibir.atividades.atendimento')}}" class="text-danger"><small>Limpar</small></a>
+                </div>
+                <hr class="mt-3">
+            @endif
+            @if(isset($dados[0]))
+            <ul class="col-12 px-4" id="atividades">
                 @foreach($dados as $atividade)
-                <li class="row">
+                <li class="row d-block w-100">
                     <div class="col-12">
                         <div class="d-flex">
                             <a href="{{route('exibirID.associado.atendimento', $atividade->cli_id_associado)}}" title="Abrir painel de atendimento" target="_blank">
@@ -46,7 +57,7 @@ Atividades
                             <small class="text-capitalize mr-auto">@if(Auth::user()->RelationFuncao->gerenciar_atendimento == 1)<b>{{$atividade->RelationUsuarios->RelationAssociado->nome}}</b> -@endif {{date('d/m/Y H:i:s', strtotime($atividade->created_at))}}</small>
                         </div>
                     </div>
-                    <hr class="col-12">
+                    <hr class="col-12 my-4" >
                 </li>
                 @endforeach
             </ul>
