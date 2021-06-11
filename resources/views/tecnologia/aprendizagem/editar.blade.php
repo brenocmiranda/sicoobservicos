@@ -50,10 +50,10 @@ Editar tópico
                 <div class="form-group">
                   <label class="col-form-label pb-0">Fontes<span class="text-danger">*</span></label>
                   <div class="">
-                    <select class="form-control form-control-line gti_id_fontes" name="gti_id_fontes" value="{{$base->gti_id_fontes}}" required>
+                    <select class="form-control form-control-line gti_id_fontes" name="gti_id_fontes" required>
                       <option disabled>Selecione</option>
                       @foreach($fontes as $fonte)
-                    <option value="{{$fonte->id}}">{{$fonte->nome}}</option>
+                    <option value="{{$fonte->id}}" {{($fonte->id == $base->gti_id_fontes ? 'selected' : '')}}>{{$fonte->nome}}</option>
                     @endforeach
                     </select>
                   </div>

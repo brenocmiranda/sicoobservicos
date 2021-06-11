@@ -31,6 +31,7 @@ Instituições
 				</div>
 				@endif
 			</div>
+			@if(isset($instituicoes[0]))
 			<ul class="row col-12 m-auto" id="instituicoes">
 				@foreach($instituicoes as $instituicao)
 				<li class="col-12 col-sm-6 col-lg-3 p-3">
@@ -73,6 +74,11 @@ Instituições
 				</li>
 				@endforeach
 			</ul>
+			@else
+            <div class="row mx-auto col-12 p-0">
+				<label class="alert alert-secondary col-12 rounded"><i class="mdi mdi-alert-outline mdi-24px pr-4"></i> Você não possui nenhuma instituição cadastrada.</label>
+			</div>
+            @endif
 		</div>
 	</div>
 </div>

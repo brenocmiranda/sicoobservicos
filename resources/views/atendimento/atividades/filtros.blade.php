@@ -15,23 +15,25 @@
         <div id="err"></div>
       </div>
       <div class="carregamento"></div>
-      <form class="form-sample" id="formFiltros" enctype="multipart/form-data" autocomplete="off">
+      <form class="form-sample" type="post" action="{{route('filtros.atividades.atendimento')}}" enctype="multipart/form-data" autocomplete="off">
         @csrf
         <div class="modal-body">
           <div class="col-12 grid-margin mb-0">
             <div class="card-body py-0">
               <div class="row">
+                @if(Auth::user()->RelationFuncao->gerenciar_atendimento == 1)
                 <div class="col-12">
                   <div class="form-group">
                     <label class="col-form-label pb-0">Colaborador </label>
                     <select class="form-control form-control-line" name="colaborador">
-                        <option>Selecione</option>
+                        <option value="">Selecione</option>
                         @foreach($colaboradores as $colaborador)
                         <option value="{{$colaborador->id}}">{{$colaborador->RelationAssociado->nome}}</option>
                         @endforeach
                     </select>
                   </div>
                 </div>
+                @endif
                 <div class="col-6">
                   <div class="form-group">
                     <label class="col-form-label pb-0">Tipo </label>
@@ -53,6 +55,7 @@
                       <option value="telefone">Por telefone</option>
                       <option value="atendimento">Por atendimento</option>
                       <option value="whatsapp">Por whatsapp</option>
+                      <option value="visita">Por visita</option>
                       <option value="outros">Outros</option>
                     </select>
                   </div>

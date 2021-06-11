@@ -67,9 +67,7 @@
           <span class="hide-menu"> Atendimento <span class="fa arrow"></span> </span>
         </a>
         <ul class="nav nav-second-level {{ (Request::segment(2) == 'atendimento' ? ' collapse in' : '') }}">
-          @if(Auth::user()->RelationFuncao->gerenciar_atendimento == 1)
           <li> <a href="{{route('exibir.atividades.atendimento')}}"><span class="hide-menu">Atividades</span></a> </li>
-          @endif
           <li> <a href="{{route('exibir.painel.atendimento')}}"><span class="hide-menu">Painel do associado</span></a> </li>
           @if(Auth::user()->RelationFuncao->gerenciar_atendimento == 1)
           <li> <a href="{{route('exibir.cadastro.atendimento')}}"><span class="hide-menu">Novos associados</span></a> </li>

@@ -611,8 +611,43 @@ class AtendimentoCtrl extends Controller
 	#-------------------------------------------------------------------
 	// Exibir todas atividades
 	public function ExibirAtividades(){
-		$dados = AssociadosAtividades::all();
-		$colaboradores = Usuarios::all();
+		if(Auth::user()->RelationFuncao->gerenciar_atendimento == 1){
+			$dados = AssociadosAtividades::orderBy('created_at', 'DESC')->get();
+		}else{
+			$dados = AssociadosAtividades::where('usr_id_usuario', Auth::id())->orderBy('created_at', 'DESC')->get();
+		}
+		$colaboradores = Usuarios::orderBy('login', 'ASC')->where('id', '!=', 1)->get();
 		return view('atendimento.atividades.exibir')->with('dados', $dados)->with('colaboradores', $colaboradores);
 	}
+	// Aplicando os filtros nas atividades
+	public function PesquisaAtividades(Request $request){
+		
+		// Aplicação dos filtros enviados
+		$dados = AssociadosAtividades::query();
+
+		if ($request->has('tipo') && isset($request->tipo)) {
+        	$dados->where('tipo', 'LIKE', '%' .$request->tipo. '%');
+	    }
+
+	    if ($request->has('contato') && isset($request->contato)) {
+	        $dados->where('contato', 'LIKE', '%' .$request->contato. '%');
+	    }
+
+	    if ($request->has('colaborador') && isset($request->colaborador)) {
+	        $dados->where('usr_id_usuarios', '=', $request->colaborador);
+	    }
+	    
+	    if ($request->has('data_inicial') && isset($request->data_inicial)) {
+	        $dados->where('created_at', '>=', $request->data_inicial);
+	    }
+
+	    if ($request->has('data_final') && isset($request->data_final)) {
+	        $dados->where('created_at', '<=', $request->data_final);
+	    }
+	    
+		$filtros = $request->all();
+		$colaboradores = Usuarios::orderBy('login', 'ASC')->where('id', '!=', 1)->get();
+		return view('atendimento.atividades.exibir')->with('dados', $dados)->with('colaboradores', $colaboradores)->with('filtros', $filtros);
+	}
+	
 }

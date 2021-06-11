@@ -20,7 +20,7 @@ Atividades dos usuários
 
     <div class="card">
         <div class="card-body">
-        	@if($atividades[0])
+        	@if(isset($atividades[0]))
             <ul class="timeline">
             	@foreach($atividades as $key => $atividade)
                 <li class="{{($key % 2 != 0 ? 'timeline-inverted' : '')}}">
@@ -51,28 +51,4 @@ Atividades dos usuários
         </div>
     </div>
 </div>
-@endsection
-
-@section('suporte')
-<script type="text/javascript">
-	function image1(input){
-		if(input.files && input.files[0]){
-			var reader = new FileReader();
-			reader.onload = function (oFREvent){
-				$('#PreviewImage1').attr('src', oFREvent.target.result);
-			}
-			reader.readAsDataURL(input.files[0]);
-		}
-	}
-
-	function image2(input){
-		if(input.files && input.files[0]){
-			var reader = new FileReader();
-			reader.onload = function (oFREvent){
-				$('#PreviewImage2').attr('src', oFREvent.target.result);
-			}
-			reader.readAsDataURL(input.files[0]);
-		}
-	}
-</script>
 @endsection

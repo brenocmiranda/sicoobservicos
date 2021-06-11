@@ -50,6 +50,7 @@
                       <option value="telefone">Por telefone</option>
                       <option value="atendimento">Por atendimento</option>
                       <option value="whatsapp">Por whatsapp</option>
+                      <option value="visita">Por visita</option>
                       <option value="outros">Outros</option>
                     </select>
                   </div>

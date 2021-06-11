@@ -21,32 +21,40 @@ Atividades
         <div class="card-body">
             <div class="col-12 row mb-5 mx-auto">
                 @include('layouts.search')
-                <div class="col-2 col-lg-5 col-sm-5 p-0 row mx-auto">
+                <!--<div class="col-2 col-lg-5 col-sm-5 p-0 row mx-auto">
                     <button class="btn btn-primary btn-outline ml-auto" id="imprimir" name="imprimir" title="Imprimir atividades">
                         <i class="m-0 pr-lg-1 mdi mdi-printer"></i> 
                         <span class="hidden-xs">Imprimir</span>
                     </button>
-                </div>
+                </div>-->
             </div>
-            <ul class="col-12">
+            @if(isset($dados))
+            <ul class="col-12" id="atividades">
                 @foreach($dados as $atividade)
                 <li class="row">
                     <div class="col-12">
-                        <a href="{{route('exibirID.associado.atendimento', $atividade->cli_id_associado)}}" class="d-flex">
-                            <i class="pr-2 mdi mdi-account"></i>
+                        <div class="d-flex">
+                            <a href="{{route('exibirID.associado.atendimento', $atividade->cli_id_associado)}}" title="Abrir painel de atendimento" target="_blank">
+                                <i class="pr-2 mdi mdi-account-card-details"></i>
+                            </a>
                             <h5 class="text-uppercase my-auto">{{$atividade->RelationAssociado->nome}} &#183 {{(strlen($atividade->RelationAssociado->documento) == 11 ? substr($atividade->RelationAssociado->documento, 0, 3).'.'.substr($atividade->RelationAssociado->documento, 3, 3).'.'.substr($atividade->RelationAssociado->documento, 6, 3).'-'.substr($atividade->RelationAssociado->documento, 9, 2) : substr($atividade->RelationAssociado->documento, 0, 2).'.'.substr($atividade->RelationAssociado->documento, 3, 3).'.'.substr($atividade->RelationAssociado->documento, 6, 3).'/'.substr($atividade->RelationAssociado->documento, 8, 4).'-'.substr($atividade->RelationAssociado->documento, 12, 2))}}</h5>
-                        </a>
-                        <h6 class="font-weight-normal text-capitalize">Tipo: <b>{{$atividade->tipo}}</b></h6>
+                        </div>
+                        <h6 class="font-weight-normal text-capitalize mt-2">Tipo: <b>{{$atividade->tipo}}</b></h6>
                         <h6 class="font-weight-normal">Contato por: <b class="text-capitalize">{{$atividade->contato}}</b></h6>
                         <label class="d-block">{{$atividade->descricao}}</label>
                         <div class="row col-12">
-                            <small class="text-capitalize mr-auto">{{date('d/m/Y H:i:s', strtotime($atividade->created_at))}}</small>
+                            <small class="text-capitalize mr-auto">@if(Auth::user()->RelationFuncao->gerenciar_atendimento == 1)<b>{{$atividade->RelationUsuarios->RelationAssociado->nome}}</b> -@endif {{date('d/m/Y H:i:s', strtotime($atividade->created_at))}}</small>
                         </div>
                     </div>
                     <hr class="col-12">
                 </li>
                 @endforeach
             </ul>
+            @else
+            <div class="row mx-auto col-12 p-0">
+                <label class="alert alert-secondary col-12 rounded"><i class="mdi mdi-alert-outline mdi-24px pr-4"></i> Você não possui nenhuma atividade cadastrada.</label>
+            </div>
+            @endif
         </div>
     </div>
 </div>
@@ -59,7 +67,15 @@ Atividades
 @section('suporte')
 <script type="text/javascript">
     $(document).ready( function(){
-
+        // Campo de pesquisa
+        $("input[type=search]").keyup(function(){
+            var texto = $(this).val().toUpperCase();
+            $("#atividades li").css("display", "block");
+            $("#atividades li").each(function(){
+                if($(this).text().indexOf(texto) < 0)
+                    $(this).css("display", "none");
+            });
+        });
     });
 </script>
 @endsection

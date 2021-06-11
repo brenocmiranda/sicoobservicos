@@ -63,7 +63,7 @@ Painel do associado
               <label class="d-block">{{$atividade->descricao}}</label>
               <div class="row col-12">
                 <small class="text-capitalize mr-auto"><b>{{$atividade->RelationUsuarios->RelationAssociado->nome}}</b> - {{date('d/m/Y H:i:s', strtotime($atividade->created_at))}}</small>
-                @if(Auth::id() == $atividade->usr_id_usuario)
+                @if(Auth::id() == $atividade->usr_id_usuario && $atividade->created_at > date('Y-m-d H:i:s', strtotime('-3 hours')))
                 <small class="ml-auto">
                   <a href="javascript:" class="editarAtividade" data="{{route('detalhes.atividade.associado.atendimento', $atividade->id)}}"><i class="ti-pencil pr-2"></i>Editar</a>
                 </small>
