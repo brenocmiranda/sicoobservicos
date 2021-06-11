@@ -29,7 +29,8 @@ Atividades
                 </div>-->
             </div>
             @if(isset($filtros))
-                <div class="pl-3">
+            <div class="row mx-auto">
+                <div class="col-8">
                     <b class="pr-2">Filtros:</b>
                     <span class="badge badge-info badge-pill mr-2" style="font-size: 10px;">{{(isset($filtros['tipo']) ? $filtros['tipo'] : '')}}</span>
                     <span class="badge badge-info badge-pill mr-2" style="font-size: 10px;">{{(isset($filtros['contato']) ? $filtros['contato'] : '')}}</span>
@@ -37,12 +38,16 @@ Atividades
                     <span class="badge badge-info badge-pill mr-2" style="font-size: 10px;">{{(isset($filtros['data_inicial']) ? date('d/m/Y', strtotime($filtros['data_inicial'])) : '').(isset($filtros['data_inicial']) && isset($filtros['data_final']) ? ' até ' : '').(isset($filtros['data_final']) ? date('d/m/Y', strtotime($filtros['data_final'])) : '')}}</span>
                     <a href="{{route('exibir.atividades.atendimento')}}" class="text-danger"><small>Limpar</small></a>
                 </div>
+                <div class="col-4 text-right">
+                    <small>{{$dados->count()}} registros filtrados</small>
+                </div>
+            </div>
                 <hr class="mt-3">
             @endif
             @if(isset($dados[0]))
             <ul class="col-12 px-4" id="atividades">
                 @foreach($dados as $atividade)
-                <li class="row d-block w-100">
+                <li class="row w-100">
                     <div class="col-12">
                         <div class="d-flex">
                             <a href="{{route('exibirID.associado.atendimento', $atividade->cli_id_associado)}}" title="Abrir painel de atendimento" target="_blank">
