@@ -640,11 +640,11 @@ class AtendimentoCtrl extends Controller
 	    }
 	    if ($request->has('data_inicial') && isset($request->data_inicial)) {
 	        $dados->whereDate('created_at', '>=', $request->data_inicial);
-	        $filtros['data_inicial']  = date('d/m/Y', strtotime($request->data_inicial));
+	        $filtros['data_inicial']  = $request->data_inicial;
 	    }
 	    if ($request->has('data_final') && isset($request->data_final)) {
 	        $dados->whereDate('created_at', '<=', $request->data_final);
-	        $filtros['data_final']  = date('d/m/Y', strtotime($request->data_final));
+	        $filtros['data_final']  = $request->data_final;
 	    }
 	    $dados = $dados->get();
 		$colaboradores = Usuarios::orderBy('login', 'ASC')->where('id', '!=', 1)->get();

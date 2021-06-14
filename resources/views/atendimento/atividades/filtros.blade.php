@@ -63,13 +63,13 @@
                 <div class="col-4">
                   <div class="form-group">
                     <label class="col-form-label pb-0">Data inicial </label>
-                    <input type="date" class="form-control form-control-line" name="data_inicial" value="{{@$filtros['data_inicial']}}" />
+                    <input type="date" class="form-control form-control-line" name="data_inicial" value="{{(isset($filtros['data_inicial']) ? date('Y-m-d', strtotime(@$filtros['data_inicial'])) : '')}}" />
                   </div>
                 </div>
                 <div class="col-4">
                   <div class="form-group">
                     <label class="col-form-label pb-0">Data final </label>
-                    <input type="date" class="form-control form-control-line" name="data_final" value="{{@$filtros['data_inicial']}}"/>
+                    <input type="date" class="form-control form-control-line" name="data_final" value="{{(isset($filtros['data_final']) ? date('Y-m-d', strtotime(@$filtros['data_final'])) : '')}}"/>
                   </div>
                 </div>   
               </div>

@@ -32,10 +32,10 @@ Atividades
             <div class="row mx-auto">
                 <div class="col-8">
                     <b class="pr-2">Filtros:</b>
-                    <span class="badge badge-info badge-pill mr-2" style="font-size: 10px;">{{(isset($filtros['tipo']) ? $filtros['tipo'] : '')}}</span>
-                    <span class="badge badge-info badge-pill mr-2" style="font-size: 10px;">{{(isset($filtros['contato']) ? $filtros['contato'] : '')}}</span>
-                    <span class="badge badge-info badge-pill mr-2" style="font-size: 10px;">{{(isset($filtros['colaborador']) ? $filtros['colaborador'] : '')}}</span>
-                    <span class="badge badge-info badge-pill mr-2" style="font-size: 10px;">{{(isset($filtros['data_inicial']) ? date('d/m/Y', strtotime($filtros['data_inicial'])) : '').(isset($filtros['data_inicial']) && isset($filtros['data_final']) ? ' até ' : '').(isset($filtros['data_final']) ? date('d/m/Y', strtotime($filtros['data_final'])) : '')}}</span>
+                    <span class="label label-info label-rouded text-uppercase mr-2">{{(isset($filtros['tipo']) ? $filtros['tipo'] : '')}}</span>
+                    <span class="label label-info label-rouded text-uppercase mr-2">{{(isset($filtros['contato']) ? $filtros['contato'] : '')}}</span>
+                    <span class="label label-info label-rouded text-uppercase mr-2">{{(isset($filtros['colaborador']) ? $filtros['colaborador'] : '')}}</span>
+                    <span class="label label-info label-rouded text-uppercase mr-2">{{(isset($filtros['data_inicial']) ? date('d/m/Y', strtotime($filtros['data_inicial'])) : '').(isset($filtros['data_inicial']) && isset($filtros['data_final']) ? ' até ' : '').(isset($filtros['data_final']) ? date('d/m/Y', strtotime($filtros['data_final'])) : '')}}</span>
                     <a href="{{route('exibir.atividades.atendimento')}}" class="text-danger"><small>Limpar</small></a>
                 </div>
                 <div class="col-4 text-right">
