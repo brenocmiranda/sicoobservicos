@@ -171,7 +171,7 @@ class TecnologiaCtrl extends Controller
             $status = ChamadosStatus::create([
                 'gti_id_chamados' => $id,
                 'gti_id_status' => $request->status,
-                'descricao' => (isset($request->descricao) ? mb_strtoupper($request->descricao) : "Estado do chamado alterado por ".Auth::user()->RelationAssociado->nome."."),
+                'descricao' => (isset($request->descricao) ? $request->descricao : "Estado do chamado alterado por ".Auth::user()->RelationAssociado->nome."."),
                 'usr_id_usuarios' => Auth::id()
             ]);
             // Cadastramento de vários arquivos 
@@ -209,7 +209,7 @@ class TecnologiaCtrl extends Controller
     // Alterando descrição dos status
     public function DescricaoChamados(Request $request){
         if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
-            ChamadosStatus::find($request->id)->update(['descricao' => mb_strtoupper($request->descricao)]);
+            ChamadosStatus::find($request->id)->update(['descricao' => $request->descricao]);
             return $request;
         }else{
             return redirect(route('403'));
