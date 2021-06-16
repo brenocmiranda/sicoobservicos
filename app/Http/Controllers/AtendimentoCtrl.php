@@ -634,10 +634,14 @@ class AtendimentoCtrl extends Controller
 	        $dados->where('contato', 'LIKE', '%' .$request->contato. '%');
 	        $filtros['contato'] = $request->contato;
 	    }
-	    if ($request->has('colaborador') && isset($request->colaborador)) {
-	        $dados->where('usr_id_usuario', '=', $request->colaborador);
-	        $filtros['colaborador']  = Usuarios::find($request->colaborador)->RelationAssociado->nome;
-	    }
+	    if(Auth::user()->RelationFuncao->gerenciar_atendimento == 1){
+		    if ($request->has('colaborador') && isset($request->colaborador)) {
+		        $dados->where('usr_id_usuario', '=', $request->colaborador);
+		        $filtros['colaborador']  = Usuarios::find($request->colaborador)->RelationAssociado->nome;
+		    }
+		}else{
+			 $dados->where('usr_id_usuario', '=', Auth::id());
+		}
 	    if ($request->has('data_inicial') && isset($request->data_inicial)) {
 	        $dados->whereDate('created_at', '>=', $request->data_inicial);
 	        $filtros['data_inicial']  = $request->data_inicial;

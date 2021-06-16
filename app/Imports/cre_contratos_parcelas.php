@@ -23,22 +23,38 @@ class cre_contratos_parcelas implements ToCollection, WithChunkReading, WithHead
     public function collection(Collection $rows)
     {
         foreach ($rows as $row) 
-        {  
+        {   // Verifica se existe esse contrato cadastrado
             $dados = Contratos::where('num_contrato', $row['numero_contrato_credito'])->first();
-
             if(isset($dados)){
-                ContratosParcelas::create([
-                    'num_parcela' => $row['numero_parcela'],
-                    'data_vencimento' => gmdate('Y-m-d', (($row['data_vencimento_parcela'] - 25569) * 86400)),
-                    'valor_parcela' => number_format($row['valor_parcela'], 2, '.', ''),
-                    'valor_pago_parcela' => number_format($row['valor_pago_parcela'], 2, '.', ''),
-                    'valor_devedor_parcela' => number_format($row['valor_saldo_devedor_parcela'], 2, '.', ''),
-                    'valor_juros_parcela' => number_format($row['valor_juros_parcela'], 2, '.', ''),
-                    'dias_atraso' => $row['quantidade_dias_atraso'],
-                    'situacao' => $row['situacao_parcela'],
-                    'data_movimento' => gmdate('Y-m-d', (($row['data_movimento'] - 25569) * 86400)),
-                    'cre_id_contratos' => $dados->id,
-                ]);   
+                // Verificando se já possui parcela cadastrada para aquele contrato
+                $parcela = ContratosParcelas::where('cre_id_contratos', $dados->id)->where('num_parcela', $row['numero_parcela'])->first();
+                if(isset($parcela)){
+                    ContratosParcelas::find($parcela->id)->update([
+                        'num_parcela' => $row['numero_parcela'],
+                        'data_vencimento' => gmdate('Y-m-d', (($row['data_vencimento_parcela'] - 25569) * 86400)),
+                        'valor_parcela' => number_format($row['valor_parcela'], 2, '.', ''),
+                        'valor_pago_parcela' => number_format($row['valor_pago_parcela'], 2, '.', ''),
+                        'valor_devedor_parcela' => number_format($row['valor_saldo_devedor_parcela'], 2, '.', ''),
+                        'valor_juros_parcela' => number_format($row['valor_juros_parcela'], 2, '.', ''),
+                        'dias_atraso' => $row['quantidade_dias_atraso'],
+                        'situacao' => $row['situacao_parcela'],
+                        'data_movimento' => gmdate('Y-m-d', (($row['data_movimento'] - 25569) * 86400)),
+                        'cre_id_contratos' => $dados->id,
+                    ]);
+                }else{
+                    ContratosParcelas::create([
+                        'num_parcela' => $row['numero_parcela'],
+                        'data_vencimento' => gmdate('Y-m-d', (($row['data_vencimento_parcela'] - 25569) * 86400)),
+                        'valor_parcela' => number_format($row['valor_parcela'], 2, '.', ''),
+                        'valor_pago_parcela' => number_format($row['valor_pago_parcela'], 2, '.', ''),
+                        'valor_devedor_parcela' => number_format($row['valor_saldo_devedor_parcela'], 2, '.', ''),
+                        'valor_juros_parcela' => number_format($row['valor_juros_parcela'], 2, '.', ''),
+                        'dias_atraso' => $row['quantidade_dias_atraso'],
+                        'situacao' => $row['situacao_parcela'],
+                        'data_movimento' => gmdate('Y-m-d', (($row['data_movimento'] - 25569) * 86400)),
+                        'cre_id_contratos' => $dados->id,
+                    ]); 
+                }
             }
         }   
     }
@@ -46,9 +62,6 @@ class cre_contratos_parcelas implements ToCollection, WithChunkReading, WithHead
     public function registerEvents(): array
     {
         return [
-            BeforeImport::class => function(BeforeImport $event) { 
-                ContratosParcelas::truncate();
-            },
             AfterImport::class => function(AfterImport $event) {
                 Logs::create(['mensagem' => 'Inicilizando importação de cre_contratos_parcelas.xlsx...']);
                 Logs::create(['mensagem' => 'Processando o arquivo cre_contratos_parcelas.xlsx...']);

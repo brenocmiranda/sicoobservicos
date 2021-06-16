@@ -1,4 +1,4 @@
 <?php
 
-Route::apiResource('users', 'API\UsuariosAPI');
-Route::apiResource('digitalizar', 'API\DigitalizarAPI');
+Route::get('users', 'API\UsuariosAPI@index');
+Route::post('digitalizar', 'API\DigitalizarAPI@store');

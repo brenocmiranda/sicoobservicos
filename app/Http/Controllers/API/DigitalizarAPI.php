@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use App\Models\Usuarios;
+use PDF;
 
 class DigitalizarAPI extends Controller
 {
@@ -21,9 +22,9 @@ class DigitalizarAPI extends Controller
 
     public function store(Request $request)
     {   
-        /*
+ 
         if ($request->hasFile('arquivos')) {
-            foreach($request->file('arquivos') as $imagem){
+            foreach($request->file('arquivos') as $key => $imagem){
                 if($imagem->isValid()){
                     $name = 'Digitalizar_'.date('Y_m_d_H_i_s_').rand(1, 999);
                     $extension =  $imagem->extension();
@@ -67,46 +68,49 @@ class DigitalizarAPI extends Controller
                 }   
                 // Gerando nova imagem
                 imagejpeg($newimage, storage_path().'/app/digitalizar/'.$nameFile, 30);
-                $urlImage = 'app/digitalizar/'.$nameFile;
+                $urlImage = 'storage/app/digitalizar/'.$nameFile;
                 
-                foreach($request->outros as $key => $arq){
-                    // Criando nome do arquivo do PDF
-                    if($request->nomeArquivos[$key]){
-                        if(is_dir("//10.11.26.1/digitaliza_ss/".date('d-m-Y').'/'.mb_strtoupper($request->nomePasta).'/'.$request->nomeArquivos[$key].'.pdf')){
-                            $namePdf = mb_strtoupper($request->nomeArquivos[$key]).'.pdf';
-                        }else{
-                            $namePdf = mb_strtoupper($request->nomeArquivos[$key]).date('His').'.pdf';
-                        }
+                // Criando nome do arquivo do PDF
+                if($request->nomeArquivos[$key]){
+                    if(is_dir("//10.11.26.1/digitaliza_ss/".date('d-m-Y').'/'.mb_strtoupper($request->nomePasta).'/'.$request->nomeArquivos[$key].'.pdf')){
+                        $namePdf = mb_strtoupper($request->nomeArquivos[$key]).'.pdf';
                     }else{
-                        $namePdf = str_replace('.'.$arq->getClientOriginalExtension(), '', $request->outros[$key]).'.pdf';
+                        $namePdf = mb_strtoupper($request->nomeArquivos[$key]).date('His').'.pdf';
                     }
-                    
-                    // HTML para criação do PDF
-                    $usuario = Usuarios::where('login', $request->usuario)->first();
-                    $html = '<div><img src="'.asset('storage/'.$request->outros[$key]).'" style="max-width: 100%; max-height: 26cm;"><div style="font-size: 1.5px !important; text-align:right; color:white; width:100%; background-color: #292828; padding-right: 1px; padding-top: 0.5px; padding-bottom: 0.5px;">Confere com o original <br> '.$usuario->RelationAssociado->nome.'</div></div>';
-                    $html = preg_replace("/>s+</", "><", $html);
+                }else{
+                    $namePdf = str_replace('.'.$imagem->getClientOriginalExtension(), '', $imagem->getClientOriginalName().'.pdf');
+                }
+                
+                // HTML para criação do PDF
+                $usuario = Usuarios::where('login', $request->usuario)->first();
+                $html = '<div><img src="'.asset($urlImage).'" style="max-width: 100%; max-height: 26cm;"><div style="font-size: 1.5px !important; text-align:right; color:white; width:100%; background-color: #292828; padding-right: 1px; padding-top: 0.5px; padding-bottom: 0.5px;">Confere com o original <br> '.$usuario->RelationAssociado->nome.'</div></div>';
+                $html = preg_replace("/>s+</", "><", $html);
 
-                    // Gerando PDF
-                    if(is_dir("//10.11.26.1/digitaliza_ss/".date('d-m-Y'))){
-                        if(is_dir("//10.11.26.1/digitaliza_ss/".date('d-m-Y').'/'.mb_strtoupper($request->nomePasta))){
-                            $pdf = PDF::loadHTML($html)->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitaliza_ss/".date('d-m-Y').'/'.mb_strtoupper($request->nomePasta).'/'.$namePdf);
-                        }else{
-                            mkdir("//10.11.26.1/digitaliza_ss/".date('d-m-Y').'/'.mb_strtoupper($request->nomePasta), 0755);
-                            $pdf = PDF::loadHTML($html)->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitaliza_ss/".date('d-m-Y').'/'.mb_strtoupper($request->nomePasta).'/'.$namePdf);
-                        }
+                // Gerando PDF
+                if(is_dir("//10.11.26.1/digitaliza_ss/".date('d-m-Y'))){
+                    if(is_dir("//10.11.26.1/digitaliza_ss/".date('d-m-Y').'/'.mb_strtoupper($request->nomePasta))){
+                        $pdf = PDF::loadHTML($html)->setPaper('a4', 'portrait')->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitaliza_ss/".date('d-m-Y').'/'.mb_strtoupper($request->nomePasta).'/'.$namePdf);
+                        return response()->json(200);
                     }else{
-                        mkdir("//10.11.26.1/digitaliza_ss/".date('d-m-Y'), 0755);
-                        if(is_dir("//10.11.26.1/digitaliza_ss/".date('d-m-Y').'/'.mb_strtoupper($request->nomePasta))){
-                            $pdf = PDF::loadHTML($html)->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitaliza_ss/".date('d-m-Y').'/'.mb_strtoupper($request->nomePasta).'/'.$namePdf);
-                        }else{
-                            mkdir("//10.11.26.1/digitaliza_ss/".date('d-m-Y').'/'.mb_strtoupper($request->nomePasta), 0755);
-                            $pdf = PDF::loadHTML($html)->setPaper('a4', $request->orientacao)->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitaliza_ss/".date('d-m-Y').'/'.mb_strtoupper($request->nomePasta).'/'.$namePdf);
-                        }
+                        mkdir("//10.11.26.1/digitaliza_ss/".date('d-m-Y').'/'.mb_strtoupper($request->nomePasta), 0755);
+                        $pdf = PDF::loadHTML($html)->setPaper('a4', 'portrait')->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitaliza_ss/".date('d-m-Y').'/'.mb_strtoupper($request->nomePasta).'/'.$namePdf);
+                        return response()->json(200);
+                    }
+                }else{
+                    mkdir("//10.11.26.1/digitaliza_ss/".date('d-m-Y'), 0755);
+                    if(is_dir("//10.11.26.1/digitaliza_ss/".date('d-m-Y').'/'.mb_strtoupper($request->nomePasta))){
+                        $pdf = PDF::loadHTML($html)->setPaper('a4', 'portrait')->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitaliza_ss/".date('d-m-Y').'/'.mb_strtoupper($request->nomePasta).'/'.$namePdf);
+                        return response()->json(200);
+                    }else{
+                        mkdir("//10.11.26.1/digitaliza_ss/".date('d-m-Y').'/'.mb_strtoupper($request->nomePasta), 0755);
+                        $pdf = PDF::loadHTML($html)->setPaper('a4', 'portrait')->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitaliza_ss/".date('d-m-Y').'/'.mb_strtoupper($request->nomePasta).'/'.$namePdf);
+                        return response()->json(200);
                     }
                 }
             }
+        }else{
+            return response()->json(400);
         }
-        */
     }
 
     public function show($id)
