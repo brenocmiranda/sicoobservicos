@@ -1206,8 +1206,8 @@ class TecnologiaCtrl extends Controller
 			$marcas = AtivosMarcas::where('status', 1)->orderBy('nome', 'ASC')->get();
 			$equipamentos = AtivosEquipamentos::where('status', 1)->orderBy('nome', 'ASC')->get();
 			$usuarios = Usuarios::where('status', 1)->orderBy('login', 'ASC')->get();
-			$setores = Setores::where('status', 1)->get();
-			$unidades = Unidades::where('status', 1)->get();
+			$setores = Setores::where('status', 1)->orderBy('nome', 'ASC')->get();
+			$unidades = Unidades::where('status', 1)->orderBy('nome', 'ASC')->get();
 			return view('tecnologia.equipamentos.adicionar')->with('usuarios', $usuarios)->with('setores', $setores)->with('unidades', $unidades)->with('equipamentos', $equipamentos)->with('marcas', $marcas);
 		}else{
 			return redirect(route('403'));

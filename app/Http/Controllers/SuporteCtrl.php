@@ -402,7 +402,7 @@ class SuporteCtrl extends Controller
     }
 	// Listando materiais para solicitação
 	public function MateriaisListar($id){
-		$dados = Materiais::where('id_categoria', $id)->get();
+		$dados = Materiais::where('id_categoria', $id)->where('status', 1)->get();
 		return $dados;
 	}
 	
