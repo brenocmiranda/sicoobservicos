@@ -64,7 +64,7 @@
 										@endif
 										<li>
 											<b>E-mail:</b> 
-											{{$novas->RelationAssociados->RelationEmails->email}}
+											{{(isset($novas->RelationAssociados->RelationEmails) ? $novas->RelationAssociados->RelationEmails->email : 'Nenhum cadastrado')}}
 										</li>
 										<li>
 											<b>Endereço:</b> 
