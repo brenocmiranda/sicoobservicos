@@ -25,8 +25,8 @@ class cli_associados implements ToCollection, WithChunkReading, WithHeadingRow, 
             $dados = Associados::where('id_sisbr', $row['numero_cliente_sisbr'])->first();
             if(isset($dados)){
                 Associados::where('id_sisbr', $row['numero_cliente_sisbr'])->update([
-                    'nome' => $row['nome_cliente'], 
-                    'nome_fantasia' => $row['nome_fantasia'], 
+                    'nome' => mb_strtoupper($row['nome_cliente']), 
+                    'nome_fantasia' => mb_strtoupper($row['nome_fantasia']), 
                     'representante' => $row['nome_responsavel_empresa'],
                     'documento' => $row['cpfcnpj'], 
                     'tipo_renda' => $row['tipo_de_renda'], 
@@ -51,8 +51,8 @@ class cli_associados implements ToCollection, WithChunkReading, WithHeadingRow, 
             }else{
                 Associados::create([
                     'id_sisbr' => (int) $row['numero_cliente_sisbr'], 
-                    'nome' => $row['nome_cliente'], 
-                    'nome_fantasia' => $row['nome_fantasia'], 
+                    'nome' => mb_strtoupper($row['nome_cliente']), 
+                    'nome_fantasia' => mb_strtoupper($row['nome_fantasia']), 
                     'representante' => $row['nome_responsavel_empresa'],
                     'documento' => $row['cpfcnpj'], 
                     'tipo_renda' => $row['tipo_de_renda'], 

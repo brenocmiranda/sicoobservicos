@@ -36,7 +36,7 @@
 										</li>
 										<li>
 											<b>CNPJ:</b> 
-											{{(strlen($novas->RelationAssociados->documento) == 11 ? substr($novas->RelationAssociados->documento, 0, 3).'.'.substr($novas->RelationAssociados->documento, 3, 3).'.'.substr($novas->RelationAssociados->documento, 6, 3).'-'.substr($novas->RelationAssociados->documento, 9, 2) : substr($novas->RelationAssociados->documento, 0, 2).'.'.substr($novas->RelationAssociados->documento, 3, 3).'.'.substr($novas->RelationAssociados->documento, 6, 3).'/'.substr($novas->RelationAssociados->documento, 8, 4).'-'.substr($novas->RelationAssociados->documento, 12, 2))}}
+											{{(strlen($novas->RelationAssociados->documento) == 11 ? substr($novas->RelationAssociados->documento, 0, 3).'.'.substr($novas->RelationAssociados->documento, 3, 3).'.'.substr($novas->RelationAssociados->documento, 6, 3).'-'.substr($novas->RelationAssociados->documento, 9, 2) : substr($novas->RelationAssociados->documento, 0, 2).'.'.substr($novas->RelationAssociados->documento, 2, 3).'.'.substr($novas->RelationAssociados->documento, 5, 3).'/'.substr($novas->RelationAssociados->documento, 8, 4).'-'.substr($novas->RelationAssociados->documento, 12, 2))}}
 										</li>
 										@if($novas->RelationAssociados->RelationTelefones->numero_celular != -2)
 										<li>
