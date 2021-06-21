@@ -24,6 +24,7 @@ class DigitalizarAPI extends Controller
     {   
         if(isset($request->items[0])){
             foreach($request->items as $array){
+                return 
                 foreach($request->file('arquivos') as $key => $imagem){
 
                     // Importando imagem para o servidor
@@ -68,20 +69,26 @@ class DigitalizarAPI extends Controller
                 if(is_dir("//10.11.26.1/digitaliza_ss/".date('d-m-Y'))){
                     if(is_dir("//10.11.26.1/digitaliza_ss/".date('d-m-Y').'/'.mb_strtoupper($array->nomePasta))){
                         $pdf = PDF::loadView('public.digitalizar.todos', compact('html'))->setPaper('a4', 'portrait')->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitaliza_ss/".date('d-m-Y').'/'.mb_strtoupper($array->nomePasta).'/'.$namePdf);
+                         return response()->json(200);
                     }else{
                         mkdir("//10.11.26.1/digitaliza_ss/".date('d-m-Y').'/'.mb_strtoupper($array->nomePasta), 0755);
                         $pdf = PDF::loadView('public.digitalizar.todos', compact('html'))->setPaper('a4', 'portrait')->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitaliza_ss/".date('d-m-Y').'/'.mb_strtoupper($array->nomePasta).'/'.$namePdf);
+                         return response()->json(200);
                     }
                 }else{
                     mkdir("//10.11.26.1/digitaliza_ss/".date('d-m-Y'), 0755);
                     if(is_dir("//10.11.26.1/digitaliza_ss/".date('d-m-Y').'/'.mb_strtoupper($array->nomePasta))){
                         $pdf = PDF::loadView('public.digitalizar.todos', compact('html'))->setPaper('a4', 'portrait')->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitaliza_ss/".date('d-m-Y').'/'.mb_strtoupper($array->nomePasta).'/'.$namePdf);
+                         return response()->json(200);
                     }else{
                         mkdir("//10.11.26.1/digitaliza_ss/".date('d-m-Y').'/'.mb_strtoupper($array->nomePasta), 0755);
                         $pdf = PDF::loadView('public.digitalizar.todos', compact('html'))->setPaper('a4', 'portrait')->setOptions(['dpi' => 10, 'isRemoteEnabled' => true])->save("//10.11.26.1/digitaliza_ss/".date('d-m-Y').'/'.mb_strtoupper($array->nomePasta).'/'.$namePdf);
+                         return response()->json(200);
                     }
                 }
             }
+        }else{
+            return response()->json(400);
         }
 
         /*
