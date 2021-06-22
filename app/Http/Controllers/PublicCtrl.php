@@ -408,4 +408,11 @@ class PublicCtrl extends Controller
 		$homepage = Imagens::where('tipo', 'homepage_principal')->get();
 		return view('public.telefones.exibir')->with('unidades', $unidades)->with('usuariosRamal', $usuariosRamal)->with('usuariosCorporativo', $usuariosCorporativo)->with('homepage', $homepage);
 	}
+
+	#-------------------------------------------------------------------
+	# Telefones internos
+	#-------------------------------------------------------------------
+	public function ExibirUniversidade(){
+		return view('public.universidade');
+	}
 }

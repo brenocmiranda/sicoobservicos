@@ -11,6 +11,7 @@ Route::group(['prefix' => '/'], function(){
 		Route::post('enviar', 'PublicCtrl@Upload')->name('digitalizar.enviar');
 		Route::post('arquivo', 'PublicCtrl@ArquivoDigitalizar')->name('arquivo.digitalizar.enviar');
 	});
+	Route::get('universidade', 'PublicCtrl@ExibirUniversidade')->name('universidade');
 });
 
 
