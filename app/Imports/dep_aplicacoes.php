@@ -44,7 +44,7 @@ class dep_aplicacoes implements ToCollection, WithChunkReading, WithHeadingRow, 
                     'valor_inicial' => number_format($row['valor_inicial_aplicado'], 2, '.', ''),
                     'valor_saldo' => number_format($row['valor_saldo_diario'], 2, '.', ''),
                     'data_movimento' => gmdate('Y-m-d', (($row['data_movimento'] - 25569) * 86400)),
-                    'cco_id_contacorrente' => ContaCorrente::where('num_contrato', $row['numero_conta_corrente'])->select('id')->first()->id,
+                    'cco_id_contacorrente' => (isset(ContaCorrente::where('num_contrato', $row['numero_conta_corrente'])->first()) ? ContaCorrente::where('num_contrato', $row['numero_conta_corrente'])->select('id')->first()->id : null),
                     'cli_id_associado' => Associados::where('id_sisbr', $row['numero_cliente_sisbr'])->select('id')->first()->id,
                 ]);
             }

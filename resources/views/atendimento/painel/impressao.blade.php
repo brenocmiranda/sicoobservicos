@@ -23,7 +23,7 @@
               <div class="row">
                 <div class="col-lg-4 col-6">
                   <div class="checkbox checkbox-info checkbox-circle">
-                      <input id="checkbox1" type="checkbox" name="atividades">
+                      <input id="checkbox1" type="checkbox" name="atividades" >
                       <label for="checkbox1"> Atividades </label>
                   </div>
                 </div>
@@ -35,79 +35,79 @@
                 </div>
                 <div class="col-lg-4 col-6">
                   <div class="checkbox checkbox-info checkbox-circle">
-                      <input id="checkbox3" type="checkbox" name="bacen">
+                      <input id="checkbox3" type="checkbox" name="bacen" checked>
                       <label for="checkbox3"> BACEN </label>
                   </div>
                 </div>
                 <div class="col-lg-4 col-6">
                   <div class="checkbox checkbox-info checkbox-circle">
-                      <input id="checkbox4" type="checkbox" name="contacapital">
+                      <input id="checkbox4" type="checkbox" name="contacapital" checked>
                       <label for="checkbox4"> Conta capital </label>
                   </div>
                 </div>
                 <div class="col-lg-4 col-6">
                   <div class="checkbox checkbox-info checkbox-circle">
-                      <input id="checkbox5" type="checkbox" name="contacorrente">
+                      <input id="checkbox5" type="checkbox" name="contacorrente" checked>
                       <label for="checkbox5"> Conta corrente </label>
                   </div>
                 </div>
                 <div class="col-lg-4 col-6">
                   <div class="checkbox checkbox-info checkbox-circle">
-                      <input id="checkbox6" type="checkbox" name="cartaocredito">
+                      <input id="checkbox6" type="checkbox" name="cartaocredito" checked>
                       <label for="checkbox6"> Conta cartão </label>
                   </div>
                 </div>
                 <div class="col-lg-4 col-6">
                   <div class="checkbox checkbox-info checkbox-circle">
-                      <input id="checkbox7" type="checkbox" name="carteiracredito">
+                      <input id="checkbox7" type="checkbox" name="carteiracredito" checked>
                       <label for="checkbox7"> Emprestimos </label>
                   </div>
                 </div>
                 <div class="col-lg-4 col-6">
                   <div class="checkbox checkbox-info checkbox-circle">
-                      <input id="checkbox8" type="checkbox" name="poupanca">
+                      <input id="checkbox8" type="checkbox" name="poupanca" checked>
                       <label for="checkbox8"> Poupança </label>
                   </div>
                 </div>
                 <div class="col-lg-4 col-6">
                   <div class="checkbox checkbox-info checkbox-circle">
-                      <input id="checkbox9" type="checkbox" name="aplicacoes">
+                      <input id="checkbox9" type="checkbox" name="aplicacoes" checked>
                       <label for="checkbox9"> Aplicações </label>
                   </div>
                 </div>
                 <div class="col-lg-4 col-6">
                   <div class="checkbox checkbox-info checkbox-circle">
-                      <input id="checkbox10" type="checkbox" name="iap">
+                      <input id="checkbox10" type="checkbox" name="iap" checked>
                       <label for="checkbox10"> IAP </label>
                   </div>
                 </div>
                 <div class="col-lg-4 col-6">
                   <div class="checkbox checkbox-info checkbox-circle">
-                      <input id="checkbox11" type="checkbox" name="cobranca">
+                      <input id="checkbox11" type="checkbox" name="cobranca" checked>
                       <label for="checkbox11"> Cobrança </label>
                   </div>
                 </div>  
                 <div class="col-lg-4 col-6">
                   <div class="checkbox checkbox-info checkbox-circle">
-                      <input id="checkbox12" type="checkbox" name="consorcio">
+                      <input id="checkbox12" type="checkbox" name="consorcio" checked>
                       <label for="checkbox12"> Consórcio </label>
                   </div>
                 </div>  
                 <div class="col-lg-4 col-6">
                   <div class="checkbox checkbox-info checkbox-circle">
-                      <input id="checkbox13" type="checkbox" name="previdencia">
+                      <input id="checkbox13" type="checkbox" name="previdencia" checked>
                       <label for="checkbox13"> Previdência </label>
                   </div>
                 </div>
                 <div class="col-lg-4 col-6">
                   <div class="checkbox checkbox-info checkbox-circle">
-                      <input id="checkbox14" type="checkbox" name="seguros">
+                      <input id="checkbox14" type="checkbox" name="seguros" checked>
                       <label for="checkbox14"> Seguros </label>
                   </div>
                 </div>
                 <div class="col-lg-4 col-6">
                   <div class="checkbox checkbox-info checkbox-circle">
-                      <input id="checkbox15" type="checkbox" name="sipag">
+                      <input id="checkbox15" type="checkbox" name="sipag" checked>
                       <label for="checkbox15"> SIPAG </label>
                   </div>
                 </div>             

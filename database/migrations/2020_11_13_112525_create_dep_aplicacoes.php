@@ -23,7 +23,7 @@ class CreateDepAplicacoes extends Migration
             $table->double('valor_inicial');
             $table->double('valor_saldo');
             $table->date('data_movimento');
-            $table->integer('cco_id_contacorrente')->unsigned();
+            $table->integer('cco_id_contacorrente')->unsigned()->nullable();
             $table->foreign('cco_id_contacorrente')->references('id')->on('cco_contacorrente');
             $table->integer('cli_id_associado')->unsigned();
             $table->foreign('cli_id_associado')->references('id')->on('cli_associados');
