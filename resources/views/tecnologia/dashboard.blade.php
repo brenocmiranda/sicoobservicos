@@ -181,7 +181,7 @@ Tecnologia
 							<h3 class="box-title text-left mb-0">Total de equipamentos</h3>
 							<hr class="mt-2">
 							<div class="col-lg-12 col-sm-12 col-xs-12 text-center row m-auto align-items-center justify-content-center h-75 pb-5">
-								<h1 style="font-size: 55px;">{{count($equipamentosMarca)}} 
+								<h1 style="font-size: 55px;">{{count($equipamentos)}} 
 									<small>cadastrados</small>
 								</h1>
 							</div>
