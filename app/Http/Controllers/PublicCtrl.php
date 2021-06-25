@@ -413,6 +413,7 @@ class PublicCtrl extends Controller
 	# Telefones internos
 	#-------------------------------------------------------------------
 	public function ExibirUniversidade(){
-		return view('public.universidade');
+		$homepage = Imagens::where('tipo', 'homepage_principal')->get();
+		return view('public.universidade')->with('homepage', $homepage);
 	}
 }
