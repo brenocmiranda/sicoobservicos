@@ -25,7 +25,7 @@ Página inicial
 	        		@if(isset($base[0]))
 	        			<ul class="col-12 ml-3">
 	        				@if(Auth::user()->RelationFuncao->gerenciar_gti == 1)
-				        		@foreach($base as $b)
+				        		@foreach($base->sortByDesc('updated_at') as $b)
 				        			<li class="pb-2" style="list-style: disc;" >
 				        				<a href="{{route('detalhes.base', $b->id)}}">
 				        					<span class="text-truncate d-block">
@@ -37,7 +37,7 @@ Página inicial
 				        		@endforeach
 				        	@else
 				        		@if(count($base->where('tipo', 'externo')) > 0)
-					        		@foreach($base->where('tipo', 'externo') as $b)
+					        		@foreach($base->where('tipo', 'externo')->sortByDesc('updated_at') as $b)
 					        			<li class="pb-2" style="list-style: disc;" >
 					        				<a href="{{route('detalhes.base', $b->id)}}">
 					        					<span class="text-truncate d-block">
