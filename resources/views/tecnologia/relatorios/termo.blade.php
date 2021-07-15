@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<?php 
+	setlocale(LC_ALL, 'pt_BR');
+	date_default_timezone_set('America/Sao_Paulo');
+?>
 <html lang="pt-BR">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -39,7 +43,11 @@
 					</div>
 				</div>
 				<div class="body">
-					<p> Em <b>{{now()->format('d')}}</b> de <b>{{now()->format('m')}}</b> de <b>{{now()->format('Y')}}</b>, eu, <b>{{$equipamentos->first()->RelationUsuarios->RelationAssociado->nome}}</b>, com as atribuições de <b>{{$equipamentos->first()->RelationUsuarios->RelationFuncao->nome}}</b>, pelo presente instrumento, acuso o recebimento dos equipamentos de propriedade da Cooperativa de Crédito de Livre Admissão do Sertão de Minas Gerais LTDA – Sicoob Sertão Minas, com a(s) seguinte(s) descrição: </p>
+					<?php 
+					setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
+					date_default_timezone_set('America/Sao_Paulo'); 
+					?>
+					<p> Em <b>{{now()->format('d')}}</b> de <b>{{strftime('%B', strtotime('today'))}}</b> de <b>{{now()->format('Y')}}</b>, eu, <b>{{$equipamentos->first()->RelationUsuarios->RelationAssociado->nome}}</b>, com as atribuições de <b>{{$equipamentos->first()->RelationUsuarios->RelationFuncao->nome}}</b>, pelo presente instrumento, acuso o recebimento dos equipamentos de propriedade da Cooperativa de Crédito de Livre Admissão do Sertão de Minas Gerais LTDA – Sicoob Sertão Minas, com a(s) seguinte(s) descrição: </p>
 
 					<table class="my-5" style="border: 1px solid black; width: 100%; text-align: center; border-collapse: collapse;">
 						<thead style="border-bottom: 1px solid black;">
@@ -64,7 +72,7 @@
 						Eu, <b>{{$equipamentos->first()->RelationUsuarios->RelationAssociado->nome}}</b>, firmo o presente com o compromisso de assumir inteira responsabilidade pela guarda e zelo do bem, bem como pela legalidade dos softwares nele instalados e de apresentá-lo em local previamente combinado, quando solicitado pela equipe do Departamento de Tecnologia da Informação na sede do Sicoob Sertão Minas (Pirapora - Minas Gerais), restituindo-o ao titular do setor, quando por este solicitado, ou quando cessarem as minhas atividades nesta empresa.
 					</p>
 					<p>
-						Através da assinatura deste documento, eu, <b>{{$equipamentos->first()->RelationUsuarios->RelationAssociado->nome}}</b>, recipiendário, me comprometo a seguir as normas descritas abaixo para, a partir da data de hoje, <b>{{now()->format('d')}}</b> de <b>{{now()->format('m')}}</b> de <b>{{now()->format('Y')}}</b>, executar os trabalhos pertinentes as minhas atividades.
+						Através da assinatura deste documento, eu, <b>{{$equipamentos->first()->RelationUsuarios->RelationAssociado->nome}}</b>, recipiendário, me comprometo a seguir as normas descritas abaixo para, a partir da data de hoje, <b>{{now()->format('d')}}</b> de <b>{{strftime('%B', strtotime('today'))}}</b> de <b>{{now()->format('Y')}}</b>, executar os trabalhos pertinentes as minhas atividades.
 					</p>
 					<h3 class="py-4">Responsabilidade do Usuário</h3>
 					<ul style="list-style: disc">
@@ -91,7 +99,7 @@
 					<p>O presente termo foi registrado em 02 (duas) vias <b>(1ª via do emitente, 2ª via do recipiendário)</b>, assinado pelo EMITENTE E RECIPIENDÁRIO. </p>
 
 					<div class="text-right my-5">
-						<label class="py-5">Pirapora, {{now()->format('d')}} de {{now()->format('m')}} de {{now()->format('Y')}}</label>
+						<label class="py-5">Pirapora, {{now()->format('d')}} de {{strftime('%B', strtotime('today'))}} de {{now()->format('Y')}}</label>
 					</div>
 					<br>
 					<br>

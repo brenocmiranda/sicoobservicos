@@ -15,8 +15,8 @@
 			<span class="caret hidden-xs"></span> 
 		</button> 
 		<ul role="menu" class="dropdown-menu"> 
-			<li><a href="#">Exportar para planilha</a></li> 
-			<li><a href="#">Exportar PDF</a></li> 
+			<li><a href="javascript:" class="exportXLS">Exportar para planilha</a></li> 
+			<li><a href="javascript:" class="exportPDF">Exportar PDF</a></li> 
 		</ul> 
 	</div>
 </div>

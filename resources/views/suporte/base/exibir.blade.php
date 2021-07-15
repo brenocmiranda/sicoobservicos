@@ -30,7 +30,7 @@ Aprendizagem
 						<div class="vtabs customvtab w-100">
 	                        <ul class="nav tabs-vertical"  id="ambientes" style="width: 30%;">
 	                        	@foreach($ambientes as $ambiente)
-									<li class="tab p-0 {{($ambiente->id == $ambiente->first()->id ? ' active' : '')}}">
+									<li class="tab p-0 {{($ambiente->id == $ambientes->first()->id ? ' active' : '')}}">
 										<a data-toggle="tab" href="#section{{$ambiente->id}}"  aria-expanded="true" class="m-0">
 											<div class="border rounded shadow-sm">
 												<div class="col-12 py-3">
@@ -46,7 +46,7 @@ Aprendizagem
 	                        <div class="tab-content">
 	                        	<?php $i=0; ?> 
 	                        	@foreach($ambientes as $ambiente)
-		                            <div id="section{{$ambiente->id}}" class="tab-pane {{($ambiente->id == $fontes->first()->id ? ' active' : '')}}">
+		                            <div id="section{{$ambiente->id}}" class="tab-pane {{($ambiente->id == $ambientes->first()->id ? ' active' : '')}}">
 		                                <div class="col-12">
 		                                	<div class="mx-4">
 			                                	<h4 class="mb-3">{{$ambiente->nome}}</h4> 

@@ -92,6 +92,22 @@ Atividades
                     $(this).css("display", "none");
             });
         });
+        
+        // Exportação do arquivo em PDF
+        $('.exportPDF').click(function(){
+            $.ajax({
+                url: "{{ route('relatorio.atividades.atendimento') }}",
+                type: 'POST',
+                data: {
+                    "_token" : "{{ csrf_token() }}",
+                    "content" : $("#atividades").html(),
+                },
+                success: function() {
+                    
+                }
+            });
+        });
+
     });
 </script>
 @endsection

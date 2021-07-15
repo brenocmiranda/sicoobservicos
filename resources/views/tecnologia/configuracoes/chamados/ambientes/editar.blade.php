@@ -30,7 +30,7 @@
                   <div class="col-lg-10 col-12">
                   <div class="form-group">
                     <label class="col-form-label pb-0">Descrição</label>
-                    <textarea class="descricao form-control form-control-line text-uppercase"></textarea>
+                    <textarea class="descricao form-control form-control-line text-uppercase" name="descricao"></textarea>
                   </div>
                 </div>
                   <div class="col-lg-3 col-12">

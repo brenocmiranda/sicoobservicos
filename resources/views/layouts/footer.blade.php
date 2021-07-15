@@ -42,7 +42,8 @@
 <script src="{{ asset('public/js/jquery.smartWizard.js') }}"></script>
 <script src="{{ asset('public/js/fabric.js') }}"></script>
 <script src="{{ asset('public/js/jcrop.js') }}"></script>
-	
+<script src="{{ asset('public/js/jspdf.min.js') }}"></script>
+
 <script type="text/javascript">
 	$(document).ready(function() {
 		$(".colorpicker").asColorPicker();

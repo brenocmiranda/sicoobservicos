@@ -623,7 +623,6 @@ class AtendimentoCtrl extends Controller
 
 	// Aplicando os filtros nas atividades
 	public function PesquisaAtividades(Request $request){
-		
 		// Aplicação dos filtros enviados
 		$dados = AssociadosAtividades::query();
 		if ($request->has('tipo') && isset($request->tipo)) {
@@ -653,6 +652,13 @@ class AtendimentoCtrl extends Controller
 	    $dados = $dados->get();
 		$colaboradores = Usuarios::orderBy('login', 'ASC')->where('id', '!=', 1)->get();
 		return view('atendimento.atividades.exibir')->with('dados', $dados)->with('colaboradores', $colaboradores)->with('filtros', $filtros);
+	}
+
+	// Relatório das atividades
+	public function RelatorioAtividades(Request $request){
+		$result = $request->content;
+		$pdf = PDF::loadView('atendimento.atividades.relatorio', compact('result'))->setPaper('a4', 'portrait');
+		return $pdf->stream();
 	}
 	
 }
