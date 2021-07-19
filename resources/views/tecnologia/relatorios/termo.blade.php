@@ -115,7 +115,7 @@
 						<div style="border-top: 1px solid black; display: block; width: 48%;margin-left: 10px; text-align: center; float:right;">
 							<label class="m-0">BARBARA BEZERRA PALMA</label>
 							<br>
-							<small style="line-height: 1.2em !important"><b>Supervisora Geral</b></small>
+							<small style="line-height: 1.2em !important"><b>Supervisora Administrativo</b></small>
 						</div>
 					</div>
 				</div>
