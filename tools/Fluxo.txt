@@ -1,4 +1,4 @@
 Tarefa do analítico executada as 07:00
-Tarefa de backup executada as 22:00
+Tarefa de backup executada as 12:00 e 22:00
 Tarefa de importação sempre em execução utilizando o .vbs que executa o .bat em segundo plano
 Tarefa de e-mail sempre em execução utilizando o .vbs que executa o .bat em segundo plano
