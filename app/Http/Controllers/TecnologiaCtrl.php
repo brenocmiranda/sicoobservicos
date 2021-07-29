@@ -1402,7 +1402,7 @@ class TecnologiaCtrl extends Controller
         }
         Atividades::create([
             'nome' => 'Alteração de responsável',
-            'descricao' => 'Você modificou o usuário resposável pelo equipamento '.$dados->RelationEquipamento->nome.' '.$dados->RelationMarca->nome.'.',
+            'descricao' => 'Você modificou o usuário resposável pelo equipamento '.$equipamento->RelationEquipamento->nome.' '.$equipamento->RelationMarca->nome.'.',
             'icone' => 'mdi-auto-fix',
             'url' => route('exibir.geral.equipamentos'),
             'id_usuario' => Auth::id()
