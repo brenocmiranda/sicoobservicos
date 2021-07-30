@@ -125,8 +125,8 @@ class PublicCtrl extends Controller
 			'status' => 'Ativo',
 			'attempts' => 0,
 		]);
-		Usuarios::find($user->id)->update(['attempts' => 0]);
-		//$user->notify(new ResetPassword($user));
+		//Usuarios::find($user->id)->update(['attempts' => 0]);
+		$user->notify(new ResetPassword($user));
 		\Session::flash('login', array(
 			'class' => 'success',
 			'mensagem' => 'Senha alterada com sucesso, faça o login.'

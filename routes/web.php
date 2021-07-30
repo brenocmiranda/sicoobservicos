@@ -553,6 +553,7 @@ Route::group(['prefix' => 'app'], function(){
 				Route::get('', 'ImportacoesCtrl@ExibirImportar')->name('exibir.importacoes');
 				Route::any('manual', 'ImportacoesCtrl@ImportarManual')->name('importManual.importacoes');
 				Route::any('automatico', 'ImportacoesCtrl@ImportarAutomatica')->name('importAuto.importacoes');
+				Route::any('automatico1', 'ImportacoesCtrl@ImportarAutomatica1')->name('importAuto.importacoes1');
 			});
 			// Data base
 			Route::group(['prefix' => 'data'], function(){

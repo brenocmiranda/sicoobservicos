@@ -121,7 +121,11 @@ Telefones
 							@foreach($usuariosCorporativo->sortBy('login') as $corporativo)
 							<p class="text-truncate">
 								<b>({{substr(str_replace('+55', '', $corporativo->telefone_corporativo), 0, 2).') '.substr(str_replace('+55', '', $corporativo->telefone_corporativo), 2, 5).'-'.substr(str_replace('+55', '', $corporativo->telefone_corporativo), -4)}}</b>
-								<span>- {{explode(' ', $corporativo->RelationAssociado->nome)[0]}}</span>
+								<span>- {{explode(' ', $corporativo->RelationAssociado->nome)[0] }}	
+									@if(strpos($corporativo->RelationAssociado->nome,'SAMUEL') !== false)
+									<span> {{explode(' ', $corporativo->RelationAssociado->nome)[1]}}</span>
+									@endif
+								</span>
 							</p>
 							@endforeach
 						@else
