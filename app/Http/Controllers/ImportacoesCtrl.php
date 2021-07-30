@@ -743,7 +743,7 @@ class ImportacoesCtrl extends Controller
 			return response()->json(['status' => false]);
 		}
 	}
-	// Importação automática pelo Gmail (Ativa)
+	// Baixando os relatório do Gmail (Ativa)
 	public function ImportarAutomatica1(){
 		$client = Client::account('default');
 		$client->connect();
@@ -758,20 +758,9 @@ class ImportacoesCtrl extends Controller
 	                foreach($attachments as $attachment){
 	                   	$attachment->save(getcwd().'/outlook/'); 
 	                }
+	                unlink(getcwd().'/outlook/undefined');
 	                $message = $message->delete($expunge = true);
-	                // Criando tarefa para importação
-					if(file_exists(getcwd().'/outlook/cli_associados.xlsx')){
-						try{
-							$nameFile = 'cli_associados'.date('dmY-His').'.xlsx';
-							copy(getcwd().'/outlook/cli_associados.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
-							unlink(getcwd().'/outlook/cli_associados.xlsx');
-							(new cli_associados)->queue(getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('high');
-						} catch (\Exception $ex){
-							copy(getcwd().'/storage/app/importacoes/'.$nameFile, getcwd().'/cli_associados.xlsx');
-							Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cli_associados.xlsx!</span>']);
-						}
-					}
-            	}
+            	} else
             	// cli_consolidado
                 if ($message->getSubject() == 'cli_consolidado'){
                 	// Baixa todos os anexo dentro da pasta compartilhada
@@ -779,20 +768,9 @@ class ImportacoesCtrl extends Controller
 	                foreach($attachments as $attachment){
 	                   	$attachment->save(getcwd().'/outlook/'); 
 	                }
+	                unlink(getcwd().'/outlook/undefined');
 	                $message = $message->delete($expunge = true);
-	                // Criando tarefa para importação
-					if(file_exists(getcwd().'/outlook/cli_consolidado.xlsx')){
-						try{
-							$nameFile = 'cli_consolidado'.date('dmY-His').'.xlsx';
-							copy(getcwd().'/outlook/cli_consolidado.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
-							unlink(getcwd().'/outlook/cli_consolidado.xlsx');
-							(new cli_consolidado)->queue(getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('high');
-						} catch (\Exception $ex){
-							copy(getcwd().'/storage/app/importacoes/'.$nameFile, getcwd().'/cli_consolidado.xlsx');
-							Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cli_consolidado.xlsx!</span>']);
-						}
-					}
-            	}
+            	} else
             	// cli_emails
                 if ($message->getSubject() == 'cli_emails'){
                 	// Baixa todos os anexo dentro da pasta compartilhada
@@ -800,20 +778,9 @@ class ImportacoesCtrl extends Controller
 	                foreach($attachments as $attachment){
 	                   	$attachment->save(getcwd().'/outlook/'); 
 	                }
+	                unlink(getcwd().'/outlook/undefined');
 	                $message = $message->delete($expunge = true);
-	                // Criando tarefa para importação
-					if(file_exists(getcwd().'/outlook/cli_emails.xlsx')){
-						try{
-							$nameFile = 'cli_emails'.date('dmY-His').'.xlsx';
-							copy(getcwd().'/outlook/cli_emails.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
-							unlink(getcwd().'/outlook/cli_emails.xlsx');
-							(new cli_emails)->queue(getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('high');
-						} catch (\Exception $ex){
-							copy(getcwd().'/storage/app/importacoes/'.$nameFile, getcwd().'/cli_emails.xlsx');
-							Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cli_emails.xlsx!</span>']);
-						}
-					}
-            	}
+            	} else
             	// cli_telefones
                 if ($message->getSubject() == 'cli_telefones'){
                 	// Baixa todos os anexo dentro da pasta compartilhada
@@ -821,20 +788,9 @@ class ImportacoesCtrl extends Controller
 	                foreach($attachments as $attachment){
 	                   	$attachment->save(getcwd().'/outlook/'); 
 	                }
+	                unlink(getcwd().'/outlook/undefined');
 	                $message = $message->delete($expunge = true);
-	                // Criando tarefa para importação
-					if(file_exists(getcwd().'/outlook/cli_telefones.xlsx')){
-						try{
-							$nameFile = 'cli_telefones'.date('dmY-His').'.xlsx';
-							copy(getcwd().'/outlook/cli_telefones.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
-							unlink(getcwd().'/outlook/cli_telefones.xlsx');
-							(new cli_telefones)->queue(getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('high');
-						} catch (\Exception $ex){
-							copy(getcwd().'/storage/app/importacoes/'.$nameFile, getcwd().'/cli_telefones.xlsx');
-							Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cli_telefones.xlsx!</span>']);
-						}
-					}
-            	}
+            	} else
             	// cli_enderecos
                 if ($message->getSubject() == 'cli_enderecos'){
                 	// Baixa todos os anexo dentro da pasta compartilhada
@@ -842,20 +798,9 @@ class ImportacoesCtrl extends Controller
 	                foreach($attachments as $attachment){
 	                   	$attachment->save(getcwd().'/outlook/'); 
 	                }
+	                unlink(getcwd().'/outlook/undefined');
 	                $message = $message->delete($expunge = true);
-	                // Criando tarefa para importação
-					if(file_exists(getcwd().'/outlook/cli_enderecos.xlsx')){
-						try{
-							$nameFile = 'cli_enderecos'.date('dmY-His').'.xlsx';
-							copy(getcwd().'/outlook/cli_enderecos.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
-							unlink(getcwd().'/outlook/cli_enderecos.xlsx');
-							(new cli_enderecos)->queue(getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('high');
-						} catch (\Exception $ex){
-							copy(getcwd().'/storage/app/importacoes/'.$nameFile, getcwd().'/cli_enderecos.xlsx');
-							Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cli_enderecos.xlsx!</span>']);
-						}
-					}
-            	}
+            	} else
             	// cli_conglomerados
                 if ($message->getSubject() == 'cli_conglomerados'){
                 	// Baixa todos os anexo dentro da pasta compartilhada
@@ -863,20 +808,9 @@ class ImportacoesCtrl extends Controller
 	                foreach($attachments as $attachment){
 	                   	$attachment->save(getcwd().'/outlook/'); 
 	                }
+	                unlink(getcwd().'/outlook/undefined');
 	                $message = $message->delete($expunge = true);
-	                // Criando tarefa para importação
-					if(file_exists(getcwd().'/outlook/cli_conglomerados.xlsx')){
-						try{
-							$nameFile = 'cli_conglomerados'.date('dmY-His').'.xlsx';
-							copy(getcwd().'/outlook/cli_conglomerados.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
-							unlink(getcwd().'/outlook/cli_conglomerados.xlsx');
-							(new cli_conglomerados)->queue(getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('high');
-						} catch (\Exception $ex){
-							copy(getcwd().'/storage/app/importacoes/'.$nameFile, getcwd().'/cli_conglomerados.xlsx');
-							Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cli_conglomerados.xlsx!</span>']);
-						}
-					}
-            	}
+            	} else
             	// cli_iap
                 if ($message->getSubject() == 'cli_iap'){
                 	// Baixa todos os anexo dentro da pasta compartilhada
@@ -884,20 +818,9 @@ class ImportacoesCtrl extends Controller
 	                foreach($attachments as $attachment){
 	                   	$attachment->save(getcwd().'/outlook/'); 
 	                }
+	                unlink(getcwd().'/outlook/undefined');
 	                $message = $message->delete($expunge = true);
-	                // Criando tarefa para importação
-					if(file_exists(getcwd().'/outlook/cli_iap.xlsx')){
-						try{
-							$nameFile = 'cli_iap'.date('dmY-His').'.xlsx';
-							copy(getcwd().'/outlook/cli_iap.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
-							unlink(getcwd().'/outlook/cli_iap.xlsx');
-							(new cli_iap)->queue(getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('high');
-						} catch (\Exception $ex){
-							copy(getcwd().'/storage/app/importacoes/'.$nameFile, getcwd().'/cli_iap.xlsx');
-							Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cli_iap.xlsx!</span>']);
-						}
-					}
-            	}
+            	} else
             	// cca_contacapital
                 if ($message->getSubject() == 'cca_contacapital'){
                 	// Baixa todos os anexo dentro da pasta compartilhada
@@ -905,20 +828,9 @@ class ImportacoesCtrl extends Controller
 	                foreach($attachments as $attachment){
 	                   	$attachment->save(getcwd().'/outlook/'); 
 	                }
+	                unlink(getcwd().'/outlook/undefined');
 	                $message = $message->delete($expunge = true);
-	                // Criando tarefa para importação
-					if(file_exists(getcwd().'/outlook/cca_contacapital.xlsx')){
-						try{
-							$nameFile = 'cca_contacapital'.date('dmY-His').'.xlsx';
-							copy(getcwd().'/outlook/cca_contacapital.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
-							unlink(getcwd().'/outlook/cca_contacapital.xlsx');
-							(new cca_contacapital)->queue(getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('high');
-						} catch (\Exception $ex){
-							copy(getcwd().'/storage/app/importacoes/'.$nameFile, getcwd().'/cca_contacapital.xlsx');
-							Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cca_contacapital.xlsx!</span>']);
-						}
-					}
-            	}
+            	} else
             	// cco_contacorrente
                 if ($message->getSubject() == 'cco_contacorrente'){
                 	// Baixa todos os anexo dentro da pasta compartilhada
@@ -926,20 +838,9 @@ class ImportacoesCtrl extends Controller
 	                foreach($attachments as $attachment){
 	                   	$attachment->save(getcwd().'/outlook/'); 
 	                }
+	                unlink(getcwd().'/outlook/undefined');
 	                $message = $message->delete($expunge = true);
-	                // Criando tarefa para importação
-					if(file_exists(getcwd().'/outlook/cco_contacorrente.xlsx')){
-						try{
-							$nameFile = 'cco_contacorrente'.date('dmY-His').'.xlsx';
-							copy(getcwd().'/outlook/cco_contacorrente.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
-							unlink(getcwd().'/outlook/cco_contacorrente.xlsx');
-							(new cco_contacorrente)->queue(getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('high');
-						} catch (\Exception $ex){
-							copy(getcwd().'/storage/app/importacoes/'.$nameFile, getcwd().'/cco_contacorrente.xlsx');
-							Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cco_contacorrente.xlsx!</span>']);
-						}
-					}
-            	}
+            	} else
             	// cre_contratos_vigentes
                 if ($message->getSubject() == 'cre_contratos_vigentes'){
                 	// Baixa todos os anexo dentro da pasta compartilhada
@@ -947,20 +848,9 @@ class ImportacoesCtrl extends Controller
 	                foreach($attachments as $attachment){
 	                   	$attachment->save(getcwd().'/outlook/'); 
 	                }
+	                unlink(getcwd().'/outlook/undefined');
 	                $message = $message->delete($expunge = true);
-	                // Criando tarefa para importação
-					if(file_exists(getcwd().'/outlook/cre_contratos_vigentes.xlsx')){
-						try{
-							$nameFile = 'cre_contratos_vigentes'.date('dmY-His').'.xlsx';
-							copy(getcwd().'/outlook/cre_contratos_vigentes.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
-							unlink(getcwd().'/outlook/cre_contratos_vigentes.xlsx');
-							(new cre_contratos_vigentes)->queue(getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('high');
-						} catch (\Exception $ex){
-							copy(getcwd().'/storage/app/importacoes/'.$nameFile, getcwd().'/cre_contratos_vigentes.xlsx');
-							Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cre_contratos_vigentes.xlsx!</span>']);
-						}
-					}
-            	}
+            	} else
             	// cre_contratos_quitados
                 if ($message->getSubject() == 'cre_contratos_quitados'){
                 	// Baixa todos os anexo dentro da pasta compartilhada
@@ -968,20 +858,9 @@ class ImportacoesCtrl extends Controller
 	                foreach($attachments as $attachment){
 	                   	$attachment->save(getcwd().'/outlook/'); 
 	                }
+	                unlink(getcwd().'/outlook/undefined');
 	                $message = $message->delete($expunge = true);
-	                // Criando tarefa para importação
-					if(file_exists(getcwd().'/outlook/cre_contratos_quitados.xlsx')){
-						try{
-							$nameFile = 'cre_contratos_quitados'.date('dmY-His').'.xlsx';
-							copy(getcwd().'/outlook/cre_contratos_quitados.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
-							unlink(getcwd().'/outlook/cre_contratos_quitados.xlsx');
-							(new cre_contratos_quitados)->queue(getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('high');
-						} catch (\Exception $ex){
-							copy(getcwd().'/storage/app/importacoes/'.$nameFile, getcwd().'/cre_contratos_quitados.xlsx');
-							Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cre_contratos_quitados.xlsx!</span>']);
-						}
-					}
-            	}
+            	} else
             	// cre_contratos_parcelas
                 if ($message->getSubject() == 'cre_contratos_parcelas'){
                 	// Baixa todos os anexo dentro da pasta compartilhada
@@ -989,20 +868,9 @@ class ImportacoesCtrl extends Controller
 	                foreach($attachments as $attachment){
 	                   	$attachment->save(getcwd().'/outlook/'); 
 	                }
+	                unlink(getcwd().'/outlook/undefined');
 	                $message = $message->delete($expunge = true);
-	                // Criando tarefa para importação
-					if(file_exists(getcwd().'/outlook/cre_contratos_parcelas.xlsx')){
-						try{
-							$nameFile = 'cre_contratos_parcelas'.date('dmY-His').'.xlsx';
-							copy(getcwd().'/outlook/cre_contratos_parcelas.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
-							unlink(getcwd().'/outlook/cre_contratos_parcelas.xlsx');
-							(new cre_contratos_parcelas)->queue(getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('high');
-						} catch (\Exception $ex){
-							copy(getcwd().'/storage/app/importacoes/'.$nameFile, getcwd().'/cre_contratos_parcelas.xlsx');
-							Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cre_contratos_parcelas.xlsx!</span>']);
-						}
-					}
-            	}
+            	} else
             	// crt_cartaocredito
                 if ($message->getSubject() == 'crt_cartaocredito'){
                 	// Baixa todos os anexo dentro da pasta compartilhada
@@ -1010,20 +878,9 @@ class ImportacoesCtrl extends Controller
 	                foreach($attachments as $attachment){
 	                   	$attachment->save(getcwd().'/outlook/'); 
 	                }
+	                unlink(getcwd().'/outlook/undefined');
 	                $message = $message->delete($expunge = true);
-	                // Criando tarefa para importação
-					if(file_exists(getcwd().'/outlook/crt_cartaocredito.xlsx')){
-						try{
-							$nameFile = 'crt_cartaocredito'.date('dmY-His').'.xlsx';
-							copy(getcwd().'/outlook/crt_cartaocredito.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
-							unlink(getcwd().'/outlook/crt_cartaocredito.xlsx');
-							(new crt_cartaocredito)->queue(getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('high');
-						} catch (\Exception $ex){
-							copy(getcwd().'/storage/app/importacoes/'.$nameFile, getcwd().'/crt_cartaocredito.xlsx');
-							Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo crt_cartaocredito.xlsx!</span>']);
-						}
-					}
-            	}
+            	} else
             	// pop_poupanca
                 if ($message->getSubject() == 'pop_poupanca'){
                 	// Baixa todos os anexo dentro da pasta compartilhada
@@ -1031,20 +888,9 @@ class ImportacoesCtrl extends Controller
 	                foreach($attachments as $attachment){
 	                   	$attachment->save(getcwd().'/outlook/'); 
 	                }
+	                unlink(getcwd().'/outlook/undefined');
 	                $message = $message->delete($expunge = true);
-	                // Criando tarefa para importação
-					if(file_exists(getcwd().'/outlook/pop_poupanca.xlsx')){
-						try{
-							$nameFile = 'pop_poupanca'.date('dmY-His').'.xlsx';
-							copy(getcwd().'/outlook/pop_poupanca.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
-							unlink(getcwd().'/outlook/pop_poupanca.xlsx');
-							(new pop_poupanca)->queue(getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('high');
-						} catch (\Exception $ex){
-							copy(getcwd().'/storage/app/importacoes/'.$nameFile, getcwd().'/pop_poupanca.xlsx');
-							Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo pop_poupanca.xlsx!</span>']);
-						}
-					}
-            	}
+            	} else
             	// dep_aplicacoes
                 if ($message->getSubject() == 'dep_aplicacoes'){
                 	// Baixa todos os anexo dentro da pasta compartilhada
@@ -1052,20 +898,9 @@ class ImportacoesCtrl extends Controller
 	                foreach($attachments as $attachment){
 	                   	$attachment->save(getcwd().'/outlook/'); 
 	                }
+	                unlink(getcwd().'/outlook/undefined');
 	                $message = $message->delete($expunge = true);
-	                // Criando tarefa para importação
-					if(file_exists(getcwd().'/outlook/dep_aplicacoes.xlsx')){
-						try{
-							$nameFile = 'dep_aplicacoes'.date('dmY-His').'.xlsx';
-							copy(getcwd().'/outlook/dep_aplicacoes.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
-							unlink(getcwd().'/outlook/dep_aplicacoes.xlsx');
-							(new dep_aplicacoes)->queue(getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('high');
-						} catch (\Exception $ex){
-							copy(getcwd().'/storage/app/importacoes/'.$nameFile, getcwd().'/dep_aplicacoes.xlsx');
-							Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo dep_aplicacoes.xlsx!</span>']);
-						}
-					}
-            	}
+            	} else
             	// cli_bacen
                 if ($message->getSubject() == 'cli_bacen'){
                 	// Baixa todos os anexo dentro da pasta compartilhada
@@ -1073,20 +908,9 @@ class ImportacoesCtrl extends Controller
 	                foreach($attachments as $attachment){
 	                   	$attachment->save(getcwd().'/outlook/'); 
 	                }
+	                unlink(getcwd().'/outlook/undefined');
 	                $message = $message->delete($expunge = true);
-	                // Criando tarefa para importação
-					if(file_exists(getcwd().'/outlook/cli_bacen.xlsx')){
-						try{
-							$nameFile = 'cli_bacen'.date('dmY-His').'.xlsx';
-							copy(getcwd().'/outlook/cli_bacen.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
-							unlink(getcwd().'/outlook/cli_bacen.xlsx');
-							(new cli_bacen)->queue(getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('high');
-						} catch (\Exception $ex){
-							copy(getcwd().'/storage/app/importacoes/'.$nameFile, getcwd().'/cli_bacen.xlsx');
-							Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cli_bacen.xlsx!</span>']);
-						}
-					}
-            	}
+            	} else
             	// cre_avalistas
                 if ($message->getSubject() == 'cre_avalistas'){
                 	// Baixa todos os anexo dentro da pasta compartilhada
@@ -1094,20 +918,9 @@ class ImportacoesCtrl extends Controller
 	                foreach($attachments as $attachment){
 	                   	$attachment->save(getcwd().'/outlook/'); 
 	                }
+	                unlink(getcwd().'/outlook/undefined');
 	                $message = $message->delete($expunge = true);
-	                // Criando tarefa para importação
-					if(file_exists(getcwd().'/outlook/cre_avalistas.xlsx')){
-						try{
-							$nameFile = 'cre_avalistas'.date('dmY-His').'.xlsx';
-							copy(getcwd().'/outlook/cre_avalistas.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
-							unlink(getcwd().'/outlook/cre_avalistas.xlsx');
-							(new cre_avalistas)->queue(getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('high');
-						} catch (\Exception $ex){
-							copy(getcwd().'/storage/app/importacoes/'.$nameFile, getcwd().'/cre_avalistas.xlsx');
-							Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cre_avalistas.xlsx!</span>']);
-						}
-					}
-            	}
+            	} else
             	// cre_garantias
                 if ($message->getSubject() == 'cre_garantias'){
                 	// Baixa todos os anexo dentro da pasta compartilhada
@@ -1115,20 +928,9 @@ class ImportacoesCtrl extends Controller
 	                foreach($attachments as $attachment){
 	                   	$attachment->save(getcwd().'/outlook/'); 
 	                }
+	                unlink(getcwd().'/outlook/undefined');
 	                $message = $message->delete($expunge = true);
-	                // Criando tarefa para importação
-					if(file_exists(getcwd().'/outlook/cre_garantias.xlsx')){
-						try{
-							$nameFile = 'cre_garantias'.date('dmY-His').'.xlsx';
-							copy(getcwd().'/outlook/cre_garantias.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
-							unlink(getcwd().'/outlook/cre_garantias.xlsx');
-							(new cre_garantias)->queue(getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('high');
-						} catch (\Exception $ex){
-							copy(getcwd().'/storage/app/importacoes/'.$nameFile, getcwd().'/cre_garantias.xlsx');
-							Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo cre_garantias.xlsx!</span>']);
-						}
-					}
-            	}
+            	} else
             	// pro_seguros
                 if ($message->getSubject() == 'pro_seguros'){
                 	// Baixa todos os anexo dentro da pasta compartilhada
@@ -1136,20 +938,9 @@ class ImportacoesCtrl extends Controller
 	                foreach($attachments as $attachment){
 	                   	$attachment->save(getcwd().'/outlook/'); 
 	                }
+	                unlink(getcwd().'/outlook/undefined');
 	                $message = $message->delete($expunge = true);
-	                // Criando tarefa para importação
-					if(file_exists(getcwd().'/outlook/pro_seguros.xlsx')){
-						try{
-							$nameFile = 'pro_seguros'.date('dmY-His').'.xlsx';
-							copy(getcwd().'/outlook/pro_seguros.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
-							unlink(getcwd().'/outlook/pro_seguros.xlsx');
-							(new pro_seguros)->queue(getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('high');
-						} catch (\Exception $ex){
-							copy(getcwd().'/storage/app/importacoes/'.$nameFile, getcwd().'/pro_seguros.xlsx');
-							Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo pro_seguros.xlsx!</span>']);
-						}
-					}
-            	}
+            	} else
             	// pro_consorcios
                 if ($message->getSubject() == 'pro_consorcios'){
                 	// Baixa todos os anexo dentro da pasta compartilhada
@@ -1157,20 +948,9 @@ class ImportacoesCtrl extends Controller
 	                foreach($attachments as $attachment){
 	                   	$attachment->save(getcwd().'/outlook/'); 
 	                }
+	                unlink(getcwd().'/outlook/undefined');
 	                $message = $message->delete($expunge = true);
-	                // Criando tarefa para importação
-					if(file_exists(getcwd().'/outlook/pro_consorcios.xlsx')){
-						try{
-							$nameFile = 'pro_consorcios'.date('dmY-His').'.xlsx';
-							copy(getcwd().'/outlook/pro_consorcios.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
-							unlink(getcwd().'/outlook/pro_consorcios.xlsx');
-							(new pro_consorcios)->queue(getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('high');
-						} catch (\Exception $ex){
-							copy(getcwd().'/storage/app/importacoes/'.$nameFile, getcwd().'/pro_consorcios.xlsx');
-							Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo pro_consorcios.xlsx!</span>']);
-						}
-					}
-            	}
+            	} else
             	// pro_previdencias
                 if ($message->getSubject() == 'pro_previdencias'){
                 	// Baixa todos os anexo dentro da pasta compartilhada
@@ -1178,20 +958,9 @@ class ImportacoesCtrl extends Controller
 	                foreach($attachments as $attachment){
 	                   	$attachment->save(getcwd().'/outlook/'); 
 	                }
+	                unlink(getcwd().'/outlook/undefined');
 	                $message = $message->delete($expunge = true);
-	                // Criando tarefa para importação
-					if(file_exists(getcwd().'/outlook/pro_previdencias.xlsx')){
-						try{
-							$nameFile = 'pro_previdencias'.date('dmY-His').'.xlsx';
-							copy(getcwd().'/outlook/pro_previdencias.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
-							unlink(getcwd().'/outlook/pro_previdencias.xlsx');
-							(new pro_previdencias)->queue(getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('high');
-						} catch (\Exception $ex){
-							copy(getcwd().'/storage/app/importacoes/'.$nameFile, getcwd().'/pro_previdencias.xlsx');
-							Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo pro_previdencias.xlsx!</span>']);
-						}
-					}
-            	}
+            	} else
             	// pro_cobranca
                 if ($message->getSubject() == 'pro_cobranca'){
                 	// Baixa todos os anexo dentro da pasta compartilhada
@@ -1199,20 +968,9 @@ class ImportacoesCtrl extends Controller
 	                foreach($attachments as $attachment){
 	                   	$attachment->save(getcwd().'/outlook/'); 
 	                }
+	                unlink(getcwd().'/outlook/undefined');
 	                $message = $message->delete($expunge = true);
-	                // Criando tarefa para importação
-					if(file_exists(getcwd().'/outlook/pro_cobranca.xlsx')){
-						try{
-							$nameFile = 'pro_cobranca'.date('dmY-His').'.xlsx';
-							copy(getcwd().'/outlook/pro_cobranca.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
-							unlink(getcwd().'/outlook/pro_cobranca.xlsx');
-							(new pro_cobranca)->queue(getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('high');
-						} catch (\Exception $ex){
-							copy(getcwd().'/storage/app/importacoes/'.$nameFile, getcwd().'/pro_cobranca.xlsx');
-							Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo pro_cobranca.xlsx!</span>']);
-						}
-					}
-            	}
+            	} else
             	// pro_sipag
                 if ($message->getSubject() == 'pro_sipag'){
                 	// Baixa todos os anexo dentro da pasta compartilhada
@@ -1220,20 +978,9 @@ class ImportacoesCtrl extends Controller
 	                foreach($attachments as $attachment){
 	                   	$attachment->save(getcwd().'/outlook/'); 
 	                }
+	                unlink(getcwd().'/outlook/undefined');
 	                $message = $message->delete($expunge = true);
-	                // Criando tarefa para importação
-					if(file_exists(getcwd().'/outlook/pro_sipag.xlsx')){
-						try{
-							$nameFile = 'pro_sipag'.date('dmY-His').'.xlsx';
-							copy(getcwd().'/outlook/pro_sipag.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
-							unlink(getcwd().'/outlook/pro_sipag.xlsx');
-							(new pro_sipag)->queue(getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('high');
-						} catch (\Exception $ex){
-							copy(getcwd().'/storage/app/importacoes/'.$nameFile, getcwd().'/pro_sipag.xlsx');
-							Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo pro_sipag.xlsx!</span>']);
-						}
-					}
-            	}
+            	} else
             	// pro_sipag_faturamento
                 if ($message->getSubject() == 'pro_sipag_faturamento'){
                 	// Baixa todos os anexo dentro da pasta compartilhada
@@ -1241,19 +988,8 @@ class ImportacoesCtrl extends Controller
 	                foreach($attachments as $attachment){
 	                   	$attachment->save(getcwd().'/outlook/'); 
 	                }
+	                unlink(getcwd().'/outlook/undefined');
 	                $message = $message->delete($expunge = true);
-	                // Criando tarefa para importação
-					if(file_exists(getcwd().'/outlook/pro_sipag_faturamento.xlsx')){
-						try{
-							$nameFile = 'pro_sipag_faturamento'.date('dmY-His').'.xlsx';
-							copy(getcwd().'/outlook/pro_sipag_faturamento.xlsx', getcwd().'/storage/app/importacoes/'.$nameFile);
-							unlink(getcwd().'/outlook/pro_sipag_faturamento.xlsx');
-							(new pro_sipag_faturamento)->queue(getcwd().'/storage/app/importacoes/'.$nameFile)->onQueue('high');
-						} catch (\Exception $ex){
-							copy(getcwd().'/storage/app/importacoes/'.$nameFile, getcwd().'/pro_sipag_faturamento.xlsx');
-							Logs::create(['mensagem' => '<span class="text-danger font-weight-bold">Erro na importação do arquivo pro_sipag_faturamento.xlsx!</span>']);
-						}
-					}
             	}
             }
         }
