@@ -744,8 +744,41 @@ class ImportacoesCtrl extends Controller
 		}
 	}
 	// Baixando os relatório do Gmail (Ativa)
-	public function ImportarAutomatica1(){
+	public function DonwloadRelatorios(){
+		/** @var \Webklex\PHPIMAP\Client $client */
 		$client = Client::account('default');
+
+		//Connect to the IMAP Server
+		$client->connect();
+
+		//Get all Mailboxes
+		/** @var \Webklex\PHPIMAP\Support\FolderCollection $folders */
+		$folders = $client->getFolders();
+
+		//Loop through every Mailbox
+		/** @var \Webklex\PHPIMAP\Folder $folder */
+		foreach($folders as $folder){
+
+		    //Get all Messages of the current Mailbox $folder
+		    /** @var \Webklex\PHPIMAP\Support\MessageCollection $messages */
+		    $messages = $folder->messages()->all()->get();
+		    
+		    /** @var \Webklex\PHPIMAP\Message $message */
+		    foreach($messages as $message){
+		        echo $message->getSubject().'<br />';
+		        echo 'Attachments: '.$message->getAttachments()->count().'<br />';
+		        echo $message->getHTMLBody();
+		        
+		        //Move the current Message to 'INBOX.read'
+		        if($message->move('INBOX.read') == true){
+		            echo 'Message has ben moved';
+		        }else{
+		            echo 'Message could not be moved';
+		        }
+		    }
+		}
+
+		/*$client = Client::account('default');
 		$client->connect();
 		$folders = $client->getFolders();
 		foreach($folders as $folder){
@@ -758,8 +791,8 @@ class ImportacoesCtrl extends Controller
 	                foreach($attachments as $attachment){
 	                   	$attachment->save(getcwd().'/outlook/'); 
 	                }
-	                unlink(getcwd().'/outlook/undefined');
-	                $message = $message->delete($expunge = true);
+	                //unlink(getcwd().'/outlook/undefined');
+	                //$message = $message->delete($expunge = true);
             	} else
             	// cli_consolidado
                 if ($message->getSubject() == 'cli_consolidado'){
@@ -768,8 +801,8 @@ class ImportacoesCtrl extends Controller
 	                foreach($attachments as $attachment){
 	                   	$attachment->save(getcwd().'/outlook/'); 
 	                }
-	                unlink(getcwd().'/outlook/undefined');
-	                $message = $message->delete($expunge = true);
+	                //unlink(getcwd().'/outlook/undefined');
+	                //$message = $message->delete($expunge = true);
             	} else
             	// cli_emails
                 if ($message->getSubject() == 'cli_emails'){
@@ -778,8 +811,8 @@ class ImportacoesCtrl extends Controller
 	                foreach($attachments as $attachment){
 	                   	$attachment->save(getcwd().'/outlook/'); 
 	                }
-	                unlink(getcwd().'/outlook/undefined');
-	                $message = $message->delete($expunge = true);
+	                //unlink(getcwd().'/outlook/undefined');
+	                //$message = $message->delete($expunge = true);
             	} else
             	// cli_telefones
                 if ($message->getSubject() == 'cli_telefones'){
@@ -788,8 +821,8 @@ class ImportacoesCtrl extends Controller
 	                foreach($attachments as $attachment){
 	                   	$attachment->save(getcwd().'/outlook/'); 
 	                }
-	                unlink(getcwd().'/outlook/undefined');
-	                $message = $message->delete($expunge = true);
+	                //unlink(getcwd().'/outlook/undefined');
+	                //$message = $message->delete($expunge = true);
             	} else
             	// cli_enderecos
                 if ($message->getSubject() == 'cli_enderecos'){
@@ -798,8 +831,8 @@ class ImportacoesCtrl extends Controller
 	                foreach($attachments as $attachment){
 	                   	$attachment->save(getcwd().'/outlook/'); 
 	                }
-	                unlink(getcwd().'/outlook/undefined');
-	                $message = $message->delete($expunge = true);
+	                //unlink(getcwd().'/outlook/undefined');
+	                //$message = $message->delete($expunge = true);
             	} else
             	// cli_conglomerados
                 if ($message->getSubject() == 'cli_conglomerados'){
@@ -808,8 +841,8 @@ class ImportacoesCtrl extends Controller
 	                foreach($attachments as $attachment){
 	                   	$attachment->save(getcwd().'/outlook/'); 
 	                }
-	                unlink(getcwd().'/outlook/undefined');
-	                $message = $message->delete($expunge = true);
+	                //unlink(getcwd().'/outlook/undefined');
+	                //$message = $message->delete($expunge = true);
             	} else
             	// cli_iap
                 if ($message->getSubject() == 'cli_iap'){
@@ -818,8 +851,8 @@ class ImportacoesCtrl extends Controller
 	                foreach($attachments as $attachment){
 	                   	$attachment->save(getcwd().'/outlook/'); 
 	                }
-	                unlink(getcwd().'/outlook/undefined');
-	                $message = $message->delete($expunge = true);
+	                //unlink(getcwd().'/outlook/undefined');
+	                //$message = $message->delete($expunge = true);
             	} else
             	// cca_contacapital
                 if ($message->getSubject() == 'cca_contacapital'){
@@ -828,8 +861,8 @@ class ImportacoesCtrl extends Controller
 	                foreach($attachments as $attachment){
 	                   	$attachment->save(getcwd().'/outlook/'); 
 	                }
-	                unlink(getcwd().'/outlook/undefined');
-	                $message = $message->delete($expunge = true);
+	                //unlink(getcwd().'/outlook/undefined');
+	                //$message = $message->delete($expunge = true);
             	} else
             	// cco_contacorrente
                 if ($message->getSubject() == 'cco_contacorrente'){
@@ -838,8 +871,8 @@ class ImportacoesCtrl extends Controller
 	                foreach($attachments as $attachment){
 	                   	$attachment->save(getcwd().'/outlook/'); 
 	                }
-	                unlink(getcwd().'/outlook/undefined');
-	                $message = $message->delete($expunge = true);
+	                //unlink(getcwd().'/outlook/undefined');
+	                //$message = $message->delete($expunge = true);
             	} else
             	// cre_contratos_vigentes
                 if ($message->getSubject() == 'cre_contratos_vigentes'){
@@ -848,8 +881,8 @@ class ImportacoesCtrl extends Controller
 	                foreach($attachments as $attachment){
 	                   	$attachment->save(getcwd().'/outlook/'); 
 	                }
-	                unlink(getcwd().'/outlook/undefined');
-	                $message = $message->delete($expunge = true);
+	                //unlink(getcwd().'/outlook/undefined');
+	                //$message = $message->delete($expunge = true);
             	} else
             	// cre_contratos_quitados
                 if ($message->getSubject() == 'cre_contratos_quitados'){
@@ -858,8 +891,8 @@ class ImportacoesCtrl extends Controller
 	                foreach($attachments as $attachment){
 	                   	$attachment->save(getcwd().'/outlook/'); 
 	                }
-	                unlink(getcwd().'/outlook/undefined');
-	                $message = $message->delete($expunge = true);
+	                //unlink(getcwd().'/outlook/undefined');
+	                //$message = $message->delete($expunge = true);
             	} else
             	// cre_contratos_parcelas
                 if ($message->getSubject() == 'cre_contratos_parcelas'){
@@ -868,8 +901,8 @@ class ImportacoesCtrl extends Controller
 	                foreach($attachments as $attachment){
 	                   	$attachment->save(getcwd().'/outlook/'); 
 	                }
-	                unlink(getcwd().'/outlook/undefined');
-	                $message = $message->delete($expunge = true);
+	                //unlink(getcwd().'/outlook/undefined');
+	                //$message = $message->delete($expunge = true);
             	} else
             	// crt_cartaocredito
                 if ($message->getSubject() == 'crt_cartaocredito'){
@@ -878,8 +911,8 @@ class ImportacoesCtrl extends Controller
 	                foreach($attachments as $attachment){
 	                   	$attachment->save(getcwd().'/outlook/'); 
 	                }
-	                unlink(getcwd().'/outlook/undefined');
-	                $message = $message->delete($expunge = true);
+	                //unlink(getcwd().'/outlook/undefined');
+	                //$message = $message->delete($expunge = true);
             	} else
             	// pop_poupanca
                 if ($message->getSubject() == 'pop_poupanca'){
@@ -888,8 +921,8 @@ class ImportacoesCtrl extends Controller
 	                foreach($attachments as $attachment){
 	                   	$attachment->save(getcwd().'/outlook/'); 
 	                }
-	                unlink(getcwd().'/outlook/undefined');
-	                $message = $message->delete($expunge = true);
+	                //unlink(getcwd().'/outlook/undefined');
+	                //$message = $message->delete($expunge = true);
             	} else
             	// dep_aplicacoes
                 if ($message->getSubject() == 'dep_aplicacoes'){
@@ -898,8 +931,8 @@ class ImportacoesCtrl extends Controller
 	                foreach($attachments as $attachment){
 	                   	$attachment->save(getcwd().'/outlook/'); 
 	                }
-	                unlink(getcwd().'/outlook/undefined');
-	                $message = $message->delete($expunge = true);
+	                //unlink(getcwd().'/outlook/undefined');
+	                //$message = $message->delete($expunge = true);
             	} else
             	// cli_bacen
                 if ($message->getSubject() == 'cli_bacen'){
@@ -908,8 +941,8 @@ class ImportacoesCtrl extends Controller
 	                foreach($attachments as $attachment){
 	                   	$attachment->save(getcwd().'/outlook/'); 
 	                }
-	                unlink(getcwd().'/outlook/undefined');
-	                $message = $message->delete($expunge = true);
+	                //unlink(getcwd().'/outlook/undefined');
+	                //$message = $message->delete($expunge = true);
             	} else
             	// cre_avalistas
                 if ($message->getSubject() == 'cre_avalistas'){
@@ -918,8 +951,8 @@ class ImportacoesCtrl extends Controller
 	                foreach($attachments as $attachment){
 	                   	$attachment->save(getcwd().'/outlook/'); 
 	                }
-	                unlink(getcwd().'/outlook/undefined');
-	                $message = $message->delete($expunge = true);
+	                //unlink(getcwd().'/outlook/undefined');
+	                //$message = $message->delete($expunge = true);
             	} else
             	// cre_garantias
                 if ($message->getSubject() == 'cre_garantias'){
@@ -928,8 +961,8 @@ class ImportacoesCtrl extends Controller
 	                foreach($attachments as $attachment){
 	                   	$attachment->save(getcwd().'/outlook/'); 
 	                }
-	                unlink(getcwd().'/outlook/undefined');
-	                $message = $message->delete($expunge = true);
+	                //unlink(getcwd().'/outlook/undefined');
+	                //$message = $message->delete($expunge = true);
             	} else
             	// pro_seguros
                 if ($message->getSubject() == 'pro_seguros'){
@@ -938,8 +971,8 @@ class ImportacoesCtrl extends Controller
 	                foreach($attachments as $attachment){
 	                   	$attachment->save(getcwd().'/outlook/'); 
 	                }
-	                unlink(getcwd().'/outlook/undefined');
-	                $message = $message->delete($expunge = true);
+	                //unlink(getcwd().'/outlook/undefined');
+	                //$message = $message->delete($expunge = true);
             	} else
             	// pro_consorcios
                 if ($message->getSubject() == 'pro_consorcios'){
@@ -948,8 +981,8 @@ class ImportacoesCtrl extends Controller
 	                foreach($attachments as $attachment){
 	                   	$attachment->save(getcwd().'/outlook/'); 
 	                }
-	                unlink(getcwd().'/outlook/undefined');
-	                $message = $message->delete($expunge = true);
+	                //unlink(getcwd().'/outlook/undefined');
+	                //$message = $message->delete($expunge = true);
             	} else
             	// pro_previdencias
                 if ($message->getSubject() == 'pro_previdencias'){
@@ -958,8 +991,8 @@ class ImportacoesCtrl extends Controller
 	                foreach($attachments as $attachment){
 	                   	$attachment->save(getcwd().'/outlook/'); 
 	                }
-	                unlink(getcwd().'/outlook/undefined');
-	                $message = $message->delete($expunge = true);
+	                //unlink(getcwd().'/outlook/undefined');
+	                //$message = $message->delete($expunge = true);
             	} else
             	// pro_cobranca
                 if ($message->getSubject() == 'pro_cobranca'){
@@ -968,8 +1001,8 @@ class ImportacoesCtrl extends Controller
 	                foreach($attachments as $attachment){
 	                   	$attachment->save(getcwd().'/outlook/'); 
 	                }
-	                unlink(getcwd().'/outlook/undefined');
-	                $message = $message->delete($expunge = true);
+	                //unlink(getcwd().'/outlook/undefined');
+	                //$message = $message->delete($expunge = true);
             	} else
             	// pro_sipag
                 if ($message->getSubject() == 'pro_sipag'){
@@ -978,8 +1011,8 @@ class ImportacoesCtrl extends Controller
 	                foreach($attachments as $attachment){
 	                   	$attachment->save(getcwd().'/outlook/'); 
 	                }
-	                unlink(getcwd().'/outlook/undefined');
-	                $message = $message->delete($expunge = true);
+	                //unlink(getcwd().'/outlook/undefined');
+	                //$message = $message->delete($expunge = true);
             	} else
             	// pro_sipag_faturamento
                 if ($message->getSubject() == 'pro_sipag_faturamento'){
@@ -988,11 +1021,12 @@ class ImportacoesCtrl extends Controller
 	                foreach($attachments as $attachment){
 	                   	$attachment->save(getcwd().'/outlook/'); 
 	                }
-	                unlink(getcwd().'/outlook/undefined');
-	                $message = $message->delete($expunge = true);
+	                //unlink(getcwd().'/outlook/undefined');
+	                //$message = $message->delete($expunge = true);
             	}
             }
         }
+        ImportarAutomatica();*/
         return response()->json(['status' => true]); 
 	}
 

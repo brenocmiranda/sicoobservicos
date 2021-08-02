@@ -26,7 +26,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('ImportAuto:importar')
-        ->everyMinute();
+        ->everyTwoMinutes();
 
         $schedule->command('TempoVida:monitorar')
         ->twiceDaily(9, 13);

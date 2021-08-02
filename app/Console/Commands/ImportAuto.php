@@ -38,6 +38,6 @@ class ImportAuto extends Command
      */
     public function handle(ImportacoesCtrl $action)
     {
-        return $action->ImportarAutomatica1();
+        return $action->DonwloadRelatorios();
     }
 }
