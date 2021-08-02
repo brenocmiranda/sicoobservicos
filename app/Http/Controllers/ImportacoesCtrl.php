@@ -745,38 +745,16 @@ class ImportacoesCtrl extends Controller
 	}
 	// Baixando os relatório do Gmail (Ativa)
 	public function DonwloadRelatorios(){
-		/** @var \Webklex\PHPIMAP\Client $client */
-		$client = Client::account('default');
 
-		//Connect to the IMAP Server
-		$client->connect();
+		$oClient = Client::account('default');
+		$oClient->connect();
 
-		//Get all Mailboxes
-		/** @var \Webklex\PHPIMAP\Support\FolderCollection $folders */
-		$folders = $client->getFolders();
-
-		//Loop through every Mailbox
-		/** @var \Webklex\PHPIMAP\Folder $folder */
-		foreach($folders as $folder){
-
-		    //Get all Messages of the current Mailbox $folder
-		    /** @var \Webklex\PHPIMAP\Support\MessageCollection $messages */
-		    $messages = $folder->messages()->all()->get();
-		    
-		    /** @var \Webklex\PHPIMAP\Message $message */
-		    foreach($messages as $message){
-		        echo $message->getSubject().'<br />';
-		        echo 'Attachments: '.$message->getAttachments()->count().'<br />';
-		        echo $message->getHTMLBody();
-		        
-		        //Move the current Message to 'INBOX.read'
-		        if($message->move('INBOX.read') == true){
-		            echo 'Message has ben moved';
-		        }else{
-		            echo 'Message could not be moved';
-		        }
-		    }
+		$aFolder = $oClient->getFolders();
+		foreach($aFolder as $folder){
+			$messages = $folder->query()->all()->get();
 		}
+
+		dd($messages);
 
 		/*$client = Client::account('default');
 		$client->connect();
@@ -1027,7 +1005,6 @@ class ImportacoesCtrl extends Controller
             }
         }
         ImportarAutomatica();*/
-        return response()->json(['status' => true]); 
 	}
 
 	#-------------------------------------------------------------------
