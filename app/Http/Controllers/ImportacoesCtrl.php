@@ -740,271 +740,211 @@ class ImportacoesCtrl extends Controller
 			}
 			return response()->json(['status' => true]);
 		}else{
+			DonwloadRelatorios();
 			return response()->json(['status' => false]);
 		}
 	}
 	// Baixando os relatório do Gmail (Ativa)
 	public function DonwloadRelatorios(){
-
-		$oClient = Client::account('default');
-		$oClient->connect();
-
-		$aFolder = $oClient->getFolders();
-		foreach($aFolder as $folder){
-			$messages = $folder->query()->all()->get();
-		}
-
-		dd($messages);
-
-		/*$client = Client::account('default');
+		$client = Client::account('default');
 		$client->connect();
-		$folders = $client->getFolders();
-		foreach($folders as $folder){
-            $messages = $folder->messages()->all()->get();
-            foreach($messages as $message){
-            	// cli_associados
-                if ($message->getSubject() == 'cli_associados'){
-                	// Baixa todos os anexo dentro da pasta compartilhada
-                	$attachments = $message->getAttachments(); 
-	                foreach($attachments as $attachment){
-	                   	$attachment->save(getcwd().'/outlook/'); 
-	                }
-	                //unlink(getcwd().'/outlook/undefined');
-	                //$message = $message->delete($expunge = true);
-            	} else
-            	// cli_consolidado
-                if ($message->getSubject() == 'cli_consolidado'){
-                	// Baixa todos os anexo dentro da pasta compartilhada
-                	$attachments = $message->getAttachments(); 
-	                foreach($attachments as $attachment){
-	                   	$attachment->save(getcwd().'/outlook/'); 
-	                }
-	                //unlink(getcwd().'/outlook/undefined');
-	                //$message = $message->delete($expunge = true);
-            	} else
-            	// cli_emails
-                if ($message->getSubject() == 'cli_emails'){
-                	// Baixa todos os anexo dentro da pasta compartilhada
-                	$attachments = $message->getAttachments(); 
-	                foreach($attachments as $attachment){
-	                   	$attachment->save(getcwd().'/outlook/'); 
-	                }
-	                //unlink(getcwd().'/outlook/undefined');
-	                //$message = $message->delete($expunge = true);
-            	} else
-            	// cli_telefones
-                if ($message->getSubject() == 'cli_telefones'){
-                	// Baixa todos os anexo dentro da pasta compartilhada
-                	$attachments = $message->getAttachments(); 
-	                foreach($attachments as $attachment){
-	                   	$attachment->save(getcwd().'/outlook/'); 
-	                }
-	                //unlink(getcwd().'/outlook/undefined');
-	                //$message = $message->delete($expunge = true);
-            	} else
-            	// cli_enderecos
-                if ($message->getSubject() == 'cli_enderecos'){
-                	// Baixa todos os anexo dentro da pasta compartilhada
-                	$attachments = $message->getAttachments(); 
-	                foreach($attachments as $attachment){
-	                   	$attachment->save(getcwd().'/outlook/'); 
-	                }
-	                //unlink(getcwd().'/outlook/undefined');
-	                //$message = $message->delete($expunge = true);
-            	} else
-            	// cli_conglomerados
-                if ($message->getSubject() == 'cli_conglomerados'){
-                	// Baixa todos os anexo dentro da pasta compartilhada
-                	$attachments = $message->getAttachments(); 
-	                foreach($attachments as $attachment){
-	                   	$attachment->save(getcwd().'/outlook/'); 
-	                }
-	                //unlink(getcwd().'/outlook/undefined');
-	                //$message = $message->delete($expunge = true);
-            	} else
-            	// cli_iap
-                if ($message->getSubject() == 'cli_iap'){
-                	// Baixa todos os anexo dentro da pasta compartilhada
-                	$attachments = $message->getAttachments(); 
-	                foreach($attachments as $attachment){
-	                   	$attachment->save(getcwd().'/outlook/'); 
-	                }
-	                //unlink(getcwd().'/outlook/undefined');
-	                //$message = $message->delete($expunge = true);
-            	} else
-            	// cca_contacapital
-                if ($message->getSubject() == 'cca_contacapital'){
-                	// Baixa todos os anexo dentro da pasta compartilhada
-                	$attachments = $message->getAttachments(); 
-	                foreach($attachments as $attachment){
-	                   	$attachment->save(getcwd().'/outlook/'); 
-	                }
-	                //unlink(getcwd().'/outlook/undefined');
-	                //$message = $message->delete($expunge = true);
-            	} else
-            	// cco_contacorrente
-                if ($message->getSubject() == 'cco_contacorrente'){
-                	// Baixa todos os anexo dentro da pasta compartilhada
-                	$attachments = $message->getAttachments(); 
-	                foreach($attachments as $attachment){
-	                   	$attachment->save(getcwd().'/outlook/'); 
-	                }
-	                //unlink(getcwd().'/outlook/undefined');
-	                //$message = $message->delete($expunge = true);
-            	} else
-            	// cre_contratos_vigentes
-                if ($message->getSubject() == 'cre_contratos_vigentes'){
-                	// Baixa todos os anexo dentro da pasta compartilhada
-                	$attachments = $message->getAttachments(); 
-	                foreach($attachments as $attachment){
-	                   	$attachment->save(getcwd().'/outlook/'); 
-	                }
-	                //unlink(getcwd().'/outlook/undefined');
-	                //$message = $message->delete($expunge = true);
-            	} else
-            	// cre_contratos_quitados
-                if ($message->getSubject() == 'cre_contratos_quitados'){
-                	// Baixa todos os anexo dentro da pasta compartilhada
-                	$attachments = $message->getAttachments(); 
-	                foreach($attachments as $attachment){
-	                   	$attachment->save(getcwd().'/outlook/'); 
-	                }
-	                //unlink(getcwd().'/outlook/undefined');
-	                //$message = $message->delete($expunge = true);
-            	} else
-            	// cre_contratos_parcelas
-                if ($message->getSubject() == 'cre_contratos_parcelas'){
-                	// Baixa todos os anexo dentro da pasta compartilhada
-                	$attachments = $message->getAttachments(); 
-	                foreach($attachments as $attachment){
-	                   	$attachment->save(getcwd().'/outlook/'); 
-	                }
-	                //unlink(getcwd().'/outlook/undefined');
-	                //$message = $message->delete($expunge = true);
-            	} else
-            	// crt_cartaocredito
-                if ($message->getSubject() == 'crt_cartaocredito'){
-                	// Baixa todos os anexo dentro da pasta compartilhada
-                	$attachments = $message->getAttachments(); 
-	                foreach($attachments as $attachment){
-	                   	$attachment->save(getcwd().'/outlook/'); 
-	                }
-	                //unlink(getcwd().'/outlook/undefined');
-	                //$message = $message->delete($expunge = true);
-            	} else
-            	// pop_poupanca
-                if ($message->getSubject() == 'pop_poupanca'){
-                	// Baixa todos os anexo dentro da pasta compartilhada
-                	$attachments = $message->getAttachments(); 
-	                foreach($attachments as $attachment){
-	                   	$attachment->save(getcwd().'/outlook/'); 
-	                }
-	                //unlink(getcwd().'/outlook/undefined');
-	                //$message = $message->delete($expunge = true);
-            	} else
-            	// dep_aplicacoes
-                if ($message->getSubject() == 'dep_aplicacoes'){
-                	// Baixa todos os anexo dentro da pasta compartilhada
-                	$attachments = $message->getAttachments(); 
-	                foreach($attachments as $attachment){
-	                   	$attachment->save(getcwd().'/outlook/'); 
-	                }
-	                //unlink(getcwd().'/outlook/undefined');
-	                //$message = $message->delete($expunge = true);
-            	} else
-            	// cli_bacen
-                if ($message->getSubject() == 'cli_bacen'){
-                	// Baixa todos os anexo dentro da pasta compartilhada
-                	$attachments = $message->getAttachments(); 
-	                foreach($attachments as $attachment){
-	                   	$attachment->save(getcwd().'/outlook/'); 
-	                }
-	                //unlink(getcwd().'/outlook/undefined');
-	                //$message = $message->delete($expunge = true);
-            	} else
-            	// cre_avalistas
-                if ($message->getSubject() == 'cre_avalistas'){
-                	// Baixa todos os anexo dentro da pasta compartilhada
-                	$attachments = $message->getAttachments(); 
-	                foreach($attachments as $attachment){
-	                   	$attachment->save(getcwd().'/outlook/'); 
-	                }
-	                //unlink(getcwd().'/outlook/undefined');
-	                //$message = $message->delete($expunge = true);
-            	} else
-            	// cre_garantias
-                if ($message->getSubject() == 'cre_garantias'){
-                	// Baixa todos os anexo dentro da pasta compartilhada
-                	$attachments = $message->getAttachments(); 
-	                foreach($attachments as $attachment){
-	                   	$attachment->save(getcwd().'/outlook/'); 
-	                }
-	                //unlink(getcwd().'/outlook/undefined');
-	                //$message = $message->delete($expunge = true);
-            	} else
-            	// pro_seguros
-                if ($message->getSubject() == 'pro_seguros'){
-                	// Baixa todos os anexo dentro da pasta compartilhada
-                	$attachments = $message->getAttachments(); 
-	                foreach($attachments as $attachment){
-	                   	$attachment->save(getcwd().'/outlook/'); 
-	                }
-	                //unlink(getcwd().'/outlook/undefined');
-	                //$message = $message->delete($expunge = true);
-            	} else
-            	// pro_consorcios
-                if ($message->getSubject() == 'pro_consorcios'){
-                	// Baixa todos os anexo dentro da pasta compartilhada
-                	$attachments = $message->getAttachments(); 
-	                foreach($attachments as $attachment){
-	                   	$attachment->save(getcwd().'/outlook/'); 
-	                }
-	                //unlink(getcwd().'/outlook/undefined');
-	                //$message = $message->delete($expunge = true);
-            	} else
-            	// pro_previdencias
-                if ($message->getSubject() == 'pro_previdencias'){
-                	// Baixa todos os anexo dentro da pasta compartilhada
-                	$attachments = $message->getAttachments(); 
-	                foreach($attachments as $attachment){
-	                   	$attachment->save(getcwd().'/outlook/'); 
-	                }
-	                //unlink(getcwd().'/outlook/undefined');
-	                //$message = $message->delete($expunge = true);
-            	} else
-            	// pro_cobranca
-                if ($message->getSubject() == 'pro_cobranca'){
-                	// Baixa todos os anexo dentro da pasta compartilhada
-                	$attachments = $message->getAttachments(); 
-	                foreach($attachments as $attachment){
-	                   	$attachment->save(getcwd().'/outlook/'); 
-	                }
-	                //unlink(getcwd().'/outlook/undefined');
-	                //$message = $message->delete($expunge = true);
-            	} else
-            	// pro_sipag
-                if ($message->getSubject() == 'pro_sipag'){
-                	// Baixa todos os anexo dentro da pasta compartilhada
-                	$attachments = $message->getAttachments(); 
-	                foreach($attachments as $attachment){
-	                   	$attachment->save(getcwd().'/outlook/'); 
-	                }
-	                //unlink(getcwd().'/outlook/undefined');
-	                //$message = $message->delete($expunge = true);
-            	} else
-            	// pro_sipag_faturamento
-                if ($message->getSubject() == 'pro_sipag_faturamento'){
-                	// Baixa todos os anexo dentro da pasta compartilhada
-                	$attachments = $message->getAttachments(); 
-	                foreach($attachments as $attachment){
-	                   	$attachment->save(getcwd().'/outlook/'); 
-	                }
-	                //unlink(getcwd().'/outlook/undefined');
-	                //$message = $message->delete($expunge = true);
-            	}
-            }
-        }
-        ImportarAutomatica();*/
+
+		// Captura as mensagem da caixa de entrada
+		$folder = $client->getFolder('INBOX');
+
+		// Conta a quantidade de mensagens desse remetente
+		$count = $folder->query()->from('sisbranalitico@sicoob.com.br')->count();
+
+		// Baixando todos relatórios da pasta
+		$folder->query()->from('sisbranalitico@sicoob.com.br')->chunked(function($messages, $chunk){
+		    $messages->each(function($message){
+	        	// cli_associados
+				if ($message->getSubject() == 'cli_associados'){
+	            	// Baixa todos os anexo dentro da pasta compartilhada
+					$attachments = $message->getAttachments(); 
+					foreach($attachments as $attachment){
+						$attachment->save(getcwd().'/outlook/'); 
+					}
+				}else
+	        	// cli_consolidado
+				if ($message->getSubject() == 'cli_consolidado'){
+	            	// Baixa todos os anexo dentro da pasta compartilhada
+					$attachments = $message->getAttachments(); 
+					foreach($attachments as $attachment){
+						$attachment->save(getcwd().'/outlook/'); 
+					}
+				}else
+	        	// cli_emails
+				if ($message->getSubject() == 'cli_emails'){
+	            	// Baixa todos os anexo dentro da pasta compartilhada
+					$attachments = $message->getAttachments(); 
+					foreach($attachments as $attachment){
+						$attachment->save(getcwd().'/outlook/'); 
+					}
+				}else
+	        	// cli_telefones
+				if ($message->getSubject() == 'cli_telefones'){
+	            	// Baixa todos os anexo dentro da pasta compartilhada
+					$attachments = $message->getAttachments(); 
+					foreach($attachments as $attachment){
+						$attachment->save(getcwd().'/outlook/'); 
+					}
+				}else
+	        	// cli_enderecos
+				if ($message->getSubject() == 'cli_enderecos'){
+	            	// Baixa todos os anexo dentro da pasta compartilhada
+					$attachments = $message->getAttachments(); 
+					foreach($attachments as $attachment){
+						$attachment->save(getcwd().'/outlook/'); 
+					}
+				}else
+	        	// cli_conglomerados
+				if ($message->getSubject() == 'cli_conglomerados'){
+	            	// Baixa todos os anexo dentro da pasta compartilhada
+					$attachments = $message->getAttachments(); 
+					foreach($attachments as $attachment){
+						$attachment->save(getcwd().'/outlook/'); 
+					}
+				}else
+	        	// cli_iap
+				if ($message->getSubject() == 'cli_iap'){
+	            	// Baixa todos os anexo dentro da pasta compartilhada
+					$attachments = $message->getAttachments(); 
+					foreach($attachments as $attachment){
+						$attachment->save(getcwd().'/outlook/'); 
+					}
+				}else
+	        	// cca_contacapital
+				if ($message->getSubject() == 'cca_contacapital'){
+	            	// Baixa todos os anexo dentro da pasta compartilhada
+					$attachments = $message->getAttachments(); 
+					foreach($attachments as $attachment){
+						$attachment->save(getcwd().'/outlook/'); 
+					}
+				}else
+	        	// cco_contacorrente
+				if ($message->getSubject() == 'cco_contacorrente'){
+	            	// Baixa todos os anexo dentro da pasta compartilhada
+					$attachments = $message->getAttachments(); 
+					foreach($attachments as $attachment){
+						$attachment->save(getcwd().'/outlook/'); 
+					}
+				}else
+	        	// cre_contratos_vigentes
+				if ($message->getSubject() == 'cre_contratos_vigentes'){
+	            	// Baixa todos os anexo dentro da pasta compartilhada
+					$attachments = $message->getAttachments(); 
+					foreach($attachments as $attachment){
+						$attachment->save(getcwd().'/outlook/'); 
+					}
+				}else
+	        	// cre_contratos_quitados
+				if ($message->getSubject() == 'cre_contratos_quitados'){
+	            	// Baixa todos os anexo dentro da pasta compartilhada
+					$attachments = $message->getAttachments(); 
+					foreach($attachments as $attachment){
+						$attachment->save(getcwd().'/outlook/'); 
+					}
+				}else
+	        	// cre_contratos_parcelas
+				if ($message->getSubject() == 'cre_contratos_parcelas'){
+	            	// Baixa todos os anexo dentro da pasta compartilhada
+					$attachments = $message->getAttachments(); 
+					foreach($attachments as $attachment){
+						$attachment->save(getcwd().'/outlook/'); 
+					}
+				}else
+	        	// crt_cartaocredito
+				if ($message->getSubject() == 'crt_cartaocredito'){
+	            	// Baixa todos os anexo dentro da pasta compartilhada
+					$attachments = $message->getAttachments(); 
+					foreach($attachments as $attachment){
+						$attachment->save(getcwd().'/outlook/'); 
+					}
+				}else
+	        	// pop_poupanca
+				if ($message->getSubject() == 'pop_poupanca'){
+	            	// Baixa todos os anexo dentro da pasta compartilhada
+					$attachments = $message->getAttachments(); 
+					foreach($attachments as $attachment){
+						$attachment->save(getcwd().'/outlook/'); 
+					}
+				}else
+	        	// dep_aplicacoes
+				if ($message->getSubject() == 'dep_aplicacoes'){
+	            	// Baixa todos os anexo dentro da pasta compartilhada
+					$attachments = $message->getAttachments(); 
+					foreach($attachments as $attachment){
+						$attachment->save(getcwd().'/outlook/'); 
+					}
+				}else
+	        	// cli_bacen
+				if ($message->getSubject() == 'cli_bacen'){
+	            	// Baixa todos os anexo dentro da pasta compartilhada
+					$attachments = $message->getAttachments(); 
+					foreach($attachments as $attachment){
+						$attachment->save(getcwd().'/outlook/'); 
+					}
+				}else
+	        	// cre_avalistas
+				if ($message->getSubject() == 'cre_avalistas'){
+	            	// Baixa todos os anexo dentro da pasta compartilhada
+					$attachments = $message->getAttachments(); 
+					foreach($attachments as $attachment){
+						$attachment->save(getcwd().'/outlook/'); 
+					}
+				}else
+	        	// cre_garantias
+				if ($message->getSubject() == 'cre_garantias'){
+	            	// Baixa todos os anexo dentro da pasta compartilhada
+					$attachments = $message->getAttachments(); 
+					foreach($attachments as $attachment){
+						$attachment->save(getcwd().'/outlook/'); 
+					}
+				}else
+	        	// pro_seguros
+				if ($message->getSubject() == 'pro_seguros'){
+	            	// Baixa todos os anexo dentro da pasta compartilhada
+					$attachments = $message->getAttachments(); 
+					foreach($attachments as $attachment){
+						$attachment->save(getcwd().'/outlook/'); 
+					}
+				}else
+	        	// pro_consorcios
+				if ($message->getSubject() == 'pro_consorcios'){
+	            	// Baixa todos os anexo dentro da pasta compartilhada
+					$attachments = $message->getAttachments(); 
+					foreach($attachments as $attachment){
+						$attachment->save(getcwd().'/outlook/'); 
+					}
+				}else
+	        	// pro_previdencias
+				if ($message->getSubject() == 'pro_previdencias'){
+	            	// Baixa todos os anexo dentro da pasta compartilhada
+					$attachments = $message->getAttachments(); 
+					foreach($attachments as $attachment){
+						$attachment->save(getcwd().'/outlook/'); 
+					}
+				}else
+	        	// pro_cobranca
+				if ($message->getSubject() == 'pro_cobranca'){
+	            	// Baixa todos os anexo dentro da pasta compartilhada
+					$attachments = $message->getAttachments(); 
+					foreach($attachments as $attachment){
+						$attachment->save(getcwd().'/outlook/'); 
+					}
+				}
+		    });
+		}, $chunk_size = $count, $start_chunk = 1);
+		
+		// Apagando todos relatórios da caixa de entrada
+		$folder->query()->from('sisbranalitico@sicoob.com.br')->chunked(function($messages, $chunk){
+		    $messages->each(function($message){
+		    	$message->move($folder_path = "[Gmail]/Lixeira");
+		    });
+		}, $chunk_size = $count, $start_chunk = 1);
+
+		$client->disconnect();
 	}
 
 	#-------------------------------------------------------------------

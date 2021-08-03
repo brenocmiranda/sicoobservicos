@@ -12,7 +12,7 @@ class TempoVida extends Command
      *
      * @var string
      */
-    protected $signature = 'TempoVida:monitorar';
+    protected $signature = 'tempoVida:monitorar';
 
     /**
      * The console command description.

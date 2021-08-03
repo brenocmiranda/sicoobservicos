@@ -12,7 +12,7 @@ class Fampe extends Command
      *
      * @var string
      */
-    protected $signature = 'Fampe:operacoes';
+    protected $signature = 'fampe:operacoes';
 
     /**
      * The console command description.

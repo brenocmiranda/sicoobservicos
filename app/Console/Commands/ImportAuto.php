@@ -12,7 +12,7 @@ class ImportAuto extends Command
      *
      * @var string
      */
-    protected $signature = 'ImportAuto:importar';
+    protected $signature = 'importAuto:importar';
 
     /**
      * The console command description.

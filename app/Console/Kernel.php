@@ -25,13 +25,16 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('ImportAuto:importar')
+        $schedule->command('relatorios:download')
+        ->everyFourMinutes();
+
+        $schedule->command('importAuto:importar')
         ->everyFifteenMinutes();
 
-        $schedule->command('TempoVida:monitorar')
+        $schedule->command('tempoVida:monitorar')
         ->twiceDaily(9, 13);
 
-        $schedule->command('Fampe:operacoes')
+        $schedule->command('fampe:operacoes')
         ->dailyAt(9);
     }
 
