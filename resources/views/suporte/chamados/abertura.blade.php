@@ -156,13 +156,13 @@ Abertura de chamado
 			var ambiente = $('.ambientes').val();
 			var fonte = $('.fontes').val();
 			$.ajax({
-				url: "base/"+ambiente+'/'+fonte,
+				url: "{{ url('app/suporte/chamados/base') }}/"+ambiente+'/'+fonte,
 				type: 'GET',
 				success: function(data){ 
 					if(data[0]){
 						$('#info-base').html('');
 						$.each(data, function(count, dados){
-							$('#info-base').fadeIn(3000).append('<div class="panel panel-default border shadow-sm"><div class="panel-heading py-4"><a href="{{url("app/suporte/base/detalhes")}}/'+dados.id+'">'+dados.titulo+'</a></div><div class="panel-wrapper collapse in"><div class="panel-body py-3"> <p>'+dados.subtitulo+'</p></div></div></div>');
+							$('#info-base').fadeIn(3000).append('<div class="panel panel-default border shadow-sm"><div class="panel-heading py-4"><a href="{{url("app/suporte/base/detalhes")}}/'+dados.id+'">'+dados.titulo+'</a></div><div class="panel-wrapper collapse in"><div class="panel-body py-3"> <p>'+dados.subtitulo+'</p><p class="text-right"><small><a href="{{url("app/suporte/base/detalhes")}}/'+dados.id+'">+ Saiba mais</a></small></p></div></div></div>');
 						});	
 					}else{
 						$('#info-base').fadeIn('slow').html('<label class="text-muted text-center">Após selecionado o seu ambiente e a fonte do problema, serão dispostos aqui algumas possíveis soluções cadastrados na nossa base do conhecimento. Fique atento!</label>');

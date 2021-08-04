@@ -230,7 +230,7 @@ class SuporteCtrl extends Controller
         return $fontes;
     }
     // Listando items da base de conhecimento
-    public function ListarBaseChamados($idFonte, $idAmbiente){
+    public function ListarBaseChamados($idAmbiente, $idFonte){
         if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
             $dados = Base::where('gti_id_ambientes', $idAmbiente)->where('gti_id_fontes', $idFonte)->limit(5)->get();
         }else{

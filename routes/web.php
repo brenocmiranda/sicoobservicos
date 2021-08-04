@@ -338,7 +338,7 @@ Route::group(['prefix' => 'app'], function(){
 			Route::post('reabrir/{id}', 'SuporteCtrl@ReaberturaChamados')->name('reabertura.chamados');
 			Route::get('detalhes/{id}', 'SuporteCtrl@DetalhesChamados')->name('detalhes.chamados');
 			Route::any('fontes/{idAmbiente}', 'SuporteCtrl@ListarFontesChamados')->name('fontes.chamados');
-			Route::any('base/{idFonte}/{idAmbiente}', 'SuporteCtrl@ListarBaseChamados')->name('base.chamados');
+			Route::any('base/{idAmbiente}/{idFonte}', 'SuporteCtrl@ListarBaseChamados')->name('base.chamados');
 			Route::post('status/{id}', 'SuporteCtrl@StatusChamados')->name('status.chamados');
 			Route::post('addArquivos', 'SuporteCtrl@ArquivosChamados')->name('adicionar.arquivos.chamados');
 			Route::get('removeArquivo/{id}', 'SuporteCtrl@RemoveArquivosChamados')->name('remover.arquivos.chamados');

@@ -257,8 +257,8 @@ Adicionar equipamento
 					</div>
 				</div>
 			</div>
-			<hr class="col-10">
-			<div class="row col-12 justify-content-center mx-auto">
+			<hr class="col-10 mt-lg-5">
+  			<div class="row col-12 justify-content-center mx-auto mb-4">
 				<a href="{{route('exibir.geral.equipamentos')}}" class="btn btn-danger btn-outline col-lg-3 col-5 d-flex align-items-center justify-content-center mx-2">
 					<i class="mdi mdi-arrow-left pr-2"></i> 
 					<span>Voltar</span>
