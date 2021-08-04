@@ -15,7 +15,6 @@
 
   <!-- Title &#8226 -->
   <title>@yield('title') &#183 Sicoob Serviços </title>
-
   
   <link href="{{ asset('public/css/bootstrap.css') }}" rel="stylesheet">
   <link href="{{ asset('public/vendor/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">

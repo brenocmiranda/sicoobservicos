@@ -24,7 +24,7 @@ class PublicCtrl extends Controller
 		$wallpapers = Imagens::where('tipo', 'homepage_principal')->get();
 		$atalhos = Homepage::orderBy('titulo')->get();
 		$aniversariantes = Associados::where('funcionario', 1)->whereDay('data_nascimento', date('d'))->whereMonth('data_nascimento', date('m'))->where('id', '<>', 1)->select('nome', 'data_nascimento')->orderByRaw('day(data_nascimento) asc')->get();
-		return view('tecnologia.atalhos.exibir')->with('atalhos', $atalhos)->with('wallpapers', $wallpapers)->with('aniversariantes', $aniversariantes);
+		return view('public.homepage.exibir')->with('atalhos', $atalhos)->with('wallpapers', $wallpapers)->with('aniversariantes', $aniversariantes);
 	}
     // Tela de login
 	public function Login(){
@@ -414,6 +414,6 @@ class PublicCtrl extends Controller
 	#-------------------------------------------------------------------
 	public function ExibirUniversidade(){
 		$homepage = Imagens::where('tipo', 'homepage_principal')->get();
-		return view('public.universidade')->with('homepage', $homepage);
+		return view('public.universidade.exibir')->with('homepage', $homepage);
 	}
 }

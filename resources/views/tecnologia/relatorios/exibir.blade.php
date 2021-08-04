@@ -34,45 +34,34 @@ Relatórios
                 <label class="col-form-label pb-0">Tipos de relatórios <span class="text-danger">*</span></label>
                 <div class="radio radio-success">
                     <input type="radio" name="dados" id="radio1" value="option1">
-                    <label for="radio1"> Termo de responsabilidade </label>
+                    <label for="radio1"> Atalhos </label>
                 </div>
                 <div class="radio radio-success">
                     <input type="radio" name="dados" id="radio2" value="option2">
-                    <label for="radio2"> Todos equipamentos </label>
+                    <label for="radio2"> Chamados </label>
                 </div>
                 <div class="radio radio-success">
                     <input type="radio" name="dados" id="radio3" value="option3">
-                    <label for="radio3"> Equipamentos por usuário </label>
+                    <label for="radio3"> Inventário </label>
                 </div>
                 <div class="radio radio-success">
                     <input type="radio" name="dados" id="radio4" value="option4">
-                    <label for="radio4"> Diversos </label>
+                    <label for="radio4"> Termo de responsabilidade </label>
                 </div>
               </div>
             </div>
             <div class="form" id="option1" style="display:none;">
                 <form class="form-sample row col-12 mx-auto" target="_blank" action="{{route('relatorio.termoUso.tecnologia')}}" method="POST" enctype="multipart/form-data" autocomplete="off">
                 @csrf
-                    <div class="row col-12 px-0">
-                        <div class="col-12 row">
-                            <div class="col-lg-8 col-12">
-                                <div class="form-group">
-                                    <label class="col-form-label pb-0">Selecione o usuário <span class="text-danger">*</span></label>
-                                    <select class="form-control form-control-line" name="usuario" required>
-                                        <option value="">Selecione</option>
-                                        @foreach($usuarios as $usuario)
-                                        <option value="{{$usuario->id}}">{{$usuario->nome}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                         <div class="col-12 row justify-content-center mt-4">
-                            <button type="submit" class="btn btn-success btn-outline col-lg-3 mx-2">
-                                <i class="mdi mdi-file-pdf pr-2"></i> 
-                                <span>Gerar PDF</span>
-                            </button>
-                        </div>
+                    <div class="row col-12 justify-content-center mt-4">
+                        <button type="submit" class="btn btn-success btn-outline col-lg-3 mx-2">
+                            <i class="mdi mdi-file-excel pr-2"></i> 
+                            <span>Gerar Excel</span>
+                        </button>
+                        <button type="submit" class="btn btn-success btn-outline col-lg-3 mx-2">
+                            <i class="mdi mdi-file-pdf pr-2"></i> 
+                            <span>Gerar PDF</span>
+                        </button>
                     </div>
                 </form>
             </div>
@@ -92,21 +81,6 @@ Relatórios
                 </form>
             </div>
             <div class="form" id="option3" style="display:none;">
-                <form class="form-sample row col-12 mx-auto" target="_blank" action="{{route('relatorio.termoUso.tecnologia')}}" method="POST" enctype="multipart/form-data" autocomplete="off">
-                @csrf
-                    <div class="row col-12 justify-content-center mt-4">
-                        <button type="submit" class="btn btn-success btn-outline col-lg-3 mx-2">
-                            <i class="mdi mdi-file-excel pr-2"></i> 
-                            <span>Gerar Excel</span>
-                        </button>
-                        <button type="submit" class="btn btn-success btn-outline col-lg-3 mx-2">
-                            <i class="mdi mdi-file-pdf pr-2"></i> 
-                            <span>Gerar PDF</span>
-                        </button>
-                    </div>
-                </form>
-            </div>
-            <div class="form" id="option4" style="display:none;">
                 <form class="form-sample row col-12 mx-auto" target="_blank" action="{{route('relatorio.termoUso.tecnologia')}}" method="POST" enctype="multipart/form-data" autocomplete="off">
                 @csrf
                     <div class="row col-12 px-0 mb-5">
@@ -183,6 +157,32 @@ Relatórios
                             <i class="mdi mdi-file-pdf pr-2"></i> 
                             <span>Gerar PDF</span>
                         </button>
+                    </div>
+                </form>
+            </div>
+            <div class="form" id="option4" style="display:none;">
+                <form class="form-sample row col-12 mx-auto" target="_blank" action="{{route('relatorio.termoUso.tecnologia')}}" method="POST" enctype="multipart/form-data" autocomplete="off">
+                @csrf
+                    <div class="row col-12 px-0">
+                        <div class="col-12 row">
+                            <div class="col-lg-8 col-12">
+                                <div class="form-group">
+                                    <label class="col-form-label pb-0">Selecione o usuário <span class="text-danger">*</span></label>
+                                    <select class="form-control form-control-line" name="usuario" required>
+                                        <option value="">Selecione</option>
+                                        @foreach($usuarios as $usuario)
+                                        <option value="{{$usuario->id}}">{{$usuario->nome}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="col-12 row justify-content-center mt-4">
+                            <button type="submit" class="btn btn-success btn-outline col-lg-3 mx-2">
+                                <i class="mdi mdi-file-pdf pr-2"></i> 
+                                <span>Gerar PDF</span>
+                            </button>
+                        </div>
                     </div>
                 </form>
             </div>

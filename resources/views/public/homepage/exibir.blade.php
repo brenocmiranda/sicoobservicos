@@ -163,7 +163,7 @@ Homepage
       	</div>
 	</div>	
 	<div class="col-12 col-sm-12 col-lg-10 mx-auto px-0 text-uppercase pt-4">
-		<ul class="row justify-content-center h-100 pt-4 pl-0 p-lg-0 mb-0"  data-aos="fade-up" data-aos-easing="ease" data-aos-delay="800">
+		<ul class="row justify-content-center h-100 pt-4 pl-0 p-lg-0 mb-0"  data-aos="fade-up" data-aos-easing="ease">
 			@foreach($atalhos as $atalho)
 			<li class="mb-5" style="height: 110px;width: 132px;">
 				<a href="{{ url($atalho->endereco) }}" target="_blank" class="text-center">

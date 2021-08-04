@@ -8,8 +8,8 @@ Página inicial
 <div class="page-inital">
 	<div class="container-fluid home mx-auto">
 		 <section class="section h-100">
-	        <div class="col-12 h-100 row mx-auto align-items-center">
-	        	<div class="col-lg-offset-2 col-lg-7 col-12 my-auto">
+	        <div class="col-12 h-100 row mx-auto align-items-center" style="z-index: 2;">
+	        	<div class="col-lg-7 col-12 m-auto">
 	        		<div class="mb-5 d-flex">
 	        			<div>
 				        	<h1 class="mb-3 text-dark">Olá, {{explode(" ", ucfirst(strtolower(Auth::user()->RelationAssociado->nome)))[0]}}!</h1>

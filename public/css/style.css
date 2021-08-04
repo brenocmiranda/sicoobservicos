@@ -1032,7 +1032,7 @@ pre {
 
 .page-inital:after {
 	content: '';
-    background-size: 18%;
+    background-size: 10%;
     background-position: bottom right;
     background-image: url(http://servicos.coop.br/public/img/download.gif);
     background-repeat: no-repeat;
@@ -1041,6 +1041,7 @@ pre {
     height: 100%;
     bottom: 25px;
     right: 25px;
+    z-index: 1;
 }
 
 .footer {
