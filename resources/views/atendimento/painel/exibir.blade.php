@@ -186,7 +186,7 @@ Painel do associado
           <div class="mt-5">
             <h5>Avaliação financeira</h5>
             <hr class="mt-2">
-            <div class="col-12">
+            <div class="col-12 px-0">
               <div class="row">
                 <div class="col-lg-3 col-12">
                   <h6>Tipo de renda</h6>
@@ -210,7 +210,7 @@ Painel do associado
           <div class="mt-5">
             <h5>Conglomerado</h5>
             <hr class="mt-2">
-            <div class="col-12">
+            <div class="col-12 px-0">
               <div class="row">
                 <div class="col-lg-3 col-12">
                   <h6>Participa de conglomerado?</h6>
@@ -238,7 +238,7 @@ Painel do associado
           <div class="mt-5">
             <h5>Produtor Rural</h5>
             <hr class="mt-2">
-            <div class="col-12">
+            <div class="col-12 px-0">
               <div class="row">
                 <div class="col-lg-3 col-12">
                   <h6>Indicador de Produtor</h6>
@@ -254,7 +254,7 @@ Painel do associado
           <div class="mt-5">
             <h5>Endereço</h5>
             <hr class="mt-2">
-            <div class="col-12">
+            <div class="col-12 px-0">
               <div class="row">
                 <div class="col-lg-3 col-12">
                   <h6>Lagadouro</h6>
@@ -292,7 +292,7 @@ Painel do associado
           <div class="mt-5">
             <h5>Contatos</h5>
             <hr class="mt-2">
-            <div class="col-12">
+            <div class="col-12 px-0">
               <div class="row">
                 <div class="col-lg-3 col-12">
                   <h6>Telefone celular</h6>

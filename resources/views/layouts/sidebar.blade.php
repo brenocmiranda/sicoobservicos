@@ -21,7 +21,7 @@
         <small class="badge badge-light border border-dark text-dark font-weight-bold text-uppercase">{{ Auth::user()->RelationFuncao->nome }}</small>
       </div>
     </div>
-
+    <hr class="col-8 mt-0 mb-4 hidden-xs">
     <ul class="nav" id="side-menu">
       <li> 
         <a href="{{route('inicio')}}" class="waves-effect {{ (Request::segment(2) == 'home' ? 'active' : '') }}">
