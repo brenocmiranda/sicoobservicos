@@ -94,11 +94,11 @@ Novos associados
                                                 </label>
                                             @endif
                                             <label class="text-truncate d-block mb-0">
-                                                <small class="text-dark"><b>Data de solicitação</b>: {{date('d/m/Y H:i:s', strtotime($solicitacao->created_at))}}</small>
-                                            </label>
-                                            <label class="text-truncate d-block mb-0">
                                                 <small class="text-dark"><b>Solicitante</b>: {{$solicitacao->RelationUsuario->RelationAssociado->nome}}</small>
-                                            </label>                   
+                                            </label>  
+                                            <label class="text-truncate d-block mb-0">
+                                                <small class="text-dark"><b>Data de abertura</b>: {{date('d/m/Y H:i:s', strtotime($solicitacao->created_at))}} - {{$solicitacao->created_at->subMinutes(2)->diffForHumans()}}</small>
+                                            </label>                 
                                         </div>
                                         <div class="text-right row col-lg-3 col-4 ml-auto my-auto">
                                             <div class="ml-auto">
@@ -165,11 +165,11 @@ Novos associados
                                                         </label>
                                                     @endif
                                                     <label class="text-truncate d-block mb-0">
-                                                        <small class="text-dark"><b>Data de solicitação</b>: {{date('d/m/Y H:i:s', strtotime($solicitacao->created_at))}}</small>
-                                                    </label>
-                                                    <label class="text-truncate d-block mb-0">
                                                         <small class="text-dark"><b>Solicitante</b>: {{$solicitacao->RelationUsuario->RelationAssociado->nome}}</small>
-                                                    </label>                   
+                                                    </label>  
+                                                    <label class="text-truncate d-block mb-0">
+                                                        <small class="text-dark"><b>Data de abertura</b>: {{date('d/m/Y H:i:s', strtotime($solicitacao->created_at))}} - {{$solicitacao->created_at->subMinutes(2)->diffForHumans()}}</small>
+                                                    </label>                    
                                                 </div>
                                                 <div class="text-right row col-lg-3 col-4 ml-auto my-auto">
                                                     <div class="ml-auto">
@@ -236,11 +236,11 @@ Novos associados
                                                 </label>
                                             @endif
                                             <label class="text-truncate d-block mb-0">
-                                                <small class="text-dark"><b>Data de solicitação</b>: {{date('d/m/Y H:i:s', strtotime($solicitacao->created_at))}}</small>
-                                            </label>
-                                            <label class="text-truncate d-block mb-0">
                                                 <small class="text-dark"><b>Solicitante</b>: {{$solicitacao->RelationUsuario->RelationAssociado->nome}}</small>
-                                            </label>                   
+                                            </label>  
+                                            <label class="text-truncate d-block mb-0">
+                                                <small class="text-dark"><b>Data de abertura</b>: {{date('d/m/Y H:i:s', strtotime($solicitacao->created_at))}} - {{$solicitacao->created_at->subMinutes(2)->diffForHumans()}}</small>
+                                            </label>                    
                                         </div>
                                         <div class="text-right row col-lg-3 col-4 ml-auto my-auto">
                                             <div class="ml-auto">
@@ -306,11 +306,11 @@ Novos associados
                                                 </label>
                                             @endif
                                             <label class="text-truncate d-block mb-0">
-                                                <small class="text-dark"><b>Data de solicitação</b>: {{date('d/m/Y H:i:s', strtotime($solicitacao->created_at))}}</small>
-                                            </label>              
-                                            <label class="text-truncate d-block mb-0">
                                                 <small class="text-dark"><b>Solicitante</b>: {{$solicitacao->RelationUsuario->RelationAssociado->nome}}</small>
-                                            </label>     
+                                            </label>  
+                                            <label class="text-truncate d-block mb-0">
+                                                <small class="text-dark"><b>Data de abertura</b>: {{date('d/m/Y H:i:s', strtotime($solicitacao->created_at))}} - {{$solicitacao->created_at->subMinutes(2)->diffForHumans()}}</small>
+                                            </label>      
                                         </div>
                                         <div class="text-right row col-lg-3 col-4 ml-auto my-auto">
                                             <div class="ml-auto">
@@ -376,11 +376,11 @@ Novos associados
                                                 </label>
                                             @endif
                                             <label class="text-truncate d-block mb-0">
-                                                <small class="text-dark"><b>Data de solicitação</b>: {{date('d/m/Y H:i:s', strtotime($solicitacao->created_at))}}</small>
-                                            </label>      
-                                            <label class="text-truncate d-block mb-0">
                                                 <small class="text-dark"><b>Solicitante</b>: {{$solicitacao->RelationUsuario->RelationAssociado->nome}}</small>
-                                            </label>              
+                                            </label>  
+                                            <label class="text-truncate d-block mb-0">
+                                                <small class="text-dark"><b>Data de abertura</b>: {{date('d/m/Y H:i:s', strtotime($solicitacao->created_at))}} - {{$solicitacao->created_at->subMinutes(2)->diffForHumans()}}</small>
+                                            </label>                
                                         </div>
                                         <div class="text-right row col-lg-3 col-4 ml-auto my-auto">
                                             <div class="ml-auto">

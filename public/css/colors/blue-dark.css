@@ -21,6 +21,9 @@
 body {
   background: #2f323e;
 }
+.user-profile {
+ color: #ffffff;
+}
 /*Top Header Part*/
 .logo i {
   color: #ffffff;

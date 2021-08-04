@@ -188,6 +188,7 @@ Solicitações de Suporte
                         </section>
                         @endforeach
                     </div>
+
                     <!-- /content -->
                 </div>
                 <!-- /tabs -->

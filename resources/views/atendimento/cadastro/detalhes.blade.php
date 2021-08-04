@@ -171,7 +171,7 @@ Detalhes do pré-cadastro
                       @endif
                     </div>
                     <div class="my-auto">
-                      <label class="m-0">{{$arquivos->pivot->nome}}</label>
+                      <label class="m-0 pointer">{{$arquivos->pivot->nome}}</label>
                     </div>
                   </a>
                   </div>

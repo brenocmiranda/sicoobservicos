@@ -10,8 +10,8 @@
                 <img src="{{asset('public/img/logo.png').'?'.rand()}}" alt="logo" height="40"/>
             </a>
         </div>
-        <!-- /Logo -->
-
+        <!-- /Logo 
+            <hr style="transform: rotate(90deg);">-->
         <!-- Homepage -->
         <ul class="nav navbar-top-links navbar-left">
             <li><a href="javascript:void(0)" class="open-close waves-effect waves-light"><i class="ti-menu"></i></a></li>

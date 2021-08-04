@@ -11,8 +11,7 @@
     </div>
 
     <div class="user-profile row text-center justify-content-center">
-      <hr class="mt-0 col-7">
-      <div class="user-pro-body my-3 col-12">
+      <div class="user-pro-body mb-3 mt-5 col-12">
         <div>
           <img src="{{(isset(Auth::user()->RelationImagem) ? asset('storage/app/'.Auth::user()->RelationImagem->endereco).'?'.rand() : asset('public/img/user.png').'?'.rand())}}" alt="Imagem usuário" class="rounded-circle shadow">
           <a href="{{route('perfil')}}" class="position-absolute rounded-circle bg-light px-2 py-1 mt-n5 ml-4 text-dark"><i class="ti-pencil"></i></a>

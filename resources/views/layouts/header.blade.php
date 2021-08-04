@@ -42,7 +42,7 @@
   <link href="{{ asset('public/vendor/owl.carousel/owl.theme.default.css') }}" rel="stylesheet" type="text/css">
   <link href="{{ asset('public/vendor/summernote/dist/summernote.css') }}" rel="stylesheet">
   <link href="{{ asset('public/css/smart_wizard_all.css') }}" rel="stylesheet">
-  <link href="{{ asset('public/css/jcrop.css') }}" rel="stylesheet" >
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
   
   @yield('header-support')
 </head>

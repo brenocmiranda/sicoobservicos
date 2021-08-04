@@ -43,6 +43,7 @@
 <script src="{{ asset('public/js/fabric.js') }}"></script>
 <script src="{{ asset('public/js/jcrop.js') }}"></script>
 <script src="{{ asset('public/js/jspdf.min.js') }}"></script>
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 
 <script type="text/javascript">
 	$(document).ready(function() {

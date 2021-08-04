@@ -22,8 +22,8 @@ body {
   background: #fff;
 }
 .top-left-part {
-  background: #fff;
-  border: 1px solid white;
+  /*background: #fff;
+  border: 1px solid white;*/
 }
 .top-left-part .dark-logo {
   display: none;

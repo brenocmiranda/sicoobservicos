@@ -5,6 +5,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 @import "spinners.css";
 @import url("icons/material-design-iconic-font/css/materialdesignicons.min.css");
+@import url('https://fonts.googleapis.com/css2?family=Asap&display=swap');
 
 .preloader {
 	width: 100%;
@@ -27,7 +28,7 @@
 
 body {
 	background: #2f323e;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'Asap', 'Poppins', sans-serif;
 	margin: 0;	
 	overflow-x: hidden;
 	color: #313131;
@@ -20191,10 +20192,10 @@ input[name=upload_img]{
 	background-size: cover !important;
     position: fixed !important;
 	background-position: center !important;
-	filter: brightness(0.25);
-	-webkit-filter: brightness(0.25);
-	-moz-filter: brightness(0.25);
-	-o-filter: brightness(0.25);
+	filter: brightness(0.35);
+	-webkit-filter: brightness(0.35);
+	-moz-filter: brightness(0.35);
+	-o-filter: brightness(0.35);
 }
 
 .input-search {
