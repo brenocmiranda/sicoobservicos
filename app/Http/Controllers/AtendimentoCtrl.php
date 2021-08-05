@@ -34,6 +34,7 @@ use App\Models\CadastroTelefones;
 use App\Models\Arquivos;
 use App\Models\Usuarios;
 use PDF;
+use Imagick;
 
 class AtendimentoCtrl extends Controller
 {

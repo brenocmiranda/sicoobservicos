@@ -11,7 +11,7 @@
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link inactive done" href="#step-2">
+					<a class="nav-link inactive" href="#step-2">
 						<strong>Etapa 2</strong> <br>
 						<span>Contatos</span>
 					</a>
@@ -23,7 +23,7 @@
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link inactive" href="#step-4">
+					<a class="nav-link inactive done" href="#step-4">
 						<strong>Etapa 4</strong> <br>
 						<span>Assinaturas</span>
 					</a>
@@ -268,7 +268,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-12 px-0 mt-5 pt-5 d-flex justify-content-center imagePF w-100">
+						<div class="col-12 px-0 d-flex justify-content-center imagePF w-100">
 							<img id="PreviewImagePF" src="">
 							<input type="hidden" id="xPF" name="x" />
 				            <input type="hidden" id="yPF" name="y" />

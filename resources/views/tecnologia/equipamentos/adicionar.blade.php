@@ -85,6 +85,7 @@ Adicionar equipamento
 												<option value="Windows 8.1">Windows 8.1</option>
 												<option value="Linux Ubuntu">Linux Ubuntu</option>
 												<option value="Linux Mint">Linux Mint</option>
+												<option value="Windows Server 2016">Windows Server 2016</option>
 											</select>
 										</div>
 									</div>

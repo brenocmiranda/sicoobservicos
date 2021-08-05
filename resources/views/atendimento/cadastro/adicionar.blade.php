@@ -84,6 +84,20 @@ Novo associado
 	};
 
 	function cartao(input, type){
+
+		var reader = new FileReader();
+		reader.onload = function (oFREvent){
+			$('#PreviewImagePF').attr('src', oFREvent.target.result).addClass('w-100');
+		}
+		reader.readAsDataURL(input.files[0]);
+
+		const stage = Jcrop.attach('PreviewImagePF');
+		stage.listen('crop.change', function(widget,e){
+		  const pos = widget.pos;
+		  console.log(pos.x,pos.y,pos.w,pos.h);
+		});
+
+		/*
 		if(type == "PF"){
 			// Cortando o cartão de assinatura para PF
 			if(input.files && input.files[0]){
@@ -93,7 +107,7 @@ Novo associado
 				}
 				reader.readAsDataURL(input.files[0]);
 				const jcrop = Jcrop.attach('PreviewImagePF');
-				jcrop.listen('crop.change',(widget,e) => {
+				jcrop.listen('crop.change', (widget,e) => {
 					$('#xPF').val(widget.pos.x);
 	                $('#yPF').val(widget.pos.y);
 	                $('#wPF').val(widget.pos.w);
@@ -108,8 +122,7 @@ Novo associado
 					$('#PreviewImagePJ').attr('src', oFREvent.target.result);
 				}
 				reader.readAsDataURL(input.files[0]);
-				const jcrop = Jcrop.attach('PreviewImagePj');
-				jcrop.setOptions({ multi: true });
+				const jcrop = Jcrop.attach('PreviewImagePJ');
 				jcrop.listen('crop.change',(widget,e) => {
 					$('#xPJ').val(widget.pos.x);
 	                $('#yPJ').val(widget.pos.y);
@@ -117,7 +130,7 @@ Novo associado
 	                $('#hPJ').val(widget.pos.h);
 				});
 			}
-		}
+		}*/
 	};
 
 
@@ -340,7 +353,6 @@ Novo associado
 			}
 		});*/
 		
-
 		// Verifica se o CPF é válido e verifica se existe no banco
 		$('.cpf').blur( function(e){
 			var cpf = $('.cpf').val().replace(/[^0-9]/g, '').toString();
