@@ -84,58 +84,47 @@ Novo associado
 	};
 
 	function cartao(input, type){
-
-		$('.imagePF').html('<img id="PreviewImagePF" src="">');
-		var reader = new FileReader();
-		reader.onload = function (oFREvent){
-			$('#PreviewImagePF').attr('src', oFREvent.target.result).addClass('w-100');
-			const image = document.getElementById('PreviewImagePF');
-			cropper = new Cropper(image, {
-				crop(event) {
-				  	$('#xPF').val(event.detail.x);
-	                $('#yPF').val(event.detail.y);
-	                $('#wPF').val(event.detail.width);
-	                $('#hPF').val(event.detail.height);
-				},
-			});
-			$('.imagePF').addClass('mt-4');
-		}
-		reader.readAsDataURL(input.files[0]);
-
-		/*
 		if(type == "PF"){
 			// Cortando o cartão de assinatura para PF
 			if(input.files && input.files[0]){
+				$('.imagePF').html('<img id="PreviewImagePF" src="">');
 				var reader = new FileReader();
 				reader.onload = function (oFREvent){
-					$('#PreviewImagePF').attr('src', oFREvent.target.result);
+					$('#PreviewImagePF').attr('src', oFREvent.target.result).addClass('w-100');
+					const image = document.getElementById('PreviewImagePF');
+					cropper = new Cropper(image, {
+						crop(event) {
+						  	$('#xPF').val(event.detail.x);
+			                $('#yPF').val(event.detail.y);
+			                $('#wPF').val(event.detail.width);
+			                $('#hPF').val(event.detail.height);
+						},
+					});
+					$('.imagePF').addClass('mt-4');
 				}
 				reader.readAsDataURL(input.files[0]);
-				const jcrop = Jcrop.attach('PreviewImagePF');
-				jcrop.listen('crop.change', (widget,e) => {
-					$('#xPF').val(widget.pos.x);
-	                $('#yPF').val(widget.pos.y);
-	                $('#wPF').val(widget.pos.w);
-	                $('#hPF').val(widget.pos.h);
-				});
 			}
 		}else{
 			// Cortando o cartão de assinatura para PJ
 			if(input.files && input.files[0]){
+				$('.imagePJ').html('<img id="PreviewImagePJ" src="">');
 				var reader = new FileReader();
 				reader.onload = function (oFREvent){
-					$('#PreviewImagePJ').attr('src', oFREvent.target.result);
+					$('#PreviewImagePJ').attr('src', oFREvent.target.result).addClass('w-100');
+					const image = document.getElementById('PreviewImagePJ');
+					cropper = new Cropper(image, {
+						crop(event) {
+						  	$('#xPJ').val(event.detail.x);
+			                $('#yPJ').val(event.detail.y);
+			                $('#wPJ').val(event.detail.width);
+			                $('#hPJ').val(event.detail.height);
+						},
+					});
+					$('.imagePJ').addClass('mt-4');
 				}
 				reader.readAsDataURL(input.files[0]);
-				const jcrop = Jcrop.attach('PreviewImagePJ');
-				jcrop.listen('crop.change',(widget,e) => {
-					$('#xPJ').val(widget.pos.x);
-	                $('#yPJ').val(widget.pos.y);
-	                $('#wPJ').val(widget.pos.w);
-	                $('#hPJ').val(widget.pos.h);
-				});
 			}
-		}*/
+		}
 	};
 
 
@@ -218,7 +207,7 @@ Novo associado
 			$('#dadosPJ').fadeIn();
 		});
 
-		/* Verificação das etapas do PF
+		// Verificação das etapas do PF
 		$("#smartwizardPF").on("leaveStep", function(e, anchorObject, currentStepIndex, nextStepIndex, stepDirection) {
 			if(currentStepIndex == 0){
 				var count = 0;
@@ -286,8 +275,8 @@ Novo associado
 			    	return true;
 			    }
 			}
-		});*/
-		/* Verificação das etapas do PJ
+		});
+		// Verificação das etapas do PJ
 		$("#smartwizardPJ").on("leaveStep", function(e, anchorObject, currentStepIndex, nextStepIndex, stepDirection) {
 			if(currentStepIndex == 0){
 				var count = 0;
@@ -356,7 +345,7 @@ Novo associado
 			    	return true;
 			    }
 			}
-		});*/
+		});
 		
 		// Verifica se o CPF é válido e verifica se existe no banco
 		$('.cpf').blur( function(e){
@@ -467,7 +456,7 @@ Novo associado
 	    			}	    			
 	    		}, error: function (data) {
 	    			$('#razaoSocial').val('');
-	    			$('#fantasia').val('');
+	    			$('#nome_fantasia').val('');
 	    			$('#atividade_economica').val('');
 	    			$('#porte_cliente').val('');
 	    			$('#situacao').val('');
