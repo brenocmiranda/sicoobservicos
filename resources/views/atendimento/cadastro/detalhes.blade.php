@@ -48,7 +48,7 @@ Detalhes do pré-cadastro
             <div class="row px-0 mx-auto col-12">
               <label class="col-12">
                 <b>Nome Fantasia</b> 
-                <p>{{$dados->fantasia}}</p>
+                <p>{{$dados->nome_fantasia}}</p>
               </label>
               <label class="col-12">
                 <b>Atividade econômica</b> 

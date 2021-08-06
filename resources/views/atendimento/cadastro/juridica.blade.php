@@ -51,7 +51,7 @@
 						<div class="col-lg-9 col-12 px-0 px-lg-4">
 							<div class="form-group">
 								<label class="col-form-label pb-0">Nome Fantasia <span class="text-danger">*</span></label>
-								<input class="form-control form-control-line" name="nome_fantasia" id="fantasia" onkeyup="this.value = this.value.toUpperCase(); $(this).removeClass('border-danger');" placeholder="Sicoob Sertão Minas" onchange="this.value = this.value.toUpperCase();" required/>
+								<input class="form-control form-control-line" name="nome_fantasia" id="nome_fantasia" onkeyup="this.value = this.value.toUpperCase(); $(this).removeClass('border-danger');" placeholder="Sicoob Sertão Minas" onchange="this.value = this.value.toUpperCase();" required/>
 							</div>
 						</div>
 						<div id="dadosReceita" style="display: none;">
