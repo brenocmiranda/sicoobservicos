@@ -484,9 +484,11 @@ Novo associado
 	    // Retornando dados do associado 
 		$("#dadosPJ .pesquisar").autocomplete({
 			source: function(request, response){
+				var table = $('.tipoAssociado').val();
+				var dados = {term : request.term, table : table};
 				$.ajax({
-					url: "{{ route('pesquisar.associado.atendimento') }}",
-					data: {	term : request.term	},
+					url: "{{ route('pesquisar.cadastro.atendimento') }}",
+					data: dados,
 					dataType: "json",
 					success: function(dados){
 						var resp = $.map(dados, function(obj){

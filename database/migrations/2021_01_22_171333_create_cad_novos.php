@@ -19,7 +19,7 @@ class CreateCadNovos extends Migration
             $table->enum('sigla', ['PF', 'PJ']);
             $table->string('documento')->unique();
             $table->string('nome');
-            $table->string('fantasia')->nullable();
+            $table->string('nome_fantasia')->nullable();
             $table->date('data_abertura')->nullable();
             $table->string('atividade_economica')->nullable();
             $table->string('porte_cliente')->nullable();

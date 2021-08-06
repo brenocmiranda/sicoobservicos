@@ -20,14 +20,13 @@ class CadastroCtrl extends Controller
 	#-------------------------------------------------------------------
 	# Novos associados
 	#-------------------------------------------------------------------
-
-    // Listando novos associados
- 	public function ExibirNovos(){
- 		$solicitacoes = Cadastro::all();
-    	return view('cadastro.novos.listar')->with('solicitacoes', $solicitacoes);
-	}
-	// Adicionar novos associado
- 	public function DetalhesNovos(){
-    	return view('atendimento.novos.adicionar');
-	}
+	    // Listando novos associados
+	 	public function ExibirNovos(){
+	 		$solicitacoes = Cadastro::all();
+	    	return view('cadastro.novos.listar')->with('solicitacoes', $solicitacoes);
+		}
+		// Adicionar novos associado
+	 	public function DetalhesNovos(){
+	    	return view('atendimento.novos.adicionar');
+		}
 }

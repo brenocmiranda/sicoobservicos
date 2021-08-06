@@ -152,8 +152,8 @@
 
 						<div class="col-lg-12 col-12 px-0 px-lg-4">
 							<div class="form-group">
-								<label class="col-form-label pb-0">E-mail <small>(Preencha está informação para atividades futuras)</small></label>
-								<input type="email" class="form-control form-control-line" name="email" placeholder="servicos@sicoobsertaominas.com.br"/>
+								<label class="col-form-label pb-0">E-mail <span class="text-danger">*</span></label>
+								<input type="email" class="form-control form-control-line" name="email" placeholder="servicos@sicoobsertaominas.com.br" required/>
 							</div>
 						</div>
 					</div>
@@ -216,6 +216,7 @@
 								</div>
 							</div>
 						</div>
+						<!--
 						<div class="col-12 mb-4 px-0 px-lg-4">
 							<div class="form-group mb-0">
 								<label class="col-form-label">Certidão de casamento <b>(se casado)</b></label>
@@ -243,7 +244,7 @@
 									</div>
 								</div>
 							</div>
-						</div>
+						</div>-->
 						<div class="col-12 mb-4 px-0 px-lg-4">
 							<div class="form-group mb-0">
 								<label class="col-form-label">Outros arquivos</label>

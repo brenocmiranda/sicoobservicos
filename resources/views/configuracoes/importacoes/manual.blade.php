@@ -31,8 +31,14 @@ Importar
         <div class="card-body">
             <form class="form-sample" enctype="multipart/form-data" autocomplete="off">
             @csrf
-                <div class="col-12 text-left mb-5">
-                    <p>Para importar os <a href="https://sisbranalitico.sisbr.coop.br/sisbranalitico/bi/?perspective=job_mgt&id=123&objRef=iE17E829F2D9A4428A4FF3DA4A536336F" target="_blank">relatórios disponíveis</a> você pode optar em fazer upload através da pasta compartilhada <small>( <a href="javascript:" id="automatico">Clicando aqui</a> )</small> ou pode inseri-los de maneira manual abaixo:</p>
+                <div class="col-12 text-left mb-5 row">
+                    <div class="col-lg-8 col-12">
+                        <p>Para importar os relatórios disponíveis você pode optar em fazer upload através da pasta compartilhada ou pode inseri-los de maneira manual abaixo:</p>
+                    </div>
+                    <div class="col-lg-4 col-12 text-right">
+                       <a href="{{route('download.importacoes')}}" target="_blank">Capturar e-mails do Gmail</a> <br>
+                       <a href="javascript:" id="automatico">Importar pela pasta compartilhada</a> 
+                    </div>
                 </div>
                 <div class="col-12">
                     <ul class="nav nav-tabs customtab justify-content-center">

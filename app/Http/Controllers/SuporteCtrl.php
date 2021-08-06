@@ -38,255 +38,138 @@ class SuporteCtrl extends Controller
 	#-------------------------------------------------------------------
 	# Aprendizagem
 	#-------------------------------------------------------------------
-	// Exibir base de conhecimento
-	public function Aprendizagem(){
-        if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
-		    $ambientes = Base::join('gti_ambientes', 'gti_id_ambientes', 'gti_ambientes.id')->where('gti_ambientes.status', 1)->select('gti_ambientes.*')->orderBy('nome', 'ASC')->groupBy('gti_base.gti_id_ambientes')->get();
-		    $fontes = Base::join('gti_fontes', 'gti_id_fontes', 'gti_fontes.id')->where('gti_fontes.status', 1)->select('gti_fontes.*')->orderBy('nome', 'ASC')->groupBy('gti_base.gti_id_fontes')->get();
-        }else{
-            $ambientes = Base::join('gti_ambientes', 'gti_id_ambientes', 'gti_ambientes.id')->where('gti_ambientes.status', 1)->where('tipo', 'externo')->select('gti_ambientes.*')->orderBy('nome', 'ASC')->groupBy('gti_base.gti_id_ambientes')->get();
-            $fontes = Base::join('gti_fontes', 'gti_id_fontes', 'gti_fontes.id')->where('gti_fontes.status', 1)->where('tipo', 'externo')->select('gti_fontes.*')->orderBy('nome', 'ASC')->groupBy('gti_base.gti_id_fontes')->get();
-        }
-		return view('suporte.base.exibir')->with('ambientes', $ambientes)->with('fontes', $fontes);	
-	}
-	// Listar todos os itens da base
-	public function AprendizagemListar($ambiente, $fonte){
-        if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
-		    $todos = Base::where('gti_id_ambientes', $ambiente)->where('gti_id_fontes', $fonte)->get();
-        }else{
-            $todos = Base::where('gti_id_ambientes', $ambiente)->where('gti_id_fontes', $fonte)->where('tipo', 'externo')->get(); 
-        }
-		$ambientes = Ambientes::find($ambiente);
-		$fontes = Fontes::find($fonte);
-		return view('suporte.base.listar')->with('todos', $todos)->with('ambientes', $ambientes)->with('fontes', $fontes);
-	}
-    // Detallhes do tópico
-    public function DetalhesAprendizagem($id){
-        $dados = Base::find($id);
-        if($dados->tipo == 'interno'){
+    	// Exibir base de conhecimento
+    	public function Aprendizagem(){
             if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
-                $topicos = Base::where('gti_id_ambientes', $dados->gti_id_ambientes)->where('gti_id_fontes', $dados->gti_id_fontes)->where('id', '<>', $dados->id)->limit(5)->get();
+    		    $ambientes = Base::join('gti_ambientes', 'gti_id_ambientes', 'gti_ambientes.id')->where('gti_ambientes.status', 1)->select('gti_ambientes.*')->orderBy('nome', 'ASC')->groupBy('gti_base.gti_id_ambientes')->get();
+    		    $fontes = Base::join('gti_fontes', 'gti_id_fontes', 'gti_fontes.id')->where('gti_fontes.status', 1)->select('gti_fontes.*')->orderBy('nome', 'ASC')->groupBy('gti_base.gti_id_fontes')->get();
+            }else{
+                $ambientes = Base::join('gti_ambientes', 'gti_id_ambientes', 'gti_ambientes.id')->where('gti_ambientes.status', 1)->where('tipo', 'externo')->select('gti_ambientes.*')->orderBy('nome', 'ASC')->groupBy('gti_base.gti_id_ambientes')->get();
+                $fontes = Base::join('gti_fontes', 'gti_id_fontes', 'gti_fontes.id')->where('gti_fontes.status', 1)->where('tipo', 'externo')->select('gti_fontes.*')->orderBy('nome', 'ASC')->groupBy('gti_base.gti_id_fontes')->get();
+            }
+    		return view('suporte.base.exibir')->with('ambientes', $ambientes)->with('fontes', $fontes);	
+    	}
+    	// Listar todos os itens da base
+    	public function AprendizagemListar($ambiente, $fonte){
+            if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
+    		    $todos = Base::where('gti_id_ambientes', $ambiente)->where('gti_id_fontes', $fonte)->get();
+            }else{
+                $todos = Base::where('gti_id_ambientes', $ambiente)->where('gti_id_fontes', $fonte)->where('tipo', 'externo')->get(); 
+            }
+    		$ambientes = Ambientes::find($ambiente);
+    		$fontes = Fontes::find($fonte);
+    		return view('suporte.base.listar')->with('todos', $todos)->with('ambientes', $ambientes)->with('fontes', $fontes);
+    	}
+        // Detallhes do tópico
+        public function DetalhesAprendizagem($id){
+            $dados = Base::find($id);
+            if($dados->tipo == 'interno'){
+                if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
+                    $topicos = Base::where('gti_id_ambientes', $dados->gti_id_ambientes)->where('gti_id_fontes', $dados->gti_id_fontes)->where('id', '<>', $dados->id)->limit(5)->get();
+                    return view('suporte.base.detalhes')->with('dados', $dados)->with('topicos', $topicos);
+                }else{
+                    return redirect(route('403'));
+                }
+            }else{
+                $topicos = Base::where('gti_id_ambientes', $dados->gti_id_ambientes)->where('gti_id_fontes', $dados->gti_id_fontes)->where('id', '<>', $dados->id)->where('tipo', 'externo')->limit(5)->get();
                 return view('suporte.base.detalhes')->with('dados', $dados)->with('topicos', $topicos);
-            }else{
-                return redirect(route('403'));
             }
-        }else{
-            $topicos = Base::where('gti_id_ambientes', $dados->gti_id_ambientes)->where('gti_id_fontes', $dados->gti_id_fontes)->where('id', '<>', $dados->id)->where('tipo', 'externo')->limit(5)->get();
-            return view('suporte.base.detalhes')->with('dados', $dados)->with('topicos', $topicos);
         }
-    }
 
-    // Detallhes do tópico
-    public function RelatorioAprendizagem($id){
-        $dados = Base::find($id);
-        if($dados->tipo == 'interno'){
-            if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
-                return view('suporte.base.relatorio')->with('dados', $dados);
+        // Detallhes do tópico
+        public function RelatorioAprendizagem($id){
+            $dados = Base::find($id);
+            if($dados->tipo == 'interno'){
+                if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
+                    return view('suporte.base.relatorio')->with('dados', $dados);
+                }else{
+                    return redirect(route('403'));
+                }
             }else{
-                return redirect(route('403'));
+                return view('suporte.base.relatorio')->with('dados', $dados);
             }
-        }else{
-            return view('suporte.base.relatorio')->with('dados', $dados);
         }
-    }
 
 	#-------------------------------------------------------------------
 	# Chamados
 	#-------------------------------------------------------------------
-	// Exibir todos chamados
-    public function Chamados(){
-        $chamados = Chamados::where('usr_id_usuarios', Auth::id())->orderBy('created_at', 'ASC')->get();
-        $chamadosEmaberto = 0;
-        $chamadosEmandamento = 0;
-        $chamadosEncerrado = 0;
-        foreach ($chamados as $value) {
-            if($value->RelationStatus->first()->pivot->gti_id_status == 1){
-                $chamadosEmaberto++;
-            }elseif ($value->RelationStatus->first()->pivot->gti_id_status == 2) {
-                $chamadosEmandamento++;
-            }elseif ($value->RelationStatus->first()->pivot->gti_id_status == 3) {
-                $chamadosEncerrado++;
+    	// Exibir todos chamados
+        public function Chamados(){
+            $chamados = Chamados::where('usr_id_usuarios', Auth::id())->orderBy('created_at', 'ASC')->get();
+            $chamadosEmaberto = 0;
+            $chamadosEmandamento = 0;
+            $chamadosEncerrado = 0;
+            foreach ($chamados as $value) {
+                if($value->RelationStatus->first()->pivot->gti_id_status == 1){
+                    $chamadosEmaberto++;
+                }elseif ($value->RelationStatus->first()->pivot->gti_id_status == 2) {
+                    $chamadosEmandamento++;
+                }elseif ($value->RelationStatus->first()->pivot->gti_id_status == 3) {
+                    $chamadosEncerrado++;
+                }
             }
+            $status = Status::where('status', 1)->get();
+            return view('suporte.chamados.listar')->with('chamados', $chamados)->with('chamadosEmaberto', $chamadosEmaberto)->with('chamadosEmandamento', $chamadosEmandamento)->with('chamadosEncerrado', $chamadosEncerrado)->with('statusAtivos', $status);  
         }
-        $status = Status::where('status', 1)->get();
-        return view('suporte.chamados.listar')->with('chamados', $chamados)->with('chamadosEmaberto', $chamadosEmaberto)->with('chamadosEmandamento', $chamadosEmandamento)->with('chamadosEncerrado', $chamadosEncerrado)->with('statusAtivos', $status);  
-    }
-	// Abertura de chamados
-	public function AberturaChamados(){
-		$ambientes = Ambientes::orderBy('nome', 'ASC')->get();
-		return view('suporte.chamados.abertura')->with('ambientes', $ambientes);
-	}
-    // Salvando o chamado
-    public function AberturaEnviarChamados(Request $request){
-        // Abertura
-        $create = Chamados::create([
-            'assunto' => mb_strtoupper($request->assunto), 
-            'descricao' => mb_strtoupper($request->descricao), 
-            'teamViewer' => $request->teamViewer,
-            'gti_id_ambientes' => $request->gti_id_ambientes, 
-            'gti_id_fontes' => $request->gti_id_fontes,             
-            'usr_id_usuarios' => Auth::id(), 
-        ]);
-        // Cadastramento do status de abertura
-        $statusAbertura = Status::where('open', 1)->first();
-        $status = ChamadosStatus::create([
-            'gti_id_chamados' => $create->id,
-            'gti_id_status' => $statusAbertura->id,
-            'descricao' => "Abertura do chamado registrado junto a equipe de TI. Aguarde alguns instantes que logo estaremos analisando sua solicitação.",
-            'usr_id_usuarios' => Auth::id(),
-        ]);
-        // Cadastramento de vários arquivos 
-        if ($request->arquivos) {
-            foreach($request->arquivos as $arq){
-                $imagem_produto = ChamadosArquivos::create([
-                    'gti_id_chamados' => $create->id,
-                    'id_arquivo' => $arq                    
-                ]);
-            }
-        }
-        // Criando notificações por e-mail
-        Auth::user()->notify(new SolicitacaoChamadosCliente($create));  
-        $this->email->notify(new SolicitacaoChamadosAdmin($create));
-        Atividades::create([
-            'nome' => 'Abertura de chamado',
-            'descricao' => 'Você efetuou a abertura de uma chamado, '.$create->assunto.'.',
-            'icone' => 'mdi-headset',
-            'url' => route('detalhes.chamados', $create->id),
-            'id_usuario' => Auth::id()
-        ]);
-        return redirect(route('detalhes.chamados', $create->id));
-    }
-    // Detalhes do chamado
-    public function DetalhesChamados($id){
-        $chamado = Chamados::find($id);
-        $status = Status::where('status', 1)->get();
-        $historicoStatus = ChamadosStatus::where('gti_id_chamados', $id)->orderBy('created_at', 'DESC')->get();
-        return view('suporte.chamados.detalhes')->with('chamado', $chamado)->with('statusAtivos', $status)->with('historicoStatus', $historicoStatus);
-    }
-    // Finalizando chamado
-    public function FinalizarChamados(Request $request, $id){
-        $finalizar = Status::where('finish', 1)->first();
-        $status = ChamadosStatus::create([
-            'gti_id_chamados' => $id,
-            'gti_id_status' => $finalizar->id,
-            'descricao' => (isset($request->descricao) ? mb_strtoupper($request->descricao) : "Chamado finalizado por ".Auth::user()->RelationAssociado->nome."."),
-            'usr_id_usuarios' => Auth::id()
-        ]);
-        // Cadastramento de vários arquivos 
-        if ($request->arquivos) {
-            foreach($request->arquivos as $arq){
-                $imagem_produto = ChamadosStatusArquivos::create([
-                    'gti_id_status' => $status->id,
-                    'id_arquivo' => $arq,                    
-                ]);
-            }
-        }
-        // Alteração feita para atualizar a ordem de tratamento
-        $create = Chamados::find($id);
-        $atualizacao = Chamados::where('id', $id)->update(['assunto' => $create->assunto]);
-        // Criando notificações por e-mail
-        $create->RelationUsuario->notify(new SolicitacaoChamadosCliente($status));  
-        Atividades::create([
-            'nome' => 'Encerramento de chamado',
-            'descricao' => 'Você efetuou o encerramento do chamado, '.$create->assunto.'.',
-            'icone' => 'mdi-headset-off',
-            'url' => route('detalhes.chamados', $id),
-            'id_usuario' => Auth::id()
-        ]);
-        return response()->json(['success' => true]);
-    }
-    // Reabertura chamado
-    public function ReaberturaChamados(Request $request, $id){
-        $chamado = Chamados::find($id);
-        if(date('d/m/Y H:i:s', strtotime($chamado->RelationStatus->first()->pivot->created_at)) > date('d/m/Y H:i:s', strtotime('-'.explode(':', $chamado->RelationStatus->first()->tempo)[0].' hours -'.explode(':', $chamado->RelationStatus->first()->tempo)[1].' minutes -'.explode(':', $chamado->RelationStatus->first()->tempo)[2].' seconds'))){
-            $abertura = Status::where('open', 1)->first();
-            $status = ChamadosStatus::create([
-                'gti_id_chamados' => $id,
-                'gti_id_status' => $abertura->id,
-                'descricao' =>  mb_strtoupper($request->descricao),
-                'usr_id_usuarios' => Auth::id()
+    	// Abertura de chamados
+    	public function AberturaChamados(){
+    		$ambientes = Ambientes::orderBy('nome', 'ASC')->get();
+    		return view('suporte.chamados.abertura')->with('ambientes', $ambientes);
+    	}
+        // Salvando o chamado
+        public function AberturaEnviarChamados(Request $request){
+            // Abertura
+            $create = Chamados::create([
+                'assunto' => mb_strtoupper($request->assunto), 
+                'descricao' => mb_strtoupper($request->descricao), 
+                'teamViewer' => $request->teamViewer,
+                'gti_id_ambientes' => $request->gti_id_ambientes, 
+                'gti_id_fontes' => $request->gti_id_fontes,             
+                'usr_id_usuarios' => Auth::id(), 
             ]);
-            // Alteração feita para atualizar a ordem de tratamento
-            $create = Chamados::find($id);
-            $atualizacao = Chamados::where('id', $id)->update(['assunto' => $create->assunto]);
+            // Cadastramento do status de abertura
+            $statusAbertura = Status::where('open', 1)->first();
+            $status = ChamadosStatus::create([
+                'gti_id_chamados' => $create->id,
+                'gti_id_status' => $statusAbertura->id,
+                'descricao' => "Abertura do chamado registrado junto a equipe de TI. Aguarde alguns instantes que logo estaremos analisando sua solicitação.",
+                'usr_id_usuarios' => Auth::id(),
+            ]);
+            // Cadastramento de vários arquivos 
+            if ($request->arquivos) {
+                foreach($request->arquivos as $arq){
+                    $imagem_produto = ChamadosArquivos::create([
+                        'gti_id_chamados' => $create->id,
+                        'id_arquivo' => $arq                    
+                    ]);
+                }
+            }
             // Criando notificações por e-mail
-            Auth::user()->notify(new SolicitacaoChamadosReCliente($create));  
-            $this->email->notify(new SolicitacaoChamadosReAdmin($create));
+            Auth::user()->notify(new SolicitacaoChamadosCliente($create));  
+            $this->email->notify(new SolicitacaoChamadosAdmin($create));
             Atividades::create([
-                'nome' => 'Reabertura de chamado',
-                'descricao' => 'Você efetuou a reabertura do chamado, '.$create->assunto.'.',
+                'nome' => 'Abertura de chamado',
+                'descricao' => 'Você efetuou a abertura de uma chamado, '.$create->assunto.'.',
                 'icone' => 'mdi-headset',
-                'url' => route('detalhes.chamados', $id),
+                'url' => route('detalhes.chamados', $create->id),
                 'id_usuario' => Auth::id()
             ]);
-            return response()->json(['success' => true]);
-        }else{
-            return response()->json(['success' => false]);
-        } 
-    }
-    // Listando os ontes
-    public function ListarFontesChamados($idAmbiente){
-        $fontes = Fontes::where('gti_id_ambientes', $idAmbiente)->get();
-        return $fontes;
-    }
-    // Listando items da base de conhecimento
-    public function ListarBaseChamados($idAmbiente, $idFonte){
-        if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
-            $dados = Base::where('gti_id_ambientes', $idAmbiente)->where('gti_id_fontes', $idFonte)->limit(5)->get();
-        }else{
-            $dados = Base::where('gti_id_ambientes', $idAmbiente)->where('gti_id_fontes', $idFonte)->where('tipo', 'externo')->limit(5)->get();  
+            return redirect(route('detalhes.chamados', $create->id));
         }
-        return $dados;
-    }
-    // Fazendo upload de arquivos
-    public function ArquivosChamados(Request $request){
-        // Cadastramento de várias imagens do mesmo produto
-        if ($request->hasFile('arquivos')) {
-            foreach($request->file('arquivos') as $imagem){
-                if($imagem->isValid()){
-                    $string = iconv( "UTF-8" , "ASCII//TRANSLIT//IGNORE" , str_replace($imagem->extension(), '', $imagem->getClientOriginalName()));
-                    $name = preg_replace( array( '/[ ]/' , '/[^A-Za-z0-9\-]/' ) , array( '' , '' ) , $string);
-                    $extension =  $imagem->extension();
-                    $nameFile = "{$name}.{$extension}";
-                    $upload =  $imagem->storeAs('chamados', $nameFile);
-                }
-                $arquivos[] = Arquivos::create(['endereco' => $upload, 'tipo' => 'chamados']);
-            }
+        // Detalhes do chamado
+        public function DetalhesChamados($id){
+            $chamado = Chamados::find($id);
+            $status = Status::where('status', 1)->get();
+            $historicoStatus = ChamadosStatus::where('gti_id_chamados', $id)->orderBy('created_at', 'DESC')->get();
+            return view('suporte.chamados.detalhes')->with('chamado', $chamado)->with('statusAtivos', $status)->with('historicoStatus', $historicoStatus);
         }
-        return response()->json($arquivos);
-    }
-    // Removendo arquivos de anexo
-    public function RemoveArquivosChamados($id){
-        $arquivo = Arquivos::find($id);
-        unlink(getcwd().'/storage/app/'.$arquivo->endereco);
-        $dados = ChamadosArquivos::where('id_arquivo', $id)->get();
-        if(isset($dados)){
-            ChamadosArquivos::where('id_arquivo', $id)->delete();
-        }
-        Arquivos::find($id)->delete();
-        return response()->json(['success' => true]);
-    }
-    // Relatório do chamado
-    public function RelatorioChamados($id){
-        $dados = Chamados::find($id);
-        $historicoStatus = ChamadosStatus::where('gti_id_chamados', $id)->orderBy('created_at', 'ASC')->get();
-        Atividades::create([
-            'nome' => 'Emissão de relatório do chamado',
-            'descricao' => 'Você efetuou a emissão do relatório do chamado, '.$dados->assunto.'.',
-            'icone' => 'mdi-file-document',
-            'url' => route('detalhes.chamados.gti', $id),
-            'id_usuario' => Auth::id()
-        ]);
-        return view('tecnologia.chamados.relatorio')->with('chamado', $dados)->with('historicoStatus', $historicoStatus);
-    }
-    // Atualizando status
-    public function StatusChamados(Request $request, $id){
-        $chamado = Chamados::find($id);
-        if($chamado->RelationStatus->first()->finish != 1){
+        // Finalizando chamado
+        public function FinalizarChamados(Request $request, $id){
+            $finalizar = Status::where('finish', 1)->first();
             $status = ChamadosStatus::create([
                 'gti_id_chamados' => $id,
-                'gti_id_status' => $chamado->RelationStatus->first()->id,
-                'descricao' => (isset($request->descricao) ? mb_strtoupper($request->descricao) : "Estado do chamado alterado por ".Auth::user()->RelationAssociado->nome."."),
+                'gti_id_status' => $finalizar->id,
+                'descricao' => (isset($request->descricao) ? mb_strtoupper($request->descricao) : "Chamado finalizado por ".Auth::user()->RelationAssociado->nome."."),
                 'usr_id_usuarios' => Auth::id()
             ]);
             // Cadastramento de vários arquivos 
@@ -299,111 +182,227 @@ class SuporteCtrl extends Controller
                 }
             }
             // Alteração feita para atualizar a ordem de tratamento
-            $atualizacao = Chamados::where('id', $id)->update(['assunto' => $chamado->assunto]);
+            $create = Chamados::find($id);
+            $atualizacao = Chamados::where('id', $id)->update(['assunto' => $create->assunto]);
             // Criando notificações por e-mail
-            $this->email->notify(new SolicitacaoChamadosAdmin($chamado)); 
+            $create->RelationUsuario->notify(new SolicitacaoChamadosCliente($status));  
             Atividades::create([
-                'nome' => 'Nova mensagem cadastrada',
-                'descricao' => 'Você cadastrou uma nova mensagem ao chamado '.$id.'.',
-                'icone' => 'mdi-file-document',
+                'nome' => 'Encerramento de chamado',
+                'descricao' => 'Você efetuou o encerramento do chamado, '.$create->assunto.'.',
+                'icone' => 'mdi-headset-off',
                 'url' => route('detalhes.chamados', $id),
                 'id_usuario' => Auth::id()
             ]);
             return response()->json(['success' => true]);
         }
-    }
-    // Fazendo upload de arquivos
-    public function ArquivosChamadosStatus(Request $request){
-        // Cadastramento de várias imagens do mesmo produto
-        if ($request->hasFile('arquivos')) {
-            foreach($request->file('arquivos') as $imagem){
-                if($imagem->isValid()){
-                    $string = iconv( "UTF-8" , "ASCII//TRANSLIT//IGNORE" , str_replace($imagem->extension(), '', $imagem->getClientOriginalName()));
-                    $name = preg_replace( array( '/[ ]/' , '/[^A-Za-z0-9\-]/' ) , array( '' , '' ) , $string);
-                    $extension =  $imagem->extension();
-                    $nameFile = "{$name}.{$extension}";
-                    $upload =  $imagem->storeAs('chamados', $nameFile);
+        // Reabertura chamado
+        public function ReaberturaChamados(Request $request, $id){
+            $chamado = Chamados::find($id);
+            if(date('d/m/Y H:i:s', strtotime($chamado->RelationStatus->first()->pivot->created_at)) > date('d/m/Y H:i:s', strtotime('-'.explode(':', $chamado->RelationStatus->first()->tempo)[0].' hours -'.explode(':', $chamado->RelationStatus->first()->tempo)[1].' minutes -'.explode(':', $chamado->RelationStatus->first()->tempo)[2].' seconds'))){
+                $abertura = Status::where('open', 1)->first();
+                $status = ChamadosStatus::create([
+                    'gti_id_chamados' => $id,
+                    'gti_id_status' => $abertura->id,
+                    'descricao' =>  mb_strtoupper($request->descricao),
+                    'usr_id_usuarios' => Auth::id()
+                ]);
+                // Alteração feita para atualizar a ordem de tratamento
+                $create = Chamados::find($id);
+                $atualizacao = Chamados::where('id', $id)->update(['assunto' => $create->assunto]);
+                // Criando notificações por e-mail
+                Auth::user()->notify(new SolicitacaoChamadosReCliente($create));  
+                $this->email->notify(new SolicitacaoChamadosReAdmin($create));
+                Atividades::create([
+                    'nome' => 'Reabertura de chamado',
+                    'descricao' => 'Você efetuou a reabertura do chamado, '.$create->assunto.'.',
+                    'icone' => 'mdi-headset',
+                    'url' => route('detalhes.chamados', $id),
+                    'id_usuario' => Auth::id()
+                ]);
+                return response()->json(['success' => true]);
+            }else{
+                return response()->json(['success' => false]);
+            } 
+        }
+        // Listando os ontes
+        public function ListarFontesChamados($idAmbiente){
+            $fontes = Fontes::where('gti_id_ambientes', $idAmbiente)->get();
+            return $fontes;
+        }
+        // Listando items da base de conhecimento
+        public function ListarBaseChamados($idAmbiente, $idFonte){
+            if(Auth::user()->RelationFuncao->gerenciar_gti == 1){
+                $dados = Base::where('gti_id_ambientes', $idAmbiente)->where('gti_id_fontes', $idFonte)->limit(5)->get();
+            }else{
+                $dados = Base::where('gti_id_ambientes', $idAmbiente)->where('gti_id_fontes', $idFonte)->where('tipo', 'externo')->limit(5)->get();  
+            }
+            return $dados;
+        }
+        // Fazendo upload de arquivos
+        public function ArquivosChamados(Request $request){
+            // Cadastramento de várias imagens do mesmo produto
+            if ($request->hasFile('arquivos')) {
+                foreach($request->file('arquivos') as $imagem){
+                    if($imagem->isValid()){
+                        $string = iconv( "UTF-8" , "ASCII//TRANSLIT//IGNORE" , str_replace($imagem->extension(), '', $imagem->getClientOriginalName()));
+                        $name = preg_replace( array( '/[ ]/' , '/[^A-Za-z0-9\-]/' ) , array( '' , '' ) , $string);
+                        $extension =  $imagem->extension();
+                        $nameFile = "{$name}.{$extension}";
+                        $upload =  $imagem->storeAs('chamados', $nameFile);
+                    }
+                    $arquivos[] = Arquivos::create(['endereco' => $upload, 'tipo' => 'chamados']);
                 }
-                $arquivos[] = Arquivos::create(['endereco' => $upload, 'tipo' => 'chamados']);
+            }
+            return response()->json($arquivos);
+        }
+        // Removendo arquivos de anexo
+        public function RemoveArquivosChamados($id){
+            $arquivo = Arquivos::find($id);
+            unlink(getcwd().'/storage/app/'.$arquivo->endereco);
+            $dados = ChamadosArquivos::where('id_arquivo', $id)->get();
+            if(isset($dados)){
+                ChamadosArquivos::where('id_arquivo', $id)->delete();
+            }
+            Arquivos::find($id)->delete();
+            return response()->json(['success' => true]);
+        }
+        // Relatório do chamado
+        public function RelatorioChamados($id){
+            $dados = Chamados::find($id);
+            $historicoStatus = ChamadosStatus::where('gti_id_chamados', $id)->orderBy('created_at', 'ASC')->get();
+            Atividades::create([
+                'nome' => 'Emissão de relatório do chamado',
+                'descricao' => 'Você efetuou a emissão do relatório do chamado, '.$dados->assunto.'.',
+                'icone' => 'mdi-file-document',
+                'url' => route('detalhes.chamados.gti', $id),
+                'id_usuario' => Auth::id()
+            ]);
+            return view('tecnologia.chamados.relatorio')->with('chamado', $dados)->with('historicoStatus', $historicoStatus);
+        }
+        // Atualizando status
+        public function StatusChamados(Request $request, $id){
+            $chamado = Chamados::find($id);
+            if($chamado->RelationStatus->first()->finish != 1){
+                $status = ChamadosStatus::create([
+                    'gti_id_chamados' => $id,
+                    'gti_id_status' => $chamado->RelationStatus->first()->id,
+                    'descricao' => (isset($request->descricao) ? mb_strtoupper($request->descricao) : "Estado do chamado alterado por ".Auth::user()->RelationAssociado->nome."."),
+                    'usr_id_usuarios' => Auth::id()
+                ]);
+                // Cadastramento de vários arquivos 
+                if ($request->arquivos) {
+                    foreach($request->arquivos as $arq){
+                        $imagem_produto = ChamadosStatusArquivos::create([
+                            'gti_id_status' => $status->id,
+                            'id_arquivo' => $arq,                    
+                        ]);
+                    }
+                }
+                // Alteração feita para atualizar a ordem de tratamento
+                $atualizacao = Chamados::where('id', $id)->update(['assunto' => $chamado->assunto]);
+                // Criando notificações por e-mail
+                $this->email->notify(new SolicitacaoChamadosAdmin($chamado)); 
+                Atividades::create([
+                    'nome' => 'Nova mensagem cadastrada',
+                    'descricao' => 'Você cadastrou uma nova mensagem ao chamado '.$id.'.',
+                    'icone' => 'mdi-file-document',
+                    'url' => route('detalhes.chamados', $id),
+                    'id_usuario' => Auth::id()
+                ]);
+                return response()->json(['success' => true]);
             }
         }
-        return response()->json($arquivos);
-    }
-    // Removendo arquivos de anexo
-    public function RemoveArquivosChamadosStatus($id){
-        $arquivo = Arquivos::find($id);
-        unlink(getcwd().'/storage/app/'.$arquivo->endereco);
-        $dados = ChamadosStatusArquivos::where('id_arquivo', $id)->get();
-        if(isset($dados)){
-            ChamadosStatusArquivos::where('id_arquivo', $id)->delete();
+        // Fazendo upload de arquivos
+        public function ArquivosChamadosStatus(Request $request){
+            // Cadastramento de várias imagens do mesmo produto
+            if ($request->hasFile('arquivos')) {
+                foreach($request->file('arquivos') as $imagem){
+                    if($imagem->isValid()){
+                        $string = iconv( "UTF-8" , "ASCII//TRANSLIT//IGNORE" , str_replace($imagem->extension(), '', $imagem->getClientOriginalName()));
+                        $name = preg_replace( array( '/[ ]/' , '/[^A-Za-z0-9\-]/' ) , array( '' , '' ) , $string);
+                        $extension =  $imagem->extension();
+                        $nameFile = "{$name}.{$extension}";
+                        $upload =  $imagem->storeAs('chamados', $nameFile);
+                    }
+                    $arquivos[] = Arquivos::create(['endereco' => $upload, 'tipo' => 'chamados']);
+                }
+            }
+            return response()->json($arquivos);
         }
-        Arquivos::find($id)->delete();
-        return response()->json(['success' => true]);
-    }
+        // Removendo arquivos de anexo
+        public function RemoveArquivosChamadosStatus($id){
+            $arquivo = Arquivos::find($id);
+            unlink(getcwd().'/storage/app/'.$arquivo->endereco);
+            $dados = ChamadosStatusArquivos::where('id_arquivo', $id)->get();
+            if(isset($dados)){
+                ChamadosStatusArquivos::where('id_arquivo', $id)->delete();
+            }
+            Arquivos::find($id)->delete();
+            return response()->json(['success' => true]);
+        }
 
 	#-------------------------------------------------------------------
 	# Documentos
 	#-------------------------------------------------------------------
-	public function Documentos(){
-		$dados = Documentos::where('status', 1)->get();
-		return view('suporte.documentos.exibir')->with('dados', $dados);
-	}
-
+    	public function Documentos(){
+    		$dados = Documentos::where('status', 1)->get();
+    		return view('suporte.documentos.exibir')->with('dados', $dados);
+    	}
 
 	#-------------------------------------------------------------------
 	# Solicitação de materiais
 	#-------------------------------------------------------------------
-	public function Materiais(){
-		$historico = MateriaisHistorico::where('id_usuario', Auth::id())->where('tipo', 's')->orderBy('created_at', 'DESC')->orderBy('status', 'ASC')->get();
-		$pendencias = MateriaisHistorico::where('status', 0)->orderBy('created_at', 'DESC')->get();
-		$categorias = MateriaisCategorias::where('status', 1)->orderBy('nome', 'ASC')->get();
-		return view('suporte.materiais.exibir')->with('pendencias', $pendencias)->with('requisicoes', $historico)->with('categorias', $categorias);
-	}
-	// Efetuar solicitação
-	public function MateriaisSolicitacao(Request $request){
-        foreach ($request->id_material as $key => $value) {      
-    		$create = MateriaisHistorico::create([
-    			'tipo' => 's',
-    			'quantidade' => $request->quantidade[$key],
-                'quantidade_tipo' => $request->quantidade_tipo[$key],
-                'observacoes' => mb_strtoupper($request->observacoes[$key]),
-    			'id_material' =>$request->id_material[$key], 
-    			'id_usuario' => Auth::id(), 
-    			'status' => 0,
-    		]);
-    		Atividades::create([
-    			'nome' => 'Solicitação de materiais',
-    			'descricao' => 'Você acabou de solicitar o material '.$create->RelationMaterial->nome.'.',
-    			'icone' => 'mdi-cube-send',
-    			'url' => route('exibir.solicitacoes.materiais'),
-    			'id_usuario' => Auth::id()
-    		]);
-            $materiais[] = $create;
-        }
-        $this->email->notify(new SolicitacaoMaterialAdmin($materiais));
-        Auth::user()->notify(new SolicitacaoMaterialCliente($materiais));
-		return response()->json(['success' => true]);
-	}
-    // Cancelar solicitação 
-    public function MateriaisSolicitacaoCancelar(Request $request){
-        MateriaisHistorico::find($request->id)->update(['status' => 2, 'motivo' => mb_strtoupper($request->motivo)]);
-        $historico[] = MateriaisHistorico::find($request->id);
-        $historico[0]->RelationUsuario->notify(new SolicitacaoMaterialCliente($historico));
-        $this->email->notify(new SolicitacaoMaterialAdmin($historico));
-        Atividades::create([
-            'nome' => 'Cancelamento de solicitação de material',
-            'descricao' => 'Você cancelou a sua solicitação do material, '.$historico[0]->RelationMaterial->nome.'.',
-            'icone' => ' mdi-delete-forever',
-            'url' => route('exibir.solicitacoes.materiais'),
-            'id_usuario' => Auth::id()
-        ]);
+    	public function Materiais(){
+    		$historico = MateriaisHistorico::where('id_usuario', Auth::id())->where('tipo', 's')->orderBy('created_at', 'DESC')->orderBy('status', 'ASC')->get();
+    		$pendencias = MateriaisHistorico::where('status', 0)->orderBy('created_at', 'DESC')->get();
+    		$categorias = MateriaisCategorias::where('status', 1)->orderBy('nome', 'ASC')->get();
+    		return view('suporte.materiais.exibir')->with('pendencias', $pendencias)->with('requisicoes', $historico)->with('categorias', $categorias);
+    	}
+    	// Efetuar solicitação
+    	public function MateriaisSolicitacao(Request $request){
+            foreach ($request->id_material as $key => $value) {      
+        		$create = MateriaisHistorico::create([
+        			'tipo' => 's',
+        			'quantidade' => $request->quantidade[$key],
+                    'quantidade_tipo' => $request->quantidade_tipo[$key],
+                    'observacoes' => mb_strtoupper($request->observacoes[$key]),
+        			'id_material' =>$request->id_material[$key], 
+        			'id_usuario' => Auth::id(), 
+        			'status' => 0,
+        		]);
+        		Atividades::create([
+        			'nome' => 'Solicitação de materiais',
+        			'descricao' => 'Você acabou de solicitar o material '.$create->RelationMaterial->nome.'.',
+        			'icone' => 'mdi-cube-send',
+        			'url' => route('exibir.solicitacoes.materiais'),
+        			'id_usuario' => Auth::id()
+        		]);
+                $materiais[] = $create;
+            }
+            $this->email->notify(new SolicitacaoMaterialAdmin($materiais));
+            Auth::user()->notify(new SolicitacaoMaterialCliente($materiais));
+    		return response()->json(['success' => true]);
+    	}
+        // Cancelar solicitação 
+        public function MateriaisSolicitacaoCancelar(Request $request){
+            MateriaisHistorico::find($request->id)->update(['status' => 2, 'motivo' => mb_strtoupper($request->motivo)]);
+            $historico[] = MateriaisHistorico::find($request->id);
+            $historico[0]->RelationUsuario->notify(new SolicitacaoMaterialCliente($historico));
+            $this->email->notify(new SolicitacaoMaterialAdmin($historico));
+            Atividades::create([
+                'nome' => 'Cancelamento de solicitação de material',
+                'descricao' => 'Você cancelou a sua solicitação do material, '.$historico[0]->RelationMaterial->nome.'.',
+                'icone' => ' mdi-delete-forever',
+                'url' => route('exibir.solicitacoes.materiais'),
+                'id_usuario' => Auth::id()
+            ]);
 
-        return response()->json(['success' => true]);
-    }
-	// Listando materiais para solicitação
-	public function MateriaisListar($id){
-		$dados = Materiais::where('id_categoria', $id)->where('status', 1)->get();
-		return $dados;
-	}
+            return response()->json(['success' => true]);
+        }
+    	// Listando materiais para solicitação
+    	public function MateriaisListar($id){
+    		$dados = Materiais::where('id_categoria', $id)->where('status', 1)->get();
+    		return $dados;
+    	}
 	
 }

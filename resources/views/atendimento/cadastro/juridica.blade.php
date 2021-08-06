@@ -51,7 +51,7 @@
 						<div class="col-lg-9 col-12 px-0 px-lg-4">
 							<div class="form-group">
 								<label class="col-form-label pb-0">Nome Fantasia <span class="text-danger">*</span></label>
-								<input class="form-control form-control-line" name="fantasia" id="fantasia" onkeyup="this.value = this.value.toUpperCase(); $(this).removeClass('border-danger');" placeholder="Sicoob Sertão Minas" onchange="this.value = this.value.toUpperCase();" required/>
+								<input class="form-control form-control-line" name="nome_fantasia" id="fantasia" onkeyup="this.value = this.value.toUpperCase(); $(this).removeClass('border-danger');" placeholder="Sicoob Sertão Minas" onchange="this.value = this.value.toUpperCase();" required/>
 							</div>
 						</div>
 						<div id="dadosReceita" style="display: none;">
@@ -145,8 +145,8 @@
 
 						<div class="col-lg-12 col-12 px-0 px-lg-4">
 							<div class="form-group">
-								<label class="col-form-label pb-0">E-mail <small>(Preencha está informação para atividades futuras)</small></label>
-								<input type="email" class="form-control form-control-line" name="email" placeholder="servicos@sicoobsertaominas.com.br"/>
+								<label class="col-form-label pb-0">E-mail <span class="text-danger">*</span></label>
+								<input type="email" class="form-control form-control-line" name="email" placeholder="servicos@sicoobsertaominas.com.br" required/>
 							</div>
 						</div>
 					</div>
@@ -195,6 +195,7 @@
 								</div>
 							</div>
 						</div>
+						<!--
 						<div class="col-12 mb-4 px-0 px-lg-4">
 							<div class="form-group mb-0">
 								<label class="col-form-label">Incrição Estadual</label>
@@ -265,6 +266,7 @@
 								</div>
 							</div>
 						</div>
+						-->
 						<div class="col-12 mb-4 px-0 px-lg-4">
 							<div class="form-group mb-0">
 								<label class="col-form-label">Outros arquivos</label>
@@ -285,7 +287,11 @@
 									<label class="col-12 col-form-label px-0">Sócio <span class="text-danger">*</span>
 									</label> 
 									<div class="row mx-auto">
-										<input class="col-8 col-lg-11 form-control form-control-line pesquisar px-2 ui-autocomplete-input" onkeyup="this.value = this.value.toUpperCase(); $(this).removeClass('border-danger');" placeholder="Entre com nome ou documento do associado..." onchange="this.value = this.value.toUpperCase();" aria-controls="table" name="socios[]" required="" autocomplete="off"> 
+										<select class="form-control form-control-line col-2 tipoAssociado" name="tipoAssociado">
+											<option value="cli_associados">Já associado</option>
+											<option value="cad_novos">Novo</option>
+										</select>
+										<input class="col-8 col-lg-9 form-control form-control-line pesquisar px-2 ui-autocomplete-input" onkeyup="this.value = this.value.toUpperCase(); $(this).removeClass('border-danger');" placeholder="Entre com nome ou documento do associado..." onchange="this.value = this.value.toUpperCase();" aria-controls="table" name="socios[]" required autocomplete="off"> 
 										<div class="col-2 col-lg-1 d-flex">
 											<a href="#" class="btn btn-default btn-xs mx-1 my-auto text-center" data-toggle="modal" data-target="#modal-socios" title="Cadastrar novo associado">
 												<i class="mdi mdi-account-plus"></i>

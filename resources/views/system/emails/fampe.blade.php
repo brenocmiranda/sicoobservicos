@@ -9,7 +9,7 @@
 							<tbody>
 								<tr>
 									<td style="padding:15px 15px 15px 30px">
-										<img src="https://media.solumbox.com//img/i/b3398ddd-cabc-43c1-8bd4-8002c411f71f/1000" alt="Sicoob Serviços" height="50">
+										<img src="https://media.solumbox.com/img/i/b3398ddd-cabc-43c1-8bd4-8002c411f71f/1000" alt="Sicoob Serviços" height="50">
 									</td>
 								</tr>
 							</tbody>

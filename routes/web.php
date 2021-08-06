@@ -151,6 +151,7 @@ Route::group(['prefix' => 'app'], function(){
 				Route::post('salvarPJ', 'AtendimentoCtrl@CadastroAssociadoPJ')->name('salvarPJ.cadastro.atendimento');
 				Route::get('detalhes/{id}', 'AtendimentoCtrl@DetalhesCadastro')->name('detalhes.cadastro.atendimento');
 				Route::get('existe/{documento}', 'AtendimentoCtrl@ExisteCadastro')->name('existe.cadastro.atendimento');
+				Route::any('pesquisar', 'AtendimentoCtrl@PesquisarCadastro')->name('pesquisar.cadastro.atendimento');
 			});
 		});
 	});
