@@ -180,7 +180,6 @@ class ConfiguracoesCtrl extends Controller
 			return $dados;
 		}
 
-
 	#-------------------------------------------------------------------
 	# Administrativo (Instituições)
 	#-------------------------------------------------------------------
@@ -259,7 +258,6 @@ class ConfiguracoesCtrl extends Controller
 			$dados = Instituicoes::find($id);
 			return $dados;
 		}
-
 
 	#-------------------------------------------------------------------
 	# Administrativo (Setores)
@@ -368,7 +366,6 @@ class ConfiguracoesCtrl extends Controller
 			return $dados;
 		}
 
-
 	#-------------------------------------------------------------------
 	# Administrativo (Unidades)
 	#-------------------------------------------------------------------
@@ -471,7 +468,6 @@ class ConfiguracoesCtrl extends Controller
 			$dados = Unidades::find($id);
 			return $dados;
 		}
-
 
 	#-------------------------------------------------------------------
 	# Administrativo (Usuários)
@@ -658,6 +654,7 @@ class ConfiguracoesCtrl extends Controller
 				Usuarios::find($id)->update([
 					'password' => Hash::make('Sicoob4133'),
 					'email_verified_at' => null,
+					'status' => 'Ativo',
 					'attempts' => 0
 				]);
 				$user = Usuarios::find($id);

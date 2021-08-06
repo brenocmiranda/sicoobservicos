@@ -280,22 +280,19 @@
 					</div>
 				</div>
 				<div id="step-4" class="tab-pane w-100" role="tabpanel" aria-labelledby="step-4">
-					<div class="col-lg-11 col-12 px-0 px-lg-4 mx-lg-4">
+					<div class="col-lg-12 col-12 px-0 px-lg-4 mx-lg-4">
 						<div class="form-group">
 							<div class="row dadosSocios">
 								<div class="col-12 mb-2 mt-1"> 
 									<label class="col-12 col-form-label px-0">Sócio <span class="text-danger">*</span>
 									</label> 
 									<div class="row mx-auto">
-										<select class="form-control form-control-line col-2 tipoAssociado" name="tipoAssociado">
-											<option value="cli_associados">Já associado</option>
+										<select class="form-control form-control-line col-2 tipoAssociado" name="tipoAssociado[]">
+											<option value="cli_associados" selected>Já associado</option>
 											<option value="cad_novos">Novo</option>
 										</select>
 										<input class="col-8 col-lg-9 form-control form-control-line pesquisar px-2 ui-autocomplete-input" onkeyup="this.value = this.value.toUpperCase(); $(this).removeClass('border-danger');" placeholder="Entre com nome ou documento do associado..." onchange="this.value = this.value.toUpperCase();" aria-controls="table" name="socios[]" required autocomplete="off"> 
 										<div class="col-2 col-lg-1 d-flex">
-											<a href="#" class="btn btn-default btn-xs mx-1 my-auto text-center" data-toggle="modal" data-target="#modal-socios" title="Cadastrar novo associado">
-												<i class="mdi mdi-account-plus"></i>
-											</a>
 											<a href="javascript:" class="btn btn-danger btn-xs mx-1 my-auto text-center disabled" title="Remover o associado"> 
 												<i class="mdi mdi-delete"></i>
 											</a>
@@ -306,10 +303,17 @@
 						</div>
 					</div>
 					<div class="col-lg-12 col-12 px-0 px-lg-4 mx-lg-4">
-						<a href="javascript:" id="btnSocios" title="Selecione mais sócios"> 
-							<i class="ti-plus pr-2"></i>
-							<span>Selecionar mais sócios</span> 
-						</a>
+						<p>
+							<a href="javascript:" id="btnSocios" title="Selecione mais sócios"> 
+								<i class="ti-plus pr-2"></i>
+								<span>Selecione mais sócios</span> 
+							</a>
+							<span class="px-2">ou</span>
+							<a href="javascript:" id="btnSocios" data-toggle="modal" data-target="#modal-socios"> 
+								<i class="mdi mdi-account-plus pr-2"></i>
+								<span>Cadastrar novo sócio</span> 
+							</a>
+						</p>
 					</div>
 				</div>
 				<div id="step-5" class="tab-pane w-100" role="tabpanel" aria-labelledby="step-5">
@@ -326,18 +330,12 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-12 px-0 mt-5 pt-5 d-flex justify-content-center imagePJ">
+						<div class="col-12 px-0 d-flex justify-content-center imagePJ w-100">
 							<img id="PreviewImagePJ" src="">
 							<input type="hidden" id="xPJ" name="x" />
 					        <input type="hidden" id="yPJ" name="y" />
 					        <input type="hidden" id="wPJ" name="w" />
 					        <input type="hidden" id="hPJ" name="h" />
-						</div>
-						<div class="col-12 mt-3">
-							<div class="checkbox checkbox-success mb-0 text-center">
-								<input id="checkbox-1" type="checkbox" checked disabled>
-								<label for="checkbox-1"  style="opacity: 1 !important;"> Declaro todas as informações fornecidas nesse cadastro conferem com as originais. </label>
-							</div>
 						</div>
 					</div>
 				</div>

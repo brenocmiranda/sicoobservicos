@@ -269,18 +269,12 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-12 px-0 d-flex justify-content-center imagePF w-100">
+						<div class="col-10 px-0 d-flex justify-content-center mx-auto imagePF w-100">
 							<img id="PreviewImagePF" src="">
 							<input type="hidden" id="xPF" name="x" />
 				            <input type="hidden" id="yPF" name="y" />
 				            <input type="hidden" id="wPF" name="w" />
 				            <input type="hidden" id="hPF" name="h" />
-						</div>
-						<div class="col-12 mt-3">
-							<div class="checkbox checkbox-success mb-0 text-center">
-								<input id="checkbox-1" type="checkbox" checked disabled>
-								<label for="checkbox-1"  style="opacity: 1 !important;"> Declaro todas as informações fornecidas nesse cadastro conferem com as originais. </label>
-							</div>
 						</div>
 					</div>
 				</div>

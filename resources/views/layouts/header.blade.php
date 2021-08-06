@@ -22,7 +22,7 @@
   <link href="{{ asset('public/css/style.css') }}" rel="stylesheet">
   <link href="{{ asset('public/css/animate.css') }}" rel="stylesheet">
   <link href="{{ asset('public/css/colors/default.css') }}" id="theme" rel="stylesheet">
-  <link href="{{ asset('public/css/jcrop.css') }}" id="theme" rel="stylesheet">
+  <link href="{{ asset('public/css/cropper.css') }}" rel="stylesheet">
   <link href="{{ asset('public/vendor/sidebar-nav/dist/sidebar-nav.min.css') }}" rel="stylesheet">
   <link href="{{ asset('public/vendor/toast-master/css/jquery.toast.css') }}" rel="stylesheet">
   <link href="{{ asset('public/vendor/morrisjs/morris.css') }}" rel="stylesheet">

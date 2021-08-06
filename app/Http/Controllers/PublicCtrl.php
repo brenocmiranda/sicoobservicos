@@ -107,8 +107,8 @@ class PublicCtrl extends Controller
 			}
 		}
 		// Verificação do token para recuperação
-		public function Verificar($token){
-			$user = Usuarios::where('remember_token', $token)->first();
+		public function Verificar($id){
+			$user = Usuarios::find($id);
 			if(!empty($user)){
 				return view('system.trocar')->with('usuario', $user);
 			}else{
@@ -128,7 +128,6 @@ class PublicCtrl extends Controller
 				'status' => 'Ativo',
 				'attempts' => 0,
 			]);
-			//Usuarios::find($user->id)->update(['attempts' => 0]);
 			$user->notify(new ResetPassword($user));
 			\Session::flash('login', array(
 				'class' => 'success',

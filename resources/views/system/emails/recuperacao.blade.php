@@ -35,7 +35,7 @@
 									 </ul>
 									</li>
 									<li>
-										<a href="{{route('view.password', $usuario->remember_token)}}" target="_blank">Acesse aqui para redefinir sua senha.</a>
+										<a href="{{route('view.password', $usuario->id)}}" target="_blank">Acesse aqui para redefinir sua senha.</a>
 									</li>
 									<li>Faça o login com seus novos dados de acesso.</li>
 								</ul>	

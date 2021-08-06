@@ -1,7 +1,7 @@
 <!-- Modal -->
 <div class="modal fade" id="modal-socios" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true" data-backdrop="static" style="overflow-y: hidden;">
   <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered" role="document">
-    <div class="modal-content">
+    <div class="modal-content" style="width: 130%;">
       <div class="modal-header d-block pb-0">
         <div class="col-12">
           <button type="button" class="close px-0 py-2" data-dismiss="modal" aria-label="Close">

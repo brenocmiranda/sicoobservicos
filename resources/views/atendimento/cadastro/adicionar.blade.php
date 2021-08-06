@@ -85,17 +85,22 @@ Novo associado
 
 	function cartao(input, type){
 
+		$('.imagePF').html('<img id="PreviewImagePF" src="">');
 		var reader = new FileReader();
 		reader.onload = function (oFREvent){
 			$('#PreviewImagePF').attr('src', oFREvent.target.result).addClass('w-100');
+			const image = document.getElementById('PreviewImagePF');
+			cropper = new Cropper(image, {
+				crop(event) {
+				  	$('#xPF').val(event.detail.x);
+	                $('#yPF').val(event.detail.y);
+	                $('#wPF').val(event.detail.width);
+	                $('#hPF').val(event.detail.height);
+				},
+			});
+			$('.imagePF').addClass('mt-4');
 		}
 		reader.readAsDataURL(input.files[0]);
-
-		const stage = Jcrop.attach('PreviewImagePF');
-		stage.listen('crop.change', function(widget,e){
-		  const pos = widget.pos;
-		  console.log(pos.x,pos.y,pos.w,pos.h);
-		});
 
 		/*
 		if(type == "PF"){
@@ -165,7 +170,7 @@ Novo associado
 			$('.error').html('');
 			$('.verificarDocumentoPJ').html('');
 			$('#razaoSocial').val('');
-			$('#fantasia').val('');
+			$('#nome_fantasia').val('');
 			$('#atividade_economica').val('');
 			$('#porte_cliente').val('');
 			$('#situacao').val('');
@@ -416,7 +421,7 @@ Novo associado
 	    		success: function(data){
 	    			if(data.status == "ERROR"){
 	    				$('#razaoSocial').val('');
-	    				$('#fantasia').val('');
+	    				$('#nome_fantasia').val('');
 	    				$('.razaoSocial').html('-');
 	    				$('.endereco').html('-');
 	    				$('.atividade_principal').html('-');
@@ -438,8 +443,8 @@ Novo associado
 	    						}else{
 	    							$('#razaoSocial').val(data.nome);
 	    							$('.razaoSocial').html(data.nome);
-	    							if(data.fantasia){
-	    								$('#fantasia').val(data.fantasia);
+	    							if(data.nome_fantasia){
+	    								$('#nome_fantasia').val(data.nome_fantasia);
 	    							}
 	    							$('.endereco').html((data.logradouro ? data.logradouro+', '+data.numero+', '+data.bairro+' - '+data.municipio+'/'+data.uf : 'Não informado'));
 	    							$('.tipo').html(data.tipo);
@@ -490,9 +495,9 @@ Novo associado
 					url: "{{ route('pesquisar.cadastro.atendimento') }}",
 					data: dados,
 					dataType: "json",
-					success: function(dados){
-						var resp = $.map(dados, function(obj){
-							return obj.nome +" : "+ obj.documento;
+					success: function(data){
+						var resp = $.map(data, function(obj){
+							return obj.nome +" : "+ obj.documento.replace(/[^\d]+/g,'');
 						}); 
 						response(resp);
 					}
@@ -551,18 +556,19 @@ Novo associado
 		$('#btnSocios').on('click', function(){
 			// Adicionando novos campos para os sócios
 			j++;
-			$('.dadosSocios').append('<div class="col-12 mb-2 mt-1"> <label class="col-12 col-form-label px-0">Sócio <span class="text-danger">*</span> </label> <div class="row mx-auto"> <input class="col-8 col-lg-11 form-control form-control-line pesquisar px-2 ui-autocomplete-input" onkeyup="this.value = this.value.toUpperCase(); $(this).removeClass("border-danger");" placeholder="Entre com nome ou documento do associado..." onchange="this.value = this.value.toUpperCase();" aria-controls="table" name="socios[]" required="" autocomplete="off"> <div class="col-2 col-lg-1 d-flex"> <a href="javascript:" class="btn btn-default btn-xs mx-1 my-auto text-center" title="Cadastrar novo associado"> <i class="mdi mdi-account-plus"></i> </a> <a href="javascript:" class="btn btn-danger btn-xs mx-1 my-auto text-center" onclick="removerSocio(this)" title="Remover o associado"> <i class="mdi mdi-delete"></i> </a> </div> </div> </div>');
-
+			$('.dadosSocios').append('<div class="col-12 mb-2 mt-1"> <label class="col-12 col-form-label px-0">Sócio <span class="text-danger">*</span> </label> <div class="row mx-auto"> <select class="form-control form-control-line col-2 tipoAssociado'+j+'" name="tipoAssociado[]"> <option value="cli_associados" selected>Já associado</option> <option value="cad_novos">Novo</option> </select> <input class="col-8 col-lg-9 form-control form-control-line pesquisar'+j+' px-2 ui-autocomplete-input" onkeyup="this.value = this.value.toUpperCase(); $(this).removeClass("border-danger");" placeholder="Entre com nome ou documento do associado..." onchange="this.value = this.value.toUpperCase();" aria-controls="table" name="socios[]" required autocomplete="off"> <div class="col-2 col-lg-1 d-flex"> <a href="javascript:" class="btn btn-danger btn-xs mx-1 my-auto text-center" title="Remover o associado" onclick="removerSocio(this);"> <i class="mdi mdi-delete"></i> </a> </div> </div> </div>');
 			// Retornando dados do associado
-			$("#dadosPJ .pesquisar").autocomplete({
+			$("#dadosPJ .pesquisar"+j).autocomplete({
 				source: function(request, response){
+					var table = $('.tipoAssociado'+j).val();
+					var dados = {term : request.term, table : table};
 					$.ajax({
-						url: "{{ route('pesquisar.associado.atendimento') }}",
-						data: {	term : request.term	},
+						url: "{{ route('pesquisar.cadastro.atendimento') }}",
+						data: dados,
 						dataType: "json",
-						success: function(dados){
-							var resp = $.map(dados, function(obj){
-								return obj.nome +" : "+ obj.documento;
+						success: function(data){
+							var resp = $.map(data, function(obj){
+								return obj.nome +" : "+ obj.documento.replace(/[^\d]+/g,'');
 							}); 
 							response(resp);
 						}
@@ -570,7 +576,7 @@ Novo associado
 				},
 				minLength: 1
 			});
-			$("#dadosPJ .pesquisar").autocomplete({
+			$("#dadosPJ .pesquisar"+j).autocomplete({
 				change: function( event, ui ) {
 					if(ui.item == null){
 						$(this).val('');
