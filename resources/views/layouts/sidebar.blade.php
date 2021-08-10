@@ -69,14 +69,14 @@
           <li> <a href="{{route('exibir.atividades.atendimento')}}"><span class="hide-menu">Atividades</span></a> </li>
           <li> <a href="{{route('exibir.painel.atendimento')}}"><span class="hide-menu">Painel do associado</span></a> </li>
           @if(Auth::user()->RelationFuncao->gerenciar_atendimento == 1)
-          <li> <a href="{{route('exibir.cadastro.atendimento')}}"><span class="hide-menu">Novos associados</span></a> </li>
+          <!--<li> <a href="{{route('exibir.cadastro.atendimento')}}"><span class="hide-menu">Novos associados</span></a> </li>-->
           @endif
         </ul>
       </li>
       @endif
 
       @if(Auth::user()->RelationFuncao->ver_cadastro == 1 || Auth::user()->RelationFuncao->gerenciar_cadastro == 1)
-      <li> 
+      <!--<li> 
         <a href="javascript:" class="waves-effect {{ (Request::segment(2) == 'cadastro' ? 'active' : '') }}">
           <i class="mdi mdi-bookmark-plus-outline pr-3" data-icon="v"></i> 
           <span class="hide-menu"> Cadastro <span class="fa arrow"></span> </span>
@@ -125,7 +125,6 @@
       </li>
       @endif
       
-      <!--
       @if(Auth::user()->RelationFuncao->ver_negocios == 1 || Auth::user()->RelationFuncao->gerenciar_negocios == 1)
       <li> 
         <a href="javascript:" class="waves-effect {{ (Request::segment(2) == 'produtos' ? 'active' : '') }}">
