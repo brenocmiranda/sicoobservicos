@@ -283,10 +283,9 @@ class TecnologiaCtrl extends Controller
             return response()->json(['success' => true]);
         }
 
-
-    	#-------------------------------------------------------------------
-    	# Configurações (Aprendizagem)
-    	#-------------------------------------------------------------------
+	#-------------------------------------------------------------------
+	# Configurações (Aprendizagem)
+	#-------------------------------------------------------------------
     	// Listando todos tópicos
     	public function ExibirAprendizagem(){
     		if(Auth::user()->RelationFuncao->ver_gti == 1 || Auth::user()->RelationFuncao->gerenciar_gti == 1){
@@ -1437,22 +1436,51 @@ class TecnologiaCtrl extends Controller
     	public function Relatorios(){
     	    if(Auth::user()->RelationFuncao->gerenciar_administrativo == 1 || Auth::user()->RelationFuncao->ver_administrativo == 1){
     	    	$usuarios = AtivosUsuarios::join('usr_usuarios', 'usr_id_usuarios', 'usr_usuarios.id')->join('cli_associados', 'usr_usuarios.cli_id_associado', 'cli_associados.id')->whereNull('dataDevolucao')->select('cli_associados.nome', 'usr_usuarios.id')->groupBy('id')->orderBy('login', 'ASC')->get();
-    	      	return view('tecnologia.relatorios.exibir')->with('usuarios', $usuarios);
+                $unidades = Unidades::where('status', 1)->get();
+    	      	return view('tecnologia.relatorios.exibir')->with('usuarios', $usuarios)->with('unidades', $unidades);
     	    }else{
     	      return redirect(route('403'));
     	    }
     	}
-    	// Relatório do equipamento
-    	public function RelatoriosInventario(Request $request){
+    	// Relatório do Termo de Uso
+    	public function RelatoriosTermoUso(Request $request){
     		$equipamentos = AtivosUsuarios::join('gti_ativos', 'gti_id_ativos', 'gti_ativos.id')->join('gti_ativos_has_marcas', 'id_marca', 'gti_ativos_has_marcas.id')->join('gti_ativos_has_equipamentos', 'id_equipamento', 'gti_ativos_has_equipamentos.id')->whereNull('dataDevolucao')->where('usr_id_usuarios', $request->usuario)->select('gti_ativos.modelo', 'gti_ativos.n_patrimonio', 'gti_ativos.serialNumber', 'gti_ativos_has_equipamentos.nome as equipamento', 'gti_ativos_has_marcas.nome as marca', 'gti_ativos_has_usuarios.*')->get();
+
     		Atividades::create([
-    	          'nome' => 'Geração do relatório de termo de uso',
-    	          'descricao' => 'Você gerou o relatório de termo de uso do associado '.$equipamentos->first()->RelationUsuarios->RelationAssociado->nome.'.',
-    	          'icone' => 'mdi-file-document',
-    	          'url' => 'javascript:',
-    	          'id_usuario' => Auth::id()
-    	        ]);
+	           'nome' => 'Geração do relatório de termo de uso',
+	           'descricao' => 'Você gerou o relatório de termo de uso do associado '.$equipamentos->first()->RelationUsuarios->RelationAssociado->nome.'.',
+	           'icone' => 'mdi-file-document',
+	           'url' => 'javascript:',
+	           'id_usuario' => Auth::id()
+	        ]);
+
     		$pdf = PDF::loadView('tecnologia.relatorios.termo', compact('equipamentos'))->setPaper('a4', 'portrait');
     	    return $pdf->stream();
     	}
+        // Relatório do equipamento
+        public function RelatoriosEquipamentos(Request $request){
+
+            // Dados selecionados
+            $dados = $request->except('_token', 'type');
+
+            // Aplicação dos filtros enviados
+            $equipamentos = Ativos::query();
+            if ($request->has('unidade') && isset($request->unidade)) {
+                $equipamentos->where('id_unidade', $request->unidade);
+            }
+            $equipamentos = $equipamentos->get();
+
+            // Selecionando o tipo de exportação
+            $pdf = PDF::loadView('tecnologia.relatorios.equipamentos', compact('equipamentos', 'dados'))->setPaper('a4', 'portrait');
+            return $pdf->stream('relatorio.pdf');
+
+            /*Atividades::create([
+                  'nome' => 'Geração de relatório dos equipamentos',
+                  'descricao' => 'Você gerou o relatório de todos os equipamentos.',
+                  'icone' => 'mdi-file-document',
+                  'url' => 'javascript:',
+                  'id_usuario' => Auth::id()
+                ]);
+            */
+        }
 }

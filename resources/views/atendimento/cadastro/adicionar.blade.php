@@ -127,9 +127,7 @@ Novo associado
 		}
 	};
 
-
 	$(document).ready(function(){
-
 		// Mascaras 
 		var t = 15; // Contador de label de arquivos
 		var j = 1;

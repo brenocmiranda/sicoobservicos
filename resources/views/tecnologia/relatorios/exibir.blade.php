@@ -55,10 +55,6 @@ Relatórios
                 @csrf
                     <div class="row col-12 justify-content-center mt-4">
                         <button type="submit" class="btn btn-success btn-outline col-lg-3 mx-2">
-                            <i class="mdi mdi-file-excel pr-2"></i> 
-                            <span>Gerar Excel</span>
-                        </button>
-                        <button type="submit" class="btn btn-success btn-outline col-lg-3 mx-2">
                             <i class="mdi mdi-file-pdf pr-2"></i> 
                             <span>Gerar PDF</span>
                         </button>
@@ -68,11 +64,44 @@ Relatórios
             <div class="form" id="option2" style="display:none;">
                 <form class="form-sample row col-12 mx-auto" target="_blank" action="{{route('relatorio.termoUso.tecnologia')}}" method="POST" enctype="multipart/form-data" autocomplete="off">
                 @csrf
-                    <div class="row col-12 justify-content-center mt-4">
-                        <button type="submit" class="btn btn-success btn-outline col-lg-3 mx-2">
-                            <i class="mdi mdi-file-excel pr-2"></i> 
-                            <span>Gerar Excel</span>
-                        </button>
+                    <div class="row col-12 px-0 mb-5">
+                        <div class="col-12 mb-2">
+                            <label class="col-form-label pb-0">Selecione os dados <span class="text-danger">*</span></label>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="checkbox checkbox-success">
+                                <input id="checkbox1" type="checkbox">
+                                <label for="checkbox1"> Ambiente </label>
+                            </div>
+                            <div class="checkbox checkbox-success">
+                                <input id="checkbox2" type="checkbox">
+                                <label for="checkbox2"> Fontes </label>
+                            </div>
+                            <div class="checkbox checkbox-success">
+                                <input id="checkbox3" type="checkbox">
+                                <label for="checkbox3"> ID TeamViewer </label>
+                            </div>
+                            <div class="checkbox checkbox-success">
+                                <input id="checkbox4" type="checkbox">
+                                <label for="checkbox4"> Assunto </label>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="checkbox checkbox-success">
+                                <input id="checkbox5" type="checkbox">
+                                <label for="checkbox5"> Descrição </label>
+                            </div>
+                            <div class="checkbox checkbox-success">
+                                <input id="checkbox6" type="checkbox">
+                                <label for="checkbox6"> Último status </label>
+                            </div>
+                            <div class="checkbox checkbox-success">
+                                <input id="checkbox7" type="checkbox">
+                                <label for="checkbox7"> Usuários </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row col-12 justify-content-center">
                         <button type="submit" class="btn btn-success btn-outline col-lg-3 mx-2">
                             <i class="mdi mdi-file-pdf pr-2"></i> 
                             <span>Gerar PDF</span>
@@ -81,79 +110,99 @@ Relatórios
                 </form>
             </div>
             <div class="form" id="option3" style="display:none;">
-                <form class="form-sample row col-12 mx-auto" target="_blank" action="{{route('relatorio.termoUso.tecnologia')}}" method="POST" enctype="multipart/form-data" autocomplete="off">
+                <form class="form-sample row col-12 mx-auto" target="_blank" action="{{route('relatorio.equipamentos.tecnologia')}}" method="POST" enctype="multipart/form-data" autocomplete="off">
                 @csrf
-                    <div class="row col-12 px-0 mb-5">
+                    <div class="row col-12 px-0 mb-4">
                         <div class="col-12 mb-2">
                             <label class="col-form-label pb-0">Selecione os dados <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-lg-3 col-sm-6 col-12">
                             <div class="checkbox checkbox-success">
-                                <input id="checkbox1" type="checkbox">
-                                <label for="checkbox1"> Equipamento </label>
+                                <input id="checkbox101" type="checkbox" name="antivirus" value="antivirus">
+                                <label for="checkbox101"> Antivírus </label>
                             </div>
                             <div class="checkbox checkbox-success">
-                                <input id="checkbox2" type="checkbox">
-                                <label for="checkbox2"> Marca </label>
+                                <input id="checkbox102" type="checkbox" name="descricao" value="descricao">
+                                <label for="checkbox102"> Descrição </label>
                             </div>
                             <div class="checkbox checkbox-success">
-                                <input id="checkbox3" type="checkbox">
-                                <label for="checkbox3"> Modelo </label>
+                                <input id="checkbox103" type="checkbox" name="id_equipamento" value="id_equipamento">
+                                <label for="checkbox103"> Equipamento </label>
                             </div>
                             <div class="checkbox checkbox-success">
-                                <input id="checkbox4" type="checkbox">
-                                <label for="checkbox4"> Sistema Operacional </label>
+                                <input id="checkbox104" type="checkbox" name="id_imagem" value="id_imagem">
+                                <label for="checkbox104"> Imagem principal </label>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 col-12">
+                             <div class="checkbox checkbox-success">
+                                <input id="checkbox105" type="checkbox" name="id_marca" value="id_marca">
+                                <label for="checkbox105"> Marca </label>
+                            </div>
+                            <div class="checkbox checkbox-success">
+                                <input id="checkbox106" type="checkbox" name="modelo" value="modelo">
+                                <label for="checkbox106"> Modelo </label>
+                            </div>
+                            <div class="checkbox checkbox-success">
+                                <input id="checkbox107" type="checkbox" name="serialNumber" value="serialNumber">
+                                <label for="checkbox107"> Nº série </label>
+                            </div>
+                            <div class="checkbox checkbox-success">
+                                <input id="checkbox108" type="checkbox" name="n_patrimonio" value="n_patrimonio" >
+                                <label for="checkbox108"> Nº patrimônio </label>
                             </div>
                         </div>
                         <div class="col-lg-3 col-sm-6 col-12">
                             <div class="checkbox checkbox-success">
-                                <input id="checkbox5" type="checkbox">
-                                <label for="checkbox5"> Tipo de licença </label>
+                                <input id="checkbox109" type="checkbox" name="id_unidade" value="id_unidade">
+                                <label for="checkbox109"> PA </label>
                             </div>
                             <div class="checkbox checkbox-success">
-                                <input id="checkbox6" type="checkbox">
-                                <label for="checkbox6"> Antivírus </label>
+                                <input id="checkbox110" type="checkbox" name="serviceTag" value="serviceTag">
+                                <label for="checkbox110"> Service TAG </label>
                             </div>
                             <div class="checkbox checkbox-success">
-                                <input id="checkbox7" type="checkbox">
-                                <label for="checkbox7"> Nº série </label>
+                                <input id="checkbox111" type="checkbox" name="id_setor" value="id_setor">
+                                <label for="checkbox111"> Setor </label>
                             </div>
-                            <div class="checkbox checkbox-success">
-                                <input id="checkbox8" type="checkbox">
-                                <label for="checkbox8"> Nº patrimônio </label>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-sm-6 col-12">
-                            <div class="checkbox checkbox-success">
-                                <input id="checkbox9" type="checkbox">
-                                <label for="checkbox9"> Service TAG </label>
-                            </div>
-                            <div class="checkbox checkbox-success">
-                                <input id="checkbox10" type="checkbox">
-                                <label for="checkbox10"> Setor </label>
-                            </div>
-                            <div class="checkbox checkbox-success">
-                                <input id="checkbox12" type="checkbox">
-                                <label for="checkbox12"> PA </label>
-                            </div>
-                            <div class="checkbox checkbox-success">
-                                <input id="checkbox13" type="checkbox">
-                                <label for="checkbox13"> Usuário responsável </label>
+                             <div class="checkbox checkbox-success">
+                                <input id="checkbox112" type="checkbox" name="sistema_operacional" value="sistema_operacional">
+                                <label for="checkbox112"> Sistema Operacional </label>
                             </div>
                         </div>
                         <div class="col-lg-3 col-sm-6 col-12">
                             <div class="checkbox checkbox-success">
-                                <input id="checkbox14" type="checkbox">
-                                <label for="checkbox14"> Descrição </label>
+                                <input id="checkbox113" type="checkbox" name="tipo_licenca" value="tipo_licenca">
+                                <label for="checkbox113"> Tipo de licença </label>
+                            </div>
+                            <div class="checkbox checkbox-success">
+                                <input id="checkbox114" type="checkbox" name="id_usuario" value="id_usuario">
+                                <label for="checkbox114"> Usuário responsável </label>
+                            </div>                            
+                            <div class="checkbox checkbox-success">
+                                <input id="checkbox115" type="checkbox" name="id_imagem_outras" value="id_imagem_outras">
+                                <label for="checkbox115"> Outras imagens </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row col-12 px-0 mb-5">
+                        <div class="col-12 mb-2">
+                            <label class="col-form-label pb-0">Aplicar filtros</label>
+                        </div>
+                        <div class="col-lg-4 col-12">
+                            <div class="form-group">
+                                <label class="pb-0">Selecione o PA</label>
+                                <select class="form-control form-control-line" name="unidade">
+                                    <option value="">Selecione</option>
+                                    @foreach($unidades as $unidade)
+                                    <option value="{{$unidade->id}}">{{$unidade->nome}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>
                     <div class="row col-12 justify-content-center">
-                        <button type="submit" class="btn btn-success btn-outline col-lg-3 mx-2">
-                            <i class="mdi mdi-file-excel pr-2"></i> 
-                            <span>Gerar Excel</span>
-                        </button>
-                        <button type="submit" class="btn btn-success btn-outline col-lg-3 mx-2">
+                        <button type="submit" class="btn btn-success btn-outline col-lg-3 mx-2" name="type" value="pdf">
                             <i class="mdi mdi-file-pdf pr-2"></i> 
                             <span>Gerar PDF</span>
                         </button>
