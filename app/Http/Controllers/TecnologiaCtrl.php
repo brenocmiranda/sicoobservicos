@@ -1509,11 +1509,11 @@ class TecnologiaCtrl extends Controller
 
             // Aplicação dos filtros enviados
             $chamados = Chamados::query();
-            $chamados = $chamados->get();
+            $chamados = $chamados->limit(10)->get();
 
             // Selecionando o tipo de exportação
-            $pdf = PDF::loadView('tecnologia.relatorios.equipamentos', compact('chamados', 'dados'))->setPaper('a4', 'portrait');
-            return $pdf->download('relatorio.pdf');
+            $pdf = PDF::loadView('tecnologia.relatorios.chamados', compact('chamados', 'dados'))->setPaper('a4', 'portrait');
+            return $pdf->stream('relatorio.pdf');
 
             Atividades::create([
               'nome' => 'Geração do relatório dos chamados',

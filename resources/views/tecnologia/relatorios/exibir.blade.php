@@ -97,35 +97,35 @@ Relatórios
                         </div>
                         <div class="col-lg-3 col-sm-6 col-12">
                             <div class="checkbox checkbox-success">
-                                <input id="checkbox1" type="checkbox">
+                                <input id="checkbox1" type="checkbox" name="ambiente" value="ambiente">
                                 <label for="checkbox1"> Ambiente </label>
                             </div>
                             <div class="checkbox checkbox-success">
-                                <input id="checkbox4" type="checkbox">
+                                <input id="checkbox4" type="checkbox" name="assunto" value="assunto">
                                 <label for="checkbox4"> Assunto </label>
                             </div>
                             <div class="checkbox checkbox-success">
-                                <input id="checkbox5" type="checkbox">
+                                <input id="checkbox5" type="checkbox" name="descricao" value="descricao">
                                 <label for="checkbox5"> Descrição </label>
                             </div>                        
                         </div>
                         <div class="col-lg-3 col-sm-6 col-12">
                             <div class="checkbox checkbox-success">
-                                <input id="checkbox2" type="checkbox">
+                                <input id="checkbox2" type="checkbox" name="fontes" value="fontes">
                                 <label for="checkbox2"> Fontes </label>
                             </div>
                             <div class="checkbox checkbox-success">
-                                <input id="checkbox3" type="checkbox">
+                                <input id="checkbox3" type="checkbox" name="teamViewer" value="teamViewer">
                                 <label for="checkbox3"> ID TeamViewer </label>
                             </div>
                             <div class="checkbox checkbox-success">
-                                <input id="checkbox6" type="checkbox">
+                                <input id="checkbox6" type="checkbox" name="status" value="status">
                                 <label for="checkbox6"> Último status </label>
                             </div>
                         </div>
                         <div class="col-lg-3 col-sm-6 col-12">
                             <div class="checkbox checkbox-success">
-                                <input id="checkbox7" type="checkbox">
+                                <input id="checkbox7" type="checkbox" name="usuarios" value="usuarios">
                                 <label for="checkbox7"> Usuário </label>
                             </div>
                         </div>
