@@ -1442,6 +1442,27 @@ class TecnologiaCtrl extends Controller
     	      return redirect(route('403'));
     	    }
     	}
+         // Relatório dos atalhos
+        public function RelatoriosAtalhos(Request $request){
+            // Dados selecionados
+            $dados = $request->except('_token', 'type');
+
+            // Aplicação dos filtros enviados
+            $atalhos = Homepage::query();
+            $atalhos = $atalhos->get();
+
+            // Selecionando o tipo de exportação
+            $pdf = PDF::loadView('tecnologia.relatorios.atalhos', compact('atalhos', 'dados'))->setPaper('a4', 'portrait');
+            return $pdf->stream('relatorio.pdf');
+
+            Atividades::create([
+              'nome' => 'Geração do relatório dos atalhos',
+              'descricao' => 'Você gerou o relatório de todos os atalhos da homepage.',
+              'icone' => 'mdi-file-document',
+              'url' => 'javascript:',
+              'id_usuario' => Auth::id()
+            ]);  
+        }
     	// Relatório do Termo de Uso
     	public function RelatoriosTermoUso(Request $request){
     		$equipamentos = AtivosUsuarios::join('gti_ativos', 'gti_id_ativos', 'gti_ativos.id')->join('gti_ativos_has_marcas', 'id_marca', 'gti_ativos_has_marcas.id')->join('gti_ativos_has_equipamentos', 'id_equipamento', 'gti_ativos_has_equipamentos.id')->whereNull('dataDevolucao')->where('usr_id_usuarios', $request->usuario)->select('gti_ativos.modelo', 'gti_ativos.n_patrimonio', 'gti_ativos.serialNumber', 'gti_ativos_has_equipamentos.nome as equipamento', 'gti_ativos_has_marcas.nome as marca', 'gti_ativos_has_usuarios.*')->get();
@@ -1459,7 +1480,6 @@ class TecnologiaCtrl extends Controller
     	}
         // Relatório do equipamento
         public function RelatoriosEquipamentos(Request $request){
-
             // Dados selecionados
             $dados = $request->except('_token', 'type');
 
@@ -1472,15 +1492,35 @@ class TecnologiaCtrl extends Controller
 
             // Selecionando o tipo de exportação
             $pdf = PDF::loadView('tecnologia.relatorios.equipamentos', compact('equipamentos', 'dados'))->setPaper('a4', 'portrait');
-            return $pdf->stream('relatorio.pdf');
+            return $pdf->download('relatorio.pdf');
 
-            /*Atividades::create([
-                  'nome' => 'Geração de relatório dos equipamentos',
-                  'descricao' => 'Você gerou o relatório de todos os equipamentos.',
-                  'icone' => 'mdi-file-document',
-                  'url' => 'javascript:',
-                  'id_usuario' => Auth::id()
-                ]);
-            */
+            Atividades::create([
+              'nome' => 'Geração do relatório dos equipamentos',
+              'descricao' => 'Você gerou o relatório de todos os equipamentos.',
+              'icone' => 'mdi-file-document',
+              'url' => 'javascript:',
+              'id_usuario' => Auth::id()
+            ]);  
+        }
+        // Relatório dos chamados
+        public function RelatoriosChamados(Request $request){
+            // Dados selecionados
+            $dados = $request->except('_token', 'type');
+
+            // Aplicação dos filtros enviados
+            $chamados = Chamados::query();
+            $chamados = $chamados->get();
+
+            // Selecionando o tipo de exportação
+            $pdf = PDF::loadView('tecnologia.relatorios.equipamentos', compact('chamados', 'dados'))->setPaper('a4', 'portrait');
+            return $pdf->download('relatorio.pdf');
+
+            Atividades::create([
+              'nome' => 'Geração do relatório dos chamados',
+              'descricao' => 'Você gerou o relatório de todos os chamados.',
+              'icone' => 'mdi-file-document',
+              'url' => 'javascript:',
+              'id_usuario' => Auth::id()
+            ]);  
         }
 }

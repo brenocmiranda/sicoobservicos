@@ -474,8 +474,10 @@ Route::group(['prefix' => 'app'], function(){
 		// Relatórios
 		Route::group(['prefix' => 'relatorios'], function(){
 			Route::get('', 'TecnologiaCtrl@Relatorios')->name('exibir.relatorios.tecnologia');
-			Route::any('termoUso', 'TecnologiaCtrl@RelatoriosTermoUso')->name('relatorio.termoUso.tecnologia');
+			Route::any('atalhos', 'TecnologiaCtrl@RelatoriosAtalhos')->name('relatorio.atalhos.tecnologia');
+			Route::any('chamados', 'TecnologiaCtrl@RelatoriosChamados')->name('relatorio.chamados.tecnologia');
 			Route::any('equipamentos', 'TecnologiaCtrl@RelatoriosEquipamentos')->name('relatorio.equipamentos.tecnologia');
+			Route::any('termoUso', 'TecnologiaCtrl@RelatoriosTermoUso')->name('relatorio.termoUso.tecnologia');
 		});
 	});
 

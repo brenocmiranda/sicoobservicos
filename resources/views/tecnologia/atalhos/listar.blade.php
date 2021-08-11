@@ -47,7 +47,7 @@ Atalhos
 									</a>
 								</h5>
 								<label class="text-truncate text-uppercase d-block">	
-									<span>{{(isset($atalho->subtitulo) ? $atalho->subtitulo : '_')}}</span>
+									<span>{{(!empty($atalho->subtitulo) ? $atalho->subtitulo : '_')}}</span>
 								</label>
 								@if(Auth::user()->RelationFuncao->gerenciar_gti == 1)
 								<div class="my-3">
