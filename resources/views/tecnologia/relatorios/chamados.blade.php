@@ -73,76 +73,76 @@
 								<tr>
 									<td>
 										<table width="100%" align="center">
+											@if(isset($dados['ambiente']))
 											<tr>
 												<td>
-													@if(isset($dados['ambiente']))
 													<div>
 														<label style="font-weight: 700;">Ambiente:</label>
 														<label>{{$chamado->RelationAmbientes->nome}}</label>
 													</div>
-													@endif
 												</td>
 											</tr>
+											@endif
+											@if(isset($dados['fontes']))
 											<tr>
 												<td>
-													@if(isset($dados['fontes']))
 													<div>
 														<label style="font-weight: 700;">Fontes:</label>
 														<label>{{$chamado->RelationFontes->nome}}</label>
 													</div>
-													@endif
 												</td>
 											</tr>
+											@endif
+											@if(isset($dados['assunto']))
 											<tr>
 												<td>
-													@if(isset($dados['assunto']))
 													<div>
 														<label style="font-weight: 700;">Assunto:</label>
 														<label>{{$chamado->assunto}}</label>
-													</div>
-													@endif
+													</div>	
 												</td>
 											</tr>
+											@endif
+											@if(isset($dados['descricao']))
 											<tr>
 												<td>
-													@if(isset($dados['descricao']))
 													<div>
 														<label style="font-weight: 700;">Descrição:</label>
 														<label style="word-wrap: break-word;">{{(!empty($chamado->descricao) ? $chamado->descricao : '-')}}</label>
 													</div>
-													@endif
 												</td>
 											</tr>
+											@endif
+											@if(isset($dados['teamViewer']))
 											<tr>
 												<td>
-													@if(isset($dados['teamViewer']))
 													<div>
 														<label style="font-weight: 700;">ID TeamViewer:</label>
 														<label style="word-wrap: break-word;">{{$chamado->teamViewer}}</label>
 													</div>
-													@endif
 												</td>
 											</tr>
+											@endif
+											@if(isset($dados['status']))
 											<tr>
 												<td>
-													@if(isset($dados['status']))
 													<div>
 														<label style="font-weight: 700;">Último status:</label>
 														<label style="word-wrap: break-word;">{{$chamado->RelationStatus->first()->nome}}</label>
 													</div>
-													@endif
 												</td>
 											</tr>
+											@endif
+											@if(isset($dados['usuarios']))
 											<tr>
 												<td>
-													@if(isset($dados['usuarios']))
 													<div>
 														<label style="font-weight: 700;">Usuário:</label>
 														<label style="word-wrap: break-word;">{{$chamado->RelationUsuario->RelationAssociado->nome}}</label>
 													</div>
-													@endif
 												</td>
 											</tr>
+											@endif
 										</table>
 									</td>
 								</tr>

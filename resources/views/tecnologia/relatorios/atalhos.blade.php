@@ -74,53 +74,50 @@
 									<td>
 										<table width="100%" align="center">
 											<tr>
+												@if(isset($dados['icone']))
 												<td width="12%">
 													<table width="100%" align="center">
 														<tr>
 															<td>
-																@if(isset($dados['icone']))
-																<div>
-																	<div>
-																		<img src="{{'data:image/'.pathinfo(storage_path('app/'.$atalho->RelationImagem->endereco), PATHINFO_EXTENSION).'png;base64,' . base64_encode(file_get_contents(storage_path('app/'.$atalho->RelationImagem->endereco))) }}" alt="" width="60" height="60" style="border-radius: 5px;">
-																	</div>
-																</div>
-																@endif
+																<img src="{{'data:image/'.pathinfo(storage_path('app/'.$atalho->RelationImagem->endereco), PATHINFO_EXTENSION).'png;base64,' . base64_encode(file_get_contents(storage_path('app/'.$atalho->RelationImagem->endereco))) }}" alt="" width="60" height="60" style="border-radius: 5px;">
 															</td>
 														</tr>
 													</table>
 												</td>
+												@endif
 												<td width="85%">
 													<table width="100%" align="center">
+														@if(isset($dados['titulo']))
 														<tr>
 															<td>
-																@if(isset($dados['titulo']))
 																<div>
 																	<label style="font-weight: 700;">Título:</label>
 																	<label>{{$atalho->titulo}}</label>
 																</div>
-																@endif
 															</td>
 														</tr>
+														@endif
+														@if(isset($dados['subtitulo']))
 														<tr>
 															<td>
-																@if(isset($dados['subtitulo']))
 																<div>
 																	<label style="font-weight: 700;">Subtítulo:</label>
 																	<label>{{(!empty($atalho->subtitulo) ? $atalho->subtitulo : '-')}}</label>
 																</div>
-																@endif
 															</td>
 														</tr>
+														@endif
+														@if(isset($dados['endereco']))
 														<tr>
 															<td>
-																@if(isset($dados['endereco']))
+																
 																<div>
 																	<label style="font-weight: 700;">Endereço:</label>
 																	<label style="word-wrap: break-word;">{{$atalho->endereco}}</label>
 																</div>
-																@endif
 															</td>
 														</tr>
+														@endif
 													</table>
 												</td>
 											</tr>

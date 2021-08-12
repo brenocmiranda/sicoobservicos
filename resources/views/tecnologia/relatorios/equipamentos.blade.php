@@ -74,153 +74,150 @@
 									<td>
 										<table width="100%" align="center">
 											<tr>
+												@if(isset($dados['id_imagem']))
 												<td style="padding-right: 20px;" width="35%">
 													<table width="100%" align="center">
 														<tr>
 															<td>
-																@if(isset($dados['id_imagem']))
-																<div>
-																	<div>
-																		<img src="{{storage_path('app/'.$equipamento->RelationImagemPrincipal->endereco)}}" alt="" width="270" height="260" style="border-radius: 5px;">
-																	</div>
-																</div>
-																@endif
+																<img src="{{storage_path('app/'.$equipamento->RelationImagemPrincipal->endereco)}}" alt="" width="270" height="260" style="border-radius: 5px;">
 															</td>
 														</tr>
 													</table>
 												</td>
-												<td width="65%">
+												@endif
+												<td valign="top" width="65%">
 													<table width="100%" align="center">
+														@if(isset($dados['id_equipamento']))
 														<tr>
 															<td>
-																@if(isset($dados['id_equipamento']))
 																<div>
 																	<label style="font-weight: 700;">Equipamento:</label>
 																	<label>{{$equipamento->RelationEquipamento->nome}}</label>
 																</div>
-																@endif
 															</td>
 														</tr>
+														@endif
+														@if(isset($dados['id_marca']))
 														<tr>
 															<td>
-																@if(isset($dados['id_marca']))
+																
 																<div>
 																	<label style="font-weight: 700;">Marca:</label>
 																	<label>{{$equipamento->RelationMarca->nome}}</label>
 																</div>
-																@endif
 															</td>
 														</tr>
+														@endif
+														@if(isset($dados['modelo']))
 														<tr>
 															<td>
-																@if(isset($dados['modelo']))
 																<div>
 																	<label style="font-weight: 700;">Modelo:</label>
 																	<label>{{$equipamento->modelo}}</label>
 																</div>
-																@endif
 															</td>
 														</tr>
+														@endif
+														@if(isset($dados['serialNumber']))
 														<tr>
 															<td>
-																@if(isset($dados['serialNumber']))
 																<div>
 																	<label style="font-weight: 700;">Nº de série:</label>
 																	<label>{{$equipamento->serialNumber}}</label>
 																</div>
-																@endif
 															</td>
 														</tr>
+														@endif
+														@if(isset($dados['n_patrimonio']))
 														<tr>
 															<td>
-																@if(isset($dados['n_patrimonio']))
 																<div>
 																	<label style="font-weight: 700;">Nº de patrimônio:</label>
 																	<label>{{$equipamento->n_patrimonio}}</label>
 																</div>
-																@endif
 															</td>
 														</tr>
+														@endif
+														@if(isset($dados['serviceTag']))
 														<tr>
 															<td>
-																@if(isset($dados['serviceTag']))
 																<div>
 																	<label style="font-weight: 700;">Service TAG:</label>
 																	<label>{{(!empty($equipamento->serviceTag) ? $equipamento->serviceTag : '-')}}</label>
 																</div>
-																@endif
 															</td>
 														</tr>
+														@endif
+														@if(isset($dados['sistema_operacional']))
 														<tr>
 															<td>
-																@if(isset($dados['sistema_operacional']))
 																<div>
 																	<label style="font-weight: 700;">Sistema Operacional:</label>
 																	<label>{{(!empty($equipamento->sistema_operacional) ? $equipamento->sistema_operacional : '-')}}</label>
 																</div>
-																@endif
 															</td>
 														</tr>
+														@endif
+														@if(isset($dados['tipo_licenca']))
 														<tr>
 															<td>
-																@if(isset($dados['tipo_licenca']))
 																<div>
 																	<label style="font-weight: 700;">Tipo de licença:</label>
 																	<label>{{(!empty($equipamento->tipo_licenca) ? $equipamento->tipo_licenca : '-')}}</label>
 																</div>
-																@endif
 															</td>
 														</tr>
+														@endif
+														@if(isset($dados['antivirus']))
 														<tr>
 															<td>
-																@if(isset($dados['antivirus']))
 																<div>
 																	<label style="font-weight: 700;">Antivírus:</label>
 																	<label>{{(!empty($equipamento->antivirus) ? $equipamento->antivirus : '-')}}</label>
 																</div>
-																@endif
 															</td>
 														</tr>
+														@endif
+														@if(isset($dados['id_unidade']))
 														<tr>
 															<td>
-																@if(isset($dados['id_unidade']))
 																<div>
 																	<label style="font-weight: 700;">Unidade:</label>
 																	<label>{{$equipamento->RelationUnidade->nome}}</label>
 																</div>
-																@endif
 															</td>
 														</tr>
+														@endif
+														@if(isset($dados['id_setor']))
 														<tr>
 															<td>
-																@if(isset($dados['id_setor']))
 																<div>
 																	<label style="font-weight: 700;">Setor:</label>
 																	<label>{{$equipamento->RelationSetor->nome}}</label>
-																</div>
-																@endif
+																</div>=
 															</td>
 														</tr>
+														@endif
+														@if(isset($dados['id_usuario']))
 														<tr>
 															<td>
-																@if(isset($dados['id_usuario']))
 																<div>
 																	<label style="font-weight: 700;">Usuário responsável:</label>
-																	<label>{{$equipamento->RelationUsuario->first->pivot->RelationAssociado->nome}}</label>
+																	<label>{{$equipamento->RelationUsuario->last()->RelationAssociado->nome}}</label>
 																</div>
-																@endif
 															</td>
 														</tr>
+														@endif
+														@if(isset($dados['descricao']))
 														<tr>
 															<td>
-																@if(isset($dados['descricao']))
 																<div>
 																	<label style="font-weight: 700;">Descrição:</label>
 																	<label>{{$equipamento->descricao}}</label>
 																</div>
-																@endif
 															</td>
 														</tr>
+														@endif
 													</table>
 												</td>
 											</tr>

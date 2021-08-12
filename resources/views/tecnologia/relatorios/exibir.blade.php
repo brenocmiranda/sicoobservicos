@@ -97,36 +97,36 @@ Relatórios
                         </div>
                         <div class="col-lg-3 col-sm-6 col-12">
                             <div class="checkbox checkbox-success">
-                                <input id="checkbox1" type="checkbox" name="ambiente" value="ambiente">
-                                <label for="checkbox1"> Ambiente </label>
+                                <input id="checkbox100" type="checkbox" name="ambiente" value="ambiente">
+                                <label for="checkbox100"> Ambiente </label>
                             </div>
                             <div class="checkbox checkbox-success">
-                                <input id="checkbox4" type="checkbox" name="assunto" value="assunto">
-                                <label for="checkbox4"> Assunto </label>
+                                <input id="checkbox101" type="checkbox" name="assunto" value="assunto">
+                                <label for="checkbox101"> Assunto </label>
                             </div>
                             <div class="checkbox checkbox-success">
-                                <input id="checkbox5" type="checkbox" name="descricao" value="descricao">
-                                <label for="checkbox5"> Descrição </label>
+                                <input id="checkbox102" type="checkbox" name="descricao" value="descricao">
+                                <label for="checkbox102"> Descrição </label>
                             </div>                        
                         </div>
                         <div class="col-lg-3 col-sm-6 col-12">
                             <div class="checkbox checkbox-success">
-                                <input id="checkbox2" type="checkbox" name="fontes" value="fontes">
-                                <label for="checkbox2"> Fontes </label>
+                                <input id="checkbox103" type="checkbox" name="fontes" value="fontes">
+                                <label for="checkbox103"> Fontes </label>
                             </div>
                             <div class="checkbox checkbox-success">
-                                <input id="checkbox3" type="checkbox" name="teamViewer" value="teamViewer">
-                                <label for="checkbox3"> ID TeamViewer </label>
+                                <input id="checkbox104" type="checkbox" name="teamViewer" value="teamViewer">
+                                <label for="checkbox104"> ID TeamViewer </label>
                             </div>
                             <div class="checkbox checkbox-success">
-                                <input id="checkbox6" type="checkbox" name="status" value="status">
-                                <label for="checkbox6"> Último status </label>
+                                <input id="checkbox105" type="checkbox" name="status" value="status">
+                                <label for="checkbox105"> Último status </label>
                             </div>
                         </div>
                         <div class="col-lg-3 col-sm-6 col-12">
                             <div class="checkbox checkbox-success">
-                                <input id="checkbox7" type="checkbox" name="usuarios" value="usuarios">
-                                <label for="checkbox7"> Usuário </label>
+                                <input id="checkbox106" type="checkbox" name="usuarios" value="usuarios">
+                                <label for="checkbox106"> Usuário </label>
                             </div>
                         </div>
                     </div>
@@ -147,72 +147,72 @@ Relatórios
                         </div>
                         <div class="col-lg-3 col-sm-6 col-12">
                             <div class="checkbox checkbox-success">
-                                <input id="checkbox101" type="checkbox" name="antivirus" value="antivirus">
-                                <label for="checkbox101"> Antivírus </label>
+                                <input id="checkbox201" type="checkbox" name="antivirus" value="antivirus">
+                                <label for="checkbox201"> Antivírus </label>
                             </div>
                             <div class="checkbox checkbox-success">
-                                <input id="checkbox102" type="checkbox" name="descricao" value="descricao">
-                                <label for="checkbox102"> Descrição </label>
+                                <input id="checkbox202" type="checkbox" name="descricao" value="descricao">
+                                <label for="checkbox202"> Descrição </label>
                             </div>
                             <div class="checkbox checkbox-success">
-                                <input id="checkbox103" type="checkbox" name="id_equipamento" value="id_equipamento">
-                                <label for="checkbox103"> Equipamento </label>
+                                <input id="checkbox203" type="checkbox" name="id_equipamento" value="id_equipamento">
+                                <label for="checkbox203"> Equipamento </label>
                             </div>
                         </div>
                         <div class="col-lg-3 col-sm-6 col-12">
                             <div class="checkbox checkbox-success">
-                                <input id="checkbox104" type="checkbox" name="id_imagem" value="id_imagem">
-                                <label for="checkbox104"> Imagem principal </label>
+                                <input id="checkbox204" type="checkbox" name="id_imagem" value="id_imagem">
+                                <label for="checkbox204"> Imagem principal </label>
                             </div>
                              <div class="checkbox checkbox-success">
-                                <input id="checkbox105" type="checkbox" name="id_marca" value="id_marca">
-                                <label for="checkbox105"> Marca </label>
+                                <input id="checkbox205" type="checkbox" name="id_marca" value="id_marca">
+                                <label for="checkbox205"> Marca </label>
                             </div>
                             <div class="checkbox checkbox-success">
-                                <input id="checkbox106" type="checkbox" name="modelo" value="modelo">
-                                <label for="checkbox106"> Modelo </label>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-sm-6 col-12">
-                            <div class="checkbox checkbox-success">
-                                <input id="checkbox107" type="checkbox" name="serialNumber" value="serialNumber">
-                                <label for="checkbox107"> Nº série </label>
-                            </div>
-                            <div class="checkbox checkbox-success">
-                                <input id="checkbox108" type="checkbox" name="n_patrimonio" value="n_patrimonio" >
-                                <label for="checkbox108"> Nº patrimônio </label>
-                            </div>
-                            <div class="checkbox checkbox-success">
-                                <input id="checkbox109" type="checkbox" name="id_unidade" value="id_unidade">
-                                <label for="checkbox109"> PA </label>
+                                <input id="checkbox206" type="checkbox" name="modelo" value="modelo">
+                                <label for="checkbox206"> Modelo </label>
                             </div>
                         </div>
                         <div class="col-lg-3 col-sm-6 col-12">
                             <div class="checkbox checkbox-success">
-                                <input id="checkbox110" type="checkbox" name="serviceTag" value="serviceTag">
-                                <label for="checkbox110"> Service TAG </label>
+                                <input id="checkbox207" type="checkbox" name="serialNumber" value="serialNumber">
+                                <label for="checkbox207"> Nº série </label>
                             </div>
                             <div class="checkbox checkbox-success">
-                                <input id="checkbox111" type="checkbox" name="id_setor" value="id_setor">
-                                <label for="checkbox111"> Setor </label>
+                                <input id="checkbox208" type="checkbox" name="n_patrimonio" value="n_patrimonio" >
+                                <label for="checkbox208"> Nº patrimônio </label>
+                            </div>
+                            <div class="checkbox checkbox-success">
+                                <input id="checkbox209" type="checkbox" name="id_unidade" value="id_unidade">
+                                <label for="checkbox209"> PA </label>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="checkbox checkbox-success">
+                                <input id="checkbox210" type="checkbox" name="serviceTag" value="serviceTag">
+                                <label for="checkbox210"> Service TAG </label>
+                            </div>
+                            <div class="checkbox checkbox-success">
+                                <input id="checkbox211" type="checkbox" name="id_setor" value="id_setor">
+                                <label for="checkbox211"> Setor </label>
                             </div>
                              <div class="checkbox checkbox-success">
-                                <input id="checkbox112" type="checkbox" name="sistema_operacional" value="sistema_operacional">
-                                <label for="checkbox112"> Sistema Operacional </label>
+                                <input id="checkbox212" type="checkbox" name="sistema_operacional" value="sistema_operacional">
+                                <label for="checkbox212"> Sistema Operacional </label>
                             </div>
                         </div>
                         <div class="col-lg-3 col-sm-6 col-12">
                             <div class="checkbox checkbox-success">
-                                <input id="checkbox113" type="checkbox" name="tipo_licenca" value="tipo_licenca">
-                                <label for="checkbox113"> Tipo de licença </label>
+                                <input id="checkbox213" type="checkbox" name="tipo_licenca" value="tipo_licenca">
+                                <label for="checkbox213"> Tipo de licença </label>
                             </div>
                             <div class="checkbox checkbox-success">
-                                <input id="checkbox114" type="checkbox" name="id_usuario" value="id_usuario">
-                                <label for="checkbox114"> Usuário responsável </label>
+                                <input id="checkbox214" type="checkbox" name="id_usuario" value="id_usuario">
+                                <label for="checkbox214"> Usuário responsável </label>
                             </div>                            
                             <div class="checkbox checkbox-success">
-                                <input id="checkbox115" type="checkbox" name="id_imagem_outras" value="id_imagem_outras">
-                                <label for="checkbox115"> Outras imagens </label>
+                                <input id="checkbox215" type="checkbox" name="id_imagem_outras" value="id_imagem_outras">
+                                <label for="checkbox215"> Outras imagens </label>
                             </div>
                         </div>
                     </div>
