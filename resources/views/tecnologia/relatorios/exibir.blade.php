@@ -136,8 +136,8 @@ Relatórios
                         </div>
                         <div class="col-lg-6 col-12">
                             <div class="form-group">
-                                <label class="pb-1">Selecione o usuário <span class="text-danger">*</span></label>
-                                <select class="form-control form-control-line" name="usr_id_usuarios" required>
+                                <label class="pb-1">Selecione o usuário</label>
+                                <select class="form-control form-control-line" name="usr_id_usuarios">
                                     <option value="">Selecione</option>
                                     @foreach($usuarios as $usuario)
                                     <option value="{{$usuario->id}}">{{$usuario->nome}}</option>
