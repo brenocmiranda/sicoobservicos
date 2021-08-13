@@ -53,6 +53,7 @@ Inventário geral
 @include('tecnologia.equipamentos.detalhes')
 @include('tecnologia.equipamentos.alterar')
 @include('tecnologia.equipamentos.historico')
+@include('tecnologia.equipamentos.filtros')
 @endsection
 
 @section('suporte')

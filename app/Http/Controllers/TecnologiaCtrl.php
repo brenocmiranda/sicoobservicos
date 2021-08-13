@@ -1124,7 +1124,8 @@ class TecnologiaCtrl extends Controller
     		if(Auth::user()->RelationFuncao->ver_gti == 1 || Auth::user()->RelationFuncao->gerenciar_gti == 1){
     			$equipamentos = Ativos::all();
                 $usuarios = Usuarios::where('status', 1)->orderBy('login', 'ASC')->get();
-    			return view('tecnologia.equipamentos.listar')->with('ativos', $equipamentos)->with('usuarios', $usuarios);
+                $unidades = Unidades::where('status', 1)->orderBy('nome', 'ASC')->get();
+    			return view('tecnologia.equipamentos.listar')->with('ativos', $equipamentos)->with('usuarios', $usuarios)->with('unidades', $unidades);
     		}else{
     			return redirect(route('403'));
     		}
@@ -1346,7 +1347,7 @@ class TecnologiaCtrl extends Controller
     			$create = Ativos::find($id);
     			Atividades::create([
     				'nome' => 'Remoção de equipamento',
-    				'descricao' => 'Você acabou de remover o equipamento de tecnologia '.$create->RelationEquipamento->nome.' '.$dados->RelationMarca->nome.'.',
+    				'descricao' => 'Você acabou de remover o equipamento de tecnologia '.$create->RelationEquipamento->nome.' '.$create->RelationMarca->nome.'.',
     				'icone' => 'mdi-delete-forever',
     				'url' => route('exibir.geral.equipamentos'),
     				'id_usuario' => Auth::id()
@@ -1509,7 +1510,10 @@ class TecnologiaCtrl extends Controller
 
             // Aplicação dos filtros enviados
             $chamados = Chamados::query();
-            $chamados = $chamados->limit(10)->get();
+            if ($request->has('usr_id_usuarios') && isset($request->usr_id_usuarios)) {
+                $chamados->where('usr_id_usuarios', $request->usr_id_usuarios);
+            }
+            $chamados = $chamados->get();
 
             // Selecionando o tipo de exportação
             $pdf = PDF::loadView('tecnologia.relatorios.chamados', compact('chamados', 'dados'))->setPaper('a4', 'portrait');

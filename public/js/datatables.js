@@ -4190,7 +4190,7 @@
 		var language = settings.oLanguage;
 		var previousSearch = settings.oPreviousSearch;
 		var features = settings.aanFeatures;
-		var btnFilter = '<button class="btn btn-lg btn-icon icon-left btn-default btn-outline waves-effect waves-light" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fa fa-filter py-1"></i> <span class="hidden-xs">Filtrar</span></button>';
+		var btnFilter = '<button class="btn btn-lg btn-icon icon-left btn-default btn-outline waves-effect waves-light" data-toggle="modal" data-target="#modal-filtros"><i class="fa fa-filter py-1"></i> <span class="hidden-xs">Filtrar</span></button>';
 		var btnAcoes = '<div class="dropdown"><button aria-expanded="false" data-toggle="dropdown" class="btn btn-default btn-outline btn-lg dropdown-toggle waves-effect waves-light" type="button"><i class="fa fa-inbox visible-xs py-1"></i> <span class="hidden-xs">Ações</span> <span class="caret hidden-xs"></span> </button> <ul role="menu" class="dropdown-menu"> <li><a href="#">Exportar para planilha</a></li> <li><a href="#">Exportar PDF</a></li> </ul> </div>'; 
 		var input = btnFilter+'<div class="col-6 col-sm-8 col-lg-8 px-2"><input type="search" class="h-100 form-control rounded'+classes.sFilterInput+'"/></div>'+btnAcoes;
 	

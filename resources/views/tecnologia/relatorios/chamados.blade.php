@@ -118,7 +118,7 @@
 												<td>
 													<div>
 														<label style="font-weight: 700;">ID TeamViewer:</label>
-														<label style="word-wrap: break-word;">{{$chamado->teamViewer}}</label>
+														<label style="word-wrap: break-word;">{{(!empty($chamado->teamViewer) ? $chamado->teamViewer : ' - ')}}</label>
 													</div>
 												</td>
 											</tr>
@@ -137,7 +137,7 @@
 											<tr>
 												<td>
 													<div>
-														<label style="font-weight: 700;">Usuário:</label>
+														<label style="font-weight: 700;">Usuário solicitante:</label>
 														<label style="word-wrap: break-word;">{{$chamado->RelationUsuario->RelationAssociado->nome}}</label>
 													</div>
 												</td>

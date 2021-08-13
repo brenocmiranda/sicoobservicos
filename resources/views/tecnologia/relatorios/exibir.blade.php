@@ -30,8 +30,8 @@ Relatórios
     <div class="card">
         <div class="card-body">
             <div class="col-lg-12 col-12">
-              <div class="form-group">
-                <label class="col-form-label pb-1">Tipos de relatórios <span class="text-danger">*</span></label>
+              <div class="form-group mb-0">
+                <h6 class="col-form-label pb-1">Tipos de relatórios <span class="text-danger">*</span></h6>
                 <div class="row mx-auto align-items-baseline">
                     <div class="radio radio-success mr-3">
                         <input type="radio" name="dados" id="radio1" value="option1">
@@ -57,7 +57,7 @@ Relatórios
                 @csrf
                     <div class="row col-12 px-0">
                         <div class="col-12">
-                            <label class="col-form-label pb-1">Selecione os dados <span class="text-danger">*</span></label>
+                            <h6 class="col-form-label pb-1">Selecione os dados <span class="text-danger">*</span></h6>
                         </div>
                         <div class="col-lg-3 col-sm-6 col-12">
                             <div class="checkbox checkbox-success">
@@ -91,9 +91,9 @@ Relatórios
             <div class="form" id="option2" style="display:none;">
                 <form class="form-sample row col-12 mx-auto" target="_blank" action="{{route('relatorio.chamados.tecnologia')}}" method="POST" enctype="multipart/form-data" autocomplete="off">
                 @csrf
-                    <div class="row col-12 px-0 mb-5">
+                    <div class="row col-12 px-0">
                         <div class="col-12">
-                            <label class="col-form-label pb-1">Selecione os dados <span class="text-danger">*</span></label>
+                            <h6 class="col-form-label pb-1">Selecione os dados <span class="text-danger">*</span></h6>
                         </div>
                         <div class="col-lg-3 col-sm-6 col-12">
                             <div class="checkbox checkbox-success">
@@ -130,6 +130,22 @@ Relatórios
                             </div>
                         </div>
                     </div>
+                    <div class="row col-12 px-0 mb-5">
+                        <div class="col-12 mb-2">
+                            <h6 class="col-form-label pb-0">Filtros</h6>
+                        </div>
+                        <div class="col-lg-6 col-12">
+                            <div class="form-group">
+                                <label class="pb-1">Selecione o usuário <span class="text-danger">*</span></label>
+                                <select class="form-control form-control-line" name="usr_id_usuarios" required>
+                                    <option value="">Selecione</option>
+                                    @foreach($usuarios as $usuario)
+                                    <option value="{{$usuario->id}}">{{$usuario->nome}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row col-12 justify-content-center">
                         <button type="submit" class="btn btn-success btn-outline col-lg-3 mx-2">
                             <i class="mdi mdi-file-pdf pr-2"></i> 
@@ -143,7 +159,7 @@ Relatórios
                 @csrf
                     <div class="row col-12 px-0 mb-4">
                         <div class="col-12">
-                            <label class="col-form-label pb-1">Selecione os dados <span class="text-danger">*</span></label>
+                            <h6 class="col-form-label pb-1">Selecione os dados <span class="text-danger">*</span></h6>
                         </div>
                         <div class="col-lg-3 col-sm-6 col-12">
                             <div class="checkbox checkbox-success">
@@ -218,7 +234,7 @@ Relatórios
                     </div>
                     <div class="row col-12 px-0 mb-5">
                         <div class="col-12 mb-2">
-                            <label class="col-form-label pb-0">Filtros</label>
+                            <h6 class="col-form-label pb-0">Filtros</h6>
                         </div>
                         <div class="col-lg-4 col-12">
                             <div class="form-group">
