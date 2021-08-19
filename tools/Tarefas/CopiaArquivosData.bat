@@ -1,0 +1,1 @@
+cd Z:\bin\mysql\mysql5.7.31\data\ && xcopy /E Z:\bin\mysql\mysql5.7.31\data\*.* C:\Wamp64\bin\mysql\mysql5.7.31\data /y

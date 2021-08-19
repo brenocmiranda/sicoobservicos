@@ -1,0 +1,1 @@
+xcopy /E Z:\www\*.* C:\Wamp64\www /y
