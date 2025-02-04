@@ -48,6 +48,7 @@ class CreateCliAssociados extends Migration
                 'id_sisbr' => '99999',
                 'nome' => 'Administrador Master',
                 'nome_fantasia' => 'NÃO SE APLICA',
+                'representante' => 'NÃO SE APLICA',
                 'documento' => '12345678912',
                 'tipo_renda' => 'SALARIO',
                 'renda' => '0',
@@ -65,6 +66,8 @@ class CreateCliAssociados extends Migration
                 'numero_identidade' => 'OUTROS',
                 'politicamente_exposta' => 'OUTROS',
                 'profissao' => 'OUTROS',
+                'naturalidade' => 'OUTROS',
+                'perfil_tarifario' => 'OUTROS',
                 ])
         );
     }

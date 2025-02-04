@@ -17,7 +17,7 @@ class CreateUsrUnidades extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('nome');
-            $table->string('cnpj');
+            $table->string('cnpj')->nullable();
             $table->string('referencia');
             $table->boolean('status'); // 1 - Ativado | 0 - Desativado
             $table->string('telefone')->nullable();
