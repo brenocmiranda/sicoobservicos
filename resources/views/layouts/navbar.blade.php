@@ -79,7 +79,6 @@
             <li class="dropdown">
                 <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> 
                     <img src="{{(isset(Auth::user()->RelationImagem) ? asset('storage/app/'.Auth::user()->RelationImagem->endereco) : asset('public/img/user.png'))}}" alt="Imagem usuário" width="36" height="36" class="img-circle">
-                    <b class="hidden-xs">{{explode(" ", ucfirst(strtolower(Auth::user()->RelationAssociado->nome)))[0]}}</b>
                     <span class="caret"></span> 
                 </a>
                 <ul class="dropdown-menu dropdown-user animated flipInY">
