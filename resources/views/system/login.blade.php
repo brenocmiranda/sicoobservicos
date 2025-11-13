@@ -6,7 +6,7 @@ Login
 <div class="container-fluid p-0">
   <div class="row vh-100">
 
-    <div class="col-8 d-none d-lg-block" style="background: url('{{(isset($login[0]) ? asset('storage/app/').'/'.$login->last()->endereco : asset('public/img/logo.png').'?'.rand())}}'); background-size: contain; height: inherit; background-position: center; background-repeat: no-repeat; background-color: #00a194;/*filter: brightness(0.6);*/">
+    <div class="col-8 d-none d-lg-block" style="background: url('{{(isset($login[0]) ? asset('storage/app/').'/'.$login->last()->endereco : asset('public/img/logo.png').'?'.rand())}}'); background-size: cover; height: inherit; background-position: center; background-repeat: no-repeat; background-color: #00a194;/*filter: brightness(0.6);*/">
     </div>
 
     <div class="content-wrapper col-12 col-lg-4 p-5">
